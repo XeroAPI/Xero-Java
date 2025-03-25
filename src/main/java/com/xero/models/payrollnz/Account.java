@@ -9,34 +9,59 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Account */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Account
+ */
+
 public class Account {
   StringUtil util = new StringUtil();
 
   @JsonProperty("accountID")
   private UUID accountID;
-  /** The assigned AccountType */
+  /**
+   * The assigned AccountType
+   */
   public enum TypeEnum {
-    /** PAYELIABILITY */
+    /**
+     * PAYELIABILITY
+     */
     PAYELIABILITY("PAYELIABILITY"),
-
-    /** WAGESPAYABLE */
+    
+    /**
+     * WAGESPAYABLE
+     */
     WAGESPAYABLE("WAGESPAYABLE"),
-
-    /** WAGESEXPENSE */
+    
+    /**
+     * WAGESEXPENSE
+     */
     WAGESEXPENSE("WAGESEXPENSE"),
-
-    /** BANK */
+    
+    /**
+     * BANK
+     */
     BANK("BANK");
 
     private String value;
@@ -45,31 +70,25 @@ public class Account {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -81,6 +100,7 @@ public class Account {
     }
   }
 
+
   @JsonProperty("type")
   private TypeEnum type;
 
@@ -90,144 +110,133 @@ public class Account {
   @JsonProperty("name")
   private String name;
   /**
-   * The Xero identifier for Settings.
-   *
-   * @param accountID UUID
-   * @return Account
-   */
+  * The Xero identifier for Settings.
+  * @param accountID  UUID
+  * @return Account
+  **/
   public Account accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for Settings.
-   *
    * @return accountID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for Settings.")
-  /**
+  /** 
    * The Xero identifier for Settings.
-   *
    * @return accountID UUID
-   */
+  **/
   public UUID getAccountID() {
     return accountID;
   }
 
-  /**
-   * The Xero identifier for Settings.
-   *
-   * @param accountID UUID
-   */
+  /** 
+  * The Xero identifier for Settings.
+  * @param accountID  UUID
+  **/
+
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
   /**
-   * The assigned AccountType
-   *
-   * @param type TypeEnum
-   * @return Account
-   */
+  * The assigned AccountType
+  * @param type  TypeEnum
+  * @return Account
+  **/
   public Account type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * The assigned AccountType
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "The assigned AccountType")
-  /**
+  /** 
    * The assigned AccountType
-   *
    * @return type TypeEnum
-   */
+  **/
   public TypeEnum getType() {
     return type;
   }
 
-  /**
-   * The assigned AccountType
-   *
-   * @param type TypeEnum
-   */
+  /** 
+  * The assigned AccountType
+  * @param type  TypeEnum
+  **/
+
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
   /**
-   * A unique 3 digit number for each Account
-   *
-   * @param code String
-   * @return Account
-   */
+  * A unique 3 digit number for each Account
+  * @param code  String
+  * @return Account
+  **/
   public Account code(String code) {
     this.code = code;
     return this;
   }
 
-  /**
+   /**
    * A unique 3 digit number for each Account
-   *
    * @return code
-   */
+  **/
   @ApiModelProperty(value = "A unique 3 digit number for each Account")
-  /**
+  /** 
    * A unique 3 digit number for each Account
-   *
    * @return code String
-   */
+  **/
   public String getCode() {
     return code;
   }
 
-  /**
-   * A unique 3 digit number for each Account
-   *
-   * @param code String
-   */
+  /** 
+  * A unique 3 digit number for each Account
+  * @param code  String
+  **/
+
   public void setCode(String code) {
     this.code = code;
   }
 
   /**
-   * Name of the Account.
-   *
-   * @param name String
-   * @return Account
-   */
+  * Name of the Account.
+  * @param name  String
+  * @return Account
+  **/
   public Account name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the Account.
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "Name of the Account.")
-  /**
+  /** 
    * Name of the Account.
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of the Account.
-   *
-   * @param name String
-   */
+  /** 
+  * Name of the Account.
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -238,16 +247,17 @@ public class Account {
       return false;
     }
     Account account = (Account) o;
-    return Objects.equals(this.accountID, account.accountID)
-        && Objects.equals(this.type, account.type)
-        && Objects.equals(this.code, account.code)
-        && Objects.equals(this.name, account.name);
+    return Objects.equals(this.accountID, account.accountID) &&
+        Objects.equals(this.type, account.type) &&
+        Objects.equals(this.code, account.code) &&
+        Objects.equals(this.name, account.name);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accountID, type, code, name);
   }
+
 
   @Override
   public String toString() {
@@ -262,7 +272,8 @@ public class Account {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -270,4 +281,6 @@ public class Account {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

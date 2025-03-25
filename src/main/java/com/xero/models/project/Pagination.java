@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.project;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** Pagination */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Pagination
+ */
+
 public class Pagination {
   StringUtil util = new StringUtil();
 
@@ -32,160 +49,133 @@ public class Pagination {
   @JsonProperty("itemCount")
   private Integer itemCount;
   /**
-   * Set to 1 by default. The requested number of the page in paged response - Must be a number
-   * greater than 0.
-   *
-   * @param page Integer
-   * @return Pagination
-   */
+  * Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
+  * @param page  Integer
+  * @return Pagination
+  **/
   public Pagination page(Integer page) {
     this.page = page;
     return this;
   }
 
-  /**
-   * Set to 1 by default. The requested number of the page in paged response - Must be a number
-   * greater than 0.
-   *
+   /**
+   * Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
    * @return page
-   */
-  @ApiModelProperty(
-      example = "1",
-      value =
-          "Set to 1 by default. The requested number of the page in paged response - Must be a"
-              + " number greater than 0.")
-  /**
-   * Set to 1 by default. The requested number of the page in paged response - Must be a number
-   * greater than 0.
-   *
+  **/
+  @ApiModelProperty(example = "1", value = "Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.")
+  /** 
+   * Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
    * @return page Integer
-   */
+  **/
   public Integer getPage() {
     return page;
   }
 
-  /**
-   * Set to 1 by default. The requested number of the page in paged response - Must be a number
-   * greater than 0.
-   *
-   * @param page Integer
-   */
+  /** 
+  * Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
+  * @param page  Integer
+  **/
+
   public void setPage(Integer page) {
     this.page = page;
   }
 
   /**
-   * Optional, it is set to 50 by default. The number of items to return per page in a paged
-   * response - Must be a number between 1 and 500.
-   *
-   * @param pageSize Integer
-   * @return Pagination
-   */
+  * Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
+  * @param pageSize  Integer
+  * @return Pagination
+  **/
   public Pagination pageSize(Integer pageSize) {
     this.pageSize = pageSize;
     return this;
   }
 
-  /**
-   * Optional, it is set to 50 by default. The number of items to return per page in a paged
-   * response - Must be a number between 1 and 500.
-   *
+   /**
+   * Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
    * @return pageSize
-   */
-  @ApiModelProperty(
-      example = "10",
-      value =
-          "Optional, it is set to 50 by default. The number of items to return per page in a paged"
-              + " response - Must be a number between 1 and 500.")
-  /**
-   * Optional, it is set to 50 by default. The number of items to return per page in a paged
-   * response - Must be a number between 1 and 500.
-   *
+  **/
+  @ApiModelProperty(example = "10", value = "Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.")
+  /** 
+   * Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
    * @return pageSize Integer
-   */
+  **/
   public Integer getPageSize() {
     return pageSize;
   }
 
-  /**
-   * Optional, it is set to 50 by default. The number of items to return per page in a paged
-   * response - Must be a number between 1 and 500.
-   *
-   * @param pageSize Integer
-   */
+  /** 
+  * Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
+  * @param pageSize  Integer
+  **/
+
   public void setPageSize(Integer pageSize) {
     this.pageSize = pageSize;
   }
 
   /**
-   * Number of pages available
-   *
-   * @param pageCount Integer
-   * @return Pagination
-   */
+  * Number of pages available
+  * @param pageCount  Integer
+  * @return Pagination
+  **/
   public Pagination pageCount(Integer pageCount) {
     this.pageCount = pageCount;
     return this;
   }
 
-  /**
+   /**
    * Number of pages available
-   *
    * @return pageCount
-   */
+  **/
   @ApiModelProperty(example = "1", value = "Number of pages available")
-  /**
+  /** 
    * Number of pages available
-   *
    * @return pageCount Integer
-   */
+  **/
   public Integer getPageCount() {
     return pageCount;
   }
 
-  /**
-   * Number of pages available
-   *
-   * @param pageCount Integer
-   */
+  /** 
+  * Number of pages available
+  * @param pageCount  Integer
+  **/
+
   public void setPageCount(Integer pageCount) {
     this.pageCount = pageCount;
   }
 
   /**
-   * Number of items returned
-   *
-   * @param itemCount Integer
-   * @return Pagination
-   */
+  * Number of items returned
+  * @param itemCount  Integer
+  * @return Pagination
+  **/
   public Pagination itemCount(Integer itemCount) {
     this.itemCount = itemCount;
     return this;
   }
 
-  /**
+   /**
    * Number of items returned
-   *
    * @return itemCount
-   */
+  **/
   @ApiModelProperty(example = "2", value = "Number of items returned")
-  /**
+  /** 
    * Number of items returned
-   *
    * @return itemCount Integer
-   */
+  **/
   public Integer getItemCount() {
     return itemCount;
   }
 
-  /**
-   * Number of items returned
-   *
-   * @param itemCount Integer
-   */
+  /** 
+  * Number of items returned
+  * @param itemCount  Integer
+  **/
+
   public void setItemCount(Integer itemCount) {
     this.itemCount = itemCount;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -196,16 +186,17 @@ public class Pagination {
       return false;
     }
     Pagination pagination = (Pagination) o;
-    return Objects.equals(this.page, pagination.page)
-        && Objects.equals(this.pageSize, pagination.pageSize)
-        && Objects.equals(this.pageCount, pagination.pageCount)
-        && Objects.equals(this.itemCount, pagination.itemCount);
+    return Objects.equals(this.page, pagination.page) &&
+        Objects.equals(this.pageSize, pagination.pageSize) &&
+        Objects.equals(this.pageCount, pagination.pageCount) &&
+        Objects.equals(this.itemCount, pagination.itemCount);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(page, pageSize, pageCount, itemCount);
   }
+
 
   @Override
   public String toString() {
@@ -220,7 +211,8 @@ public class Pagination {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -228,4 +220,6 @@ public class Pagination {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

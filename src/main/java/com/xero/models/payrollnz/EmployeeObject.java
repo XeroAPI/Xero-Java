@@ -9,14 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.Employee;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** EmployeeObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeObject
+ */
+
 public class EmployeeObject {
   StringUtil util = new StringUtil();
 
@@ -29,109 +49,101 @@ public class EmployeeObject {
   @JsonProperty("problem")
   private Problem problem;
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return EmployeeObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return EmployeeObject
+  **/
   public EmployeeObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * employee
-   *
-   * @param employee Employee
-   * @return EmployeeObject
-   */
+  * employee
+  * @param employee  Employee
+  * @return EmployeeObject
+  **/
   public EmployeeObject employee(Employee employee) {
     this.employee = employee;
     return this;
   }
 
-  /**
+   /**
    * Get employee
-   *
    * @return employee
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * employee
-   *
    * @return employee Employee
-   */
+  **/
   public Employee getEmployee() {
     return employee;
   }
 
-  /**
-   * employee
-   *
-   * @param employee Employee
-   */
+  /** 
+  * employee
+  * @param employee  Employee
+  **/
+
   public void setEmployee(Employee employee) {
     this.employee = employee;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return EmployeeObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return EmployeeObject
+  **/
   public EmployeeObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +154,16 @@ public class EmployeeObject {
       return false;
     }
     EmployeeObject employeeObject = (EmployeeObject) o;
-    return Objects.equals(this.pagination, employeeObject.pagination)
-        && Objects.equals(this.employee, employeeObject.employee)
-        && Objects.equals(this.problem, employeeObject.problem);
+    return Objects.equals(this.pagination, employeeObject.pagination) &&
+        Objects.equals(this.employee, employeeObject.employee) &&
+        Objects.equals(this.problem, employeeObject.problem);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, employee, problem);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +177,8 @@ public class EmployeeObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +186,6 @@ public class EmployeeObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

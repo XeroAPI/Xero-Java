@@ -9,63 +9,69 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.appstore;
 
+package com.xero.models.appstore;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Data transfer object for public update usage end point */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Data transfer object for public update usage end point
+ */
 @ApiModel(description = "Data transfer object for public update usage end point")
+
 public class UpdateUsageRecord {
   StringUtil util = new StringUtil();
 
   @JsonProperty("quantity")
   private Integer quantity;
   /**
-   * The new quantity for the usage record. Must be a whole number that is greater than or equal to
-   * 0
-   *
-   * @param quantity Integer
-   * @return UpdateUsageRecord
-   */
+  * The new quantity for the usage record. Must be a whole number that is greater than or equal to 0
+  * @param quantity  Integer
+  * @return UpdateUsageRecord
+  **/
   public UpdateUsageRecord quantity(Integer quantity) {
     this.quantity = quantity;
     return this;
   }
 
-  /**
-   * The new quantity for the usage record. Must be a whole number that is greater than or equal to
-   * 0
-   *
+   /**
+   * The new quantity for the usage record. Must be a whole number that is greater than or equal to 0
    * @return quantity
-   */
-  @ApiModelProperty(
-      required = true,
-      value =
-          "The new quantity for the usage record. Must be a whole number that is greater than or"
-              + " equal to 0")
-  /**
-   * The new quantity for the usage record. Must be a whole number that is greater than or equal to
-   * 0
-   *
+  **/
+  @ApiModelProperty(required = true, value = "The new quantity for the usage record. Must be a whole number that is greater than or equal to 0")
+  /** 
+   * The new quantity for the usage record. Must be a whole number that is greater than or equal to 0
    * @return quantity Integer
-   */
+  **/
   public Integer getQuantity() {
     return quantity;
   }
 
-  /**
-   * The new quantity for the usage record. Must be a whole number that is greater than or equal to
-   * 0
-   *
-   * @param quantity Integer
-   */
+  /** 
+  * The new quantity for the usage record. Must be a whole number that is greater than or equal to 0
+  * @param quantity  Integer
+  **/
+
   public void setQuantity(Integer quantity) {
     this.quantity = quantity;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -84,6 +90,7 @@ public class UpdateUsageRecord {
     return Objects.hash(quantity);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -94,7 +101,8 @@ public class UpdateUsageRecord {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -102,4 +110,6 @@ public class UpdateUsageRecord {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

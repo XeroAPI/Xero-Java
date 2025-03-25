@@ -9,18 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.ReportHistoryModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** ReportHistoryResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ReportHistoryResponse
+ */
+
 public class ReportHistoryResponse {
   StringUtil util = new StringUtil();
 
@@ -33,81 +51,74 @@ public class ReportHistoryResponse {
   @JsonProperty("reports")
   private List<ReportHistoryModel> reports = new ArrayList<ReportHistoryModel>();
   /**
-   * The requested Organisation to which the data pertains
-   *
-   * @param organisationId UUID
-   * @return ReportHistoryResponse
-   */
+  * The requested Organisation to which the data pertains
+  * @param organisationId  UUID
+  * @return ReportHistoryResponse
+  **/
   public ReportHistoryResponse organisationId(UUID organisationId) {
     this.organisationId = organisationId;
     return this;
   }
 
-  /**
+   /**
    * The requested Organisation to which the data pertains
-   *
    * @return organisationId
-   */
+  **/
   @ApiModelProperty(value = "The requested Organisation to which the data pertains")
-  /**
+  /** 
    * The requested Organisation to which the data pertains
-   *
    * @return organisationId UUID
-   */
+  **/
   public UUID getOrganisationId() {
     return organisationId;
   }
 
-  /**
-   * The requested Organisation to which the data pertains
-   *
-   * @param organisationId UUID
-   */
+  /** 
+  * The requested Organisation to which the data pertains
+  * @param organisationId  UUID
+  **/
+
   public void setOrganisationId(UUID organisationId) {
     this.organisationId = organisationId;
   }
 
   /**
-   * The end date of the report
-   *
-   * @param endDate LocalDate
-   * @return ReportHistoryResponse
-   */
+  * The end date of the report
+  * @param endDate  LocalDate
+  * @return ReportHistoryResponse
+  **/
   public ReportHistoryResponse endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * The end date of the report
-   *
    * @return endDate
-   */
+  **/
   @ApiModelProperty(value = "The end date of the report")
-  /**
+  /** 
    * The end date of the report
-   *
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * The end date of the report
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * The end date of the report
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * reports
-   *
-   * @param reports List&lt;ReportHistoryModel&gt;
-   * @return ReportHistoryResponse
-   */
+  * reports
+  * @param reports  List&lt;ReportHistoryModel&gt;
+  * @return ReportHistoryResponse
+  **/
   public ReportHistoryResponse reports(List<ReportHistoryModel> reports) {
     this.reports = reports;
     return this;
@@ -115,10 +126,9 @@ public class ReportHistoryResponse {
 
   /**
    * reports
-   *
-   * @param reportsItem ReportHistoryModel
+   * @param reportsItem ReportHistoryModel 
    * @return ReportHistoryResponse
-   */
+  **/
   public ReportHistoryResponse addReportsItem(ReportHistoryModel reportsItem) {
     if (this.reports == null) {
       this.reports = new ArrayList<ReportHistoryModel>();
@@ -127,29 +137,28 @@ public class ReportHistoryResponse {
     return this;
   }
 
-  /**
+   /**
    * Get reports
-   *
    * @return reports
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * reports
-   *
    * @return reports List<ReportHistoryModel>
-   */
+  **/
   public List<ReportHistoryModel> getReports() {
     return reports;
   }
 
-  /**
-   * reports
-   *
-   * @param reports List&lt;ReportHistoryModel&gt;
-   */
+  /** 
+  * reports
+  * @param reports List&lt;ReportHistoryModel&gt; 
+  **/
+
   public void setReports(List<ReportHistoryModel> reports) {
     this.reports = reports;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -160,15 +169,16 @@ public class ReportHistoryResponse {
       return false;
     }
     ReportHistoryResponse reportHistoryResponse = (ReportHistoryResponse) o;
-    return Objects.equals(this.organisationId, reportHistoryResponse.organisationId)
-        && Objects.equals(this.endDate, reportHistoryResponse.endDate)
-        && Objects.equals(this.reports, reportHistoryResponse.reports);
+    return Objects.equals(this.organisationId, reportHistoryResponse.organisationId) &&
+        Objects.equals(this.endDate, reportHistoryResponse.endDate) &&
+        Objects.equals(this.reports, reportHistoryResponse.reports);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(organisationId, endDate, reports);
   }
+
 
   @Override
   public String toString() {
@@ -182,7 +192,8 @@ public class ReportHistoryResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -190,4 +201,6 @@ public class ReportHistoryResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

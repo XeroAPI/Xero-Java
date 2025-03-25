@@ -9,16 +9,38 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.DeductionLine;
+import com.xero.models.payrollau.EarningsLine;
+import com.xero.models.payrollau.LeaveLine;
+import com.xero.models.payrollau.ReimbursementLine;
+import com.xero.models.payrollau.SuperLine;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** PayTemplate */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PayTemplate
+ */
+
 public class PayTemplate {
   StringUtil util = new StringUtil();
 
@@ -37,11 +59,10 @@ public class PayTemplate {
   @JsonProperty("LeaveLines")
   private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
   /**
-   * earningsLines
-   *
-   * @param earningsLines List&lt;EarningsLine&gt;
-   * @return PayTemplate
-   */
+  * earningsLines
+  * @param earningsLines  List&lt;EarningsLine&gt;
+  * @return PayTemplate
+  **/
   public PayTemplate earningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
     return this;
@@ -49,10 +70,9 @@ public class PayTemplate {
 
   /**
    * earningsLines
-   *
-   * @param earningsLinesItem EarningsLine
+   * @param earningsLinesItem EarningsLine 
    * @return PayTemplate
-   */
+  **/
   public PayTemplate addEarningsLinesItem(EarningsLine earningsLinesItem) {
     if (this.earningsLines == null) {
       this.earningsLines = new ArrayList<EarningsLine>();
@@ -61,36 +81,33 @@ public class PayTemplate {
     return this;
   }
 
-  /**
+   /**
    * Get earningsLines
-   *
    * @return earningsLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * earningsLines
-   *
    * @return earningsLines List<EarningsLine>
-   */
+  **/
   public List<EarningsLine> getEarningsLines() {
     return earningsLines;
   }
 
-  /**
-   * earningsLines
-   *
-   * @param earningsLines List&lt;EarningsLine&gt;
-   */
+  /** 
+  * earningsLines
+  * @param earningsLines List&lt;EarningsLine&gt; 
+  **/
+
   public void setEarningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
   }
 
   /**
-   * deductionLines
-   *
-   * @param deductionLines List&lt;DeductionLine&gt;
-   * @return PayTemplate
-   */
+  * deductionLines
+  * @param deductionLines  List&lt;DeductionLine&gt;
+  * @return PayTemplate
+  **/
   public PayTemplate deductionLines(List<DeductionLine> deductionLines) {
     this.deductionLines = deductionLines;
     return this;
@@ -98,10 +115,9 @@ public class PayTemplate {
 
   /**
    * deductionLines
-   *
-   * @param deductionLinesItem DeductionLine
+   * @param deductionLinesItem DeductionLine 
    * @return PayTemplate
-   */
+  **/
   public PayTemplate addDeductionLinesItem(DeductionLine deductionLinesItem) {
     if (this.deductionLines == null) {
       this.deductionLines = new ArrayList<DeductionLine>();
@@ -110,36 +126,33 @@ public class PayTemplate {
     return this;
   }
 
-  /**
+   /**
    * Get deductionLines
-   *
    * @return deductionLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * deductionLines
-   *
    * @return deductionLines List<DeductionLine>
-   */
+  **/
   public List<DeductionLine> getDeductionLines() {
     return deductionLines;
   }
 
-  /**
-   * deductionLines
-   *
-   * @param deductionLines List&lt;DeductionLine&gt;
-   */
+  /** 
+  * deductionLines
+  * @param deductionLines List&lt;DeductionLine&gt; 
+  **/
+
   public void setDeductionLines(List<DeductionLine> deductionLines) {
     this.deductionLines = deductionLines;
   }
 
   /**
-   * superLines
-   *
-   * @param superLines List&lt;SuperLine&gt;
-   * @return PayTemplate
-   */
+  * superLines
+  * @param superLines  List&lt;SuperLine&gt;
+  * @return PayTemplate
+  **/
   public PayTemplate superLines(List<SuperLine> superLines) {
     this.superLines = superLines;
     return this;
@@ -147,10 +160,9 @@ public class PayTemplate {
 
   /**
    * superLines
-   *
-   * @param superLinesItem SuperLine
+   * @param superLinesItem SuperLine 
    * @return PayTemplate
-   */
+  **/
   public PayTemplate addSuperLinesItem(SuperLine superLinesItem) {
     if (this.superLines == null) {
       this.superLines = new ArrayList<SuperLine>();
@@ -159,36 +171,33 @@ public class PayTemplate {
     return this;
   }
 
-  /**
+   /**
    * Get superLines
-   *
    * @return superLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * superLines
-   *
    * @return superLines List<SuperLine>
-   */
+  **/
   public List<SuperLine> getSuperLines() {
     return superLines;
   }
 
-  /**
-   * superLines
-   *
-   * @param superLines List&lt;SuperLine&gt;
-   */
+  /** 
+  * superLines
+  * @param superLines List&lt;SuperLine&gt; 
+  **/
+
   public void setSuperLines(List<SuperLine> superLines) {
     this.superLines = superLines;
   }
 
   /**
-   * reimbursementLines
-   *
-   * @param reimbursementLines List&lt;ReimbursementLine&gt;
-   * @return PayTemplate
-   */
+  * reimbursementLines
+  * @param reimbursementLines  List&lt;ReimbursementLine&gt;
+  * @return PayTemplate
+  **/
   public PayTemplate reimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
     return this;
@@ -196,10 +205,9 @@ public class PayTemplate {
 
   /**
    * reimbursementLines
-   *
-   * @param reimbursementLinesItem ReimbursementLine
+   * @param reimbursementLinesItem ReimbursementLine 
    * @return PayTemplate
-   */
+  **/
   public PayTemplate addReimbursementLinesItem(ReimbursementLine reimbursementLinesItem) {
     if (this.reimbursementLines == null) {
       this.reimbursementLines = new ArrayList<ReimbursementLine>();
@@ -208,36 +216,33 @@ public class PayTemplate {
     return this;
   }
 
-  /**
+   /**
    * Get reimbursementLines
-   *
    * @return reimbursementLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * reimbursementLines
-   *
    * @return reimbursementLines List<ReimbursementLine>
-   */
+  **/
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
   }
 
-  /**
-   * reimbursementLines
-   *
-   * @param reimbursementLines List&lt;ReimbursementLine&gt;
-   */
+  /** 
+  * reimbursementLines
+  * @param reimbursementLines List&lt;ReimbursementLine&gt; 
+  **/
+
   public void setReimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
   }
 
   /**
-   * leaveLines
-   *
-   * @param leaveLines List&lt;LeaveLine&gt;
-   * @return PayTemplate
-   */
+  * leaveLines
+  * @param leaveLines  List&lt;LeaveLine&gt;
+  * @return PayTemplate
+  **/
   public PayTemplate leaveLines(List<LeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
     return this;
@@ -245,10 +250,9 @@ public class PayTemplate {
 
   /**
    * leaveLines
-   *
-   * @param leaveLinesItem LeaveLine
+   * @param leaveLinesItem LeaveLine 
    * @return PayTemplate
-   */
+  **/
   public PayTemplate addLeaveLinesItem(LeaveLine leaveLinesItem) {
     if (this.leaveLines == null) {
       this.leaveLines = new ArrayList<LeaveLine>();
@@ -257,29 +261,28 @@ public class PayTemplate {
     return this;
   }
 
-  /**
+   /**
    * Get leaveLines
-   *
    * @return leaveLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * leaveLines
-   *
    * @return leaveLines List<LeaveLine>
-   */
+  **/
   public List<LeaveLine> getLeaveLines() {
     return leaveLines;
   }
 
-  /**
-   * leaveLines
-   *
-   * @param leaveLines List&lt;LeaveLine&gt;
-   */
+  /** 
+  * leaveLines
+  * @param leaveLines List&lt;LeaveLine&gt; 
+  **/
+
   public void setLeaveLines(List<LeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -290,17 +293,18 @@ public class PayTemplate {
       return false;
     }
     PayTemplate payTemplate = (PayTemplate) o;
-    return Objects.equals(this.earningsLines, payTemplate.earningsLines)
-        && Objects.equals(this.deductionLines, payTemplate.deductionLines)
-        && Objects.equals(this.superLines, payTemplate.superLines)
-        && Objects.equals(this.reimbursementLines, payTemplate.reimbursementLines)
-        && Objects.equals(this.leaveLines, payTemplate.leaveLines);
+    return Objects.equals(this.earningsLines, payTemplate.earningsLines) &&
+        Objects.equals(this.deductionLines, payTemplate.deductionLines) &&
+        Objects.equals(this.superLines, payTemplate.superLines) &&
+        Objects.equals(this.reimbursementLines, payTemplate.reimbursementLines) &&
+        Objects.equals(this.leaveLines, payTemplate.leaveLines);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(earningsLines, deductionLines, superLines, reimbursementLines, leaveLines);
   }
+
 
   @Override
   public String toString() {
@@ -316,7 +320,8 @@ public class PayTemplate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -324,4 +329,6 @@ public class PayTemplate {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

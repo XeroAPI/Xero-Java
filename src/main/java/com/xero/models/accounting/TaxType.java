@@ -9,382 +9,640 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** See Tax Types – can only be used on update calls */
+/**
+ * See Tax Types – can only be used on update calls
+ */
 public enum TaxType {
-
-  /** OUTPUT */
+  
+    /**
+     * OUTPUT
+     */
   OUTPUT("OUTPUT"),
-
-  /** INPUT */
+  
+    /**
+     * INPUT
+     */
   INPUT("INPUT"),
-
-  /** CAPEXINPUT */
+  
+    /**
+     * CAPEXINPUT
+     */
   CAPEXINPUT("CAPEXINPUT"),
-
-  /** EXEMPTEXPORT */
+  
+    /**
+     * EXEMPTEXPORT
+     */
   EXEMPTEXPORT("EXEMPTEXPORT"),
-
-  /** EXEMPTEXPENSES */
+  
+    /**
+     * EXEMPTEXPENSES
+     */
   EXEMPTEXPENSES("EXEMPTEXPENSES"),
-
-  /** EXEMPTCAPITAL */
+  
+    /**
+     * EXEMPTCAPITAL
+     */
   EXEMPTCAPITAL("EXEMPTCAPITAL"),
-
-  /** EXEMPTOUTPUT */
+  
+    /**
+     * EXEMPTOUTPUT
+     */
   EXEMPTOUTPUT("EXEMPTOUTPUT"),
-
-  /** INPUTTAXED */
+  
+    /**
+     * INPUTTAXED
+     */
   INPUTTAXED("INPUTTAXED"),
-
-  /** BASEXCLUDED */
+  
+    /**
+     * BASEXCLUDED
+     */
   BASEXCLUDED("BASEXCLUDED"),
-
-  /** GSTONCAPIMPORTS */
+  
+    /**
+     * GSTONCAPIMPORTS
+     */
   GSTONCAPIMPORTS("GSTONCAPIMPORTS"),
-
-  /** GSTONIMPORTS */
+  
+    /**
+     * GSTONIMPORTS
+     */
   GSTONIMPORTS("GSTONIMPORTS"),
-
-  /** NONE */
+  
+    /**
+     * NONE
+     */
   NONE("NONE"),
-
-  /** INPUT2 */
+  
+    /**
+     * INPUT2
+     */
   INPUT2("INPUT2"),
-
-  /** ZERORATED */
+  
+    /**
+     * ZERORATED
+     */
   ZERORATED("ZERORATED"),
-
-  /** OUTPUT2 */
+  
+    /**
+     * OUTPUT2
+     */
   OUTPUT2("OUTPUT2"),
-
-  /** CAPEXINPUT2 */
+  
+    /**
+     * CAPEXINPUT2
+     */
   CAPEXINPUT2("CAPEXINPUT2"),
-
-  /** CAPEXOUTPUT */
+  
+    /**
+     * CAPEXOUTPUT
+     */
   CAPEXOUTPUT("CAPEXOUTPUT"),
-
-  /** CAPEXOUTPUT2 */
+  
+    /**
+     * CAPEXOUTPUT2
+     */
   CAPEXOUTPUT2("CAPEXOUTPUT2"),
-
-  /** CAPEXSRINPUT */
+  
+    /**
+     * CAPEXSRINPUT
+     */
   CAPEXSRINPUT("CAPEXSRINPUT"),
-
-  /** CAPEXSROUTPUT */
+  
+    /**
+     * CAPEXSROUTPUT
+     */
   CAPEXSROUTPUT("CAPEXSROUTPUT"),
-
-  /** ECACQUISITIONS */
+  
+    /**
+     * ECACQUISITIONS
+     */
   ECACQUISITIONS("ECACQUISITIONS"),
-
-  /** ECZRINPUT */
+  
+    /**
+     * ECZRINPUT
+     */
   ECZRINPUT("ECZRINPUT"),
-
-  /** ECZROUTPUT */
+  
+    /**
+     * ECZROUTPUT
+     */
   ECZROUTPUT("ECZROUTPUT"),
-
-  /** ECZROUTPUTSERVICES */
+  
+    /**
+     * ECZROUTPUTSERVICES
+     */
   ECZROUTPUTSERVICES("ECZROUTPUTSERVICES"),
-
-  /** EXEMPTINPUT */
+  
+    /**
+     * EXEMPTINPUT
+     */
   EXEMPTINPUT("EXEMPTINPUT"),
-
-  /** REVERSECHARGES */
+  
+    /**
+     * REVERSECHARGES
+     */
   REVERSECHARGES("REVERSECHARGES"),
-
-  /** RRINPUT */
+  
+    /**
+     * RRINPUT
+     */
   RRINPUT("RRINPUT"),
-
-  /** RROUTPUT */
+  
+    /**
+     * RROUTPUT
+     */
   RROUTPUT("RROUTPUT"),
-
-  /** SRINPUT */
+  
+    /**
+     * SRINPUT
+     */
   SRINPUT("SRINPUT"),
-
-  /** SROUTPUT */
+  
+    /**
+     * SROUTPUT
+     */
   SROUTPUT("SROUTPUT"),
-
-  /** ZERORATEDINPUT */
+  
+    /**
+     * ZERORATEDINPUT
+     */
   ZERORATEDINPUT("ZERORATEDINPUT"),
-
-  /** ZERORATEDOUTPUT */
+  
+    /**
+     * ZERORATEDOUTPUT
+     */
   ZERORATEDOUTPUT("ZERORATEDOUTPUT"),
-
-  /** BLINPUT */
+  
+    /**
+     * BLINPUT
+     */
   BLINPUT("BLINPUT"),
-
-  /** DSOUTPUT */
+  
+    /**
+     * DSOUTPUT
+     */
   DSOUTPUT("DSOUTPUT"),
-
-  /** EPINPUT */
+  
+    /**
+     * EPINPUT
+     */
   EPINPUT("EPINPUT"),
-
-  /** ES33OUTPUT */
+  
+    /**
+     * ES33OUTPUT
+     */
   ES33OUTPUT("ES33OUTPUT"),
-
-  /** ESN33OUTPUT */
+  
+    /**
+     * ESN33OUTPUT
+     */
   ESN33OUTPUT("ESN33OUTPUT"),
-
-  /** IGDSINPUT2 */
+  
+    /**
+     * IGDSINPUT2
+     */
   IGDSINPUT2("IGDSINPUT2"),
-
-  /** IMINPUT2 */
+  
+    /**
+     * IMINPUT2
+     */
   IMINPUT2("IMINPUT2"),
-
-  /** MEINPUT */
+  
+    /**
+     * MEINPUT
+     */
   MEINPUT("MEINPUT"),
-
-  /** NRINPUT */
+  
+    /**
+     * NRINPUT
+     */
   NRINPUT("NRINPUT"),
-
-  /** OPINPUT */
+  
+    /**
+     * OPINPUT
+     */
   OPINPUT("OPINPUT"),
-
-  /** OSOUTPUT */
+  
+    /**
+     * OSOUTPUT
+     */
   OSOUTPUT("OSOUTPUT"),
-
-  /** TXESSINPUT */
+  
+    /**
+     * TXESSINPUT
+     */
   TXESSINPUT("TXESSINPUT"),
-
-  /** TXN33INPUT */
+  
+    /**
+     * TXN33INPUT
+     */
   TXN33INPUT("TXN33INPUT"),
-
-  /** TXPETINPUT */
+  
+    /**
+     * TXPETINPUT
+     */
   TXPETINPUT("TXPETINPUT"),
-
-  /** TXREINPUT */
+  
+    /**
+     * TXREINPUT
+     */
   TXREINPUT("TXREINPUT"),
-
-  /** INPUT3 */
+  
+    /**
+     * INPUT3
+     */
   INPUT3("INPUT3"),
-
-  /** INPUT4 */
+  
+    /**
+     * INPUT4
+     */
   INPUT4("INPUT4"),
-
-  /** OUTPUT3 */
+  
+    /**
+     * OUTPUT3
+     */
   OUTPUT3("OUTPUT3"),
-
-  /** OUTPUT4 */
+  
+    /**
+     * OUTPUT4
+     */
   OUTPUT4("OUTPUT4"),
-
-  /** SROUTPUT2 */
+  
+    /**
+     * SROUTPUT2
+     */
   SROUTPUT2("SROUTPUT2"),
-
-  /** TXCA */
+  
+    /**
+     * TXCA
+     */
   TXCA("TXCA"),
-
-  /** SRCAS */
+  
+    /**
+     * SRCAS
+     */
   SRCAS("SRCAS"),
-
-  /** BLINPUT2 */
+  
+    /**
+     * BLINPUT2
+     */
   BLINPUT2("BLINPUT2"),
-
-  /** DRCHARGESUPPLY20 */
+  
+    /**
+     * DRCHARGESUPPLY20
+     */
   DRCHARGESUPPLY20("DRCHARGESUPPLY20"),
-
-  /** DRCHARGE20 */
+  
+    /**
+     * DRCHARGE20
+     */
   DRCHARGE20("DRCHARGE20"),
-
-  /** DRCHARGESUPPLY5 */
+  
+    /**
+     * DRCHARGESUPPLY5
+     */
   DRCHARGESUPPLY5("DRCHARGESUPPLY5"),
-
-  /** DRCHARGE5 */
+  
+    /**
+     * DRCHARGE5
+     */
   DRCHARGE5("DRCHARGE5"),
-
-  /** BADDEBTRELIEF */
+  
+    /**
+     * BADDEBTRELIEF
+     */
   BADDEBTRELIEF("BADDEBTRELIEF"),
-
-  /** IGDSINPUT3 */
+  
+    /**
+     * IGDSINPUT3
+     */
   IGDSINPUT3("IGDSINPUT3"),
-
-  /** SROVR */
+  
+    /**
+     * SROVR
+     */
   SROVR("SROVR"),
-
-  /** TOURISTREFUND */
+  
+    /**
+     * TOURISTREFUND
+     */
   TOURISTREFUND("TOURISTREFUND"),
-
-  /** TXRCN33 */
+  
+    /**
+     * TXRCN33
+     */
   TXRCN33("TXRCN33"),
-
-  /** TXRCRE */
+  
+    /**
+     * TXRCRE
+     */
   TXRCRE("TXRCRE"),
-
-  /** TXRCESS */
+  
+    /**
+     * TXRCESS
+     */
   TXRCESS("TXRCESS"),
-
-  /** TXRCTS */
+  
+    /**
+     * TXRCTS
+     */
   TXRCTS("TXRCTS"),
-
-  /** OUTPUTY23 */
+  
+    /**
+     * OUTPUTY23
+     */
   OUTPUTY23("OUTPUTY23"),
-
-  /** DSOUTPUTY23 */
+  
+    /**
+     * DSOUTPUTY23
+     */
   DSOUTPUTY23("DSOUTPUTY23"),
-
-  /** INPUTY23 */
+  
+    /**
+     * INPUTY23
+     */
   INPUTY23("INPUTY23"),
-
-  /** IMINPUT2Y23 */
+  
+    /**
+     * IMINPUT2Y23
+     */
   IMINPUT2Y23("IMINPUT2Y23"),
-
-  /** IGDSINPUT2Y23 */
+  
+    /**
+     * IGDSINPUT2Y23
+     */
   IGDSINPUT2Y23("IGDSINPUT2Y23"),
-
-  /** TXPETINPUTY23 */
+  
+    /**
+     * TXPETINPUTY23
+     */
   TXPETINPUTY23("TXPETINPUTY23"),
-
-  /** TXESSINPUTY23 */
+  
+    /**
+     * TXESSINPUTY23
+     */
   TXESSINPUTY23("TXESSINPUTY23"),
-
-  /** TXN33INPUTY23 */
+  
+    /**
+     * TXN33INPUTY23
+     */
   TXN33INPUTY23("TXN33INPUTY23"),
-
-  /** TXREINPUTY23 */
+  
+    /**
+     * TXREINPUTY23
+     */
   TXREINPUTY23("TXREINPUTY23"),
-
-  /** TXCAY23 */
+  
+    /**
+     * TXCAY23
+     */
   TXCAY23("TXCAY23"),
-
-  /** BADDEBTRELIEFY23 */
+  
+    /**
+     * BADDEBTRELIEFY23
+     */
   BADDEBTRELIEFY23("BADDEBTRELIEFY23"),
-
-  /** IGDSINPUT3Y23 */
+  
+    /**
+     * IGDSINPUT3Y23
+     */
   IGDSINPUT3Y23("IGDSINPUT3Y23"),
-
-  /** SROVRRSY23 */
+  
+    /**
+     * SROVRRSY23
+     */
   SROVRRSY23("SROVRRSY23"),
-
-  /** SROVRLVGY23 */
+  
+    /**
+     * SROVRLVGY23
+     */
   SROVRLVGY23("SROVRLVGY23"),
-
-  /** SRLVGY23 */
+  
+    /**
+     * SRLVGY23
+     */
   SRLVGY23("SRLVGY23"),
-
-  /** TXRCN33Y23 */
+  
+    /**
+     * TXRCN33Y23
+     */
   TXRCN33Y23("TXRCN33Y23"),
-
-  /** TXRCREY23 */
+  
+    /**
+     * TXRCREY23
+     */
   TXRCREY23("TXRCREY23"),
-
-  /** TXRCESSY23 */
+  
+    /**
+     * TXRCESSY23
+     */
   TXRCESSY23("TXRCESSY23"),
-
-  /** TXRCTSY23 */
+  
+    /**
+     * TXRCTSY23
+     */
   TXRCTSY23("TXRCTSY23"),
-
-  /** IM */
+  
+    /**
+     * IM
+     */
   IM("IM"),
-
-  /** IMY23 */
+  
+    /**
+     * IMY23
+     */
   IMY23("IMY23"),
-
-  /** IMESS */
+  
+    /**
+     * IMESS
+     */
   IMESS("IMESS"),
-
-  /** IMESSY23 */
+  
+    /**
+     * IMESSY23
+     */
   IMESSY23("IMESSY23"),
-
-  /** IMN33 */
+  
+    /**
+     * IMN33
+     */
   IMN33("IMN33"),
-
-  /** IMN33Y23 */
+  
+    /**
+     * IMN33Y23
+     */
   IMN33Y23("IMN33Y23"),
-
-  /** IMRE */
+  
+    /**
+     * IMRE
+     */
   IMRE("IMRE"),
-
-  /** IMREY23 */
+  
+    /**
+     * IMREY23
+     */
   IMREY23("IMREY23"),
-
-  /** BADDEBTRECOVERY */
+  
+    /**
+     * BADDEBTRECOVERY
+     */
   BADDEBTRECOVERY("BADDEBTRECOVERY"),
-
-  /** BADDEBTRECOVERYY23 */
+  
+    /**
+     * BADDEBTRECOVERYY23
+     */
   BADDEBTRECOVERYY23("BADDEBTRECOVERYY23"),
-
-  /** OUTPUTY24 */
+  
+    /**
+     * OUTPUTY24
+     */
   OUTPUTY24("OUTPUTY24"),
-
-  /** DSOUTPUTY24 */
+  
+    /**
+     * DSOUTPUTY24
+     */
   DSOUTPUTY24("DSOUTPUTY24"),
-
-  /** INPUTY24 */
+  
+    /**
+     * INPUTY24
+     */
   INPUTY24("INPUTY24"),
-
-  /** IGDSINPUT2Y24 */
+  
+    /**
+     * IGDSINPUT2Y24
+     */
   IGDSINPUT2Y24("IGDSINPUT2Y24"),
-
-  /** TXPETINPUTY24 */
+  
+    /**
+     * TXPETINPUTY24
+     */
   TXPETINPUTY24("TXPETINPUTY24"),
-
-  /** TXESSINPUTY24 */
+  
+    /**
+     * TXESSINPUTY24
+     */
   TXESSINPUTY24("TXESSINPUTY24"),
-
-  /** TXN33INPUTY24 */
+  
+    /**
+     * TXN33INPUTY24
+     */
   TXN33INPUTY24("TXN33INPUTY24"),
-
-  /** TXREINPUTY24 */
+  
+    /**
+     * TXREINPUTY24
+     */
   TXREINPUTY24("TXREINPUTY24"),
-
-  /** TXCAY24 */
+  
+    /**
+     * TXCAY24
+     */
   TXCAY24("TXCAY24"),
-
-  /** BADDEBTRELIEFY24 */
+  
+    /**
+     * BADDEBTRELIEFY24
+     */
   BADDEBTRELIEFY24("BADDEBTRELIEFY24"),
-
-  /** IGDSINPUT3Y24 */
+  
+    /**
+     * IGDSINPUT3Y24
+     */
   IGDSINPUT3Y24("IGDSINPUT3Y24"),
-
-  /** SROVRRSY24 */
+  
+    /**
+     * SROVRRSY24
+     */
   SROVRRSY24("SROVRRSY24"),
-
-  /** SROVRLVGY24 */
+  
+    /**
+     * SROVRLVGY24
+     */
   SROVRLVGY24("SROVRLVGY24"),
-
-  /** SRLVGY24 */
+  
+    /**
+     * SRLVGY24
+     */
   SRLVGY24("SRLVGY24"),
-
-  /** TXRCTSY24 */
+  
+    /**
+     * TXRCTSY24
+     */
   TXRCTSY24("TXRCTSY24"),
-
-  /** TXRCESSY24 */
+  
+    /**
+     * TXRCESSY24
+     */
   TXRCESSY24("TXRCESSY24"),
-
-  /** TXRCN33Y24 */
+  
+    /**
+     * TXRCN33Y24
+     */
   TXRCN33Y24("TXRCN33Y24"),
-
-  /** TXRCREY24 */
+  
+    /**
+     * TXRCREY24
+     */
   TXRCREY24("TXRCREY24"),
-
-  /** IMY24 */
+  
+    /**
+     * IMY24
+     */
   IMY24("IMY24"),
-
-  /** IMESSY24 */
+  
+    /**
+     * IMESSY24
+     */
   IMESSY24("IMESSY24"),
-
-  /** IMN33Y24 */
+  
+    /**
+     * IMN33Y24
+     */
   IMN33Y24("IMN33Y24"),
-
-  /** IMREY24 */
+  
+    /**
+     * IMREY24
+     */
   IMREY24("IMREY24"),
-
-  /** BADDEBTRECOVERYY24 */
+  
+    /**
+     * BADDEBTRECOVERYY24
+     */
   BADDEBTRECOVERYY24("BADDEBTRECOVERYY24"),
-
-  /** OSOUTPUT2 */
+  
+    /**
+     * OSOUTPUT2
+     */
   OSOUTPUT2("OSOUTPUT2"),
-
-  /** BLINPUT3 */
+  
+    /**
+     * BLINPUT3
+     */
   BLINPUT3("BLINPUT3"),
-
-  /** BLINPUT3Y23 */
+  
+    /**
+     * BLINPUT3Y23
+     */
   BLINPUT3Y23("BLINPUT3Y23"),
-
-  /** BLINPUT3Y24 */
+  
+    /**
+     * BLINPUT3Y24
+     */
   BLINPUT3Y24("BLINPUT3Y24");
 
   private String value;
@@ -393,26 +651,24 @@ public enum TaxType {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static TaxType fromValue(String value) {
@@ -424,3 +680,4 @@ public enum TaxType {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Account;
+import com.xero.models.accounting.ConversionBalances;
+import com.xero.models.accounting.ConversionDate;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Setup */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Setup
+ */
+
 public class Setup {
   StringUtil util = new StringUtil();
 
@@ -31,46 +51,42 @@ public class Setup {
   @JsonProperty("Accounts")
   private List<Account> accounts = new ArrayList<Account>();
   /**
-   * conversionDate
-   *
-   * @param conversionDate ConversionDate
-   * @return Setup
-   */
+  * conversionDate
+  * @param conversionDate  ConversionDate
+  * @return Setup
+  **/
   public Setup conversionDate(ConversionDate conversionDate) {
     this.conversionDate = conversionDate;
     return this;
   }
 
-  /**
+   /**
    * Get conversionDate
-   *
    * @return conversionDate
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * conversionDate
-   *
    * @return conversionDate ConversionDate
-   */
+  **/
   public ConversionDate getConversionDate() {
     return conversionDate;
   }
 
-  /**
-   * conversionDate
-   *
-   * @param conversionDate ConversionDate
-   */
+  /** 
+  * conversionDate
+  * @param conversionDate  ConversionDate
+  **/
+
   public void setConversionDate(ConversionDate conversionDate) {
     this.conversionDate = conversionDate;
   }
 
   /**
-   * Balance supplied for each account that has a value as at the conversion date.
-   *
-   * @param conversionBalances List&lt;ConversionBalances&gt;
-   * @return Setup
-   */
+  * Balance supplied for each account that has a value as at the conversion date.
+  * @param conversionBalances  List&lt;ConversionBalances&gt;
+  * @return Setup
+  **/
   public Setup conversionBalances(List<ConversionBalances> conversionBalances) {
     this.conversionBalances = conversionBalances;
     return this;
@@ -78,10 +94,9 @@ public class Setup {
 
   /**
    * Balance supplied for each account that has a value as at the conversion date.
-   *
-   * @param conversionBalancesItem ConversionBalances
+   * @param conversionBalancesItem ConversionBalances 
    * @return Setup
-   */
+  **/
   public Setup addConversionBalancesItem(ConversionBalances conversionBalancesItem) {
     if (this.conversionBalances == null) {
       this.conversionBalances = new ArrayList<ConversionBalances>();
@@ -90,37 +105,33 @@ public class Setup {
     return this;
   }
 
-  /**
+   /**
    * Balance supplied for each account that has a value as at the conversion date.
-   *
    * @return conversionBalances
-   */
-  @ApiModelProperty(
-      value = "Balance supplied for each account that has a value as at the conversion date.")
-  /**
+  **/
+  @ApiModelProperty(value = "Balance supplied for each account that has a value as at the conversion date.")
+  /** 
    * Balance supplied for each account that has a value as at the conversion date.
-   *
    * @return conversionBalances List<ConversionBalances>
-   */
+  **/
   public List<ConversionBalances> getConversionBalances() {
     return conversionBalances;
   }
 
-  /**
-   * Balance supplied for each account that has a value as at the conversion date.
-   *
-   * @param conversionBalances List&lt;ConversionBalances&gt;
-   */
+  /** 
+  * Balance supplied for each account that has a value as at the conversion date.
+  * @param conversionBalances List&lt;ConversionBalances&gt; 
+  **/
+
   public void setConversionBalances(List<ConversionBalances> conversionBalances) {
     this.conversionBalances = conversionBalances;
   }
 
   /**
-   * accounts
-   *
-   * @param accounts List&lt;Account&gt;
-   * @return Setup
-   */
+  * accounts
+  * @param accounts  List&lt;Account&gt;
+  * @return Setup
+  **/
   public Setup accounts(List<Account> accounts) {
     this.accounts = accounts;
     return this;
@@ -128,10 +139,9 @@ public class Setup {
 
   /**
    * accounts
-   *
-   * @param accountsItem Account
+   * @param accountsItem Account 
    * @return Setup
-   */
+  **/
   public Setup addAccountsItem(Account accountsItem) {
     if (this.accounts == null) {
       this.accounts = new ArrayList<Account>();
@@ -140,29 +150,28 @@ public class Setup {
     return this;
   }
 
-  /**
+   /**
    * Get accounts
-   *
    * @return accounts
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * accounts
-   *
    * @return accounts List<Account>
-   */
+  **/
   public List<Account> getAccounts() {
     return accounts;
   }
 
-  /**
-   * accounts
-   *
-   * @param accounts List&lt;Account&gt;
-   */
+  /** 
+  * accounts
+  * @param accounts List&lt;Account&gt; 
+  **/
+
   public void setAccounts(List<Account> accounts) {
     this.accounts = accounts;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -173,15 +182,16 @@ public class Setup {
       return false;
     }
     Setup setup = (Setup) o;
-    return Objects.equals(this.conversionDate, setup.conversionDate)
-        && Objects.equals(this.conversionBalances, setup.conversionBalances)
-        && Objects.equals(this.accounts, setup.accounts);
+    return Objects.equals(this.conversionDate, setup.conversionDate) &&
+        Objects.equals(this.conversionBalances, setup.conversionBalances) &&
+        Objects.equals(this.accounts, setup.accounts);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(conversionDate, conversionBalances, accounts);
   }
+
 
   @Override
   public String toString() {
@@ -195,7 +205,8 @@ public class Setup {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -203,4 +214,6 @@ public class Setup {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

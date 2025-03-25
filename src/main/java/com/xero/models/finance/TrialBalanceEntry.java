@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** TrialBalanceEntry */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TrialBalanceEntry
+ */
+
 public class TrialBalanceEntry {
   StringUtil util = new StringUtil();
 
@@ -26,74 +43,69 @@ public class TrialBalanceEntry {
   @JsonProperty("entryType")
   private String entryType;
   /**
-   * Net movement or net balance in the account
-   *
-   * @param value Double
-   * @return TrialBalanceEntry
-   */
+  * Net movement or net balance in the account
+  * @param value  Double
+  * @return TrialBalanceEntry
+  **/
   public TrialBalanceEntry value(Double value) {
     this.value = value;
     return this;
   }
 
-  /**
+   /**
    * Net movement or net balance in the account
-   *
    * @return value
-   */
+  **/
   @ApiModelProperty(value = "Net movement or net balance in the account")
-  /**
+  /** 
    * Net movement or net balance in the account
-   *
    * @return value Double
-   */
+  **/
   public Double getValue() {
     return value;
   }
 
-  /**
-   * Net movement or net balance in the account
-   *
-   * @param value Double
-   */
+  /** 
+  * Net movement or net balance in the account
+  * @param value  Double
+  **/
+
   public void setValue(Double value) {
     this.value = value;
   }
 
   /**
-   * Sign (Debit/Credit) of the movement of balance in the account
-   *
-   * @param entryType String
-   * @return TrialBalanceEntry
-   */
+  * Sign (Debit/Credit) of the movement of balance in the account
+  * @param entryType  String
+  * @return TrialBalanceEntry
+  **/
   public TrialBalanceEntry entryType(String entryType) {
     this.entryType = entryType;
     return this;
   }
 
-  /**
+   /**
    * Sign (Debit/Credit) of the movement of balance in the account
-   *
    * @return entryType
-   */
+  **/
   @ApiModelProperty(value = "Sign (Debit/Credit) of the movement of balance in the account")
-  /**
+  /** 
    * Sign (Debit/Credit) of the movement of balance in the account
-   *
    * @return entryType String
-   */
+  **/
   public String getEntryType() {
     return entryType;
   }
 
-  /**
-   * Sign (Debit/Credit) of the movement of balance in the account
-   *
-   * @param entryType String
-   */
+  /** 
+  * Sign (Debit/Credit) of the movement of balance in the account
+  * @param entryType  String
+  **/
+
   public void setEntryType(String entryType) {
     this.entryType = entryType;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -104,14 +116,15 @@ public class TrialBalanceEntry {
       return false;
     }
     TrialBalanceEntry trialBalanceEntry = (TrialBalanceEntry) o;
-    return Objects.equals(this.value, trialBalanceEntry.value)
-        && Objects.equals(this.entryType, trialBalanceEntry.entryType);
+    return Objects.equals(this.value, trialBalanceEntry.value) &&
+        Objects.equals(this.entryType, trialBalanceEntry.entryType);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(value, entryType);
   }
+
 
   @Override
   public String toString() {
@@ -124,7 +137,8 @@ public class TrialBalanceEntry {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -132,4 +146,6 @@ public class TrialBalanceEntry {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

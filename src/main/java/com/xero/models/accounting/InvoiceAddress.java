@@ -9,24 +9,45 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** InvoiceAddress */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * InvoiceAddress
+ */
+
 public class InvoiceAddress {
   StringUtil util = new StringUtil();
-  /** Indicates whether the address is defined as origin (FROM) or destination (TO) */
+  /**
+   * Indicates whether the address is defined as origin (FROM) or destination (TO)
+   */
   public enum InvoiceAddressTypeEnum {
-    /** FROM */
+    /**
+     * FROM
+     */
     FROM("FROM"),
-
-    /** TO */
+    
+    /**
+     * TO
+     */
     TO("TO");
 
     private String value;
@@ -35,31 +56,25 @@ public class InvoiceAddress {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static InvoiceAddressTypeEnum fromValue(String value) {
       for (InvoiceAddressTypeEnum b : InvoiceAddressTypeEnum.values()) {
@@ -70,6 +85,7 @@ public class InvoiceAddress {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("InvoiceAddressType")
   private InvoiceAddressTypeEnum invoiceAddressType;
@@ -98,320 +114,293 @@ public class InvoiceAddress {
   @JsonProperty("Country")
   private String country;
   /**
-   * Indicates whether the address is defined as origin (FROM) or destination (TO)
-   *
-   * @param invoiceAddressType InvoiceAddressTypeEnum
-   * @return InvoiceAddress
-   */
+  * Indicates whether the address is defined as origin (FROM) or destination (TO)
+  * @param invoiceAddressType  InvoiceAddressTypeEnum
+  * @return InvoiceAddress
+  **/
   public InvoiceAddress invoiceAddressType(InvoiceAddressTypeEnum invoiceAddressType) {
     this.invoiceAddressType = invoiceAddressType;
     return this;
   }
 
-  /**
+   /**
    * Indicates whether the address is defined as origin (FROM) or destination (TO)
-   *
    * @return invoiceAddressType
-   */
-  @ApiModelProperty(
-      value = "Indicates whether the address is defined as origin (FROM) or destination (TO)")
-  /**
+  **/
+  @ApiModelProperty(value = "Indicates whether the address is defined as origin (FROM) or destination (TO)")
+  /** 
    * Indicates whether the address is defined as origin (FROM) or destination (TO)
-   *
    * @return invoiceAddressType InvoiceAddressTypeEnum
-   */
+  **/
   public InvoiceAddressTypeEnum getInvoiceAddressType() {
     return invoiceAddressType;
   }
 
-  /**
-   * Indicates whether the address is defined as origin (FROM) or destination (TO)
-   *
-   * @param invoiceAddressType InvoiceAddressTypeEnum
-   */
+  /** 
+  * Indicates whether the address is defined as origin (FROM) or destination (TO)
+  * @param invoiceAddressType  InvoiceAddressTypeEnum
+  **/
+
   public void setInvoiceAddressType(InvoiceAddressTypeEnum invoiceAddressType) {
     this.invoiceAddressType = invoiceAddressType;
   }
 
   /**
-   * First line of a physical address
-   *
-   * @param addressLine1 String
-   * @return InvoiceAddress
-   */
+  * First line of a physical address
+  * @param addressLine1  String
+  * @return InvoiceAddress
+  **/
   public InvoiceAddress addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;
   }
 
-  /**
+   /**
    * First line of a physical address
-   *
    * @return addressLine1
-   */
+  **/
   @ApiModelProperty(value = "First line of a physical address")
-  /**
+  /** 
    * First line of a physical address
-   *
    * @return addressLine1 String
-   */
+  **/
   public String getAddressLine1() {
     return addressLine1;
   }
 
-  /**
-   * First line of a physical address
-   *
-   * @param addressLine1 String
-   */
+  /** 
+  * First line of a physical address
+  * @param addressLine1  String
+  **/
+
   public void setAddressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
   }
 
   /**
-   * Second line of a physical address
-   *
-   * @param addressLine2 String
-   * @return InvoiceAddress
-   */
+  * Second line of a physical address
+  * @param addressLine2  String
+  * @return InvoiceAddress
+  **/
   public InvoiceAddress addressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
     return this;
   }
 
-  /**
+   /**
    * Second line of a physical address
-   *
    * @return addressLine2
-   */
+  **/
   @ApiModelProperty(value = "Second line of a physical address")
-  /**
+  /** 
    * Second line of a physical address
-   *
    * @return addressLine2 String
-   */
+  **/
   public String getAddressLine2() {
     return addressLine2;
   }
 
-  /**
-   * Second line of a physical address
-   *
-   * @param addressLine2 String
-   */
+  /** 
+  * Second line of a physical address
+  * @param addressLine2  String
+  **/
+
   public void setAddressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
   }
 
   /**
-   * Third line of a physical address
-   *
-   * @param addressLine3 String
-   * @return InvoiceAddress
-   */
+  * Third line of a physical address
+  * @param addressLine3  String
+  * @return InvoiceAddress
+  **/
   public InvoiceAddress addressLine3(String addressLine3) {
     this.addressLine3 = addressLine3;
     return this;
   }
 
-  /**
+   /**
    * Third line of a physical address
-   *
    * @return addressLine3
-   */
+  **/
   @ApiModelProperty(value = "Third line of a physical address")
-  /**
+  /** 
    * Third line of a physical address
-   *
    * @return addressLine3 String
-   */
+  **/
   public String getAddressLine3() {
     return addressLine3;
   }
 
-  /**
-   * Third line of a physical address
-   *
-   * @param addressLine3 String
-   */
+  /** 
+  * Third line of a physical address
+  * @param addressLine3  String
+  **/
+
   public void setAddressLine3(String addressLine3) {
     this.addressLine3 = addressLine3;
   }
 
   /**
-   * Fourth line of a physical address
-   *
-   * @param addressLine4 String
-   * @return InvoiceAddress
-   */
+  * Fourth line of a physical address
+  * @param addressLine4  String
+  * @return InvoiceAddress
+  **/
   public InvoiceAddress addressLine4(String addressLine4) {
     this.addressLine4 = addressLine4;
     return this;
   }
 
-  /**
+   /**
    * Fourth line of a physical address
-   *
    * @return addressLine4
-   */
+  **/
   @ApiModelProperty(value = "Fourth line of a physical address")
-  /**
+  /** 
    * Fourth line of a physical address
-   *
    * @return addressLine4 String
-   */
+  **/
   public String getAddressLine4() {
     return addressLine4;
   }
 
-  /**
-   * Fourth line of a physical address
-   *
-   * @param addressLine4 String
-   */
+  /** 
+  * Fourth line of a physical address
+  * @param addressLine4  String
+  **/
+
   public void setAddressLine4(String addressLine4) {
     this.addressLine4 = addressLine4;
   }
 
   /**
-   * City of a physical address
-   *
-   * @param city String
-   * @return InvoiceAddress
-   */
+  * City of a physical address
+  * @param city  String
+  * @return InvoiceAddress
+  **/
   public InvoiceAddress city(String city) {
     this.city = city;
     return this;
   }
 
-  /**
+   /**
    * City of a physical address
-   *
    * @return city
-   */
+  **/
   @ApiModelProperty(value = "City of a physical address")
-  /**
+  /** 
    * City of a physical address
-   *
    * @return city String
-   */
+  **/
   public String getCity() {
     return city;
   }
 
-  /**
-   * City of a physical address
-   *
-   * @param city String
-   */
+  /** 
+  * City of a physical address
+  * @param city  String
+  **/
+
   public void setCity(String city) {
     this.city = city;
   }
 
   /**
-   * Region or state of a physical address
-   *
-   * @param region String
-   * @return InvoiceAddress
-   */
+  * Region or state of a physical address
+  * @param region  String
+  * @return InvoiceAddress
+  **/
   public InvoiceAddress region(String region) {
     this.region = region;
     return this;
   }
 
-  /**
+   /**
    * Region or state of a physical address
-   *
    * @return region
-   */
+  **/
   @ApiModelProperty(value = "Region or state of a physical address")
-  /**
+  /** 
    * Region or state of a physical address
-   *
    * @return region String
-   */
+  **/
   public String getRegion() {
     return region;
   }
 
-  /**
-   * Region or state of a physical address
-   *
-   * @param region String
-   */
+  /** 
+  * Region or state of a physical address
+  * @param region  String
+  **/
+
   public void setRegion(String region) {
     this.region = region;
   }
 
   /**
-   * Postal code of a physical address
-   *
-   * @param postalCode String
-   * @return InvoiceAddress
-   */
+  * Postal code of a physical address
+  * @param postalCode  String
+  * @return InvoiceAddress
+  **/
   public InvoiceAddress postalCode(String postalCode) {
     this.postalCode = postalCode;
     return this;
   }
 
-  /**
+   /**
    * Postal code of a physical address
-   *
    * @return postalCode
-   */
+  **/
   @ApiModelProperty(value = "Postal code of a physical address")
-  /**
+  /** 
    * Postal code of a physical address
-   *
    * @return postalCode String
-   */
+  **/
   public String getPostalCode() {
     return postalCode;
   }
 
-  /**
-   * Postal code of a physical address
-   *
-   * @param postalCode String
-   */
+  /** 
+  * Postal code of a physical address
+  * @param postalCode  String
+  **/
+
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
   }
 
   /**
-   * Country of a physical address
-   *
-   * @param country String
-   * @return InvoiceAddress
-   */
+  * Country of a physical address
+  * @param country  String
+  * @return InvoiceAddress
+  **/
   public InvoiceAddress country(String country) {
     this.country = country;
     return this;
   }
 
-  /**
+   /**
    * Country of a physical address
-   *
    * @return country
-   */
+  **/
   @ApiModelProperty(value = "Country of a physical address")
-  /**
+  /** 
    * Country of a physical address
-   *
    * @return country String
-   */
+  **/
   public String getCountry() {
     return country;
   }
 
-  /**
-   * Country of a physical address
-   *
-   * @param country String
-   */
+  /** 
+  * Country of a physical address
+  * @param country  String
+  **/
+
   public void setCountry(String country) {
     this.country = country;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -422,30 +411,22 @@ public class InvoiceAddress {
       return false;
     }
     InvoiceAddress invoiceAddress = (InvoiceAddress) o;
-    return Objects.equals(this.invoiceAddressType, invoiceAddress.invoiceAddressType)
-        && Objects.equals(this.addressLine1, invoiceAddress.addressLine1)
-        && Objects.equals(this.addressLine2, invoiceAddress.addressLine2)
-        && Objects.equals(this.addressLine3, invoiceAddress.addressLine3)
-        && Objects.equals(this.addressLine4, invoiceAddress.addressLine4)
-        && Objects.equals(this.city, invoiceAddress.city)
-        && Objects.equals(this.region, invoiceAddress.region)
-        && Objects.equals(this.postalCode, invoiceAddress.postalCode)
-        && Objects.equals(this.country, invoiceAddress.country);
+    return Objects.equals(this.invoiceAddressType, invoiceAddress.invoiceAddressType) &&
+        Objects.equals(this.addressLine1, invoiceAddress.addressLine1) &&
+        Objects.equals(this.addressLine2, invoiceAddress.addressLine2) &&
+        Objects.equals(this.addressLine3, invoiceAddress.addressLine3) &&
+        Objects.equals(this.addressLine4, invoiceAddress.addressLine4) &&
+        Objects.equals(this.city, invoiceAddress.city) &&
+        Objects.equals(this.region, invoiceAddress.region) &&
+        Objects.equals(this.postalCode, invoiceAddress.postalCode) &&
+        Objects.equals(this.country, invoiceAddress.country);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        invoiceAddressType,
-        addressLine1,
-        addressLine2,
-        addressLine3,
-        addressLine4,
-        city,
-        region,
-        postalCode,
-        country);
+    return Objects.hash(invoiceAddressType, addressLine1, addressLine2, addressLine3, addressLine4, city, region, postalCode, country);
   }
+
 
   @Override
   public String toString() {
@@ -465,7 +446,8 @@ public class InvoiceAddress {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -473,4 +455,6 @@ public class InvoiceAddress {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

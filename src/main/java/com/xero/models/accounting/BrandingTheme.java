@@ -9,19 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** BrandingTheme */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BrandingTheme
+ */
+
 public class BrandingTheme {
   StringUtil util = new StringUtil();
 
@@ -33,9 +46,13 @@ public class BrandingTheme {
 
   @JsonProperty("LogoUrl")
   private String logoUrl;
-  /** Always INVOICE */
+  /**
+   * Always INVOICE
+   */
   public enum TypeEnum {
-    /** INVOICE */
+    /**
+     * INVOICE
+     */
     INVOICE("INVOICE");
 
     private String value;
@@ -44,31 +61,25 @@ public class BrandingTheme {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -80,6 +91,7 @@ public class BrandingTheme {
     }
   }
 
+
   @JsonProperty("Type")
   private TypeEnum type;
 
@@ -89,214 +101,192 @@ public class BrandingTheme {
   @JsonProperty("CreatedDateUTC")
   private String createdDateUTC;
   /**
-   * Xero identifier
-   *
-   * @param brandingThemeID UUID
-   * @return BrandingTheme
-   */
+  * Xero identifier
+  * @param brandingThemeID  UUID
+  * @return BrandingTheme
+  **/
   public BrandingTheme brandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier
-   *
    * @return brandingThemeID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier")
-  /**
+  /** 
    * Xero identifier
-   *
    * @return brandingThemeID UUID
-   */
+  **/
   public UUID getBrandingThemeID() {
     return brandingThemeID;
   }
 
-  /**
-   * Xero identifier
-   *
-   * @param brandingThemeID UUID
-   */
+  /** 
+  * Xero identifier
+  * @param brandingThemeID  UUID
+  **/
+
   public void setBrandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
   }
 
   /**
-   * Name of branding theme
-   *
-   * @param name String
-   * @return BrandingTheme
-   */
+  * Name of branding theme
+  * @param name  String
+  * @return BrandingTheme
+  **/
   public BrandingTheme name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of branding theme
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "Name of branding theme")
-  /**
+  /** 
    * Name of branding theme
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of branding theme
-   *
-   * @param name String
-   */
+  /** 
+  * Name of branding theme
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * The location of the image file used as the logo on this branding theme
-   *
-   * @param logoUrl String
-   * @return BrandingTheme
-   */
+  * The location of the image file used as the logo on this branding theme
+  * @param logoUrl  String
+  * @return BrandingTheme
+  **/
   public BrandingTheme logoUrl(String logoUrl) {
     this.logoUrl = logoUrl;
     return this;
   }
 
-  /**
+   /**
    * The location of the image file used as the logo on this branding theme
-   *
    * @return logoUrl
-   */
-  @ApiModelProperty(
-      value = "The location of the image file used as the logo on this branding theme")
-  /**
+  **/
+  @ApiModelProperty(value = "The location of the image file used as the logo on this branding theme")
+  /** 
    * The location of the image file used as the logo on this branding theme
-   *
    * @return logoUrl String
-   */
+  **/
   public String getLogoUrl() {
     return logoUrl;
   }
 
-  /**
-   * The location of the image file used as the logo on this branding theme
-   *
-   * @param logoUrl String
-   */
+  /** 
+  * The location of the image file used as the logo on this branding theme
+  * @param logoUrl  String
+  **/
+
   public void setLogoUrl(String logoUrl) {
     this.logoUrl = logoUrl;
   }
 
   /**
-   * Always INVOICE
-   *
-   * @param type TypeEnum
-   * @return BrandingTheme
-   */
+  * Always INVOICE
+  * @param type  TypeEnum
+  * @return BrandingTheme
+  **/
   public BrandingTheme type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * Always INVOICE
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "Always INVOICE")
-  /**
+  /** 
    * Always INVOICE
-   *
    * @return type TypeEnum
-   */
+  **/
   public TypeEnum getType() {
     return type;
   }
 
-  /**
-   * Always INVOICE
-   *
-   * @param type TypeEnum
-   */
+  /** 
+  * Always INVOICE
+  * @param type  TypeEnum
+  **/
+
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
   /**
-   * Integer – ranked order of branding theme. The default branding theme has a value of 0
-   *
-   * @param sortOrder Integer
-   * @return BrandingTheme
-   */
+  * Integer – ranked order of branding theme. The default branding theme has a value of 0
+  * @param sortOrder  Integer
+  * @return BrandingTheme
+  **/
   public BrandingTheme sortOrder(Integer sortOrder) {
     this.sortOrder = sortOrder;
     return this;
   }
 
-  /**
+   /**
    * Integer – ranked order of branding theme. The default branding theme has a value of 0
-   *
    * @return sortOrder
-   */
-  @ApiModelProperty(
-      value =
-          "Integer – ranked order of branding theme. The default branding theme has a value of 0")
-  /**
+  **/
+  @ApiModelProperty(value = "Integer – ranked order of branding theme. The default branding theme has a value of 0")
+  /** 
    * Integer – ranked order of branding theme. The default branding theme has a value of 0
-   *
    * @return sortOrder Integer
-   */
+  **/
   public Integer getSortOrder() {
     return sortOrder;
   }
 
-  /**
-   * Integer – ranked order of branding theme. The default branding theme has a value of 0
-   *
-   * @param sortOrder Integer
-   */
+  /** 
+  * Integer – ranked order of branding theme. The default branding theme has a value of 0
+  * @param sortOrder  Integer
+  **/
+
   public void setSortOrder(Integer sortOrder) {
     this.sortOrder = sortOrder;
   }
 
-  /**
+   /**
    * UTC timestamp of creation date of branding theme
-   *
    * @return createdDateUTC
-   */
-  @ApiModelProperty(
-      example = "/Date(1573755038314)/",
-      value = "UTC timestamp of creation date of branding theme")
-  /**
+  **/
+  @ApiModelProperty(example = "/Date(1573755038314)/", value = "UTC timestamp of creation date of branding theme")
+  /** 
    * UTC timestamp of creation date of branding theme
-   *
    * @return createdDateUTC String
-   */
+  **/
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
-  /**
+  /** 
    * UTC timestamp of creation date of branding theme
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getCreatedDateUTCAsDate() {
     if (this.createdDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.createdDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -307,18 +297,19 @@ public class BrandingTheme {
       return false;
     }
     BrandingTheme brandingTheme = (BrandingTheme) o;
-    return Objects.equals(this.brandingThemeID, brandingTheme.brandingThemeID)
-        && Objects.equals(this.name, brandingTheme.name)
-        && Objects.equals(this.logoUrl, brandingTheme.logoUrl)
-        && Objects.equals(this.type, brandingTheme.type)
-        && Objects.equals(this.sortOrder, brandingTheme.sortOrder)
-        && Objects.equals(this.createdDateUTC, brandingTheme.createdDateUTC);
+    return Objects.equals(this.brandingThemeID, brandingTheme.brandingThemeID) &&
+        Objects.equals(this.name, brandingTheme.name) &&
+        Objects.equals(this.logoUrl, brandingTheme.logoUrl) &&
+        Objects.equals(this.type, brandingTheme.type) &&
+        Objects.equals(this.sortOrder, brandingTheme.sortOrder) &&
+        Objects.equals(this.createdDateUTC, brandingTheme.createdDateUTC);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(brandingThemeID, name, logoUrl, type, sortOrder, createdDateUTC);
   }
+
 
   @Override
   public String toString() {
@@ -335,7 +326,8 @@ public class BrandingTheme {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -343,4 +335,6 @@ public class BrandingTheme {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,17 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** The tracking category used for timesheets */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * The tracking category used for timesheets
+ */
 @ApiModel(description = "The tracking category used for timesheets")
+
 public class SettingsTrackingCategoriesTimesheetCategories {
   StringUtil util = new StringUtil();
 
@@ -29,77 +45,69 @@ public class SettingsTrackingCategoriesTimesheetCategories {
   @JsonProperty("TrackingCategoryName")
   private String trackingCategoryName;
   /**
-   * The identifier for the tracking category
-   *
-   * @param trackingCategoryID UUID
-   * @return SettingsTrackingCategoriesTimesheetCategories
-   */
+  * The identifier for the tracking category
+  * @param trackingCategoryID  UUID
+  * @return SettingsTrackingCategoriesTimesheetCategories
+  **/
   public SettingsTrackingCategoriesTimesheetCategories trackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
     return this;
   }
 
-  /**
+   /**
    * The identifier for the tracking category
-   *
    * @return trackingCategoryID
-   */
-  @ApiModelProperty(
-      example = "e0eb6747-7c17-4075-b804-989f8d4e5d39",
-      value = "The identifier for the tracking category")
-  /**
+  **/
+  @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "The identifier for the tracking category")
+  /** 
    * The identifier for the tracking category
-   *
    * @return trackingCategoryID UUID
-   */
+  **/
   public UUID getTrackingCategoryID() {
     return trackingCategoryID;
   }
 
-  /**
-   * The identifier for the tracking category
-   *
-   * @param trackingCategoryID UUID
-   */
+  /** 
+  * The identifier for the tracking category
+  * @param trackingCategoryID  UUID
+  **/
+
   public void setTrackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
   }
 
   /**
-   * Name of the tracking category
-   *
-   * @param trackingCategoryName String
-   * @return SettingsTrackingCategoriesTimesheetCategories
-   */
-  public SettingsTrackingCategoriesTimesheetCategories trackingCategoryName(
-      String trackingCategoryName) {
+  * Name of the tracking category
+  * @param trackingCategoryName  String
+  * @return SettingsTrackingCategoriesTimesheetCategories
+  **/
+  public SettingsTrackingCategoriesTimesheetCategories trackingCategoryName(String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
     return this;
   }
 
-  /**
+   /**
    * Name of the tracking category
-   *
    * @return trackingCategoryName
-   */
+  **/
   @ApiModelProperty(value = "Name of the tracking category")
-  /**
+  /** 
    * Name of the tracking category
-   *
    * @return trackingCategoryName String
-   */
+  **/
   public String getTrackingCategoryName() {
     return trackingCategoryName;
   }
 
-  /**
-   * Name of the tracking category
-   *
-   * @param trackingCategoryName String
-   */
+  /** 
+  * Name of the tracking category
+  * @param trackingCategoryName  String
+  **/
+
   public void setTrackingCategoryName(String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -109,14 +117,9 @@ public class SettingsTrackingCategoriesTimesheetCategories {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SettingsTrackingCategoriesTimesheetCategories settingsTrackingCategoriesTimesheetCategories =
-        (SettingsTrackingCategoriesTimesheetCategories) o;
-    return Objects.equals(
-            this.trackingCategoryID,
-            settingsTrackingCategoriesTimesheetCategories.trackingCategoryID)
-        && Objects.equals(
-            this.trackingCategoryName,
-            settingsTrackingCategoriesTimesheetCategories.trackingCategoryName);
+    SettingsTrackingCategoriesTimesheetCategories settingsTrackingCategoriesTimesheetCategories = (SettingsTrackingCategoriesTimesheetCategories) o;
+    return Objects.equals(this.trackingCategoryID, settingsTrackingCategoriesTimesheetCategories.trackingCategoryID) &&
+        Objects.equals(this.trackingCategoryName, settingsTrackingCategoriesTimesheetCategories.trackingCategoryName);
   }
 
   @Override
@@ -124,20 +127,20 @@ public class SettingsTrackingCategoriesTimesheetCategories {
     return Objects.hash(trackingCategoryID, trackingCategoryName);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SettingsTrackingCategoriesTimesheetCategories {\n");
     sb.append("    trackingCategoryID: ").append(toIndentedString(trackingCategoryID)).append("\n");
-    sb.append("    trackingCategoryName: ")
-        .append(toIndentedString(trackingCategoryName))
-        .append("\n");
+    sb.append("    trackingCategoryName: ").append(toIndentedString(trackingCategoryName)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -145,4 +148,6 @@ public class SettingsTrackingCategoriesTimesheetCategories {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** SalesTrackingCategory */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * SalesTrackingCategory
+ */
+
 public class SalesTrackingCategory {
   StringUtil util = new StringUtil();
 
@@ -26,74 +43,69 @@ public class SalesTrackingCategory {
   @JsonProperty("TrackingOptionName")
   private String trackingOptionName;
   /**
-   * The default sales tracking category name for contacts
-   *
-   * @param trackingCategoryName String
-   * @return SalesTrackingCategory
-   */
+  * The default sales tracking category name for contacts
+  * @param trackingCategoryName  String
+  * @return SalesTrackingCategory
+  **/
   public SalesTrackingCategory trackingCategoryName(String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
     return this;
   }
 
-  /**
+   /**
    * The default sales tracking category name for contacts
-   *
    * @return trackingCategoryName
-   */
+  **/
   @ApiModelProperty(value = "The default sales tracking category name for contacts")
-  /**
+  /** 
    * The default sales tracking category name for contacts
-   *
    * @return trackingCategoryName String
-   */
+  **/
   public String getTrackingCategoryName() {
     return trackingCategoryName;
   }
 
-  /**
-   * The default sales tracking category name for contacts
-   *
-   * @param trackingCategoryName String
-   */
+  /** 
+  * The default sales tracking category name for contacts
+  * @param trackingCategoryName  String
+  **/
+
   public void setTrackingCategoryName(String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
   }
 
   /**
-   * The default purchase tracking category name for contacts
-   *
-   * @param trackingOptionName String
-   * @return SalesTrackingCategory
-   */
+  * The default purchase tracking category name for contacts
+  * @param trackingOptionName  String
+  * @return SalesTrackingCategory
+  **/
   public SalesTrackingCategory trackingOptionName(String trackingOptionName) {
     this.trackingOptionName = trackingOptionName;
     return this;
   }
 
-  /**
+   /**
    * The default purchase tracking category name for contacts
-   *
    * @return trackingOptionName
-   */
+  **/
   @ApiModelProperty(value = "The default purchase tracking category name for contacts")
-  /**
+  /** 
    * The default purchase tracking category name for contacts
-   *
    * @return trackingOptionName String
-   */
+  **/
   public String getTrackingOptionName() {
     return trackingOptionName;
   }
 
-  /**
-   * The default purchase tracking category name for contacts
-   *
-   * @param trackingOptionName String
-   */
+  /** 
+  * The default purchase tracking category name for contacts
+  * @param trackingOptionName  String
+  **/
+
   public void setTrackingOptionName(String trackingOptionName) {
     this.trackingOptionName = trackingOptionName;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -104,8 +116,8 @@ public class SalesTrackingCategory {
       return false;
     }
     SalesTrackingCategory salesTrackingCategory = (SalesTrackingCategory) o;
-    return Objects.equals(this.trackingCategoryName, salesTrackingCategory.trackingCategoryName)
-        && Objects.equals(this.trackingOptionName, salesTrackingCategory.trackingOptionName);
+    return Objects.equals(this.trackingCategoryName, salesTrackingCategory.trackingCategoryName) &&
+        Objects.equals(this.trackingOptionName, salesTrackingCategory.trackingOptionName);
   }
 
   @Override
@@ -113,20 +125,20 @@ public class SalesTrackingCategory {
     return Objects.hash(trackingCategoryName, trackingOptionName);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SalesTrackingCategory {\n");
-    sb.append("    trackingCategoryName: ")
-        .append(toIndentedString(trackingCategoryName))
-        .append("\n");
+    sb.append("    trackingCategoryName: ").append(toIndentedString(trackingCategoryName)).append("\n");
     sb.append("    trackingOptionName: ").append(toIndentedString(trackingOptionName)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -134,4 +146,6 @@ public class SalesTrackingCategory {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

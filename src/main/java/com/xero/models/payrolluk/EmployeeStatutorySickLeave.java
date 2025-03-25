@@ -9,20 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrolluk;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.payrolluk;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** EmployeeStatutorySickLeave */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeStatutorySickLeave
+ */
+
 public class EmployeeStatutorySickLeave {
   StringUtil util = new StringUtil();
 
@@ -70,24 +85,38 @@ public class EmployeeStatutorySickLeave {
 
   @JsonProperty("overlapsWithOtherLeave")
   private Boolean overlapsWithOtherLeave;
-  /** Gets or Sets entitlementFailureReasons */
+  /**
+   * Gets or Sets entitlementFailureReasons
+   */
   public enum EntitlementFailureReasonsEnum {
-    /** UNABLETOCALCULATEAWE */
+    /**
+     * UNABLETOCALCULATEAWE
+     */
     UNABLETOCALCULATEAWE("UnableToCalculateAwe"),
-
-    /** AWELOWERTHANLEL */
+    
+    /**
+     * AWELOWERTHANLEL
+     */
     AWELOWERTHANLEL("AweLowerThanLel"),
-
-    /** NOTQUALIFIEDINPREVIOUSPIW */
+    
+    /**
+     * NOTQUALIFIEDINPREVIOUSPIW
+     */
     NOTQUALIFIEDINPREVIOUSPIW("NotQualifiedInPreviousPiw"),
-
-    /** EXCEEDEDMAXIMUMENTITLEMENTWEEKSOFSSP */
+    
+    /**
+     * EXCEEDEDMAXIMUMENTITLEMENTWEEKSOFSSP
+     */
     EXCEEDEDMAXIMUMENTITLEMENTWEEKSOFSSP("ExceededMaximumEntitlementWeeksOfSsp"),
-
-    /** EXCEEDEDMAXIMUMDURATIONOFPIW */
+    
+    /**
+     * EXCEEDEDMAXIMUMDURATIONOFPIW
+     */
     EXCEEDEDMAXIMUMDURATIONOFPIW("ExceededMaximumDurationOfPiw"),
-
-    /** SUFFICIENTNOTICENOTGIVEN */
+    
+    /**
+     * SUFFICIENTNOTICENOTGIVEN
+     */
     SUFFICIENTNOTICENOTGIVEN("SufficientNoticeNotGiven");
 
     private String value;
@@ -96,31 +125,25 @@ public class EmployeeStatutorySickLeave {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static EntitlementFailureReasonsEnum fromValue(String value) {
       for (EntitlementFailureReasonsEnum b : EntitlementFailureReasonsEnum.values()) {
@@ -132,267 +155,238 @@ public class EmployeeStatutorySickLeave {
     }
   }
 
+
   @JsonProperty("entitlementFailureReasons")
-  private List<EntitlementFailureReasonsEnum> entitlementFailureReasons =
-      new ArrayList<EntitlementFailureReasonsEnum>();
+  private List<EntitlementFailureReasonsEnum> entitlementFailureReasons = new ArrayList<EntitlementFailureReasonsEnum>();
   /**
-   * The unique identifier (guid) of a statutory leave
-   *
-   * @param statutoryLeaveID UUID
-   * @return EmployeeStatutorySickLeave
-   */
+  * The unique identifier (guid) of a statutory leave
+  * @param statutoryLeaveID  UUID
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave statutoryLeaveID(UUID statutoryLeaveID) {
     this.statutoryLeaveID = statutoryLeaveID;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier (guid) of a statutory leave
-   *
    * @return statutoryLeaveID
-   */
+  **/
   @ApiModelProperty(value = "The unique identifier (guid) of a statutory leave")
-  /**
+  /** 
    * The unique identifier (guid) of a statutory leave
-   *
    * @return statutoryLeaveID UUID
-   */
+  **/
   public UUID getStatutoryLeaveID() {
     return statutoryLeaveID;
   }
 
-  /**
-   * The unique identifier (guid) of a statutory leave
-   *
-   * @param statutoryLeaveID UUID
-   */
+  /** 
+  * The unique identifier (guid) of a statutory leave
+  * @param statutoryLeaveID  UUID
+  **/
+
   public void setStatutoryLeaveID(UUID statutoryLeaveID) {
     this.statutoryLeaveID = statutoryLeaveID;
   }
 
   /**
-   * The unique identifier (guid) of the employee
-   *
-   * @param employeeID UUID
-   * @return EmployeeStatutorySickLeave
-   */
+  * The unique identifier (guid) of the employee
+  * @param employeeID  UUID
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier (guid) of the employee
-   *
    * @return employeeID
-   */
+  **/
   @ApiModelProperty(required = true, value = "The unique identifier (guid) of the employee")
-  /**
+  /** 
    * The unique identifier (guid) of the employee
-   *
    * @return employeeID UUID
-   */
+  **/
   public UUID getEmployeeID() {
     return employeeID;
   }
 
-  /**
-   * The unique identifier (guid) of the employee
-   *
-   * @param employeeID UUID
-   */
+  /** 
+  * The unique identifier (guid) of the employee
+  * @param employeeID  UUID
+  **/
+
   public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
   /**
-   * The unique identifier (guid) of the \&quot;Statutory Sick Leave (non-pensionable)\&quot; pay
-   * item
-   *
-   * @param leaveTypeID UUID
-   * @return EmployeeStatutorySickLeave
-   */
+  * The unique identifier (guid) of the \&quot;Statutory Sick Leave (non-pensionable)\&quot; pay item
+  * @param leaveTypeID  UUID
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
   }
 
-  /**
-   * The unique identifier (guid) of the \&quot;Statutory Sick Leave (non-pensionable)\&quot; pay
-   * item
-   *
+   /**
+   * The unique identifier (guid) of the \&quot;Statutory Sick Leave (non-pensionable)\&quot; pay item
    * @return leaveTypeID
-   */
-  @ApiModelProperty(
-      required = true,
-      value =
-          "The unique identifier (guid) of the \"Statutory Sick Leave (non-pensionable)\" pay item")
-  /**
-   * The unique identifier (guid) of the \&quot;Statutory Sick Leave (non-pensionable)\&quot; pay
-   * item
-   *
+  **/
+  @ApiModelProperty(required = true, value = "The unique identifier (guid) of the \"Statutory Sick Leave (non-pensionable)\" pay item")
+  /** 
+   * The unique identifier (guid) of the \&quot;Statutory Sick Leave (non-pensionable)\&quot; pay item
    * @return leaveTypeID UUID
-   */
+  **/
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
-  /**
-   * The unique identifier (guid) of the \&quot;Statutory Sick Leave (non-pensionable)\&quot; pay
-   * item
-   *
-   * @param leaveTypeID UUID
-   */
+  /** 
+  * The unique identifier (guid) of the \&quot;Statutory Sick Leave (non-pensionable)\&quot; pay item
+  * @param leaveTypeID  UUID
+  **/
+
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
   /**
-   * The date when the leave starts
-   *
-   * @param startDate LocalDate
-   * @return EmployeeStatutorySickLeave
-   */
+  * The date when the leave starts
+  * @param startDate  LocalDate
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * The date when the leave starts
-   *
    * @return startDate
-   */
+  **/
   @ApiModelProperty(required = true, value = "The date when the leave starts")
-  /**
+  /** 
    * The date when the leave starts
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * The date when the leave starts
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * The date when the leave starts
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * The date when the leave ends
-   *
-   * @param endDate LocalDate
-   * @return EmployeeStatutorySickLeave
-   */
+  * The date when the leave ends
+  * @param endDate  LocalDate
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * The date when the leave ends
-   *
    * @return endDate
-   */
+  **/
   @ApiModelProperty(required = true, value = "The date when the leave ends")
-  /**
+  /** 
    * The date when the leave ends
-   *
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * The date when the leave ends
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * The date when the leave ends
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * the type of statutory leave
-   *
-   * @param type String
-   * @return EmployeeStatutorySickLeave
-   */
+  * the type of statutory leave
+  * @param type  String
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave type(String type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * the type of statutory leave
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(example = "Sick", value = "the type of statutory leave")
-  /**
+  /** 
    * the type of statutory leave
-   *
    * @return type String
-   */
+  **/
   public String getType() {
     return type;
   }
 
-  /**
-   * the type of statutory leave
-   *
-   * @param type String
-   */
+  /** 
+  * the type of statutory leave
+  * @param type  String
+  **/
+
   public void setType(String type) {
     this.type = type;
   }
 
   /**
-   * the type of statutory leave
-   *
-   * @param status String
-   * @return EmployeeStatutorySickLeave
-   */
+  * the type of statutory leave
+  * @param status  String
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave status(String status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * the type of statutory leave
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(example = "Pending", value = "the type of statutory leave")
-  /**
+  /** 
    * the type of statutory leave
-   *
    * @return status String
-   */
+  **/
   public String getStatus() {
     return status;
   }
 
-  /**
-   * the type of statutory leave
-   *
-   * @param status String
-   */
+  /** 
+  * the type of statutory leave
+  * @param status  String
+  **/
+
   public void setStatus(String status) {
     this.status = status;
   }
 
   /**
-   * The days of the work week the employee is scheduled to work at the time the leave is taken
-   *
-   * @param workPattern List&lt;&gt;
-   * @return EmployeeStatutorySickLeave
-   */
+  * The days of the work week the employee is scheduled to work at the time the leave is taken
+  * @param workPattern  List&lt;&gt;
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave workPattern(List<String> workPattern) {
     this.workPattern = workPattern;
     return this;
@@ -400,334 +394,276 @@ public class EmployeeStatutorySickLeave {
 
   /**
    * The days of the work week the employee is scheduled to work at the time the leave is taken
-   *
-   * @param workPatternItem String
+   * @param workPatternItem String 
    * @return EmployeeStatutorySickLeave
-   */
+  **/
   public EmployeeStatutorySickLeave addWorkPatternItem(String workPatternItem) {
     this.workPattern.add(workPatternItem);
     return this;
   }
 
-  /**
+   /**
    * The days of the work week the employee is scheduled to work at the time the leave is taken
-   *
    * @return workPattern
-   */
-  @ApiModelProperty(
-      required = true,
-      value =
-          "The days of the work week the employee is scheduled to work at the time the leave is"
-              + " taken")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The days of the work week the employee is scheduled to work at the time the leave is taken")
+  /** 
    * The days of the work week the employee is scheduled to work at the time the leave is taken
-   *
    * @return workPattern List<String>
-   */
+  **/
   public List<String> getWorkPattern() {
     return workPattern;
   }
 
-  /**
-   * The days of the work week the employee is scheduled to work at the time the leave is taken
-   *
-   * @param workPattern List&lt;&gt;
-   */
+  /** 
+  * The days of the work week the employee is scheduled to work at the time the leave is taken
+  * @param workPattern List&lt;&gt; 
+  **/
+
   public void setWorkPattern(List<String> workPattern) {
     this.workPattern = workPattern;
   }
 
   /**
-   * Whether the sick leave was pregnancy related
-   *
-   * @param isPregnancyRelated Boolean
-   * @return EmployeeStatutorySickLeave
-   */
+  * Whether the sick leave was pregnancy related
+  * @param isPregnancyRelated  Boolean
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave isPregnancyRelated(Boolean isPregnancyRelated) {
     this.isPregnancyRelated = isPregnancyRelated;
     return this;
   }
 
-  /**
+   /**
    * Whether the sick leave was pregnancy related
-   *
    * @return isPregnancyRelated
-   */
+  **/
   @ApiModelProperty(required = true, value = "Whether the sick leave was pregnancy related")
-  /**
+  /** 
    * Whether the sick leave was pregnancy related
-   *
    * @return isPregnancyRelated Boolean
-   */
+  **/
   public Boolean getIsPregnancyRelated() {
     return isPregnancyRelated;
   }
 
-  /**
-   * Whether the sick leave was pregnancy related
-   *
-   * @param isPregnancyRelated Boolean
-   */
+  /** 
+  * Whether the sick leave was pregnancy related
+  * @param isPregnancyRelated  Boolean
+  **/
+
   public void setIsPregnancyRelated(Boolean isPregnancyRelated) {
     this.isPregnancyRelated = isPregnancyRelated;
   }
 
   /**
-   * Whether the employee provided sufficient notice and documentation as required by the employer
-   * supporting the sick leave request
-   *
-   * @param sufficientNotice Boolean
-   * @return EmployeeStatutorySickLeave
-   */
+  * Whether the employee provided sufficient notice and documentation as required by the employer supporting the sick leave request
+  * @param sufficientNotice  Boolean
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave sufficientNotice(Boolean sufficientNotice) {
     this.sufficientNotice = sufficientNotice;
     return this;
   }
 
-  /**
-   * Whether the employee provided sufficient notice and documentation as required by the employer
-   * supporting the sick leave request
-   *
+   /**
+   * Whether the employee provided sufficient notice and documentation as required by the employer supporting the sick leave request
    * @return sufficientNotice
-   */
-  @ApiModelProperty(
-      required = true,
-      value =
-          "Whether the employee provided sufficient notice and documentation as required by the"
-              + " employer supporting the sick leave request")
-  /**
-   * Whether the employee provided sufficient notice and documentation as required by the employer
-   * supporting the sick leave request
-   *
+  **/
+  @ApiModelProperty(required = true, value = "Whether the employee provided sufficient notice and documentation as required by the employer supporting the sick leave request")
+  /** 
+   * Whether the employee provided sufficient notice and documentation as required by the employer supporting the sick leave request
    * @return sufficientNotice Boolean
-   */
+  **/
   public Boolean getSufficientNotice() {
     return sufficientNotice;
   }
 
-  /**
-   * Whether the employee provided sufficient notice and documentation as required by the employer
-   * supporting the sick leave request
-   *
-   * @param sufficientNotice Boolean
-   */
+  /** 
+  * Whether the employee provided sufficient notice and documentation as required by the employer supporting the sick leave request
+  * @param sufficientNotice  Boolean
+  **/
+
   public void setSufficientNotice(Boolean sufficientNotice) {
     this.sufficientNotice = sufficientNotice;
   }
 
   /**
-   * Whether the leave was entitled to receive payment
-   *
-   * @param isEntitled Boolean
-   * @return EmployeeStatutorySickLeave
-   */
+  * Whether the leave was entitled to receive payment
+  * @param isEntitled  Boolean
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave isEntitled(Boolean isEntitled) {
     this.isEntitled = isEntitled;
     return this;
   }
 
-  /**
+   /**
    * Whether the leave was entitled to receive payment
-   *
    * @return isEntitled
-   */
+  **/
   @ApiModelProperty(value = "Whether the leave was entitled to receive payment")
-  /**
+  /** 
    * Whether the leave was entitled to receive payment
-   *
    * @return isEntitled Boolean
-   */
+  **/
   public Boolean getIsEntitled() {
     return isEntitled;
   }
 
-  /**
-   * Whether the leave was entitled to receive payment
-   *
-   * @param isEntitled Boolean
-   */
+  /** 
+  * Whether the leave was entitled to receive payment
+  * @param isEntitled  Boolean
+  **/
+
   public void setIsEntitled(Boolean isEntitled) {
     this.isEntitled = isEntitled;
   }
 
   /**
-   * The amount of requested time (in weeks)
-   *
-   * @param entitlementWeeksRequested Double
-   * @return EmployeeStatutorySickLeave
-   */
+  * The amount of requested time (in weeks)
+  * @param entitlementWeeksRequested  Double
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave entitlementWeeksRequested(Double entitlementWeeksRequested) {
     this.entitlementWeeksRequested = entitlementWeeksRequested;
     return this;
   }
 
-  /**
+   /**
    * The amount of requested time (in weeks)
-   *
    * @return entitlementWeeksRequested
-   */
+  **/
   @ApiModelProperty(value = "The amount of requested time (in weeks)")
-  /**
+  /** 
    * The amount of requested time (in weeks)
-   *
    * @return entitlementWeeksRequested Double
-   */
+  **/
   public Double getEntitlementWeeksRequested() {
     return entitlementWeeksRequested;
   }
 
-  /**
-   * The amount of requested time (in weeks)
-   *
-   * @param entitlementWeeksRequested Double
-   */
+  /** 
+  * The amount of requested time (in weeks)
+  * @param entitlementWeeksRequested  Double
+  **/
+
   public void setEntitlementWeeksRequested(Double entitlementWeeksRequested) {
     this.entitlementWeeksRequested = entitlementWeeksRequested;
   }
 
   /**
-   * The amount of statutory sick leave time off (in weeks) that is available to take at the time
-   * the leave was requested
-   *
-   * @param entitlementWeeksQualified Double
-   * @return EmployeeStatutorySickLeave
-   */
+  * The amount of statutory sick leave time off (in weeks) that is available to take at the time the leave was requested
+  * @param entitlementWeeksQualified  Double
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave entitlementWeeksQualified(Double entitlementWeeksQualified) {
     this.entitlementWeeksQualified = entitlementWeeksQualified;
     return this;
   }
 
-  /**
-   * The amount of statutory sick leave time off (in weeks) that is available to take at the time
-   * the leave was requested
-   *
+   /**
+   * The amount of statutory sick leave time off (in weeks) that is available to take at the time the leave was requested
    * @return entitlementWeeksQualified
-   */
-  @ApiModelProperty(
-      value =
-          "The amount of statutory sick leave time off (in weeks) that is available to take at the"
-              + " time the leave was requested")
-  /**
-   * The amount of statutory sick leave time off (in weeks) that is available to take at the time
-   * the leave was requested
-   *
+  **/
+  @ApiModelProperty(value = "The amount of statutory sick leave time off (in weeks) that is available to take at the time the leave was requested")
+  /** 
+   * The amount of statutory sick leave time off (in weeks) that is available to take at the time the leave was requested
    * @return entitlementWeeksQualified Double
-   */
+  **/
   public Double getEntitlementWeeksQualified() {
     return entitlementWeeksQualified;
   }
 
-  /**
-   * The amount of statutory sick leave time off (in weeks) that is available to take at the time
-   * the leave was requested
-   *
-   * @param entitlementWeeksQualified Double
-   */
+  /** 
+  * The amount of statutory sick leave time off (in weeks) that is available to take at the time the leave was requested
+  * @param entitlementWeeksQualified  Double
+  **/
+
   public void setEntitlementWeeksQualified(Double entitlementWeeksQualified) {
     this.entitlementWeeksQualified = entitlementWeeksQualified;
   }
 
   /**
-   * A calculated amount of time (in weeks) that remains for the statutory sick leave period
-   *
-   * @param entitlementWeeksRemaining Double
-   * @return EmployeeStatutorySickLeave
-   */
+  * A calculated amount of time (in weeks) that remains for the statutory sick leave period
+  * @param entitlementWeeksRemaining  Double
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave entitlementWeeksRemaining(Double entitlementWeeksRemaining) {
     this.entitlementWeeksRemaining = entitlementWeeksRemaining;
     return this;
   }
 
-  /**
+   /**
    * A calculated amount of time (in weeks) that remains for the statutory sick leave period
-   *
    * @return entitlementWeeksRemaining
-   */
-  @ApiModelProperty(
-      value =
-          "A calculated amount of time (in weeks) that remains for the statutory sick leave period")
-  /**
+  **/
+  @ApiModelProperty(value = "A calculated amount of time (in weeks) that remains for the statutory sick leave period")
+  /** 
    * A calculated amount of time (in weeks) that remains for the statutory sick leave period
-   *
    * @return entitlementWeeksRemaining Double
-   */
+  **/
   public Double getEntitlementWeeksRemaining() {
     return entitlementWeeksRemaining;
   }
 
-  /**
-   * A calculated amount of time (in weeks) that remains for the statutory sick leave period
-   *
-   * @param entitlementWeeksRemaining Double
-   */
+  /** 
+  * A calculated amount of time (in weeks) that remains for the statutory sick leave period
+  * @param entitlementWeeksRemaining  Double
+  **/
+
   public void setEntitlementWeeksRemaining(Double entitlementWeeksRemaining) {
     this.entitlementWeeksRemaining = entitlementWeeksRemaining;
   }
 
   /**
-   * Whether another leave (Paternity, Shared Parental specifically) occurs during the requested
-   * leave&#39;s period. While this is allowed it could affect payment amounts
-   *
-   * @param overlapsWithOtherLeave Boolean
-   * @return EmployeeStatutorySickLeave
-   */
+  * Whether another leave (Paternity, Shared Parental specifically) occurs during the requested leave&#39;s period. While this is allowed it could affect payment amounts
+  * @param overlapsWithOtherLeave  Boolean
+  * @return EmployeeStatutorySickLeave
+  **/
   public EmployeeStatutorySickLeave overlapsWithOtherLeave(Boolean overlapsWithOtherLeave) {
     this.overlapsWithOtherLeave = overlapsWithOtherLeave;
     return this;
   }
 
-  /**
-   * Whether another leave (Paternity, Shared Parental specifically) occurs during the requested
-   * leave&#39;s period. While this is allowed it could affect payment amounts
-   *
+   /**
+   * Whether another leave (Paternity, Shared Parental specifically) occurs during the requested leave&#39;s period. While this is allowed it could affect payment amounts
    * @return overlapsWithOtherLeave
-   */
-  @ApiModelProperty(
-      value =
-          "Whether another leave (Paternity, Shared Parental specifically) occurs during the"
-              + " requested leave's period. While this is allowed it could affect payment amounts")
-  /**
-   * Whether another leave (Paternity, Shared Parental specifically) occurs during the requested
-   * leave&#39;s period. While this is allowed it could affect payment amounts
-   *
+  **/
+  @ApiModelProperty(value = "Whether another leave (Paternity, Shared Parental specifically) occurs during the requested leave's period. While this is allowed it could affect payment amounts")
+  /** 
+   * Whether another leave (Paternity, Shared Parental specifically) occurs during the requested leave&#39;s period. While this is allowed it could affect payment amounts
    * @return overlapsWithOtherLeave Boolean
-   */
+  **/
   public Boolean getOverlapsWithOtherLeave() {
     return overlapsWithOtherLeave;
   }
 
-  /**
-   * Whether another leave (Paternity, Shared Parental specifically) occurs during the requested
-   * leave&#39;s period. While this is allowed it could affect payment amounts
-   *
-   * @param overlapsWithOtherLeave Boolean
-   */
+  /** 
+  * Whether another leave (Paternity, Shared Parental specifically) occurs during the requested leave&#39;s period. While this is allowed it could affect payment amounts
+  * @param overlapsWithOtherLeave  Boolean
+  **/
+
   public void setOverlapsWithOtherLeave(Boolean overlapsWithOtherLeave) {
     this.overlapsWithOtherLeave = overlapsWithOtherLeave;
   }
 
   /**
-   * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed
-   * here.
-   *
-   * @param entitlementFailureReasons List&lt;&gt;
-   * @return EmployeeStatutorySickLeave
-   */
-  public EmployeeStatutorySickLeave entitlementFailureReasons(
-      List<EntitlementFailureReasonsEnum> entitlementFailureReasons) {
+  * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed here.
+  * @param entitlementFailureReasons  List&lt;&gt;
+  * @return EmployeeStatutorySickLeave
+  **/
+  public EmployeeStatutorySickLeave entitlementFailureReasons(List<EntitlementFailureReasonsEnum> entitlementFailureReasons) {
     this.entitlementFailureReasons = entitlementFailureReasons;
     return this;
   }
 
   /**
-   * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed
-   * here.
-   *
-   * @param entitlementFailureReasonsItem EntitlementFailureReasonsEnum
+   * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed here.
+   * @param entitlementFailureReasonsItem EntitlementFailureReasonsEnum 
    * @return EmployeeStatutorySickLeave
-   */
-  public EmployeeStatutorySickLeave addEntitlementFailureReasonsItem(
-      EntitlementFailureReasonsEnum entitlementFailureReasonsItem) {
+  **/
+  public EmployeeStatutorySickLeave addEntitlementFailureReasonsItem(EntitlementFailureReasonsEnum entitlementFailureReasonsItem) {
     if (this.entitlementFailureReasons == null) {
       this.entitlementFailureReasons = new ArrayList<EntitlementFailureReasonsEnum>();
     }
@@ -735,36 +671,28 @@ public class EmployeeStatutorySickLeave {
     return this;
   }
 
-  /**
-   * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed
-   * here.
-   *
+   /**
+   * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed here.
    * @return entitlementFailureReasons
-   */
-  @ApiModelProperty(
-      value =
-          "If the leave requested was considered \"not entitled\", the reasons why are listed"
-              + " here.")
-  /**
-   * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed
-   * here.
-   *
+  **/
+  @ApiModelProperty(value = "If the leave requested was considered \"not entitled\", the reasons why are listed here.")
+  /** 
+   * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed here.
    * @return entitlementFailureReasons List<EntitlementFailureReasonsEnum>
-   */
+  **/
   public List<EntitlementFailureReasonsEnum> getEntitlementFailureReasons() {
     return entitlementFailureReasons;
   }
 
-  /**
-   * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed
-   * here.
-   *
-   * @param entitlementFailureReasons List&lt;&gt;
-   */
-  public void setEntitlementFailureReasons(
-      List<EntitlementFailureReasonsEnum> entitlementFailureReasons) {
+  /** 
+  * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed here.
+  * @param entitlementFailureReasons List&lt;&gt; 
+  **/
+
+  public void setEntitlementFailureReasons(List<EntitlementFailureReasonsEnum> entitlementFailureReasons) {
     this.entitlementFailureReasons = entitlementFailureReasons;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -775,49 +703,29 @@ public class EmployeeStatutorySickLeave {
       return false;
     }
     EmployeeStatutorySickLeave employeeStatutorySickLeave = (EmployeeStatutorySickLeave) o;
-    return Objects.equals(this.statutoryLeaveID, employeeStatutorySickLeave.statutoryLeaveID)
-        && Objects.equals(this.employeeID, employeeStatutorySickLeave.employeeID)
-        && Objects.equals(this.leaveTypeID, employeeStatutorySickLeave.leaveTypeID)
-        && Objects.equals(this.startDate, employeeStatutorySickLeave.startDate)
-        && Objects.equals(this.endDate, employeeStatutorySickLeave.endDate)
-        && Objects.equals(this.type, employeeStatutorySickLeave.type)
-        && Objects.equals(this.status, employeeStatutorySickLeave.status)
-        && Objects.equals(this.workPattern, employeeStatutorySickLeave.workPattern)
-        && Objects.equals(this.isPregnancyRelated, employeeStatutorySickLeave.isPregnancyRelated)
-        && Objects.equals(this.sufficientNotice, employeeStatutorySickLeave.sufficientNotice)
-        && Objects.equals(this.isEntitled, employeeStatutorySickLeave.isEntitled)
-        && Objects.equals(
-            this.entitlementWeeksRequested, employeeStatutorySickLeave.entitlementWeeksRequested)
-        && Objects.equals(
-            this.entitlementWeeksQualified, employeeStatutorySickLeave.entitlementWeeksQualified)
-        && Objects.equals(
-            this.entitlementWeeksRemaining, employeeStatutorySickLeave.entitlementWeeksRemaining)
-        && Objects.equals(
-            this.overlapsWithOtherLeave, employeeStatutorySickLeave.overlapsWithOtherLeave)
-        && Objects.equals(
-            this.entitlementFailureReasons, employeeStatutorySickLeave.entitlementFailureReasons);
+    return Objects.equals(this.statutoryLeaveID, employeeStatutorySickLeave.statutoryLeaveID) &&
+        Objects.equals(this.employeeID, employeeStatutorySickLeave.employeeID) &&
+        Objects.equals(this.leaveTypeID, employeeStatutorySickLeave.leaveTypeID) &&
+        Objects.equals(this.startDate, employeeStatutorySickLeave.startDate) &&
+        Objects.equals(this.endDate, employeeStatutorySickLeave.endDate) &&
+        Objects.equals(this.type, employeeStatutorySickLeave.type) &&
+        Objects.equals(this.status, employeeStatutorySickLeave.status) &&
+        Objects.equals(this.workPattern, employeeStatutorySickLeave.workPattern) &&
+        Objects.equals(this.isPregnancyRelated, employeeStatutorySickLeave.isPregnancyRelated) &&
+        Objects.equals(this.sufficientNotice, employeeStatutorySickLeave.sufficientNotice) &&
+        Objects.equals(this.isEntitled, employeeStatutorySickLeave.isEntitled) &&
+        Objects.equals(this.entitlementWeeksRequested, employeeStatutorySickLeave.entitlementWeeksRequested) &&
+        Objects.equals(this.entitlementWeeksQualified, employeeStatutorySickLeave.entitlementWeeksQualified) &&
+        Objects.equals(this.entitlementWeeksRemaining, employeeStatutorySickLeave.entitlementWeeksRemaining) &&
+        Objects.equals(this.overlapsWithOtherLeave, employeeStatutorySickLeave.overlapsWithOtherLeave) &&
+        Objects.equals(this.entitlementFailureReasons, employeeStatutorySickLeave.entitlementFailureReasons);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        statutoryLeaveID,
-        employeeID,
-        leaveTypeID,
-        startDate,
-        endDate,
-        type,
-        status,
-        workPattern,
-        isPregnancyRelated,
-        sufficientNotice,
-        isEntitled,
-        entitlementWeeksRequested,
-        entitlementWeeksQualified,
-        entitlementWeeksRemaining,
-        overlapsWithOtherLeave,
-        entitlementFailureReasons);
+    return Objects.hash(statutoryLeaveID, employeeID, leaveTypeID, startDate, endDate, type, status, workPattern, isPregnancyRelated, sufficientNotice, isEntitled, entitlementWeeksRequested, entitlementWeeksQualified, entitlementWeeksRemaining, overlapsWithOtherLeave, entitlementFailureReasons);
   }
+
 
   @Override
   public String toString() {
@@ -834,27 +742,18 @@ public class EmployeeStatutorySickLeave {
     sb.append("    isPregnancyRelated: ").append(toIndentedString(isPregnancyRelated)).append("\n");
     sb.append("    sufficientNotice: ").append(toIndentedString(sufficientNotice)).append("\n");
     sb.append("    isEntitled: ").append(toIndentedString(isEntitled)).append("\n");
-    sb.append("    entitlementWeeksRequested: ")
-        .append(toIndentedString(entitlementWeeksRequested))
-        .append("\n");
-    sb.append("    entitlementWeeksQualified: ")
-        .append(toIndentedString(entitlementWeeksQualified))
-        .append("\n");
-    sb.append("    entitlementWeeksRemaining: ")
-        .append(toIndentedString(entitlementWeeksRemaining))
-        .append("\n");
-    sb.append("    overlapsWithOtherLeave: ")
-        .append(toIndentedString(overlapsWithOtherLeave))
-        .append("\n");
-    sb.append("    entitlementFailureReasons: ")
-        .append(toIndentedString(entitlementFailureReasons))
-        .append("\n");
+    sb.append("    entitlementWeeksRequested: ").append(toIndentedString(entitlementWeeksRequested)).append("\n");
+    sb.append("    entitlementWeeksQualified: ").append(toIndentedString(entitlementWeeksQualified)).append("\n");
+    sb.append("    entitlementWeeksRemaining: ").append(toIndentedString(entitlementWeeksRemaining)).append("\n");
+    sb.append("    overlapsWithOtherLeave: ").append(toIndentedString(overlapsWithOtherLeave)).append("\n");
+    sb.append("    entitlementFailureReasons: ").append(toIndentedString(entitlementFailureReasons)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -862,4 +761,6 @@ public class EmployeeStatutorySickLeave {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.ReportCell;
+import com.xero.models.accounting.RowType;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** ReportRow */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ReportRow
+ */
+
 public class ReportRow {
   StringUtil util = new StringUtil();
 
@@ -31,81 +50,74 @@ public class ReportRow {
   @JsonProperty("Cells")
   private List<ReportCell> cells = new ArrayList<ReportCell>();
   /**
-   * rowType
-   *
-   * @param rowType RowType
-   * @return ReportRow
-   */
+  * rowType
+  * @param rowType  RowType
+  * @return ReportRow
+  **/
   public ReportRow rowType(RowType rowType) {
     this.rowType = rowType;
     return this;
   }
 
-  /**
+   /**
    * Get rowType
-   *
    * @return rowType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * rowType
-   *
    * @return rowType RowType
-   */
+  **/
   public RowType getRowType() {
     return rowType;
   }
 
-  /**
-   * rowType
-   *
-   * @param rowType RowType
-   */
+  /** 
+  * rowType
+  * @param rowType  RowType
+  **/
+
   public void setRowType(RowType rowType) {
     this.rowType = rowType;
   }
 
   /**
-   * title
-   *
-   * @param title String
-   * @return ReportRow
-   */
+  * title
+  * @param title  String
+  * @return ReportRow
+  **/
   public ReportRow title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
+   /**
    * Get title
-   *
    * @return title
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * title
-   *
    * @return title String
-   */
+  **/
   public String getTitle() {
     return title;
   }
 
-  /**
-   * title
-   *
-   * @param title String
-   */
+  /** 
+  * title
+  * @param title  String
+  **/
+
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
-   * cells
-   *
-   * @param cells List&lt;ReportCell&gt;
-   * @return ReportRow
-   */
+  * cells
+  * @param cells  List&lt;ReportCell&gt;
+  * @return ReportRow
+  **/
   public ReportRow cells(List<ReportCell> cells) {
     this.cells = cells;
     return this;
@@ -113,10 +125,9 @@ public class ReportRow {
 
   /**
    * cells
-   *
-   * @param cellsItem ReportCell
+   * @param cellsItem ReportCell 
    * @return ReportRow
-   */
+  **/
   public ReportRow addCellsItem(ReportCell cellsItem) {
     if (this.cells == null) {
       this.cells = new ArrayList<ReportCell>();
@@ -125,29 +136,28 @@ public class ReportRow {
     return this;
   }
 
-  /**
+   /**
    * Get cells
-   *
    * @return cells
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * cells
-   *
    * @return cells List<ReportCell>
-   */
+  **/
   public List<ReportCell> getCells() {
     return cells;
   }
 
-  /**
-   * cells
-   *
-   * @param cells List&lt;ReportCell&gt;
-   */
+  /** 
+  * cells
+  * @param cells List&lt;ReportCell&gt; 
+  **/
+
   public void setCells(List<ReportCell> cells) {
     this.cells = cells;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,15 +168,16 @@ public class ReportRow {
       return false;
     }
     ReportRow reportRow = (ReportRow) o;
-    return Objects.equals(this.rowType, reportRow.rowType)
-        && Objects.equals(this.title, reportRow.title)
-        && Objects.equals(this.cells, reportRow.cells);
+    return Objects.equals(this.rowType, reportRow.rowType) &&
+        Objects.equals(this.title, reportRow.title) &&
+        Objects.equals(this.cells, reportRow.cells);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(rowType, title, cells);
   }
+
 
   @Override
   public String toString() {
@@ -180,7 +191,8 @@ public class ReportRow {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,4 +200,6 @@ public class ReportRow {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

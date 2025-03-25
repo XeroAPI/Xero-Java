@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** TotalDetail */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TotalDetail
+ */
+
 public class TotalDetail {
   StringUtil util = new StringUtil();
 
@@ -29,109 +46,101 @@ public class TotalDetail {
   @JsonProperty("totalCreditedUnApplied")
   private Double totalCreditedUnApplied;
   /**
-   * Total paid invoice and cash value within the period.
-   *
-   * @param totalPaid Double
-   * @return TotalDetail
-   */
+  * Total paid invoice and cash value within the period.
+  * @param totalPaid  Double
+  * @return TotalDetail
+  **/
   public TotalDetail totalPaid(Double totalPaid) {
     this.totalPaid = totalPaid;
     return this;
   }
 
-  /**
+   /**
    * Total paid invoice and cash value within the period.
-   *
    * @return totalPaid
-   */
+  **/
   @ApiModelProperty(value = "Total paid invoice and cash value within the period.")
-  /**
+  /** 
    * Total paid invoice and cash value within the period.
-   *
    * @return totalPaid Double
-   */
+  **/
   public Double getTotalPaid() {
     return totalPaid;
   }
 
-  /**
-   * Total paid invoice and cash value within the period.
-   *
-   * @param totalPaid Double
-   */
+  /** 
+  * Total paid invoice and cash value within the period.
+  * @param totalPaid  Double
+  **/
+
   public void setTotalPaid(Double totalPaid) {
     this.totalPaid = totalPaid;
   }
 
   /**
-   * Total outstanding invoice value within the period.
-   *
-   * @param totalOutstanding Double
-   * @return TotalDetail
-   */
+  * Total outstanding invoice value within the period.
+  * @param totalOutstanding  Double
+  * @return TotalDetail
+  **/
   public TotalDetail totalOutstanding(Double totalOutstanding) {
     this.totalOutstanding = totalOutstanding;
     return this;
   }
 
-  /**
+   /**
    * Total outstanding invoice value within the period.
-   *
    * @return totalOutstanding
-   */
+  **/
   @ApiModelProperty(value = "Total outstanding invoice value within the period.")
-  /**
+  /** 
    * Total outstanding invoice value within the period.
-   *
    * @return totalOutstanding Double
-   */
+  **/
   public Double getTotalOutstanding() {
     return totalOutstanding;
   }
 
-  /**
-   * Total outstanding invoice value within the period.
-   *
-   * @param totalOutstanding Double
-   */
+  /** 
+  * Total outstanding invoice value within the period.
+  * @param totalOutstanding  Double
+  **/
+
   public void setTotalOutstanding(Double totalOutstanding) {
     this.totalOutstanding = totalOutstanding;
   }
 
   /**
-   * Total unapplied credited value within the period.
-   *
-   * @param totalCreditedUnApplied Double
-   * @return TotalDetail
-   */
+  * Total unapplied credited value within the period.
+  * @param totalCreditedUnApplied  Double
+  * @return TotalDetail
+  **/
   public TotalDetail totalCreditedUnApplied(Double totalCreditedUnApplied) {
     this.totalCreditedUnApplied = totalCreditedUnApplied;
     return this;
   }
 
-  /**
+   /**
    * Total unapplied credited value within the period.
-   *
    * @return totalCreditedUnApplied
-   */
+  **/
   @ApiModelProperty(value = "Total unapplied credited value within the period.")
-  /**
+  /** 
    * Total unapplied credited value within the period.
-   *
    * @return totalCreditedUnApplied Double
-   */
+  **/
   public Double getTotalCreditedUnApplied() {
     return totalCreditedUnApplied;
   }
 
-  /**
-   * Total unapplied credited value within the period.
-   *
-   * @param totalCreditedUnApplied Double
-   */
+  /** 
+  * Total unapplied credited value within the period.
+  * @param totalCreditedUnApplied  Double
+  **/
+
   public void setTotalCreditedUnApplied(Double totalCreditedUnApplied) {
     this.totalCreditedUnApplied = totalCreditedUnApplied;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,9 +151,9 @@ public class TotalDetail {
       return false;
     }
     TotalDetail totalDetail = (TotalDetail) o;
-    return Objects.equals(this.totalPaid, totalDetail.totalPaid)
-        && Objects.equals(this.totalOutstanding, totalDetail.totalOutstanding)
-        && Objects.equals(this.totalCreditedUnApplied, totalDetail.totalCreditedUnApplied);
+    return Objects.equals(this.totalPaid, totalDetail.totalPaid) &&
+        Objects.equals(this.totalOutstanding, totalDetail.totalOutstanding) &&
+        Objects.equals(this.totalCreditedUnApplied, totalDetail.totalCreditedUnApplied);
   }
 
   @Override
@@ -152,21 +161,21 @@ public class TotalDetail {
     return Objects.hash(totalPaid, totalOutstanding, totalCreditedUnApplied);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TotalDetail {\n");
     sb.append("    totalPaid: ").append(toIndentedString(totalPaid)).append("\n");
     sb.append("    totalOutstanding: ").append(toIndentedString(totalOutstanding)).append("\n");
-    sb.append("    totalCreditedUnApplied: ")
-        .append(toIndentedString(totalCreditedUnApplied))
-        .append("\n");
+    sb.append("    totalCreditedUnApplied: ").append(toIndentedString(totalCreditedUnApplied)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -174,4 +183,6 @@ public class TotalDetail {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

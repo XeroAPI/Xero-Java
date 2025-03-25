@@ -9,27 +9,48 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** Action */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Action
+ */
+
 public class Action {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Name")
   private String name;
-  /** Status of the action for this organisation */
+  /**
+   * Status of the action for this organisation
+   */
   public enum StatusEnum {
-    /** ALLOWED */
+    /**
+     * ALLOWED
+     */
     ALLOWED("ALLOWED"),
-
-    /** NOT_ALLOWED */
+    
+    /**
+     * NOT_ALLOWED
+     */
     NOT_ALLOWED("NOT-ALLOWED");
 
     private String value;
@@ -38,31 +59,25 @@ public class Action {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -74,79 +89,73 @@ public class Action {
     }
   }
 
+
   @JsonProperty("Status")
   private StatusEnum status;
   /**
-   * Name of the actions for this organisation
-   *
-   * @param name String
-   * @return Action
-   */
+  * Name of the actions for this organisation
+  * @param name  String
+  * @return Action
+  **/
   public Action name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the actions for this organisation
-   *
    * @return name
-   */
-  @ApiModelProperty(
-      example = "UseMulticurrency",
-      value = "Name of the actions for this organisation")
-  /**
+  **/
+  @ApiModelProperty(example = "UseMulticurrency", value = "Name of the actions for this organisation")
+  /** 
    * Name of the actions for this organisation
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of the actions for this organisation
-   *
-   * @param name String
-   */
+  /** 
+  * Name of the actions for this organisation
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Status of the action for this organisation
-   *
-   * @param status StatusEnum
-   * @return Action
-   */
+  * Status of the action for this organisation
+  * @param status  StatusEnum
+  * @return Action
+  **/
   public Action status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * Status of the action for this organisation
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(value = "Status of the action for this organisation")
-  /**
+  /** 
    * Status of the action for this organisation
-   *
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * Status of the action for this organisation
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * Status of the action for this organisation
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -157,13 +166,15 @@ public class Action {
       return false;
     }
     Action action = (Action) o;
-    return Objects.equals(this.name, action.name) && Objects.equals(this.status, action.status);
+    return Objects.equals(this.name, action.name) &&
+        Objects.equals(this.status, action.status);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, status);
   }
+
 
   @Override
   public String toString() {
@@ -176,7 +187,8 @@ public class Action {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -184,4 +196,6 @@ public class Action {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

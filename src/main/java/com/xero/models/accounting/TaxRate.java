@@ -9,18 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.accounting.TaxComponent;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** TaxRate */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TaxRate
+ */
+
 public class TaxRate {
   StringUtil util = new StringUtil();
 
@@ -32,18 +48,28 @@ public class TaxRate {
 
   @JsonProperty("TaxComponents")
   private List<TaxComponent> taxComponents = new ArrayList<TaxComponent>();
-  /** See Status Codes */
+  /**
+   * See Status Codes
+   */
   public enum StatusEnum {
-    /** ACTIVE */
+    /**
+     * ACTIVE
+     */
     ACTIVE("ACTIVE"),
-
-    /** DELETED */
+    
+    /**
+     * DELETED
+     */
     DELETED("DELETED"),
-
-    /** ARCHIVED */
+    
+    /**
+     * ARCHIVED
+     */
     ARCHIVED("ARCHIVED"),
-
-    /** PENDING */
+    
+    /**
+     * PENDING
+     */
     PENDING("PENDING");
 
     private String value;
@@ -52,31 +78,25 @@ public class TaxRate {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -88,305 +108,506 @@ public class TaxRate {
     }
   }
 
+
   @JsonProperty("Status")
   private StatusEnum status;
-  /** See ReportTaxTypes */
+  /**
+   * See ReportTaxTypes
+   */
   public enum ReportTaxTypeEnum {
-    /** AVALARA */
+    /**
+     * AVALARA
+     */
     AVALARA("AVALARA"),
-
-    /** BASEXCLUDED */
+    
+    /**
+     * BASEXCLUDED
+     */
     BASEXCLUDED("BASEXCLUDED"),
-
-    /** CAPITALSALESOUTPUT */
+    
+    /**
+     * CAPITALSALESOUTPUT
+     */
     CAPITALSALESOUTPUT("CAPITALSALESOUTPUT"),
-
-    /** CAPITALEXPENSESINPUT */
+    
+    /**
+     * CAPITALEXPENSESINPUT
+     */
     CAPITALEXPENSESINPUT("CAPITALEXPENSESINPUT"),
-
-    /** ECOUTPUT */
+    
+    /**
+     * ECOUTPUT
+     */
     ECOUTPUT("ECOUTPUT"),
-
-    /** ECOUTPUTSERVICES */
+    
+    /**
+     * ECOUTPUTSERVICES
+     */
     ECOUTPUTSERVICES("ECOUTPUTSERVICES"),
-
-    /** ECINPUT */
+    
+    /**
+     * ECINPUT
+     */
     ECINPUT("ECINPUT"),
-
-    /** ECACQUISITIONS */
+    
+    /**
+     * ECACQUISITIONS
+     */
     ECACQUISITIONS("ECACQUISITIONS"),
-
-    /** EXEMPTEXPENSES */
+    
+    /**
+     * EXEMPTEXPENSES
+     */
     EXEMPTEXPENSES("EXEMPTEXPENSES"),
-
-    /** EXEMPTINPUT */
+    
+    /**
+     * EXEMPTINPUT
+     */
     EXEMPTINPUT("EXEMPTINPUT"),
-
-    /** EXEMPTOUTPUT */
+    
+    /**
+     * EXEMPTOUTPUT
+     */
     EXEMPTOUTPUT("EXEMPTOUTPUT"),
-
-    /** GSTONIMPORTS */
+    
+    /**
+     * GSTONIMPORTS
+     */
     GSTONIMPORTS("GSTONIMPORTS"),
-
-    /** INPUT */
+    
+    /**
+     * INPUT
+     */
     INPUT("INPUT"),
-
-    /** INPUTTAXED */
+    
+    /**
+     * INPUTTAXED
+     */
     INPUTTAXED("INPUTTAXED"),
-
-    /** MOSSSALES */
+    
+    /**
+     * MOSSSALES
+     */
     MOSSSALES("MOSSSALES"),
-
-    /** NONE */
+    
+    /**
+     * NONE
+     */
     NONE("NONE"),
-
-    /** NONEOUTPUT */
+    
+    /**
+     * NONEOUTPUT
+     */
     NONEOUTPUT("NONEOUTPUT"),
-
-    /** OUTPUT */
+    
+    /**
+     * OUTPUT
+     */
     OUTPUT("OUTPUT"),
-
-    /** PURCHASESINPUT */
+    
+    /**
+     * PURCHASESINPUT
+     */
     PURCHASESINPUT("PURCHASESINPUT"),
-
-    /** SALESOUTPUT */
+    
+    /**
+     * SALESOUTPUT
+     */
     SALESOUTPUT("SALESOUTPUT"),
-
-    /** EXEMPTCAPITAL */
+    
+    /**
+     * EXEMPTCAPITAL
+     */
     EXEMPTCAPITAL("EXEMPTCAPITAL"),
-
-    /** EXEMPTEXPORT */
+    
+    /**
+     * EXEMPTEXPORT
+     */
     EXEMPTEXPORT("EXEMPTEXPORT"),
-
-    /** CAPITALEXINPUT */
+    
+    /**
+     * CAPITALEXINPUT
+     */
     CAPITALEXINPUT("CAPITALEXINPUT"),
-
-    /** GSTONCAPIMPORTS */
+    
+    /**
+     * GSTONCAPIMPORTS
+     */
     GSTONCAPIMPORTS("GSTONCAPIMPORTS"),
-
-    /** GSTONCAPITALIMPORTS */
+    
+    /**
+     * GSTONCAPITALIMPORTS
+     */
     GSTONCAPITALIMPORTS("GSTONCAPITALIMPORTS"),
-
-    /** REVERSECHARGES */
+    
+    /**
+     * REVERSECHARGES
+     */
     REVERSECHARGES("REVERSECHARGES"),
-
-    /** PAYMENTS */
+    
+    /**
+     * PAYMENTS
+     */
     PAYMENTS("PAYMENTS"),
-
-    /** INVOICE */
+    
+    /**
+     * INVOICE
+     */
     INVOICE("INVOICE"),
-
-    /** CASH */
+    
+    /**
+     * CASH
+     */
     CASH("CASH"),
-
-    /** ACCRUAL */
+    
+    /**
+     * ACCRUAL
+     */
     ACCRUAL("ACCRUAL"),
-
-    /** FLATRATECASH */
+    
+    /**
+     * FLATRATECASH
+     */
     FLATRATECASH("FLATRATECASH"),
-
-    /** FLATRATEACCRUAL */
+    
+    /**
+     * FLATRATEACCRUAL
+     */
     FLATRATEACCRUAL("FLATRATEACCRUAL"),
-
-    /** ACCRUALS */
+    
+    /**
+     * ACCRUALS
+     */
     ACCRUALS("ACCRUALS"),
-
-    /** TXCA */
+    
+    /**
+     * TXCA
+     */
     TXCA("TXCA"),
-
-    /** SRCAS */
+    
+    /**
+     * SRCAS
+     */
     SRCAS("SRCAS"),
-
-    /** DSOUTPUT */
+    
+    /**
+     * DSOUTPUT
+     */
     DSOUTPUT("DSOUTPUT"),
-
-    /** BLINPUT2 */
+    
+    /**
+     * BLINPUT2
+     */
     BLINPUT2("BLINPUT2"),
-
-    /** EPINPUT */
+    
+    /**
+     * EPINPUT
+     */
     EPINPUT("EPINPUT"),
-
-    /** IMINPUT2 */
+    
+    /**
+     * IMINPUT2
+     */
     IMINPUT2("IMINPUT2"),
-
-    /** MEINPUT */
+    
+    /**
+     * MEINPUT
+     */
     MEINPUT("MEINPUT"),
-
-    /** IGDSINPUT2 */
+    
+    /**
+     * IGDSINPUT2
+     */
     IGDSINPUT2("IGDSINPUT2"),
-
-    /** ESN33OUTPUT */
+    
+    /**
+     * ESN33OUTPUT
+     */
     ESN33OUTPUT("ESN33OUTPUT"),
-
-    /** OPINPUT */
+    
+    /**
+     * OPINPUT
+     */
     OPINPUT("OPINPUT"),
-
-    /** OSOUTPUT */
+    
+    /**
+     * OSOUTPUT
+     */
     OSOUTPUT("OSOUTPUT"),
-
-    /** TXN33INPUT */
+    
+    /**
+     * TXN33INPUT
+     */
     TXN33INPUT("TXN33INPUT"),
-
-    /** TXESSINPUT */
+    
+    /**
+     * TXESSINPUT
+     */
     TXESSINPUT("TXESSINPUT"),
-
-    /** TXREINPUT */
+    
+    /**
+     * TXREINPUT
+     */
     TXREINPUT("TXREINPUT"),
-
-    /** TXPETINPUT */
+    
+    /**
+     * TXPETINPUT
+     */
     TXPETINPUT("TXPETINPUT"),
-
-    /** NRINPUT */
+    
+    /**
+     * NRINPUT
+     */
     NRINPUT("NRINPUT"),
-
-    /** ES33OUTPUT */
+    
+    /**
+     * ES33OUTPUT
+     */
     ES33OUTPUT("ES33OUTPUT"),
-
-    /** ZERORATEDINPUT */
+    
+    /**
+     * ZERORATEDINPUT
+     */
     ZERORATEDINPUT("ZERORATEDINPUT"),
-
-    /** ZERORATEDOUTPUT */
+    
+    /**
+     * ZERORATEDOUTPUT
+     */
     ZERORATEDOUTPUT("ZERORATEDOUTPUT"),
-
-    /** DRCHARGESUPPLY */
+    
+    /**
+     * DRCHARGESUPPLY
+     */
     DRCHARGESUPPLY("DRCHARGESUPPLY"),
-
-    /** DRCHARGE */
+    
+    /**
+     * DRCHARGE
+     */
     DRCHARGE("DRCHARGE"),
-
-    /** CAPINPUT */
+    
+    /**
+     * CAPINPUT
+     */
     CAPINPUT("CAPINPUT"),
-
-    /** CAPIMPORTS */
+    
+    /**
+     * CAPIMPORTS
+     */
     CAPIMPORTS("CAPIMPORTS"),
-
-    /** IMINPUT */
+    
+    /**
+     * IMINPUT
+     */
     IMINPUT("IMINPUT"),
-
-    /** INPUT2 */
+    
+    /**
+     * INPUT2
+     */
     INPUT2("INPUT2"),
-
-    /** CIUINPUT */
+    
+    /**
+     * CIUINPUT
+     */
     CIUINPUT("CIUINPUT"),
-
-    /** SRINPUT */
+    
+    /**
+     * SRINPUT
+     */
     SRINPUT("SRINPUT"),
-
-    /** OUTPUT2 */
+    
+    /**
+     * OUTPUT2
+     */
     OUTPUT2("OUTPUT2"),
-
-    /** SROUTPUT */
+    
+    /**
+     * SROUTPUT
+     */
     SROUTPUT("SROUTPUT"),
-
-    /** CAPOUTPUT */
+    
+    /**
+     * CAPOUTPUT
+     */
     CAPOUTPUT("CAPOUTPUT"),
-
-    /** SROUTPUT2 */
+    
+    /**
+     * SROUTPUT2
+     */
     SROUTPUT2("SROUTPUT2"),
-
-    /** CIUOUTPUT */
+    
+    /**
+     * CIUOUTPUT
+     */
     CIUOUTPUT("CIUOUTPUT"),
-
-    /** ZROUTPUT */
+    
+    /**
+     * ZROUTPUT
+     */
     ZROUTPUT("ZROUTPUT"),
-
-    /** ZREXPORT */
+    
+    /**
+     * ZREXPORT
+     */
     ZREXPORT("ZREXPORT"),
-
-    /** ACC28PLUS */
+    
+    /**
+     * ACC28PLUS
+     */
     ACC28PLUS("ACC28PLUS"),
-
-    /** ACCUPTO28 */
+    
+    /**
+     * ACCUPTO28
+     */
     ACCUPTO28("ACCUPTO28"),
-
-    /** OTHEROUTPUT */
+    
+    /**
+     * OTHEROUTPUT
+     */
     OTHEROUTPUT("OTHEROUTPUT"),
-
-    /** SHOUTPUT */
+    
+    /**
+     * SHOUTPUT
+     */
     SHOUTPUT("SHOUTPUT"),
-
-    /** ZRINPUT */
+    
+    /**
+     * ZRINPUT
+     */
     ZRINPUT("ZRINPUT"),
-
-    /** BADDEBT */
+    
+    /**
+     * BADDEBT
+     */
     BADDEBT("BADDEBT"),
-
-    /** OTHERINPUT */
+    
+    /**
+     * OTHERINPUT
+     */
     OTHERINPUT("OTHERINPUT"),
-
-    /** BADDEBTRELIEF */
+    
+    /**
+     * BADDEBTRELIEF
+     */
     BADDEBTRELIEF("BADDEBTRELIEF"),
-
-    /** IGDSINPUT3 */
+    
+    /**
+     * IGDSINPUT3
+     */
     IGDSINPUT3("IGDSINPUT3"),
-
-    /** SROVR */
+    
+    /**
+     * SROVR
+     */
     SROVR("SROVR"),
-
-    /** TOURISTREFUND */
+    
+    /**
+     * TOURISTREFUND
+     */
     TOURISTREFUND("TOURISTREFUND"),
-
-    /** TXRCN33 */
+    
+    /**
+     * TXRCN33
+     */
     TXRCN33("TXRCN33"),
-
-    /** TXRCRE */
+    
+    /**
+     * TXRCRE
+     */
     TXRCRE("TXRCRE"),
-
-    /** TXRCESS */
+    
+    /**
+     * TXRCESS
+     */
     TXRCESS("TXRCESS"),
-
-    /** TXRCTS */
+    
+    /**
+     * TXRCTS
+     */
     TXRCTS("TXRCTS"),
-
-    /** CAPEXINPUT */
+    
+    /**
+     * CAPEXINPUT
+     */
     CAPEXINPUT("CAPEXINPUT"),
-
-    /** UNDEFINED */
+    
+    /**
+     * UNDEFINED
+     */
     UNDEFINED("UNDEFINED"),
-
-    /** CAPEXOUTPUT */
+    
+    /**
+     * CAPEXOUTPUT
+     */
     CAPEXOUTPUT("CAPEXOUTPUT"),
-
-    /** ZEROEXPOUTPUT */
+    
+    /**
+     * ZEROEXPOUTPUT
+     */
     ZEROEXPOUTPUT("ZEROEXPOUTPUT"),
-
-    /** GOODSIMPORT */
+    
+    /**
+     * GOODSIMPORT
+     */
     GOODSIMPORT("GOODSIMPORT"),
-
-    /** NONEINPUT */
+    
+    /**
+     * NONEINPUT
+     */
     NONEINPUT("NONEINPUT"),
-
-    /** NOTREPORTED */
+    
+    /**
+     * NOTREPORTED
+     */
     NOTREPORTED("NOTREPORTED"),
-
-    /** SROVRRS */
+    
+    /**
+     * SROVRRS
+     */
     SROVRRS("SROVRRS"),
-
-    /** SROVRLVG */
+    
+    /**
+     * SROVRLVG
+     */
     SROVRLVG("SROVRLVG"),
-
-    /** SRLVG */
+    
+    /**
+     * SRLVG
+     */
     SRLVG("SRLVG"),
-
-    /** IM */
+    
+    /**
+     * IM
+     */
     IM("IM"),
-
-    /** IMESS */
+    
+    /**
+     * IMESS
+     */
     IMESS("IMESS"),
-
-    /** IMN33 */
+    
+    /**
+     * IMN33
+     */
     IMN33("IMN33"),
-
-    /** IMRE */
+    
+    /**
+     * IMRE
+     */
     IMRE("IMRE"),
-
-    /** BADDEBTRECOVERY */
+    
+    /**
+     * BADDEBTRECOVERY
+     */
     BADDEBTRECOVERY("BADDEBTRECOVERY"),
-
-    /** USSALESTAX */
+    
+    /**
+     * USSALESTAX
+     */
     USSALESTAX("USSALESTAX"),
-
-    /** BLINPUT3 */
+    
+    /**
+     * BLINPUT3
+     */
     BLINPUT3("BLINPUT3");
 
     private String value;
@@ -395,31 +616,25 @@ public class TaxRate {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static ReportTaxTypeEnum fromValue(String value) {
       for (ReportTaxTypeEnum b : ReportTaxTypeEnum.values()) {
@@ -430,6 +645,7 @@ public class TaxRate {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("ReportTaxType")
   private ReportTaxTypeEnum reportTaxType;
@@ -455,81 +671,74 @@ public class TaxRate {
   @JsonProperty("EffectiveRate")
   private Double effectiveRate;
   /**
-   * Name of tax rate
-   *
-   * @param name String
-   * @return TaxRate
-   */
+  * Name of tax rate
+  * @param name  String
+  * @return TaxRate
+  **/
   public TaxRate name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of tax rate
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "Name of tax rate")
-  /**
+  /** 
    * Name of tax rate
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of tax rate
-   *
-   * @param name String
-   */
+  /** 
+  * Name of tax rate
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * The tax type
-   *
-   * @param taxType String
-   * @return TaxRate
-   */
+  * The tax type
+  * @param taxType  String
+  * @return TaxRate
+  **/
   public TaxRate taxType(String taxType) {
     this.taxType = taxType;
     return this;
   }
 
-  /**
+   /**
    * The tax type
-   *
    * @return taxType
-   */
+  **/
   @ApiModelProperty(value = "The tax type")
-  /**
+  /** 
    * The tax type
-   *
    * @return taxType String
-   */
+  **/
   public String getTaxType() {
     return taxType;
   }
 
-  /**
-   * The tax type
-   *
-   * @param taxType String
-   */
+  /** 
+  * The tax type
+  * @param taxType  String
+  **/
+
   public void setTaxType(String taxType) {
     this.taxType = taxType;
   }
 
   /**
-   * See TaxComponents
-   *
-   * @param taxComponents List&lt;TaxComponent&gt;
-   * @return TaxRate
-   */
+  * See TaxComponents
+  * @param taxComponents  List&lt;TaxComponent&gt;
+  * @return TaxRate
+  **/
   public TaxRate taxComponents(List<TaxComponent> taxComponents) {
     this.taxComponents = taxComponents;
     return this;
@@ -537,10 +746,9 @@ public class TaxRate {
 
   /**
    * See TaxComponents
-   *
-   * @param taxComponentsItem TaxComponent
+   * @param taxComponentsItem TaxComponent 
    * @return TaxRate
-   */
+  **/
   public TaxRate addTaxComponentsItem(TaxComponent taxComponentsItem) {
     if (this.taxComponents == null) {
       this.taxComponents = new ArrayList<TaxComponent>();
@@ -549,209 +757,183 @@ public class TaxRate {
     return this;
   }
 
-  /**
+   /**
    * See TaxComponents
-   *
    * @return taxComponents
-   */
+  **/
   @ApiModelProperty(value = "See TaxComponents")
-  /**
+  /** 
    * See TaxComponents
-   *
    * @return taxComponents List<TaxComponent>
-   */
+  **/
   public List<TaxComponent> getTaxComponents() {
     return taxComponents;
   }
 
-  /**
-   * See TaxComponents
-   *
-   * @param taxComponents List&lt;TaxComponent&gt;
-   */
+  /** 
+  * See TaxComponents
+  * @param taxComponents List&lt;TaxComponent&gt; 
+  **/
+
   public void setTaxComponents(List<TaxComponent> taxComponents) {
     this.taxComponents = taxComponents;
   }
 
   /**
-   * See Status Codes
-   *
-   * @param status StatusEnum
-   * @return TaxRate
-   */
+  * See Status Codes
+  * @param status  StatusEnum
+  * @return TaxRate
+  **/
   public TaxRate status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * See Status Codes
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(value = "See Status Codes")
-  /**
+  /** 
    * See Status Codes
-   *
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * See Status Codes
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * See Status Codes
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
   /**
-   * See ReportTaxTypes
-   *
-   * @param reportTaxType ReportTaxTypeEnum
-   * @return TaxRate
-   */
+  * See ReportTaxTypes
+  * @param reportTaxType  ReportTaxTypeEnum
+  * @return TaxRate
+  **/
   public TaxRate reportTaxType(ReportTaxTypeEnum reportTaxType) {
     this.reportTaxType = reportTaxType;
     return this;
   }
 
-  /**
+   /**
    * See ReportTaxTypes
-   *
    * @return reportTaxType
-   */
+  **/
   @ApiModelProperty(value = "See ReportTaxTypes")
-  /**
+  /** 
    * See ReportTaxTypes
-   *
    * @return reportTaxType ReportTaxTypeEnum
-   */
+  **/
   public ReportTaxTypeEnum getReportTaxType() {
     return reportTaxType;
   }
 
-  /**
-   * See ReportTaxTypes
-   *
-   * @param reportTaxType ReportTaxTypeEnum
-   */
+  /** 
+  * See ReportTaxTypes
+  * @param reportTaxType  ReportTaxTypeEnum
+  **/
+
   public void setReportTaxType(ReportTaxTypeEnum reportTaxType) {
     this.reportTaxType = reportTaxType;
   }
 
-  /**
-   * Boolean to describe if tax rate can be used for asset accounts i.e. true,false
-   *
+   /**
+   * Boolean to describe if tax rate can be used for asset accounts i.e.  true,false
    * @return canApplyToAssets
-   */
-  @ApiModelProperty(
-      value = "Boolean to describe if tax rate can be used for asset accounts i.e.  true,false")
-  /**
-   * Boolean to describe if tax rate can be used for asset accounts i.e. true,false
-   *
+  **/
+  @ApiModelProperty(value = "Boolean to describe if tax rate can be used for asset accounts i.e.  true,false")
+  /** 
+   * Boolean to describe if tax rate can be used for asset accounts i.e.  true,false
    * @return canApplyToAssets Boolean
-   */
+  **/
   public Boolean getCanApplyToAssets() {
     return canApplyToAssets;
   }
 
-  /**
+   /**
    * Boolean to describe if tax rate can be used for equity accounts i.e true,false
-   *
    * @return canApplyToEquity
-   */
-  @ApiModelProperty(
-      value = "Boolean to describe if tax rate can be used for equity accounts i.e true,false")
-  /**
+  **/
+  @ApiModelProperty(value = "Boolean to describe if tax rate can be used for equity accounts i.e true,false")
+  /** 
    * Boolean to describe if tax rate can be used for equity accounts i.e true,false
-   *
    * @return canApplyToEquity Boolean
-   */
+  **/
   public Boolean getCanApplyToEquity() {
     return canApplyToEquity;
   }
 
-  /**
-   * Boolean to describe if tax rate can be used for expense accounts i.e. true,false
-   *
+   /**
+   * Boolean to describe if tax rate can be used for expense accounts  i.e. true,false
    * @return canApplyToExpenses
-   */
-  @ApiModelProperty(
-      value = "Boolean to describe if tax rate can be used for expense accounts  i.e. true,false")
-  /**
-   * Boolean to describe if tax rate can be used for expense accounts i.e. true,false
-   *
+  **/
+  @ApiModelProperty(value = "Boolean to describe if tax rate can be used for expense accounts  i.e. true,false")
+  /** 
+   * Boolean to describe if tax rate can be used for expense accounts  i.e. true,false
    * @return canApplyToExpenses Boolean
-   */
+  **/
   public Boolean getCanApplyToExpenses() {
     return canApplyToExpenses;
   }
 
-  /**
-   * Boolean to describe if tax rate can be used for liability accounts i.e. true,false
-   *
+   /**
+   * Boolean to describe if tax rate can be used for liability accounts  i.e. true,false
    * @return canApplyToLiabilities
-   */
-  @ApiModelProperty(
-      value = "Boolean to describe if tax rate can be used for liability accounts  i.e. true,false")
-  /**
-   * Boolean to describe if tax rate can be used for liability accounts i.e. true,false
-   *
+  **/
+  @ApiModelProperty(value = "Boolean to describe if tax rate can be used for liability accounts  i.e. true,false")
+  /** 
+   * Boolean to describe if tax rate can be used for liability accounts  i.e. true,false
    * @return canApplyToLiabilities Boolean
-   */
+  **/
   public Boolean getCanApplyToLiabilities() {
     return canApplyToLiabilities;
   }
 
-  /**
+   /**
    * Boolean to describe if tax rate can be used for revenue accounts i.e. true,false
-   *
    * @return canApplyToRevenue
-   */
-  @ApiModelProperty(
-      value = "Boolean to describe if tax rate can be used for revenue accounts i.e. true,false")
-  /**
+  **/
+  @ApiModelProperty(value = "Boolean to describe if tax rate can be used for revenue accounts i.e. true,false")
+  /** 
    * Boolean to describe if tax rate can be used for revenue accounts i.e. true,false
-   *
    * @return canApplyToRevenue Boolean
-   */
+  **/
   public Boolean getCanApplyToRevenue() {
     return canApplyToRevenue;
   }
 
-  /**
+   /**
    * Tax Rate (decimal to 4dp) e.g 12.5000
-   *
    * @return displayTaxRate
-   */
+  **/
   @ApiModelProperty(value = "Tax Rate (decimal to 4dp) e.g 12.5000")
-  /**
+  /** 
    * Tax Rate (decimal to 4dp) e.g 12.5000
-   *
    * @return displayTaxRate Double
-   */
+  **/
   public Double getDisplayTaxRate() {
     return displayTaxRate;
   }
 
-  /**
+   /**
    * Effective Tax Rate (decimal to 4dp) e.g 12.5000
-   *
    * @return effectiveRate
-   */
+  **/
   @ApiModelProperty(value = "Effective Tax Rate (decimal to 4dp) e.g 12.5000")
-  /**
+  /** 
    * Effective Tax Rate (decimal to 4dp) e.g 12.5000
-   *
    * @return effectiveRate Double
-   */
+  **/
   public Double getEffectiveRate() {
     return effectiveRate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -762,36 +944,25 @@ public class TaxRate {
       return false;
     }
     TaxRate taxRate = (TaxRate) o;
-    return Objects.equals(this.name, taxRate.name)
-        && Objects.equals(this.taxType, taxRate.taxType)
-        && Objects.equals(this.taxComponents, taxRate.taxComponents)
-        && Objects.equals(this.status, taxRate.status)
-        && Objects.equals(this.reportTaxType, taxRate.reportTaxType)
-        && Objects.equals(this.canApplyToAssets, taxRate.canApplyToAssets)
-        && Objects.equals(this.canApplyToEquity, taxRate.canApplyToEquity)
-        && Objects.equals(this.canApplyToExpenses, taxRate.canApplyToExpenses)
-        && Objects.equals(this.canApplyToLiabilities, taxRate.canApplyToLiabilities)
-        && Objects.equals(this.canApplyToRevenue, taxRate.canApplyToRevenue)
-        && Objects.equals(this.displayTaxRate, taxRate.displayTaxRate)
-        && Objects.equals(this.effectiveRate, taxRate.effectiveRate);
+    return Objects.equals(this.name, taxRate.name) &&
+        Objects.equals(this.taxType, taxRate.taxType) &&
+        Objects.equals(this.taxComponents, taxRate.taxComponents) &&
+        Objects.equals(this.status, taxRate.status) &&
+        Objects.equals(this.reportTaxType, taxRate.reportTaxType) &&
+        Objects.equals(this.canApplyToAssets, taxRate.canApplyToAssets) &&
+        Objects.equals(this.canApplyToEquity, taxRate.canApplyToEquity) &&
+        Objects.equals(this.canApplyToExpenses, taxRate.canApplyToExpenses) &&
+        Objects.equals(this.canApplyToLiabilities, taxRate.canApplyToLiabilities) &&
+        Objects.equals(this.canApplyToRevenue, taxRate.canApplyToRevenue) &&
+        Objects.equals(this.displayTaxRate, taxRate.displayTaxRate) &&
+        Objects.equals(this.effectiveRate, taxRate.effectiveRate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        name,
-        taxType,
-        taxComponents,
-        status,
-        reportTaxType,
-        canApplyToAssets,
-        canApplyToEquity,
-        canApplyToExpenses,
-        canApplyToLiabilities,
-        canApplyToRevenue,
-        displayTaxRate,
-        effectiveRate);
+    return Objects.hash(name, taxType, taxComponents, status, reportTaxType, canApplyToAssets, canApplyToEquity, canApplyToExpenses, canApplyToLiabilities, canApplyToRevenue, displayTaxRate, effectiveRate);
   }
+
 
   @Override
   public String toString() {
@@ -805,9 +976,7 @@ public class TaxRate {
     sb.append("    canApplyToAssets: ").append(toIndentedString(canApplyToAssets)).append("\n");
     sb.append("    canApplyToEquity: ").append(toIndentedString(canApplyToEquity)).append("\n");
     sb.append("    canApplyToExpenses: ").append(toIndentedString(canApplyToExpenses)).append("\n");
-    sb.append("    canApplyToLiabilities: ")
-        .append(toIndentedString(canApplyToLiabilities))
-        .append("\n");
+    sb.append("    canApplyToLiabilities: ").append(toIndentedString(canApplyToLiabilities)).append("\n");
     sb.append("    canApplyToRevenue: ").append(toIndentedString(canApplyToRevenue)).append("\n");
     sb.append("    displayTaxRate: ").append(toIndentedString(displayTaxRate)).append("\n");
     sb.append("    effectiveRate: ").append(toIndentedString(effectiveRate)).append("\n");
@@ -816,7 +985,8 @@ public class TaxRate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -824,4 +994,6 @@ public class TaxRate {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

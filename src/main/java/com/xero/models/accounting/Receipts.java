@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Receipt;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Receipts */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Receipts
+ */
+
 public class Receipts {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Receipts")
   private List<Receipt> receipts = new ArrayList<Receipt>();
   /**
-   * receipts
-   *
-   * @param receipts List&lt;Receipt&gt;
-   * @return Receipts
-   */
+  * receipts
+  * @param receipts  List&lt;Receipt&gt;
+  * @return Receipts
+  **/
   public Receipts receipts(List<Receipt> receipts) {
     this.receipts = receipts;
     return this;
@@ -37,10 +54,9 @@ public class Receipts {
 
   /**
    * receipts
-   *
-   * @param receiptsItem Receipt
+   * @param receiptsItem Receipt 
    * @return Receipts
-   */
+  **/
   public Receipts addReceiptsItem(Receipt receiptsItem) {
     if (this.receipts == null) {
       this.receipts = new ArrayList<Receipt>();
@@ -49,29 +65,28 @@ public class Receipts {
     return this;
   }
 
-  /**
+   /**
    * Get receipts
-   *
    * @return receipts
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * receipts
-   *
    * @return receipts List<Receipt>
-   */
+  **/
   public List<Receipt> getReceipts() {
     return receipts;
   }
 
-  /**
-   * receipts
-   *
-   * @param receipts List&lt;Receipt&gt;
-   */
+  /** 
+  * receipts
+  * @param receipts List&lt;Receipt&gt; 
+  **/
+
   public void setReceipts(List<Receipt> receipts) {
     this.receipts = receipts;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class Receipts {
     return Objects.hash(receipts);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class Receipts {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class Receipts {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

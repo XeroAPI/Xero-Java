@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** ContactResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ContactResponse
+ */
+
 public class ContactResponse {
   StringUtil util = new StringUtil();
 
@@ -27,74 +44,69 @@ public class ContactResponse {
   @JsonProperty("contactName")
   private String contactName;
   /**
-   * Xero Identifier of contact
-   *
-   * @param contactId UUID
-   * @return ContactResponse
-   */
+  * Xero Identifier of contact
+  * @param contactId  UUID
+  * @return ContactResponse
+  **/
   public ContactResponse contactId(UUID contactId) {
     this.contactId = contactId;
     return this;
   }
 
-  /**
+   /**
    * Xero Identifier of contact
-   *
    * @return contactId
-   */
+  **/
   @ApiModelProperty(value = "Xero Identifier of contact")
-  /**
+  /** 
    * Xero Identifier of contact
-   *
    * @return contactId UUID
-   */
+  **/
   public UUID getContactId() {
     return contactId;
   }
 
-  /**
-   * Xero Identifier of contact
-   *
-   * @param contactId UUID
-   */
+  /** 
+  * Xero Identifier of contact
+  * @param contactId  UUID
+  **/
+
   public void setContactId(UUID contactId) {
     this.contactId = contactId;
   }
 
   /**
-   * Full name of contact/organisation
-   *
-   * @param contactName String
-   * @return ContactResponse
-   */
+  * Full name of contact/organisation
+  * @param contactName  String
+  * @return ContactResponse
+  **/
   public ContactResponse contactName(String contactName) {
     this.contactName = contactName;
     return this;
   }
 
-  /**
+   /**
    * Full name of contact/organisation
-   *
    * @return contactName
-   */
+  **/
   @ApiModelProperty(value = "Full name of contact/organisation")
-  /**
+  /** 
    * Full name of contact/organisation
-   *
    * @return contactName String
-   */
+  **/
   public String getContactName() {
     return contactName;
   }
 
-  /**
-   * Full name of contact/organisation
-   *
-   * @param contactName String
-   */
+  /** 
+  * Full name of contact/organisation
+  * @param contactName  String
+  **/
+
   public void setContactName(String contactName) {
     this.contactName = contactName;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -105,14 +117,15 @@ public class ContactResponse {
       return false;
     }
     ContactResponse contactResponse = (ContactResponse) o;
-    return Objects.equals(this.contactId, contactResponse.contactId)
-        && Objects.equals(this.contactName, contactResponse.contactName);
+    return Objects.equals(this.contactId, contactResponse.contactId) &&
+        Objects.equals(this.contactName, contactResponse.contactName);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(contactId, contactName);
   }
+
 
   @Override
   public String toString() {
@@ -125,7 +138,8 @@ public class ContactResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -133,4 +147,6 @@ public class ContactResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

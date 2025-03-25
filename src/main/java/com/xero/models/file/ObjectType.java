@@ -9,181 +9,305 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.file;
+import java.util.Objects;
+import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** The Object Type */
+/**
+ * The Object Type
+ */
 public enum ObjectType {
-
-  /** UNKNOWN */
+  
+    /**
+     * UNKNOWN
+     */
   UNKNOWN("Unknown"),
-
-  /** ACCPAY */
+  
+    /**
+     * ACCPAY
+     */
   ACCPAY("Accpay"),
-
-  /** ACCPAYCREDIT */
+  
+    /**
+     * ACCPAYCREDIT
+     */
   ACCPAYCREDIT("AccPayCredit"),
-
-  /** ACCPAYPAYMENT */
+  
+    /**
+     * ACCPAYPAYMENT
+     */
   ACCPAYPAYMENT("AccPayPayment"),
-
-  /** ACCREC */
+  
+    /**
+     * ACCREC
+     */
   ACCREC("AccRec"),
-
-  /** ACCRECCREDIT */
+  
+    /**
+     * ACCRECCREDIT
+     */
   ACCRECCREDIT("AccRecCredit"),
-
-  /** ACCRECPAYMENT */
+  
+    /**
+     * ACCRECPAYMENT
+     */
   ACCRECPAYMENT("AccRecPayment"),
-
-  /** ADJUSTMENT */
+  
+    /**
+     * ADJUSTMENT
+     */
   ADJUSTMENT("Adjustment"),
-
-  /** APCREDITPAYMENT */
+  
+    /**
+     * APCREDITPAYMENT
+     */
   APCREDITPAYMENT("ApCreditPayment"),
-
-  /** APOVERPAYMENT */
+  
+    /**
+     * APOVERPAYMENT
+     */
   APOVERPAYMENT("ApOverPayment"),
-
-  /** APOVERPAYMENTPAYMENT */
+  
+    /**
+     * APOVERPAYMENTPAYMENT
+     */
   APOVERPAYMENTPAYMENT("ApOverPaymentPayment"),
-
-  /** APOVERPAYMENTSOURCEPAYMENT */
+  
+    /**
+     * APOVERPAYMENTSOURCEPAYMENT
+     */
   APOVERPAYMENTSOURCEPAYMENT("ApOverPaymentSourcePayment"),
-
-  /** APPREPAYMENT */
+  
+    /**
+     * APPREPAYMENT
+     */
   APPREPAYMENT("ApPrepayment"),
-
-  /** APPREPAYMENTPAYMENT */
+  
+    /**
+     * APPREPAYMENTPAYMENT
+     */
   APPREPAYMENTPAYMENT("ApPrepaymentPayment"),
-
-  /** APPREPAYMENTSOURCEPAYMENT */
+  
+    /**
+     * APPREPAYMENTSOURCEPAYMENT
+     */
   APPREPAYMENTSOURCEPAYMENT("ApPrepaymentSourcePayment"),
-
-  /** ARCREDITPAYMENT */
+  
+    /**
+     * ARCREDITPAYMENT
+     */
   ARCREDITPAYMENT("ArCreditPayment"),
-
-  /** AROVERPAYMENT */
+  
+    /**
+     * AROVERPAYMENT
+     */
   AROVERPAYMENT("ArOverPayment"),
-
-  /** AROVERPAYMENTPAYMENT */
+  
+    /**
+     * AROVERPAYMENTPAYMENT
+     */
   AROVERPAYMENTPAYMENT("ArOverpaymentPayment"),
-
-  /** AROVERPAYMENTSOURCEPAYMENT */
+  
+    /**
+     * AROVERPAYMENTSOURCEPAYMENT
+     */
   AROVERPAYMENTSOURCEPAYMENT("ArOverpaymentSourcePayment"),
-
-  /** ARPREPAYMENT */
+  
+    /**
+     * ARPREPAYMENT
+     */
   ARPREPAYMENT("ArPrepayment"),
-
-  /** ARPREPAYMENTPAYMENT */
+  
+    /**
+     * ARPREPAYMENTPAYMENT
+     */
   ARPREPAYMENTPAYMENT("ArPrepaymentPayment"),
-
-  /** ARPREPAYMENTSOURCEPAYMENT */
+  
+    /**
+     * ARPREPAYMENTSOURCEPAYMENT
+     */
   ARPREPAYMENTSOURCEPAYMENT("ArPrepaymentSourcePayment"),
-
-  /** CASHPAID */
+  
+    /**
+     * CASHPAID
+     */
   CASHPAID("CashPaid"),
-
-  /** CASHREC */
+  
+    /**
+     * CASHREC
+     */
   CASHREC("CashRec"),
-
-  /** EXPPAYMENT */
+  
+    /**
+     * EXPPAYMENT
+     */
   EXPPAYMENT("ExpPayment"),
-
-  /** MANJOURNAL */
+  
+    /**
+     * MANJOURNAL
+     */
   MANJOURNAL("ManJournal"),
-
-  /** PURCHASEORDER */
+  
+    /**
+     * PURCHASEORDER
+     */
   PURCHASEORDER("PurchaseOrder"),
-
-  /** RECEIPT */
+  
+    /**
+     * RECEIPT
+     */
   RECEIPT("Receipt"),
-
-  /** TRANSFER */
+  
+    /**
+     * TRANSFER
+     */
   TRANSFER("Transfer"),
-
-  /** ACCOUNT */
+  
+    /**
+     * ACCOUNT
+     */
   ACCOUNT("Account"),
-
-  /** CONTACT */
+  
+    /**
+     * CONTACT
+     */
   CONTACT("Contact"),
-
-  /** BUSINESS */
+  
+    /**
+     * BUSINESS
+     */
   BUSINESS("Business"),
-
-  /** EMPLOYEE */
+  
+    /**
+     * EMPLOYEE
+     */
   EMPLOYEE("Employee"),
-
-  /** PERSON */
+  
+    /**
+     * PERSON
+     */
   PERSON("Person"),
-
-  /** USER */
+  
+    /**
+     * USER
+     */
   USER("User"),
-
-  /** ORG */
+  
+    /**
+     * ORG
+     */
   ORG("Org"),
-
-  /** FIXEDASSET */
+  
+    /**
+     * FIXEDASSET
+     */
   FIXEDASSET("FixedAsset"),
-
-  /** PAYRUN */
+  
+    /**
+     * PAYRUN
+     */
   PAYRUN("PayRun"),
-
-  /** PRICELISTITEM */
+  
+    /**
+     * PRICELISTITEM
+     */
   PRICELISTITEM("PriceListItem"),
-
-  /** BANK */
+  
+    /**
+     * BANK
+     */
   BANK("Bank"),
-
-  /** CURRENT */
+  
+    /**
+     * CURRENT
+     */
   CURRENT("Current"),
-
-  /** EQUITY */
+  
+    /**
+     * EQUITY
+     */
   EQUITY("Equity"),
-
-  /** EXPENSE */
+  
+    /**
+     * EXPENSE
+     */
   EXPENSE("Expense"),
-
-  /** FIXED */
+  
+    /**
+     * FIXED
+     */
   FIXED("Fixed"),
-
-  /** LIABILITY */
+  
+    /**
+     * LIABILITY
+     */
   LIABILITY("Liability"),
-
-  /** PREPAYMENT */
+  
+    /**
+     * PREPAYMENT
+     */
   PREPAYMENT("Prepayment"),
-
-  /** REVENUE */
+  
+    /**
+     * REVENUE
+     */
   REVENUE("Revenue"),
-
-  /** SALES */
+  
+    /**
+     * SALES
+     */
   SALES("Sales"),
-
-  /** OVERHEADS */
+  
+    /**
+     * OVERHEADS
+     */
   OVERHEADS("Overheads"),
-
-  /** DEPRECIATN */
+  
+    /**
+     * DEPRECIATN
+     */
   DEPRECIATN("Depreciatn"),
-
-  /** OTHERINCOME */
+  
+    /**
+     * OTHERINCOME
+     */
   OTHERINCOME("OtherIncome"),
-
-  /** DIRECTCOSTS */
+  
+    /**
+     * DIRECTCOSTS
+     */
   DIRECTCOSTS("DirectCosts"),
-
-  /** CURRLIAB */
+  
+    /**
+     * CURRLIAB
+     */
   CURRLIAB("Currliab"),
-
-  /** TERMLIAB */
+  
+    /**
+     * TERMLIAB
+     */
   TERMLIAB("Termliab"),
-
-  /** NONCURRENT */
+  
+    /**
+     * NONCURRENT
+     */
   NONCURRENT("NonCurrent"),
-
-  /** SALESQUOTE */
+  
+    /**
+     * SALESQUOTE
+     */
   SALESQUOTE("SalesQuote");
 
   private String value;
@@ -192,26 +316,24 @@ public enum ObjectType {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static ObjectType fromValue(String value) {
@@ -223,3 +345,4 @@ public enum ObjectType {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

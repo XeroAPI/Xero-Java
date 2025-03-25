@@ -9,17 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.UserResponse;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** UserActivitiesResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * UserActivitiesResponse
+ */
+
 public class UserActivitiesResponse {
   StringUtil util = new StringUtil();
 
@@ -32,81 +50,74 @@ public class UserActivitiesResponse {
   @JsonProperty("users")
   private List<UserResponse> users = new ArrayList<UserResponse>();
   /**
-   * The requested Organisation to which the data pertains
-   *
-   * @param organisationId UUID
-   * @return UserActivitiesResponse
-   */
+  * The requested Organisation to which the data pertains
+  * @param organisationId  UUID
+  * @return UserActivitiesResponse
+  **/
   public UserActivitiesResponse organisationId(UUID organisationId) {
     this.organisationId = organisationId;
     return this;
   }
 
-  /**
+   /**
    * The requested Organisation to which the data pertains
-   *
    * @return organisationId
-   */
+  **/
   @ApiModelProperty(value = "The requested Organisation to which the data pertains")
-  /**
+  /** 
    * The requested Organisation to which the data pertains
-   *
    * @return organisationId UUID
-   */
+  **/
   public UUID getOrganisationId() {
     return organisationId;
   }
 
-  /**
-   * The requested Organisation to which the data pertains
-   *
-   * @param organisationId UUID
-   */
+  /** 
+  * The requested Organisation to which the data pertains
+  * @param organisationId  UUID
+  **/
+
   public void setOrganisationId(UUID organisationId) {
     this.organisationId = organisationId;
   }
 
   /**
-   * The month of the report
-   *
-   * @param dataMonth String
-   * @return UserActivitiesResponse
-   */
+  * The month of the report
+  * @param dataMonth  String
+  * @return UserActivitiesResponse
+  **/
   public UserActivitiesResponse dataMonth(String dataMonth) {
     this.dataMonth = dataMonth;
     return this;
   }
 
-  /**
+   /**
    * The month of the report
-   *
    * @return dataMonth
-   */
+  **/
   @ApiModelProperty(value = "The month of the report")
-  /**
+  /** 
    * The month of the report
-   *
    * @return dataMonth String
-   */
+  **/
   public String getDataMonth() {
     return dataMonth;
   }
 
-  /**
-   * The month of the report
-   *
-   * @param dataMonth String
-   */
+  /** 
+  * The month of the report
+  * @param dataMonth  String
+  **/
+
   public void setDataMonth(String dataMonth) {
     this.dataMonth = dataMonth;
   }
 
   /**
-   * users
-   *
-   * @param users List&lt;UserResponse&gt;
-   * @return UserActivitiesResponse
-   */
+  * users
+  * @param users  List&lt;UserResponse&gt;
+  * @return UserActivitiesResponse
+  **/
   public UserActivitiesResponse users(List<UserResponse> users) {
     this.users = users;
     return this;
@@ -114,10 +125,9 @@ public class UserActivitiesResponse {
 
   /**
    * users
-   *
-   * @param usersItem UserResponse
+   * @param usersItem UserResponse 
    * @return UserActivitiesResponse
-   */
+  **/
   public UserActivitiesResponse addUsersItem(UserResponse usersItem) {
     if (this.users == null) {
       this.users = new ArrayList<UserResponse>();
@@ -126,29 +136,28 @@ public class UserActivitiesResponse {
     return this;
   }
 
-  /**
+   /**
    * Get users
-   *
    * @return users
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * users
-   *
    * @return users List<UserResponse>
-   */
+  **/
   public List<UserResponse> getUsers() {
     return users;
   }
 
-  /**
-   * users
-   *
-   * @param users List&lt;UserResponse&gt;
-   */
+  /** 
+  * users
+  * @param users List&lt;UserResponse&gt; 
+  **/
+
   public void setUsers(List<UserResponse> users) {
     this.users = users;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -159,15 +168,16 @@ public class UserActivitiesResponse {
       return false;
     }
     UserActivitiesResponse userActivitiesResponse = (UserActivitiesResponse) o;
-    return Objects.equals(this.organisationId, userActivitiesResponse.organisationId)
-        && Objects.equals(this.dataMonth, userActivitiesResponse.dataMonth)
-        && Objects.equals(this.users, userActivitiesResponse.users);
+    return Objects.equals(this.organisationId, userActivitiesResponse.organisationId) &&
+        Objects.equals(this.dataMonth, userActivitiesResponse.dataMonth) &&
+        Objects.equals(this.users, userActivitiesResponse.users);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(organisationId, dataMonth, users);
   }
+
 
   @Override
   public String toString() {
@@ -181,7 +191,8 @@ public class UserActivitiesResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -189,4 +200,6 @@ public class UserActivitiesResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

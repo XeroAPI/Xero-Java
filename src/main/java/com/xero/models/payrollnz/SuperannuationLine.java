@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** SuperannuationLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * SuperannuationLine
+ */
+
 public class SuperannuationLine {
   StringUtil util = new StringUtil();
 
@@ -39,214 +56,197 @@ public class SuperannuationLine {
   @JsonProperty("manualAdjustment")
   private Boolean manualAdjustment;
   /**
-   * Xero identifier for payroll superannuation type
-   *
-   * @param superannuationTypeID UUID
-   * @return SuperannuationLine
-   */
+  * Xero identifier for payroll superannuation type
+  * @param superannuationTypeID  UUID
+  * @return SuperannuationLine
+  **/
   public SuperannuationLine superannuationTypeID(UUID superannuationTypeID) {
     this.superannuationTypeID = superannuationTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for payroll superannuation type
-   *
    * @return superannuationTypeID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for payroll superannuation type")
-  /**
+  /** 
    * Xero identifier for payroll superannuation type
-   *
    * @return superannuationTypeID UUID
-   */
+  **/
   public UUID getSuperannuationTypeID() {
     return superannuationTypeID;
   }
 
-  /**
-   * Xero identifier for payroll superannuation type
-   *
-   * @param superannuationTypeID UUID
-   */
+  /** 
+  * Xero identifier for payroll superannuation type
+  * @param superannuationTypeID  UUID
+  **/
+
   public void setSuperannuationTypeID(UUID superannuationTypeID) {
     this.superannuationTypeID = superannuationTypeID;
   }
 
   /**
-   * Benefit display name
-   *
-   * @param displayName String
-   * @return SuperannuationLine
-   */
+  * Benefit display name
+  * @param displayName  String
+  * @return SuperannuationLine
+  **/
   public SuperannuationLine displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
 
-  /**
+   /**
    * Benefit display name
-   *
    * @return displayName
-   */
+  **/
   @ApiModelProperty(value = "Benefit display name")
-  /**
+  /** 
    * Benefit display name
-   *
    * @return displayName String
-   */
+  **/
   public String getDisplayName() {
     return displayName;
   }
 
-  /**
-   * Benefit display name
-   *
-   * @param displayName String
-   */
+  /** 
+  * Benefit display name
+  * @param displayName  String
+  **/
+
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
   }
 
   /**
-   * The amount of the superannuation line
-   *
-   * @param amount Double
-   * @return SuperannuationLine
-   */
+  * The amount of the superannuation line
+  * @param amount  Double
+  * @return SuperannuationLine
+  **/
   public SuperannuationLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * The amount of the superannuation line
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "The amount of the superannuation line")
-  /**
+  /** 
    * The amount of the superannuation line
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * The amount of the superannuation line
-   *
-   * @param amount Double
-   */
+  /** 
+  * The amount of the superannuation line
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * Superannuation fixed amount
-   *
-   * @param fixedAmount Double
-   * @return SuperannuationLine
-   */
+  * Superannuation fixed amount
+  * @param fixedAmount  Double
+  * @return SuperannuationLine
+  **/
   public SuperannuationLine fixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
     return this;
   }
 
-  /**
+   /**
    * Superannuation fixed amount
-   *
    * @return fixedAmount
-   */
+  **/
   @ApiModelProperty(value = "Superannuation fixed amount")
-  /**
+  /** 
    * Superannuation fixed amount
-   *
    * @return fixedAmount Double
-   */
+  **/
   public Double getFixedAmount() {
     return fixedAmount;
   }
 
-  /**
-   * Superannuation fixed amount
-   *
-   * @param fixedAmount Double
-   */
+  /** 
+  * Superannuation fixed amount
+  * @param fixedAmount  Double
+  **/
+
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
 
   /**
-   * Superannuation rate percentage
-   *
-   * @param percentage Double
-   * @return SuperannuationLine
-   */
+  * Superannuation rate percentage
+  * @param percentage  Double
+  * @return SuperannuationLine
+  **/
   public SuperannuationLine percentage(Double percentage) {
     this.percentage = percentage;
     return this;
   }
 
-  /**
+   /**
    * Superannuation rate percentage
-   *
    * @return percentage
-   */
+  **/
   @ApiModelProperty(value = "Superannuation rate percentage")
-  /**
+  /** 
    * Superannuation rate percentage
-   *
    * @return percentage Double
-   */
+  **/
   public Double getPercentage() {
     return percentage;
   }
 
-  /**
-   * Superannuation rate percentage
-   *
-   * @param percentage Double
-   */
+  /** 
+  * Superannuation rate percentage
+  * @param percentage  Double
+  **/
+
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
 
   /**
-   * manual adjustment made
-   *
-   * @param manualAdjustment Boolean
-   * @return SuperannuationLine
-   */
+  * manual adjustment made
+  * @param manualAdjustment  Boolean
+  * @return SuperannuationLine
+  **/
   public SuperannuationLine manualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
     return this;
   }
 
-  /**
+   /**
    * manual adjustment made
-   *
    * @return manualAdjustment
-   */
+  **/
   @ApiModelProperty(value = "manual adjustment made")
-  /**
+  /** 
    * manual adjustment made
-   *
    * @return manualAdjustment Boolean
-   */
+  **/
   public Boolean getManualAdjustment() {
     return manualAdjustment;
   }
 
-  /**
-   * manual adjustment made
-   *
-   * @param manualAdjustment Boolean
-   */
+  /** 
+  * manual adjustment made
+  * @param manualAdjustment  Boolean
+  **/
+
   public void setManualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -257,27 +257,25 @@ public class SuperannuationLine {
       return false;
     }
     SuperannuationLine superannuationLine = (SuperannuationLine) o;
-    return Objects.equals(this.superannuationTypeID, superannuationLine.superannuationTypeID)
-        && Objects.equals(this.displayName, superannuationLine.displayName)
-        && Objects.equals(this.amount, superannuationLine.amount)
-        && Objects.equals(this.fixedAmount, superannuationLine.fixedAmount)
-        && Objects.equals(this.percentage, superannuationLine.percentage)
-        && Objects.equals(this.manualAdjustment, superannuationLine.manualAdjustment);
+    return Objects.equals(this.superannuationTypeID, superannuationLine.superannuationTypeID) &&
+        Objects.equals(this.displayName, superannuationLine.displayName) &&
+        Objects.equals(this.amount, superannuationLine.amount) &&
+        Objects.equals(this.fixedAmount, superannuationLine.fixedAmount) &&
+        Objects.equals(this.percentage, superannuationLine.percentage) &&
+        Objects.equals(this.manualAdjustment, superannuationLine.manualAdjustment);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        superannuationTypeID, displayName, amount, fixedAmount, percentage, manualAdjustment);
+    return Objects.hash(superannuationTypeID, displayName, amount, fixedAmount, percentage, manualAdjustment);
   }
+
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SuperannuationLine {\n");
-    sb.append("    superannuationTypeID: ")
-        .append(toIndentedString(superannuationTypeID))
-        .append("\n");
+    sb.append("    superannuationTypeID: ").append(toIndentedString(superannuationTypeID)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    fixedAmount: ").append(toIndentedString(fixedAmount)).append("\n");
@@ -288,7 +286,8 @@ public class SuperannuationLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -296,4 +295,6 @@ public class SuperannuationLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

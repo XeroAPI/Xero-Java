@@ -9,22 +9,39 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets SuperannuationCalculationType */
+/**
+ * Gets or Sets SuperannuationCalculationType
+ */
 public enum SuperannuationCalculationType {
-
-  /** FIXEDAMOUNT */
+  
+    /**
+     * FIXEDAMOUNT
+     */
   FIXEDAMOUNT("FIXEDAMOUNT"),
-
-  /** PERCENTAGEOFEARNINGS */
+  
+    /**
+     * PERCENTAGEOFEARNINGS
+     */
   PERCENTAGEOFEARNINGS("PERCENTAGEOFEARNINGS"),
-
-  /** STATUTORY */
+  
+    /**
+     * STATUTORY
+     */
   STATUTORY("STATUTORY");
 
   private String value;
@@ -33,26 +50,24 @@ public enum SuperannuationCalculationType {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static SuperannuationCalculationType fromValue(String value) {
@@ -64,3 +79,4 @@ public enum SuperannuationCalculationType {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

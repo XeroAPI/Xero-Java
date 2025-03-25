@@ -9,18 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrolluk;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.payrolluk;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** Employment */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Employment
+ */
+
 public class Employment {
   StringUtil util = new StringUtil();
 
@@ -32,45 +47,73 @@ public class Employment {
 
   @JsonProperty("employeeNumber")
   private String employeeNumber;
-  /** The NI Category of the employee */
+  /**
+   * The NI Category of the employee
+   */
   public enum NiCategoryEnum {
-    /** A */
+    /**
+     * A
+     */
     A("A"),
-
-    /** B */
+    
+    /**
+     * B
+     */
     B("B"),
-
-    /** C */
+    
+    /**
+     * C
+     */
     C("C"),
-
-    /** F */
+    
+    /**
+     * F
+     */
     F("F"),
-
-    /** H */
+    
+    /**
+     * H
+     */
     H("H"),
-
-    /** I */
+    
+    /**
+     * I
+     */
     I("I"),
-
-    /** J */
+    
+    /**
+     * J
+     */
     J("J"),
-
-    /** L */
+    
+    /**
+     * L
+     */
     L("L"),
-
-    /** M */
+    
+    /**
+     * M
+     */
     M("M"),
-
-    /** S */
+    
+    /**
+     * S
+     */
     S("S"),
-
-    /** V */
+    
+    /**
+     * V
+     */
     V("V"),
-
-    /** X */
+    
+    /**
+     * X
+     */
     X("X"),
-
-    /** Z */
+    
+    /**
+     * Z
+     */
     Z("Z");
 
     private String value;
@@ -79,31 +122,25 @@ public class Employment {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static NiCategoryEnum fromValue(String value) {
       for (NiCategoryEnum b : NiCategoryEnum.values()) {
@@ -115,147 +152,137 @@ public class Employment {
     }
   }
 
+
   @JsonProperty("niCategory")
   private NiCategoryEnum niCategory;
   /**
-   * Xero unique identifier for the payroll calendar of the employee
-   *
-   * @param payrollCalendarID UUID
-   * @return Employment
-   */
+  * Xero unique identifier for the payroll calendar of the employee
+  * @param payrollCalendarID  UUID
+  * @return Employment
+  **/
   public Employment payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for the payroll calendar of the employee
-   *
    * @return payrollCalendarID
-   */
+  **/
   @ApiModelProperty(value = "Xero unique identifier for the payroll calendar of the employee")
-  /**
+  /** 
    * Xero unique identifier for the payroll calendar of the employee
-   *
    * @return payrollCalendarID UUID
-   */
+  **/
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
-  /**
-   * Xero unique identifier for the payroll calendar of the employee
-   *
-   * @param payrollCalendarID UUID
-   */
+  /** 
+  * Xero unique identifier for the payroll calendar of the employee
+  * @param payrollCalendarID  UUID
+  **/
+
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
   /**
-   * Start date of the employment (YYYY-MM-DD)
-   *
-   * @param startDate LocalDate
-   * @return Employment
-   */
+  * Start date of the employment (YYYY-MM-DD)
+  * @param startDate  LocalDate
+  * @return Employment
+  **/
   public Employment startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * Start date of the employment (YYYY-MM-DD)
-   *
    * @return startDate
-   */
+  **/
   @ApiModelProperty(value = "Start date of the employment (YYYY-MM-DD)")
-  /**
+  /** 
    * Start date of the employment (YYYY-MM-DD)
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * Start date of the employment (YYYY-MM-DD)
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * Start date of the employment (YYYY-MM-DD)
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * The employment number of the employee
-   *
-   * @param employeeNumber String
-   * @return Employment
-   */
+  * The employment number of the employee
+  * @param employeeNumber  String
+  * @return Employment
+  **/
   public Employment employeeNumber(String employeeNumber) {
     this.employeeNumber = employeeNumber;
     return this;
   }
 
-  /**
+   /**
    * The employment number of the employee
-   *
    * @return employeeNumber
-   */
+  **/
   @ApiModelProperty(example = "7", value = "The employment number of the employee")
-  /**
+  /** 
    * The employment number of the employee
-   *
    * @return employeeNumber String
-   */
+  **/
   public String getEmployeeNumber() {
     return employeeNumber;
   }
 
-  /**
-   * The employment number of the employee
-   *
-   * @param employeeNumber String
-   */
+  /** 
+  * The employment number of the employee
+  * @param employeeNumber  String
+  **/
+
   public void setEmployeeNumber(String employeeNumber) {
     this.employeeNumber = employeeNumber;
   }
 
   /**
-   * The NI Category of the employee
-   *
-   * @param niCategory NiCategoryEnum
-   * @return Employment
-   */
+  * The NI Category of the employee
+  * @param niCategory  NiCategoryEnum
+  * @return Employment
+  **/
   public Employment niCategory(NiCategoryEnum niCategory) {
     this.niCategory = niCategory;
     return this;
   }
 
-  /**
+   /**
    * The NI Category of the employee
-   *
    * @return niCategory
-   */
+  **/
   @ApiModelProperty(example = "A", value = "The NI Category of the employee")
-  /**
+  /** 
    * The NI Category of the employee
-   *
    * @return niCategory NiCategoryEnum
-   */
+  **/
   public NiCategoryEnum getNiCategory() {
     return niCategory;
   }
 
-  /**
-   * The NI Category of the employee
-   *
-   * @param niCategory NiCategoryEnum
-   */
+  /** 
+  * The NI Category of the employee
+  * @param niCategory  NiCategoryEnum
+  **/
+
   public void setNiCategory(NiCategoryEnum niCategory) {
     this.niCategory = niCategory;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -266,16 +293,17 @@ public class Employment {
       return false;
     }
     Employment employment = (Employment) o;
-    return Objects.equals(this.payrollCalendarID, employment.payrollCalendarID)
-        && Objects.equals(this.startDate, employment.startDate)
-        && Objects.equals(this.employeeNumber, employment.employeeNumber)
-        && Objects.equals(this.niCategory, employment.niCategory);
+    return Objects.equals(this.payrollCalendarID, employment.payrollCalendarID) &&
+        Objects.equals(this.startDate, employment.startDate) &&
+        Objects.equals(this.employeeNumber, employment.employeeNumber) &&
+        Objects.equals(this.niCategory, employment.niCategory);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(payrollCalendarID, startDate, employeeNumber, niCategory);
   }
+
 
   @Override
   public String toString() {
@@ -290,7 +318,8 @@ public class Employment {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -298,4 +327,6 @@ public class Employment {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

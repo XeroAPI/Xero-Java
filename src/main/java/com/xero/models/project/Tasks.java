@@ -9,16 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.project;
 
+package com.xero.models.project;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.project.Pagination;
+import com.xero.models.project.Task;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Tasks */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Tasks
+ */
+
 public class Tasks {
   StringUtil util = new StringUtil();
 
@@ -28,46 +47,42 @@ public class Tasks {
   @JsonProperty("items")
   private List<Task> items = new ArrayList<Task>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return Tasks
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return Tasks
+  **/
   public Tasks pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * items
-   *
-   * @param items List&lt;Task&gt;
-   * @return Tasks
-   */
+  * items
+  * @param items  List&lt;Task&gt;
+  * @return Tasks
+  **/
   public Tasks items(List<Task> items) {
     this.items = items;
     return this;
@@ -75,10 +90,9 @@ public class Tasks {
 
   /**
    * items
-   *
-   * @param itemsItem Task
+   * @param itemsItem Task 
    * @return Tasks
-   */
+  **/
   public Tasks addItemsItem(Task itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<Task>();
@@ -87,29 +101,28 @@ public class Tasks {
     return this;
   }
 
-  /**
+   /**
    * Get items
-   *
    * @return items
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * items
-   *
    * @return items List<Task>
-   */
+  **/
   public List<Task> getItems() {
     return items;
   }
 
-  /**
-   * items
-   *
-   * @param items List&lt;Task&gt;
-   */
+  /** 
+  * items
+  * @param items List&lt;Task&gt; 
+  **/
+
   public void setItems(List<Task> items) {
     this.items = items;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -120,14 +133,15 @@ public class Tasks {
       return false;
     }
     Tasks tasks = (Tasks) o;
-    return Objects.equals(this.pagination, tasks.pagination)
-        && Objects.equals(this.items, tasks.items);
+    return Objects.equals(this.pagination, tasks.pagination) &&
+        Objects.equals(this.items, tasks.items);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, items);
   }
+
 
   @Override
   public String toString() {
@@ -140,7 +154,8 @@ public class Tasks {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -148,4 +163,6 @@ public class Tasks {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

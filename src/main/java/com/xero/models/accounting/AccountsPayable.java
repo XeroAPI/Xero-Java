@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** AccountsPayable */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * AccountsPayable
+ */
+
 public class AccountsPayable {
   StringUtil util = new StringUtil();
 
@@ -26,74 +43,69 @@ public class AccountsPayable {
   @JsonProperty("Overdue")
   private Double overdue;
   /**
-   * outstanding
-   *
-   * @param outstanding Double
-   * @return AccountsPayable
-   */
+  * outstanding
+  * @param outstanding  Double
+  * @return AccountsPayable
+  **/
   public AccountsPayable outstanding(Double outstanding) {
     this.outstanding = outstanding;
     return this;
   }
 
-  /**
+   /**
    * Get outstanding
-   *
    * @return outstanding
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * outstanding
-   *
    * @return outstanding Double
-   */
+  **/
   public Double getOutstanding() {
     return outstanding;
   }
 
-  /**
-   * outstanding
-   *
-   * @param outstanding Double
-   */
+  /** 
+  * outstanding
+  * @param outstanding  Double
+  **/
+
   public void setOutstanding(Double outstanding) {
     this.outstanding = outstanding;
   }
 
   /**
-   * overdue
-   *
-   * @param overdue Double
-   * @return AccountsPayable
-   */
+  * overdue
+  * @param overdue  Double
+  * @return AccountsPayable
+  **/
   public AccountsPayable overdue(Double overdue) {
     this.overdue = overdue;
     return this;
   }
 
-  /**
+   /**
    * Get overdue
-   *
    * @return overdue
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * overdue
-   *
    * @return overdue Double
-   */
+  **/
   public Double getOverdue() {
     return overdue;
   }
 
-  /**
-   * overdue
-   *
-   * @param overdue Double
-   */
+  /** 
+  * overdue
+  * @param overdue  Double
+  **/
+
   public void setOverdue(Double overdue) {
     this.overdue = overdue;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -104,14 +116,15 @@ public class AccountsPayable {
       return false;
     }
     AccountsPayable accountsPayable = (AccountsPayable) o;
-    return Objects.equals(this.outstanding, accountsPayable.outstanding)
-        && Objects.equals(this.overdue, accountsPayable.overdue);
+    return Objects.equals(this.outstanding, accountsPayable.outstanding) &&
+        Objects.equals(this.overdue, accountsPayable.overdue);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(outstanding, overdue);
   }
+
 
   @Override
   public String toString() {
@@ -124,7 +137,8 @@ public class AccountsPayable {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -132,4 +146,6 @@ public class AccountsPayable {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

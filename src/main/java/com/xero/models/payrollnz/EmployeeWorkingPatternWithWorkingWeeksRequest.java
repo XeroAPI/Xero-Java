@@ -9,17 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.WorkingWeek;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** EmployeeWorkingPatternWithWorkingWeeksRequest */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeWorkingPatternWithWorkingWeeksRequest
+ */
+
 public class EmployeeWorkingPatternWithWorkingWeeksRequest {
   StringUtil util = new StringUtil();
 
@@ -29,89 +47,79 @@ public class EmployeeWorkingPatternWithWorkingWeeksRequest {
   @JsonProperty("workingWeeks")
   private List<WorkingWeek> workingWeeks = new ArrayList<WorkingWeek>();
   /**
-   * The effective date of the corresponding salary and wages
-   *
-   * @param effectiveFrom LocalDate
-   * @return EmployeeWorkingPatternWithWorkingWeeksRequest
-   */
+  * The effective date of the corresponding salary and wages
+  * @param effectiveFrom  LocalDate
+  * @return EmployeeWorkingPatternWithWorkingWeeksRequest
+  **/
   public EmployeeWorkingPatternWithWorkingWeeksRequest effectiveFrom(LocalDate effectiveFrom) {
     this.effectiveFrom = effectiveFrom;
     return this;
   }
 
-  /**
+   /**
    * The effective date of the corresponding salary and wages
-   *
    * @return effectiveFrom
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The effective date of the corresponding salary and wages")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The effective date of the corresponding salary and wages")
+  /** 
    * The effective date of the corresponding salary and wages
-   *
    * @return effectiveFrom LocalDate
-   */
+  **/
   public LocalDate getEffectiveFrom() {
     return effectiveFrom;
   }
 
-  /**
-   * The effective date of the corresponding salary and wages
-   *
-   * @param effectiveFrom LocalDate
-   */
+  /** 
+  * The effective date of the corresponding salary and wages
+  * @param effectiveFrom  LocalDate
+  **/
+
   public void setEffectiveFrom(LocalDate effectiveFrom) {
     this.effectiveFrom = effectiveFrom;
   }
 
   /**
-   * workingWeeks
-   *
-   * @param workingWeeks List&lt;WorkingWeek&gt;
-   * @return EmployeeWorkingPatternWithWorkingWeeksRequest
-   */
-  public EmployeeWorkingPatternWithWorkingWeeksRequest workingWeeks(
-      List<WorkingWeek> workingWeeks) {
+  * workingWeeks
+  * @param workingWeeks  List&lt;WorkingWeek&gt;
+  * @return EmployeeWorkingPatternWithWorkingWeeksRequest
+  **/
+  public EmployeeWorkingPatternWithWorkingWeeksRequest workingWeeks(List<WorkingWeek> workingWeeks) {
     this.workingWeeks = workingWeeks;
     return this;
   }
 
   /**
    * workingWeeks
-   *
-   * @param workingWeeksItem WorkingWeek
+   * @param workingWeeksItem WorkingWeek 
    * @return EmployeeWorkingPatternWithWorkingWeeksRequest
-   */
-  public EmployeeWorkingPatternWithWorkingWeeksRequest addWorkingWeeksItem(
-      WorkingWeek workingWeeksItem) {
+  **/
+  public EmployeeWorkingPatternWithWorkingWeeksRequest addWorkingWeeksItem(WorkingWeek workingWeeksItem) {
     this.workingWeeks.add(workingWeeksItem);
     return this;
   }
 
-  /**
+   /**
    * Get workingWeeks
-   *
    * @return workingWeeks
-   */
+  **/
   @ApiModelProperty(required = true, value = "")
-  /**
+  /** 
    * workingWeeks
-   *
    * @return workingWeeks List<WorkingWeek>
-   */
+  **/
   public List<WorkingWeek> getWorkingWeeks() {
     return workingWeeks;
   }
 
-  /**
-   * workingWeeks
-   *
-   * @param workingWeeks List&lt;WorkingWeek&gt;
-   */
+  /** 
+  * workingWeeks
+  * @param workingWeeks List&lt;WorkingWeek&gt; 
+  **/
+
   public void setWorkingWeeks(List<WorkingWeek> workingWeeks) {
     this.workingWeeks = workingWeeks;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -121,18 +129,16 @@ public class EmployeeWorkingPatternWithWorkingWeeksRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EmployeeWorkingPatternWithWorkingWeeksRequest employeeWorkingPatternWithWorkingWeeksRequest =
-        (EmployeeWorkingPatternWithWorkingWeeksRequest) o;
-    return Objects.equals(
-            this.effectiveFrom, employeeWorkingPatternWithWorkingWeeksRequest.effectiveFrom)
-        && Objects.equals(
-            this.workingWeeks, employeeWorkingPatternWithWorkingWeeksRequest.workingWeeks);
+    EmployeeWorkingPatternWithWorkingWeeksRequest employeeWorkingPatternWithWorkingWeeksRequest = (EmployeeWorkingPatternWithWorkingWeeksRequest) o;
+    return Objects.equals(this.effectiveFrom, employeeWorkingPatternWithWorkingWeeksRequest.effectiveFrom) &&
+        Objects.equals(this.workingWeeks, employeeWorkingPatternWithWorkingWeeksRequest.workingWeeks);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(effectiveFrom, workingWeeks);
   }
+
 
   @Override
   public String toString() {
@@ -145,7 +151,8 @@ public class EmployeeWorkingPatternWithWorkingWeeksRequest {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -153,4 +160,6 @@ public class EmployeeWorkingPatternWithWorkingWeeksRequest {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

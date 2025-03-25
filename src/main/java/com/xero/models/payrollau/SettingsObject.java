@@ -9,53 +9,69 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.Settings;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** SettingsObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * SettingsObject
+ */
+
 public class SettingsObject {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Settings")
   private Settings settings;
   /**
-   * settings
-   *
-   * @param settings Settings
-   * @return SettingsObject
-   */
+  * settings
+  * @param settings  Settings
+  * @return SettingsObject
+  **/
   public SettingsObject settings(Settings settings) {
     this.settings = settings;
     return this;
   }
 
-  /**
+   /**
    * Get settings
-   *
    * @return settings
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * settings
-   *
    * @return settings Settings
-   */
+  **/
   public Settings getSettings() {
     return settings;
   }
 
-  /**
-   * settings
-   *
-   * @param settings Settings
-   */
+  /** 
+  * settings
+  * @param settings  Settings
+  **/
+
   public void setSettings(Settings settings) {
     this.settings = settings;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -74,6 +90,7 @@ public class SettingsObject {
     return Objects.hash(settings);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -84,7 +101,8 @@ public class SettingsObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -92,4 +110,6 @@ public class SettingsObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

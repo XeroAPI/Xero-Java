@@ -9,14 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.Benefit;
+import com.xero.models.payrolluk.Pagination;
+import com.xero.models.payrolluk.Problem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** BenefitObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BenefitObject
+ */
+
 public class BenefitObject {
   StringUtil util = new StringUtil();
 
@@ -29,109 +49,101 @@ public class BenefitObject {
   @JsonProperty("benefit")
   private Benefit benefit;
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return BenefitObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return BenefitObject
+  **/
   public BenefitObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return BenefitObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return BenefitObject
+  **/
   public BenefitObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * benefit
-   *
-   * @param benefit Benefit
-   * @return BenefitObject
-   */
+  * benefit
+  * @param benefit  Benefit
+  * @return BenefitObject
+  **/
   public BenefitObject benefit(Benefit benefit) {
     this.benefit = benefit;
     return this;
   }
 
-  /**
+   /**
    * Get benefit
-   *
    * @return benefit
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * benefit
-   *
    * @return benefit Benefit
-   */
+  **/
   public Benefit getBenefit() {
     return benefit;
   }
 
-  /**
-   * benefit
-   *
-   * @param benefit Benefit
-   */
+  /** 
+  * benefit
+  * @param benefit  Benefit
+  **/
+
   public void setBenefit(Benefit benefit) {
     this.benefit = benefit;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +154,16 @@ public class BenefitObject {
       return false;
     }
     BenefitObject benefitObject = (BenefitObject) o;
-    return Objects.equals(this.pagination, benefitObject.pagination)
-        && Objects.equals(this.problem, benefitObject.problem)
-        && Objects.equals(this.benefit, benefitObject.benefit);
+    return Objects.equals(this.pagination, benefitObject.pagination) &&
+        Objects.equals(this.problem, benefitObject.problem) &&
+        Objects.equals(this.benefit, benefitObject.benefit);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, benefit);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +177,8 @@ public class BenefitObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +186,6 @@ public class BenefitObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+
