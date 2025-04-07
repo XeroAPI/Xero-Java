@@ -97,7 +97,13 @@ public class EarningsRate {
     TIPSDIRECT("TipsDirect"),
 
     /** TERMINATIONPAY */
-    TERMINATIONPAY("TerminationPay");
+    TERMINATIONPAY("TerminationPay"),
+
+    /** STATUTORYNEONATALCAREPAY */
+    STATUTORYNEONATALCAREPAY("StatutoryNeonatalCarePay"),
+
+    /** STATUTORYNEONATALCAREPAYNONPENSIONABLE */
+    STATUTORYNEONATALCAREPAYNONPENSIONABLE("StatutoryNeonatalCarePayNonPensionable");
 
     private String value;
 
