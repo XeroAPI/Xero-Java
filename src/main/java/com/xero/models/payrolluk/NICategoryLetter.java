@@ -27,12 +27,6 @@ public enum NICategoryLetter {
   /** C */
   C("C"),
 
-  /** D */
-  D("D"),
-
-  /** E */
-  E("E"),
-
   /** F */
   F("F"),
 
@@ -45,17 +39,11 @@ public enum NICategoryLetter {
   /** J */
   J("J"),
 
-  /** K */
-  K("K"),
-
   /** L */
   L("L"),
 
   /** M */
   M("M"),
-
-  /** N */
-  N("N"),
 
   /** S */
   S("S"),
@@ -67,7 +55,19 @@ public enum NICategoryLetter {
   X("X"),
 
   /** Z */
-  Z("Z");
+  Z("Z"),
+
+  /** D */
+  D("D"),
+
+  /** E */
+  E("E"),
+
+  /** K */
+  K("K"),
+
+  /** N */
+  N("N");
 
   private String value;
 
