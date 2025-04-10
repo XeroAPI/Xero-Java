@@ -11,11 +11,11 @@
 
 package com.xero.models.payrolluk;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
@@ -32,91 +32,12 @@ public class Employment {
 
   @JsonProperty("employeeNumber")
   private String employeeNumber;
-  /** The NI Category of the employee */
-  public enum NiCategoryEnum {
-    /** A */
-    A("A"),
-
-    /** B */
-    B("B"),
-
-    /** C */
-    C("C"),
-
-    /** F */
-    F("F"),
-
-    /** H */
-    H("H"),
-
-    /** I */
-    I("I"),
-
-    /** J */
-    J("J"),
-
-    /** L */
-    L("L"),
-
-    /** M */
-    M("M"),
-
-    /** S */
-    S("S"),
-
-    /** V */
-    V("V"),
-
-    /** X */
-    X("X"),
-
-    /** Z */
-    Z("Z");
-
-    private String value;
-
-    NiCategoryEnum(String value) {
-      this.value = value;
-    }
-
-    /**
-     * getValue
-     *
-     * @return String value
-     */
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
-    @JsonCreator
-    public static NiCategoryEnum fromValue(String value) {
-      for (NiCategoryEnum b : NiCategoryEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
 
   @JsonProperty("niCategory")
-  private NiCategoryEnum niCategory;
+  private NICategoryLetter niCategory;
+
+  @JsonProperty("niCategories")
+  private List<NICategory> niCategories = new ArrayList<NICategory>();
   /**
    * Xero unique identifier for the payroll calendar of the employee
    *
@@ -223,38 +144,87 @@ public class Employment {
   }
 
   /**
-   * The NI Category of the employee
+   * niCategory
    *
-   * @param niCategory NiCategoryEnum
+   * @param niCategory NICategoryLetter
    * @return Employment
    */
-  public Employment niCategory(NiCategoryEnum niCategory) {
+  public Employment niCategory(NICategoryLetter niCategory) {
     this.niCategory = niCategory;
     return this;
   }
 
   /**
-   * The NI Category of the employee
+   * Get niCategory
    *
    * @return niCategory
    */
-  @ApiModelProperty(example = "A", value = "The NI Category of the employee")
+  @ApiModelProperty(value = "")
   /**
-   * The NI Category of the employee
+   * niCategory
    *
-   * @return niCategory NiCategoryEnum
+   * @return niCategory NICategoryLetter
    */
-  public NiCategoryEnum getNiCategory() {
+  public NICategoryLetter getNiCategory() {
     return niCategory;
   }
 
   /**
-   * The NI Category of the employee
+   * niCategory
    *
-   * @param niCategory NiCategoryEnum
+   * @param niCategory NICategoryLetter
    */
-  public void setNiCategory(NiCategoryEnum niCategory) {
+  public void setNiCategory(NICategoryLetter niCategory) {
     this.niCategory = niCategory;
+  }
+
+  /**
+   * The employee&#39;s NI categories
+   *
+   * @param niCategories List&lt;NICategory&gt;
+   * @return Employment
+   */
+  public Employment niCategories(List<NICategory> niCategories) {
+    this.niCategories = niCategories;
+    return this;
+  }
+
+  /**
+   * The employee&#39;s NI categories
+   *
+   * @param niCategoriesItem NICategory
+   * @return Employment
+   */
+  public Employment addNiCategoriesItem(NICategory niCategoriesItem) {
+    if (this.niCategories == null) {
+      this.niCategories = new ArrayList<NICategory>();
+    }
+    this.niCategories.add(niCategoriesItem);
+    return this;
+  }
+
+  /**
+   * The employee&#39;s NI categories
+   *
+   * @return niCategories
+   */
+  @ApiModelProperty(value = "The employee's NI categories")
+  /**
+   * The employee&#39;s NI categories
+   *
+   * @return niCategories List<NICategory>
+   */
+  public List<NICategory> getNiCategories() {
+    return niCategories;
+  }
+
+  /**
+   * The employee&#39;s NI categories
+   *
+   * @param niCategories List&lt;NICategory&gt;
+   */
+  public void setNiCategories(List<NICategory> niCategories) {
+    this.niCategories = niCategories;
   }
 
   @Override
@@ -269,12 +239,13 @@ public class Employment {
     return Objects.equals(this.payrollCalendarID, employment.payrollCalendarID)
         && Objects.equals(this.startDate, employment.startDate)
         && Objects.equals(this.employeeNumber, employment.employeeNumber)
-        && Objects.equals(this.niCategory, employment.niCategory);
+        && Objects.equals(this.niCategory, employment.niCategory)
+        && Objects.equals(this.niCategories, employment.niCategories);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(payrollCalendarID, startDate, employeeNumber, niCategory);
+    return Objects.hash(payrollCalendarID, startDate, employeeNumber, niCategory, niCategories);
   }
 
   @Override
@@ -285,6 +256,7 @@ public class Employment {
     sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
     sb.append("    employeeNumber: ").append(toIndentedString(employeeNumber)).append("\n");
     sb.append("    niCategory: ").append(toIndentedString(niCategory)).append("\n");
+    sb.append("    niCategories: ").append(toIndentedString(niCategories)).append("\n");
     sb.append("}");
     return sb.toString();
   }
