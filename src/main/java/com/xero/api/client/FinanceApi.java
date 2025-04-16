@@ -53,7 +53,7 @@ public class FinanceApi {
   private ApiClient apiClient;
   private static FinanceApi instance = null;
   private String userAgent = "Default";
-  private String version = "10.0.0";
+  private String version = "10.1.0";
   static final Logger logger = LoggerFactory.getLogger(FinanceApi.class);
 
   /** FinanceApi */
