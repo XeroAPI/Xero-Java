@@ -562,7 +562,10 @@ public class Organisation {
     GROW("GROW"),
 
     /** COMPREHENSIVE */
-    COMPREHENSIVE("COMPREHENSIVE");
+    COMPREHENSIVE("COMPREHENSIVE"),
+
+    /** SIMPLE */
+    SIMPLE("SIMPLE");
 
     private String value;
 
