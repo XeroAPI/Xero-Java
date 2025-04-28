@@ -1,45 +1,16 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
-
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.payrolluk.*;
 
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
 import org.threeten.bp.*;
-import org.threeten.bp.temporal.ChronoUnit;
 import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
+import java.util.*;
 
 public class PayrollUkApiEmployeeLeaveTest {
 
@@ -55,11 +26,8 @@ public class PayrollUkApiEmployeeLeaveTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        // Init projectApi client
-        // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://ba3fd247-8fc6-4d7c-bcd1-bdbea4ea1803.mock.pstmn.io/payroll.xro/2.0",null,null,null,null);
-        payrollUkApi = PayrollUkApi.getInstance(defaultClient);   
-       
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("payrolluk.api.url"),null,null,null,null);
+        payrollUkApi = PayrollUkApi.getInstance(defaultClient);      
 	}
 
 	public void tearDown() {
@@ -93,6 +61,10 @@ public class PayrollUkApiEmployeeLeaveTest {
         System.out.println("@Test UK Payroll - createEmployeeLeaveTest");
         
         EmployeeLeave employeeLeave = new EmployeeLeave();
+        employeeLeave.setLeaveTypeID(UUID.fromString("b0b1b79e-2a25-46c2-ad08-ca25ef48d7e4"));
+        employeeLeave.setDescription("Creating a Description");
+        employeeLeave.setStartDate(LocalDate.of(2020, 04, 24));
+        employeeLeave.setEndDate(LocalDate.of(2020, 04, 26));
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         
         EmployeeLeaveObject response = payrollUkApi.createEmployeeLeave(accessToken, xeroTenantId, employeeId, employeeLeave, null);
@@ -141,6 +113,10 @@ public class PayrollUkApiEmployeeLeaveTest {
         UUID leaveId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         
         EmployeeLeave employeeLeave = new EmployeeLeave();
+        employeeLeave.setLeaveTypeID(UUID.fromString("b0b1b79e-2a25-46c2-ad08-ca25ef48d7e4"));
+        employeeLeave.setDescription("Creating a Description");
+        employeeLeave.setStartDate(LocalDate.of(2020, 04, 24));
+        employeeLeave.setEndDate(LocalDate.of(2020, 04, 26));
         EmployeeLeaveObject response = payrollUkApi.updateEmployeeLeave(accessToken, xeroTenantId, employeeId, leaveId, employeeLeave, null);
         
         assertThat(response.getLeave().getLeaveID(), is(equalTo(UUID.fromString("8340b795-50c1-428e-9fda-90badf081ab4"))));
