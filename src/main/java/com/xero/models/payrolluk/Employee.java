@@ -16,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
@@ -115,6 +117,12 @@ public class Employee {
 
   @JsonProperty("createdDateUTC")
   private LocalDateTime createdDateUTC;
+
+  @JsonProperty("niCategory")
+  private NICategoryLetter niCategory;
+
+  @JsonProperty("niCategories")
+  private List<NICategory> niCategories = new ArrayList<NICategory>();
 
   @JsonProperty("nationalInsuranceNumber")
   private String nationalInsuranceNumber;
@@ -621,6 +629,90 @@ public class Employee {
   }
 
   /**
+   * niCategory
+   *
+   * @param niCategory NICategoryLetter
+   * @return Employee
+   */
+  public Employee niCategory(NICategoryLetter niCategory) {
+    this.niCategory = niCategory;
+    return this;
+  }
+
+  /**
+   * Get niCategory
+   *
+   * @return niCategory
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * niCategory
+   *
+   * @return niCategory NICategoryLetter
+   */
+  public NICategoryLetter getNiCategory() {
+    return niCategory;
+  }
+
+  /**
+   * niCategory
+   *
+   * @param niCategory NICategoryLetter
+   */
+  public void setNiCategory(NICategoryLetter niCategory) {
+    this.niCategory = niCategory;
+  }
+
+  /**
+   * The employee&#39;s NI categories
+   *
+   * @param niCategories List&lt;NICategory&gt;
+   * @return Employee
+   */
+  public Employee niCategories(List<NICategory> niCategories) {
+    this.niCategories = niCategories;
+    return this;
+  }
+
+  /**
+   * The employee&#39;s NI categories
+   *
+   * @param niCategoriesItem NICategory
+   * @return Employee
+   */
+  public Employee addNiCategoriesItem(NICategory niCategoriesItem) {
+    if (this.niCategories == null) {
+      this.niCategories = new ArrayList<NICategory>();
+    }
+    this.niCategories.add(niCategoriesItem);
+    return this;
+  }
+
+  /**
+   * The employee&#39;s NI categories
+   *
+   * @return niCategories
+   */
+  @ApiModelProperty(value = "The employee's NI categories")
+  /**
+   * The employee&#39;s NI categories
+   *
+   * @return niCategories List<NICategory>
+   */
+  public List<NICategory> getNiCategories() {
+    return niCategories;
+  }
+
+  /**
+   * The employee&#39;s NI categories
+   *
+   * @param niCategories List&lt;NICategory&gt;
+   */
+  public void setNiCategories(List<NICategory> niCategories) {
+    this.niCategories = niCategories;
+  }
+
+  /**
    * National insurance number of the employee
    *
    * @param nationalInsuranceNumber String
@@ -713,6 +805,8 @@ public class Employee {
         && Objects.equals(this.payrollCalendarID, employee.payrollCalendarID)
         && Objects.equals(this.updatedDateUTC, employee.updatedDateUTC)
         && Objects.equals(this.createdDateUTC, employee.createdDateUTC)
+        && Objects.equals(this.niCategory, employee.niCategory)
+        && Objects.equals(this.niCategories, employee.niCategories)
         && Objects.equals(this.nationalInsuranceNumber, employee.nationalInsuranceNumber)
         && Objects.equals(this.isOffPayrollWorker, employee.isOffPayrollWorker);
   }
@@ -734,6 +828,8 @@ public class Employee {
         payrollCalendarID,
         updatedDateUTC,
         createdDateUTC,
+        niCategory,
+        niCategories,
         nationalInsuranceNumber,
         isOffPayrollWorker);
   }
@@ -756,6 +852,8 @@ public class Employee {
     sb.append("    payrollCalendarID: ").append(toIndentedString(payrollCalendarID)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    createdDateUTC: ").append(toIndentedString(createdDateUTC)).append("\n");
+    sb.append("    niCategory: ").append(toIndentedString(niCategory)).append("\n");
+    sb.append("    niCategories: ").append(toIndentedString(niCategories)).append("\n");
     sb.append("    nationalInsuranceNumber: ")
         .append(toIndentedString(nationalInsuranceNumber))
         .append("\n");

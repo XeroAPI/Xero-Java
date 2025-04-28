@@ -50,7 +50,7 @@ public class PayrollUkApiEmploymentTest {
         assertThat(response.getEmployment().getPayrollCalendarID(), is(equalTo(UUID.fromString("216d80e6-af55-47b1-b718-9457c3f5d2fe"))));
         assertThat(response.getEmployment().getStartDate(), is(equalTo(LocalDate.of(2020, 04, 01))));
         assertThat(response.getEmployment().getEmployeeNumber(), is(equalTo("123ABC")));
-        assertThat(response.getEmployment().getNiCategory(), is(equalTo(com.xero.models.payrolluk.Employment.NiCategoryEnum.A)));
+        assertThat(response.getEmployment().getNiCategory(), is(equalTo(com.xero.models.payrolluk.NICategoryLetter.A)));
         //System.out.println(response.toString());
     }
 }

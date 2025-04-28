@@ -88,11 +88,20 @@ public class EmployeeLeaveType {
   @JsonProperty("hoursAccruedAnnually")
   private Double hoursAccruedAnnually;
 
+  @JsonProperty("UnitsAccruedAnnually")
+  private Double unitsAccruedAnnually;
+
+  @JsonProperty("typeOfUnitsToAccrue")
+  private String typeOfUnitsToAccrue;
+
   @JsonProperty("maximumToAccrue")
   private Double maximumToAccrue;
 
   @JsonProperty("openingBalance")
   private Double openingBalance;
+
+  @JsonProperty("openingBalanceTypeOfUnits")
+  private String openingBalanceTypeOfUnits;
 
   @JsonProperty("rateAccruedHourly")
   private Double rateAccruedHourly;
@@ -182,8 +191,7 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
-   * is \&quot;OnHourWorked\&quot;
+   * Deprecated use UnitsAccruedAnnually
    *
    * @param hoursAccruedAnnually Double
    * @return EmployeeLeaveType
@@ -194,18 +202,13 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
-   * is \&quot;OnHourWorked\&quot;
+   * Deprecated use UnitsAccruedAnnually
    *
    * @return hoursAccruedAnnually
    */
-  @ApiModelProperty(
-      value =
-          "The number of hours accrued for the leave annually. This is 0 when the"
-              + " scheduleOfAccrual chosen is \"OnHourWorked\"")
+  @ApiModelProperty(value = "Deprecated use UnitsAccruedAnnually")
   /**
-   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
-   * is \&quot;OnHourWorked\&quot;
+   * Deprecated use UnitsAccruedAnnually
    *
    * @return hoursAccruedAnnually Double
    */
@@ -214,8 +217,7 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
-   * is \&quot;OnHourWorked\&quot;
+   * Deprecated use UnitsAccruedAnnually
    *
    * @param hoursAccruedAnnually Double
    */
@@ -224,7 +226,84 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The maximum number of hours that can be accrued for the leave
+   * The number of units accrued for the leave annually. This is 0 when the ScheduleOfAccrual chosen
+   * is \&quot;NoAccruals\&quot;
+   *
+   * @param unitsAccruedAnnually Double
+   * @return EmployeeLeaveType
+   */
+  public EmployeeLeaveType unitsAccruedAnnually(Double unitsAccruedAnnually) {
+    this.unitsAccruedAnnually = unitsAccruedAnnually;
+    return this;
+  }
+
+  /**
+   * The number of units accrued for the leave annually. This is 0 when the ScheduleOfAccrual chosen
+   * is \&quot;NoAccruals\&quot;
+   *
+   * @return unitsAccruedAnnually
+   */
+  @ApiModelProperty(
+      value =
+          "The number of units accrued for the leave annually. This is 0 when the"
+              + " ScheduleOfAccrual chosen is \"NoAccruals\"")
+  /**
+   * The number of units accrued for the leave annually. This is 0 when the ScheduleOfAccrual chosen
+   * is \&quot;NoAccruals\&quot;
+   *
+   * @return unitsAccruedAnnually Double
+   */
+  public Double getUnitsAccruedAnnually() {
+    return unitsAccruedAnnually;
+  }
+
+  /**
+   * The number of units accrued for the leave annually. This is 0 when the ScheduleOfAccrual chosen
+   * is \&quot;NoAccruals\&quot;
+   *
+   * @param unitsAccruedAnnually Double
+   */
+  public void setUnitsAccruedAnnually(Double unitsAccruedAnnually) {
+    this.unitsAccruedAnnually = unitsAccruedAnnually;
+  }
+
+  /**
+   * The type of units accrued for the leave annually
+   *
+   * @param typeOfUnitsToAccrue String
+   * @return EmployeeLeaveType
+   */
+  public EmployeeLeaveType typeOfUnitsToAccrue(String typeOfUnitsToAccrue) {
+    this.typeOfUnitsToAccrue = typeOfUnitsToAccrue;
+    return this;
+  }
+
+  /**
+   * The type of units accrued for the leave annually
+   *
+   * @return typeOfUnitsToAccrue
+   */
+  @ApiModelProperty(value = "The type of units accrued for the leave annually")
+  /**
+   * The type of units accrued for the leave annually
+   *
+   * @return typeOfUnitsToAccrue String
+   */
+  public String getTypeOfUnitsToAccrue() {
+    return typeOfUnitsToAccrue;
+  }
+
+  /**
+   * The type of units accrued for the leave annually
+   *
+   * @param typeOfUnitsToAccrue String
+   */
+  public void setTypeOfUnitsToAccrue(String typeOfUnitsToAccrue) {
+    this.typeOfUnitsToAccrue = typeOfUnitsToAccrue;
+  }
+
+  /**
+   * The maximum number of units that can be accrued for the leave
    *
    * @param maximumToAccrue Double
    * @return EmployeeLeaveType
@@ -235,13 +314,13 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The maximum number of hours that can be accrued for the leave
+   * The maximum number of units that can be accrued for the leave
    *
    * @return maximumToAccrue
    */
-  @ApiModelProperty(value = "The maximum number of hours that can be accrued for the leave")
+  @ApiModelProperty(value = "The maximum number of units that can be accrued for the leave")
   /**
-   * The maximum number of hours that can be accrued for the leave
+   * The maximum number of units that can be accrued for the leave
    *
    * @return maximumToAccrue Double
    */
@@ -250,7 +329,7 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The maximum number of hours that can be accrued for the leave
+   * The maximum number of units that can be accrued for the leave
    *
    * @param maximumToAccrue Double
    */
@@ -259,7 +338,7 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The initial number of hours assigned when the leave was added to the employee
+   * The initial number of units assigned when the leave was added to the employee
    *
    * @param openingBalance Double
    * @return EmployeeLeaveType
@@ -270,14 +349,14 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The initial number of hours assigned when the leave was added to the employee
+   * The initial number of units assigned when the leave was added to the employee
    *
    * @return openingBalance
    */
   @ApiModelProperty(
-      value = "The initial number of hours assigned when the leave was added to the employee")
+      value = "The initial number of units assigned when the leave was added to the employee")
   /**
-   * The initial number of hours assigned when the leave was added to the employee
+   * The initial number of units assigned when the leave was added to the employee
    *
    * @return openingBalance Double
    */
@@ -286,12 +365,47 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The initial number of hours assigned when the leave was added to the employee
+   * The initial number of units assigned when the leave was added to the employee
    *
    * @param openingBalance Double
    */
   public void setOpeningBalance(Double openingBalance) {
     this.openingBalance = openingBalance;
+  }
+
+  /**
+   * The type of units for the opening balance
+   *
+   * @param openingBalanceTypeOfUnits String
+   * @return EmployeeLeaveType
+   */
+  public EmployeeLeaveType openingBalanceTypeOfUnits(String openingBalanceTypeOfUnits) {
+    this.openingBalanceTypeOfUnits = openingBalanceTypeOfUnits;
+    return this;
+  }
+
+  /**
+   * The type of units for the opening balance
+   *
+   * @return openingBalanceTypeOfUnits
+   */
+  @ApiModelProperty(value = "The type of units for the opening balance")
+  /**
+   * The type of units for the opening balance
+   *
+   * @return openingBalanceTypeOfUnits String
+   */
+  public String getOpeningBalanceTypeOfUnits() {
+    return openingBalanceTypeOfUnits;
+  }
+
+  /**
+   * The type of units for the opening balance
+   *
+   * @param openingBalanceTypeOfUnits String
+   */
+  public void setOpeningBalanceTypeOfUnits(String openingBalanceTypeOfUnits) {
+    this.openingBalanceTypeOfUnits = openingBalanceTypeOfUnits;
   }
 
   /**
@@ -542,8 +656,12 @@ public class EmployeeLeaveType {
     return Objects.equals(this.leaveTypeID, employeeLeaveType.leaveTypeID)
         && Objects.equals(this.scheduleOfAccrual, employeeLeaveType.scheduleOfAccrual)
         && Objects.equals(this.hoursAccruedAnnually, employeeLeaveType.hoursAccruedAnnually)
+        && Objects.equals(this.unitsAccruedAnnually, employeeLeaveType.unitsAccruedAnnually)
+        && Objects.equals(this.typeOfUnitsToAccrue, employeeLeaveType.typeOfUnitsToAccrue)
         && Objects.equals(this.maximumToAccrue, employeeLeaveType.maximumToAccrue)
         && Objects.equals(this.openingBalance, employeeLeaveType.openingBalance)
+        && Objects.equals(
+            this.openingBalanceTypeOfUnits, employeeLeaveType.openingBalanceTypeOfUnits)
         && Objects.equals(this.rateAccruedHourly, employeeLeaveType.rateAccruedHourly)
         && Objects.equals(
             this.percentageOfGrossEarnings, employeeLeaveType.percentageOfGrossEarnings)
@@ -561,8 +679,11 @@ public class EmployeeLeaveType {
         leaveTypeID,
         scheduleOfAccrual,
         hoursAccruedAnnually,
+        unitsAccruedAnnually,
+        typeOfUnitsToAccrue,
         maximumToAccrue,
         openingBalance,
+        openingBalanceTypeOfUnits,
         rateAccruedHourly,
         percentageOfGrossEarnings,
         includeHolidayPayEveryPay,
@@ -580,8 +701,17 @@ public class EmployeeLeaveType {
     sb.append("    hoursAccruedAnnually: ")
         .append(toIndentedString(hoursAccruedAnnually))
         .append("\n");
+    sb.append("    unitsAccruedAnnually: ")
+        .append(toIndentedString(unitsAccruedAnnually))
+        .append("\n");
+    sb.append("    typeOfUnitsToAccrue: ")
+        .append(toIndentedString(typeOfUnitsToAccrue))
+        .append("\n");
     sb.append("    maximumToAccrue: ").append(toIndentedString(maximumToAccrue)).append("\n");
     sb.append("    openingBalance: ").append(toIndentedString(openingBalance)).append("\n");
+    sb.append("    openingBalanceTypeOfUnits: ")
+        .append(toIndentedString(openingBalanceTypeOfUnits))
+        .append("\n");
     sb.append("    rateAccruedHourly: ").append(toIndentedString(rateAccruedHourly)).append("\n");
     sb.append("    percentageOfGrossEarnings: ")
         .append(toIndentedString(percentageOfGrossEarnings))
