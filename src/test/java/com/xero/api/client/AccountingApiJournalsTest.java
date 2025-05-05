@@ -54,7 +54,7 @@ public class AccountingApiJournalsTest {
     public void getJournalTest() throws IOException {
         System.out.println("@Test - getJournal");
         UUID journalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Journals response = accountingApi.getJournalByNumber(accessToken,xeroTenantId,1);
+        Journals response = accountingApi.getJournal(accessToken,xeroTenantId,journalID);
 
         assertThat(response.getJournals().get(0).getJournalID(), is(equalTo(UUID.fromString("1b31feeb-aa23-404c-8c19-24c827c53661"))));
         assertThat(response.getJournals().get(0).getJournalDateAsDate(), is(equalTo(LocalDate.of(2018,10,20))));  

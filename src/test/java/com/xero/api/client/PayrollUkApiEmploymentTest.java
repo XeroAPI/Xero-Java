@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.*;
 import com.xero.api.ApiClient;
 import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.payrolluk.*;
-import com.xero.models.payrolluk.Employment.NiCategoryEnum;
 
 import org.threeten.bp.*;
 import java.io.IOException;
@@ -42,15 +41,15 @@ public class PayrollUkApiEmploymentTest {
         
         Employment employment = new Employment();
         employment.setPayrollCalendarID(UUID.randomUUID());
-        employment.setEmployeeNumber("007");
+        employment.setEmployeeNumber("123ABC");
         employment.setStartDate(LocalDate.of(2024, 04, 01));
-        employment.setNiCategory(NiCategoryEnum.A);
+        employment.setNiCategories(Arrays.asList(new NICategory().niCategory(NICategoryLetter.I).workplacePostcode("SW1A 1AA")));
+        
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         EmploymentObject response = payrollUkApi.createEmployment(accessToken, xeroTenantId, employeeId, employment, null);
         assertThat(response.getEmployment().getPayrollCalendarID(), is(equalTo(UUID.fromString("216d80e6-af55-47b1-b718-9457c3f5d2fe"))));
         assertThat(response.getEmployment().getStartDate(), is(equalTo(LocalDate.of(2020, 04, 01))));
         assertThat(response.getEmployment().getEmployeeNumber(), is(equalTo("123ABC")));
-        assertThat(response.getEmployment().getNiCategory(), is(equalTo(com.xero.models.payrolluk.NICategoryLetter.A)));
-        //System.out.println(response.toString());
+        assertThat(response.getEmployment().getNiCategories(), hasItem(hasProperty("niCategory", is(equalTo(NICategoryLetter.I)))));
     }
 }
