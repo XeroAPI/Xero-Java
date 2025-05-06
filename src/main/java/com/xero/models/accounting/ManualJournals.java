@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.ManualJournal;
+import com.xero.models.accounting.Pagination;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** ManualJournals */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ManualJournals
+ */
+
 public class ManualJournals {
   StringUtil util = new StringUtil();
 
@@ -31,46 +51,42 @@ public class ManualJournals {
   @JsonProperty("ManualJournals")
   private List<ManualJournal> manualJournals = new ArrayList<ManualJournal>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return ManualJournals
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return ManualJournals
+  **/
   public ManualJournals pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   * @return ManualJournals
-   */
+  * Displays array of warning messages from the API
+  * @param warnings  List&lt;ValidationError&gt;
+  * @return ManualJournals
+  **/
   public ManualJournals warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
@@ -78,10 +94,9 @@ public class ManualJournals {
 
   /**
    * Displays array of warning messages from the API
-   *
-   * @param warningsItem ValidationError
+   * @param warningsItem ValidationError 
    * @return ManualJournals
-   */
+  **/
   public ManualJournals addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -90,36 +105,33 @@ public class ManualJournals {
     return this;
   }
 
-  /**
+   /**
    * Displays array of warning messages from the API
-   *
    * @return warnings
-   */
+  **/
   @ApiModelProperty(value = "Displays array of warning messages from the API")
-  /**
+  /** 
    * Displays array of warning messages from the API
-   *
    * @return warnings List<ValidationError>
-   */
+  **/
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
-  /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of warning messages from the API
+  * @param warnings List&lt;ValidationError&gt; 
+  **/
+
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
   /**
-   * manualJournals
-   *
-   * @param manualJournals List&lt;ManualJournal&gt;
-   * @return ManualJournals
-   */
+  * manualJournals
+  * @param manualJournals  List&lt;ManualJournal&gt;
+  * @return ManualJournals
+  **/
   public ManualJournals manualJournals(List<ManualJournal> manualJournals) {
     this.manualJournals = manualJournals;
     return this;
@@ -127,10 +139,9 @@ public class ManualJournals {
 
   /**
    * manualJournals
-   *
-   * @param manualJournalsItem ManualJournal
+   * @param manualJournalsItem ManualJournal 
    * @return ManualJournals
-   */
+  **/
   public ManualJournals addManualJournalsItem(ManualJournal manualJournalsItem) {
     if (this.manualJournals == null) {
       this.manualJournals = new ArrayList<ManualJournal>();
@@ -139,29 +150,28 @@ public class ManualJournals {
     return this;
   }
 
-  /**
+   /**
    * Get manualJournals
-   *
    * @return manualJournals
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * manualJournals
-   *
    * @return manualJournals List<ManualJournal>
-   */
+  **/
   public List<ManualJournal> getManualJournals() {
     return manualJournals;
   }
 
-  /**
-   * manualJournals
-   *
-   * @param manualJournals List&lt;ManualJournal&gt;
-   */
+  /** 
+  * manualJournals
+  * @param manualJournals List&lt;ManualJournal&gt; 
+  **/
+
   public void setManualJournals(List<ManualJournal> manualJournals) {
     this.manualJournals = manualJournals;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -172,15 +182,16 @@ public class ManualJournals {
       return false;
     }
     ManualJournals manualJournals = (ManualJournals) o;
-    return Objects.equals(this.pagination, manualJournals.pagination)
-        && Objects.equals(this.warnings, manualJournals.warnings)
-        && Objects.equals(this.manualJournals, manualJournals.manualJournals);
+    return Objects.equals(this.pagination, manualJournals.pagination) &&
+        Objects.equals(this.warnings, manualJournals.warnings) &&
+        Objects.equals(this.manualJournals, manualJournals.manualJournals);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, warnings, manualJournals);
   }
+
 
   @Override
   public String toString() {
@@ -194,7 +205,8 @@ public class ManualJournals {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -202,4 +214,6 @@ public class ManualJournals {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

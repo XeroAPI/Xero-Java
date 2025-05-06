@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.file;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** User */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * User
+ */
+
 public class User {
   StringUtil util = new StringUtil();
 
@@ -36,184 +53,165 @@ public class User {
   @JsonProperty("FullName")
   private String fullName;
   /**
-   * Xero identifier
-   *
-   * @param id UUID
-   * @return User
-   */
+  * Xero identifier
+  * @param id  UUID
+  * @return User
+  **/
   public User id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier
-   *
    * @return id
-   */
-  @ApiModelProperty(
-      example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c",
-      required = true,
-      value = "Xero identifier")
-  /**
+  **/
+  @ApiModelProperty(example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c", required = true, value = "Xero identifier")
+  /** 
    * Xero identifier
-   *
    * @return id UUID
-   */
+  **/
   public UUID getId() {
     return id;
   }
 
-  /**
-   * Xero identifier
-   *
-   * @param id UUID
-   */
+  /** 
+  * Xero identifier
+  * @param id  UUID
+  **/
+
   public void setId(UUID id) {
     this.id = id;
   }
 
   /**
-   * Key is Name, but returns Email address of user who created the file
-   *
-   * @param name String
-   * @return User
-   */
+  * Key is Name, but returns Email address of user who created the file
+  * @param name  String
+  * @return User
+  **/
   public User name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Key is Name, but returns Email address of user who created the file
-   *
    * @return name
-   */
-  @ApiModelProperty(
-      example = "john.smith@mail.com",
-      value = "Key is Name, but returns Email address of user who created the file")
-  /**
+  **/
+  @ApiModelProperty(example = "john.smith@mail.com", value = "Key is Name, but returns Email address of user who created the file")
+  /** 
    * Key is Name, but returns Email address of user who created the file
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Key is Name, but returns Email address of user who created the file
-   *
-   * @param name String
-   */
+  /** 
+  * Key is Name, but returns Email address of user who created the file
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * First name of user
-   *
-   * @param firstName String
-   * @return User
-   */
+  * First name of user
+  * @param firstName  String
+  * @return User
+  **/
   public User firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
 
-  /**
+   /**
    * First name of user
-   *
    * @return firstName
-   */
+  **/
   @ApiModelProperty(example = "John", value = "First name of user")
-  /**
+  /** 
    * First name of user
-   *
    * @return firstName String
-   */
+  **/
   public String getFirstName() {
     return firstName;
   }
 
-  /**
-   * First name of user
-   *
-   * @param firstName String
-   */
+  /** 
+  * First name of user
+  * @param firstName  String
+  **/
+
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
   /**
-   * Last name of user
-   *
-   * @param lastName String
-   * @return User
-   */
+  * Last name of user
+  * @param lastName  String
+  * @return User
+  **/
   public User lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
 
-  /**
+   /**
    * Last name of user
-   *
    * @return lastName
-   */
+  **/
   @ApiModelProperty(example = "Smith", value = "Last name of user")
-  /**
+  /** 
    * Last name of user
-   *
    * @return lastName String
-   */
+  **/
   public String getLastName() {
     return lastName;
   }
 
-  /**
-   * Last name of user
-   *
-   * @param lastName String
-   */
+  /** 
+  * Last name of user
+  * @param lastName  String
+  **/
+
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
   /**
-   * Last name of user
-   *
-   * @param fullName String
-   * @return User
-   */
+  * Last name of user
+  * @param fullName  String
+  * @return User
+  **/
   public User fullName(String fullName) {
     this.fullName = fullName;
     return this;
   }
 
-  /**
+   /**
    * Last name of user
-   *
    * @return fullName
-   */
+  **/
   @ApiModelProperty(example = "Smith", value = "Last name of user")
-  /**
+  /** 
    * Last name of user
-   *
    * @return fullName String
-   */
+  **/
   public String getFullName() {
     return fullName;
   }
 
-  /**
-   * Last name of user
-   *
-   * @param fullName String
-   */
+  /** 
+  * Last name of user
+  * @param fullName  String
+  **/
+
   public void setFullName(String fullName) {
     this.fullName = fullName;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -224,17 +222,18 @@ public class User {
       return false;
     }
     User user = (User) o;
-    return Objects.equals(this.id, user.id)
-        && Objects.equals(this.name, user.name)
-        && Objects.equals(this.firstName, user.firstName)
-        && Objects.equals(this.lastName, user.lastName)
-        && Objects.equals(this.fullName, user.fullName);
+    return Objects.equals(this.id, user.id) &&
+        Objects.equals(this.name, user.name) &&
+        Objects.equals(this.firstName, user.firstName) &&
+        Objects.equals(this.lastName, user.lastName) &&
+        Objects.equals(this.fullName, user.fullName);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(id, name, firstName, lastName, fullName);
   }
+
 
   @Override
   public String toString() {
@@ -250,7 +249,8 @@ public class User {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -258,4 +258,6 @@ public class User {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

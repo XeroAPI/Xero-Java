@@ -9,17 +9,37 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.AllowanceCategory;
+import com.xero.models.payrollau.AllowanceType;
+import com.xero.models.payrollau.EarningsType;
+import com.xero.models.payrollau.EmploymentTerminationPaymentType;
+import com.xero.models.payrollau.RateType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** EarningsRate */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EarningsRate
+ */
+
 public class EarningsRate {
   StringUtil util = new StringUtil();
 
@@ -83,758 +103,640 @@ public class EarningsRate {
   @JsonProperty("AllowanceCategory")
   private AllowanceCategory allowanceCategory;
   /**
-   * Name of the earnings rate (max length &#x3D; 100)
-   *
-   * @param name String
-   * @return EarningsRate
-   */
+  * Name of the earnings rate (max length &#x3D; 100)
+  * @param name  String
+  * @return EarningsRate
+  **/
   public EarningsRate name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the earnings rate (max length &#x3D; 100)
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(example = "PTO", value = "Name of the earnings rate (max length = 100)")
-  /**
+  /** 
    * Name of the earnings rate (max length &#x3D; 100)
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of the earnings rate (max length &#x3D; 100)
-   *
-   * @param name String
-   */
+  /** 
+  * Name of the earnings rate (max length &#x3D; 100)
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * See Accounts
-   *
-   * @param accountCode String
-   * @return EarningsRate
-   */
+  * See Accounts
+  * @param accountCode  String
+  * @return EarningsRate
+  **/
   public EarningsRate accountCode(String accountCode) {
     this.accountCode = accountCode;
     return this;
   }
 
-  /**
+   /**
    * See Accounts
-   *
    * @return accountCode
-   */
+  **/
   @ApiModelProperty(example = "720", value = "See Accounts")
-  /**
+  /** 
    * See Accounts
-   *
    * @return accountCode String
-   */
+  **/
   public String getAccountCode() {
     return accountCode;
   }
 
-  /**
-   * See Accounts
-   *
-   * @param accountCode String
-   */
+  /** 
+  * See Accounts
+  * @param accountCode  String
+  **/
+
   public void setAccountCode(String accountCode) {
     this.accountCode = accountCode;
   }
 
   /**
-   * Type of units used to record earnings (max length &#x3D; 50). Only When RateType is RATEPERUNIT
-   *
-   * @param typeOfUnits String
-   * @return EarningsRate
-   */
+  * Type of units used to record earnings (max length &#x3D; 50). Only When RateType is RATEPERUNIT
+  * @param typeOfUnits  String
+  * @return EarningsRate
+  **/
   public EarningsRate typeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
     return this;
   }
 
-  /**
+   /**
    * Type of units used to record earnings (max length &#x3D; 50). Only When RateType is RATEPERUNIT
-   *
    * @return typeOfUnits
-   */
-  @ApiModelProperty(
-      example = "Fixed",
-      value =
-          "Type of units used to record earnings (max length = 50). Only When RateType is"
-              + " RATEPERUNIT")
-  /**
+  **/
+  @ApiModelProperty(example = "Fixed", value = "Type of units used to record earnings (max length = 50). Only When RateType is RATEPERUNIT")
+  /** 
    * Type of units used to record earnings (max length &#x3D; 50). Only When RateType is RATEPERUNIT
-   *
    * @return typeOfUnits String
-   */
+  **/
   public String getTypeOfUnits() {
     return typeOfUnits;
   }
 
-  /**
-   * Type of units used to record earnings (max length &#x3D; 50). Only When RateType is RATEPERUNIT
-   *
-   * @param typeOfUnits String
-   */
+  /** 
+  * Type of units used to record earnings (max length &#x3D; 50). Only When RateType is RATEPERUNIT
+  * @param typeOfUnits  String
+  **/
+
   public void setTypeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
   }
 
   /**
-   * Most payments are subject to tax, so you should only set this value if you are sure that a
-   * payment is exempt from PAYG withholding
-   *
-   * @param isExemptFromTax Boolean
-   * @return EarningsRate
-   */
+  * Most payments are subject to tax, so you should only set this value if you are sure that a payment is exempt from PAYG withholding
+  * @param isExemptFromTax  Boolean
+  * @return EarningsRate
+  **/
   public EarningsRate isExemptFromTax(Boolean isExemptFromTax) {
     this.isExemptFromTax = isExemptFromTax;
     return this;
   }
 
-  /**
-   * Most payments are subject to tax, so you should only set this value if you are sure that a
-   * payment is exempt from PAYG withholding
-   *
+   /**
+   * Most payments are subject to tax, so you should only set this value if you are sure that a payment is exempt from PAYG withholding
    * @return isExemptFromTax
-   */
-  @ApiModelProperty(
-      example = "false",
-      value =
-          "Most payments are subject to tax, so you should only set this value if you are sure"
-              + " that a payment is exempt from PAYG withholding")
-  /**
-   * Most payments are subject to tax, so you should only set this value if you are sure that a
-   * payment is exempt from PAYG withholding
-   *
+  **/
+  @ApiModelProperty(example = "false", value = "Most payments are subject to tax, so you should only set this value if you are sure that a payment is exempt from PAYG withholding")
+  /** 
+   * Most payments are subject to tax, so you should only set this value if you are sure that a payment is exempt from PAYG withholding
    * @return isExemptFromTax Boolean
-   */
+  **/
   public Boolean getIsExemptFromTax() {
     return isExemptFromTax;
   }
 
-  /**
-   * Most payments are subject to tax, so you should only set this value if you are sure that a
-   * payment is exempt from PAYG withholding
-   *
-   * @param isExemptFromTax Boolean
-   */
+  /** 
+  * Most payments are subject to tax, so you should only set this value if you are sure that a payment is exempt from PAYG withholding
+  * @param isExemptFromTax  Boolean
+  **/
+
   public void setIsExemptFromTax(Boolean isExemptFromTax) {
     this.isExemptFromTax = isExemptFromTax;
   }
 
   /**
-   * See the ATO website for details of which payments are exempt from SGC
-   *
-   * @param isExemptFromSuper Boolean
-   * @return EarningsRate
-   */
+  * See the ATO website for details of which payments are exempt from SGC
+  * @param isExemptFromSuper  Boolean
+  * @return EarningsRate
+  **/
   public EarningsRate isExemptFromSuper(Boolean isExemptFromSuper) {
     this.isExemptFromSuper = isExemptFromSuper;
     return this;
   }
 
-  /**
+   /**
    * See the ATO website for details of which payments are exempt from SGC
-   *
    * @return isExemptFromSuper
-   */
-  @ApiModelProperty(
-      example = "false",
-      value = "See the ATO website for details of which payments are exempt from SGC")
-  /**
+  **/
+  @ApiModelProperty(example = "false", value = "See the ATO website for details of which payments are exempt from SGC")
+  /** 
    * See the ATO website for details of which payments are exempt from SGC
-   *
    * @return isExemptFromSuper Boolean
-   */
+  **/
   public Boolean getIsExemptFromSuper() {
     return isExemptFromSuper;
   }
 
-  /**
-   * See the ATO website for details of which payments are exempt from SGC
-   *
-   * @param isExemptFromSuper Boolean
-   */
+  /** 
+  * See the ATO website for details of which payments are exempt from SGC
+  * @param isExemptFromSuper  Boolean
+  **/
+
   public void setIsExemptFromSuper(Boolean isExemptFromSuper) {
     this.isExemptFromSuper = isExemptFromSuper;
   }
 
   /**
-   * Boolean to determine if the earnings rate is reportable or exempt from W1
-   *
-   * @param isReportableAsW1 Boolean
-   * @return EarningsRate
-   */
+  * Boolean to determine if the earnings rate is reportable or exempt from W1
+  * @param isReportableAsW1  Boolean
+  * @return EarningsRate
+  **/
   public EarningsRate isReportableAsW1(Boolean isReportableAsW1) {
     this.isReportableAsW1 = isReportableAsW1;
     return this;
   }
 
-  /**
+   /**
    * Boolean to determine if the earnings rate is reportable or exempt from W1
-   *
    * @return isReportableAsW1
-   */
-  @ApiModelProperty(
-      example = "false",
-      value = "Boolean to determine if the earnings rate is reportable or exempt from W1")
-  /**
+  **/
+  @ApiModelProperty(example = "false", value = "Boolean to determine if the earnings rate is reportable or exempt from W1")
+  /** 
    * Boolean to determine if the earnings rate is reportable or exempt from W1
-   *
    * @return isReportableAsW1 Boolean
-   */
+  **/
   public Boolean getIsReportableAsW1() {
     return isReportableAsW1;
   }
 
-  /**
-   * Boolean to determine if the earnings rate is reportable or exempt from W1
-   *
-   * @param isReportableAsW1 Boolean
-   */
+  /** 
+  * Boolean to determine if the earnings rate is reportable or exempt from W1
+  * @param isReportableAsW1  Boolean
+  **/
+
   public void setIsReportableAsW1(Boolean isReportableAsW1) {
     this.isReportableAsW1 = isReportableAsW1;
   }
 
   /**
-   * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only
-   * applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
-   *
-   * @param allowanceContributesToAnnualLeaveRate Boolean
-   * @return EarningsRate
-   */
-  public EarningsRate allowanceContributesToAnnualLeaveRate(
-      Boolean allowanceContributesToAnnualLeaveRate) {
+  * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+  * @param allowanceContributesToAnnualLeaveRate  Boolean
+  * @return EarningsRate
+  **/
+  public EarningsRate allowanceContributesToAnnualLeaveRate(Boolean allowanceContributesToAnnualLeaveRate) {
     this.allowanceContributesToAnnualLeaveRate = allowanceContributesToAnnualLeaveRate;
     return this;
   }
 
-  /**
-   * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only
-   * applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
-   *
+   /**
+   * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
    * @return allowanceContributesToAnnualLeaveRate
-   */
-  @ApiModelProperty(
-      example = "false",
-      value =
-          "Boolean to determine if the allowance earnings rate contributes towards annual leave"
-              + " rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT")
-  /**
-   * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only
-   * applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
-   *
+  **/
+  @ApiModelProperty(example = "false", value = "Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT")
+  /** 
+   * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
    * @return allowanceContributesToAnnualLeaveRate Boolean
-   */
+  **/
   public Boolean getAllowanceContributesToAnnualLeaveRate() {
     return allowanceContributesToAnnualLeaveRate;
   }
 
-  /**
-   * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only
-   * applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
-   *
-   * @param allowanceContributesToAnnualLeaveRate Boolean
-   */
-  public void setAllowanceContributesToAnnualLeaveRate(
-      Boolean allowanceContributesToAnnualLeaveRate) {
+  /** 
+  * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+  * @param allowanceContributesToAnnualLeaveRate  Boolean
+  **/
+
+  public void setAllowanceContributesToAnnualLeaveRate(Boolean allowanceContributesToAnnualLeaveRate) {
     this.allowanceContributesToAnnualLeaveRate = allowanceContributesToAnnualLeaveRate;
   }
 
   /**
-   * Boolean to determine if the allowance earnings rate contributes towards overtime allowance
-   * rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
-   *
-   * @param allowanceContributesToOvertimeRate Boolean
-   * @return EarningsRate
-   */
-  public EarningsRate allowanceContributesToOvertimeRate(
-      Boolean allowanceContributesToOvertimeRate) {
+  * Boolean to determine if the allowance earnings rate contributes towards overtime allowance rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+  * @param allowanceContributesToOvertimeRate  Boolean
+  * @return EarningsRate
+  **/
+  public EarningsRate allowanceContributesToOvertimeRate(Boolean allowanceContributesToOvertimeRate) {
     this.allowanceContributesToOvertimeRate = allowanceContributesToOvertimeRate;
     return this;
   }
 
-  /**
-   * Boolean to determine if the allowance earnings rate contributes towards overtime allowance
-   * rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
-   *
+   /**
+   * Boolean to determine if the allowance earnings rate contributes towards overtime allowance rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
    * @return allowanceContributesToOvertimeRate
-   */
-  @ApiModelProperty(
-      example = "false",
-      value =
-          "Boolean to determine if the allowance earnings rate contributes towards overtime"
-              + " allowance rate. Only applicable if EarningsType is ALLOWANCE and RateType is"
-              + " RATEPERUNIT")
-  /**
-   * Boolean to determine if the allowance earnings rate contributes towards overtime allowance
-   * rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
-   *
+  **/
+  @ApiModelProperty(example = "false", value = "Boolean to determine if the allowance earnings rate contributes towards overtime allowance rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT")
+  /** 
+   * Boolean to determine if the allowance earnings rate contributes towards overtime allowance rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
    * @return allowanceContributesToOvertimeRate Boolean
-   */
+  **/
   public Boolean getAllowanceContributesToOvertimeRate() {
     return allowanceContributesToOvertimeRate;
   }
 
-  /**
-   * Boolean to determine if the allowance earnings rate contributes towards overtime allowance
-   * rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
-   *
-   * @param allowanceContributesToOvertimeRate Boolean
-   */
+  /** 
+  * Boolean to determine if the allowance earnings rate contributes towards overtime allowance rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+  * @param allowanceContributesToOvertimeRate  Boolean
+  **/
+
   public void setAllowanceContributesToOvertimeRate(Boolean allowanceContributesToOvertimeRate) {
     this.allowanceContributesToOvertimeRate = allowanceContributesToOvertimeRate;
   }
 
   /**
-   * earningsType
-   *
-   * @param earningsType EarningsType
-   * @return EarningsRate
-   */
+  * earningsType
+  * @param earningsType  EarningsType
+  * @return EarningsRate
+  **/
   public EarningsRate earningsType(EarningsType earningsType) {
     this.earningsType = earningsType;
     return this;
   }
 
-  /**
+   /**
    * Get earningsType
-   *
    * @return earningsType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * earningsType
-   *
    * @return earningsType EarningsType
-   */
+  **/
   public EarningsType getEarningsType() {
     return earningsType;
   }
 
-  /**
-   * earningsType
-   *
-   * @param earningsType EarningsType
-   */
+  /** 
+  * earningsType
+  * @param earningsType  EarningsType
+  **/
+
   public void setEarningsType(EarningsType earningsType) {
     this.earningsType = earningsType;
   }
 
   /**
-   * Xero identifier
-   *
-   * @param earningsRateID UUID
-   * @return EarningsRate
-   */
+  * Xero identifier
+  * @param earningsRateID  UUID
+  * @return EarningsRate
+  **/
   public EarningsRate earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier
-   *
    * @return earningsRateID
-   */
+  **/
   @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "Xero identifier")
-  /**
+  /** 
    * Xero identifier
-   *
    * @return earningsRateID UUID
-   */
+  **/
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
-  /**
-   * Xero identifier
-   *
-   * @param earningsRateID UUID
-   */
+  /** 
+  * Xero identifier
+  * @param earningsRateID  UUID
+  **/
+
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
   /**
-   * rateType
-   *
-   * @param rateType RateType
-   * @return EarningsRate
-   */
+  * rateType
+  * @param rateType  RateType
+  * @return EarningsRate
+  **/
   public EarningsRate rateType(RateType rateType) {
     this.rateType = rateType;
     return this;
   }
 
-  /**
+   /**
    * Get rateType
-   *
    * @return rateType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * rateType
-   *
    * @return rateType RateType
-   */
+  **/
   public RateType getRateType() {
     return rateType;
   }
 
-  /**
-   * rateType
-   *
-   * @param rateType RateType
-   */
+  /** 
+  * rateType
+  * @param rateType  RateType
+  **/
+
   public void setRateType(RateType rateType) {
     this.rateType = rateType;
   }
 
   /**
-   * Default rate per unit (optional). Only applicable if RateType is RATEPERUNIT.
-   *
-   * @param ratePerUnit String
-   * @return EarningsRate
-   */
+  * Default rate per unit (optional). Only applicable if RateType is RATEPERUNIT.
+  * @param ratePerUnit  String
+  * @return EarningsRate
+  **/
   public EarningsRate ratePerUnit(String ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
   }
 
-  /**
+   /**
    * Default rate per unit (optional). Only applicable if RateType is RATEPERUNIT.
-   *
    * @return ratePerUnit
-   */
-  @ApiModelProperty(
-      example = "10",
-      value = "Default rate per unit (optional). Only applicable if RateType is RATEPERUNIT.")
-  /**
+  **/
+  @ApiModelProperty(example = "10", value = "Default rate per unit (optional). Only applicable if RateType is RATEPERUNIT.")
+  /** 
    * Default rate per unit (optional). Only applicable if RateType is RATEPERUNIT.
-   *
    * @return ratePerUnit String
-   */
+  **/
   public String getRatePerUnit() {
     return ratePerUnit;
   }
 
-  /**
-   * Default rate per unit (optional). Only applicable if RateType is RATEPERUNIT.
-   *
-   * @param ratePerUnit String
-   */
+  /** 
+  * Default rate per unit (optional). Only applicable if RateType is RATEPERUNIT.
+  * @param ratePerUnit  String
+  **/
+
   public void setRatePerUnit(String ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
   }
 
   /**
-   * This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary
-   * earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is
-   * MULTIPLE
-   *
-   * @param multiplier Double
-   * @return EarningsRate
-   */
+  * This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is MULTIPLE
+  * @param multiplier  Double
+  * @return EarningsRate
+  **/
   public EarningsRate multiplier(Double multiplier) {
     this.multiplier = multiplier;
     return this;
   }
 
-  /**
-   * This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary
-   * earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is
-   * MULTIPLE
-   *
+   /**
+   * This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is MULTIPLE
    * @return multiplier
-   */
-  @ApiModelProperty(
-      example = "1.5",
-      value =
-          "This is the multiplier used to calculate the rate per unit, based on the employee’s"
-              + " ordinary earnings rate. For example, for time and a half enter 1.5. Only"
-              + " applicable if RateType is MULTIPLE")
-  /**
-   * This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary
-   * earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is
-   * MULTIPLE
-   *
+  **/
+  @ApiModelProperty(example = "1.5", value = "This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is MULTIPLE")
+  /** 
+   * This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is MULTIPLE
    * @return multiplier Double
-   */
+  **/
   public Double getMultiplier() {
     return multiplier;
   }
 
-  /**
-   * This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary
-   * earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is
-   * MULTIPLE
-   *
-   * @param multiplier Double
-   */
+  /** 
+  * This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is MULTIPLE
+  * @param multiplier  Double
+  **/
+
   public void setMultiplier(Double multiplier) {
     this.multiplier = multiplier;
   }
 
   /**
-   * Indicates that this earnings rate should accrue leave. Only applicable if RateType is MULTIPLE
-   *
-   * @param accrueLeave Boolean
-   * @return EarningsRate
-   */
+  * Indicates that this earnings rate should accrue leave. Only applicable if RateType is MULTIPLE
+  * @param accrueLeave  Boolean
+  * @return EarningsRate
+  **/
   public EarningsRate accrueLeave(Boolean accrueLeave) {
     this.accrueLeave = accrueLeave;
     return this;
   }
 
-  /**
+   /**
    * Indicates that this earnings rate should accrue leave. Only applicable if RateType is MULTIPLE
-   *
    * @return accrueLeave
-   */
-  @ApiModelProperty(
-      example = "false",
-      value =
-          "Indicates that this earnings rate should accrue leave. Only applicable if RateType is"
-              + " MULTIPLE")
-  /**
+  **/
+  @ApiModelProperty(example = "false", value = "Indicates that this earnings rate should accrue leave. Only applicable if RateType is MULTIPLE")
+  /** 
    * Indicates that this earnings rate should accrue leave. Only applicable if RateType is MULTIPLE
-   *
    * @return accrueLeave Boolean
-   */
+  **/
   public Boolean getAccrueLeave() {
     return accrueLeave;
   }
 
-  /**
-   * Indicates that this earnings rate should accrue leave. Only applicable if RateType is MULTIPLE
-   *
-   * @param accrueLeave Boolean
-   */
+  /** 
+  * Indicates that this earnings rate should accrue leave. Only applicable if RateType is MULTIPLE
+  * @param accrueLeave  Boolean
+  **/
+
   public void setAccrueLeave(Boolean accrueLeave) {
     this.accrueLeave = accrueLeave;
   }
 
   /**
-   * Optional Amount for FIXEDAMOUNT RateType EarningsRate
-   *
-   * @param amount Double
-   * @return EarningsRate
-   */
+  * Optional Amount for FIXEDAMOUNT RateType EarningsRate
+  * @param amount  Double
+  * @return EarningsRate
+  **/
   public EarningsRate amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * Optional Amount for FIXEDAMOUNT RateType EarningsRate
-   *
    * @return amount
-   */
-  @ApiModelProperty(
-      example = "50.3",
-      value = "Optional Amount for FIXEDAMOUNT RateType EarningsRate")
-  /**
+  **/
+  @ApiModelProperty(example = "50.3", value = "Optional Amount for FIXEDAMOUNT RateType EarningsRate")
+  /** 
    * Optional Amount for FIXEDAMOUNT RateType EarningsRate
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * Optional Amount for FIXEDAMOUNT RateType EarningsRate
-   *
-   * @param amount Double
-   */
+  /** 
+  * Optional Amount for FIXEDAMOUNT RateType EarningsRate
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * employmentTerminationPaymentType
-   *
-   * @param employmentTerminationPaymentType EmploymentTerminationPaymentType
-   * @return EarningsRate
-   */
-  public EarningsRate employmentTerminationPaymentType(
-      EmploymentTerminationPaymentType employmentTerminationPaymentType) {
+  * employmentTerminationPaymentType
+  * @param employmentTerminationPaymentType  EmploymentTerminationPaymentType
+  * @return EarningsRate
+  **/
+  public EarningsRate employmentTerminationPaymentType(EmploymentTerminationPaymentType employmentTerminationPaymentType) {
     this.employmentTerminationPaymentType = employmentTerminationPaymentType;
     return this;
   }
 
-  /**
+   /**
    * Get employmentTerminationPaymentType
-   *
    * @return employmentTerminationPaymentType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * employmentTerminationPaymentType
-   *
    * @return employmentTerminationPaymentType EmploymentTerminationPaymentType
-   */
+  **/
   public EmploymentTerminationPaymentType getEmploymentTerminationPaymentType() {
     return employmentTerminationPaymentType;
   }
 
-  /**
-   * employmentTerminationPaymentType
-   *
-   * @param employmentTerminationPaymentType EmploymentTerminationPaymentType
-   */
-  public void setEmploymentTerminationPaymentType(
-      EmploymentTerminationPaymentType employmentTerminationPaymentType) {
+  /** 
+  * employmentTerminationPaymentType
+  * @param employmentTerminationPaymentType  EmploymentTerminationPaymentType
+  **/
+
+  public void setEmploymentTerminationPaymentType(EmploymentTerminationPaymentType employmentTerminationPaymentType) {
     this.employmentTerminationPaymentType = employmentTerminationPaymentType;
   }
 
-  /**
+   /**
    * Last modified timestamp
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
-  /**
+  /** 
    * Last modified timestamp
-   *
    * @return updatedDateUTC String
-   */
+  **/
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-  /**
+  /** 
    * Last modified timestamp
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   /**
-   * Is the current record
-   *
-   * @param currentRecord Boolean
-   * @return EarningsRate
-   */
+  * Is the current record
+  * @param currentRecord  Boolean
+  * @return EarningsRate
+  **/
   public EarningsRate currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
   }
 
-  /**
+   /**
    * Is the current record
-   *
    * @return currentRecord
-   */
+  **/
   @ApiModelProperty(example = "true", value = "Is the current record")
-  /**
+  /** 
    * Is the current record
-   *
    * @return currentRecord Boolean
-   */
+  **/
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
-  /**
-   * Is the current record
-   *
-   * @param currentRecord Boolean
-   */
+  /** 
+  * Is the current record
+  * @param currentRecord  Boolean
+  **/
+
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }
 
   /**
-   * allowanceType
-   *
-   * @param allowanceType AllowanceType
-   * @return EarningsRate
-   */
+  * allowanceType
+  * @param allowanceType  AllowanceType
+  * @return EarningsRate
+  **/
   public EarningsRate allowanceType(AllowanceType allowanceType) {
     this.allowanceType = allowanceType;
     return this;
   }
 
-  /**
+   /**
    * Get allowanceType
-   *
    * @return allowanceType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * allowanceType
-   *
    * @return allowanceType AllowanceType
-   */
+  **/
   public AllowanceType getAllowanceType() {
     return allowanceType;
   }
 
-  /**
-   * allowanceType
-   *
-   * @param allowanceType AllowanceType
-   */
+  /** 
+  * allowanceType
+  * @param allowanceType  AllowanceType
+  **/
+
   public void setAllowanceType(AllowanceType allowanceType) {
     this.allowanceType = allowanceType;
   }
 
   /**
-   * allowanceCategory
-   *
-   * @param allowanceCategory AllowanceCategory
-   * @return EarningsRate
-   */
+  * allowanceCategory
+  * @param allowanceCategory  AllowanceCategory
+  * @return EarningsRate
+  **/
   public EarningsRate allowanceCategory(AllowanceCategory allowanceCategory) {
     this.allowanceCategory = allowanceCategory;
     return this;
   }
 
-  /**
+   /**
    * Get allowanceCategory
-   *
    * @return allowanceCategory
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * allowanceCategory
-   *
    * @return allowanceCategory AllowanceCategory
-   */
+  **/
   public AllowanceCategory getAllowanceCategory() {
     return allowanceCategory;
   }
 
-  /**
-   * allowanceCategory
-   *
-   * @param allowanceCategory AllowanceCategory
-   */
+  /** 
+  * allowanceCategory
+  * @param allowanceCategory  AllowanceCategory
+  **/
+
   public void setAllowanceCategory(AllowanceCategory allowanceCategory) {
     this.allowanceCategory = allowanceCategory;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -845,57 +747,33 @@ public class EarningsRate {
       return false;
     }
     EarningsRate earningsRate = (EarningsRate) o;
-    return Objects.equals(this.name, earningsRate.name)
-        && Objects.equals(this.accountCode, earningsRate.accountCode)
-        && Objects.equals(this.typeOfUnits, earningsRate.typeOfUnits)
-        && Objects.equals(this.isExemptFromTax, earningsRate.isExemptFromTax)
-        && Objects.equals(this.isExemptFromSuper, earningsRate.isExemptFromSuper)
-        && Objects.equals(this.isReportableAsW1, earningsRate.isReportableAsW1)
-        && Objects.equals(
-            this.allowanceContributesToAnnualLeaveRate,
-            earningsRate.allowanceContributesToAnnualLeaveRate)
-        && Objects.equals(
-            this.allowanceContributesToOvertimeRate,
-            earningsRate.allowanceContributesToOvertimeRate)
-        && Objects.equals(this.earningsType, earningsRate.earningsType)
-        && Objects.equals(this.earningsRateID, earningsRate.earningsRateID)
-        && Objects.equals(this.rateType, earningsRate.rateType)
-        && Objects.equals(this.ratePerUnit, earningsRate.ratePerUnit)
-        && Objects.equals(this.multiplier, earningsRate.multiplier)
-        && Objects.equals(this.accrueLeave, earningsRate.accrueLeave)
-        && Objects.equals(this.amount, earningsRate.amount)
-        && Objects.equals(
-            this.employmentTerminationPaymentType, earningsRate.employmentTerminationPaymentType)
-        && Objects.equals(this.updatedDateUTC, earningsRate.updatedDateUTC)
-        && Objects.equals(this.currentRecord, earningsRate.currentRecord)
-        && Objects.equals(this.allowanceType, earningsRate.allowanceType)
-        && Objects.equals(this.allowanceCategory, earningsRate.allowanceCategory);
+    return Objects.equals(this.name, earningsRate.name) &&
+        Objects.equals(this.accountCode, earningsRate.accountCode) &&
+        Objects.equals(this.typeOfUnits, earningsRate.typeOfUnits) &&
+        Objects.equals(this.isExemptFromTax, earningsRate.isExemptFromTax) &&
+        Objects.equals(this.isExemptFromSuper, earningsRate.isExemptFromSuper) &&
+        Objects.equals(this.isReportableAsW1, earningsRate.isReportableAsW1) &&
+        Objects.equals(this.allowanceContributesToAnnualLeaveRate, earningsRate.allowanceContributesToAnnualLeaveRate) &&
+        Objects.equals(this.allowanceContributesToOvertimeRate, earningsRate.allowanceContributesToOvertimeRate) &&
+        Objects.equals(this.earningsType, earningsRate.earningsType) &&
+        Objects.equals(this.earningsRateID, earningsRate.earningsRateID) &&
+        Objects.equals(this.rateType, earningsRate.rateType) &&
+        Objects.equals(this.ratePerUnit, earningsRate.ratePerUnit) &&
+        Objects.equals(this.multiplier, earningsRate.multiplier) &&
+        Objects.equals(this.accrueLeave, earningsRate.accrueLeave) &&
+        Objects.equals(this.amount, earningsRate.amount) &&
+        Objects.equals(this.employmentTerminationPaymentType, earningsRate.employmentTerminationPaymentType) &&
+        Objects.equals(this.updatedDateUTC, earningsRate.updatedDateUTC) &&
+        Objects.equals(this.currentRecord, earningsRate.currentRecord) &&
+        Objects.equals(this.allowanceType, earningsRate.allowanceType) &&
+        Objects.equals(this.allowanceCategory, earningsRate.allowanceCategory);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        name,
-        accountCode,
-        typeOfUnits,
-        isExemptFromTax,
-        isExemptFromSuper,
-        isReportableAsW1,
-        allowanceContributesToAnnualLeaveRate,
-        allowanceContributesToOvertimeRate,
-        earningsType,
-        earningsRateID,
-        rateType,
-        ratePerUnit,
-        multiplier,
-        accrueLeave,
-        amount,
-        employmentTerminationPaymentType,
-        updatedDateUTC,
-        currentRecord,
-        allowanceType,
-        allowanceCategory);
+    return Objects.hash(name, accountCode, typeOfUnits, isExemptFromTax, isExemptFromSuper, isReportableAsW1, allowanceContributesToAnnualLeaveRate, allowanceContributesToOvertimeRate, earningsType, earningsRateID, rateType, ratePerUnit, multiplier, accrueLeave, amount, employmentTerminationPaymentType, updatedDateUTC, currentRecord, allowanceType, allowanceCategory);
   }
+
 
   @Override
   public String toString() {
@@ -907,12 +785,8 @@ public class EarningsRate {
     sb.append("    isExemptFromTax: ").append(toIndentedString(isExemptFromTax)).append("\n");
     sb.append("    isExemptFromSuper: ").append(toIndentedString(isExemptFromSuper)).append("\n");
     sb.append("    isReportableAsW1: ").append(toIndentedString(isReportableAsW1)).append("\n");
-    sb.append("    allowanceContributesToAnnualLeaveRate: ")
-        .append(toIndentedString(allowanceContributesToAnnualLeaveRate))
-        .append("\n");
-    sb.append("    allowanceContributesToOvertimeRate: ")
-        .append(toIndentedString(allowanceContributesToOvertimeRate))
-        .append("\n");
+    sb.append("    allowanceContributesToAnnualLeaveRate: ").append(toIndentedString(allowanceContributesToAnnualLeaveRate)).append("\n");
+    sb.append("    allowanceContributesToOvertimeRate: ").append(toIndentedString(allowanceContributesToOvertimeRate)).append("\n");
     sb.append("    earningsType: ").append(toIndentedString(earningsType)).append("\n");
     sb.append("    earningsRateID: ").append(toIndentedString(earningsRateID)).append("\n");
     sb.append("    rateType: ").append(toIndentedString(rateType)).append("\n");
@@ -920,9 +794,7 @@ public class EarningsRate {
     sb.append("    multiplier: ").append(toIndentedString(multiplier)).append("\n");
     sb.append("    accrueLeave: ").append(toIndentedString(accrueLeave)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    employmentTerminationPaymentType: ")
-        .append(toIndentedString(employmentTerminationPaymentType))
-        .append("\n");
+    sb.append("    employmentTerminationPaymentType: ").append(toIndentedString(employmentTerminationPaymentType)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    currentRecord: ").append(toIndentedString(currentRecord)).append("\n");
     sb.append("    allowanceType: ").append(toIndentedString(allowanceType)).append("\n");
@@ -932,7 +804,8 @@ public class EarningsRate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -940,4 +813,6 @@ public class EarningsRate {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

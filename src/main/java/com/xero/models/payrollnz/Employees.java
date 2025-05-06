@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.Employee;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Employees */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Employees
+ */
+
 public class Employees {
   StringUtil util = new StringUtil();
 
@@ -31,81 +51,74 @@ public class Employees {
   @JsonProperty("employees")
   private List<Employee> employees = new ArrayList<Employee>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return Employees
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return Employees
+  **/
   public Employees pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return Employees
-   */
+  * problem
+  * @param problem  Problem
+  * @return Employees
+  **/
   public Employees problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * employees
-   *
-   * @param employees List&lt;Employee&gt;
-   * @return Employees
-   */
+  * employees
+  * @param employees  List&lt;Employee&gt;
+  * @return Employees
+  **/
   public Employees employees(List<Employee> employees) {
     this.employees = employees;
     return this;
@@ -113,10 +126,9 @@ public class Employees {
 
   /**
    * employees
-   *
-   * @param employeesItem Employee
+   * @param employeesItem Employee 
    * @return Employees
-   */
+  **/
   public Employees addEmployeesItem(Employee employeesItem) {
     if (this.employees == null) {
       this.employees = new ArrayList<Employee>();
@@ -125,29 +137,28 @@ public class Employees {
     return this;
   }
 
-  /**
+   /**
    * Get employees
-   *
    * @return employees
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * employees
-   *
    * @return employees List<Employee>
-   */
+  **/
   public List<Employee> getEmployees() {
     return employees;
   }
 
-  /**
-   * employees
-   *
-   * @param employees List&lt;Employee&gt;
-   */
+  /** 
+  * employees
+  * @param employees List&lt;Employee&gt; 
+  **/
+
   public void setEmployees(List<Employee> employees) {
     this.employees = employees;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,15 +169,16 @@ public class Employees {
       return false;
     }
     Employees employees = (Employees) o;
-    return Objects.equals(this.pagination, employees.pagination)
-        && Objects.equals(this.problem, employees.problem)
-        && Objects.equals(this.employees, employees.employees);
+    return Objects.equals(this.pagination, employees.pagination) &&
+        Objects.equals(this.problem, employees.problem) &&
+        Objects.equals(this.employees, employees.employees);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, employees);
   }
+
 
   @Override
   public String toString() {
@@ -180,7 +192,8 @@ public class Employees {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,4 +201,6 @@ public class Employees {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

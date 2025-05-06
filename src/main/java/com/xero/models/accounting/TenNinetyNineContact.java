@@ -9,17 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** TenNinetyNineContact */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TenNinetyNineContact
+ */
+
 public class TenNinetyNineContact {
   StringUtil util = new StringUtil();
 
@@ -94,27 +109,43 @@ public class TenNinetyNineContact {
 
   @JsonProperty("BusinessName")
   private String businessName;
-  /** Contact federal tax classification */
+  /**
+   * Contact federal tax classification
+   */
   public enum FederalTaxClassificationEnum {
-    /** SOLE_PROPRIETOR */
+    /**
+     * SOLE_PROPRIETOR
+     */
     SOLE_PROPRIETOR("SOLE_PROPRIETOR"),
-
-    /** PARTNERSHIP */
+    
+    /**
+     * PARTNERSHIP
+     */
     PARTNERSHIP("PARTNERSHIP"),
-
-    /** TRUST_OR_ESTATE */
+    
+    /**
+     * TRUST_OR_ESTATE
+     */
     TRUST_OR_ESTATE("TRUST_OR_ESTATE"),
-
-    /** NONPROFIT */
+    
+    /**
+     * NONPROFIT
+     */
     NONPROFIT("NONPROFIT"),
-
-    /** C_CORP */
+    
+    /**
+     * C_CORP
+     */
     C_CORP("C_CORP"),
-
-    /** S_CORP */
+    
+    /**
+     * S_CORP
+     */
     S_CORP("S_CORP"),
-
-    /** OTHER */
+    
+    /**
+     * OTHER
+     */
     OTHER("OTHER");
 
     private String value;
@@ -123,31 +154,25 @@ public class TenNinetyNineContact {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static FederalTaxClassificationEnum fromValue(String value) {
       for (FederalTaxClassificationEnum b : FederalTaxClassificationEnum.values()) {
@@ -159,883 +184,809 @@ public class TenNinetyNineContact {
     }
   }
 
+
   @JsonProperty("FederalTaxClassification")
   private FederalTaxClassificationEnum federalTaxClassification;
   /**
-   * Box 1 on 1099 Form
-   *
-   * @param box1 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 1 on 1099 Form
+  * @param box1  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box1(Double box1) {
     this.box1 = box1;
     return this;
   }
 
-  /**
+   /**
    * Box 1 on 1099 Form
-   *
    * @return box1
-   */
+  **/
   @ApiModelProperty(value = "Box 1 on 1099 Form")
-  /**
+  /** 
    * Box 1 on 1099 Form
-   *
    * @return box1 Double
-   */
+  **/
   public Double getBox1() {
     return box1;
   }
 
-  /**
-   * Box 1 on 1099 Form
-   *
-   * @param box1 Double
-   */
+  /** 
+  * Box 1 on 1099 Form
+  * @param box1  Double
+  **/
+
   public void setBox1(Double box1) {
     this.box1 = box1;
   }
 
   /**
-   * Box 2 on 1099 Form
-   *
-   * @param box2 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 2 on 1099 Form
+  * @param box2  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box2(Double box2) {
     this.box2 = box2;
     return this;
   }
 
-  /**
+   /**
    * Box 2 on 1099 Form
-   *
    * @return box2
-   */
+  **/
   @ApiModelProperty(value = "Box 2 on 1099 Form")
-  /**
+  /** 
    * Box 2 on 1099 Form
-   *
    * @return box2 Double
-   */
+  **/
   public Double getBox2() {
     return box2;
   }
 
-  /**
-   * Box 2 on 1099 Form
-   *
-   * @param box2 Double
-   */
+  /** 
+  * Box 2 on 1099 Form
+  * @param box2  Double
+  **/
+
   public void setBox2(Double box2) {
     this.box2 = box2;
   }
 
   /**
-   * Box 3 on 1099 Form
-   *
-   * @param box3 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 3 on 1099 Form
+  * @param box3  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box3(Double box3) {
     this.box3 = box3;
     return this;
   }
 
-  /**
+   /**
    * Box 3 on 1099 Form
-   *
    * @return box3
-   */
+  **/
   @ApiModelProperty(value = "Box 3 on 1099 Form")
-  /**
+  /** 
    * Box 3 on 1099 Form
-   *
    * @return box3 Double
-   */
+  **/
   public Double getBox3() {
     return box3;
   }
 
-  /**
-   * Box 3 on 1099 Form
-   *
-   * @param box3 Double
-   */
+  /** 
+  * Box 3 on 1099 Form
+  * @param box3  Double
+  **/
+
   public void setBox3(Double box3) {
     this.box3 = box3;
   }
 
   /**
-   * Box 4 on 1099 Form
-   *
-   * @param box4 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 4 on 1099 Form
+  * @param box4  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box4(Double box4) {
     this.box4 = box4;
     return this;
   }
 
-  /**
+   /**
    * Box 4 on 1099 Form
-   *
    * @return box4
-   */
+  **/
   @ApiModelProperty(value = "Box 4 on 1099 Form")
-  /**
+  /** 
    * Box 4 on 1099 Form
-   *
    * @return box4 Double
-   */
+  **/
   public Double getBox4() {
     return box4;
   }
 
-  /**
-   * Box 4 on 1099 Form
-   *
-   * @param box4 Double
-   */
+  /** 
+  * Box 4 on 1099 Form
+  * @param box4  Double
+  **/
+
   public void setBox4(Double box4) {
     this.box4 = box4;
   }
 
   /**
-   * Box 5 on 1099 Form
-   *
-   * @param box5 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 5 on 1099 Form
+  * @param box5  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box5(Double box5) {
     this.box5 = box5;
     return this;
   }
 
-  /**
+   /**
    * Box 5 on 1099 Form
-   *
    * @return box5
-   */
+  **/
   @ApiModelProperty(value = "Box 5 on 1099 Form")
-  /**
+  /** 
    * Box 5 on 1099 Form
-   *
    * @return box5 Double
-   */
+  **/
   public Double getBox5() {
     return box5;
   }
 
-  /**
-   * Box 5 on 1099 Form
-   *
-   * @param box5 Double
-   */
+  /** 
+  * Box 5 on 1099 Form
+  * @param box5  Double
+  **/
+
   public void setBox5(Double box5) {
     this.box5 = box5;
   }
 
   /**
-   * Box 6 on 1099 Form
-   *
-   * @param box6 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 6 on 1099 Form
+  * @param box6  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box6(Double box6) {
     this.box6 = box6;
     return this;
   }
 
-  /**
+   /**
    * Box 6 on 1099 Form
-   *
    * @return box6
-   */
+  **/
   @ApiModelProperty(value = "Box 6 on 1099 Form")
-  /**
+  /** 
    * Box 6 on 1099 Form
-   *
    * @return box6 Double
-   */
+  **/
   public Double getBox6() {
     return box6;
   }
 
-  /**
-   * Box 6 on 1099 Form
-   *
-   * @param box6 Double
-   */
+  /** 
+  * Box 6 on 1099 Form
+  * @param box6  Double
+  **/
+
   public void setBox6(Double box6) {
     this.box6 = box6;
   }
 
   /**
-   * Box 7 on 1099 Form
-   *
-   * @param box7 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 7 on 1099 Form
+  * @param box7  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box7(Double box7) {
     this.box7 = box7;
     return this;
   }
 
-  /**
+   /**
    * Box 7 on 1099 Form
-   *
    * @return box7
-   */
+  **/
   @ApiModelProperty(value = "Box 7 on 1099 Form")
-  /**
+  /** 
    * Box 7 on 1099 Form
-   *
    * @return box7 Double
-   */
+  **/
   public Double getBox7() {
     return box7;
   }
 
-  /**
-   * Box 7 on 1099 Form
-   *
-   * @param box7 Double
-   */
+  /** 
+  * Box 7 on 1099 Form
+  * @param box7  Double
+  **/
+
   public void setBox7(Double box7) {
     this.box7 = box7;
   }
 
   /**
-   * Box 8 on 1099 Form
-   *
-   * @param box8 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 8 on 1099 Form
+  * @param box8  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box8(Double box8) {
     this.box8 = box8;
     return this;
   }
 
-  /**
+   /**
    * Box 8 on 1099 Form
-   *
    * @return box8
-   */
+  **/
   @ApiModelProperty(value = "Box 8 on 1099 Form")
-  /**
+  /** 
    * Box 8 on 1099 Form
-   *
    * @return box8 Double
-   */
+  **/
   public Double getBox8() {
     return box8;
   }
 
-  /**
-   * Box 8 on 1099 Form
-   *
-   * @param box8 Double
-   */
+  /** 
+  * Box 8 on 1099 Form
+  * @param box8  Double
+  **/
+
   public void setBox8(Double box8) {
     this.box8 = box8;
   }
 
   /**
-   * Box 9 on 1099 Form
-   *
-   * @param box9 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 9 on 1099 Form
+  * @param box9  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box9(Double box9) {
     this.box9 = box9;
     return this;
   }
 
-  /**
+   /**
    * Box 9 on 1099 Form
-   *
    * @return box9
-   */
+  **/
   @ApiModelProperty(value = "Box 9 on 1099 Form")
-  /**
+  /** 
    * Box 9 on 1099 Form
-   *
    * @return box9 Double
-   */
+  **/
   public Double getBox9() {
     return box9;
   }
 
-  /**
-   * Box 9 on 1099 Form
-   *
-   * @param box9 Double
-   */
+  /** 
+  * Box 9 on 1099 Form
+  * @param box9  Double
+  **/
+
   public void setBox9(Double box9) {
     this.box9 = box9;
   }
 
   /**
-   * Box 10 on 1099 Form
-   *
-   * @param box10 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 10 on 1099 Form
+  * @param box10  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box10(Double box10) {
     this.box10 = box10;
     return this;
   }
 
-  /**
+   /**
    * Box 10 on 1099 Form
-   *
    * @return box10
-   */
+  **/
   @ApiModelProperty(value = "Box 10 on 1099 Form")
-  /**
+  /** 
    * Box 10 on 1099 Form
-   *
    * @return box10 Double
-   */
+  **/
   public Double getBox10() {
     return box10;
   }
 
-  /**
-   * Box 10 on 1099 Form
-   *
-   * @param box10 Double
-   */
+  /** 
+  * Box 10 on 1099 Form
+  * @param box10  Double
+  **/
+
   public void setBox10(Double box10) {
     this.box10 = box10;
   }
 
   /**
-   * Box 11 on 1099 Form
-   *
-   * @param box11 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 11 on 1099 Form
+  * @param box11  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box11(Double box11) {
     this.box11 = box11;
     return this;
   }
 
-  /**
+   /**
    * Box 11 on 1099 Form
-   *
    * @return box11
-   */
+  **/
   @ApiModelProperty(value = "Box 11 on 1099 Form")
-  /**
+  /** 
    * Box 11 on 1099 Form
-   *
    * @return box11 Double
-   */
+  **/
   public Double getBox11() {
     return box11;
   }
 
-  /**
-   * Box 11 on 1099 Form
-   *
-   * @param box11 Double
-   */
+  /** 
+  * Box 11 on 1099 Form
+  * @param box11  Double
+  **/
+
   public void setBox11(Double box11) {
     this.box11 = box11;
   }
 
   /**
-   * Box 13 on 1099 Form
-   *
-   * @param box13 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 13 on 1099 Form
+  * @param box13  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box13(Double box13) {
     this.box13 = box13;
     return this;
   }
 
-  /**
+   /**
    * Box 13 on 1099 Form
-   *
    * @return box13
-   */
+  **/
   @ApiModelProperty(value = "Box 13 on 1099 Form")
-  /**
+  /** 
    * Box 13 on 1099 Form
-   *
    * @return box13 Double
-   */
+  **/
   public Double getBox13() {
     return box13;
   }
 
-  /**
-   * Box 13 on 1099 Form
-   *
-   * @param box13 Double
-   */
+  /** 
+  * Box 13 on 1099 Form
+  * @param box13  Double
+  **/
+
   public void setBox13(Double box13) {
     this.box13 = box13;
   }
 
   /**
-   * Box 14 on 1099 Form
-   *
-   * @param box14 Double
-   * @return TenNinetyNineContact
-   */
+  * Box 14 on 1099 Form
+  * @param box14  Double
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact box14(Double box14) {
     this.box14 = box14;
     return this;
   }
 
-  /**
+   /**
    * Box 14 on 1099 Form
-   *
    * @return box14
-   */
+  **/
   @ApiModelProperty(value = "Box 14 on 1099 Form")
-  /**
+  /** 
    * Box 14 on 1099 Form
-   *
    * @return box14 Double
-   */
+  **/
   public Double getBox14() {
     return box14;
   }
 
-  /**
-   * Box 14 on 1099 Form
-   *
-   * @param box14 Double
-   */
+  /** 
+  * Box 14 on 1099 Form
+  * @param box14  Double
+  **/
+
   public void setBox14(Double box14) {
     this.box14 = box14;
   }
 
   /**
-   * Contact name on 1099 Form
-   *
-   * @param name String
-   * @return TenNinetyNineContact
-   */
+  * Contact name on 1099 Form
+  * @param name  String
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Contact name on 1099 Form
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "Contact name on 1099 Form")
-  /**
+  /** 
    * Contact name on 1099 Form
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Contact name on 1099 Form
-   *
-   * @param name String
-   */
+  /** 
+  * Contact name on 1099 Form
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Contact Fed Tax ID type
-   *
-   * @param federalTaxIDType String
-   * @return TenNinetyNineContact
-   */
+  * Contact Fed Tax ID type
+  * @param federalTaxIDType  String
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact federalTaxIDType(String federalTaxIDType) {
     this.federalTaxIDType = federalTaxIDType;
     return this;
   }
 
-  /**
+   /**
    * Contact Fed Tax ID type
-   *
    * @return federalTaxIDType
-   */
+  **/
   @ApiModelProperty(value = "Contact Fed Tax ID type")
-  /**
+  /** 
    * Contact Fed Tax ID type
-   *
    * @return federalTaxIDType String
-   */
+  **/
   public String getFederalTaxIDType() {
     return federalTaxIDType;
   }
 
-  /**
-   * Contact Fed Tax ID type
-   *
-   * @param federalTaxIDType String
-   */
+  /** 
+  * Contact Fed Tax ID type
+  * @param federalTaxIDType  String
+  **/
+
   public void setFederalTaxIDType(String federalTaxIDType) {
     this.federalTaxIDType = federalTaxIDType;
   }
 
   /**
-   * Contact city on 1099 Form
-   *
-   * @param city String
-   * @return TenNinetyNineContact
-   */
+  * Contact city on 1099 Form
+  * @param city  String
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact city(String city) {
     this.city = city;
     return this;
   }
 
-  /**
+   /**
    * Contact city on 1099 Form
-   *
    * @return city
-   */
+  **/
   @ApiModelProperty(value = "Contact city on 1099 Form")
-  /**
+  /** 
    * Contact city on 1099 Form
-   *
    * @return city String
-   */
+  **/
   public String getCity() {
     return city;
   }
 
-  /**
-   * Contact city on 1099 Form
-   *
-   * @param city String
-   */
+  /** 
+  * Contact city on 1099 Form
+  * @param city  String
+  **/
+
   public void setCity(String city) {
     this.city = city;
   }
 
   /**
-   * Contact zip on 1099 Form
-   *
-   * @param zip String
-   * @return TenNinetyNineContact
-   */
+  * Contact zip on 1099 Form
+  * @param zip  String
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact zip(String zip) {
     this.zip = zip;
     return this;
   }
 
-  /**
+   /**
    * Contact zip on 1099 Form
-   *
    * @return zip
-   */
+  **/
   @ApiModelProperty(value = "Contact zip on 1099 Form")
-  /**
+  /** 
    * Contact zip on 1099 Form
-   *
    * @return zip String
-   */
+  **/
   public String getZip() {
     return zip;
   }
 
-  /**
-   * Contact zip on 1099 Form
-   *
-   * @param zip String
-   */
+  /** 
+  * Contact zip on 1099 Form
+  * @param zip  String
+  **/
+
   public void setZip(String zip) {
     this.zip = zip;
   }
 
   /**
-   * Contact State on 1099 Form
-   *
-   * @param state String
-   * @return TenNinetyNineContact
-   */
+  * Contact State on 1099 Form
+  * @param state  String
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact state(String state) {
     this.state = state;
     return this;
   }
 
-  /**
+   /**
    * Contact State on 1099 Form
-   *
    * @return state
-   */
+  **/
   @ApiModelProperty(value = "Contact State on 1099 Form")
-  /**
+  /** 
    * Contact State on 1099 Form
-   *
    * @return state String
-   */
+  **/
   public String getState() {
     return state;
   }
 
-  /**
-   * Contact State on 1099 Form
-   *
-   * @param state String
-   */
+  /** 
+  * Contact State on 1099 Form
+  * @param state  String
+  **/
+
   public void setState(String state) {
     this.state = state;
   }
 
   /**
-   * Contact email on 1099 Form
-   *
-   * @param email String
-   * @return TenNinetyNineContact
-   */
+  * Contact email on 1099 Form
+  * @param email  String
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact email(String email) {
     this.email = email;
     return this;
   }
 
-  /**
+   /**
    * Contact email on 1099 Form
-   *
    * @return email
-   */
+  **/
   @ApiModelProperty(value = "Contact email on 1099 Form")
-  /**
+  /** 
    * Contact email on 1099 Form
-   *
    * @return email String
-   */
+  **/
   public String getEmail() {
     return email;
   }
 
-  /**
-   * Contact email on 1099 Form
-   *
-   * @param email String
-   */
+  /** 
+  * Contact email on 1099 Form
+  * @param email  String
+  **/
+
   public void setEmail(String email) {
     this.email = email;
   }
 
   /**
-   * Contact address on 1099 Form
-   *
-   * @param streetAddress String
-   * @return TenNinetyNineContact
-   */
+  * Contact address on 1099 Form
+  * @param streetAddress  String
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact streetAddress(String streetAddress) {
     this.streetAddress = streetAddress;
     return this;
   }
 
-  /**
+   /**
    * Contact address on 1099 Form
-   *
    * @return streetAddress
-   */
+  **/
   @ApiModelProperty(value = "Contact address on 1099 Form")
-  /**
+  /** 
    * Contact address on 1099 Form
-   *
    * @return streetAddress String
-   */
+  **/
   public String getStreetAddress() {
     return streetAddress;
   }
 
-  /**
-   * Contact address on 1099 Form
-   *
-   * @param streetAddress String
-   */
+  /** 
+  * Contact address on 1099 Form
+  * @param streetAddress  String
+  **/
+
   public void setStreetAddress(String streetAddress) {
     this.streetAddress = streetAddress;
   }
 
   /**
-   * Contact tax id on 1099 Form
-   *
-   * @param taxID String
-   * @return TenNinetyNineContact
-   */
+  * Contact tax id on 1099 Form
+  * @param taxID  String
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact taxID(String taxID) {
     this.taxID = taxID;
     return this;
   }
 
-  /**
+   /**
    * Contact tax id on 1099 Form
-   *
    * @return taxID
-   */
+  **/
   @ApiModelProperty(value = "Contact tax id on 1099 Form")
-  /**
+  /** 
    * Contact tax id on 1099 Form
-   *
    * @return taxID String
-   */
+  **/
   public String getTaxID() {
     return taxID;
   }
 
-  /**
-   * Contact tax id on 1099 Form
-   *
-   * @param taxID String
-   */
+  /** 
+  * Contact tax id on 1099 Form
+  * @param taxID  String
+  **/
+
   public void setTaxID(String taxID) {
     this.taxID = taxID;
   }
 
   /**
-   * Contact contact id
-   *
-   * @param contactId UUID
-   * @return TenNinetyNineContact
-   */
+  * Contact contact id
+  * @param contactId  UUID
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact contactId(UUID contactId) {
     this.contactId = contactId;
     return this;
   }
 
-  /**
+   /**
    * Contact contact id
-   *
    * @return contactId
-   */
+  **/
   @ApiModelProperty(value = "Contact contact id")
-  /**
+  /** 
    * Contact contact id
-   *
    * @return contactId UUID
-   */
+  **/
   public UUID getContactId() {
     return contactId;
   }
 
-  /**
-   * Contact contact id
-   *
-   * @param contactId UUID
-   */
+  /** 
+  * Contact contact id
+  * @param contactId  UUID
+  **/
+
   public void setContactId(UUID contactId) {
     this.contactId = contactId;
   }
 
   /**
-   * Contact legal name
-   *
-   * @param legalName String
-   * @return TenNinetyNineContact
-   */
+  * Contact legal name
+  * @param legalName  String
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact legalName(String legalName) {
     this.legalName = legalName;
     return this;
   }
 
-  /**
+   /**
    * Contact legal name
-   *
    * @return legalName
-   */
+  **/
   @ApiModelProperty(value = "Contact legal name")
-  /**
+  /** 
    * Contact legal name
-   *
    * @return legalName String
-   */
+  **/
   public String getLegalName() {
     return legalName;
   }
 
-  /**
-   * Contact legal name
-   *
-   * @param legalName String
-   */
+  /** 
+  * Contact legal name
+  * @param legalName  String
+  **/
+
   public void setLegalName(String legalName) {
     this.legalName = legalName;
   }
 
   /**
-   * Contact business name
-   *
-   * @param businessName String
-   * @return TenNinetyNineContact
-   */
+  * Contact business name
+  * @param businessName  String
+  * @return TenNinetyNineContact
+  **/
   public TenNinetyNineContact businessName(String businessName) {
     this.businessName = businessName;
     return this;
   }
 
-  /**
+   /**
    * Contact business name
-   *
    * @return businessName
-   */
+  **/
   @ApiModelProperty(value = "Contact business name")
-  /**
+  /** 
    * Contact business name
-   *
    * @return businessName String
-   */
+  **/
   public String getBusinessName() {
     return businessName;
   }
 
-  /**
-   * Contact business name
-   *
-   * @param businessName String
-   */
+  /** 
+  * Contact business name
+  * @param businessName  String
+  **/
+
   public void setBusinessName(String businessName) {
     this.businessName = businessName;
   }
 
   /**
-   * Contact federal tax classification
-   *
-   * @param federalTaxClassification FederalTaxClassificationEnum
-   * @return TenNinetyNineContact
-   */
-  public TenNinetyNineContact federalTaxClassification(
-      FederalTaxClassificationEnum federalTaxClassification) {
+  * Contact federal tax classification
+  * @param federalTaxClassification  FederalTaxClassificationEnum
+  * @return TenNinetyNineContact
+  **/
+  public TenNinetyNineContact federalTaxClassification(FederalTaxClassificationEnum federalTaxClassification) {
     this.federalTaxClassification = federalTaxClassification;
     return this;
   }
 
-  /**
+   /**
    * Contact federal tax classification
-   *
    * @return federalTaxClassification
-   */
+  **/
   @ApiModelProperty(value = "Contact federal tax classification")
-  /**
+  /** 
    * Contact federal tax classification
-   *
    * @return federalTaxClassification FederalTaxClassificationEnum
-   */
+  **/
   public FederalTaxClassificationEnum getFederalTaxClassification() {
     return federalTaxClassification;
   }
 
-  /**
-   * Contact federal tax classification
-   *
-   * @param federalTaxClassification FederalTaxClassificationEnum
-   */
+  /** 
+  * Contact federal tax classification
+  * @param federalTaxClassification  FederalTaxClassificationEnum
+  **/
+
   public void setFederalTaxClassification(FederalTaxClassificationEnum federalTaxClassification) {
     this.federalTaxClassification = federalTaxClassification;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -1046,63 +997,38 @@ public class TenNinetyNineContact {
       return false;
     }
     TenNinetyNineContact tenNinetyNineContact = (TenNinetyNineContact) o;
-    return Objects.equals(this.box1, tenNinetyNineContact.box1)
-        && Objects.equals(this.box2, tenNinetyNineContact.box2)
-        && Objects.equals(this.box3, tenNinetyNineContact.box3)
-        && Objects.equals(this.box4, tenNinetyNineContact.box4)
-        && Objects.equals(this.box5, tenNinetyNineContact.box5)
-        && Objects.equals(this.box6, tenNinetyNineContact.box6)
-        && Objects.equals(this.box7, tenNinetyNineContact.box7)
-        && Objects.equals(this.box8, tenNinetyNineContact.box8)
-        && Objects.equals(this.box9, tenNinetyNineContact.box9)
-        && Objects.equals(this.box10, tenNinetyNineContact.box10)
-        && Objects.equals(this.box11, tenNinetyNineContact.box11)
-        && Objects.equals(this.box13, tenNinetyNineContact.box13)
-        && Objects.equals(this.box14, tenNinetyNineContact.box14)
-        && Objects.equals(this.name, tenNinetyNineContact.name)
-        && Objects.equals(this.federalTaxIDType, tenNinetyNineContact.federalTaxIDType)
-        && Objects.equals(this.city, tenNinetyNineContact.city)
-        && Objects.equals(this.zip, tenNinetyNineContact.zip)
-        && Objects.equals(this.state, tenNinetyNineContact.state)
-        && Objects.equals(this.email, tenNinetyNineContact.email)
-        && Objects.equals(this.streetAddress, tenNinetyNineContact.streetAddress)
-        && Objects.equals(this.taxID, tenNinetyNineContact.taxID)
-        && Objects.equals(this.contactId, tenNinetyNineContact.contactId)
-        && Objects.equals(this.legalName, tenNinetyNineContact.legalName)
-        && Objects.equals(this.businessName, tenNinetyNineContact.businessName)
-        && Objects.equals(
-            this.federalTaxClassification, tenNinetyNineContact.federalTaxClassification);
+    return Objects.equals(this.box1, tenNinetyNineContact.box1) &&
+        Objects.equals(this.box2, tenNinetyNineContact.box2) &&
+        Objects.equals(this.box3, tenNinetyNineContact.box3) &&
+        Objects.equals(this.box4, tenNinetyNineContact.box4) &&
+        Objects.equals(this.box5, tenNinetyNineContact.box5) &&
+        Objects.equals(this.box6, tenNinetyNineContact.box6) &&
+        Objects.equals(this.box7, tenNinetyNineContact.box7) &&
+        Objects.equals(this.box8, tenNinetyNineContact.box8) &&
+        Objects.equals(this.box9, tenNinetyNineContact.box9) &&
+        Objects.equals(this.box10, tenNinetyNineContact.box10) &&
+        Objects.equals(this.box11, tenNinetyNineContact.box11) &&
+        Objects.equals(this.box13, tenNinetyNineContact.box13) &&
+        Objects.equals(this.box14, tenNinetyNineContact.box14) &&
+        Objects.equals(this.name, tenNinetyNineContact.name) &&
+        Objects.equals(this.federalTaxIDType, tenNinetyNineContact.federalTaxIDType) &&
+        Objects.equals(this.city, tenNinetyNineContact.city) &&
+        Objects.equals(this.zip, tenNinetyNineContact.zip) &&
+        Objects.equals(this.state, tenNinetyNineContact.state) &&
+        Objects.equals(this.email, tenNinetyNineContact.email) &&
+        Objects.equals(this.streetAddress, tenNinetyNineContact.streetAddress) &&
+        Objects.equals(this.taxID, tenNinetyNineContact.taxID) &&
+        Objects.equals(this.contactId, tenNinetyNineContact.contactId) &&
+        Objects.equals(this.legalName, tenNinetyNineContact.legalName) &&
+        Objects.equals(this.businessName, tenNinetyNineContact.businessName) &&
+        Objects.equals(this.federalTaxClassification, tenNinetyNineContact.federalTaxClassification);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        box1,
-        box2,
-        box3,
-        box4,
-        box5,
-        box6,
-        box7,
-        box8,
-        box9,
-        box10,
-        box11,
-        box13,
-        box14,
-        name,
-        federalTaxIDType,
-        city,
-        zip,
-        state,
-        email,
-        streetAddress,
-        taxID,
-        contactId,
-        legalName,
-        businessName,
-        federalTaxClassification);
+    return Objects.hash(box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box13, box14, name, federalTaxIDType, city, zip, state, email, streetAddress, taxID, contactId, legalName, businessName, federalTaxClassification);
   }
+
 
   @Override
   public String toString() {
@@ -1132,15 +1058,14 @@ public class TenNinetyNineContact {
     sb.append("    contactId: ").append(toIndentedString(contactId)).append("\n");
     sb.append("    legalName: ").append(toIndentedString(legalName)).append("\n");
     sb.append("    businessName: ").append(toIndentedString(businessName)).append("\n");
-    sb.append("    federalTaxClassification: ")
-        .append(toIndentedString(federalTaxClassification))
-        .append("\n");
+    sb.append("    federalTaxClassification: ").append(toIndentedString(federalTaxClassification)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -1148,4 +1073,6 @@ public class TenNinetyNineContact {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

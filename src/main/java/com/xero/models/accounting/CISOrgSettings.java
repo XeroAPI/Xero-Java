@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.CISOrgSetting;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** CISOrgSettings */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * CISOrgSettings
+ */
+
 public class CISOrgSettings {
   StringUtil util = new StringUtil();
 
   @JsonProperty("CISSettings")
   private List<CISOrgSetting> ciSSettings = new ArrayList<CISOrgSetting>();
   /**
-   * ciSSettings
-   *
-   * @param ciSSettings List&lt;CISOrgSetting&gt;
-   * @return CISOrgSettings
-   */
+  * ciSSettings
+  * @param ciSSettings  List&lt;CISOrgSetting&gt;
+  * @return CISOrgSettings
+  **/
   public CISOrgSettings ciSSettings(List<CISOrgSetting> ciSSettings) {
     this.ciSSettings = ciSSettings;
     return this;
@@ -37,10 +54,9 @@ public class CISOrgSettings {
 
   /**
    * ciSSettings
-   *
-   * @param ciSSettingsItem CISOrgSetting
+   * @param ciSSettingsItem CISOrgSetting 
    * @return CISOrgSettings
-   */
+  **/
   public CISOrgSettings addCiSSettingsItem(CISOrgSetting ciSSettingsItem) {
     if (this.ciSSettings == null) {
       this.ciSSettings = new ArrayList<CISOrgSetting>();
@@ -49,29 +65,28 @@ public class CISOrgSettings {
     return this;
   }
 
-  /**
+   /**
    * Get ciSSettings
-   *
    * @return ciSSettings
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * ciSSettings
-   *
    * @return ciSSettings List<CISOrgSetting>
-   */
+  **/
   public List<CISOrgSetting> getCiSSettings() {
     return ciSSettings;
   }
 
-  /**
-   * ciSSettings
-   *
-   * @param ciSSettings List&lt;CISOrgSetting&gt;
-   */
+  /** 
+  * ciSSettings
+  * @param ciSSettings List&lt;CISOrgSetting&gt; 
+  **/
+
   public void setCiSSettings(List<CISOrgSetting> ciSSettings) {
     this.ciSSettings = ciSSettings;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class CISOrgSettings {
     return Objects.hash(ciSSettings);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class CISOrgSettings {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class CISOrgSettings {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

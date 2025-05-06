@@ -9,15 +9,33 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.BalanceSheetAccountGroup;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** BalanceSheetResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BalanceSheetResponse
+ */
+
 public class BalanceSheetResponse {
   StringUtil util = new StringUtil();
 
@@ -33,144 +51,133 @@ public class BalanceSheetResponse {
   @JsonProperty("equity")
   private BalanceSheetAccountGroup equity;
   /**
-   * Balance date of the report
-   *
-   * @param balanceDate LocalDate
-   * @return BalanceSheetResponse
-   */
+  * Balance date of the report
+  * @param balanceDate  LocalDate
+  * @return BalanceSheetResponse
+  **/
   public BalanceSheetResponse balanceDate(LocalDate balanceDate) {
     this.balanceDate = balanceDate;
     return this;
   }
 
-  /**
+   /**
    * Balance date of the report
-   *
    * @return balanceDate
-   */
+  **/
   @ApiModelProperty(value = "Balance date of the report")
-  /**
+  /** 
    * Balance date of the report
-   *
    * @return balanceDate LocalDate
-   */
+  **/
   public LocalDate getBalanceDate() {
     return balanceDate;
   }
 
-  /**
-   * Balance date of the report
-   *
-   * @param balanceDate LocalDate
-   */
+  /** 
+  * Balance date of the report
+  * @param balanceDate  LocalDate
+  **/
+
   public void setBalanceDate(LocalDate balanceDate) {
     this.balanceDate = balanceDate;
   }
 
   /**
-   * asset
-   *
-   * @param asset BalanceSheetAccountGroup
-   * @return BalanceSheetResponse
-   */
+  * asset
+  * @param asset  BalanceSheetAccountGroup
+  * @return BalanceSheetResponse
+  **/
   public BalanceSheetResponse asset(BalanceSheetAccountGroup asset) {
     this.asset = asset;
     return this;
   }
 
-  /**
+   /**
    * Get asset
-   *
    * @return asset
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * asset
-   *
    * @return asset BalanceSheetAccountGroup
-   */
+  **/
   public BalanceSheetAccountGroup getAsset() {
     return asset;
   }
 
-  /**
-   * asset
-   *
-   * @param asset BalanceSheetAccountGroup
-   */
+  /** 
+  * asset
+  * @param asset  BalanceSheetAccountGroup
+  **/
+
   public void setAsset(BalanceSheetAccountGroup asset) {
     this.asset = asset;
   }
 
   /**
-   * liability
-   *
-   * @param liability BalanceSheetAccountGroup
-   * @return BalanceSheetResponse
-   */
+  * liability
+  * @param liability  BalanceSheetAccountGroup
+  * @return BalanceSheetResponse
+  **/
   public BalanceSheetResponse liability(BalanceSheetAccountGroup liability) {
     this.liability = liability;
     return this;
   }
 
-  /**
+   /**
    * Get liability
-   *
    * @return liability
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * liability
-   *
    * @return liability BalanceSheetAccountGroup
-   */
+  **/
   public BalanceSheetAccountGroup getLiability() {
     return liability;
   }
 
-  /**
-   * liability
-   *
-   * @param liability BalanceSheetAccountGroup
-   */
+  /** 
+  * liability
+  * @param liability  BalanceSheetAccountGroup
+  **/
+
   public void setLiability(BalanceSheetAccountGroup liability) {
     this.liability = liability;
   }
 
   /**
-   * equity
-   *
-   * @param equity BalanceSheetAccountGroup
-   * @return BalanceSheetResponse
-   */
+  * equity
+  * @param equity  BalanceSheetAccountGroup
+  * @return BalanceSheetResponse
+  **/
   public BalanceSheetResponse equity(BalanceSheetAccountGroup equity) {
     this.equity = equity;
     return this;
   }
 
-  /**
+   /**
    * Get equity
-   *
    * @return equity
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * equity
-   *
    * @return equity BalanceSheetAccountGroup
-   */
+  **/
   public BalanceSheetAccountGroup getEquity() {
     return equity;
   }
 
-  /**
-   * equity
-   *
-   * @param equity BalanceSheetAccountGroup
-   */
+  /** 
+  * equity
+  * @param equity  BalanceSheetAccountGroup
+  **/
+
   public void setEquity(BalanceSheetAccountGroup equity) {
     this.equity = equity;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -181,16 +188,17 @@ public class BalanceSheetResponse {
       return false;
     }
     BalanceSheetResponse balanceSheetResponse = (BalanceSheetResponse) o;
-    return Objects.equals(this.balanceDate, balanceSheetResponse.balanceDate)
-        && Objects.equals(this.asset, balanceSheetResponse.asset)
-        && Objects.equals(this.liability, balanceSheetResponse.liability)
-        && Objects.equals(this.equity, balanceSheetResponse.equity);
+    return Objects.equals(this.balanceDate, balanceSheetResponse.balanceDate) &&
+        Objects.equals(this.asset, balanceSheetResponse.asset) &&
+        Objects.equals(this.liability, balanceSheetResponse.liability) &&
+        Objects.equals(this.equity, balanceSheetResponse.equity);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(balanceDate, asset, liability, equity);
   }
+
 
   @Override
   public String toString() {
@@ -205,7 +213,8 @@ public class BalanceSheetResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -213,4 +222,6 @@ public class BalanceSheetResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

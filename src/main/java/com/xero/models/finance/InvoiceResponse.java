@@ -9,17 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.ContactResponse;
+import com.xero.models.finance.LineItemResponse;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** InvoiceResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * InvoiceResponse
+ */
+
 public class InvoiceResponse {
   StringUtil util = new StringUtil();
 
@@ -35,118 +54,106 @@ public class InvoiceResponse {
   @JsonProperty("lineItems")
   private List<LineItemResponse> lineItems = new ArrayList<LineItemResponse>();
   /**
-   * Xero Identifier of invoice
-   *
-   * @param invoiceId UUID
-   * @return InvoiceResponse
-   */
+  * Xero Identifier of invoice
+  * @param invoiceId  UUID
+  * @return InvoiceResponse
+  **/
   public InvoiceResponse invoiceId(UUID invoiceId) {
     this.invoiceId = invoiceId;
     return this;
   }
 
-  /**
+   /**
    * Xero Identifier of invoice
-   *
    * @return invoiceId
-   */
+  **/
   @ApiModelProperty(value = "Xero Identifier of invoice")
-  /**
+  /** 
    * Xero Identifier of invoice
-   *
    * @return invoiceId UUID
-   */
+  **/
   public UUID getInvoiceId() {
     return invoiceId;
   }
 
-  /**
-   * Xero Identifier of invoice
-   *
-   * @param invoiceId UUID
-   */
+  /** 
+  * Xero Identifier of invoice
+  * @param invoiceId  UUID
+  **/
+
   public void setInvoiceId(UUID invoiceId) {
     this.invoiceId = invoiceId;
   }
 
   /**
-   * contact
-   *
-   * @param contact ContactResponse
-   * @return InvoiceResponse
-   */
+  * contact
+  * @param contact  ContactResponse
+  * @return InvoiceResponse
+  **/
   public InvoiceResponse contact(ContactResponse contact) {
     this.contact = contact;
     return this;
   }
 
-  /**
+   /**
    * Get contact
-   *
    * @return contact
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * contact
-   *
    * @return contact ContactResponse
-   */
+  **/
   public ContactResponse getContact() {
     return contact;
   }
 
-  /**
-   * contact
-   *
-   * @param contact ContactResponse
-   */
+  /** 
+  * contact
+  * @param contact  ContactResponse
+  **/
+
   public void setContact(ContactResponse contact) {
     this.contact = contact;
   }
 
   /**
-   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
-   *
-   * @param total Double
-   * @return InvoiceResponse
-   */
+  * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
+  * @param total  Double
+  * @return InvoiceResponse
+  **/
   public InvoiceResponse total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
-   *
    * @return total
-   */
-  @ApiModelProperty(
-      value =
-          "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode")
-  /**
+  **/
+  @ApiModelProperty(value = "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode")
+  /** 
    * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
-   *
-   * @param total Double
-   */
+  /** 
+  * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
 
   /**
-   * Not included in summary mode
-   *
-   * @param lineItems List&lt;LineItemResponse&gt;
-   * @return InvoiceResponse
-   */
+  * Not included in summary mode
+  * @param lineItems  List&lt;LineItemResponse&gt;
+  * @return InvoiceResponse
+  **/
   public InvoiceResponse lineItems(List<LineItemResponse> lineItems) {
     this.lineItems = lineItems;
     return this;
@@ -154,10 +161,9 @@ public class InvoiceResponse {
 
   /**
    * Not included in summary mode
-   *
-   * @param lineItemsItem LineItemResponse
+   * @param lineItemsItem LineItemResponse 
    * @return InvoiceResponse
-   */
+  **/
   public InvoiceResponse addLineItemsItem(LineItemResponse lineItemsItem) {
     if (this.lineItems == null) {
       this.lineItems = new ArrayList<LineItemResponse>();
@@ -166,29 +172,28 @@ public class InvoiceResponse {
     return this;
   }
 
-  /**
+   /**
    * Not included in summary mode
-   *
    * @return lineItems
-   */
+  **/
   @ApiModelProperty(value = "Not included in summary mode")
-  /**
+  /** 
    * Not included in summary mode
-   *
    * @return lineItems List<LineItemResponse>
-   */
+  **/
   public List<LineItemResponse> getLineItems() {
     return lineItems;
   }
 
-  /**
-   * Not included in summary mode
-   *
-   * @param lineItems List&lt;LineItemResponse&gt;
-   */
+  /** 
+  * Not included in summary mode
+  * @param lineItems List&lt;LineItemResponse&gt; 
+  **/
+
   public void setLineItems(List<LineItemResponse> lineItems) {
     this.lineItems = lineItems;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -199,16 +204,17 @@ public class InvoiceResponse {
       return false;
     }
     InvoiceResponse invoiceResponse = (InvoiceResponse) o;
-    return Objects.equals(this.invoiceId, invoiceResponse.invoiceId)
-        && Objects.equals(this.contact, invoiceResponse.contact)
-        && Objects.equals(this.total, invoiceResponse.total)
-        && Objects.equals(this.lineItems, invoiceResponse.lineItems);
+    return Objects.equals(this.invoiceId, invoiceResponse.invoiceId) &&
+        Objects.equals(this.contact, invoiceResponse.contact) &&
+        Objects.equals(this.total, invoiceResponse.total) &&
+        Objects.equals(this.lineItems, invoiceResponse.lineItems);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(invoiceId, contact, total, lineItems);
   }
+
 
   @Override
   public String toString() {
@@ -223,7 +229,8 @@ public class InvoiceResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -231,4 +238,6 @@ public class InvoiceResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,14 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.TrialBalanceEntry;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** TrialBalanceMovement */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TrialBalanceMovement
+ */
+
 public class TrialBalanceMovement {
   StringUtil util = new StringUtil();
 
@@ -32,151 +50,133 @@ public class TrialBalanceMovement {
   @JsonProperty("signedMovement")
   private Double signedMovement;
   /**
-   * Debit amount
-   *
-   * @param debits Double
-   * @return TrialBalanceMovement
-   */
+  * Debit amount
+  * @param debits  Double
+  * @return TrialBalanceMovement
+  **/
   public TrialBalanceMovement debits(Double debits) {
     this.debits = debits;
     return this;
   }
 
-  /**
+   /**
    * Debit amount
-   *
    * @return debits
-   */
+  **/
   @ApiModelProperty(value = "Debit amount")
-  /**
+  /** 
    * Debit amount
-   *
    * @return debits Double
-   */
+  **/
   public Double getDebits() {
     return debits;
   }
 
-  /**
-   * Debit amount
-   *
-   * @param debits Double
-   */
+  /** 
+  * Debit amount
+  * @param debits  Double
+  **/
+
   public void setDebits(Double debits) {
     this.debits = debits;
   }
 
   /**
-   * Credit amount
-   *
-   * @param credits Double
-   * @return TrialBalanceMovement
-   */
+  * Credit amount
+  * @param credits  Double
+  * @return TrialBalanceMovement
+  **/
   public TrialBalanceMovement credits(Double credits) {
     this.credits = credits;
     return this;
   }
 
-  /**
+   /**
    * Credit amount
-   *
    * @return credits
-   */
+  **/
   @ApiModelProperty(value = "Credit amount")
-  /**
+  /** 
    * Credit amount
-   *
    * @return credits Double
-   */
+  **/
   public Double getCredits() {
     return credits;
   }
 
-  /**
-   * Credit amount
-   *
-   * @param credits Double
-   */
+  /** 
+  * Credit amount
+  * @param credits  Double
+  **/
+
   public void setCredits(Double credits) {
     this.credits = credits;
   }
 
   /**
-   * movement
-   *
-   * @param movement TrialBalanceEntry
-   * @return TrialBalanceMovement
-   */
+  * movement
+  * @param movement  TrialBalanceEntry
+  * @return TrialBalanceMovement
+  **/
   public TrialBalanceMovement movement(TrialBalanceEntry movement) {
     this.movement = movement;
     return this;
   }
 
-  /**
+   /**
    * Get movement
-   *
    * @return movement
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * movement
-   *
    * @return movement TrialBalanceEntry
-   */
+  **/
   public TrialBalanceEntry getMovement() {
     return movement;
   }
 
-  /**
-   * movement
-   *
-   * @param movement TrialBalanceEntry
-   */
+  /** 
+  * movement
+  * @param movement  TrialBalanceEntry
+  **/
+
   public void setMovement(TrialBalanceEntry movement) {
     this.movement = movement;
   }
 
   /**
-   * Value of movement. Expense and Asset accounts code debits as positive. Revenue, Liability, and
-   * Equity accounts code debits as negative
-   *
-   * @param signedMovement Double
-   * @return TrialBalanceMovement
-   */
+  * Value of movement. Expense and Asset accounts code debits as positive. Revenue, Liability, and Equity accounts code debits as negative
+  * @param signedMovement  Double
+  * @return TrialBalanceMovement
+  **/
   public TrialBalanceMovement signedMovement(Double signedMovement) {
     this.signedMovement = signedMovement;
     return this;
   }
 
-  /**
-   * Value of movement. Expense and Asset accounts code debits as positive. Revenue, Liability, and
-   * Equity accounts code debits as negative
-   *
+   /**
+   * Value of movement. Expense and Asset accounts code debits as positive. Revenue, Liability, and Equity accounts code debits as negative
    * @return signedMovement
-   */
-  @ApiModelProperty(
-      value =
-          "Value of movement. Expense and Asset accounts code debits as positive. Revenue,"
-              + " Liability, and Equity accounts code debits as negative")
-  /**
-   * Value of movement. Expense and Asset accounts code debits as positive. Revenue, Liability, and
-   * Equity accounts code debits as negative
-   *
+  **/
+  @ApiModelProperty(value = "Value of movement. Expense and Asset accounts code debits as positive. Revenue, Liability, and Equity accounts code debits as negative")
+  /** 
+   * Value of movement. Expense and Asset accounts code debits as positive. Revenue, Liability, and Equity accounts code debits as negative
    * @return signedMovement Double
-   */
+  **/
   public Double getSignedMovement() {
     return signedMovement;
   }
 
-  /**
-   * Value of movement. Expense and Asset accounts code debits as positive. Revenue, Liability, and
-   * Equity accounts code debits as negative
-   *
-   * @param signedMovement Double
-   */
+  /** 
+  * Value of movement. Expense and Asset accounts code debits as positive. Revenue, Liability, and Equity accounts code debits as negative
+  * @param signedMovement  Double
+  **/
+
   public void setSignedMovement(Double signedMovement) {
     this.signedMovement = signedMovement;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -187,16 +187,17 @@ public class TrialBalanceMovement {
       return false;
     }
     TrialBalanceMovement trialBalanceMovement = (TrialBalanceMovement) o;
-    return Objects.equals(this.debits, trialBalanceMovement.debits)
-        && Objects.equals(this.credits, trialBalanceMovement.credits)
-        && Objects.equals(this.movement, trialBalanceMovement.movement)
-        && Objects.equals(this.signedMovement, trialBalanceMovement.signedMovement);
+    return Objects.equals(this.debits, trialBalanceMovement.debits) &&
+        Objects.equals(this.credits, trialBalanceMovement.credits) &&
+        Objects.equals(this.movement, trialBalanceMovement.movement) &&
+        Objects.equals(this.signedMovement, trialBalanceMovement.signedMovement);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(debits, credits, movement, signedMovement);
   }
+
 
   @Override
   public String toString() {
@@ -211,7 +212,8 @@ public class TrialBalanceMovement {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -219,4 +221,6 @@ public class TrialBalanceMovement {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

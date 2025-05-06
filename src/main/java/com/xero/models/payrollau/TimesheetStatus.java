@@ -9,28 +9,49 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets TimesheetStatus */
+/**
+ * Gets or Sets TimesheetStatus
+ */
 public enum TimesheetStatus {
-
-  /** DRAFT */
+  
+    /**
+     * DRAFT
+     */
   DRAFT("DRAFT"),
-
-  /** PROCESSED */
+  
+    /**
+     * PROCESSED
+     */
   PROCESSED("PROCESSED"),
-
-  /** APPROVED */
+  
+    /**
+     * APPROVED
+     */
   APPROVED("APPROVED"),
-
-  /** REJECTED */
+  
+    /**
+     * REJECTED
+     */
   REJECTED("REJECTED"),
-
-  /** REQUESTED */
+  
+    /**
+     * REQUESTED
+     */
   REQUESTED("REQUESTED");
 
   private String value;
@@ -39,26 +60,24 @@ public enum TimesheetStatus {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static TimesheetStatus fromValue(String value) {
@@ -70,3 +89,4 @@ public enum TimesheetStatus {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

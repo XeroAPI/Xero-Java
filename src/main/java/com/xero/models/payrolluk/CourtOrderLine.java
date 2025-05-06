@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** CourtOrderLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * CourtOrderLine
+ */
+
 public class CourtOrderLine {
   StringUtil util = new StringUtil();
 
@@ -27,74 +44,69 @@ public class CourtOrderLine {
   @JsonProperty("amount")
   private Double amount;
   /**
-   * Xero identifier for payroll court order type
-   *
-   * @param courtOrderTypeID UUID
-   * @return CourtOrderLine
-   */
+  * Xero identifier for payroll court order type
+  * @param courtOrderTypeID  UUID
+  * @return CourtOrderLine
+  **/
   public CourtOrderLine courtOrderTypeID(UUID courtOrderTypeID) {
     this.courtOrderTypeID = courtOrderTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for payroll court order type
-   *
    * @return courtOrderTypeID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for payroll court order type")
-  /**
+  /** 
    * Xero identifier for payroll court order type
-   *
    * @return courtOrderTypeID UUID
-   */
+  **/
   public UUID getCourtOrderTypeID() {
     return courtOrderTypeID;
   }
 
-  /**
-   * Xero identifier for payroll court order type
-   *
-   * @param courtOrderTypeID UUID
-   */
+  /** 
+  * Xero identifier for payroll court order type
+  * @param courtOrderTypeID  UUID
+  **/
+
   public void setCourtOrderTypeID(UUID courtOrderTypeID) {
     this.courtOrderTypeID = courtOrderTypeID;
   }
 
   /**
-   * Amount
-   *
-   * @param amount Double
-   * @return CourtOrderLine
-   */
+  * Amount
+  * @param amount  Double
+  * @return CourtOrderLine
+  **/
   public CourtOrderLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * Amount
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "Amount")
-  /**
+  /** 
    * Amount
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * Amount
-   *
-   * @param amount Double
-   */
+  /** 
+  * Amount
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -105,14 +117,15 @@ public class CourtOrderLine {
       return false;
     }
     CourtOrderLine courtOrderLine = (CourtOrderLine) o;
-    return Objects.equals(this.courtOrderTypeID, courtOrderLine.courtOrderTypeID)
-        && Objects.equals(this.amount, courtOrderLine.amount);
+    return Objects.equals(this.courtOrderTypeID, courtOrderLine.courtOrderTypeID) &&
+        Objects.equals(this.amount, courtOrderLine.amount);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(courtOrderTypeID, amount);
   }
+
 
   @Override
   public String toString() {
@@ -125,7 +138,8 @@ public class CourtOrderLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -133,4 +147,6 @@ public class CourtOrderLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,37 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.DeductionType;
+import com.xero.models.payrollau.EarningsRate;
+import com.xero.models.payrollau.LeaveType;
+import com.xero.models.payrollau.ReimbursementType;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** PayItem */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PayItem
+ */
+
 public class PayItem {
   StringUtil util = new StringUtil();
 
@@ -34,11 +55,10 @@ public class PayItem {
   @JsonProperty("ReimbursementTypes")
   private List<ReimbursementType> reimbursementTypes = new ArrayList<ReimbursementType>();
   /**
-   * earningsRates
-   *
-   * @param earningsRates List&lt;EarningsRate&gt;
-   * @return PayItem
-   */
+  * earningsRates
+  * @param earningsRates  List&lt;EarningsRate&gt;
+  * @return PayItem
+  **/
   public PayItem earningsRates(List<EarningsRate> earningsRates) {
     this.earningsRates = earningsRates;
     return this;
@@ -46,10 +66,9 @@ public class PayItem {
 
   /**
    * earningsRates
-   *
-   * @param earningsRatesItem EarningsRate
+   * @param earningsRatesItem EarningsRate 
    * @return PayItem
-   */
+  **/
   public PayItem addEarningsRatesItem(EarningsRate earningsRatesItem) {
     if (this.earningsRates == null) {
       this.earningsRates = new ArrayList<EarningsRate>();
@@ -58,36 +77,33 @@ public class PayItem {
     return this;
   }
 
-  /**
+   /**
    * Get earningsRates
-   *
    * @return earningsRates
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * earningsRates
-   *
    * @return earningsRates List<EarningsRate>
-   */
+  **/
   public List<EarningsRate> getEarningsRates() {
     return earningsRates;
   }
 
-  /**
-   * earningsRates
-   *
-   * @param earningsRates List&lt;EarningsRate&gt;
-   */
+  /** 
+  * earningsRates
+  * @param earningsRates List&lt;EarningsRate&gt; 
+  **/
+
   public void setEarningsRates(List<EarningsRate> earningsRates) {
     this.earningsRates = earningsRates;
   }
 
   /**
-   * deductionTypes
-   *
-   * @param deductionTypes List&lt;DeductionType&gt;
-   * @return PayItem
-   */
+  * deductionTypes
+  * @param deductionTypes  List&lt;DeductionType&gt;
+  * @return PayItem
+  **/
   public PayItem deductionTypes(List<DeductionType> deductionTypes) {
     this.deductionTypes = deductionTypes;
     return this;
@@ -95,10 +111,9 @@ public class PayItem {
 
   /**
    * deductionTypes
-   *
-   * @param deductionTypesItem DeductionType
+   * @param deductionTypesItem DeductionType 
    * @return PayItem
-   */
+  **/
   public PayItem addDeductionTypesItem(DeductionType deductionTypesItem) {
     if (this.deductionTypes == null) {
       this.deductionTypes = new ArrayList<DeductionType>();
@@ -107,36 +122,33 @@ public class PayItem {
     return this;
   }
 
-  /**
+   /**
    * Get deductionTypes
-   *
    * @return deductionTypes
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * deductionTypes
-   *
    * @return deductionTypes List<DeductionType>
-   */
+  **/
   public List<DeductionType> getDeductionTypes() {
     return deductionTypes;
   }
 
-  /**
-   * deductionTypes
-   *
-   * @param deductionTypes List&lt;DeductionType&gt;
-   */
+  /** 
+  * deductionTypes
+  * @param deductionTypes List&lt;DeductionType&gt; 
+  **/
+
   public void setDeductionTypes(List<DeductionType> deductionTypes) {
     this.deductionTypes = deductionTypes;
   }
 
   /**
-   * leaveTypes
-   *
-   * @param leaveTypes List&lt;LeaveType&gt;
-   * @return PayItem
-   */
+  * leaveTypes
+  * @param leaveTypes  List&lt;LeaveType&gt;
+  * @return PayItem
+  **/
   public PayItem leaveTypes(List<LeaveType> leaveTypes) {
     this.leaveTypes = leaveTypes;
     return this;
@@ -144,10 +156,9 @@ public class PayItem {
 
   /**
    * leaveTypes
-   *
-   * @param leaveTypesItem LeaveType
+   * @param leaveTypesItem LeaveType 
    * @return PayItem
-   */
+  **/
   public PayItem addLeaveTypesItem(LeaveType leaveTypesItem) {
     if (this.leaveTypes == null) {
       this.leaveTypes = new ArrayList<LeaveType>();
@@ -156,36 +167,33 @@ public class PayItem {
     return this;
   }
 
-  /**
+   /**
    * Get leaveTypes
-   *
    * @return leaveTypes
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * leaveTypes
-   *
    * @return leaveTypes List<LeaveType>
-   */
+  **/
   public List<LeaveType> getLeaveTypes() {
     return leaveTypes;
   }
 
-  /**
-   * leaveTypes
-   *
-   * @param leaveTypes List&lt;LeaveType&gt;
-   */
+  /** 
+  * leaveTypes
+  * @param leaveTypes List&lt;LeaveType&gt; 
+  **/
+
   public void setLeaveTypes(List<LeaveType> leaveTypes) {
     this.leaveTypes = leaveTypes;
   }
 
   /**
-   * reimbursementTypes
-   *
-   * @param reimbursementTypes List&lt;ReimbursementType&gt;
-   * @return PayItem
-   */
+  * reimbursementTypes
+  * @param reimbursementTypes  List&lt;ReimbursementType&gt;
+  * @return PayItem
+  **/
   public PayItem reimbursementTypes(List<ReimbursementType> reimbursementTypes) {
     this.reimbursementTypes = reimbursementTypes;
     return this;
@@ -193,10 +201,9 @@ public class PayItem {
 
   /**
    * reimbursementTypes
-   *
-   * @param reimbursementTypesItem ReimbursementType
+   * @param reimbursementTypesItem ReimbursementType 
    * @return PayItem
-   */
+  **/
   public PayItem addReimbursementTypesItem(ReimbursementType reimbursementTypesItem) {
     if (this.reimbursementTypes == null) {
       this.reimbursementTypes = new ArrayList<ReimbursementType>();
@@ -205,29 +212,28 @@ public class PayItem {
     return this;
   }
 
-  /**
+   /**
    * Get reimbursementTypes
-   *
    * @return reimbursementTypes
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * reimbursementTypes
-   *
    * @return reimbursementTypes List<ReimbursementType>
-   */
+  **/
   public List<ReimbursementType> getReimbursementTypes() {
     return reimbursementTypes;
   }
 
-  /**
-   * reimbursementTypes
-   *
-   * @param reimbursementTypes List&lt;ReimbursementType&gt;
-   */
+  /** 
+  * reimbursementTypes
+  * @param reimbursementTypes List&lt;ReimbursementType&gt; 
+  **/
+
   public void setReimbursementTypes(List<ReimbursementType> reimbursementTypes) {
     this.reimbursementTypes = reimbursementTypes;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -238,16 +244,17 @@ public class PayItem {
       return false;
     }
     PayItem payItem = (PayItem) o;
-    return Objects.equals(this.earningsRates, payItem.earningsRates)
-        && Objects.equals(this.deductionTypes, payItem.deductionTypes)
-        && Objects.equals(this.leaveTypes, payItem.leaveTypes)
-        && Objects.equals(this.reimbursementTypes, payItem.reimbursementTypes);
+    return Objects.equals(this.earningsRates, payItem.earningsRates) &&
+        Objects.equals(this.deductionTypes, payItem.deductionTypes) &&
+        Objects.equals(this.leaveTypes, payItem.leaveTypes) &&
+        Objects.equals(this.reimbursementTypes, payItem.reimbursementTypes);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(earningsRates, deductionTypes, leaveTypes, reimbursementTypes);
   }
+
 
   @Override
   public String toString() {
@@ -262,7 +269,8 @@ public class PayItem {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -270,4 +278,6 @@ public class PayItem {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

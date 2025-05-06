@@ -9,14 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.PaySlip;
+import com.xero.models.payrollnz.Problem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** PaySlipObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PaySlipObject
+ */
+
 public class PaySlipObject {
   StringUtil util = new StringUtil();
 
@@ -29,109 +49,101 @@ public class PaySlipObject {
   @JsonProperty("paySlip")
   private PaySlip paySlip;
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return PaySlipObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return PaySlipObject
+  **/
   public PaySlipObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return PaySlipObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return PaySlipObject
+  **/
   public PaySlipObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * paySlip
-   *
-   * @param paySlip PaySlip
-   * @return PaySlipObject
-   */
+  * paySlip
+  * @param paySlip  PaySlip
+  * @return PaySlipObject
+  **/
   public PaySlipObject paySlip(PaySlip paySlip) {
     this.paySlip = paySlip;
     return this;
   }
 
-  /**
+   /**
    * Get paySlip
-   *
    * @return paySlip
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * paySlip
-   *
    * @return paySlip PaySlip
-   */
+  **/
   public PaySlip getPaySlip() {
     return paySlip;
   }
 
-  /**
-   * paySlip
-   *
-   * @param paySlip PaySlip
-   */
+  /** 
+  * paySlip
+  * @param paySlip  PaySlip
+  **/
+
   public void setPaySlip(PaySlip paySlip) {
     this.paySlip = paySlip;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +154,16 @@ public class PaySlipObject {
       return false;
     }
     PaySlipObject paySlipObject = (PaySlipObject) o;
-    return Objects.equals(this.pagination, paySlipObject.pagination)
-        && Objects.equals(this.problem, paySlipObject.problem)
-        && Objects.equals(this.paySlip, paySlipObject.paySlip);
+    return Objects.equals(this.pagination, paySlipObject.pagination) &&
+        Objects.equals(this.problem, paySlipObject.problem) &&
+        Objects.equals(this.paySlip, paySlipObject.paySlip);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, paySlip);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +177,8 @@ public class PaySlipObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +186,6 @@ public class PaySlipObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

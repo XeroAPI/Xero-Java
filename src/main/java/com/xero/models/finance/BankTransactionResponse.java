@@ -9,18 +9,37 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.ContactResponse;
+import com.xero.models.finance.LineItemResponse;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** BankTransactionResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BankTransactionResponse
+ */
+
 public class BankTransactionResponse {
   StringUtil util = new StringUtil();
 
@@ -42,200 +61,180 @@ public class BankTransactionResponse {
   @JsonProperty("lineItems")
   private List<LineItemResponse> lineItems = new ArrayList<LineItemResponse>();
   /**
-   * Xero Identifier of transaction
-   *
-   * @param bankTransactionId UUID
-   * @return BankTransactionResponse
-   */
+  * Xero Identifier of transaction
+  * @param bankTransactionId  UUID
+  * @return BankTransactionResponse
+  **/
   public BankTransactionResponse bankTransactionId(UUID bankTransactionId) {
     this.bankTransactionId = bankTransactionId;
     return this;
   }
 
-  /**
+   /**
    * Xero Identifier of transaction
-   *
    * @return bankTransactionId
-   */
+  **/
   @ApiModelProperty(value = "Xero Identifier of transaction")
-  /**
+  /** 
    * Xero Identifier of transaction
-   *
    * @return bankTransactionId UUID
-   */
+  **/
   public UUID getBankTransactionId() {
     return bankTransactionId;
   }
 
-  /**
-   * Xero Identifier of transaction
-   *
-   * @param bankTransactionId UUID
-   */
+  /** 
+  * Xero Identifier of transaction
+  * @param bankTransactionId  UUID
+  **/
+
   public void setBankTransactionId(UUID bankTransactionId) {
     this.bankTransactionId = bankTransactionId;
   }
 
   /**
-   * Xero Identifier of batch payment. Present if the transaction is part of a batch.
-   *
-   * @param batchPaymentId UUID
-   * @return BankTransactionResponse
-   */
+  * Xero Identifier of batch payment. Present if the transaction is part of a batch.
+  * @param batchPaymentId  UUID
+  * @return BankTransactionResponse
+  **/
   public BankTransactionResponse batchPaymentId(UUID batchPaymentId) {
     this.batchPaymentId = batchPaymentId;
     return this;
   }
 
-  /**
+   /**
    * Xero Identifier of batch payment. Present if the transaction is part of a batch.
-   *
    * @return batchPaymentId
-   */
-  @ApiModelProperty(
-      value = "Xero Identifier of batch payment. Present if the transaction is part of a batch.")
-  /**
+  **/
+  @ApiModelProperty(value = "Xero Identifier of batch payment. Present if the transaction is part of a batch.")
+  /** 
    * Xero Identifier of batch payment. Present if the transaction is part of a batch.
-   *
    * @return batchPaymentId UUID
-   */
+  **/
   public UUID getBatchPaymentId() {
     return batchPaymentId;
   }
 
-  /**
-   * Xero Identifier of batch payment. Present if the transaction is part of a batch.
-   *
-   * @param batchPaymentId UUID
-   */
+  /** 
+  * Xero Identifier of batch payment. Present if the transaction is part of a batch.
+  * @param batchPaymentId  UUID
+  **/
+
   public void setBatchPaymentId(UUID batchPaymentId) {
     this.batchPaymentId = batchPaymentId;
   }
 
   /**
-   * contact
-   *
-   * @param contact ContactResponse
-   * @return BankTransactionResponse
-   */
+  * contact
+  * @param contact  ContactResponse
+  * @return BankTransactionResponse
+  **/
   public BankTransactionResponse contact(ContactResponse contact) {
     this.contact = contact;
     return this;
   }
 
-  /**
+   /**
    * Get contact
-   *
    * @return contact
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * contact
-   *
    * @return contact ContactResponse
-   */
+  **/
   public ContactResponse getContact() {
     return contact;
   }
 
-  /**
-   * contact
-   *
-   * @param contact ContactResponse
-   */
+  /** 
+  * contact
+  * @param contact  ContactResponse
+  **/
+
   public void setContact(ContactResponse contact) {
     this.contact = contact;
   }
 
   /**
-   * Date of transaction - YYYY-MM-DD
-   *
-   * @param date LocalDate
-   * @return BankTransactionResponse
-   */
+  * Date of transaction - YYYY-MM-DD
+  * @param date  LocalDate
+  * @return BankTransactionResponse
+  **/
   public BankTransactionResponse date(LocalDate date) {
     this.date = date;
     return this;
   }
 
-  /**
+   /**
    * Date of transaction - YYYY-MM-DD
-   *
    * @return date
-   */
+  **/
   @ApiModelProperty(value = "Date of transaction - YYYY-MM-DD")
-  /**
+  /** 
    * Date of transaction - YYYY-MM-DD
-   *
    * @return date LocalDate
-   */
+  **/
   public LocalDate getDate() {
     return date;
   }
 
-  /**
-   * Date of transaction - YYYY-MM-DD
-   *
-   * @param date LocalDate
-   */
+  /** 
+  * Date of transaction - YYYY-MM-DD
+  * @param date  LocalDate
+  **/
+
   public void setDate(LocalDate date) {
     this.date = date;
   }
 
   /**
-   * Amount of transaction
-   *
-   * @param amount Double
-   * @return BankTransactionResponse
-   */
+  * Amount of transaction
+  * @param amount  Double
+  * @return BankTransactionResponse
+  **/
   public BankTransactionResponse amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * Amount of transaction
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "Amount of transaction")
-  /**
+  /** 
    * Amount of transaction
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * Amount of transaction
-   *
-   * @param amount Double
-   */
+  /** 
+  * Amount of transaction
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * The LineItems element can contain any number of individual LineItem sub-elements. Not included
-   * in summary mode
-   *
-   * @param lineItems List&lt;LineItemResponse&gt;
-   * @return BankTransactionResponse
-   */
+  * The LineItems element can contain any number of individual LineItem sub-elements. Not included in summary mode
+  * @param lineItems  List&lt;LineItemResponse&gt;
+  * @return BankTransactionResponse
+  **/
   public BankTransactionResponse lineItems(List<LineItemResponse> lineItems) {
     this.lineItems = lineItems;
     return this;
   }
 
   /**
-   * The LineItems element can contain any number of individual LineItem sub-elements. Not included
-   * in summary mode
-   *
-   * @param lineItemsItem LineItemResponse
+   * The LineItems element can contain any number of individual LineItem sub-elements. Not included in summary mode
+   * @param lineItemsItem LineItemResponse 
    * @return BankTransactionResponse
-   */
+  **/
   public BankTransactionResponse addLineItemsItem(LineItemResponse lineItemsItem) {
     if (this.lineItems == null) {
       this.lineItems = new ArrayList<LineItemResponse>();
@@ -244,35 +243,28 @@ public class BankTransactionResponse {
     return this;
   }
 
-  /**
-   * The LineItems element can contain any number of individual LineItem sub-elements. Not included
-   * in summary mode
-   *
+   /**
+   * The LineItems element can contain any number of individual LineItem sub-elements. Not included in summary mode
    * @return lineItems
-   */
-  @ApiModelProperty(
-      value =
-          "The LineItems element can contain any number of individual LineItem sub-elements. Not"
-              + " included in summary mode")
-  /**
-   * The LineItems element can contain any number of individual LineItem sub-elements. Not included
-   * in summary mode
-   *
+  **/
+  @ApiModelProperty(value = "The LineItems element can contain any number of individual LineItem sub-elements. Not included in summary mode")
+  /** 
+   * The LineItems element can contain any number of individual LineItem sub-elements. Not included in summary mode
    * @return lineItems List<LineItemResponse>
-   */
+  **/
   public List<LineItemResponse> getLineItems() {
     return lineItems;
   }
 
-  /**
-   * The LineItems element can contain any number of individual LineItem sub-elements. Not included
-   * in summary mode
-   *
-   * @param lineItems List&lt;LineItemResponse&gt;
-   */
+  /** 
+  * The LineItems element can contain any number of individual LineItem sub-elements. Not included in summary mode
+  * @param lineItems List&lt;LineItemResponse&gt; 
+  **/
+
   public void setLineItems(List<LineItemResponse> lineItems) {
     this.lineItems = lineItems;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -283,18 +275,19 @@ public class BankTransactionResponse {
       return false;
     }
     BankTransactionResponse bankTransactionResponse = (BankTransactionResponse) o;
-    return Objects.equals(this.bankTransactionId, bankTransactionResponse.bankTransactionId)
-        && Objects.equals(this.batchPaymentId, bankTransactionResponse.batchPaymentId)
-        && Objects.equals(this.contact, bankTransactionResponse.contact)
-        && Objects.equals(this.date, bankTransactionResponse.date)
-        && Objects.equals(this.amount, bankTransactionResponse.amount)
-        && Objects.equals(this.lineItems, bankTransactionResponse.lineItems);
+    return Objects.equals(this.bankTransactionId, bankTransactionResponse.bankTransactionId) &&
+        Objects.equals(this.batchPaymentId, bankTransactionResponse.batchPaymentId) &&
+        Objects.equals(this.contact, bankTransactionResponse.contact) &&
+        Objects.equals(this.date, bankTransactionResponse.date) &&
+        Objects.equals(this.amount, bankTransactionResponse.amount) &&
+        Objects.equals(this.lineItems, bankTransactionResponse.lineItems);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(bankTransactionId, batchPaymentId, contact, date, amount, lineItems);
   }
+
 
   @Override
   public String toString() {
@@ -311,7 +304,8 @@ public class BankTransactionResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -319,4 +313,6 @@ public class BankTransactionResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

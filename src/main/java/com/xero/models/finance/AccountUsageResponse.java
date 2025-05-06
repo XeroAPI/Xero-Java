@@ -9,17 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.AccountUsage;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** AccountUsageResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * AccountUsageResponse
+ */
+
 public class AccountUsageResponse {
   StringUtil util = new StringUtil();
 
@@ -35,116 +53,106 @@ public class AccountUsageResponse {
   @JsonProperty("accountUsage")
   private List<AccountUsage> accountUsage = new ArrayList<AccountUsage>();
   /**
-   * The requested Organisation to which the data pertains
-   *
-   * @param organisationId UUID
-   * @return AccountUsageResponse
-   */
+  * The requested Organisation to which the data pertains
+  * @param organisationId  UUID
+  * @return AccountUsageResponse
+  **/
   public AccountUsageResponse organisationId(UUID organisationId) {
     this.organisationId = organisationId;
     return this;
   }
 
-  /**
+   /**
    * The requested Organisation to which the data pertains
-   *
    * @return organisationId
-   */
+  **/
   @ApiModelProperty(value = "The requested Organisation to which the data pertains")
-  /**
+  /** 
    * The requested Organisation to which the data pertains
-   *
    * @return organisationId UUID
-   */
+  **/
   public UUID getOrganisationId() {
     return organisationId;
   }
 
-  /**
-   * The requested Organisation to which the data pertains
-   *
-   * @param organisationId UUID
-   */
+  /** 
+  * The requested Organisation to which the data pertains
+  * @param organisationId  UUID
+  **/
+
   public void setOrganisationId(UUID organisationId) {
     this.organisationId = organisationId;
   }
 
   /**
-   * The start month of the report
-   *
-   * @param startMonth String
-   * @return AccountUsageResponse
-   */
+  * The start month of the report
+  * @param startMonth  String
+  * @return AccountUsageResponse
+  **/
   public AccountUsageResponse startMonth(String startMonth) {
     this.startMonth = startMonth;
     return this;
   }
 
-  /**
+   /**
    * The start month of the report
-   *
    * @return startMonth
-   */
+  **/
   @ApiModelProperty(value = "The start month of the report")
-  /**
+  /** 
    * The start month of the report
-   *
    * @return startMonth String
-   */
+  **/
   public String getStartMonth() {
     return startMonth;
   }
 
-  /**
-   * The start month of the report
-   *
-   * @param startMonth String
-   */
+  /** 
+  * The start month of the report
+  * @param startMonth  String
+  **/
+
   public void setStartMonth(String startMonth) {
     this.startMonth = startMonth;
   }
 
   /**
-   * The end month of the report
-   *
-   * @param endMonth String
-   * @return AccountUsageResponse
-   */
+  * The end month of the report
+  * @param endMonth  String
+  * @return AccountUsageResponse
+  **/
   public AccountUsageResponse endMonth(String endMonth) {
     this.endMonth = endMonth;
     return this;
   }
 
-  /**
+   /**
    * The end month of the report
-   *
    * @return endMonth
-   */
+  **/
   @ApiModelProperty(value = "The end month of the report")
-  /**
+  /** 
    * The end month of the report
-   *
    * @return endMonth String
-   */
+  **/
   public String getEndMonth() {
     return endMonth;
   }
 
-  /**
-   * The end month of the report
-   *
-   * @param endMonth String
-   */
+  /** 
+  * The end month of the report
+  * @param endMonth  String
+  **/
+
   public void setEndMonth(String endMonth) {
     this.endMonth = endMonth;
   }
 
   /**
-   * accountUsage
-   *
-   * @param accountUsage List&lt;AccountUsage&gt;
-   * @return AccountUsageResponse
-   */
+  * accountUsage
+  * @param accountUsage  List&lt;AccountUsage&gt;
+  * @return AccountUsageResponse
+  **/
   public AccountUsageResponse accountUsage(List<AccountUsage> accountUsage) {
     this.accountUsage = accountUsage;
     return this;
@@ -152,10 +160,9 @@ public class AccountUsageResponse {
 
   /**
    * accountUsage
-   *
-   * @param accountUsageItem AccountUsage
+   * @param accountUsageItem AccountUsage 
    * @return AccountUsageResponse
-   */
+  **/
   public AccountUsageResponse addAccountUsageItem(AccountUsage accountUsageItem) {
     if (this.accountUsage == null) {
       this.accountUsage = new ArrayList<AccountUsage>();
@@ -164,29 +171,28 @@ public class AccountUsageResponse {
     return this;
   }
 
-  /**
+   /**
    * Get accountUsage
-   *
    * @return accountUsage
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * accountUsage
-   *
    * @return accountUsage List<AccountUsage>
-   */
+  **/
   public List<AccountUsage> getAccountUsage() {
     return accountUsage;
   }
 
-  /**
-   * accountUsage
-   *
-   * @param accountUsage List&lt;AccountUsage&gt;
-   */
+  /** 
+  * accountUsage
+  * @param accountUsage List&lt;AccountUsage&gt; 
+  **/
+
   public void setAccountUsage(List<AccountUsage> accountUsage) {
     this.accountUsage = accountUsage;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -197,16 +203,17 @@ public class AccountUsageResponse {
       return false;
     }
     AccountUsageResponse accountUsageResponse = (AccountUsageResponse) o;
-    return Objects.equals(this.organisationId, accountUsageResponse.organisationId)
-        && Objects.equals(this.startMonth, accountUsageResponse.startMonth)
-        && Objects.equals(this.endMonth, accountUsageResponse.endMonth)
-        && Objects.equals(this.accountUsage, accountUsageResponse.accountUsage);
+    return Objects.equals(this.organisationId, accountUsageResponse.organisationId) &&
+        Objects.equals(this.startMonth, accountUsageResponse.startMonth) &&
+        Objects.equals(this.endMonth, accountUsageResponse.endMonth) &&
+        Objects.equals(this.accountUsage, accountUsageResponse.accountUsage);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(organisationId, startMonth, endMonth, accountUsage);
   }
+
 
   @Override
   public String toString() {
@@ -221,7 +228,8 @@ public class AccountUsageResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -229,4 +237,6 @@ public class AccountUsageResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** EmployeeTax */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeTax
+ */
+
 public class EmployeeTax {
   StringUtil util = new StringUtil();
 
@@ -54,391 +71,357 @@ public class EmployeeTax {
   @JsonProperty("nicCalculationMethod")
   private String nicCalculationMethod;
   /**
-   * The Starter type.
-   *
-   * @param starterType String
-   * @return EmployeeTax
-   */
+  * The Starter type.
+  * @param starterType  String
+  * @return EmployeeTax
+  **/
   public EmployeeTax starterType(String starterType) {
     this.starterType = starterType;
     return this;
   }
 
-  /**
+   /**
    * The Starter type.
-   *
    * @return starterType
-   */
+  **/
   @ApiModelProperty(example = "New Employee with P45", value = "The Starter type.")
-  /**
+  /** 
    * The Starter type.
-   *
    * @return starterType String
-   */
+  **/
   public String getStarterType() {
     return starterType;
   }
 
-  /**
-   * The Starter type.
-   *
-   * @param starterType String
-   */
+  /** 
+  * The Starter type.
+  * @param starterType  String
+  **/
+
   public void setStarterType(String starterType) {
     this.starterType = starterType;
   }
 
   /**
-   * Starter declaration.
-   *
-   * @param starterDeclaration String
-   * @return EmployeeTax
-   */
+  * Starter declaration.
+  * @param starterDeclaration  String
+  * @return EmployeeTax
+  **/
   public EmployeeTax starterDeclaration(String starterDeclaration) {
     this.starterDeclaration = starterDeclaration;
     return this;
   }
 
-  /**
+   /**
    * Starter declaration.
-   *
    * @return starterDeclaration
-   */
-  @ApiModelProperty(
-      example = "B.) This is currently their only job",
-      value = "Starter declaration.")
-  /**
+  **/
+  @ApiModelProperty(example = "B.) This is currently their only job", value = "Starter declaration.")
+  /** 
    * Starter declaration.
-   *
    * @return starterDeclaration String
-   */
+  **/
   public String getStarterDeclaration() {
     return starterDeclaration;
   }
 
-  /**
-   * Starter declaration.
-   *
-   * @param starterDeclaration String
-   */
+  /** 
+  * Starter declaration.
+  * @param starterDeclaration  String
+  **/
+
   public void setStarterDeclaration(String starterDeclaration) {
     this.starterDeclaration = starterDeclaration;
   }
 
   /**
-   * The Tax code.
-   *
-   * @param taxCode String
-   * @return EmployeeTax
-   */
+  * The Tax code.
+  * @param taxCode  String
+  * @return EmployeeTax
+  **/
   public EmployeeTax taxCode(String taxCode) {
     this.taxCode = taxCode;
     return this;
   }
 
-  /**
+   /**
    * The Tax code.
-   *
    * @return taxCode
-   */
+  **/
   @ApiModelProperty(example = "1185L", value = "The Tax code.")
-  /**
+  /** 
    * The Tax code.
-   *
    * @return taxCode String
-   */
+  **/
   public String getTaxCode() {
     return taxCode;
   }
 
-  /**
-   * The Tax code.
-   *
-   * @param taxCode String
-   */
+  /** 
+  * The Tax code.
+  * @param taxCode  String
+  **/
+
   public void setTaxCode(String taxCode) {
     this.taxCode = taxCode;
   }
 
   /**
-   * Describes whether the tax settings is W1M1
-   *
-   * @param w1M1 Boolean
-   * @return EmployeeTax
-   */
+  * Describes whether the tax settings is W1M1
+  * @param w1M1  Boolean
+  * @return EmployeeTax
+  **/
   public EmployeeTax w1M1(Boolean w1M1) {
     this.w1M1 = w1M1;
     return this;
   }
 
-  /**
+   /**
    * Describes whether the tax settings is W1M1
-   *
    * @return w1M1
-   */
+  **/
   @ApiModelProperty(value = "Describes whether the tax settings is W1M1")
-  /**
+  /** 
    * Describes whether the tax settings is W1M1
-   *
    * @return w1M1 Boolean
-   */
+  **/
   public Boolean getW1M1() {
     return w1M1;
   }
 
-  /**
-   * Describes whether the tax settings is W1M1
-   *
-   * @param w1M1 Boolean
-   */
+  /** 
+  * Describes whether the tax settings is W1M1
+  * @param w1M1  Boolean
+  **/
+
   public void setW1M1(Boolean w1M1) {
     this.w1M1 = w1M1;
   }
 
   /**
-   * The previous taxable pay
-   *
-   * @param previousTaxablePay Double
-   * @return EmployeeTax
-   */
+  * The previous taxable pay
+  * @param previousTaxablePay  Double
+  * @return EmployeeTax
+  **/
   public EmployeeTax previousTaxablePay(Double previousTaxablePay) {
     this.previousTaxablePay = previousTaxablePay;
     return this;
   }
 
-  /**
+   /**
    * The previous taxable pay
-   *
    * @return previousTaxablePay
-   */
+  **/
   @ApiModelProperty(value = "The previous taxable pay")
-  /**
+  /** 
    * The previous taxable pay
-   *
    * @return previousTaxablePay Double
-   */
+  **/
   public Double getPreviousTaxablePay() {
     return previousTaxablePay;
   }
 
-  /**
-   * The previous taxable pay
-   *
-   * @param previousTaxablePay Double
-   */
+  /** 
+  * The previous taxable pay
+  * @param previousTaxablePay  Double
+  **/
+
   public void setPreviousTaxablePay(Double previousTaxablePay) {
     this.previousTaxablePay = previousTaxablePay;
   }
 
   /**
-   * The tax amount previously paid
-   *
-   * @param previousTaxPaid Double
-   * @return EmployeeTax
-   */
+  * The tax amount previously paid
+  * @param previousTaxPaid  Double
+  * @return EmployeeTax
+  **/
   public EmployeeTax previousTaxPaid(Double previousTaxPaid) {
     this.previousTaxPaid = previousTaxPaid;
     return this;
   }
 
-  /**
+   /**
    * The tax amount previously paid
-   *
    * @return previousTaxPaid
-   */
+  **/
   @ApiModelProperty(value = "The tax amount previously paid")
-  /**
+  /** 
    * The tax amount previously paid
-   *
    * @return previousTaxPaid Double
-   */
+  **/
   public Double getPreviousTaxPaid() {
     return previousTaxPaid;
   }
 
-  /**
-   * The tax amount previously paid
-   *
-   * @param previousTaxPaid Double
-   */
+  /** 
+  * The tax amount previously paid
+  * @param previousTaxPaid  Double
+  **/
+
   public void setPreviousTaxPaid(Double previousTaxPaid) {
     this.previousTaxPaid = previousTaxPaid;
   }
 
   /**
-   * The employee&#39;s student loan deduction type
-   *
-   * @param studentLoanDeduction String
-   * @return EmployeeTax
-   */
+  * The employee&#39;s student loan deduction type
+  * @param studentLoanDeduction  String
+  * @return EmployeeTax
+  **/
   public EmployeeTax studentLoanDeduction(String studentLoanDeduction) {
     this.studentLoanDeduction = studentLoanDeduction;
     return this;
   }
 
-  /**
+   /**
    * The employee&#39;s student loan deduction type
-   *
    * @return studentLoanDeduction
-   */
+  **/
   @ApiModelProperty(example = "Plan Type 2", value = "The employee's student loan deduction type")
-  /**
+  /** 
    * The employee&#39;s student loan deduction type
-   *
    * @return studentLoanDeduction String
-   */
+  **/
   public String getStudentLoanDeduction() {
     return studentLoanDeduction;
   }
 
-  /**
-   * The employee&#39;s student loan deduction type
-   *
-   * @param studentLoanDeduction String
-   */
+  /** 
+  * The employee&#39;s student loan deduction type
+  * @param studentLoanDeduction  String
+  **/
+
   public void setStudentLoanDeduction(String studentLoanDeduction) {
     this.studentLoanDeduction = studentLoanDeduction;
   }
 
   /**
-   * Describes whether the employee has post graduate loans
-   *
-   * @param hasPostGraduateLoans Boolean
-   * @return EmployeeTax
-   */
+  * Describes whether the employee has post graduate loans
+  * @param hasPostGraduateLoans  Boolean
+  * @return EmployeeTax
+  **/
   public EmployeeTax hasPostGraduateLoans(Boolean hasPostGraduateLoans) {
     this.hasPostGraduateLoans = hasPostGraduateLoans;
     return this;
   }
 
-  /**
+   /**
    * Describes whether the employee has post graduate loans
-   *
    * @return hasPostGraduateLoans
-   */
+  **/
   @ApiModelProperty(value = "Describes whether the employee has post graduate loans")
-  /**
+  /** 
    * Describes whether the employee has post graduate loans
-   *
    * @return hasPostGraduateLoans Boolean
-   */
+  **/
   public Boolean getHasPostGraduateLoans() {
     return hasPostGraduateLoans;
   }
 
-  /**
-   * Describes whether the employee has post graduate loans
-   *
-   * @param hasPostGraduateLoans Boolean
-   */
+  /** 
+  * Describes whether the employee has post graduate loans
+  * @param hasPostGraduateLoans  Boolean
+  **/
+
   public void setHasPostGraduateLoans(Boolean hasPostGraduateLoans) {
     this.hasPostGraduateLoans = hasPostGraduateLoans;
   }
 
   /**
-   * Describes whether the employee is director
-   *
-   * @param isDirector Boolean
-   * @return EmployeeTax
-   */
+  * Describes whether the employee is director
+  * @param isDirector  Boolean
+  * @return EmployeeTax
+  **/
   public EmployeeTax isDirector(Boolean isDirector) {
     this.isDirector = isDirector;
     return this;
   }
 
-  /**
+   /**
    * Describes whether the employee is director
-   *
    * @return isDirector
-   */
+  **/
   @ApiModelProperty(value = "Describes whether the employee is director")
-  /**
+  /** 
    * Describes whether the employee is director
-   *
    * @return isDirector Boolean
-   */
+  **/
   public Boolean getIsDirector() {
     return isDirector;
   }
 
-  /**
-   * Describes whether the employee is director
-   *
-   * @param isDirector Boolean
-   */
+  /** 
+  * Describes whether the employee is director
+  * @param isDirector  Boolean
+  **/
+
   public void setIsDirector(Boolean isDirector) {
     this.isDirector = isDirector;
   }
 
   /**
-   * The directorship start date
-   *
-   * @param directorshipStartDate LocalDate
-   * @return EmployeeTax
-   */
+  * The directorship start date
+  * @param directorshipStartDate  LocalDate
+  * @return EmployeeTax
+  **/
   public EmployeeTax directorshipStartDate(LocalDate directorshipStartDate) {
     this.directorshipStartDate = directorshipStartDate;
     return this;
   }
 
-  /**
+   /**
    * The directorship start date
-   *
    * @return directorshipStartDate
-   */
+  **/
   @ApiModelProperty(value = "The directorship start date")
-  /**
+  /** 
    * The directorship start date
-   *
    * @return directorshipStartDate LocalDate
-   */
+  **/
   public LocalDate getDirectorshipStartDate() {
     return directorshipStartDate;
   }
 
-  /**
-   * The directorship start date
-   *
-   * @param directorshipStartDate LocalDate
-   */
+  /** 
+  * The directorship start date
+  * @param directorshipStartDate  LocalDate
+  **/
+
   public void setDirectorshipStartDate(LocalDate directorshipStartDate) {
     this.directorshipStartDate = directorshipStartDate;
   }
 
   /**
-   * NICs calculation method
-   *
-   * @param nicCalculationMethod String
-   * @return EmployeeTax
-   */
+  * NICs calculation method
+  * @param nicCalculationMethod  String
+  * @return EmployeeTax
+  **/
   public EmployeeTax nicCalculationMethod(String nicCalculationMethod) {
     this.nicCalculationMethod = nicCalculationMethod;
     return this;
   }
 
-  /**
+   /**
    * NICs calculation method
-   *
    * @return nicCalculationMethod
-   */
+  **/
   @ApiModelProperty(example = "Annualized", value = "NICs calculation method")
-  /**
+  /** 
    * NICs calculation method
-   *
    * @return nicCalculationMethod String
-   */
+  **/
   public String getNicCalculationMethod() {
     return nicCalculationMethod;
   }
 
-  /**
-   * NICs calculation method
-   *
-   * @param nicCalculationMethod String
-   */
+  /** 
+  * NICs calculation method
+  * @param nicCalculationMethod  String
+  **/
+
   public void setNicCalculationMethod(String nicCalculationMethod) {
     this.nicCalculationMethod = nicCalculationMethod;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -449,34 +432,24 @@ public class EmployeeTax {
       return false;
     }
     EmployeeTax employeeTax = (EmployeeTax) o;
-    return Objects.equals(this.starterType, employeeTax.starterType)
-        && Objects.equals(this.starterDeclaration, employeeTax.starterDeclaration)
-        && Objects.equals(this.taxCode, employeeTax.taxCode)
-        && Objects.equals(this.w1M1, employeeTax.w1M1)
-        && Objects.equals(this.previousTaxablePay, employeeTax.previousTaxablePay)
-        && Objects.equals(this.previousTaxPaid, employeeTax.previousTaxPaid)
-        && Objects.equals(this.studentLoanDeduction, employeeTax.studentLoanDeduction)
-        && Objects.equals(this.hasPostGraduateLoans, employeeTax.hasPostGraduateLoans)
-        && Objects.equals(this.isDirector, employeeTax.isDirector)
-        && Objects.equals(this.directorshipStartDate, employeeTax.directorshipStartDate)
-        && Objects.equals(this.nicCalculationMethod, employeeTax.nicCalculationMethod);
+    return Objects.equals(this.starterType, employeeTax.starterType) &&
+        Objects.equals(this.starterDeclaration, employeeTax.starterDeclaration) &&
+        Objects.equals(this.taxCode, employeeTax.taxCode) &&
+        Objects.equals(this.w1M1, employeeTax.w1M1) &&
+        Objects.equals(this.previousTaxablePay, employeeTax.previousTaxablePay) &&
+        Objects.equals(this.previousTaxPaid, employeeTax.previousTaxPaid) &&
+        Objects.equals(this.studentLoanDeduction, employeeTax.studentLoanDeduction) &&
+        Objects.equals(this.hasPostGraduateLoans, employeeTax.hasPostGraduateLoans) &&
+        Objects.equals(this.isDirector, employeeTax.isDirector) &&
+        Objects.equals(this.directorshipStartDate, employeeTax.directorshipStartDate) &&
+        Objects.equals(this.nicCalculationMethod, employeeTax.nicCalculationMethod);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        starterType,
-        starterDeclaration,
-        taxCode,
-        w1M1,
-        previousTaxablePay,
-        previousTaxPaid,
-        studentLoanDeduction,
-        hasPostGraduateLoans,
-        isDirector,
-        directorshipStartDate,
-        nicCalculationMethod);
+    return Objects.hash(starterType, starterDeclaration, taxCode, w1M1, previousTaxablePay, previousTaxPaid, studentLoanDeduction, hasPostGraduateLoans, isDirector, directorshipStartDate, nicCalculationMethod);
   }
+
 
   @Override
   public String toString() {
@@ -488,25 +461,18 @@ public class EmployeeTax {
     sb.append("    w1M1: ").append(toIndentedString(w1M1)).append("\n");
     sb.append("    previousTaxablePay: ").append(toIndentedString(previousTaxablePay)).append("\n");
     sb.append("    previousTaxPaid: ").append(toIndentedString(previousTaxPaid)).append("\n");
-    sb.append("    studentLoanDeduction: ")
-        .append(toIndentedString(studentLoanDeduction))
-        .append("\n");
-    sb.append("    hasPostGraduateLoans: ")
-        .append(toIndentedString(hasPostGraduateLoans))
-        .append("\n");
+    sb.append("    studentLoanDeduction: ").append(toIndentedString(studentLoanDeduction)).append("\n");
+    sb.append("    hasPostGraduateLoans: ").append(toIndentedString(hasPostGraduateLoans)).append("\n");
     sb.append("    isDirector: ").append(toIndentedString(isDirector)).append("\n");
-    sb.append("    directorshipStartDate: ")
-        .append(toIndentedString(directorshipStartDate))
-        .append("\n");
-    sb.append("    nicCalculationMethod: ")
-        .append(toIndentedString(nicCalculationMethod))
-        .append("\n");
+    sb.append("    directorshipStartDate: ").append(toIndentedString(directorshipStartDate)).append("\n");
+    sb.append("    nicCalculationMethod: ").append(toIndentedString(nicCalculationMethod)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -514,4 +480,6 @@ public class EmployeeTax {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

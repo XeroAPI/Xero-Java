@@ -9,733 +9,1224 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets CountryCode */
+/**
+ * Gets or Sets CountryCode
+ */
 public enum CountryCode {
-
-  /** AD */
+  
+    /**
+     * AD
+     */
   AD("AD"),
-
-  /** AE */
+  
+    /**
+     * AE
+     */
   AE("AE"),
-
-  /** AF */
+  
+    /**
+     * AF
+     */
   AF("AF"),
-
-  /** AG */
+  
+    /**
+     * AG
+     */
   AG("AG"),
-
-  /** AI */
+  
+    /**
+     * AI
+     */
   AI("AI"),
-
-  /** AL */
+  
+    /**
+     * AL
+     */
   AL("AL"),
-
-  /** AM */
+  
+    /**
+     * AM
+     */
   AM("AM"),
-
-  /** AN */
+  
+    /**
+     * AN
+     */
   AN("AN"),
-
-  /** AO */
+  
+    /**
+     * AO
+     */
   AO("AO"),
-
-  /** AQ */
+  
+    /**
+     * AQ
+     */
   AQ("AQ"),
-
-  /** AR */
+  
+    /**
+     * AR
+     */
   AR("AR"),
-
-  /** AS */
+  
+    /**
+     * AS
+     */
   AS("AS"),
-
-  /** AT */
+  
+    /**
+     * AT
+     */
   AT("AT"),
-
-  /** AU */
+  
+    /**
+     * AU
+     */
   AU("AU"),
-
-  /** AW */
+  
+    /**
+     * AW
+     */
   AW("AW"),
-
-  /** AZ */
+  
+    /**
+     * AZ
+     */
   AZ("AZ"),
-
-  /** BA */
+  
+    /**
+     * BA
+     */
   BA("BA"),
-
-  /** BB */
+  
+    /**
+     * BB
+     */
   BB("BB"),
-
-  /** BD */
+  
+    /**
+     * BD
+     */
   BD("BD"),
-
-  /** BE */
+  
+    /**
+     * BE
+     */
   BE("BE"),
-
-  /** BF */
+  
+    /**
+     * BF
+     */
   BF("BF"),
-
-  /** BG */
+  
+    /**
+     * BG
+     */
   BG("BG"),
-
-  /** BH */
+  
+    /**
+     * BH
+     */
   BH("BH"),
-
-  /** BI */
+  
+    /**
+     * BI
+     */
   BI("BI"),
-
-  /** BJ */
+  
+    /**
+     * BJ
+     */
   BJ("BJ"),
-
-  /** BL */
+  
+    /**
+     * BL
+     */
   BL("BL"),
-
-  /** BM */
+  
+    /**
+     * BM
+     */
   BM("BM"),
-
-  /** BN */
+  
+    /**
+     * BN
+     */
   BN("BN"),
-
-  /** BO */
+  
+    /**
+     * BO
+     */
   BO("BO"),
-
-  /** BR */
+  
+    /**
+     * BR
+     */
   BR("BR"),
-
-  /** BS */
+  
+    /**
+     * BS
+     */
   BS("BS"),
-
-  /** BT */
+  
+    /**
+     * BT
+     */
   BT("BT"),
-
-  /** BW */
+  
+    /**
+     * BW
+     */
   BW("BW"),
-
-  /** BY */
+  
+    /**
+     * BY
+     */
   BY("BY"),
-
-  /** BZ */
+  
+    /**
+     * BZ
+     */
   BZ("BZ"),
-
-  /** CA */
+  
+    /**
+     * CA
+     */
   CA("CA"),
-
-  /** CC */
+  
+    /**
+     * CC
+     */
   CC("CC"),
-
-  /** CD */
+  
+    /**
+     * CD
+     */
   CD("CD"),
-
-  /** CF */
+  
+    /**
+     * CF
+     */
   CF("CF"),
-
-  /** CG */
+  
+    /**
+     * CG
+     */
   CG("CG"),
-
-  /** CH */
+  
+    /**
+     * CH
+     */
   CH("CH"),
-
-  /** CI */
+  
+    /**
+     * CI
+     */
   CI("CI"),
-
-  /** CK */
+  
+    /**
+     * CK
+     */
   CK("CK"),
-
-  /** CL */
+  
+    /**
+     * CL
+     */
   CL("CL"),
-
-  /** CM */
+  
+    /**
+     * CM
+     */
   CM("CM"),
-
-  /** CN */
+  
+    /**
+     * CN
+     */
   CN("CN"),
-
-  /** CO */
+  
+    /**
+     * CO
+     */
   CO("CO"),
-
-  /** CR */
+  
+    /**
+     * CR
+     */
   CR("CR"),
-
-  /** CU */
+  
+    /**
+     * CU
+     */
   CU("CU"),
-
-  /** CV */
+  
+    /**
+     * CV
+     */
   CV("CV"),
-
-  /** CW */
+  
+    /**
+     * CW
+     */
   CW("CW"),
-
-  /** CX */
+  
+    /**
+     * CX
+     */
   CX("CX"),
-
-  /** CY */
+  
+    /**
+     * CY
+     */
   CY("CY"),
-
-  /** CZ */
+  
+    /**
+     * CZ
+     */
   CZ("CZ"),
-
-  /** DE */
+  
+    /**
+     * DE
+     */
   DE("DE"),
-
-  /** DJ */
+  
+    /**
+     * DJ
+     */
   DJ("DJ"),
-
-  /** DK */
+  
+    /**
+     * DK
+     */
   DK("DK"),
-
-  /** DM */
+  
+    /**
+     * DM
+     */
   DM("DM"),
-
-  /** DO */
+  
+    /**
+     * DO
+     */
   DO("DO"),
-
-  /** DZ */
+  
+    /**
+     * DZ
+     */
   DZ("DZ"),
-
-  /** EC */
+  
+    /**
+     * EC
+     */
   EC("EC"),
-
-  /** EE */
+  
+    /**
+     * EE
+     */
   EE("EE"),
-
-  /** EG */
+  
+    /**
+     * EG
+     */
   EG("EG"),
-
-  /** EH */
+  
+    /**
+     * EH
+     */
   EH("EH"),
-
-  /** ER */
+  
+    /**
+     * ER
+     */
   ER("ER"),
-
-  /** ES */
+  
+    /**
+     * ES
+     */
   ES("ES"),
-
-  /** ET */
+  
+    /**
+     * ET
+     */
   ET("ET"),
-
-  /** FI */
+  
+    /**
+     * FI
+     */
   FI("FI"),
-
-  /** FJ */
+  
+    /**
+     * FJ
+     */
   FJ("FJ"),
-
-  /** FK */
+  
+    /**
+     * FK
+     */
   FK("FK"),
-
-  /** FM */
+  
+    /**
+     * FM
+     */
   FM("FM"),
-
-  /** FO */
+  
+    /**
+     * FO
+     */
   FO("FO"),
-
-  /** FR */
+  
+    /**
+     * FR
+     */
   FR("FR"),
-
-  /** GA */
+  
+    /**
+     * GA
+     */
   GA("GA"),
-
-  /** GB */
+  
+    /**
+     * GB
+     */
   GB("GB"),
-
-  /** GD */
+  
+    /**
+     * GD
+     */
   GD("GD"),
-
-  /** GE */
+  
+    /**
+     * GE
+     */
   GE("GE"),
-
-  /** GG */
+  
+    /**
+     * GG
+     */
   GG("GG"),
-
-  /** GH */
+  
+    /**
+     * GH
+     */
   GH("GH"),
-
-  /** GI */
+  
+    /**
+     * GI
+     */
   GI("GI"),
-
-  /** GL */
+  
+    /**
+     * GL
+     */
   GL("GL"),
-
-  /** GM */
+  
+    /**
+     * GM
+     */
   GM("GM"),
-
-  /** GN */
+  
+    /**
+     * GN
+     */
   GN("GN"),
-
-  /** GQ */
+  
+    /**
+     * GQ
+     */
   GQ("GQ"),
-
-  /** GR */
+  
+    /**
+     * GR
+     */
   GR("GR"),
-
-  /** GT */
+  
+    /**
+     * GT
+     */
   GT("GT"),
-
-  /** GU */
+  
+    /**
+     * GU
+     */
   GU("GU"),
-
-  /** GW */
+  
+    /**
+     * GW
+     */
   GW("GW"),
-
-  /** GY */
+  
+    /**
+     * GY
+     */
   GY("GY"),
-
-  /** HK */
+  
+    /**
+     * HK
+     */
   HK("HK"),
-
-  /** HN */
+  
+    /**
+     * HN
+     */
   HN("HN"),
-
-  /** HR */
+  
+    /**
+     * HR
+     */
   HR("HR"),
-
-  /** HT */
+  
+    /**
+     * HT
+     */
   HT("HT"),
-
-  /** HU */
+  
+    /**
+     * HU
+     */
   HU("HU"),
-
-  /** ID */
+  
+    /**
+     * ID
+     */
   ID("ID"),
-
-  /** IE */
+  
+    /**
+     * IE
+     */
   IE("IE"),
-
-  /** IL */
+  
+    /**
+     * IL
+     */
   IL("IL"),
-
-  /** IM */
+  
+    /**
+     * IM
+     */
   IM("IM"),
-
-  /** IN */
+  
+    /**
+     * IN
+     */
   IN("IN"),
-
-  /** IO */
+  
+    /**
+     * IO
+     */
   IO("IO"),
-
-  /** IQ */
+  
+    /**
+     * IQ
+     */
   IQ("IQ"),
-
-  /** IR */
+  
+    /**
+     * IR
+     */
   IR("IR"),
-
-  /** IS */
+  
+    /**
+     * IS
+     */
   IS("IS"),
-
-  /** IT */
+  
+    /**
+     * IT
+     */
   IT("IT"),
-
-  /** JE */
+  
+    /**
+     * JE
+     */
   JE("JE"),
-
-  /** JM */
+  
+    /**
+     * JM
+     */
   JM("JM"),
-
-  /** JO */
+  
+    /**
+     * JO
+     */
   JO("JO"),
-
-  /** JP */
+  
+    /**
+     * JP
+     */
   JP("JP"),
-
-  /** KE */
+  
+    /**
+     * KE
+     */
   KE("KE"),
-
-  /** KG */
+  
+    /**
+     * KG
+     */
   KG("KG"),
-
-  /** KH */
+  
+    /**
+     * KH
+     */
   KH("KH"),
-
-  /** KI */
+  
+    /**
+     * KI
+     */
   KI("KI"),
-
-  /** KM */
+  
+    /**
+     * KM
+     */
   KM("KM"),
-
-  /** KN */
+  
+    /**
+     * KN
+     */
   KN("KN"),
-
-  /** KP */
+  
+    /**
+     * KP
+     */
   KP("KP"),
-
-  /** KR */
+  
+    /**
+     * KR
+     */
   KR("KR"),
-
-  /** KW */
+  
+    /**
+     * KW
+     */
   KW("KW"),
-
-  /** KY */
+  
+    /**
+     * KY
+     */
   KY("KY"),
-
-  /** KZ */
+  
+    /**
+     * KZ
+     */
   KZ("KZ"),
-
-  /** LA */
+  
+    /**
+     * LA
+     */
   LA("LA"),
-
-  /** LB */
+  
+    /**
+     * LB
+     */
   LB("LB"),
-
-  /** LC */
+  
+    /**
+     * LC
+     */
   LC("LC"),
-
-  /** LI */
+  
+    /**
+     * LI
+     */
   LI("LI"),
-
-  /** LK */
+  
+    /**
+     * LK
+     */
   LK("LK"),
-
-  /** LR */
+  
+    /**
+     * LR
+     */
   LR("LR"),
-
-  /** LS */
+  
+    /**
+     * LS
+     */
   LS("LS"),
-
-  /** LT */
+  
+    /**
+     * LT
+     */
   LT("LT"),
-
-  /** LU */
+  
+    /**
+     * LU
+     */
   LU("LU"),
-
-  /** LV */
+  
+    /**
+     * LV
+     */
   LV("LV"),
-
-  /** LY */
+  
+    /**
+     * LY
+     */
   LY("LY"),
-
-  /** MA */
+  
+    /**
+     * MA
+     */
   MA("MA"),
-
-  /** MC */
+  
+    /**
+     * MC
+     */
   MC("MC"),
-
-  /** MD */
+  
+    /**
+     * MD
+     */
   MD("MD"),
-
-  /** ME */
+  
+    /**
+     * ME
+     */
   ME("ME"),
-
-  /** MF */
+  
+    /**
+     * MF
+     */
   MF("MF"),
-
-  /** MG */
+  
+    /**
+     * MG
+     */
   MG("MG"),
-
-  /** MH */
+  
+    /**
+     * MH
+     */
   MH("MH"),
-
-  /** MK */
+  
+    /**
+     * MK
+     */
   MK("MK"),
-
-  /** ML */
+  
+    /**
+     * ML
+     */
   ML("ML"),
-
-  /** MM */
+  
+    /**
+     * MM
+     */
   MM("MM"),
-
-  /** MN */
+  
+    /**
+     * MN
+     */
   MN("MN"),
-
-  /** MO */
+  
+    /**
+     * MO
+     */
   MO("MO"),
-
-  /** MP */
+  
+    /**
+     * MP
+     */
   MP("MP"),
-
-  /** MR */
+  
+    /**
+     * MR
+     */
   MR("MR"),
-
-  /** MS */
+  
+    /**
+     * MS
+     */
   MS("MS"),
-
-  /** MT */
+  
+    /**
+     * MT
+     */
   MT("MT"),
-
-  /** MU */
+  
+    /**
+     * MU
+     */
   MU("MU"),
-
-  /** MV */
+  
+    /**
+     * MV
+     */
   MV("MV"),
-
-  /** MW */
+  
+    /**
+     * MW
+     */
   MW("MW"),
-
-  /** MX */
+  
+    /**
+     * MX
+     */
   MX("MX"),
-
-  /** MY */
+  
+    /**
+     * MY
+     */
   MY("MY"),
-
-  /** MZ */
+  
+    /**
+     * MZ
+     */
   MZ("MZ"),
-
-  /** NA */
+  
+    /**
+     * NA
+     */
   NA("NA"),
-
-  /** NC */
+  
+    /**
+     * NC
+     */
   NC("NC"),
-
-  /** NE */
+  
+    /**
+     * NE
+     */
   NE("NE"),
-
-  /** NG */
+  
+    /**
+     * NG
+     */
   NG("NG"),
-
-  /** NI */
+  
+    /**
+     * NI
+     */
   NI("NI"),
-
-  /** NL */
+  
+    /**
+     * NL
+     */
   NL("NL"),
-
-  /** NO */
+  
+    /**
+     * NO
+     */
   NO("NO"),
-
-  /** NP */
+  
+    /**
+     * NP
+     */
   NP("NP"),
-
-  /** NR */
+  
+    /**
+     * NR
+     */
   NR("NR"),
-
-  /** NU */
+  
+    /**
+     * NU
+     */
   NU("NU"),
-
-  /** NZ */
+  
+    /**
+     * NZ
+     */
   NZ("NZ"),
-
-  /** OM */
+  
+    /**
+     * OM
+     */
   OM("OM"),
-
-  /** PA */
+  
+    /**
+     * PA
+     */
   PA("PA"),
-
-  /** PE */
+  
+    /**
+     * PE
+     */
   PE("PE"),
-
-  /** PF */
+  
+    /**
+     * PF
+     */
   PF("PF"),
-
-  /** PG */
+  
+    /**
+     * PG
+     */
   PG("PG"),
-
-  /** PH */
+  
+    /**
+     * PH
+     */
   PH("PH"),
-
-  /** PK */
+  
+    /**
+     * PK
+     */
   PK("PK"),
-
-  /** PL */
+  
+    /**
+     * PL
+     */
   PL("PL"),
-
-  /** PM */
+  
+    /**
+     * PM
+     */
   PM("PM"),
-
-  /** PN */
+  
+    /**
+     * PN
+     */
   PN("PN"),
-
-  /** PR */
+  
+    /**
+     * PR
+     */
   PR("PR"),
-
-  /** PS */
+  
+    /**
+     * PS
+     */
   PS("PS"),
-
-  /** PT */
+  
+    /**
+     * PT
+     */
   PT("PT"),
-
-  /** PW */
+  
+    /**
+     * PW
+     */
   PW("PW"),
-
-  /** PY */
+  
+    /**
+     * PY
+     */
   PY("PY"),
-
-  /** QA */
+  
+    /**
+     * QA
+     */
   QA("QA"),
-
-  /** RE */
+  
+    /**
+     * RE
+     */
   RE("RE"),
-
-  /** RO */
+  
+    /**
+     * RO
+     */
   RO("RO"),
-
-  /** RS */
+  
+    /**
+     * RS
+     */
   RS("RS"),
-
-  /** RU */
+  
+    /**
+     * RU
+     */
   RU("RU"),
-
-  /** RW */
+  
+    /**
+     * RW
+     */
   RW("RW"),
-
-  /** SA */
+  
+    /**
+     * SA
+     */
   SA("SA"),
-
-  /** SB */
+  
+    /**
+     * SB
+     */
   SB("SB"),
-
-  /** SC */
+  
+    /**
+     * SC
+     */
   SC("SC"),
-
-  /** SD */
+  
+    /**
+     * SD
+     */
   SD("SD"),
-
-  /** SE */
+  
+    /**
+     * SE
+     */
   SE("SE"),
-
-  /** SG */
+  
+    /**
+     * SG
+     */
   SG("SG"),
-
-  /** SH */
+  
+    /**
+     * SH
+     */
   SH("SH"),
-
-  /** SI */
+  
+    /**
+     * SI
+     */
   SI("SI"),
-
-  /** SJ */
+  
+    /**
+     * SJ
+     */
   SJ("SJ"),
-
-  /** SK */
+  
+    /**
+     * SK
+     */
   SK("SK"),
-
-  /** SL */
+  
+    /**
+     * SL
+     */
   SL("SL"),
-
-  /** SM */
+  
+    /**
+     * SM
+     */
   SM("SM"),
-
-  /** SN */
+  
+    /**
+     * SN
+     */
   SN("SN"),
-
-  /** SO */
+  
+    /**
+     * SO
+     */
   SO("SO"),
-
-  /** SR */
+  
+    /**
+     * SR
+     */
   SR("SR"),
-
-  /** SS */
+  
+    /**
+     * SS
+     */
   SS("SS"),
-
-  /** ST */
+  
+    /**
+     * ST
+     */
   ST("ST"),
-
-  /** SV */
+  
+    /**
+     * SV
+     */
   SV("SV"),
-
-  /** SX */
+  
+    /**
+     * SX
+     */
   SX("SX"),
-
-  /** SY */
+  
+    /**
+     * SY
+     */
   SY("SY"),
-
-  /** SZ */
+  
+    /**
+     * SZ
+     */
   SZ("SZ"),
-
-  /** TC */
+  
+    /**
+     * TC
+     */
   TC("TC"),
-
-  /** TD */
+  
+    /**
+     * TD
+     */
   TD("TD"),
-
-  /** TG */
+  
+    /**
+     * TG
+     */
   TG("TG"),
-
-  /** TH */
+  
+    /**
+     * TH
+     */
   TH("TH"),
-
-  /** TJ */
+  
+    /**
+     * TJ
+     */
   TJ("TJ"),
-
-  /** TK */
+  
+    /**
+     * TK
+     */
   TK("TK"),
-
-  /** TL */
+  
+    /**
+     * TL
+     */
   TL("TL"),
-
-  /** TM */
+  
+    /**
+     * TM
+     */
   TM("TM"),
-
-  /** TN */
+  
+    /**
+     * TN
+     */
   TN("TN"),
-
-  /** TO */
+  
+    /**
+     * TO
+     */
   TO("TO"),
-
-  /** TR */
+  
+    /**
+     * TR
+     */
   TR("TR"),
-
-  /** TT */
+  
+    /**
+     * TT
+     */
   TT("TT"),
-
-  /** TV */
+  
+    /**
+     * TV
+     */
   TV("TV"),
-
-  /** TW */
+  
+    /**
+     * TW
+     */
   TW("TW"),
-
-  /** TZ */
+  
+    /**
+     * TZ
+     */
   TZ("TZ"),
-
-  /** UA */
+  
+    /**
+     * UA
+     */
   UA("UA"),
-
-  /** UG */
+  
+    /**
+     * UG
+     */
   UG("UG"),
-
-  /** US */
+  
+    /**
+     * US
+     */
   US("US"),
-
-  /** UY */
+  
+    /**
+     * UY
+     */
   UY("UY"),
-
-  /** UZ */
+  
+    /**
+     * UZ
+     */
   UZ("UZ"),
-
-  /** VA */
+  
+    /**
+     * VA
+     */
   VA("VA"),
-
-  /** VC */
+  
+    /**
+     * VC
+     */
   VC("VC"),
-
-  /** VE */
+  
+    /**
+     * VE
+     */
   VE("VE"),
-
-  /** VG */
+  
+    /**
+     * VG
+     */
   VG("VG"),
-
-  /** VI */
+  
+    /**
+     * VI
+     */
   VI("VI"),
-
-  /** VN */
+  
+    /**
+     * VN
+     */
   VN("VN"),
-
-  /** VU */
+  
+    /**
+     * VU
+     */
   VU("VU"),
-
-  /** WF */
+  
+    /**
+     * WF
+     */
   WF("WF"),
-
-  /** WS */
+  
+    /**
+     * WS
+     */
   WS("WS"),
-
-  /** XK */
+  
+    /**
+     * XK
+     */
   XK("XK"),
-
-  /** YE */
+  
+    /**
+     * YE
+     */
   YE("YE"),
-
-  /** YT */
+  
+    /**
+     * YT
+     */
   YT("YT"),
-
-  /** ZA */
+  
+    /**
+     * ZA
+     */
   ZA("ZA"),
-
-  /** ZM */
+  
+    /**
+     * ZM
+     */
   ZM("ZM"),
-
-  /** ZW */
+  
+    /**
+     * ZW
+     */
   ZW("ZW");
 
   private String value;
@@ -744,26 +1235,24 @@ public enum CountryCode {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static CountryCode fromValue(String value) {
@@ -775,3 +1264,4 @@ public enum CountryCode {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

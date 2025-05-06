@@ -9,17 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.ContactResponse;
+import com.xero.models.finance.LineItemResponse;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** PrepaymentResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PrepaymentResponse
+ */
+
 public class PrepaymentResponse {
   StringUtil util = new StringUtil();
 
@@ -35,118 +54,106 @@ public class PrepaymentResponse {
   @JsonProperty("lineItems")
   private List<LineItemResponse> lineItems = new ArrayList<LineItemResponse>();
   /**
-   * Xero Identifier of prepayment
-   *
-   * @param prepaymentId UUID
-   * @return PrepaymentResponse
-   */
+  * Xero Identifier of prepayment
+  * @param prepaymentId  UUID
+  * @return PrepaymentResponse
+  **/
   public PrepaymentResponse prepaymentId(UUID prepaymentId) {
     this.prepaymentId = prepaymentId;
     return this;
   }
 
-  /**
+   /**
    * Xero Identifier of prepayment
-   *
    * @return prepaymentId
-   */
+  **/
   @ApiModelProperty(value = "Xero Identifier of prepayment")
-  /**
+  /** 
    * Xero Identifier of prepayment
-   *
    * @return prepaymentId UUID
-   */
+  **/
   public UUID getPrepaymentId() {
     return prepaymentId;
   }
 
-  /**
-   * Xero Identifier of prepayment
-   *
-   * @param prepaymentId UUID
-   */
+  /** 
+  * Xero Identifier of prepayment
+  * @param prepaymentId  UUID
+  **/
+
   public void setPrepaymentId(UUID prepaymentId) {
     this.prepaymentId = prepaymentId;
   }
 
   /**
-   * contact
-   *
-   * @param contact ContactResponse
-   * @return PrepaymentResponse
-   */
+  * contact
+  * @param contact  ContactResponse
+  * @return PrepaymentResponse
+  **/
   public PrepaymentResponse contact(ContactResponse contact) {
     this.contact = contact;
     return this;
   }
 
-  /**
+   /**
    * Get contact
-   *
    * @return contact
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * contact
-   *
    * @return contact ContactResponse
-   */
+  **/
   public ContactResponse getContact() {
     return contact;
   }
 
-  /**
-   * contact
-   *
-   * @param contact ContactResponse
-   */
+  /** 
+  * contact
+  * @param contact  ContactResponse
+  **/
+
   public void setContact(ContactResponse contact) {
     this.contact = contact;
   }
 
   /**
-   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
-   *
-   * @param total Double
-   * @return PrepaymentResponse
-   */
+  * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
+  * @param total  Double
+  * @return PrepaymentResponse
+  **/
   public PrepaymentResponse total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
-   *
    * @return total
-   */
-  @ApiModelProperty(
-      value =
-          "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode")
-  /**
+  **/
+  @ApiModelProperty(value = "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode")
+  /** 
    * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
-   *
-   * @param total Double
-   */
+  /** 
+  * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax); Not included in summary mode
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
 
   /**
-   * Not included in summary mode
-   *
-   * @param lineItems List&lt;LineItemResponse&gt;
-   * @return PrepaymentResponse
-   */
+  * Not included in summary mode
+  * @param lineItems  List&lt;LineItemResponse&gt;
+  * @return PrepaymentResponse
+  **/
   public PrepaymentResponse lineItems(List<LineItemResponse> lineItems) {
     this.lineItems = lineItems;
     return this;
@@ -154,10 +161,9 @@ public class PrepaymentResponse {
 
   /**
    * Not included in summary mode
-   *
-   * @param lineItemsItem LineItemResponse
+   * @param lineItemsItem LineItemResponse 
    * @return PrepaymentResponse
-   */
+  **/
   public PrepaymentResponse addLineItemsItem(LineItemResponse lineItemsItem) {
     if (this.lineItems == null) {
       this.lineItems = new ArrayList<LineItemResponse>();
@@ -166,29 +172,28 @@ public class PrepaymentResponse {
     return this;
   }
 
-  /**
+   /**
    * Not included in summary mode
-   *
    * @return lineItems
-   */
+  **/
   @ApiModelProperty(value = "Not included in summary mode")
-  /**
+  /** 
    * Not included in summary mode
-   *
    * @return lineItems List<LineItemResponse>
-   */
+  **/
   public List<LineItemResponse> getLineItems() {
     return lineItems;
   }
 
-  /**
-   * Not included in summary mode
-   *
-   * @param lineItems List&lt;LineItemResponse&gt;
-   */
+  /** 
+  * Not included in summary mode
+  * @param lineItems List&lt;LineItemResponse&gt; 
+  **/
+
   public void setLineItems(List<LineItemResponse> lineItems) {
     this.lineItems = lineItems;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -199,16 +204,17 @@ public class PrepaymentResponse {
       return false;
     }
     PrepaymentResponse prepaymentResponse = (PrepaymentResponse) o;
-    return Objects.equals(this.prepaymentId, prepaymentResponse.prepaymentId)
-        && Objects.equals(this.contact, prepaymentResponse.contact)
-        && Objects.equals(this.total, prepaymentResponse.total)
-        && Objects.equals(this.lineItems, prepaymentResponse.lineItems);
+    return Objects.equals(this.prepaymentId, prepaymentResponse.prepaymentId) &&
+        Objects.equals(this.contact, prepaymentResponse.contact) &&
+        Objects.equals(this.total, prepaymentResponse.total) &&
+        Objects.equals(this.lineItems, prepaymentResponse.lineItems);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(prepaymentId, contact, total, lineItems);
   }
+
 
   @Override
   public String toString() {
@@ -223,7 +229,8 @@ public class PrepaymentResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -231,4 +238,6 @@ public class PrepaymentResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

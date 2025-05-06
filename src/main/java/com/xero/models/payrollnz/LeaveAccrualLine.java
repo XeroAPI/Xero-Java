@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** LeaveAccrualLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LeaveAccrualLine
+ */
+
 public class LeaveAccrualLine {
   StringUtil util = new StringUtil();
 
@@ -27,74 +44,69 @@ public class LeaveAccrualLine {
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
   /**
-   * Xero identifier for the Leave type
-   *
-   * @param leaveTypeID UUID
-   * @return LeaveAccrualLine
-   */
+  * Xero identifier for the Leave type
+  * @param leaveTypeID  UUID
+  * @return LeaveAccrualLine
+  **/
   public LeaveAccrualLine leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for the Leave type
-   *
    * @return leaveTypeID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for the Leave type")
-  /**
+  /** 
    * Xero identifier for the Leave type
-   *
    * @return leaveTypeID UUID
-   */
+  **/
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
-  /**
-   * Xero identifier for the Leave type
-   *
-   * @param leaveTypeID UUID
-   */
+  /** 
+  * Xero identifier for the Leave type
+  * @param leaveTypeID  UUID
+  **/
+
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
   /**
-   * Leave accrual number of units
-   *
-   * @param numberOfUnits Double
-   * @return LeaveAccrualLine
-   */
+  * Leave accrual number of units
+  * @param numberOfUnits  Double
+  * @return LeaveAccrualLine
+  **/
   public LeaveAccrualLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
   }
 
-  /**
+   /**
    * Leave accrual number of units
-   *
    * @return numberOfUnits
-   */
+  **/
   @ApiModelProperty(value = "Leave accrual number of units")
-  /**
+  /** 
    * Leave accrual number of units
-   *
    * @return numberOfUnits Double
-   */
+  **/
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
-  /**
-   * Leave accrual number of units
-   *
-   * @param numberOfUnits Double
-   */
+  /** 
+  * Leave accrual number of units
+  * @param numberOfUnits  Double
+  **/
+
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -105,14 +117,15 @@ public class LeaveAccrualLine {
       return false;
     }
     LeaveAccrualLine leaveAccrualLine = (LeaveAccrualLine) o;
-    return Objects.equals(this.leaveTypeID, leaveAccrualLine.leaveTypeID)
-        && Objects.equals(this.numberOfUnits, leaveAccrualLine.numberOfUnits);
+    return Objects.equals(this.leaveTypeID, leaveAccrualLine.leaveTypeID) &&
+        Objects.equals(this.numberOfUnits, leaveAccrualLine.numberOfUnits);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(leaveTypeID, numberOfUnits);
   }
+
 
   @Override
   public String toString() {
@@ -125,7 +138,8 @@ public class LeaveAccrualLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -133,4 +147,6 @@ public class LeaveAccrualLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

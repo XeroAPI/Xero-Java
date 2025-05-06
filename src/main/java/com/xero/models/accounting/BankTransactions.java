@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.BankTransaction;
+import com.xero.models.accounting.Pagination;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** BankTransactions */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BankTransactions
+ */
+
 public class BankTransactions {
   StringUtil util = new StringUtil();
 
@@ -31,46 +51,42 @@ public class BankTransactions {
   @JsonProperty("BankTransactions")
   private List<BankTransaction> bankTransactions = new ArrayList<BankTransaction>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return BankTransactions
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return BankTransactions
+  **/
   public BankTransactions pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   * @return BankTransactions
-   */
+  * Displays array of warning messages from the API
+  * @param warnings  List&lt;ValidationError&gt;
+  * @return BankTransactions
+  **/
   public BankTransactions warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
@@ -78,10 +94,9 @@ public class BankTransactions {
 
   /**
    * Displays array of warning messages from the API
-   *
-   * @param warningsItem ValidationError
+   * @param warningsItem ValidationError 
    * @return BankTransactions
-   */
+  **/
   public BankTransactions addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -90,36 +105,33 @@ public class BankTransactions {
     return this;
   }
 
-  /**
+   /**
    * Displays array of warning messages from the API
-   *
    * @return warnings
-   */
+  **/
   @ApiModelProperty(value = "Displays array of warning messages from the API")
-  /**
+  /** 
    * Displays array of warning messages from the API
-   *
    * @return warnings List<ValidationError>
-   */
+  **/
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
-  /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of warning messages from the API
+  * @param warnings List&lt;ValidationError&gt; 
+  **/
+
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
   /**
-   * bankTransactions
-   *
-   * @param bankTransactions List&lt;BankTransaction&gt;
-   * @return BankTransactions
-   */
+  * bankTransactions
+  * @param bankTransactions  List&lt;BankTransaction&gt;
+  * @return BankTransactions
+  **/
   public BankTransactions bankTransactions(List<BankTransaction> bankTransactions) {
     this.bankTransactions = bankTransactions;
     return this;
@@ -127,10 +139,9 @@ public class BankTransactions {
 
   /**
    * bankTransactions
-   *
-   * @param bankTransactionsItem BankTransaction
+   * @param bankTransactionsItem BankTransaction 
    * @return BankTransactions
-   */
+  **/
   public BankTransactions addBankTransactionsItem(BankTransaction bankTransactionsItem) {
     if (this.bankTransactions == null) {
       this.bankTransactions = new ArrayList<BankTransaction>();
@@ -139,29 +150,28 @@ public class BankTransactions {
     return this;
   }
 
-  /**
+   /**
    * Get bankTransactions
-   *
    * @return bankTransactions
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * bankTransactions
-   *
    * @return bankTransactions List<BankTransaction>
-   */
+  **/
   public List<BankTransaction> getBankTransactions() {
     return bankTransactions;
   }
 
-  /**
-   * bankTransactions
-   *
-   * @param bankTransactions List&lt;BankTransaction&gt;
-   */
+  /** 
+  * bankTransactions
+  * @param bankTransactions List&lt;BankTransaction&gt; 
+  **/
+
   public void setBankTransactions(List<BankTransaction> bankTransactions) {
     this.bankTransactions = bankTransactions;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -172,15 +182,16 @@ public class BankTransactions {
       return false;
     }
     BankTransactions bankTransactions = (BankTransactions) o;
-    return Objects.equals(this.pagination, bankTransactions.pagination)
-        && Objects.equals(this.warnings, bankTransactions.warnings)
-        && Objects.equals(this.bankTransactions, bankTransactions.bankTransactions);
+    return Objects.equals(this.pagination, bankTransactions.pagination) &&
+        Objects.equals(this.warnings, bankTransactions.warnings) &&
+        Objects.equals(this.bankTransactions, bankTransactions.bankTransactions);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, warnings, bankTransactions);
   }
+
 
   @Override
   public String toString() {
@@ -194,7 +205,8 @@ public class BankTransactions {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -202,4 +214,6 @@ public class BankTransactions {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.RepeatingInvoice;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** RepeatingInvoices */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * RepeatingInvoices
+ */
+
 public class RepeatingInvoices {
   StringUtil util = new StringUtil();
 
   @JsonProperty("RepeatingInvoices")
   private List<RepeatingInvoice> repeatingInvoices = new ArrayList<RepeatingInvoice>();
   /**
-   * repeatingInvoices
-   *
-   * @param repeatingInvoices List&lt;RepeatingInvoice&gt;
-   * @return RepeatingInvoices
-   */
+  * repeatingInvoices
+  * @param repeatingInvoices  List&lt;RepeatingInvoice&gt;
+  * @return RepeatingInvoices
+  **/
   public RepeatingInvoices repeatingInvoices(List<RepeatingInvoice> repeatingInvoices) {
     this.repeatingInvoices = repeatingInvoices;
     return this;
@@ -37,10 +54,9 @@ public class RepeatingInvoices {
 
   /**
    * repeatingInvoices
-   *
-   * @param repeatingInvoicesItem RepeatingInvoice
+   * @param repeatingInvoicesItem RepeatingInvoice 
    * @return RepeatingInvoices
-   */
+  **/
   public RepeatingInvoices addRepeatingInvoicesItem(RepeatingInvoice repeatingInvoicesItem) {
     if (this.repeatingInvoices == null) {
       this.repeatingInvoices = new ArrayList<RepeatingInvoice>();
@@ -49,29 +65,28 @@ public class RepeatingInvoices {
     return this;
   }
 
-  /**
+   /**
    * Get repeatingInvoices
-   *
    * @return repeatingInvoices
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * repeatingInvoices
-   *
    * @return repeatingInvoices List<RepeatingInvoice>
-   */
+  **/
   public List<RepeatingInvoice> getRepeatingInvoices() {
     return repeatingInvoices;
   }
 
-  /**
-   * repeatingInvoices
-   *
-   * @param repeatingInvoices List&lt;RepeatingInvoice&gt;
-   */
+  /** 
+  * repeatingInvoices
+  * @param repeatingInvoices List&lt;RepeatingInvoice&gt; 
+  **/
+
   public void setRepeatingInvoices(List<RepeatingInvoice> repeatingInvoices) {
     this.repeatingInvoices = repeatingInvoices;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class RepeatingInvoices {
     return Objects.hash(repeatingInvoices);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class RepeatingInvoices {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class RepeatingInvoices {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

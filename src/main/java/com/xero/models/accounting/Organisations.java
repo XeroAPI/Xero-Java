@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Organisation;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Organisations */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Organisations
+ */
+
 public class Organisations {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Organisations")
   private List<Organisation> organisations = new ArrayList<Organisation>();
   /**
-   * organisations
-   *
-   * @param organisations List&lt;Organisation&gt;
-   * @return Organisations
-   */
+  * organisations
+  * @param organisations  List&lt;Organisation&gt;
+  * @return Organisations
+  **/
   public Organisations organisations(List<Organisation> organisations) {
     this.organisations = organisations;
     return this;
@@ -37,10 +54,9 @@ public class Organisations {
 
   /**
    * organisations
-   *
-   * @param organisationsItem Organisation
+   * @param organisationsItem Organisation 
    * @return Organisations
-   */
+  **/
   public Organisations addOrganisationsItem(Organisation organisationsItem) {
     if (this.organisations == null) {
       this.organisations = new ArrayList<Organisation>();
@@ -49,29 +65,28 @@ public class Organisations {
     return this;
   }
 
-  /**
+   /**
    * Get organisations
-   *
    * @return organisations
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * organisations
-   *
    * @return organisations List<Organisation>
-   */
+  **/
   public List<Organisation> getOrganisations() {
     return organisations;
   }
 
-  /**
-   * organisations
-   *
-   * @param organisations List&lt;Organisation&gt;
-   */
+  /** 
+  * organisations
+  * @param organisations List&lt;Organisation&gt; 
+  **/
+
   public void setOrganisations(List<Organisation> organisations) {
     this.organisations = organisations;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class Organisations {
     return Objects.hash(organisations);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class Organisations {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class Organisations {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

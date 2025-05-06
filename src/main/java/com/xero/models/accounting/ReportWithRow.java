@@ -9,18 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.ReportFields;
+import com.xero.models.accounting.ReportRows;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** ReportWithRow */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ReportWithRow
+ */
+
 public class ReportWithRow {
   StringUtil util = new StringUtil();
 
@@ -51,164 +68,148 @@ public class ReportWithRow {
   @JsonProperty("Fields")
   private List<ReportFields> fields = new ArrayList<ReportFields>();
   /**
-   * ID of the Report
-   *
-   * @param reportID String
-   * @return ReportWithRow
-   */
+  * ID of the Report
+  * @param reportID  String
+  * @return ReportWithRow
+  **/
   public ReportWithRow reportID(String reportID) {
     this.reportID = reportID;
     return this;
   }
 
-  /**
+   /**
    * ID of the Report
-   *
    * @return reportID
-   */
+  **/
   @ApiModelProperty(value = "ID of the Report")
-  /**
+  /** 
    * ID of the Report
-   *
    * @return reportID String
-   */
+  **/
   public String getReportID() {
     return reportID;
   }
 
-  /**
-   * ID of the Report
-   *
-   * @param reportID String
-   */
+  /** 
+  * ID of the Report
+  * @param reportID  String
+  **/
+
   public void setReportID(String reportID) {
     this.reportID = reportID;
   }
 
   /**
-   * Name of the report
-   *
-   * @param reportName String
-   * @return ReportWithRow
-   */
+  * Name of the report
+  * @param reportName  String
+  * @return ReportWithRow
+  **/
   public ReportWithRow reportName(String reportName) {
     this.reportName = reportName;
     return this;
   }
 
-  /**
+   /**
    * Name of the report
-   *
    * @return reportName
-   */
+  **/
   @ApiModelProperty(value = "Name of the report")
-  /**
+  /** 
    * Name of the report
-   *
    * @return reportName String
-   */
+  **/
   public String getReportName() {
     return reportName;
   }
 
-  /**
-   * Name of the report
-   *
-   * @param reportName String
-   */
+  /** 
+  * Name of the report
+  * @param reportName  String
+  **/
+
   public void setReportName(String reportName) {
     this.reportName = reportName;
   }
 
   /**
-   * Title of the report
-   *
-   * @param reportTitle String
-   * @return ReportWithRow
-   */
+  * Title of the report
+  * @param reportTitle  String
+  * @return ReportWithRow
+  **/
   public ReportWithRow reportTitle(String reportTitle) {
     this.reportTitle = reportTitle;
     return this;
   }
 
-  /**
+   /**
    * Title of the report
-   *
    * @return reportTitle
-   */
+  **/
   @ApiModelProperty(value = "Title of the report")
-  /**
+  /** 
    * Title of the report
-   *
    * @return reportTitle String
-   */
+  **/
   public String getReportTitle() {
     return reportTitle;
   }
 
-  /**
-   * Title of the report
-   *
-   * @param reportTitle String
-   */
+  /** 
+  * Title of the report
+  * @param reportTitle  String
+  **/
+
   public void setReportTitle(String reportTitle) {
     this.reportTitle = reportTitle;
   }
 
   /**
-   * The type of report (BalanceSheet,ProfitLoss, etc)
-   *
-   * @param reportType String
-   * @return ReportWithRow
-   */
+  * The type of report (BalanceSheet,ProfitLoss, etc)
+  * @param reportType  String
+  * @return ReportWithRow
+  **/
   public ReportWithRow reportType(String reportType) {
     this.reportType = reportType;
     return this;
   }
 
-  /**
+   /**
    * The type of report (BalanceSheet,ProfitLoss, etc)
-   *
    * @return reportType
-   */
+  **/
   @ApiModelProperty(value = "The type of report (BalanceSheet,ProfitLoss, etc)")
-  /**
+  /** 
    * The type of report (BalanceSheet,ProfitLoss, etc)
-   *
    * @return reportType String
-   */
+  **/
   public String getReportType() {
     return reportType;
   }
 
-  /**
-   * The type of report (BalanceSheet,ProfitLoss, etc)
-   *
-   * @param reportType String
-   */
+  /** 
+  * The type of report (BalanceSheet,ProfitLoss, etc)
+  * @param reportType  String
+  **/
+
   public void setReportType(String reportType) {
     this.reportType = reportType;
   }
 
   /**
-   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of
-   * report)
-   *
-   * @param reportTitles List&lt;&gt;
-   * @return ReportWithRow
-   */
+  * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)
+  * @param reportTitles  List&lt;&gt;
+  * @return ReportWithRow
+  **/
   public ReportWithRow reportTitles(List<String> reportTitles) {
     this.reportTitles = reportTitles;
     return this;
   }
 
   /**
-   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of
-   * report)
-   *
-   * @param reportTitlesItem String
+   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)
+   * @param reportTitlesItem String 
    * @return ReportWithRow
-   */
+  **/
   public ReportWithRow addReportTitlesItem(String reportTitlesItem) {
     if (this.reportTitles == null) {
       this.reportTitles = new ArrayList<String>();
@@ -217,77 +218,65 @@ public class ReportWithRow {
     return this;
   }
 
-  /**
-   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of
-   * report)
-   *
+   /**
+   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)
    * @return reportTitles
-   */
-  @ApiModelProperty(
-      value =
-          "Report titles array (3 to 4 strings with the report name, orgnisation name and time"
-              + " frame of report)")
-  /**
-   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of
-   * report)
-   *
+  **/
+  @ApiModelProperty(value = "Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)")
+  /** 
+   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)
    * @return reportTitles List<String>
-   */
+  **/
   public List<String> getReportTitles() {
     return reportTitles;
   }
 
-  /**
-   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of
-   * report)
-   *
-   * @param reportTitles List&lt;&gt;
-   */
+  /** 
+  * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)
+  * @param reportTitles List&lt;&gt; 
+  **/
+
   public void setReportTitles(List<String> reportTitles) {
     this.reportTitles = reportTitles;
   }
 
   /**
-   * Date of report
-   *
-   * @param reportDate String
-   * @return ReportWithRow
-   */
+  * Date of report
+  * @param reportDate  String
+  * @return ReportWithRow
+  **/
   public ReportWithRow reportDate(String reportDate) {
     this.reportDate = reportDate;
     return this;
   }
 
-  /**
+   /**
    * Date of report
-   *
    * @return reportDate
-   */
+  **/
   @ApiModelProperty(value = "Date of report")
-  /**
+  /** 
    * Date of report
-   *
    * @return reportDate String
-   */
+  **/
   public String getReportDate() {
     return reportDate;
   }
 
-  /**
-   * Date of report
-   *
-   * @param reportDate String
-   */
+  /** 
+  * Date of report
+  * @param reportDate  String
+  **/
+
   public void setReportDate(String reportDate) {
     this.reportDate = reportDate;
   }
 
   /**
-   * rows
-   *
-   * @param rows List&lt;ReportRows&gt;
-   * @return ReportWithRow
-   */
+  * rows
+  * @param rows  List&lt;ReportRows&gt;
+  * @return ReportWithRow
+  **/
   public ReportWithRow rows(List<ReportRows> rows) {
     this.rows = rows;
     return this;
@@ -295,10 +284,9 @@ public class ReportWithRow {
 
   /**
    * rows
-   *
-   * @param rowsItem ReportRows
+   * @param rowsItem ReportRows 
    * @return ReportWithRow
-   */
+  **/
   public ReportWithRow addRowsItem(ReportRows rowsItem) {
     if (this.rows == null) {
       this.rows = new ArrayList<ReportRows>();
@@ -307,66 +295,60 @@ public class ReportWithRow {
     return this;
   }
 
-  /**
+   /**
    * Get rows
-   *
    * @return rows
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * rows
-   *
    * @return rows List<ReportRows>
-   */
+  **/
   public List<ReportRows> getRows() {
     return rows;
   }
 
-  /**
-   * rows
-   *
-   * @param rows List&lt;ReportRows&gt;
-   */
+  /** 
+  * rows
+  * @param rows List&lt;ReportRows&gt; 
+  **/
+
   public void setRows(List<ReportRows> rows) {
     this.rows = rows;
   }
 
-  /**
+   /**
    * Updated Date
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Updated Date")
-  /**
+  /** 
    * Updated Date
-   *
    * @return updatedDateUTC String
-   */
+  **/
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-  /**
+  /** 
    * Updated Date
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   /**
-   * fields
-   *
-   * @param fields List&lt;ReportFields&gt;
-   * @return ReportWithRow
-   */
+  * fields
+  * @param fields  List&lt;ReportFields&gt;
+  * @return ReportWithRow
+  **/
   public ReportWithRow fields(List<ReportFields> fields) {
     this.fields = fields;
     return this;
@@ -374,10 +356,9 @@ public class ReportWithRow {
 
   /**
    * fields
-   *
-   * @param fieldsItem ReportFields
+   * @param fieldsItem ReportFields 
    * @return ReportWithRow
-   */
+  **/
   public ReportWithRow addFieldsItem(ReportFields fieldsItem) {
     if (this.fields == null) {
       this.fields = new ArrayList<ReportFields>();
@@ -386,29 +367,28 @@ public class ReportWithRow {
     return this;
   }
 
-  /**
+   /**
    * Get fields
-   *
    * @return fields
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * fields
-   *
    * @return fields List<ReportFields>
-   */
+  **/
   public List<ReportFields> getFields() {
     return fields;
   }
 
-  /**
-   * fields
-   *
-   * @param fields List&lt;ReportFields&gt;
-   */
+  /** 
+  * fields
+  * @param fields List&lt;ReportFields&gt; 
+  **/
+
   public void setFields(List<ReportFields> fields) {
     this.fields = fields;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -419,30 +399,22 @@ public class ReportWithRow {
       return false;
     }
     ReportWithRow reportWithRow = (ReportWithRow) o;
-    return Objects.equals(this.reportID, reportWithRow.reportID)
-        && Objects.equals(this.reportName, reportWithRow.reportName)
-        && Objects.equals(this.reportTitle, reportWithRow.reportTitle)
-        && Objects.equals(this.reportType, reportWithRow.reportType)
-        && Objects.equals(this.reportTitles, reportWithRow.reportTitles)
-        && Objects.equals(this.reportDate, reportWithRow.reportDate)
-        && Objects.equals(this.rows, reportWithRow.rows)
-        && Objects.equals(this.updatedDateUTC, reportWithRow.updatedDateUTC)
-        && Objects.equals(this.fields, reportWithRow.fields);
+    return Objects.equals(this.reportID, reportWithRow.reportID) &&
+        Objects.equals(this.reportName, reportWithRow.reportName) &&
+        Objects.equals(this.reportTitle, reportWithRow.reportTitle) &&
+        Objects.equals(this.reportType, reportWithRow.reportType) &&
+        Objects.equals(this.reportTitles, reportWithRow.reportTitles) &&
+        Objects.equals(this.reportDate, reportWithRow.reportDate) &&
+        Objects.equals(this.rows, reportWithRow.rows) &&
+        Objects.equals(this.updatedDateUTC, reportWithRow.updatedDateUTC) &&
+        Objects.equals(this.fields, reportWithRow.fields);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        reportID,
-        reportName,
-        reportTitle,
-        reportType,
-        reportTitles,
-        reportDate,
-        rows,
-        updatedDateUTC,
-        fields);
+    return Objects.hash(reportID, reportName, reportTitle, reportType, reportTitles, reportDate, rows, updatedDateUTC, fields);
   }
+
 
   @Override
   public String toString() {
@@ -462,7 +434,8 @@ public class ReportWithRow {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -470,4 +443,6 @@ public class ReportWithRow {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

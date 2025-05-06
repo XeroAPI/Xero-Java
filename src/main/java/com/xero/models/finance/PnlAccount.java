@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** PnlAccount */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PnlAccount
+ */
+
 public class PnlAccount {
   StringUtil util = new StringUtil();
 
@@ -39,226 +56,197 @@ public class PnlAccount {
   @JsonProperty("total")
   private Double total;
   /**
-   * ID of the account
-   *
-   * @param accountID UUID
-   * @return PnlAccount
-   */
+  * ID of the account
+  * @param accountID  UUID
+  * @return PnlAccount
+  **/
   public PnlAccount accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
   }
 
-  /**
+   /**
    * ID of the account
-   *
    * @return accountID
-   */
+  **/
   @ApiModelProperty(value = "ID of the account")
-  /**
+  /** 
    * ID of the account
-   *
    * @return accountID UUID
-   */
+  **/
   public UUID getAccountID() {
     return accountID;
   }
 
-  /**
-   * ID of the account
-   *
-   * @param accountID UUID
-   */
+  /** 
+  * ID of the account
+  * @param accountID  UUID
+  **/
+
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
   /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
-   * @param accountType String
-   * @return PnlAccount
-   */
+  * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
+  * @param accountType  String
+  * @return PnlAccount
+  **/
   public PnlAccount accountType(String accountType) {
     this.accountType = accountType;
     return this;
   }
 
-  /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
+   /**
+   * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
    * @return accountType
-   */
-  @ApiModelProperty(
-      value =
-          "The type of the account. See <a"
-              + " href='https://developer.xero.com/documentation/api/types#AccountTypes'>Account"
-              + " Types</a>")
-  /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
+  **/
+  @ApiModelProperty(value = "The type of the account. See <a href='https://developer.xero.com/documentation/api/types#AccountTypes'>Account Types</a>")
+  /** 
+   * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
    * @return accountType String
-   */
+  **/
   public String getAccountType() {
     return accountType;
   }
 
-  /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
-   * @param accountType String
-   */
+  /** 
+  * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
+  * @param accountType  String
+  **/
+
   public void setAccountType(String accountType) {
     this.accountType = accountType;
   }
 
   /**
-   * Account code
-   *
-   * @param code String
-   * @return PnlAccount
-   */
+  * Account code
+  * @param code  String
+  * @return PnlAccount
+  **/
   public PnlAccount code(String code) {
     this.code = code;
     return this;
   }
 
-  /**
+   /**
    * Account code
-   *
    * @return code
-   */
+  **/
   @ApiModelProperty(value = "Account code")
-  /**
+  /** 
    * Account code
-   *
    * @return code String
-   */
+  **/
   public String getCode() {
     return code;
   }
 
-  /**
-   * Account code
-   *
-   * @param code String
-   */
+  /** 
+  * Account code
+  * @param code  String
+  **/
+
   public void setCode(String code) {
     this.code = code;
   }
 
   /**
-   * Account name
-   *
-   * @param name String
-   * @return PnlAccount
-   */
+  * Account name
+  * @param name  String
+  * @return PnlAccount
+  **/
   public PnlAccount name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Account name
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "Account name")
-  /**
+  /** 
    * Account name
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Account name
-   *
-   * @param name String
-   */
+  /** 
+  * Account name
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Reporting code (Shown if set)
-   *
-   * @param reportingCode String
-   * @return PnlAccount
-   */
+  * Reporting code (Shown if set)
+  * @param reportingCode  String
+  * @return PnlAccount
+  **/
   public PnlAccount reportingCode(String reportingCode) {
     this.reportingCode = reportingCode;
     return this;
   }
 
-  /**
+   /**
    * Reporting code (Shown if set)
-   *
    * @return reportingCode
-   */
+  **/
   @ApiModelProperty(value = "Reporting code (Shown if set)")
-  /**
+  /** 
    * Reporting code (Shown if set)
-   *
    * @return reportingCode String
-   */
+  **/
   public String getReportingCode() {
     return reportingCode;
   }
 
-  /**
-   * Reporting code (Shown if set)
-   *
-   * @param reportingCode String
-   */
+  /** 
+  * Reporting code (Shown if set)
+  * @param reportingCode  String
+  **/
+
   public void setReportingCode(String reportingCode) {
     this.reportingCode = reportingCode;
   }
 
   /**
-   * Total movement on this account
-   *
-   * @param total Double
-   * @return PnlAccount
-   */
+  * Total movement on this account
+  * @param total  Double
+  * @return PnlAccount
+  **/
   public PnlAccount total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total movement on this account
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total movement on this account")
-  /**
+  /** 
    * Total movement on this account
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total movement on this account
-   *
-   * @param total Double
-   */
+  /** 
+  * Total movement on this account
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -269,18 +257,19 @@ public class PnlAccount {
       return false;
     }
     PnlAccount pnlAccount = (PnlAccount) o;
-    return Objects.equals(this.accountID, pnlAccount.accountID)
-        && Objects.equals(this.accountType, pnlAccount.accountType)
-        && Objects.equals(this.code, pnlAccount.code)
-        && Objects.equals(this.name, pnlAccount.name)
-        && Objects.equals(this.reportingCode, pnlAccount.reportingCode)
-        && Objects.equals(this.total, pnlAccount.total);
+    return Objects.equals(this.accountID, pnlAccount.accountID) &&
+        Objects.equals(this.accountType, pnlAccount.accountType) &&
+        Objects.equals(this.code, pnlAccount.code) &&
+        Objects.equals(this.name, pnlAccount.name) &&
+        Objects.equals(this.reportingCode, pnlAccount.reportingCode) &&
+        Objects.equals(this.total, pnlAccount.total);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accountID, accountType, code, name, reportingCode, total);
   }
+
 
   @Override
   public String toString() {
@@ -297,7 +286,8 @@ public class PnlAccount {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -305,4 +295,6 @@ public class PnlAccount {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

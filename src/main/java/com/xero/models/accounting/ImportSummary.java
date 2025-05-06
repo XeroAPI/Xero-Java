@@ -9,16 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.ImportSummaryAccounts;
+import com.xero.models.accounting.ImportSummaryOrganisation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
+import java.io.IOException;
 
-/** A summary of the import from setup endpoint */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * A summary of the import from setup endpoint
+ */
 @ApiModel(description = "A summary of the import from setup endpoint")
+
 public class ImportSummary {
   StringUtil util = new StringUtil();
 
@@ -28,74 +46,69 @@ public class ImportSummary {
   @JsonProperty("Organisation")
   private ImportSummaryOrganisation organisation;
   /**
-   * accounts
-   *
-   * @param accounts ImportSummaryAccounts
-   * @return ImportSummary
-   */
+  * accounts
+  * @param accounts  ImportSummaryAccounts
+  * @return ImportSummary
+  **/
   public ImportSummary accounts(ImportSummaryAccounts accounts) {
     this.accounts = accounts;
     return this;
   }
 
-  /**
+   /**
    * Get accounts
-   *
    * @return accounts
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * accounts
-   *
    * @return accounts ImportSummaryAccounts
-   */
+  **/
   public ImportSummaryAccounts getAccounts() {
     return accounts;
   }
 
-  /**
-   * accounts
-   *
-   * @param accounts ImportSummaryAccounts
-   */
+  /** 
+  * accounts
+  * @param accounts  ImportSummaryAccounts
+  **/
+
   public void setAccounts(ImportSummaryAccounts accounts) {
     this.accounts = accounts;
   }
 
   /**
-   * organisation
-   *
-   * @param organisation ImportSummaryOrganisation
-   * @return ImportSummary
-   */
+  * organisation
+  * @param organisation  ImportSummaryOrganisation
+  * @return ImportSummary
+  **/
   public ImportSummary organisation(ImportSummaryOrganisation organisation) {
     this.organisation = organisation;
     return this;
   }
 
-  /**
+   /**
    * Get organisation
-   *
    * @return organisation
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * organisation
-   *
    * @return organisation ImportSummaryOrganisation
-   */
+  **/
   public ImportSummaryOrganisation getOrganisation() {
     return organisation;
   }
 
-  /**
-   * organisation
-   *
-   * @param organisation ImportSummaryOrganisation
-   */
+  /** 
+  * organisation
+  * @param organisation  ImportSummaryOrganisation
+  **/
+
   public void setOrganisation(ImportSummaryOrganisation organisation) {
     this.organisation = organisation;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -106,14 +119,15 @@ public class ImportSummary {
       return false;
     }
     ImportSummary importSummary = (ImportSummary) o;
-    return Objects.equals(this.accounts, importSummary.accounts)
-        && Objects.equals(this.organisation, importSummary.organisation);
+    return Objects.equals(this.accounts, importSummary.accounts) &&
+        Objects.equals(this.organisation, importSummary.organisation);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accounts, organisation);
   }
+
 
   @Override
   public String toString() {
@@ -126,7 +140,8 @@ public class ImportSummary {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -134,4 +149,6 @@ public class ImportSummary {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

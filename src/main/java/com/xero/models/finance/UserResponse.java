@@ -9,18 +9,37 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.HistoryRecordResponse;
+import com.xero.models.finance.PracticeResponse;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** UserResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * UserResponse
+ */
+
 public class UserResponse {
   StringUtil util = new StringUtil();
 
@@ -60,361 +79,330 @@ public class UserResponse {
   @JsonProperty("historyRecords")
   private List<HistoryRecordResponse> historyRecords = new ArrayList<HistoryRecordResponse>();
   /**
-   * The Xero identifier for the user
-   *
-   * @param userId UUID
-   * @return UserResponse
-   */
+  * The Xero identifier for the user
+  * @param userId  UUID
+  * @return UserResponse
+  **/
   public UserResponse userId(UUID userId) {
     this.userId = userId;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for the user
-   *
    * @return userId
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for the user")
-  /**
+  /** 
    * The Xero identifier for the user
-   *
    * @return userId UUID
-   */
+  **/
   public UUID getUserId() {
     return userId;
   }
 
-  /**
-   * The Xero identifier for the user
-   *
-   * @param userId UUID
-   */
+  /** 
+  * The Xero identifier for the user
+  * @param userId  UUID
+  **/
+
   public void setUserId(UUID userId) {
     this.userId = userId;
   }
 
   /**
-   * Timestamp of user creation.
-   *
-   * @param userCreatedDateUtc OffsetDateTime
-   * @return UserResponse
-   */
+  * Timestamp of user creation.
+  * @param userCreatedDateUtc  OffsetDateTime
+  * @return UserResponse
+  **/
   public UserResponse userCreatedDateUtc(OffsetDateTime userCreatedDateUtc) {
     this.userCreatedDateUtc = userCreatedDateUtc;
     return this;
   }
 
-  /**
+   /**
    * Timestamp of user creation.
-   *
    * @return userCreatedDateUtc
-   */
+  **/
   @ApiModelProperty(value = "Timestamp of user creation.")
-  /**
+  /** 
    * Timestamp of user creation.
-   *
    * @return userCreatedDateUtc OffsetDateTime
-   */
+  **/
   public OffsetDateTime getUserCreatedDateUtc() {
     return userCreatedDateUtc;
   }
 
-  /**
-   * Timestamp of user creation.
-   *
-   * @param userCreatedDateUtc OffsetDateTime
-   */
+  /** 
+  * Timestamp of user creation.
+  * @param userCreatedDateUtc  OffsetDateTime
+  **/
+
   public void setUserCreatedDateUtc(OffsetDateTime userCreatedDateUtc) {
     this.userCreatedDateUtc = userCreatedDateUtc;
   }
 
   /**
-   * Timestamp of user last login
-   *
-   * @param lastLoginDateUtc OffsetDateTime
-   * @return UserResponse
-   */
+  * Timestamp of user last login
+  * @param lastLoginDateUtc  OffsetDateTime
+  * @return UserResponse
+  **/
   public UserResponse lastLoginDateUtc(OffsetDateTime lastLoginDateUtc) {
     this.lastLoginDateUtc = lastLoginDateUtc;
     return this;
   }
 
-  /**
+   /**
    * Timestamp of user last login
-   *
    * @return lastLoginDateUtc
-   */
+  **/
   @ApiModelProperty(value = "Timestamp of user last login")
-  /**
+  /** 
    * Timestamp of user last login
-   *
    * @return lastLoginDateUtc OffsetDateTime
-   */
+  **/
   public OffsetDateTime getLastLoginDateUtc() {
     return lastLoginDateUtc;
   }
 
-  /**
-   * Timestamp of user last login
-   *
-   * @param lastLoginDateUtc OffsetDateTime
-   */
+  /** 
+  * Timestamp of user last login
+  * @param lastLoginDateUtc  OffsetDateTime
+  **/
+
   public void setLastLoginDateUtc(OffsetDateTime lastLoginDateUtc) {
     this.lastLoginDateUtc = lastLoginDateUtc;
   }
 
   /**
-   * User is external partner.
-   *
-   * @param isExternalPartner Boolean
-   * @return UserResponse
-   */
+  * User is external partner.
+  * @param isExternalPartner  Boolean
+  * @return UserResponse
+  **/
   public UserResponse isExternalPartner(Boolean isExternalPartner) {
     this.isExternalPartner = isExternalPartner;
     return this;
   }
 
-  /**
+   /**
    * User is external partner.
-   *
    * @return isExternalPartner
-   */
+  **/
   @ApiModelProperty(value = "User is external partner.")
-  /**
+  /** 
    * User is external partner.
-   *
    * @return isExternalPartner Boolean
-   */
+  **/
   public Boolean getIsExternalPartner() {
     return isExternalPartner;
   }
 
-  /**
-   * User is external partner.
-   *
-   * @param isExternalPartner Boolean
-   */
+  /** 
+  * User is external partner.
+  * @param isExternalPartner  Boolean
+  **/
+
   public void setIsExternalPartner(Boolean isExternalPartner) {
     this.isExternalPartner = isExternalPartner;
   }
 
   /**
-   * User has Accountant role.
-   *
-   * @param hasAccountantRole Boolean
-   * @return UserResponse
-   */
+  * User has Accountant role.
+  * @param hasAccountantRole  Boolean
+  * @return UserResponse
+  **/
   public UserResponse hasAccountantRole(Boolean hasAccountantRole) {
     this.hasAccountantRole = hasAccountantRole;
     return this;
   }
 
-  /**
+   /**
    * User has Accountant role.
-   *
    * @return hasAccountantRole
-   */
+  **/
   @ApiModelProperty(value = "User has Accountant role.")
-  /**
+  /** 
    * User has Accountant role.
-   *
    * @return hasAccountantRole Boolean
-   */
+  **/
   public Boolean getHasAccountantRole() {
     return hasAccountantRole;
   }
 
-  /**
-   * User has Accountant role.
-   *
-   * @param hasAccountantRole Boolean
-   */
+  /** 
+  * User has Accountant role.
+  * @param hasAccountantRole  Boolean
+  **/
+
   public void setHasAccountantRole(Boolean hasAccountantRole) {
     this.hasAccountantRole = hasAccountantRole;
   }
 
   /**
-   * Month period in format yyyy-MM.
-   *
-   * @param monthPeriod String
-   * @return UserResponse
-   */
+  * Month period in format  yyyy-MM.
+  * @param monthPeriod  String
+  * @return UserResponse
+  **/
   public UserResponse monthPeriod(String monthPeriod) {
     this.monthPeriod = monthPeriod;
     return this;
   }
 
-  /**
-   * Month period in format yyyy-MM.
-   *
+   /**
+   * Month period in format  yyyy-MM.
    * @return monthPeriod
-   */
+  **/
   @ApiModelProperty(value = "Month period in format  yyyy-MM.")
-  /**
-   * Month period in format yyyy-MM.
-   *
+  /** 
+   * Month period in format  yyyy-MM.
    * @return monthPeriod String
-   */
+  **/
   public String getMonthPeriod() {
     return monthPeriod;
   }
 
-  /**
-   * Month period in format yyyy-MM.
-   *
-   * @param monthPeriod String
-   */
+  /** 
+  * Month period in format  yyyy-MM.
+  * @param monthPeriod  String
+  **/
+
   public void setMonthPeriod(String monthPeriod) {
     this.monthPeriod = monthPeriod;
   }
 
   /**
-   * Number of times the user has logged in.
-   *
-   * @param numberOfLogins Integer
-   * @return UserResponse
-   */
+  * Number of times the user has logged in.
+  * @param numberOfLogins  Integer
+  * @return UserResponse
+  **/
   public UserResponse numberOfLogins(Integer numberOfLogins) {
     this.numberOfLogins = numberOfLogins;
     return this;
   }
 
-  /**
+   /**
    * Number of times the user has logged in.
-   *
    * @return numberOfLogins
-   */
+  **/
   @ApiModelProperty(value = "Number of times the user has logged in.")
-  /**
+  /** 
    * Number of times the user has logged in.
-   *
    * @return numberOfLogins Integer
-   */
+  **/
   public Integer getNumberOfLogins() {
     return numberOfLogins;
   }
 
-  /**
-   * Number of times the user has logged in.
-   *
-   * @param numberOfLogins Integer
-   */
+  /** 
+  * Number of times the user has logged in.
+  * @param numberOfLogins  Integer
+  **/
+
   public void setNumberOfLogins(Integer numberOfLogins) {
     this.numberOfLogins = numberOfLogins;
   }
 
   /**
-   * Number of documents created.
-   *
-   * @param numberOfDocumentsCreated Integer
-   * @return UserResponse
-   */
+  * Number of documents created.
+  * @param numberOfDocumentsCreated  Integer
+  * @return UserResponse
+  **/
   public UserResponse numberOfDocumentsCreated(Integer numberOfDocumentsCreated) {
     this.numberOfDocumentsCreated = numberOfDocumentsCreated;
     return this;
   }
 
-  /**
+   /**
    * Number of documents created.
-   *
    * @return numberOfDocumentsCreated
-   */
+  **/
   @ApiModelProperty(value = "Number of documents created.")
-  /**
+  /** 
    * Number of documents created.
-   *
    * @return numberOfDocumentsCreated Integer
-   */
+  **/
   public Integer getNumberOfDocumentsCreated() {
     return numberOfDocumentsCreated;
   }
 
-  /**
-   * Number of documents created.
-   *
-   * @param numberOfDocumentsCreated Integer
-   */
+  /** 
+  * Number of documents created.
+  * @param numberOfDocumentsCreated  Integer
+  **/
+
   public void setNumberOfDocumentsCreated(Integer numberOfDocumentsCreated) {
     this.numberOfDocumentsCreated = numberOfDocumentsCreated;
   }
 
   /**
-   * Net value of documents created.
-   *
-   * @param netValueDocumentsCreated Double
-   * @return UserResponse
-   */
+  * Net value of documents created.
+  * @param netValueDocumentsCreated  Double
+  * @return UserResponse
+  **/
   public UserResponse netValueDocumentsCreated(Double netValueDocumentsCreated) {
     this.netValueDocumentsCreated = netValueDocumentsCreated;
     return this;
   }
 
-  /**
+   /**
    * Net value of documents created.
-   *
    * @return netValueDocumentsCreated
-   */
+  **/
   @ApiModelProperty(value = "Net value of documents created.")
-  /**
+  /** 
    * Net value of documents created.
-   *
    * @return netValueDocumentsCreated Double
-   */
+  **/
   public Double getNetValueDocumentsCreated() {
     return netValueDocumentsCreated;
   }
 
-  /**
-   * Net value of documents created.
-   *
-   * @param netValueDocumentsCreated Double
-   */
+  /** 
+  * Net value of documents created.
+  * @param netValueDocumentsCreated  Double
+  **/
+
   public void setNetValueDocumentsCreated(Double netValueDocumentsCreated) {
     this.netValueDocumentsCreated = netValueDocumentsCreated;
   }
 
   /**
-   * Absolute value of documents created.
-   *
-   * @param absoluteValueDocumentsCreated Double
-   * @return UserResponse
-   */
+  * Absolute value of documents created.
+  * @param absoluteValueDocumentsCreated  Double
+  * @return UserResponse
+  **/
   public UserResponse absoluteValueDocumentsCreated(Double absoluteValueDocumentsCreated) {
     this.absoluteValueDocumentsCreated = absoluteValueDocumentsCreated;
     return this;
   }
 
-  /**
+   /**
    * Absolute value of documents created.
-   *
    * @return absoluteValueDocumentsCreated
-   */
+  **/
   @ApiModelProperty(value = "Absolute value of documents created.")
-  /**
+  /** 
    * Absolute value of documents created.
-   *
    * @return absoluteValueDocumentsCreated Double
-   */
+  **/
   public Double getAbsoluteValueDocumentsCreated() {
     return absoluteValueDocumentsCreated;
   }
 
-  /**
-   * Absolute value of documents created.
-   *
-   * @param absoluteValueDocumentsCreated Double
-   */
+  /** 
+  * Absolute value of documents created.
+  * @param absoluteValueDocumentsCreated  Double
+  **/
+
   public void setAbsoluteValueDocumentsCreated(Double absoluteValueDocumentsCreated) {
     this.absoluteValueDocumentsCreated = absoluteValueDocumentsCreated;
   }
 
   /**
-   * attachedPractices
-   *
-   * @param attachedPractices List&lt;PracticeResponse&gt;
-   * @return UserResponse
-   */
+  * attachedPractices
+  * @param attachedPractices  List&lt;PracticeResponse&gt;
+  * @return UserResponse
+  **/
   public UserResponse attachedPractices(List<PracticeResponse> attachedPractices) {
     this.attachedPractices = attachedPractices;
     return this;
@@ -422,10 +410,9 @@ public class UserResponse {
 
   /**
    * attachedPractices
-   *
-   * @param attachedPracticesItem PracticeResponse
+   * @param attachedPracticesItem PracticeResponse 
    * @return UserResponse
-   */
+  **/
   public UserResponse addAttachedPracticesItem(PracticeResponse attachedPracticesItem) {
     if (this.attachedPractices == null) {
       this.attachedPractices = new ArrayList<PracticeResponse>();
@@ -434,36 +421,33 @@ public class UserResponse {
     return this;
   }
 
-  /**
+   /**
    * Get attachedPractices
-   *
    * @return attachedPractices
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * attachedPractices
-   *
    * @return attachedPractices List<PracticeResponse>
-   */
+  **/
   public List<PracticeResponse> getAttachedPractices() {
     return attachedPractices;
   }
 
-  /**
-   * attachedPractices
-   *
-   * @param attachedPractices List&lt;PracticeResponse&gt;
-   */
+  /** 
+  * attachedPractices
+  * @param attachedPractices List&lt;PracticeResponse&gt; 
+  **/
+
   public void setAttachedPractices(List<PracticeResponse> attachedPractices) {
     this.attachedPractices = attachedPractices;
   }
 
   /**
-   * historyRecords
-   *
-   * @param historyRecords List&lt;HistoryRecordResponse&gt;
-   * @return UserResponse
-   */
+  * historyRecords
+  * @param historyRecords  List&lt;HistoryRecordResponse&gt;
+  * @return UserResponse
+  **/
   public UserResponse historyRecords(List<HistoryRecordResponse> historyRecords) {
     this.historyRecords = historyRecords;
     return this;
@@ -471,10 +455,9 @@ public class UserResponse {
 
   /**
    * historyRecords
-   *
-   * @param historyRecordsItem HistoryRecordResponse
+   * @param historyRecordsItem HistoryRecordResponse 
    * @return UserResponse
-   */
+  **/
   public UserResponse addHistoryRecordsItem(HistoryRecordResponse historyRecordsItem) {
     if (this.historyRecords == null) {
       this.historyRecords = new ArrayList<HistoryRecordResponse>();
@@ -483,29 +466,28 @@ public class UserResponse {
     return this;
   }
 
-  /**
+   /**
    * Get historyRecords
-   *
    * @return historyRecords
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * historyRecords
-   *
    * @return historyRecords List<HistoryRecordResponse>
-   */
+  **/
   public List<HistoryRecordResponse> getHistoryRecords() {
     return historyRecords;
   }
 
-  /**
-   * historyRecords
-   *
-   * @param historyRecords List&lt;HistoryRecordResponse&gt;
-   */
+  /** 
+  * historyRecords
+  * @param historyRecords List&lt;HistoryRecordResponse&gt; 
+  **/
+
   public void setHistoryRecords(List<HistoryRecordResponse> historyRecords) {
     this.historyRecords = historyRecords;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -516,37 +498,25 @@ public class UserResponse {
       return false;
     }
     UserResponse userResponse = (UserResponse) o;
-    return Objects.equals(this.userId, userResponse.userId)
-        && Objects.equals(this.userCreatedDateUtc, userResponse.userCreatedDateUtc)
-        && Objects.equals(this.lastLoginDateUtc, userResponse.lastLoginDateUtc)
-        && Objects.equals(this.isExternalPartner, userResponse.isExternalPartner)
-        && Objects.equals(this.hasAccountantRole, userResponse.hasAccountantRole)
-        && Objects.equals(this.monthPeriod, userResponse.monthPeriod)
-        && Objects.equals(this.numberOfLogins, userResponse.numberOfLogins)
-        && Objects.equals(this.numberOfDocumentsCreated, userResponse.numberOfDocumentsCreated)
-        && Objects.equals(this.netValueDocumentsCreated, userResponse.netValueDocumentsCreated)
-        && Objects.equals(
-            this.absoluteValueDocumentsCreated, userResponse.absoluteValueDocumentsCreated)
-        && Objects.equals(this.attachedPractices, userResponse.attachedPractices)
-        && Objects.equals(this.historyRecords, userResponse.historyRecords);
+    return Objects.equals(this.userId, userResponse.userId) &&
+        Objects.equals(this.userCreatedDateUtc, userResponse.userCreatedDateUtc) &&
+        Objects.equals(this.lastLoginDateUtc, userResponse.lastLoginDateUtc) &&
+        Objects.equals(this.isExternalPartner, userResponse.isExternalPartner) &&
+        Objects.equals(this.hasAccountantRole, userResponse.hasAccountantRole) &&
+        Objects.equals(this.monthPeriod, userResponse.monthPeriod) &&
+        Objects.equals(this.numberOfLogins, userResponse.numberOfLogins) &&
+        Objects.equals(this.numberOfDocumentsCreated, userResponse.numberOfDocumentsCreated) &&
+        Objects.equals(this.netValueDocumentsCreated, userResponse.netValueDocumentsCreated) &&
+        Objects.equals(this.absoluteValueDocumentsCreated, userResponse.absoluteValueDocumentsCreated) &&
+        Objects.equals(this.attachedPractices, userResponse.attachedPractices) &&
+        Objects.equals(this.historyRecords, userResponse.historyRecords);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        userId,
-        userCreatedDateUtc,
-        lastLoginDateUtc,
-        isExternalPartner,
-        hasAccountantRole,
-        monthPeriod,
-        numberOfLogins,
-        numberOfDocumentsCreated,
-        netValueDocumentsCreated,
-        absoluteValueDocumentsCreated,
-        attachedPractices,
-        historyRecords);
+    return Objects.hash(userId, userCreatedDateUtc, lastLoginDateUtc, isExternalPartner, hasAccountantRole, monthPeriod, numberOfLogins, numberOfDocumentsCreated, netValueDocumentsCreated, absoluteValueDocumentsCreated, attachedPractices, historyRecords);
   }
+
 
   @Override
   public String toString() {
@@ -559,15 +529,9 @@ public class UserResponse {
     sb.append("    hasAccountantRole: ").append(toIndentedString(hasAccountantRole)).append("\n");
     sb.append("    monthPeriod: ").append(toIndentedString(monthPeriod)).append("\n");
     sb.append("    numberOfLogins: ").append(toIndentedString(numberOfLogins)).append("\n");
-    sb.append("    numberOfDocumentsCreated: ")
-        .append(toIndentedString(numberOfDocumentsCreated))
-        .append("\n");
-    sb.append("    netValueDocumentsCreated: ")
-        .append(toIndentedString(netValueDocumentsCreated))
-        .append("\n");
-    sb.append("    absoluteValueDocumentsCreated: ")
-        .append(toIndentedString(absoluteValueDocumentsCreated))
-        .append("\n");
+    sb.append("    numberOfDocumentsCreated: ").append(toIndentedString(numberOfDocumentsCreated)).append("\n");
+    sb.append("    netValueDocumentsCreated: ").append(toIndentedString(netValueDocumentsCreated)).append("\n");
+    sb.append("    absoluteValueDocumentsCreated: ").append(toIndentedString(absoluteValueDocumentsCreated)).append("\n");
     sb.append("    attachedPractices: ").append(toIndentedString(attachedPractices)).append("\n");
     sb.append("    historyRecords: ").append(toIndentedString(historyRecords)).append("\n");
     sb.append("}");
@@ -575,7 +539,8 @@ public class UserResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -583,4 +548,6 @@ public class UserResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,53 +9,68 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** ManualJournalTotal */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ManualJournalTotal
+ */
+
 public class ManualJournalTotal {
   StringUtil util = new StringUtil();
 
   @JsonProperty("total")
   private Double total;
   /**
-   * Total value of manual journals.
-   *
-   * @param total Double
-   * @return ManualJournalTotal
-   */
+  * Total value of manual journals.
+  * @param total  Double
+  * @return ManualJournalTotal
+  **/
   public ManualJournalTotal total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total value of manual journals.
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total value of manual journals.")
-  /**
+  /** 
    * Total value of manual journals.
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total value of manual journals.
-   *
-   * @param total Double
-   */
+  /** 
+  * Total value of manual journals.
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -74,6 +89,7 @@ public class ManualJournalTotal {
     return Objects.hash(total);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -84,7 +100,8 @@ public class ManualJournalTotal {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -92,4 +109,6 @@ public class ManualJournalTotal {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

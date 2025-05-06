@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.finance;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.BankStatementResponse;
+import com.xero.models.finance.CashAccountResponse;
+import com.xero.models.finance.StatementBalanceResponse;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** CashValidationResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * CashValidationResponse
+ */
+
 public class CashValidationResponse {
   StringUtil util = new StringUtil();
 
@@ -37,186 +57,165 @@ public class CashValidationResponse {
   @JsonProperty("cashAccount")
   private CashAccountResponse cashAccount;
   /**
-   * The Xero identifier for an account
-   *
-   * @param accountId UUID
-   * @return CashValidationResponse
-   */
+  * The Xero identifier for an account
+  * @param accountId  UUID
+  * @return CashValidationResponse
+  **/
   public CashValidationResponse accountId(UUID accountId) {
     this.accountId = accountId;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for an account
-   *
    * @return accountId
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for an account")
-  /**
+  /** 
    * The Xero identifier for an account
-   *
    * @return accountId UUID
-   */
+  **/
   public UUID getAccountId() {
     return accountId;
   }
 
-  /**
-   * The Xero identifier for an account
-   *
-   * @param accountId UUID
-   */
+  /** 
+  * The Xero identifier for an account
+  * @param accountId  UUID
+  **/
+
   public void setAccountId(UUID accountId) {
     this.accountId = accountId;
   }
 
   /**
-   * statementBalance
-   *
-   * @param statementBalance StatementBalanceResponse
-   * @return CashValidationResponse
-   */
+  * statementBalance
+  * @param statementBalance  StatementBalanceResponse
+  * @return CashValidationResponse
+  **/
   public CashValidationResponse statementBalance(StatementBalanceResponse statementBalance) {
     this.statementBalance = statementBalance;
     return this;
   }
 
-  /**
+   /**
    * Get statementBalance
-   *
    * @return statementBalance
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * statementBalance
-   *
    * @return statementBalance StatementBalanceResponse
-   */
+  **/
   public StatementBalanceResponse getStatementBalance() {
     return statementBalance;
   }
 
-  /**
-   * statementBalance
-   *
-   * @param statementBalance StatementBalanceResponse
-   */
+  /** 
+  * statementBalance
+  * @param statementBalance  StatementBalanceResponse
+  **/
+
   public void setStatementBalance(StatementBalanceResponse statementBalance) {
     this.statementBalance = statementBalance;
   }
 
   /**
-   * UTC Date when the last bank statement item was entered into Xero. This date is represented in
-   * ISO 8601 format.
-   *
-   * @param statementBalanceDate LocalDate
-   * @return CashValidationResponse
-   */
+  * UTC Date when the last bank statement item was entered into Xero. This date is represented in ISO 8601 format.
+  * @param statementBalanceDate  LocalDate
+  * @return CashValidationResponse
+  **/
   public CashValidationResponse statementBalanceDate(LocalDate statementBalanceDate) {
     this.statementBalanceDate = statementBalanceDate;
     return this;
   }
 
-  /**
-   * UTC Date when the last bank statement item was entered into Xero. This date is represented in
-   * ISO 8601 format.
-   *
+   /**
+   * UTC Date when the last bank statement item was entered into Xero. This date is represented in ISO 8601 format.
    * @return statementBalanceDate
-   */
-  @ApiModelProperty(
-      value =
-          "UTC Date when the last bank statement item was entered into Xero. This date is"
-              + " represented in ISO 8601 format.")
-  /**
-   * UTC Date when the last bank statement item was entered into Xero. This date is represented in
-   * ISO 8601 format.
-   *
+  **/
+  @ApiModelProperty(value = "UTC Date when the last bank statement item was entered into Xero. This date is represented in ISO 8601 format.")
+  /** 
+   * UTC Date when the last bank statement item was entered into Xero. This date is represented in ISO 8601 format.
    * @return statementBalanceDate LocalDate
-   */
+  **/
   public LocalDate getStatementBalanceDate() {
     return statementBalanceDate;
   }
 
-  /**
-   * UTC Date when the last bank statement item was entered into Xero. This date is represented in
-   * ISO 8601 format.
-   *
-   * @param statementBalanceDate LocalDate
-   */
+  /** 
+  * UTC Date when the last bank statement item was entered into Xero. This date is represented in ISO 8601 format.
+  * @param statementBalanceDate  LocalDate
+  **/
+
   public void setStatementBalanceDate(LocalDate statementBalanceDate) {
     this.statementBalanceDate = statementBalanceDate;
   }
 
   /**
-   * bankStatement
-   *
-   * @param bankStatement BankStatementResponse
-   * @return CashValidationResponse
-   */
+  * bankStatement
+  * @param bankStatement  BankStatementResponse
+  * @return CashValidationResponse
+  **/
   public CashValidationResponse bankStatement(BankStatementResponse bankStatement) {
     this.bankStatement = bankStatement;
     return this;
   }
 
-  /**
+   /**
    * Get bankStatement
-   *
    * @return bankStatement
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * bankStatement
-   *
    * @return bankStatement BankStatementResponse
-   */
+  **/
   public BankStatementResponse getBankStatement() {
     return bankStatement;
   }
 
-  /**
-   * bankStatement
-   *
-   * @param bankStatement BankStatementResponse
-   */
+  /** 
+  * bankStatement
+  * @param bankStatement  BankStatementResponse
+  **/
+
   public void setBankStatement(BankStatementResponse bankStatement) {
     this.bankStatement = bankStatement;
   }
 
   /**
-   * cashAccount
-   *
-   * @param cashAccount CashAccountResponse
-   * @return CashValidationResponse
-   */
+  * cashAccount
+  * @param cashAccount  CashAccountResponse
+  * @return CashValidationResponse
+  **/
   public CashValidationResponse cashAccount(CashAccountResponse cashAccount) {
     this.cashAccount = cashAccount;
     return this;
   }
 
-  /**
+   /**
    * Get cashAccount
-   *
    * @return cashAccount
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * cashAccount
-   *
    * @return cashAccount CashAccountResponse
-   */
+  **/
   public CashAccountResponse getCashAccount() {
     return cashAccount;
   }
 
-  /**
-   * cashAccount
-   *
-   * @param cashAccount CashAccountResponse
-   */
+  /** 
+  * cashAccount
+  * @param cashAccount  CashAccountResponse
+  **/
+
   public void setCashAccount(CashAccountResponse cashAccount) {
     this.cashAccount = cashAccount;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -227,18 +226,18 @@ public class CashValidationResponse {
       return false;
     }
     CashValidationResponse cashValidationResponse = (CashValidationResponse) o;
-    return Objects.equals(this.accountId, cashValidationResponse.accountId)
-        && Objects.equals(this.statementBalance, cashValidationResponse.statementBalance)
-        && Objects.equals(this.statementBalanceDate, cashValidationResponse.statementBalanceDate)
-        && Objects.equals(this.bankStatement, cashValidationResponse.bankStatement)
-        && Objects.equals(this.cashAccount, cashValidationResponse.cashAccount);
+    return Objects.equals(this.accountId, cashValidationResponse.accountId) &&
+        Objects.equals(this.statementBalance, cashValidationResponse.statementBalance) &&
+        Objects.equals(this.statementBalanceDate, cashValidationResponse.statementBalanceDate) &&
+        Objects.equals(this.bankStatement, cashValidationResponse.bankStatement) &&
+        Objects.equals(this.cashAccount, cashValidationResponse.cashAccount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        accountId, statementBalance, statementBalanceDate, bankStatement, cashAccount);
+    return Objects.hash(accountId, statementBalance, statementBalanceDate, bankStatement, cashAccount);
   }
+
 
   @Override
   public String toString() {
@@ -246,9 +245,7 @@ public class CashValidationResponse {
     sb.append("class CashValidationResponse {\n");
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    statementBalance: ").append(toIndentedString(statementBalance)).append("\n");
-    sb.append("    statementBalanceDate: ")
-        .append(toIndentedString(statementBalanceDate))
-        .append("\n");
+    sb.append("    statementBalanceDate: ").append(toIndentedString(statementBalanceDate)).append("\n");
     sb.append("    bankStatement: ").append(toIndentedString(bankStatement)).append("\n");
     sb.append("    cashAccount: ").append(toIndentedString(cashAccount)).append("\n");
     sb.append("}");
@@ -256,7 +253,8 @@ public class CashValidationResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -264,4 +262,6 @@ public class CashValidationResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

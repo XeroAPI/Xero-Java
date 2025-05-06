@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Pagination;
+import com.xero.models.accounting.Prepayment;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Prepayments */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Prepayments
+ */
+
 public class Prepayments {
   StringUtil util = new StringUtil();
 
@@ -31,46 +51,42 @@ public class Prepayments {
   @JsonProperty("Prepayments")
   private List<Prepayment> prepayments = new ArrayList<Prepayment>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return Prepayments
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return Prepayments
+  **/
   public Prepayments pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   * @return Prepayments
-   */
+  * Displays array of warning messages from the API
+  * @param warnings  List&lt;ValidationError&gt;
+  * @return Prepayments
+  **/
   public Prepayments warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
@@ -78,10 +94,9 @@ public class Prepayments {
 
   /**
    * Displays array of warning messages from the API
-   *
-   * @param warningsItem ValidationError
+   * @param warningsItem ValidationError 
    * @return Prepayments
-   */
+  **/
   public Prepayments addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -90,36 +105,33 @@ public class Prepayments {
     return this;
   }
 
-  /**
+   /**
    * Displays array of warning messages from the API
-   *
    * @return warnings
-   */
+  **/
   @ApiModelProperty(value = "Displays array of warning messages from the API")
-  /**
+  /** 
    * Displays array of warning messages from the API
-   *
    * @return warnings List<ValidationError>
-   */
+  **/
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
-  /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of warning messages from the API
+  * @param warnings List&lt;ValidationError&gt; 
+  **/
+
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
   /**
-   * prepayments
-   *
-   * @param prepayments List&lt;Prepayment&gt;
-   * @return Prepayments
-   */
+  * prepayments
+  * @param prepayments  List&lt;Prepayment&gt;
+  * @return Prepayments
+  **/
   public Prepayments prepayments(List<Prepayment> prepayments) {
     this.prepayments = prepayments;
     return this;
@@ -127,10 +139,9 @@ public class Prepayments {
 
   /**
    * prepayments
-   *
-   * @param prepaymentsItem Prepayment
+   * @param prepaymentsItem Prepayment 
    * @return Prepayments
-   */
+  **/
   public Prepayments addPrepaymentsItem(Prepayment prepaymentsItem) {
     if (this.prepayments == null) {
       this.prepayments = new ArrayList<Prepayment>();
@@ -139,29 +150,28 @@ public class Prepayments {
     return this;
   }
 
-  /**
+   /**
    * Get prepayments
-   *
    * @return prepayments
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * prepayments
-   *
    * @return prepayments List<Prepayment>
-   */
+  **/
   public List<Prepayment> getPrepayments() {
     return prepayments;
   }
 
-  /**
-   * prepayments
-   *
-   * @param prepayments List&lt;Prepayment&gt;
-   */
+  /** 
+  * prepayments
+  * @param prepayments List&lt;Prepayment&gt; 
+  **/
+
   public void setPrepayments(List<Prepayment> prepayments) {
     this.prepayments = prepayments;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -172,15 +182,16 @@ public class Prepayments {
       return false;
     }
     Prepayments prepayments = (Prepayments) o;
-    return Objects.equals(this.pagination, prepayments.pagination)
-        && Objects.equals(this.warnings, prepayments.warnings)
-        && Objects.equals(this.prepayments, prepayments.prepayments);
+    return Objects.equals(this.pagination, prepayments.pagination) &&
+        Objects.equals(this.warnings, prepayments.warnings) &&
+        Objects.equals(this.prepayments, prepayments.prepayments);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, warnings, prepayments);
   }
+
 
   @Override
   public String toString() {
@@ -194,7 +205,8 @@ public class Prepayments {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -202,4 +214,6 @@ public class Prepayments {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+
