@@ -9,19 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.payrollnz;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.Address;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** Employee */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Employee
+ */
+
 public class Employee {
   StringUtil util = new StringUtil();
 
@@ -45,12 +61,18 @@ public class Employee {
 
   @JsonProperty("email")
   private String email;
-  /** The employee’s gender */
+  /**
+   * The employee’s gender
+   */
   public enum GenderEnum {
-    /** M */
+    /**
+     * M
+     */
     M("M"),
-
-    /** F */
+    
+    /**
+     * F
+     */
     F("F");
 
     private String value;
@@ -59,31 +81,25 @@ public class Employee {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static GenderEnum fromValue(String value) {
       for (GenderEnum b : GenderEnum.values()) {
@@ -94,6 +110,7 @@ public class Employee {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("gender")
   private GenderEnum gender;
@@ -125,609 +142,549 @@ public class Employee {
   @JsonProperty("fixedTermEndDate")
   private LocalDate fixedTermEndDate;
   /**
-   * Xero unique identifier for the employee
-   *
-   * @param employeeID UUID
-   * @return Employee
-   */
+  * Xero unique identifier for the employee
+  * @param employeeID  UUID
+  * @return Employee
+  **/
   public Employee employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for the employee
-   *
    * @return employeeID
-   */
-  @ApiModelProperty(
-      example = "d90457c4-f1be-4f2e-b4e3-f766390a7e30",
-      value = "Xero unique identifier for the employee")
-  /**
+  **/
+  @ApiModelProperty(example = "d90457c4-f1be-4f2e-b4e3-f766390a7e30", value = "Xero unique identifier for the employee")
+  /** 
    * Xero unique identifier for the employee
-   *
    * @return employeeID UUID
-   */
+  **/
   public UUID getEmployeeID() {
     return employeeID;
   }
 
-  /**
-   * Xero unique identifier for the employee
-   *
-   * @param employeeID UUID
-   */
+  /** 
+  * Xero unique identifier for the employee
+  * @param employeeID  UUID
+  **/
+
   public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
   /**
-   * Title of the employee
-   *
-   * @param title String
-   * @return Employee
-   */
+  * Title of the employee
+  * @param title  String
+  * @return Employee
+  **/
   public Employee title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
+   /**
    * Title of the employee
-   *
    * @return title
-   */
+  **/
   @ApiModelProperty(example = "Mrs", value = "Title of the employee")
-  /**
+  /** 
    * Title of the employee
-   *
    * @return title String
-   */
+  **/
   public String getTitle() {
     return title;
   }
 
-  /**
-   * Title of the employee
-   *
-   * @param title String
-   */
+  /** 
+  * Title of the employee
+  * @param title  String
+  **/
+
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
-   * First name of employee
-   *
-   * @param firstName String
-   * @return Employee
-   */
+  * First name of employee
+  * @param firstName  String
+  * @return Employee
+  **/
   public Employee firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
 
-  /**
+   /**
    * First name of employee
-   *
    * @return firstName
-   */
+  **/
   @ApiModelProperty(example = "Karen", value = "First name of employee")
-  /**
+  /** 
    * First name of employee
-   *
    * @return firstName String
-   */
+  **/
   public String getFirstName() {
     return firstName;
   }
 
-  /**
-   * First name of employee
-   *
-   * @param firstName String
-   */
+  /** 
+  * First name of employee
+  * @param firstName  String
+  **/
+
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
   /**
-   * Last name of employee
-   *
-   * @param lastName String
-   * @return Employee
-   */
+  * Last name of employee
+  * @param lastName  String
+  * @return Employee
+  **/
   public Employee lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
 
-  /**
+   /**
    * Last name of employee
-   *
    * @return lastName
-   */
+  **/
   @ApiModelProperty(example = "Jones", value = "Last name of employee")
-  /**
+  /** 
    * Last name of employee
-   *
    * @return lastName String
-   */
+  **/
   public String getLastName() {
     return lastName;
   }
 
-  /**
-   * Last name of employee
-   *
-   * @param lastName String
-   */
+  /** 
+  * Last name of employee
+  * @param lastName  String
+  **/
+
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
   /**
-   * Date of birth of the employee (YYYY-MM-DD)
-   *
-   * @param dateOfBirth LocalDate
-   * @return Employee
-   */
+  * Date of birth of the employee (YYYY-MM-DD)
+  * @param dateOfBirth  LocalDate
+  * @return Employee
+  **/
   public Employee dateOfBirth(LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
   }
 
-  /**
+   /**
    * Date of birth of the employee (YYYY-MM-DD)
-   *
    * @return dateOfBirth
-   */
-  @ApiModelProperty(
-      example = "Wed Jan 02 00:00:00 UTC 2019",
-      value = "Date of birth of the employee (YYYY-MM-DD)")
-  /**
+  **/
+  @ApiModelProperty(example = "Wed Jan 02 00:00:00 UTC 2019", value = "Date of birth of the employee (YYYY-MM-DD)")
+  /** 
    * Date of birth of the employee (YYYY-MM-DD)
-   *
    * @return dateOfBirth LocalDate
-   */
+  **/
   public LocalDate getDateOfBirth() {
     return dateOfBirth;
   }
 
-  /**
-   * Date of birth of the employee (YYYY-MM-DD)
-   *
-   * @param dateOfBirth LocalDate
-   */
+  /** 
+  * Date of birth of the employee (YYYY-MM-DD)
+  * @param dateOfBirth  LocalDate
+  **/
+
   public void setDateOfBirth(LocalDate dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
 
   /**
-   * address
-   *
-   * @param address Address
-   * @return Employee
-   */
+  * address
+  * @param address  Address
+  * @return Employee
+  **/
   public Employee address(Address address) {
     this.address = address;
     return this;
   }
 
-  /**
+   /**
    * Get address
-   *
    * @return address
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * address
-   *
    * @return address Address
-   */
+  **/
   public Address getAddress() {
     return address;
   }
 
-  /**
-   * address
-   *
-   * @param address Address
-   */
+  /** 
+  * address
+  * @param address  Address
+  **/
+
   public void setAddress(Address address) {
     this.address = address;
   }
 
   /**
-   * The email address for the employee
-   *
-   * @param email String
-   * @return Employee
-   */
+  * The email address for the employee
+  * @param email  String
+  * @return Employee
+  **/
   public Employee email(String email) {
     this.email = email;
     return this;
   }
 
-  /**
+   /**
    * The email address for the employee
-   *
    * @return email
-   */
+  **/
   @ApiModelProperty(example = "developer@me.com", value = "The email address for the employee")
-  /**
+  /** 
    * The email address for the employee
-   *
    * @return email String
-   */
+  **/
   public String getEmail() {
     return email;
   }
 
-  /**
-   * The email address for the employee
-   *
-   * @param email String
-   */
+  /** 
+  * The email address for the employee
+  * @param email  String
+  **/
+
   public void setEmail(String email) {
     this.email = email;
   }
 
   /**
-   * The employee’s gender
-   *
-   * @param gender GenderEnum
-   * @return Employee
-   */
+  * The employee’s gender
+  * @param gender  GenderEnum
+  * @return Employee
+  **/
   public Employee gender(GenderEnum gender) {
     this.gender = gender;
     return this;
   }
 
-  /**
+   /**
    * The employee’s gender
-   *
    * @return gender
-   */
+  **/
   @ApiModelProperty(example = "F", value = "The employee’s gender")
-  /**
+  /** 
    * The employee’s gender
-   *
    * @return gender GenderEnum
-   */
+  **/
   public GenderEnum getGender() {
     return gender;
   }
 
-  /**
-   * The employee’s gender
-   *
-   * @param gender GenderEnum
-   */
+  /** 
+  * The employee’s gender
+  * @param gender  GenderEnum
+  **/
+
   public void setGender(GenderEnum gender) {
     this.gender = gender;
   }
 
   /**
-   * Employee phone number
-   *
-   * @param phoneNumber String
-   * @return Employee
-   */
+  * Employee phone number
+  * @param phoneNumber  String
+  * @return Employee
+  **/
   public Employee phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
   }
 
-  /**
+   /**
    * Employee phone number
-   *
    * @return phoneNumber
-   */
+  **/
   @ApiModelProperty(example = "415-555-1212", value = "Employee phone number")
-  /**
+  /** 
    * Employee phone number
-   *
    * @return phoneNumber String
-   */
+  **/
   public String getPhoneNumber() {
     return phoneNumber;
   }
 
-  /**
-   * Employee phone number
-   *
-   * @param phoneNumber String
-   */
+  /** 
+  * Employee phone number
+  * @param phoneNumber  String
+  **/
+
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
 
   /**
-   * Employment start date of the employee at the time it was requested
-   *
-   * @param startDate LocalDate
-   * @return Employee
-   */
+  * Employment start date of the employee at the time it was requested
+  * @param startDate  LocalDate
+  * @return Employee
+  **/
   public Employee startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * Employment start date of the employee at the time it was requested
-   *
    * @return startDate
-   */
-  @ApiModelProperty(
-      example = "Sun Jan 19 00:00:00 UTC 2020",
-      value = "Employment start date of the employee at the time it was requested")
-  /**
+  **/
+  @ApiModelProperty(example = "Sun Jan 19 00:00:00 UTC 2020", value = "Employment start date of the employee at the time it was requested")
+  /** 
    * Employment start date of the employee at the time it was requested
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * Employment start date of the employee at the time it was requested
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * Employment start date of the employee at the time it was requested
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * Employment end date of the employee at the time it was requested
-   *
-   * @param endDate LocalDate
-   * @return Employee
-   */
+  * Employment end date of the employee at the time it was requested
+  * @param endDate  LocalDate
+  * @return Employee
+  **/
   public Employee endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * Employment end date of the employee at the time it was requested
-   *
    * @return endDate
-   */
-  @ApiModelProperty(
-      example = "Sun Jan 19 00:00:00 UTC 2020",
-      value = "Employment end date of the employee at the time it was requested")
-  /**
+  **/
+  @ApiModelProperty(example = "Sun Jan 19 00:00:00 UTC 2020", value = "Employment end date of the employee at the time it was requested")
+  /** 
    * Employment end date of the employee at the time it was requested
-   *
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * Employment end date of the employee at the time it was requested
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * Employment end date of the employee at the time it was requested
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * Xero unique identifier for the payroll calendar of the employee
-   *
-   * @param payrollCalendarID UUID
-   * @return Employee
-   */
+  * Xero unique identifier for the payroll calendar of the employee
+  * @param payrollCalendarID  UUID
+  * @return Employee
+  **/
   public Employee payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for the payroll calendar of the employee
-   *
    * @return payrollCalendarID
-   */
+  **/
   @ApiModelProperty(value = "Xero unique identifier for the payroll calendar of the employee")
-  /**
+  /** 
    * Xero unique identifier for the payroll calendar of the employee
-   *
    * @return payrollCalendarID UUID
-   */
+  **/
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
-  /**
-   * Xero unique identifier for the payroll calendar of the employee
-   *
-   * @param payrollCalendarID UUID
-   */
+  /** 
+  * Xero unique identifier for the payroll calendar of the employee
+  * @param payrollCalendarID  UUID
+  **/
+
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
   /**
-   * UTC timestamp of last update to the employee
-   *
-   * @param updatedDateUTC LocalDateTime
-   * @return Employee
-   */
+  * UTC timestamp of last update to the employee
+  * @param updatedDateUTC LocalDateTime
+  * @return Employee
+  **/
   public Employee updatedDateUTC(LocalDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
 
-  /**
+   /**
    * UTC timestamp of last update to the employee
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(value = "UTC timestamp of last update to the employee")
-  /**
+  /** 
    * UTC timestamp of last update to the employee
-   *
    * @return updatedDateUTC LocalDateTime
-   */
+  **/
   public LocalDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  /**
-   * UTC timestamp of last update to the employee
-   *
-   * @param updatedDateUTC LocalDateTime
-   */
+  /** 
+  * UTC timestamp of last update to the employee
+  * @param updatedDateUTC LocalDateTime
+  **/
+
   public void setUpdatedDateUTC(LocalDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 
   /**
-   * UTC timestamp when the employee was created in Xero
-   *
-   * @param createdDateUTC LocalDateTime
-   * @return Employee
-   */
+  * UTC timestamp when the employee was created in Xero
+  * @param createdDateUTC LocalDateTime
+  * @return Employee
+  **/
   public Employee createdDateUTC(LocalDateTime createdDateUTC) {
     this.createdDateUTC = createdDateUTC;
     return this;
   }
 
-  /**
+   /**
    * UTC timestamp when the employee was created in Xero
-   *
    * @return createdDateUTC
-   */
+  **/
   @ApiModelProperty(value = "UTC timestamp when the employee was created in Xero")
-  /**
+  /** 
    * UTC timestamp when the employee was created in Xero
-   *
    * @return createdDateUTC LocalDateTime
-   */
+  **/
   public LocalDateTime getCreatedDateUTC() {
     return createdDateUTC;
   }
 
-  /**
-   * UTC timestamp when the employee was created in Xero
-   *
-   * @param createdDateUTC LocalDateTime
-   */
+  /** 
+  * UTC timestamp when the employee was created in Xero
+  * @param createdDateUTC LocalDateTime
+  **/
+
   public void setCreatedDateUTC(LocalDateTime createdDateUTC) {
     this.createdDateUTC = createdDateUTC;
   }
 
   /**
-   * Employee&#39;s job title
-   *
-   * @param jobTitle String
-   * @return Employee
-   */
+  * Employee&#39;s job title
+  * @param jobTitle  String
+  * @return Employee
+  **/
   public Employee jobTitle(String jobTitle) {
     this.jobTitle = jobTitle;
     return this;
   }
 
-  /**
+   /**
    * Employee&#39;s job title
-   *
    * @return jobTitle
-   */
+  **/
   @ApiModelProperty(example = "General Manager", value = "Employee's job title")
-  /**
+  /** 
    * Employee&#39;s job title
-   *
    * @return jobTitle String
-   */
+  **/
   public String getJobTitle() {
     return jobTitle;
   }
 
-  /**
-   * Employee&#39;s job title
-   *
-   * @param jobTitle String
-   */
+  /** 
+  * Employee&#39;s job title
+  * @param jobTitle  String
+  **/
+
   public void setJobTitle(String jobTitle) {
     this.jobTitle = jobTitle;
   }
 
   /**
-   * Engagement type of the employee
-   *
-   * @param engagementType String
-   * @return Employee
-   */
+  * Engagement type of the employee
+  * @param engagementType  String
+  * @return Employee
+  **/
   public Employee engagementType(String engagementType) {
     this.engagementType = engagementType;
     return this;
   }
 
-  /**
+   /**
    * Engagement type of the employee
-   *
    * @return engagementType
-   */
+  **/
   @ApiModelProperty(example = "Permanent", value = "Engagement type of the employee")
-  /**
+  /** 
    * Engagement type of the employee
-   *
    * @return engagementType String
-   */
+  **/
   public String getEngagementType() {
     return engagementType;
   }
 
-  /**
-   * Engagement type of the employee
-   *
-   * @param engagementType String
-   */
+  /** 
+  * Engagement type of the employee
+  * @param engagementType  String
+  **/
+
   public void setEngagementType(String engagementType) {
     this.engagementType = engagementType;
   }
 
   /**
-   * End date for an employee with a fixed-term engagement type
-   *
-   * @param fixedTermEndDate LocalDate
-   * @return Employee
-   */
+  * End date for an employee with a fixed-term engagement type
+  * @param fixedTermEndDate  LocalDate
+  * @return Employee
+  **/
   public Employee fixedTermEndDate(LocalDate fixedTermEndDate) {
     this.fixedTermEndDate = fixedTermEndDate;
     return this;
   }
 
-  /**
+   /**
    * End date for an employee with a fixed-term engagement type
-   *
    * @return fixedTermEndDate
-   */
-  @ApiModelProperty(
-      example = "Sun Jan 19 00:00:00 UTC 2020",
-      value = "End date for an employee with a fixed-term engagement type")
-  /**
+  **/
+  @ApiModelProperty(example = "Sun Jan 19 00:00:00 UTC 2020", value = "End date for an employee with a fixed-term engagement type")
+  /** 
    * End date for an employee with a fixed-term engagement type
-   *
    * @return fixedTermEndDate LocalDate
-   */
+  **/
   public LocalDate getFixedTermEndDate() {
     return fixedTermEndDate;
   }
 
-  /**
-   * End date for an employee with a fixed-term engagement type
-   *
-   * @param fixedTermEndDate LocalDate
-   */
+  /** 
+  * End date for an employee with a fixed-term engagement type
+  * @param fixedTermEndDate  LocalDate
+  **/
+
   public void setFixedTermEndDate(LocalDate fixedTermEndDate) {
     this.fixedTermEndDate = fixedTermEndDate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -738,46 +695,30 @@ public class Employee {
       return false;
     }
     Employee employee = (Employee) o;
-    return Objects.equals(this.employeeID, employee.employeeID)
-        && Objects.equals(this.title, employee.title)
-        && Objects.equals(this.firstName, employee.firstName)
-        && Objects.equals(this.lastName, employee.lastName)
-        && Objects.equals(this.dateOfBirth, employee.dateOfBirth)
-        && Objects.equals(this.address, employee.address)
-        && Objects.equals(this.email, employee.email)
-        && Objects.equals(this.gender, employee.gender)
-        && Objects.equals(this.phoneNumber, employee.phoneNumber)
-        && Objects.equals(this.startDate, employee.startDate)
-        && Objects.equals(this.endDate, employee.endDate)
-        && Objects.equals(this.payrollCalendarID, employee.payrollCalendarID)
-        && Objects.equals(this.updatedDateUTC, employee.updatedDateUTC)
-        && Objects.equals(this.createdDateUTC, employee.createdDateUTC)
-        && Objects.equals(this.jobTitle, employee.jobTitle)
-        && Objects.equals(this.engagementType, employee.engagementType)
-        && Objects.equals(this.fixedTermEndDate, employee.fixedTermEndDate);
+    return Objects.equals(this.employeeID, employee.employeeID) &&
+        Objects.equals(this.title, employee.title) &&
+        Objects.equals(this.firstName, employee.firstName) &&
+        Objects.equals(this.lastName, employee.lastName) &&
+        Objects.equals(this.dateOfBirth, employee.dateOfBirth) &&
+        Objects.equals(this.address, employee.address) &&
+        Objects.equals(this.email, employee.email) &&
+        Objects.equals(this.gender, employee.gender) &&
+        Objects.equals(this.phoneNumber, employee.phoneNumber) &&
+        Objects.equals(this.startDate, employee.startDate) &&
+        Objects.equals(this.endDate, employee.endDate) &&
+        Objects.equals(this.payrollCalendarID, employee.payrollCalendarID) &&
+        Objects.equals(this.updatedDateUTC, employee.updatedDateUTC) &&
+        Objects.equals(this.createdDateUTC, employee.createdDateUTC) &&
+        Objects.equals(this.jobTitle, employee.jobTitle) &&
+        Objects.equals(this.engagementType, employee.engagementType) &&
+        Objects.equals(this.fixedTermEndDate, employee.fixedTermEndDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        employeeID,
-        title,
-        firstName,
-        lastName,
-        dateOfBirth,
-        address,
-        email,
-        gender,
-        phoneNumber,
-        startDate,
-        endDate,
-        payrollCalendarID,
-        updatedDateUTC,
-        createdDateUTC,
-        jobTitle,
-        engagementType,
-        fixedTermEndDate);
+    return Objects.hash(employeeID, title, firstName, lastName, dateOfBirth, address, email, gender, phoneNumber, startDate, endDate, payrollCalendarID, updatedDateUTC, createdDateUTC, jobTitle, engagementType, fixedTermEndDate);
   }
+
 
   @Override
   public String toString() {
@@ -805,7 +746,8 @@ public class Employee {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -813,4 +755,6 @@ public class Employee {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

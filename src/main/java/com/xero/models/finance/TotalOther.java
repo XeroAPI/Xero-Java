@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** TotalOther */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TotalOther
+ */
+
 public class TotalOther {
   StringUtil util = new StringUtil();
 
@@ -29,112 +46,101 @@ public class TotalOther {
   @JsonProperty("totalCredited")
   private Double totalCredited;
   /**
-   * Total outstanding invoice value within the period where the invoices are more than 90 days old
-   *
-   * @param totalOutstandingAged Double
-   * @return TotalOther
-   */
+  * Total outstanding invoice value within the period where the invoices are more than 90 days old
+  * @param totalOutstandingAged  Double
+  * @return TotalOther
+  **/
   public TotalOther totalOutstandingAged(Double totalOutstandingAged) {
     this.totalOutstandingAged = totalOutstandingAged;
     return this;
   }
 
-  /**
+   /**
    * Total outstanding invoice value within the period where the invoices are more than 90 days old
-   *
    * @return totalOutstandingAged
-   */
-  @ApiModelProperty(
-      value =
-          "Total outstanding invoice value within the period where the invoices are more than 90"
-              + " days old")
-  /**
+  **/
+  @ApiModelProperty(value = "Total outstanding invoice value within the period where the invoices are more than 90 days old")
+  /** 
    * Total outstanding invoice value within the period where the invoices are more than 90 days old
-   *
    * @return totalOutstandingAged Double
-   */
+  **/
   public Double getTotalOutstandingAged() {
     return totalOutstandingAged;
   }
 
-  /**
-   * Total outstanding invoice value within the period where the invoices are more than 90 days old
-   *
-   * @param totalOutstandingAged Double
-   */
+  /** 
+  * Total outstanding invoice value within the period where the invoices are more than 90 days old
+  * @param totalOutstandingAged  Double
+  **/
+
   public void setTotalOutstandingAged(Double totalOutstandingAged) {
     this.totalOutstandingAged = totalOutstandingAged;
   }
 
   /**
-   * Total voided value.
-   *
-   * @param totalVoided Double
-   * @return TotalOther
-   */
+  * Total voided value.
+  * @param totalVoided  Double
+  * @return TotalOther
+  **/
   public TotalOther totalVoided(Double totalVoided) {
     this.totalVoided = totalVoided;
     return this;
   }
 
-  /**
+   /**
    * Total voided value.
-   *
    * @return totalVoided
-   */
+  **/
   @ApiModelProperty(value = "Total voided value.")
-  /**
+  /** 
    * Total voided value.
-   *
    * @return totalVoided Double
-   */
+  **/
   public Double getTotalVoided() {
     return totalVoided;
   }
 
-  /**
-   * Total voided value.
-   *
-   * @param totalVoided Double
-   */
+  /** 
+  * Total voided value.
+  * @param totalVoided  Double
+  **/
+
   public void setTotalVoided(Double totalVoided) {
     this.totalVoided = totalVoided;
   }
 
   /**
-   * Total credited value.
-   *
-   * @param totalCredited Double
-   * @return TotalOther
-   */
+  * Total credited value.
+  * @param totalCredited  Double
+  * @return TotalOther
+  **/
   public TotalOther totalCredited(Double totalCredited) {
     this.totalCredited = totalCredited;
     return this;
   }
 
-  /**
+   /**
    * Total credited value.
-   *
    * @return totalCredited
-   */
+  **/
   @ApiModelProperty(value = "Total credited value.")
-  /**
+  /** 
    * Total credited value.
-   *
    * @return totalCredited Double
-   */
+  **/
   public Double getTotalCredited() {
     return totalCredited;
   }
 
-  /**
-   * Total credited value.
-   *
-   * @param totalCredited Double
-   */
+  /** 
+  * Total credited value.
+  * @param totalCredited  Double
+  **/
+
   public void setTotalCredited(Double totalCredited) {
     this.totalCredited = totalCredited;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -145,9 +151,9 @@ public class TotalOther {
       return false;
     }
     TotalOther totalOther = (TotalOther) o;
-    return Objects.equals(this.totalOutstandingAged, totalOther.totalOutstandingAged)
-        && Objects.equals(this.totalVoided, totalOther.totalVoided)
-        && Objects.equals(this.totalCredited, totalOther.totalCredited);
+    return Objects.equals(this.totalOutstandingAged, totalOther.totalOutstandingAged) &&
+        Objects.equals(this.totalVoided, totalOther.totalVoided) &&
+        Objects.equals(this.totalCredited, totalOther.totalCredited);
   }
 
   @Override
@@ -155,13 +161,12 @@ public class TotalOther {
     return Objects.hash(totalOutstandingAged, totalVoided, totalCredited);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TotalOther {\n");
-    sb.append("    totalOutstandingAged: ")
-        .append(toIndentedString(totalOutstandingAged))
-        .append("\n");
+    sb.append("    totalOutstandingAged: ").append(toIndentedString(totalOutstandingAged)).append("\n");
     sb.append("    totalVoided: ").append(toIndentedString(totalVoided)).append("\n");
     sb.append("    totalCredited: ").append(toIndentedString(totalCredited)).append("\n");
     sb.append("}");
@@ -169,7 +174,8 @@ public class TotalOther {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -177,4 +183,6 @@ public class TotalOther {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

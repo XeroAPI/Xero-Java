@@ -9,17 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.EarningsTemplate;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** EmployeePayTemplate */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeePayTemplate
+ */
+
 public class EmployeePayTemplate {
   StringUtil util = new StringUtil();
 
@@ -29,46 +47,42 @@ public class EmployeePayTemplate {
   @JsonProperty("earningTemplates")
   private List<EarningsTemplate> earningTemplates = new ArrayList<EarningsTemplate>();
   /**
-   * Unique identifier for the employee
-   *
-   * @param employeeID UUID
-   * @return EmployeePayTemplate
-   */
+  * Unique identifier for the employee
+  * @param employeeID  UUID
+  * @return EmployeePayTemplate
+  **/
   public EmployeePayTemplate employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-  /**
+   /**
    * Unique identifier for the employee
-   *
    * @return employeeID
-   */
+  **/
   @ApiModelProperty(value = "Unique identifier for the employee")
-  /**
+  /** 
    * Unique identifier for the employee
-   *
    * @return employeeID UUID
-   */
+  **/
   public UUID getEmployeeID() {
     return employeeID;
   }
 
-  /**
-   * Unique identifier for the employee
-   *
-   * @param employeeID UUID
-   */
+  /** 
+  * Unique identifier for the employee
+  * @param employeeID  UUID
+  **/
+
   public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
   /**
-   * earningTemplates
-   *
-   * @param earningTemplates List&lt;EarningsTemplate&gt;
-   * @return EmployeePayTemplate
-   */
+  * earningTemplates
+  * @param earningTemplates  List&lt;EarningsTemplate&gt;
+  * @return EmployeePayTemplate
+  **/
   public EmployeePayTemplate earningTemplates(List<EarningsTemplate> earningTemplates) {
     this.earningTemplates = earningTemplates;
     return this;
@@ -76,10 +90,9 @@ public class EmployeePayTemplate {
 
   /**
    * earningTemplates
-   *
-   * @param earningTemplatesItem EarningsTemplate
+   * @param earningTemplatesItem EarningsTemplate 
    * @return EmployeePayTemplate
-   */
+  **/
   public EmployeePayTemplate addEarningTemplatesItem(EarningsTemplate earningTemplatesItem) {
     if (this.earningTemplates == null) {
       this.earningTemplates = new ArrayList<EarningsTemplate>();
@@ -88,29 +101,28 @@ public class EmployeePayTemplate {
     return this;
   }
 
-  /**
+   /**
    * Get earningTemplates
-   *
    * @return earningTemplates
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * earningTemplates
-   *
    * @return earningTemplates List<EarningsTemplate>
-   */
+  **/
   public List<EarningsTemplate> getEarningTemplates() {
     return earningTemplates;
   }
 
-  /**
-   * earningTemplates
-   *
-   * @param earningTemplates List&lt;EarningsTemplate&gt;
-   */
+  /** 
+  * earningTemplates
+  * @param earningTemplates List&lt;EarningsTemplate&gt; 
+  **/
+
   public void setEarningTemplates(List<EarningsTemplate> earningTemplates) {
     this.earningTemplates = earningTemplates;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -121,14 +133,15 @@ public class EmployeePayTemplate {
       return false;
     }
     EmployeePayTemplate employeePayTemplate = (EmployeePayTemplate) o;
-    return Objects.equals(this.employeeID, employeePayTemplate.employeeID)
-        && Objects.equals(this.earningTemplates, employeePayTemplate.earningTemplates);
+    return Objects.equals(this.employeeID, employeePayTemplate.employeeID) &&
+        Objects.equals(this.earningTemplates, employeePayTemplate.earningTemplates);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(employeeID, earningTemplates);
   }
+
 
   @Override
   public String toString() {
@@ -141,7 +154,8 @@ public class EmployeePayTemplate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -149,4 +163,6 @@ public class EmployeePayTemplate {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

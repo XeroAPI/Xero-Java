@@ -9,21 +9,40 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** NICategoryOneOf1 */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * NICategoryOneOf1
+ */
+
 public class NICategoryOneOf1 {
   StringUtil util = new StringUtil();
-  /** Gets or Sets niCategory */
+  /**
+   * Gets or Sets niCategory
+   */
   public enum NiCategoryEnum {
-    /** V */
+    /**
+     * V
+     */
     V("V");
 
     private String value;
@@ -32,31 +51,25 @@ public class NICategoryOneOf1 {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static NiCategoryEnum fromValue(String value) {
       for (NiCategoryEnum b : NiCategoryEnum.values()) {
@@ -68,42 +81,41 @@ public class NICategoryOneOf1 {
     }
   }
 
+
   @JsonProperty("niCategory")
   private NiCategoryEnum niCategory;
   /**
-   * niCategory
-   *
-   * @param niCategory NiCategoryEnum
-   * @return NICategoryOneOf1
-   */
+  * niCategory
+  * @param niCategory  NiCategoryEnum
+  * @return NICategoryOneOf1
+  **/
   public NICategoryOneOf1 niCategory(NiCategoryEnum niCategory) {
     this.niCategory = niCategory;
     return this;
   }
 
-  /**
+   /**
    * Get niCategory
-   *
    * @return niCategory
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * niCategory
-   *
    * @return niCategory NiCategoryEnum
-   */
+  **/
   public NiCategoryEnum getNiCategory() {
     return niCategory;
   }
 
-  /**
-   * niCategory
-   *
-   * @param niCategory NiCategoryEnum
-   */
+  /** 
+  * niCategory
+  * @param niCategory  NiCategoryEnum
+  **/
+
   public void setNiCategory(NiCategoryEnum niCategory) {
     this.niCategory = niCategory;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -122,6 +134,7 @@ public class NICategoryOneOf1 {
     return Objects.hash(niCategory);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -132,7 +145,8 @@ public class NICategoryOneOf1 {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -140,4 +154,6 @@ public class NICategoryOneOf1 {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

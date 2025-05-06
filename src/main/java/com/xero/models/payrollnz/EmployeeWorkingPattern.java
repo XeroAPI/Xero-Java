@@ -9,16 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.payrollnz;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** EmployeeWorkingPattern */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeWorkingPattern
+ */
+
 public class EmployeeWorkingPattern {
   StringUtil util = new StringUtil();
 
@@ -28,76 +45,69 @@ public class EmployeeWorkingPattern {
   @JsonProperty("effectiveFrom")
   private LocalDate effectiveFrom;
   /**
-   * The Xero identifier for for Employee working pattern
-   *
-   * @param payeeWorkingPatternID UUID
-   * @return EmployeeWorkingPattern
-   */
+  * The Xero identifier for for Employee working pattern
+  * @param payeeWorkingPatternID  UUID
+  * @return EmployeeWorkingPattern
+  **/
   public EmployeeWorkingPattern payeeWorkingPatternID(UUID payeeWorkingPatternID) {
     this.payeeWorkingPatternID = payeeWorkingPatternID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for for Employee working pattern
-   *
    * @return payeeWorkingPatternID
-   */
+  **/
   @ApiModelProperty(required = true, value = "The Xero identifier for for Employee working pattern")
-  /**
+  /** 
    * The Xero identifier for for Employee working pattern
-   *
    * @return payeeWorkingPatternID UUID
-   */
+  **/
   public UUID getPayeeWorkingPatternID() {
     return payeeWorkingPatternID;
   }
 
-  /**
-   * The Xero identifier for for Employee working pattern
-   *
-   * @param payeeWorkingPatternID UUID
-   */
+  /** 
+  * The Xero identifier for for Employee working pattern
+  * @param payeeWorkingPatternID  UUID
+  **/
+
   public void setPayeeWorkingPatternID(UUID payeeWorkingPatternID) {
     this.payeeWorkingPatternID = payeeWorkingPatternID;
   }
 
   /**
-   * The effective date of the corresponding salary and wages
-   *
-   * @param effectiveFrom LocalDate
-   * @return EmployeeWorkingPattern
-   */
+  * The effective date of the corresponding salary and wages
+  * @param effectiveFrom  LocalDate
+  * @return EmployeeWorkingPattern
+  **/
   public EmployeeWorkingPattern effectiveFrom(LocalDate effectiveFrom) {
     this.effectiveFrom = effectiveFrom;
     return this;
   }
 
-  /**
+   /**
    * The effective date of the corresponding salary and wages
-   *
    * @return effectiveFrom
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The effective date of the corresponding salary and wages")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The effective date of the corresponding salary and wages")
+  /** 
    * The effective date of the corresponding salary and wages
-   *
    * @return effectiveFrom LocalDate
-   */
+  **/
   public LocalDate getEffectiveFrom() {
     return effectiveFrom;
   }
 
-  /**
-   * The effective date of the corresponding salary and wages
-   *
-   * @param effectiveFrom LocalDate
-   */
+  /** 
+  * The effective date of the corresponding salary and wages
+  * @param effectiveFrom  LocalDate
+  **/
+
   public void setEffectiveFrom(LocalDate effectiveFrom) {
     this.effectiveFrom = effectiveFrom;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -108,8 +118,8 @@ public class EmployeeWorkingPattern {
       return false;
     }
     EmployeeWorkingPattern employeeWorkingPattern = (EmployeeWorkingPattern) o;
-    return Objects.equals(this.payeeWorkingPatternID, employeeWorkingPattern.payeeWorkingPatternID)
-        && Objects.equals(this.effectiveFrom, employeeWorkingPattern.effectiveFrom);
+    return Objects.equals(this.payeeWorkingPatternID, employeeWorkingPattern.payeeWorkingPatternID) &&
+        Objects.equals(this.effectiveFrom, employeeWorkingPattern.effectiveFrom);
   }
 
   @Override
@@ -117,20 +127,20 @@ public class EmployeeWorkingPattern {
     return Objects.hash(payeeWorkingPatternID, effectiveFrom);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EmployeeWorkingPattern {\n");
-    sb.append("    payeeWorkingPatternID: ")
-        .append(toIndentedString(payeeWorkingPatternID))
-        .append("\n");
+    sb.append("    payeeWorkingPatternID: ").append(toIndentedString(payeeWorkingPatternID)).append("\n");
     sb.append("    effectiveFrom: ").append(toIndentedString(effectiveFrom)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -138,4 +148,6 @@ public class EmployeeWorkingPattern {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

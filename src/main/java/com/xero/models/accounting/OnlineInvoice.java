@@ -9,53 +9,68 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** OnlineInvoice */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * OnlineInvoice
+ */
+
 public class OnlineInvoice {
   StringUtil util = new StringUtil();
 
   @JsonProperty("OnlineInvoiceUrl")
   private String onlineInvoiceUrl;
   /**
-   * the URL to an online invoice
-   *
-   * @param onlineInvoiceUrl String
-   * @return OnlineInvoice
-   */
+  * the URL to an online invoice
+  * @param onlineInvoiceUrl  String
+  * @return OnlineInvoice
+  **/
   public OnlineInvoice onlineInvoiceUrl(String onlineInvoiceUrl) {
     this.onlineInvoiceUrl = onlineInvoiceUrl;
     return this;
   }
 
-  /**
+   /**
    * the URL to an online invoice
-   *
    * @return onlineInvoiceUrl
-   */
+  **/
   @ApiModelProperty(value = "the URL to an online invoice")
-  /**
+  /** 
    * the URL to an online invoice
-   *
    * @return onlineInvoiceUrl String
-   */
+  **/
   public String getOnlineInvoiceUrl() {
     return onlineInvoiceUrl;
   }
 
-  /**
-   * the URL to an online invoice
-   *
-   * @param onlineInvoiceUrl String
-   */
+  /** 
+  * the URL to an online invoice
+  * @param onlineInvoiceUrl  String
+  **/
+
   public void setOnlineInvoiceUrl(String onlineInvoiceUrl) {
     this.onlineInvoiceUrl = onlineInvoiceUrl;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -74,6 +89,7 @@ public class OnlineInvoice {
     return Objects.hash(onlineInvoiceUrl);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -84,7 +100,8 @@ public class OnlineInvoice {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -92,4 +109,6 @@ public class OnlineInvoice {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

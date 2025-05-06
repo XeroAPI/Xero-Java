@@ -9,14 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.ProblemType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** Problem */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Problem
+ */
+
 public class Problem {
   StringUtil util = new StringUtil();
 
@@ -32,144 +50,133 @@ public class Problem {
   @JsonProperty("detail")
   private String detail;
   /**
-   * type
-   *
-   * @param type ProblemType
-   * @return Problem
-   */
+  * type
+  * @param type  ProblemType
+  * @return Problem
+  **/
   public Problem type(ProblemType type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * Get type
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * type
-   *
    * @return type ProblemType
-   */
+  **/
   public ProblemType getType() {
     return type;
   }
 
-  /**
-   * type
-   *
-   * @param type ProblemType
-   */
+  /** 
+  * type
+  * @param type  ProblemType
+  **/
+
   public void setType(ProblemType type) {
     this.type = type;
   }
 
   /**
-   * title
-   *
-   * @param title String
-   * @return Problem
-   */
+  * title
+  * @param title  String
+  * @return Problem
+  **/
   public Problem title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
+   /**
    * Get title
-   *
    * @return title
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * title
-   *
    * @return title String
-   */
+  **/
   public String getTitle() {
     return title;
   }
 
-  /**
-   * title
-   *
-   * @param title String
-   */
+  /** 
+  * title
+  * @param title  String
+  **/
+
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
-   * status
-   *
-   * @param status Integer
-   * @return Problem
-   */
+  * status
+  * @param status  Integer
+  * @return Problem
+  **/
   public Problem status(Integer status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * Get status
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * status
-   *
    * @return status Integer
-   */
+  **/
   public Integer getStatus() {
     return status;
   }
 
-  /**
-   * status
-   *
-   * @param status Integer
-   */
+  /** 
+  * status
+  * @param status  Integer
+  **/
+
   public void setStatus(Integer status) {
     this.status = status;
   }
 
   /**
-   * detail
-   *
-   * @param detail String
-   * @return Problem
-   */
+  * detail
+  * @param detail  String
+  * @return Problem
+  **/
   public Problem detail(String detail) {
     this.detail = detail;
     return this;
   }
 
-  /**
+   /**
    * Get detail
-   *
    * @return detail
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * detail
-   *
    * @return detail String
-   */
+  **/
   public String getDetail() {
     return detail;
   }
 
-  /**
-   * detail
-   *
-   * @param detail String
-   */
+  /** 
+  * detail
+  * @param detail  String
+  **/
+
   public void setDetail(String detail) {
     this.detail = detail;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -180,16 +187,17 @@ public class Problem {
       return false;
     }
     Problem problem = (Problem) o;
-    return Objects.equals(this.type, problem.type)
-        && Objects.equals(this.title, problem.title)
-        && Objects.equals(this.status, problem.status)
-        && Objects.equals(this.detail, problem.detail);
+    return Objects.equals(this.type, problem.type) &&
+        Objects.equals(this.title, problem.title) &&
+        Objects.equals(this.status, problem.status) &&
+        Objects.equals(this.detail, problem.detail);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(type, title, status, detail);
   }
+
 
   @Override
   public String toString() {
@@ -204,7 +212,8 @@ public class Problem {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -212,4 +221,6 @@ public class Problem {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

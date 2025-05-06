@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Allocation;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Allocations */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Allocations
+ */
+
 public class Allocations {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Allocations")
   private List<Allocation> allocations = new ArrayList<Allocation>();
   /**
-   * allocations
-   *
-   * @param allocations List&lt;Allocation&gt;
-   * @return Allocations
-   */
+  * allocations
+  * @param allocations  List&lt;Allocation&gt;
+  * @return Allocations
+  **/
   public Allocations allocations(List<Allocation> allocations) {
     this.allocations = allocations;
     return this;
@@ -37,10 +54,9 @@ public class Allocations {
 
   /**
    * allocations
-   *
-   * @param allocationsItem Allocation
+   * @param allocationsItem Allocation 
    * @return Allocations
-   */
+  **/
   public Allocations addAllocationsItem(Allocation allocationsItem) {
     if (this.allocations == null) {
       this.allocations = new ArrayList<Allocation>();
@@ -49,29 +65,28 @@ public class Allocations {
     return this;
   }
 
-  /**
+   /**
    * Get allocations
-   *
    * @return allocations
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * allocations
-   *
    * @return allocations List<Allocation>
-   */
+  **/
   public List<Allocation> getAllocations() {
     return allocations;
   }
 
-  /**
-   * allocations
-   *
-   * @param allocations List&lt;Allocation&gt;
-   */
+  /** 
+  * allocations
+  * @param allocations List&lt;Allocation&gt; 
+  **/
+
   public void setAllocations(List<Allocation> allocations) {
     this.allocations = allocations;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class Allocations {
     return Objects.hash(allocations);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class Allocations {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class Allocations {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

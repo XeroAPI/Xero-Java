@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.project;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** ProjectUser */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ProjectUser
+ */
+
 public class ProjectUser {
   StringUtil util = new StringUtil();
 
@@ -30,111 +47,101 @@ public class ProjectUser {
   @JsonProperty("email")
   private String email;
   /**
-   * Identifier of the user of the project.
-   *
-   * @param userId UUID
-   * @return ProjectUser
-   */
+  * Identifier of the user of the project.
+  * @param userId  UUID
+  * @return ProjectUser
+  **/
   public ProjectUser userId(UUID userId) {
     this.userId = userId;
     return this;
   }
 
-  /**
+   /**
    * Identifier of the user of the project.
-   *
    * @return userId
-   */
-  @ApiModelProperty(
-      example = "254553fa-2be8-4991-bd5e-70a97ea12ef8",
-      value = "Identifier of the user of the project.")
-  /**
+  **/
+  @ApiModelProperty(example = "254553fa-2be8-4991-bd5e-70a97ea12ef8", value = "Identifier of the user of the project.")
+  /** 
    * Identifier of the user of the project.
-   *
    * @return userId UUID
-   */
+  **/
   public UUID getUserId() {
     return userId;
   }
 
-  /**
-   * Identifier of the user of the project.
-   *
-   * @param userId UUID
-   */
+  /** 
+  * Identifier of the user of the project.
+  * @param userId  UUID
+  **/
+
   public void setUserId(UUID userId) {
     this.userId = userId;
   }
 
   /**
-   * Full name of the user.
-   *
-   * @param name String
-   * @return ProjectUser
-   */
+  * Full name of the user.
+  * @param name  String
+  * @return ProjectUser
+  **/
   public ProjectUser name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Full name of the user.
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(example = "Sidney Allen", value = "Full name of the user.")
-  /**
+  /** 
    * Full name of the user.
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Full name of the user.
-   *
-   * @param name String
-   */
+  /** 
+  * Full name of the user.
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Email address of the user.
-   *
-   * @param email String
-   * @return ProjectUser
-   */
+  * Email address of the user.
+  * @param email  String
+  * @return ProjectUser
+  **/
   public ProjectUser email(String email) {
     this.email = email;
     return this;
   }
 
-  /**
+   /**
    * Email address of the user.
-   *
    * @return email
-   */
+  **/
   @ApiModelProperty(example = "sidneyallen@xero.com", value = "Email address of the user.")
-  /**
+  /** 
    * Email address of the user.
-   *
    * @return email String
-   */
+  **/
   public String getEmail() {
     return email;
   }
 
-  /**
-   * Email address of the user.
-   *
-   * @param email String
-   */
+  /** 
+  * Email address of the user.
+  * @param email  String
+  **/
+
   public void setEmail(String email) {
     this.email = email;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -145,15 +152,16 @@ public class ProjectUser {
       return false;
     }
     ProjectUser projectUser = (ProjectUser) o;
-    return Objects.equals(this.userId, projectUser.userId)
-        && Objects.equals(this.name, projectUser.name)
-        && Objects.equals(this.email, projectUser.email);
+    return Objects.equals(this.userId, projectUser.userId) &&
+        Objects.equals(this.name, projectUser.name) &&
+        Objects.equals(this.email, projectUser.email);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(userId, name, email);
   }
+
 
   @Override
   public String toString() {
@@ -167,7 +175,8 @@ public class ProjectUser {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -175,4 +184,6 @@ public class ProjectUser {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,32 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
+import java.io.IOException;
 
-/** The date when the organisation starts using Xero */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * The date when the organisation starts using Xero
+ */
 @ApiModel(description = "The date when the organisation starts using Xero")
+
 public class ConversionDate {
   StringUtil util = new StringUtil();
 
@@ -28,78 +44,69 @@ public class ConversionDate {
   @JsonProperty("Year")
   private Integer year;
   /**
-   * The month the organisation starts using Xero. Value is an integer between 1 and 12
-   *
-   * @param month Integer
-   * @return ConversionDate
-   */
+  * The month the organisation starts using Xero. Value is an integer between 1 and 12
+  * @param month  Integer
+  * @return ConversionDate
+  **/
   public ConversionDate month(Integer month) {
     this.month = month;
     return this;
   }
 
-  /**
+   /**
    * The month the organisation starts using Xero. Value is an integer between 1 and 12
-   *
    * @return month
-   */
-  @ApiModelProperty(
-      example = "1",
-      value = "The month the organisation starts using Xero. Value is an integer between 1 and 12")
-  /**
+  **/
+  @ApiModelProperty(example = "1", value = "The month the organisation starts using Xero. Value is an integer between 1 and 12")
+  /** 
    * The month the organisation starts using Xero. Value is an integer between 1 and 12
-   *
    * @return month Integer
-   */
+  **/
   public Integer getMonth() {
     return month;
   }
 
-  /**
-   * The month the organisation starts using Xero. Value is an integer between 1 and 12
-   *
-   * @param month Integer
-   */
+  /** 
+  * The month the organisation starts using Xero. Value is an integer between 1 and 12
+  * @param month  Integer
+  **/
+
   public void setMonth(Integer month) {
     this.month = month;
   }
 
   /**
-   * The year the organisation starts using Xero. Value is an integer greater than 2006
-   *
-   * @param year Integer
-   * @return ConversionDate
-   */
+  * The year the organisation starts using Xero. Value is an integer greater than 2006
+  * @param year  Integer
+  * @return ConversionDate
+  **/
   public ConversionDate year(Integer year) {
     this.year = year;
     return this;
   }
 
-  /**
+   /**
    * The year the organisation starts using Xero. Value is an integer greater than 2006
-   *
    * @return year
-   */
-  @ApiModelProperty(
-      example = "2020",
-      value = "The year the organisation starts using Xero. Value is an integer greater than 2006")
-  /**
+  **/
+  @ApiModelProperty(example = "2020", value = "The year the organisation starts using Xero. Value is an integer greater than 2006")
+  /** 
    * The year the organisation starts using Xero. Value is an integer greater than 2006
-   *
    * @return year Integer
-   */
+  **/
   public Integer getYear() {
     return year;
   }
 
-  /**
-   * The year the organisation starts using Xero. Value is an integer greater than 2006
-   *
-   * @param year Integer
-   */
+  /** 
+  * The year the organisation starts using Xero. Value is an integer greater than 2006
+  * @param year  Integer
+  **/
+
   public void setYear(Integer year) {
     this.year = year;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -110,14 +117,15 @@ public class ConversionDate {
       return false;
     }
     ConversionDate conversionDate = (ConversionDate) o;
-    return Objects.equals(this.month, conversionDate.month)
-        && Objects.equals(this.year, conversionDate.year);
+    return Objects.equals(this.month, conversionDate.month) &&
+        Objects.equals(this.year, conversionDate.year);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(month, year);
   }
+
 
   @Override
   public String toString() {
@@ -130,7 +138,8 @@ public class ConversionDate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -138,4 +147,6 @@ public class ConversionDate {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

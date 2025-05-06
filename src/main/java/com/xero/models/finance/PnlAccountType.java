@@ -9,16 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.PnlAccount;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** PnlAccountType */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PnlAccountType
+ */
+
 public class PnlAccountType {
   StringUtil util = new StringUtil();
 
@@ -31,101 +49,84 @@ public class PnlAccountType {
   @JsonProperty("accounts")
   private List<PnlAccount> accounts = new ArrayList<PnlAccount>();
   /**
-   * Total movement on this account type
-   *
-   * @param total Double
-   * @return PnlAccountType
-   */
+  * Total movement on this account type
+  * @param total  Double
+  * @return PnlAccountType
+  **/
   public PnlAccountType total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total movement on this account type
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total movement on this account type")
-  /**
+  /** 
    * Total movement on this account type
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total movement on this account type
-   *
-   * @param total Double
-   */
+  /** 
+  * Total movement on this account type
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
 
   /**
-   * Name of this account type, it will be either Trading Income or Other Income for Revenue section
-   * / Direct Cost or Operating Expenses for Expense section
-   *
-   * @param title String
-   * @return PnlAccountType
-   */
+  * Name of this account type, it will be either Trading Income or Other Income for Revenue section / Direct Cost or Operating Expenses for Expense section
+  * @param title  String
+  * @return PnlAccountType
+  **/
   public PnlAccountType title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
-   * Name of this account type, it will be either Trading Income or Other Income for Revenue section
-   * / Direct Cost or Operating Expenses for Expense section
-   *
+   /**
+   * Name of this account type, it will be either Trading Income or Other Income for Revenue section / Direct Cost or Operating Expenses for Expense section
    * @return title
-   */
-  @ApiModelProperty(
-      value =
-          "Name of this account type, it will be either Trading Income or Other Income for Revenue"
-              + " section / Direct Cost or Operating Expenses for Expense section")
-  /**
-   * Name of this account type, it will be either Trading Income or Other Income for Revenue section
-   * / Direct Cost or Operating Expenses for Expense section
-   *
+  **/
+  @ApiModelProperty(value = "Name of this account type, it will be either Trading Income or Other Income for Revenue section / Direct Cost or Operating Expenses for Expense section")
+  /** 
+   * Name of this account type, it will be either Trading Income or Other Income for Revenue section / Direct Cost or Operating Expenses for Expense section
    * @return title String
-   */
+  **/
   public String getTitle() {
     return title;
   }
 
-  /**
-   * Name of this account type, it will be either Trading Income or Other Income for Revenue section
-   * / Direct Cost or Operating Expenses for Expense section
-   *
-   * @param title String
-   */
+  /** 
+  * Name of this account type, it will be either Trading Income or Other Income for Revenue section / Direct Cost or Operating Expenses for Expense section
+  * @param title  String
+  **/
+
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
-   * A list of the movement on each account detail during the query period. Refer to the account
-   * detail element below
-   *
-   * @param accounts List&lt;PnlAccount&gt;
-   * @return PnlAccountType
-   */
+  * A list of the movement on each account detail during the query period. Refer to the account detail element below
+  * @param accounts  List&lt;PnlAccount&gt;
+  * @return PnlAccountType
+  **/
   public PnlAccountType accounts(List<PnlAccount> accounts) {
     this.accounts = accounts;
     return this;
   }
 
   /**
-   * A list of the movement on each account detail during the query period. Refer to the account
-   * detail element below
-   *
-   * @param accountsItem PnlAccount
+   * A list of the movement on each account detail during the query period. Refer to the account detail element below
+   * @param accountsItem PnlAccount 
    * @return PnlAccountType
-   */
+  **/
   public PnlAccountType addAccountsItem(PnlAccount accountsItem) {
     if (this.accounts == null) {
       this.accounts = new ArrayList<PnlAccount>();
@@ -134,35 +135,28 @@ public class PnlAccountType {
     return this;
   }
 
-  /**
-   * A list of the movement on each account detail during the query period. Refer to the account
-   * detail element below
-   *
+   /**
+   * A list of the movement on each account detail during the query period. Refer to the account detail element below
    * @return accounts
-   */
-  @ApiModelProperty(
-      value =
-          "A list of the movement on each account detail during the query period. Refer to the"
-              + " account detail element below")
-  /**
-   * A list of the movement on each account detail during the query period. Refer to the account
-   * detail element below
-   *
+  **/
+  @ApiModelProperty(value = "A list of the movement on each account detail during the query period. Refer to the account detail element below")
+  /** 
+   * A list of the movement on each account detail during the query period. Refer to the account detail element below
    * @return accounts List<PnlAccount>
-   */
+  **/
   public List<PnlAccount> getAccounts() {
     return accounts;
   }
 
-  /**
-   * A list of the movement on each account detail during the query period. Refer to the account
-   * detail element below
-   *
-   * @param accounts List&lt;PnlAccount&gt;
-   */
+  /** 
+  * A list of the movement on each account detail during the query period. Refer to the account detail element below
+  * @param accounts List&lt;PnlAccount&gt; 
+  **/
+
   public void setAccounts(List<PnlAccount> accounts) {
     this.accounts = accounts;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -173,15 +167,16 @@ public class PnlAccountType {
       return false;
     }
     PnlAccountType pnlAccountType = (PnlAccountType) o;
-    return Objects.equals(this.total, pnlAccountType.total)
-        && Objects.equals(this.title, pnlAccountType.title)
-        && Objects.equals(this.accounts, pnlAccountType.accounts);
+    return Objects.equals(this.total, pnlAccountType.total) &&
+        Objects.equals(this.title, pnlAccountType.title) &&
+        Objects.equals(this.accounts, pnlAccountType.accounts);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(total, title, accounts);
   }
+
 
   @Override
   public String toString() {
@@ -195,7 +190,8 @@ public class PnlAccountType {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -203,4 +199,6 @@ public class PnlAccountType {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

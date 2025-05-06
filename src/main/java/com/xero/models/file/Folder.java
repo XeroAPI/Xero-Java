@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.file;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Folder */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Folder
+ */
+
 public class Folder {
   StringUtil util = new StringUtil();
 
@@ -36,187 +53,165 @@ public class Folder {
   @JsonProperty("Id")
   private UUID id;
   /**
-   * The name of the folder
-   *
-   * @param name String
-   * @return Folder
-   */
+  * The name of the folder
+  * @param name  String
+  * @return Folder
+  **/
   public Folder name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * The name of the folder
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(example = "assets", value = "The name of the folder")
-  /**
+  /** 
    * The name of the folder
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * The name of the folder
-   *
-   * @param name String
-   */
+  /** 
+  * The name of the folder
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * The number of files in the folder
-   *
-   * @param fileCount Integer
-   * @return Folder
-   */
+  * The number of files in the folder
+  * @param fileCount  Integer
+  * @return Folder
+  **/
   public Folder fileCount(Integer fileCount) {
     this.fileCount = fileCount;
     return this;
   }
 
-  /**
+   /**
    * The number of files in the folder
-   *
    * @return fileCount
-   */
+  **/
   @ApiModelProperty(example = "5", value = "The number of files in the folder")
-  /**
+  /** 
    * The number of files in the folder
-   *
    * @return fileCount Integer
-   */
+  **/
   public Integer getFileCount() {
     return fileCount;
   }
 
-  /**
-   * The number of files in the folder
-   *
-   * @param fileCount Integer
-   */
+  /** 
+  * The number of files in the folder
+  * @param fileCount  Integer
+  **/
+
   public void setFileCount(Integer fileCount) {
     this.fileCount = fileCount;
   }
 
   /**
-   * The email address used to email files to the inbox. Only the inbox will have this element.
-   *
-   * @param email String
-   * @return Folder
-   */
+  * The email address used to email files to the inbox. Only the inbox will have this element.
+  * @param email  String
+  * @return Folder
+  **/
   public Folder email(String email) {
     this.email = email;
     return this;
   }
 
-  /**
+   /**
    * The email address used to email files to the inbox. Only the inbox will have this element.
-   *
    * @return email
-   */
-  @ApiModelProperty(
-      example = "foo@bar.com",
-      value =
-          "The email address used to email files to the inbox. Only the inbox will have this"
-              + " element.")
-  /**
+  **/
+  @ApiModelProperty(example = "foo@bar.com", value = "The email address used to email files to the inbox. Only the inbox will have this element.")
+  /** 
    * The email address used to email files to the inbox. Only the inbox will have this element.
-   *
    * @return email String
-   */
+  **/
   public String getEmail() {
     return email;
   }
 
-  /**
-   * The email address used to email files to the inbox. Only the inbox will have this element.
-   *
-   * @param email String
-   */
+  /** 
+  * The email address used to email files to the inbox. Only the inbox will have this element.
+  * @param email  String
+  **/
+
   public void setEmail(String email) {
     this.email = email;
   }
 
   /**
-   * to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.
-   *
-   * @param isInbox Boolean
-   * @return Folder
-   */
+  * to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.
+  * @param isInbox  Boolean
+  * @return Folder
+  **/
   public Folder isInbox(Boolean isInbox) {
     this.isInbox = isInbox;
     return this;
   }
 
-  /**
+   /**
    * to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.
-   *
    * @return isInbox
-   */
-  @ApiModelProperty(
-      example = "true",
-      value = "to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.")
-  /**
+  **/
+  @ApiModelProperty(example = "true", value = "to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.")
+  /** 
    * to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.
-   *
    * @return isInbox Boolean
-   */
+  **/
   public Boolean getIsInbox() {
     return isInbox;
   }
 
-  /**
-   * to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.
-   *
-   * @param isInbox Boolean
-   */
+  /** 
+  * to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.
+  * @param isInbox  Boolean
+  **/
+
   public void setIsInbox(Boolean isInbox) {
     this.isInbox = isInbox;
   }
 
   /**
-   * Xero unique identifier for a folder Files
-   *
-   * @param id UUID
-   * @return Folder
-   */
+  * Xero unique identifier for a folder  Files
+  * @param id  UUID
+  * @return Folder
+  **/
   public Folder id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
-   * Xero unique identifier for a folder Files
-   *
+   /**
+   * Xero unique identifier for a folder  Files
    * @return id
-   */
-  @ApiModelProperty(
-      example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c",
-      value = "Xero unique identifier for a folder  Files")
-  /**
-   * Xero unique identifier for a folder Files
-   *
+  **/
+  @ApiModelProperty(example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c", value = "Xero unique identifier for a folder  Files")
+  /** 
+   * Xero unique identifier for a folder  Files
    * @return id UUID
-   */
+  **/
   public UUID getId() {
     return id;
   }
 
-  /**
-   * Xero unique identifier for a folder Files
-   *
-   * @param id UUID
-   */
+  /** 
+  * Xero unique identifier for a folder  Files
+  * @param id  UUID
+  **/
+
   public void setId(UUID id) {
     this.id = id;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -227,17 +222,18 @@ public class Folder {
       return false;
     }
     Folder folder = (Folder) o;
-    return Objects.equals(this.name, folder.name)
-        && Objects.equals(this.fileCount, folder.fileCount)
-        && Objects.equals(this.email, folder.email)
-        && Objects.equals(this.isInbox, folder.isInbox)
-        && Objects.equals(this.id, folder.id);
+    return Objects.equals(this.name, folder.name) &&
+        Objects.equals(this.fileCount, folder.fileCount) &&
+        Objects.equals(this.email, folder.email) &&
+        Objects.equals(this.isInbox, folder.isInbox) &&
+        Objects.equals(this.id, folder.id);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, fileCount, email, isInbox, id);
   }
+
 
   @Override
   public String toString() {
@@ -253,7 +249,8 @@ public class Folder {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -261,4 +258,6 @@ public class Folder {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

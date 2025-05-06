@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrolluk;
 
+package com.xero.models.payrolluk;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.EmployeeLeaveBalance;
+import com.xero.models.payrolluk.Pagination;
+import com.xero.models.payrolluk.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** EmployeeLeaveBalances */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeLeaveBalances
+ */
+
 public class EmployeeLeaveBalances {
   StringUtil util = new StringUtil();
 
@@ -31,81 +51,74 @@ public class EmployeeLeaveBalances {
   @JsonProperty("leaveBalances")
   private List<EmployeeLeaveBalance> leaveBalances = new ArrayList<EmployeeLeaveBalance>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return EmployeeLeaveBalances
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return EmployeeLeaveBalances
+  **/
   public EmployeeLeaveBalances pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return EmployeeLeaveBalances
-   */
+  * problem
+  * @param problem  Problem
+  * @return EmployeeLeaveBalances
+  **/
   public EmployeeLeaveBalances problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * leaveBalances
-   *
-   * @param leaveBalances List&lt;EmployeeLeaveBalance&gt;
-   * @return EmployeeLeaveBalances
-   */
+  * leaveBalances
+  * @param leaveBalances  List&lt;EmployeeLeaveBalance&gt;
+  * @return EmployeeLeaveBalances
+  **/
   public EmployeeLeaveBalances leaveBalances(List<EmployeeLeaveBalance> leaveBalances) {
     this.leaveBalances = leaveBalances;
     return this;
@@ -113,10 +126,9 @@ public class EmployeeLeaveBalances {
 
   /**
    * leaveBalances
-   *
-   * @param leaveBalancesItem EmployeeLeaveBalance
+   * @param leaveBalancesItem EmployeeLeaveBalance 
    * @return EmployeeLeaveBalances
-   */
+  **/
   public EmployeeLeaveBalances addLeaveBalancesItem(EmployeeLeaveBalance leaveBalancesItem) {
     if (this.leaveBalances == null) {
       this.leaveBalances = new ArrayList<EmployeeLeaveBalance>();
@@ -125,29 +137,28 @@ public class EmployeeLeaveBalances {
     return this;
   }
 
-  /**
+   /**
    * Get leaveBalances
-   *
    * @return leaveBalances
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * leaveBalances
-   *
    * @return leaveBalances List<EmployeeLeaveBalance>
-   */
+  **/
   public List<EmployeeLeaveBalance> getLeaveBalances() {
     return leaveBalances;
   }
 
-  /**
-   * leaveBalances
-   *
-   * @param leaveBalances List&lt;EmployeeLeaveBalance&gt;
-   */
+  /** 
+  * leaveBalances
+  * @param leaveBalances List&lt;EmployeeLeaveBalance&gt; 
+  **/
+
   public void setLeaveBalances(List<EmployeeLeaveBalance> leaveBalances) {
     this.leaveBalances = leaveBalances;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,15 +169,16 @@ public class EmployeeLeaveBalances {
       return false;
     }
     EmployeeLeaveBalances employeeLeaveBalances = (EmployeeLeaveBalances) o;
-    return Objects.equals(this.pagination, employeeLeaveBalances.pagination)
-        && Objects.equals(this.problem, employeeLeaveBalances.problem)
-        && Objects.equals(this.leaveBalances, employeeLeaveBalances.leaveBalances);
+    return Objects.equals(this.pagination, employeeLeaveBalances.pagination) &&
+        Objects.equals(this.problem, employeeLeaveBalances.problem) &&
+        Objects.equals(this.leaveBalances, employeeLeaveBalances.leaveBalances);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, leaveBalances);
   }
+
 
   @Override
   public String toString() {
@@ -180,7 +192,8 @@ public class EmployeeLeaveBalances {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,4 +201,6 @@ public class EmployeeLeaveBalances {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

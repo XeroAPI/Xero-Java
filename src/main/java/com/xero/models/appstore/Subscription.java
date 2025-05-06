@@ -9,20 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.appstore;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.appstore;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.appstore.Plan;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** Subscription */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Subscription
+ */
+
 public class Subscription {
   StringUtil util = new StringUtil();
 
@@ -43,15 +59,23 @@ public class Subscription {
 
   @JsonProperty("startDate")
   private LocalDateTime startDate;
-  /** Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE. */
+  /**
+   * Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.
+   */
   public enum StatusEnum {
-    /** ACTIVE */
+    /**
+     * ACTIVE
+     */
     ACTIVE("ACTIVE"),
-
-    /** CANCELED */
+    
+    /**
+     * CANCELED
+     */
     CANCELED("CANCELED"),
-
-    /** PAST_DUE */
+    
+    /**
+     * PAST_DUE
+     */
     PAST_DUE("PAST_DUE");
 
     private String value;
@@ -60,31 +84,25 @@ public class Subscription {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -96,168 +114,145 @@ public class Subscription {
     }
   }
 
+
   @JsonProperty("status")
   private StatusEnum status;
 
   @JsonProperty("testMode")
   private Boolean testMode;
   /**
-   * End of the current period that the subscription has been invoiced for.
-   *
-   * @param currentPeriodEnd LocalDateTime
-   * @return Subscription
-   */
+  * End of the current period that the subscription has been invoiced for. 
+  * @param currentPeriodEnd LocalDateTime
+  * @return Subscription
+  **/
   public Subscription currentPeriodEnd(LocalDateTime currentPeriodEnd) {
     this.currentPeriodEnd = currentPeriodEnd;
     return this;
   }
 
-  /**
-   * End of the current period that the subscription has been invoiced for.
-   *
+   /**
+   * End of the current period that the subscription has been invoiced for. 
    * @return currentPeriodEnd
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "End of the current period that the subscription has been invoiced for. ")
-  /**
-   * End of the current period that the subscription has been invoiced for.
-   *
+  **/
+  @ApiModelProperty(required = true, value = "End of the current period that the subscription has been invoiced for. ")
+  /** 
+   * End of the current period that the subscription has been invoiced for. 
    * @return currentPeriodEnd LocalDateTime
-   */
+  **/
   public LocalDateTime getCurrentPeriodEnd() {
     return currentPeriodEnd;
   }
 
-  /**
-   * End of the current period that the subscription has been invoiced for.
-   *
-   * @param currentPeriodEnd LocalDateTime
-   */
+  /** 
+  * End of the current period that the subscription has been invoiced for. 
+  * @param currentPeriodEnd LocalDateTime
+  **/
+
   public void setCurrentPeriodEnd(LocalDateTime currentPeriodEnd) {
     this.currentPeriodEnd = currentPeriodEnd;
   }
 
   /**
-   * If the subscription has been canceled, this is the date when the subscription ends. If null,
-   * the subscription is active and has not been cancelled
-   *
-   * @param endDate LocalDateTime
-   * @return Subscription
-   */
+  * If the subscription has been canceled, this is the date when the subscription ends. If null, the subscription is active and has not been cancelled
+  * @param endDate LocalDateTime
+  * @return Subscription
+  **/
   public Subscription endDate(LocalDateTime endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
-   * If the subscription has been canceled, this is the date when the subscription ends. If null,
-   * the subscription is active and has not been cancelled
-   *
+   /**
+   * If the subscription has been canceled, this is the date when the subscription ends. If null, the subscription is active and has not been cancelled
    * @return endDate
-   */
-  @ApiModelProperty(
-      value =
-          "If the subscription has been canceled, this is the date when the subscription ends. If"
-              + " null, the subscription is active and has not been cancelled")
-  /**
-   * If the subscription has been canceled, this is the date when the subscription ends. If null,
-   * the subscription is active and has not been cancelled
-   *
+  **/
+  @ApiModelProperty(value = "If the subscription has been canceled, this is the date when the subscription ends. If null, the subscription is active and has not been cancelled")
+  /** 
+   * If the subscription has been canceled, this is the date when the subscription ends. If null, the subscription is active and has not been cancelled
    * @return endDate LocalDateTime
-   */
+  **/
   public LocalDateTime getEndDate() {
     return endDate;
   }
 
-  /**
-   * If the subscription has been canceled, this is the date when the subscription ends. If null,
-   * the subscription is active and has not been cancelled
-   *
-   * @param endDate LocalDateTime
-   */
+  /** 
+  * If the subscription has been canceled, this is the date when the subscription ends. If null, the subscription is active and has not been cancelled
+  * @param endDate LocalDateTime
+  **/
+
   public void setEndDate(LocalDateTime endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * The unique identifier of the subscription
-   *
-   * @param id UUID
-   * @return Subscription
-   */
+  * The unique identifier of the subscription
+  * @param id  UUID
+  * @return Subscription
+  **/
   public Subscription id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier of the subscription
-   *
    * @return id
-   */
+  **/
   @ApiModelProperty(required = true, value = "The unique identifier of the subscription")
-  /**
+  /** 
    * The unique identifier of the subscription
-   *
    * @return id UUID
-   */
+  **/
   public UUID getId() {
     return id;
   }
 
-  /**
-   * The unique identifier of the subscription
-   *
-   * @param id UUID
-   */
+  /** 
+  * The unique identifier of the subscription
+  * @param id  UUID
+  **/
+
   public void setId(UUID id) {
     this.id = id;
   }
 
   /**
-   * The Xero generated unique identifier for the organisation
-   *
-   * @param organisationId UUID
-   * @return Subscription
-   */
+  * The Xero generated unique identifier for the organisation
+  * @param organisationId  UUID
+  * @return Subscription
+  **/
   public Subscription organisationId(UUID organisationId) {
     this.organisationId = organisationId;
     return this;
   }
 
-  /**
+   /**
    * The Xero generated unique identifier for the organisation
-   *
    * @return organisationId
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The Xero generated unique identifier for the organisation")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The Xero generated unique identifier for the organisation")
+  /** 
    * The Xero generated unique identifier for the organisation
-   *
    * @return organisationId UUID
-   */
+  **/
   public UUID getOrganisationId() {
     return organisationId;
   }
 
-  /**
-   * The Xero generated unique identifier for the organisation
-   *
-   * @param organisationId UUID
-   */
+  /** 
+  * The Xero generated unique identifier for the organisation
+  * @param organisationId  UUID
+  **/
+
   public void setOrganisationId(UUID organisationId) {
     this.organisationId = organisationId;
   }
 
   /**
-   * List of plans for the subscription.
-   *
-   * @param plans List&lt;Plan&gt;
-   * @return Subscription
-   */
+  * List of plans for the subscription.
+  * @param plans  List&lt;Plan&gt;
+  * @return Subscription
+  **/
   public Subscription plans(List<Plan> plans) {
     this.plans = plans;
     return this;
@@ -265,145 +260,132 @@ public class Subscription {
 
   /**
    * List of plans for the subscription.
-   *
-   * @param plansItem Plan
+   * @param plansItem Plan 
    * @return Subscription
-   */
+  **/
   public Subscription addPlansItem(Plan plansItem) {
     this.plans.add(plansItem);
     return this;
   }
 
-  /**
+   /**
    * List of plans for the subscription.
-   *
    * @return plans
-   */
+  **/
   @ApiModelProperty(required = true, value = "List of plans for the subscription.")
-  /**
+  /** 
    * List of plans for the subscription.
-   *
    * @return plans List<Plan>
-   */
+  **/
   public List<Plan> getPlans() {
     return plans;
   }
 
-  /**
-   * List of plans for the subscription.
-   *
-   * @param plans List&lt;Plan&gt;
-   */
+  /** 
+  * List of plans for the subscription.
+  * @param plans List&lt;Plan&gt; 
+  **/
+
   public void setPlans(List<Plan> plans) {
     this.plans = plans;
   }
 
   /**
-   * Date when the subscription was first created.
-   *
-   * @param startDate LocalDateTime
-   * @return Subscription
-   */
+  * Date when the subscription was first created.
+  * @param startDate LocalDateTime
+  * @return Subscription
+  **/
   public Subscription startDate(LocalDateTime startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * Date when the subscription was first created.
-   *
    * @return startDate
-   */
+  **/
   @ApiModelProperty(required = true, value = "Date when the subscription was first created.")
-  /**
+  /** 
    * Date when the subscription was first created.
-   *
    * @return startDate LocalDateTime
-   */
+  **/
   public LocalDateTime getStartDate() {
     return startDate;
   }
 
-  /**
-   * Date when the subscription was first created.
-   *
-   * @param startDate LocalDateTime
-   */
+  /** 
+  * Date when the subscription was first created.
+  * @param startDate LocalDateTime
+  **/
+
   public void setStartDate(LocalDateTime startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.
-   *
-   * @param status StatusEnum
-   * @return Subscription
-   */
+  * Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.
+  * @param status  StatusEnum
+  * @return Subscription
+  **/
   public Subscription status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.
-   *
    * @return status
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.")
+  /** 
    * Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.
-   *
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
   /**
-   * Boolean used to indicate if the subscription is in test mode
-   *
-   * @param testMode Boolean
-   * @return Subscription
-   */
+  * Boolean used to indicate if the subscription is in test mode
+  * @param testMode  Boolean
+  * @return Subscription
+  **/
   public Subscription testMode(Boolean testMode) {
     this.testMode = testMode;
     return this;
   }
 
-  /**
+   /**
    * Boolean used to indicate if the subscription is in test mode
-   *
    * @return testMode
-   */
+  **/
   @ApiModelProperty(value = "Boolean used to indicate if the subscription is in test mode")
-  /**
+  /** 
    * Boolean used to indicate if the subscription is in test mode
-   *
    * @return testMode Boolean
-   */
+  **/
   public Boolean getTestMode() {
     return testMode;
   }
 
-  /**
-   * Boolean used to indicate if the subscription is in test mode
-   *
-   * @param testMode Boolean
-   */
+  /** 
+  * Boolean used to indicate if the subscription is in test mode
+  * @param testMode  Boolean
+  **/
+
   public void setTestMode(Boolean testMode) {
     this.testMode = testMode;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -414,21 +396,21 @@ public class Subscription {
       return false;
     }
     Subscription subscription = (Subscription) o;
-    return Objects.equals(this.currentPeriodEnd, subscription.currentPeriodEnd)
-        && Objects.equals(this.endDate, subscription.endDate)
-        && Objects.equals(this.id, subscription.id)
-        && Objects.equals(this.organisationId, subscription.organisationId)
-        && Objects.equals(this.plans, subscription.plans)
-        && Objects.equals(this.startDate, subscription.startDate)
-        && Objects.equals(this.status, subscription.status)
-        && Objects.equals(this.testMode, subscription.testMode);
+    return Objects.equals(this.currentPeriodEnd, subscription.currentPeriodEnd) &&
+        Objects.equals(this.endDate, subscription.endDate) &&
+        Objects.equals(this.id, subscription.id) &&
+        Objects.equals(this.organisationId, subscription.organisationId) &&
+        Objects.equals(this.plans, subscription.plans) &&
+        Objects.equals(this.startDate, subscription.startDate) &&
+        Objects.equals(this.status, subscription.status) &&
+        Objects.equals(this.testMode, subscription.testMode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        currentPeriodEnd, endDate, id, organisationId, plans, startDate, status, testMode);
+    return Objects.hash(currentPeriodEnd, endDate, id, organisationId, plans, startDate, status, testMode);
   }
+
 
   @Override
   public String toString() {
@@ -447,7 +429,8 @@ public class Subscription {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -455,4 +438,6 @@ public class Subscription {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.Pagination;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Contacts */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Contacts
+ */
+
 public class Contacts {
   StringUtil util = new StringUtil();
 
@@ -31,46 +51,42 @@ public class Contacts {
   @JsonProperty("Contacts")
   private List<Contact> contacts = new ArrayList<Contact>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return Contacts
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return Contacts
+  **/
   public Contacts pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   * @return Contacts
-   */
+  * Displays array of warning messages from the API
+  * @param warnings  List&lt;ValidationError&gt;
+  * @return Contacts
+  **/
   public Contacts warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
@@ -78,10 +94,9 @@ public class Contacts {
 
   /**
    * Displays array of warning messages from the API
-   *
-   * @param warningsItem ValidationError
+   * @param warningsItem ValidationError 
    * @return Contacts
-   */
+  **/
   public Contacts addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -90,36 +105,33 @@ public class Contacts {
     return this;
   }
 
-  /**
+   /**
    * Displays array of warning messages from the API
-   *
    * @return warnings
-   */
+  **/
   @ApiModelProperty(value = "Displays array of warning messages from the API")
-  /**
+  /** 
    * Displays array of warning messages from the API
-   *
    * @return warnings List<ValidationError>
-   */
+  **/
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
-  /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of warning messages from the API
+  * @param warnings List&lt;ValidationError&gt; 
+  **/
+
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
   /**
-   * contacts
-   *
-   * @param contacts List&lt;Contact&gt;
-   * @return Contacts
-   */
+  * contacts
+  * @param contacts  List&lt;Contact&gt;
+  * @return Contacts
+  **/
   public Contacts contacts(List<Contact> contacts) {
     this.contacts = contacts;
     return this;
@@ -127,10 +139,9 @@ public class Contacts {
 
   /**
    * contacts
-   *
-   * @param contactsItem Contact
+   * @param contactsItem Contact 
    * @return Contacts
-   */
+  **/
   public Contacts addContactsItem(Contact contactsItem) {
     if (this.contacts == null) {
       this.contacts = new ArrayList<Contact>();
@@ -139,29 +150,28 @@ public class Contacts {
     return this;
   }
 
-  /**
+   /**
    * Get contacts
-   *
    * @return contacts
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * contacts
-   *
    * @return contacts List<Contact>
-   */
+  **/
   public List<Contact> getContacts() {
     return contacts;
   }
 
-  /**
-   * contacts
-   *
-   * @param contacts List&lt;Contact&gt;
-   */
+  /** 
+  * contacts
+  * @param contacts List&lt;Contact&gt; 
+  **/
+
   public void setContacts(List<Contact> contacts) {
     this.contacts = contacts;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -172,15 +182,16 @@ public class Contacts {
       return false;
     }
     Contacts contacts = (Contacts) o;
-    return Objects.equals(this.pagination, contacts.pagination)
-        && Objects.equals(this.warnings, contacts.warnings)
-        && Objects.equals(this.contacts, contacts.contacts);
+    return Objects.equals(this.pagination, contacts.pagination) &&
+        Objects.equals(this.warnings, contacts.warnings) &&
+        Objects.equals(this.contacts, contacts.contacts);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, warnings, contacts);
   }
+
 
   @Override
   public String toString() {
@@ -194,7 +205,8 @@ public class Contacts {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -202,4 +214,6 @@ public class Contacts {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.finance;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** LockHistoryModel */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LockHistoryModel
+ */
+
 public class LockHistoryModel {
   StringUtil util = new StringUtil();
 
@@ -31,109 +48,101 @@ public class LockHistoryModel {
   @JsonProperty("updatedDateUtc")
   private OffsetDateTime updatedDateUtc;
   /**
-   * Date the account hard lock was set
-   *
-   * @param hardLockDate LocalDate
-   * @return LockHistoryModel
-   */
+  * Date the account hard lock was set
+  * @param hardLockDate  LocalDate
+  * @return LockHistoryModel
+  **/
   public LockHistoryModel hardLockDate(LocalDate hardLockDate) {
     this.hardLockDate = hardLockDate;
     return this;
   }
 
-  /**
+   /**
    * Date the account hard lock was set
-   *
    * @return hardLockDate
-   */
+  **/
   @ApiModelProperty(value = "Date the account hard lock was set")
-  /**
+  /** 
    * Date the account hard lock was set
-   *
    * @return hardLockDate LocalDate
-   */
+  **/
   public LocalDate getHardLockDate() {
     return hardLockDate;
   }
 
-  /**
-   * Date the account hard lock was set
-   *
-   * @param hardLockDate LocalDate
-   */
+  /** 
+  * Date the account hard lock was set
+  * @param hardLockDate  LocalDate
+  **/
+
   public void setHardLockDate(LocalDate hardLockDate) {
     this.hardLockDate = hardLockDate;
   }
 
   /**
-   * Date the account soft lock was set
-   *
-   * @param softLockDate LocalDate
-   * @return LockHistoryModel
-   */
+  * Date the account soft lock was set
+  * @param softLockDate  LocalDate
+  * @return LockHistoryModel
+  **/
   public LockHistoryModel softLockDate(LocalDate softLockDate) {
     this.softLockDate = softLockDate;
     return this;
   }
 
-  /**
+   /**
    * Date the account soft lock was set
-   *
    * @return softLockDate
-   */
+  **/
   @ApiModelProperty(value = "Date the account soft lock was set")
-  /**
+  /** 
    * Date the account soft lock was set
-   *
    * @return softLockDate LocalDate
-   */
+  **/
   public LocalDate getSoftLockDate() {
     return softLockDate;
   }
 
-  /**
-   * Date the account soft lock was set
-   *
-   * @param softLockDate LocalDate
-   */
+  /** 
+  * Date the account soft lock was set
+  * @param softLockDate  LocalDate
+  **/
+
   public void setSoftLockDate(LocalDate softLockDate) {
     this.softLockDate = softLockDate;
   }
 
   /**
-   * The system date time that the lock was updated
-   *
-   * @param updatedDateUtc OffsetDateTime
-   * @return LockHistoryModel
-   */
+  * The system date time that the lock was updated
+  * @param updatedDateUtc  OffsetDateTime
+  * @return LockHistoryModel
+  **/
   public LockHistoryModel updatedDateUtc(OffsetDateTime updatedDateUtc) {
     this.updatedDateUtc = updatedDateUtc;
     return this;
   }
 
-  /**
+   /**
    * The system date time that the lock was updated
-   *
    * @return updatedDateUtc
-   */
+  **/
   @ApiModelProperty(value = "The system date time that the lock was updated")
-  /**
+  /** 
    * The system date time that the lock was updated
-   *
    * @return updatedDateUtc OffsetDateTime
-   */
+  **/
   public OffsetDateTime getUpdatedDateUtc() {
     return updatedDateUtc;
   }
 
-  /**
-   * The system date time that the lock was updated
-   *
-   * @param updatedDateUtc OffsetDateTime
-   */
+  /** 
+  * The system date time that the lock was updated
+  * @param updatedDateUtc  OffsetDateTime
+  **/
+
   public void setUpdatedDateUtc(OffsetDateTime updatedDateUtc) {
     this.updatedDateUtc = updatedDateUtc;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -144,15 +153,16 @@ public class LockHistoryModel {
       return false;
     }
     LockHistoryModel lockHistoryModel = (LockHistoryModel) o;
-    return Objects.equals(this.hardLockDate, lockHistoryModel.hardLockDate)
-        && Objects.equals(this.softLockDate, lockHistoryModel.softLockDate)
-        && Objects.equals(this.updatedDateUtc, lockHistoryModel.updatedDateUtc);
+    return Objects.equals(this.hardLockDate, lockHistoryModel.hardLockDate) &&
+        Objects.equals(this.softLockDate, lockHistoryModel.softLockDate) &&
+        Objects.equals(this.updatedDateUtc, lockHistoryModel.updatedDateUtc);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(hardLockDate, softLockDate, updatedDateUtc);
   }
+
 
   @Override
   public String toString() {
@@ -166,7 +176,8 @@ public class LockHistoryModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -174,4 +185,6 @@ public class LockHistoryModel {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

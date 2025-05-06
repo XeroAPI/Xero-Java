@@ -9,15 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.file;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.file.ObjectGroup;
+import com.xero.models.file.ObjectType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Association */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Association
+ */
+
 public class Association {
   StringUtil util = new StringUtil();
 
@@ -42,285 +61,229 @@ public class Association {
   @JsonProperty("ObjectType")
   private ObjectType objectType;
   /**
-   * Boolean flag to determines whether the file is sent with the document it is attached to on
-   * client facing communications. Note- The SendWithObject element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
-   * @param sendWithObject Boolean
-   * @return Association
-   */
+  * Boolean flag to determines whether the file is sent with the document it is attached to on client facing communications. Note- The SendWithObject element is only returned when using /Associations/{ObjectId} endpoint.
+  * @param sendWithObject  Boolean
+  * @return Association
+  **/
   public Association sendWithObject(Boolean sendWithObject) {
     this.sendWithObject = sendWithObject;
     return this;
   }
 
-  /**
-   * Boolean flag to determines whether the file is sent with the document it is attached to on
-   * client facing communications. Note- The SendWithObject element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
+   /**
+   * Boolean flag to determines whether the file is sent with the document it is attached to on client facing communications. Note- The SendWithObject element is only returned when using /Associations/{ObjectId} endpoint.
    * @return sendWithObject
-   */
-  @ApiModelProperty(
-      example = "true",
-      value =
-          "Boolean flag to determines whether the file is sent with the document it is attached to"
-              + " on client facing communications. Note- The SendWithObject element is only"
-              + " returned when using /Associations/{ObjectId} endpoint.")
-  /**
-   * Boolean flag to determines whether the file is sent with the document it is attached to on
-   * client facing communications. Note- The SendWithObject element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
+  **/
+  @ApiModelProperty(example = "true", value = "Boolean flag to determines whether the file is sent with the document it is attached to on client facing communications. Note- The SendWithObject element is only returned when using /Associations/{ObjectId} endpoint.")
+  /** 
+   * Boolean flag to determines whether the file is sent with the document it is attached to on client facing communications. Note- The SendWithObject element is only returned when using /Associations/{ObjectId} endpoint.
    * @return sendWithObject Boolean
-   */
+  **/
   public Boolean getSendWithObject() {
     return sendWithObject;
   }
 
-  /**
-   * Boolean flag to determines whether the file is sent with the document it is attached to on
-   * client facing communications. Note- The SendWithObject element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
-   * @param sendWithObject Boolean
-   */
+  /** 
+  * Boolean flag to determines whether the file is sent with the document it is attached to on client facing communications. Note- The SendWithObject element is only returned when using /Associations/{ObjectId} endpoint.
+  * @param sendWithObject  Boolean
+  **/
+
   public void setSendWithObject(Boolean sendWithObject) {
     this.sendWithObject = sendWithObject;
   }
 
   /**
-   * The name of the associated file. Note- The Name element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
-   * @param name String
-   * @return Association
-   */
+  * The name of the associated file. Note- The Name element is only returned when using /Associations/{ObjectId} endpoint.
+  * @param name  String
+  * @return Association
+  **/
   public Association name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
-   * The name of the associated file. Note- The Name element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
+   /**
+   * The name of the associated file. Note- The Name element is only returned when using /Associations/{ObjectId} endpoint.
    * @return name
-   */
-  @ApiModelProperty(
-      example = "Test.pdf",
-      value =
-          "The name of the associated file. Note- The Name element is only returned when using"
-              + " /Associations/{ObjectId} endpoint.")
-  /**
-   * The name of the associated file. Note- The Name element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
+  **/
+  @ApiModelProperty(example = "Test.pdf", value = "The name of the associated file. Note- The Name element is only returned when using /Associations/{ObjectId} endpoint.")
+  /** 
+   * The name of the associated file. Note- The Name element is only returned when using /Associations/{ObjectId} endpoint.
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * The name of the associated file. Note- The Name element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
-   * @param name String
-   */
+  /** 
+  * The name of the associated file. Note- The Name element is only returned when using /Associations/{ObjectId} endpoint.
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * The size of the associated file in bytes. Note- The Size element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
-   * @param size Integer
-   * @return Association
-   */
+  * The size of the associated file in bytes. Note- The Size element is only returned when using /Associations/{ObjectId} endpoint.
+  * @param size  Integer
+  * @return Association
+  **/
   public Association size(Integer size) {
     this.size = size;
     return this;
   }
 
-  /**
-   * The size of the associated file in bytes. Note- The Size element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
+   /**
+   * The size of the associated file in bytes. Note- The Size element is only returned when using /Associations/{ObjectId} endpoint.
    * @return size
-   */
-  @ApiModelProperty(
-      example = "12357",
-      value =
-          "The size of the associated file in bytes. Note- The Size element is only returned when"
-              + " using /Associations/{ObjectId} endpoint.")
-  /**
-   * The size of the associated file in bytes. Note- The Size element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
+  **/
+  @ApiModelProperty(example = "12357", value = "The size of the associated file in bytes. Note- The Size element is only returned when using /Associations/{ObjectId} endpoint.")
+  /** 
+   * The size of the associated file in bytes. Note- The Size element is only returned when using /Associations/{ObjectId} endpoint.
    * @return size Integer
-   */
+  **/
   public Integer getSize() {
     return size;
   }
 
-  /**
-   * The size of the associated file in bytes. Note- The Size element is only returned when using
-   * /Associations/{ObjectId} endpoint.
-   *
-   * @param size Integer
-   */
+  /** 
+  * The size of the associated file in bytes. Note- The Size element is only returned when using /Associations/{ObjectId} endpoint.
+  * @param size  Integer
+  **/
+
   public void setSize(Integer size) {
     this.size = size;
   }
 
   /**
-   * The unique identifier of the file
-   *
-   * @param fileId UUID
-   * @return Association
-   */
+  * The unique identifier of the file
+  * @param fileId  UUID
+  * @return Association
+  **/
   public Association fileId(UUID fileId) {
     this.fileId = fileId;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier of the file
-   *
    * @return fileId
-   */
+  **/
   @ApiModelProperty(value = "The unique identifier of the file")
-  /**
+  /** 
    * The unique identifier of the file
-   *
    * @return fileId UUID
-   */
+  **/
   public UUID getFileId() {
     return fileId;
   }
 
-  /**
-   * The unique identifier of the file
-   *
-   * @param fileId UUID
-   */
+  /** 
+  * The unique identifier of the file
+  * @param fileId  UUID
+  **/
+
   public void setFileId(UUID fileId) {
     this.fileId = fileId;
   }
 
   /**
-   * The identifier of the object that the file is being associated with (e.g. InvoiceID,
-   * BankTransactionID, ContactID)
-   *
-   * @param objectId UUID
-   * @return Association
-   */
+  * The identifier of the object that the file is being associated with (e.g. InvoiceID, BankTransactionID, ContactID)
+  * @param objectId  UUID
+  * @return Association
+  **/
   public Association objectId(UUID objectId) {
     this.objectId = objectId;
     return this;
   }
 
-  /**
-   * The identifier of the object that the file is being associated with (e.g. InvoiceID,
-   * BankTransactionID, ContactID)
-   *
+   /**
+   * The identifier of the object that the file is being associated with (e.g. InvoiceID, BankTransactionID, ContactID)
    * @return objectId
-   */
-  @ApiModelProperty(
-      value =
-          "The identifier of the object that the file is being associated with (e.g. InvoiceID,"
-              + " BankTransactionID, ContactID)")
-  /**
-   * The identifier of the object that the file is being associated with (e.g. InvoiceID,
-   * BankTransactionID, ContactID)
-   *
+  **/
+  @ApiModelProperty(value = "The identifier of the object that the file is being associated with (e.g. InvoiceID, BankTransactionID, ContactID)")
+  /** 
+   * The identifier of the object that the file is being associated with (e.g. InvoiceID, BankTransactionID, ContactID)
    * @return objectId UUID
-   */
+  **/
   public UUID getObjectId() {
     return objectId;
   }
 
-  /**
-   * The identifier of the object that the file is being associated with (e.g. InvoiceID,
-   * BankTransactionID, ContactID)
-   *
-   * @param objectId UUID
-   */
+  /** 
+  * The identifier of the object that the file is being associated with (e.g. InvoiceID, BankTransactionID, ContactID)
+  * @param objectId  UUID
+  **/
+
   public void setObjectId(UUID objectId) {
     this.objectId = objectId;
   }
 
   /**
-   * objectGroup
-   *
-   * @param objectGroup ObjectGroup
-   * @return Association
-   */
+  * objectGroup
+  * @param objectGroup  ObjectGroup
+  * @return Association
+  **/
   public Association objectGroup(ObjectGroup objectGroup) {
     this.objectGroup = objectGroup;
     return this;
   }
 
-  /**
+   /**
    * Get objectGroup
-   *
    * @return objectGroup
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * objectGroup
-   *
    * @return objectGroup ObjectGroup
-   */
+  **/
   public ObjectGroup getObjectGroup() {
     return objectGroup;
   }
 
-  /**
-   * objectGroup
-   *
-   * @param objectGroup ObjectGroup
-   */
+  /** 
+  * objectGroup
+  * @param objectGroup  ObjectGroup
+  **/
+
   public void setObjectGroup(ObjectGroup objectGroup) {
     this.objectGroup = objectGroup;
   }
 
   /**
-   * objectType
-   *
-   * @param objectType ObjectType
-   * @return Association
-   */
+  * objectType
+  * @param objectType  ObjectType
+  * @return Association
+  **/
   public Association objectType(ObjectType objectType) {
     this.objectType = objectType;
     return this;
   }
 
-  /**
+   /**
    * Get objectType
-   *
    * @return objectType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * objectType
-   *
    * @return objectType ObjectType
-   */
+  **/
   public ObjectType getObjectType() {
     return objectType;
   }
 
-  /**
-   * objectType
-   *
-   * @param objectType ObjectType
-   */
+  /** 
+  * objectType
+  * @param objectType  ObjectType
+  **/
+
   public void setObjectType(ObjectType objectType) {
     this.objectType = objectType;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -331,19 +294,20 @@ public class Association {
       return false;
     }
     Association association = (Association) o;
-    return Objects.equals(this.sendWithObject, association.sendWithObject)
-        && Objects.equals(this.name, association.name)
-        && Objects.equals(this.size, association.size)
-        && Objects.equals(this.fileId, association.fileId)
-        && Objects.equals(this.objectId, association.objectId)
-        && Objects.equals(this.objectGroup, association.objectGroup)
-        && Objects.equals(this.objectType, association.objectType);
+    return Objects.equals(this.sendWithObject, association.sendWithObject) &&
+        Objects.equals(this.name, association.name) &&
+        Objects.equals(this.size, association.size) &&
+        Objects.equals(this.fileId, association.fileId) &&
+        Objects.equals(this.objectId, association.objectId) &&
+        Objects.equals(this.objectGroup, association.objectGroup) &&
+        Objects.equals(this.objectType, association.objectType);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(sendWithObject, name, size, fileId, objectId, objectGroup, objectType);
   }
+
 
   @Override
   public String toString() {
@@ -361,7 +325,8 @@ public class Association {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -369,4 +334,6 @@ public class Association {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

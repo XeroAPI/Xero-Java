@@ -9,15 +9,33 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.AccountType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Account */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Account
+ */
+
 public class Account {
   StringUtil util = new StringUtil();
 
@@ -33,146 +51,133 @@ public class Account {
   @JsonProperty("Name")
   private String name;
   /**
-   * Xero identifier for accounts
-   *
-   * @param accountID UUID
-   * @return Account
-   */
+  * Xero identifier for accounts
+  * @param accountID  UUID
+  * @return Account
+  **/
   public Account accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for accounts
-   *
    * @return accountID
-   */
-  @ApiModelProperty(
-      example = "c56b19ef-75bf-45e8-98a4-e699a96609f7",
-      value = "Xero identifier for accounts")
-  /**
+  **/
+  @ApiModelProperty(example = "c56b19ef-75bf-45e8-98a4-e699a96609f7", value = "Xero identifier for accounts")
+  /** 
    * Xero identifier for accounts
-   *
    * @return accountID UUID
-   */
+  **/
   public UUID getAccountID() {
     return accountID;
   }
 
-  /**
-   * Xero identifier for accounts
-   *
-   * @param accountID UUID
-   */
+  /** 
+  * Xero identifier for accounts
+  * @param accountID  UUID
+  **/
+
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
   /**
-   * type
-   *
-   * @param type AccountType
-   * @return Account
-   */
+  * type
+  * @param type  AccountType
+  * @return Account
+  **/
   public Account type(AccountType type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * Get type
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * type
-   *
    * @return type AccountType
-   */
+  **/
   public AccountType getType() {
     return type;
   }
 
-  /**
-   * type
-   *
-   * @param type AccountType
-   */
+  /** 
+  * type
+  * @param type  AccountType
+  **/
+
   public void setType(AccountType type) {
     this.type = type;
   }
 
   /**
-   * Customer defined account code
-   *
-   * @param code String
-   * @return Account
-   */
+  * Customer defined account code
+  * @param code  String
+  * @return Account
+  **/
   public Account code(String code) {
     this.code = code;
     return this;
   }
 
-  /**
+   /**
    * Customer defined account code
-   *
    * @return code
-   */
+  **/
   @ApiModelProperty(example = "420", value = "Customer defined account code")
-  /**
+  /** 
    * Customer defined account code
-   *
    * @return code String
-   */
+  **/
   public String getCode() {
     return code;
   }
 
-  /**
-   * Customer defined account code
-   *
-   * @param code String
-   */
+  /** 
+  * Customer defined account code
+  * @param code  String
+  **/
+
   public void setCode(String code) {
     this.code = code;
   }
 
   /**
-   * Name of account
-   *
-   * @param name String
-   * @return Account
-   */
+  * Name of account
+  * @param name  String
+  * @return Account
+  **/
   public Account name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of account
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(example = "General expenses", value = "Name of account")
-  /**
+  /** 
    * Name of account
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of account
-   *
-   * @param name String
-   */
+  /** 
+  * Name of account
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -183,16 +188,17 @@ public class Account {
       return false;
     }
     Account account = (Account) o;
-    return Objects.equals(this.accountID, account.accountID)
-        && Objects.equals(this.type, account.type)
-        && Objects.equals(this.code, account.code)
-        && Objects.equals(this.name, account.name);
+    return Objects.equals(this.accountID, account.accountID) &&
+        Objects.equals(this.type, account.type) &&
+        Objects.equals(this.code, account.code) &&
+        Objects.equals(this.name, account.name);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accountID, type, code, name);
   }
+
 
   @Override
   public String toString() {
@@ -207,7 +213,8 @@ public class Account {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -215,4 +222,6 @@ public class Account {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

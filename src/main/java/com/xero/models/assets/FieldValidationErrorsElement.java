@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.assets;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** FieldValidationErrorsElement */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * FieldValidationErrorsElement
+ */
+
 public class FieldValidationErrorsElement {
   StringUtil util = new StringUtil();
 
@@ -38,214 +55,197 @@ public class FieldValidationErrorsElement {
   @JsonProperty("detail")
   private String detail;
   /**
-   * The field name of the erroneous field
-   *
-   * @param fieldName String
-   * @return FieldValidationErrorsElement
-   */
+  * The field name of the erroneous field
+  * @param fieldName  String
+  * @return FieldValidationErrorsElement
+  **/
   public FieldValidationErrorsElement fieldName(String fieldName) {
     this.fieldName = fieldName;
     return this;
   }
 
-  /**
+   /**
    * The field name of the erroneous field
-   *
    * @return fieldName
-   */
+  **/
   @ApiModelProperty(value = "The field name of the erroneous field")
-  /**
+  /** 
    * The field name of the erroneous field
-   *
    * @return fieldName String
-   */
+  **/
   public String getFieldName() {
     return fieldName;
   }
 
-  /**
-   * The field name of the erroneous field
-   *
-   * @param fieldName String
-   */
+  /** 
+  * The field name of the erroneous field
+  * @param fieldName  String
+  **/
+
   public void setFieldName(String fieldName) {
     this.fieldName = fieldName;
   }
 
   /**
-   * The provided value
-   *
-   * @param valueProvided String
-   * @return FieldValidationErrorsElement
-   */
+  * The provided value
+  * @param valueProvided  String
+  * @return FieldValidationErrorsElement
+  **/
   public FieldValidationErrorsElement valueProvided(String valueProvided) {
     this.valueProvided = valueProvided;
     return this;
   }
 
-  /**
+   /**
    * The provided value
-   *
    * @return valueProvided
-   */
+  **/
   @ApiModelProperty(value = "The provided value")
-  /**
+  /** 
    * The provided value
-   *
    * @return valueProvided String
-   */
+  **/
   public String getValueProvided() {
     return valueProvided;
   }
 
-  /**
-   * The provided value
-   *
-   * @param valueProvided String
-   */
+  /** 
+  * The provided value
+  * @param valueProvided  String
+  **/
+
   public void setValueProvided(String valueProvided) {
     this.valueProvided = valueProvided;
   }
 
   /**
-   * Explanation of the field validation error
-   *
-   * @param localisedMessage String
-   * @return FieldValidationErrorsElement
-   */
+  * Explanation of the field validation error
+  * @param localisedMessage  String
+  * @return FieldValidationErrorsElement
+  **/
   public FieldValidationErrorsElement localisedMessage(String localisedMessage) {
     this.localisedMessage = localisedMessage;
     return this;
   }
 
-  /**
+   /**
    * Explanation of the field validation error
-   *
    * @return localisedMessage
-   */
+  **/
   @ApiModelProperty(value = "Explanation of the field validation error")
-  /**
+  /** 
    * Explanation of the field validation error
-   *
    * @return localisedMessage String
-   */
+  **/
   public String getLocalisedMessage() {
     return localisedMessage;
   }
 
-  /**
-   * Explanation of the field validation error
-   *
-   * @param localisedMessage String
-   */
+  /** 
+  * Explanation of the field validation error
+  * @param localisedMessage  String
+  **/
+
   public void setLocalisedMessage(String localisedMessage) {
     this.localisedMessage = localisedMessage;
   }
 
   /**
-   * Internal type of the field validation error message
-   *
-   * @param type String
-   * @return FieldValidationErrorsElement
-   */
+  * Internal type of the field validation error message
+  * @param type  String
+  * @return FieldValidationErrorsElement
+  **/
   public FieldValidationErrorsElement type(String type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * Internal type of the field validation error message
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "Internal type of the field validation error message")
-  /**
+  /** 
    * Internal type of the field validation error message
-   *
    * @return type String
-   */
+  **/
   public String getType() {
     return type;
   }
 
-  /**
-   * Internal type of the field validation error message
-   *
-   * @param type String
-   */
+  /** 
+  * Internal type of the field validation error message
+  * @param type  String
+  **/
+
   public void setType(String type) {
     this.type = type;
   }
 
   /**
-   * Title of the field validation error
-   *
-   * @param title String
-   * @return FieldValidationErrorsElement
-   */
+  * Title of the field validation error
+  * @param title  String
+  * @return FieldValidationErrorsElement
+  **/
   public FieldValidationErrorsElement title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
+   /**
    * Title of the field validation error
-   *
    * @return title
-   */
+  **/
   @ApiModelProperty(value = "Title of the field validation error")
-  /**
+  /** 
    * Title of the field validation error
-   *
    * @return title String
-   */
+  **/
   public String getTitle() {
     return title;
   }
 
-  /**
-   * Title of the field validation error
-   *
-   * @param title String
-   */
+  /** 
+  * Title of the field validation error
+  * @param title  String
+  **/
+
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
-   * Detail of the field validation error
-   *
-   * @param detail String
-   * @return FieldValidationErrorsElement
-   */
+  * Detail of the field validation error
+  * @param detail  String
+  * @return FieldValidationErrorsElement
+  **/
   public FieldValidationErrorsElement detail(String detail) {
     this.detail = detail;
     return this;
   }
 
-  /**
+   /**
    * Detail of the field validation error
-   *
    * @return detail
-   */
+  **/
   @ApiModelProperty(value = "Detail of the field validation error")
-  /**
+  /** 
    * Detail of the field validation error
-   *
    * @return detail String
-   */
+  **/
   public String getDetail() {
     return detail;
   }
 
-  /**
-   * Detail of the field validation error
-   *
-   * @param detail String
-   */
+  /** 
+  * Detail of the field validation error
+  * @param detail  String
+  **/
+
   public void setDetail(String detail) {
     this.detail = detail;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -256,18 +256,19 @@ public class FieldValidationErrorsElement {
       return false;
     }
     FieldValidationErrorsElement fieldValidationErrorsElement = (FieldValidationErrorsElement) o;
-    return Objects.equals(this.fieldName, fieldValidationErrorsElement.fieldName)
-        && Objects.equals(this.valueProvided, fieldValidationErrorsElement.valueProvided)
-        && Objects.equals(this.localisedMessage, fieldValidationErrorsElement.localisedMessage)
-        && Objects.equals(this.type, fieldValidationErrorsElement.type)
-        && Objects.equals(this.title, fieldValidationErrorsElement.title)
-        && Objects.equals(this.detail, fieldValidationErrorsElement.detail);
+    return Objects.equals(this.fieldName, fieldValidationErrorsElement.fieldName) &&
+        Objects.equals(this.valueProvided, fieldValidationErrorsElement.valueProvided) &&
+        Objects.equals(this.localisedMessage, fieldValidationErrorsElement.localisedMessage) &&
+        Objects.equals(this.type, fieldValidationErrorsElement.type) &&
+        Objects.equals(this.title, fieldValidationErrorsElement.title) &&
+        Objects.equals(this.detail, fieldValidationErrorsElement.detail);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(fieldName, valueProvided, localisedMessage, type, title, detail);
   }
+
 
   @Override
   public String toString() {
@@ -284,7 +285,8 @@ public class FieldValidationErrorsElement {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -292,4 +294,6 @@ public class FieldValidationErrorsElement {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

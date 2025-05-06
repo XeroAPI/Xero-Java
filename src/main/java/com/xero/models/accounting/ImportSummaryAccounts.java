@@ -9,16 +9,32 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
+import java.io.IOException;
 
-/** A summary of the accounts changes */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * A summary of the accounts changes
+ */
 @ApiModel(description = "A summary of the accounts changes")
+
 public class ImportSummaryAccounts {
   StringUtil util = new StringUtil();
 
@@ -49,319 +65,293 @@ public class ImportSummaryAccounts {
   @JsonProperty("NewOrUpdated")
   private Integer newOrUpdated;
   /**
-   * The total number of accounts in the org
-   *
-   * @param total Integer
-   * @return ImportSummaryAccounts
-   */
+  * The total number of accounts in the org
+  * @param total  Integer
+  * @return ImportSummaryAccounts
+  **/
   public ImportSummaryAccounts total(Integer total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * The total number of accounts in the org
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "The total number of accounts in the org")
-  /**
+  /** 
    * The total number of accounts in the org
-   *
    * @return total Integer
-   */
+  **/
   public Integer getTotal() {
     return total;
   }
 
-  /**
-   * The total number of accounts in the org
-   *
-   * @param total Integer
-   */
+  /** 
+  * The total number of accounts in the org
+  * @param total  Integer
+  **/
+
   public void setTotal(Integer total) {
     this.total = total;
   }
 
   /**
-   * The number of new accounts created
-   *
-   * @param _new Integer
-   * @return ImportSummaryAccounts
-   */
+  * The number of new accounts created
+  * @param _new  Integer
+  * @return ImportSummaryAccounts
+  **/
   public ImportSummaryAccounts _new(Integer _new) {
     this._new = _new;
     return this;
   }
 
-  /**
+   /**
    * The number of new accounts created
-   *
    * @return _new
-   */
+  **/
   @ApiModelProperty(value = "The number of new accounts created")
-  /**
+  /** 
    * The number of new accounts created
-   *
    * @return _new Integer
-   */
+  **/
   public Integer getNew() {
     return _new;
   }
 
-  /**
-   * The number of new accounts created
-   *
-   * @param _new Integer
-   */
+  /** 
+  * The number of new accounts created
+  * @param _new  Integer
+  **/
+
   public void setNew(Integer _new) {
     this._new = _new;
   }
 
   /**
-   * The number of accounts updated
-   *
-   * @param updated Integer
-   * @return ImportSummaryAccounts
-   */
+  * The number of accounts updated
+  * @param updated  Integer
+  * @return ImportSummaryAccounts
+  **/
   public ImportSummaryAccounts updated(Integer updated) {
     this.updated = updated;
     return this;
   }
 
-  /**
+   /**
    * The number of accounts updated
-   *
    * @return updated
-   */
+  **/
   @ApiModelProperty(value = "The number of accounts updated")
-  /**
+  /** 
    * The number of accounts updated
-   *
    * @return updated Integer
-   */
+  **/
   public Integer getUpdated() {
     return updated;
   }
 
-  /**
-   * The number of accounts updated
-   *
-   * @param updated Integer
-   */
+  /** 
+  * The number of accounts updated
+  * @param updated  Integer
+  **/
+
   public void setUpdated(Integer updated) {
     this.updated = updated;
   }
 
   /**
-   * The number of accounts deleted
-   *
-   * @param deleted Integer
-   * @return ImportSummaryAccounts
-   */
+  * The number of accounts deleted
+  * @param deleted  Integer
+  * @return ImportSummaryAccounts
+  **/
   public ImportSummaryAccounts deleted(Integer deleted) {
     this.deleted = deleted;
     return this;
   }
 
-  /**
+   /**
    * The number of accounts deleted
-   *
    * @return deleted
-   */
+  **/
   @ApiModelProperty(value = "The number of accounts deleted")
-  /**
+  /** 
    * The number of accounts deleted
-   *
    * @return deleted Integer
-   */
+  **/
   public Integer getDeleted() {
     return deleted;
   }
 
-  /**
-   * The number of accounts deleted
-   *
-   * @param deleted Integer
-   */
+  /** 
+  * The number of accounts deleted
+  * @param deleted  Integer
+  **/
+
   public void setDeleted(Integer deleted) {
     this.deleted = deleted;
   }
 
   /**
-   * The number of locked accounts
-   *
-   * @param locked Integer
-   * @return ImportSummaryAccounts
-   */
+  * The number of locked accounts
+  * @param locked  Integer
+  * @return ImportSummaryAccounts
+  **/
   public ImportSummaryAccounts locked(Integer locked) {
     this.locked = locked;
     return this;
   }
 
-  /**
+   /**
    * The number of locked accounts
-   *
    * @return locked
-   */
+  **/
   @ApiModelProperty(value = "The number of locked accounts")
-  /**
+  /** 
    * The number of locked accounts
-   *
    * @return locked Integer
-   */
+  **/
   public Integer getLocked() {
     return locked;
   }
 
-  /**
-   * The number of locked accounts
-   *
-   * @param locked Integer
-   */
+  /** 
+  * The number of locked accounts
+  * @param locked  Integer
+  **/
+
   public void setLocked(Integer locked) {
     this.locked = locked;
   }
 
   /**
-   * The number of system accounts
-   *
-   * @param system Integer
-   * @return ImportSummaryAccounts
-   */
+  * The number of system accounts
+  * @param system  Integer
+  * @return ImportSummaryAccounts
+  **/
   public ImportSummaryAccounts system(Integer system) {
     this.system = system;
     return this;
   }
 
-  /**
+   /**
    * The number of system accounts
-   *
    * @return system
-   */
+  **/
   @ApiModelProperty(value = "The number of system accounts")
-  /**
+  /** 
    * The number of system accounts
-   *
    * @return system Integer
-   */
+  **/
   public Integer getSystem() {
     return system;
   }
 
-  /**
-   * The number of system accounts
-   *
-   * @param system Integer
-   */
+  /** 
+  * The number of system accounts
+  * @param system  Integer
+  **/
+
   public void setSystem(Integer system) {
     this.system = system;
   }
 
   /**
-   * The number of accounts that had an error
-   *
-   * @param errored Integer
-   * @return ImportSummaryAccounts
-   */
+  * The number of accounts that had an error
+  * @param errored  Integer
+  * @return ImportSummaryAccounts
+  **/
   public ImportSummaryAccounts errored(Integer errored) {
     this.errored = errored;
     return this;
   }
 
-  /**
+   /**
    * The number of accounts that had an error
-   *
    * @return errored
-   */
+  **/
   @ApiModelProperty(value = "The number of accounts that had an error")
-  /**
+  /** 
    * The number of accounts that had an error
-   *
    * @return errored Integer
-   */
+  **/
   public Integer getErrored() {
     return errored;
   }
 
-  /**
-   * The number of accounts that had an error
-   *
-   * @param errored Integer
-   */
+  /** 
+  * The number of accounts that had an error
+  * @param errored  Integer
+  **/
+
   public void setErrored(Integer errored) {
     this.errored = errored;
   }
 
   /**
-   * present
-   *
-   * @param present Boolean
-   * @return ImportSummaryAccounts
-   */
+  * present
+  * @param present  Boolean
+  * @return ImportSummaryAccounts
+  **/
   public ImportSummaryAccounts present(Boolean present) {
     this.present = present;
     return this;
   }
 
-  /**
+   /**
    * Get present
-   *
    * @return present
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * present
-   *
    * @return present Boolean
-   */
+  **/
   public Boolean getPresent() {
     return present;
   }
 
-  /**
-   * present
-   *
-   * @param present Boolean
-   */
+  /** 
+  * present
+  * @param present  Boolean
+  **/
+
   public void setPresent(Boolean present) {
     this.present = present;
   }
 
   /**
-   * The number of new or updated accounts
-   *
-   * @param newOrUpdated Integer
-   * @return ImportSummaryAccounts
-   */
+  * The number of new or updated accounts
+  * @param newOrUpdated  Integer
+  * @return ImportSummaryAccounts
+  **/
   public ImportSummaryAccounts newOrUpdated(Integer newOrUpdated) {
     this.newOrUpdated = newOrUpdated;
     return this;
   }
 
-  /**
+   /**
    * The number of new or updated accounts
-   *
    * @return newOrUpdated
-   */
+  **/
   @ApiModelProperty(value = "The number of new or updated accounts")
-  /**
+  /** 
    * The number of new or updated accounts
-   *
    * @return newOrUpdated Integer
-   */
+  **/
   public Integer getNewOrUpdated() {
     return newOrUpdated;
   }
 
-  /**
-   * The number of new or updated accounts
-   *
-   * @param newOrUpdated Integer
-   */
+  /** 
+  * The number of new or updated accounts
+  * @param newOrUpdated  Integer
+  **/
+
   public void setNewOrUpdated(Integer newOrUpdated) {
     this.newOrUpdated = newOrUpdated;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -372,22 +362,22 @@ public class ImportSummaryAccounts {
       return false;
     }
     ImportSummaryAccounts importSummaryAccounts = (ImportSummaryAccounts) o;
-    return Objects.equals(this.total, importSummaryAccounts.total)
-        && Objects.equals(this._new, importSummaryAccounts._new)
-        && Objects.equals(this.updated, importSummaryAccounts.updated)
-        && Objects.equals(this.deleted, importSummaryAccounts.deleted)
-        && Objects.equals(this.locked, importSummaryAccounts.locked)
-        && Objects.equals(this.system, importSummaryAccounts.system)
-        && Objects.equals(this.errored, importSummaryAccounts.errored)
-        && Objects.equals(this.present, importSummaryAccounts.present)
-        && Objects.equals(this.newOrUpdated, importSummaryAccounts.newOrUpdated);
+    return Objects.equals(this.total, importSummaryAccounts.total) &&
+        Objects.equals(this._new, importSummaryAccounts._new) &&
+        Objects.equals(this.updated, importSummaryAccounts.updated) &&
+        Objects.equals(this.deleted, importSummaryAccounts.deleted) &&
+        Objects.equals(this.locked, importSummaryAccounts.locked) &&
+        Objects.equals(this.system, importSummaryAccounts.system) &&
+        Objects.equals(this.errored, importSummaryAccounts.errored) &&
+        Objects.equals(this.present, importSummaryAccounts.present) &&
+        Objects.equals(this.newOrUpdated, importSummaryAccounts.newOrUpdated);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        total, _new, updated, deleted, locked, system, errored, present, newOrUpdated);
+    return Objects.hash(total, _new, updated, deleted, locked, system, errored, present, newOrUpdated);
   }
+
 
   @Override
   public String toString() {
@@ -407,7 +397,8 @@ public class ImportSummaryAccounts {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -415,4 +406,6 @@ public class ImportSummaryAccounts {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

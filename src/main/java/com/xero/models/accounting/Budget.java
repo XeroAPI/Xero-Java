@@ -9,32 +9,53 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.accounting.BudgetLine;
+import com.xero.models.accounting.TrackingCategory;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** Budget */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Budget
+ */
+
 public class Budget {
   StringUtil util = new StringUtil();
 
   @JsonProperty("BudgetID")
   private UUID budgetID;
-  /** Type of Budget. OVERALL or TRACKING */
+  /**
+   * Type of Budget. OVERALL or TRACKING
+   */
   public enum TypeEnum {
-    /** OVERALL */
+    /**
+     * OVERALL
+     */
     OVERALL("OVERALL"),
-
-    /** TRACKING */
+    
+    /**
+     * TRACKING
+     */
     TRACKING("TRACKING");
 
     private String value;
@@ -43,31 +64,25 @@ public class Budget {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -78,6 +93,7 @@ public class Budget {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("Type")
   private TypeEnum type;
@@ -94,148 +110,133 @@ public class Budget {
   @JsonProperty("Tracking")
   private List<TrackingCategory> tracking = new ArrayList<TrackingCategory>();
   /**
-   * Xero identifier
-   *
-   * @param budgetID UUID
-   * @return Budget
-   */
+  * Xero identifier
+  * @param budgetID  UUID
+  * @return Budget
+  **/
   public Budget budgetID(UUID budgetID) {
     this.budgetID = budgetID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier
-   *
    * @return budgetID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier")
-  /**
+  /** 
    * Xero identifier
-   *
    * @return budgetID UUID
-   */
+  **/
   public UUID getBudgetID() {
     return budgetID;
   }
 
-  /**
-   * Xero identifier
-   *
-   * @param budgetID UUID
-   */
+  /** 
+  * Xero identifier
+  * @param budgetID  UUID
+  **/
+
   public void setBudgetID(UUID budgetID) {
     this.budgetID = budgetID;
   }
 
   /**
-   * Type of Budget. OVERALL or TRACKING
-   *
-   * @param type TypeEnum
-   * @return Budget
-   */
+  * Type of Budget. OVERALL or TRACKING
+  * @param type  TypeEnum
+  * @return Budget
+  **/
   public Budget type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * Type of Budget. OVERALL or TRACKING
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "Type of Budget. OVERALL or TRACKING")
-  /**
+  /** 
    * Type of Budget. OVERALL or TRACKING
-   *
    * @return type TypeEnum
-   */
+  **/
   public TypeEnum getType() {
     return type;
   }
 
-  /**
-   * Type of Budget. OVERALL or TRACKING
-   *
-   * @param type TypeEnum
-   */
+  /** 
+  * Type of Budget. OVERALL or TRACKING
+  * @param type  TypeEnum
+  **/
+
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
   /**
-   * The Budget description
-   *
-   * @param description String
-   * @return Budget
-   */
+  * The Budget description
+  * @param description  String
+  * @return Budget
+  **/
   public Budget description(String description) {
     this.description = description;
     return this;
   }
 
-  /**
+   /**
    * The Budget description
-   *
    * @return description
-   */
+  **/
   @ApiModelProperty(value = "The Budget description")
-  /**
+  /** 
    * The Budget description
-   *
    * @return description String
-   */
+  **/
   public String getDescription() {
     return description;
   }
 
-  /**
-   * The Budget description
-   *
-   * @param description String
-   */
+  /** 
+  * The Budget description
+  * @param description  String
+  **/
+
   public void setDescription(String description) {
     this.description = description;
   }
 
-  /**
+   /**
    * UTC timestamp of last update to budget
-   *
    * @return updatedDateUTC
-   */
-  @ApiModelProperty(
-      example = "/Date(1573755038314)/",
-      value = "UTC timestamp of last update to budget")
-  /**
+  **/
+  @ApiModelProperty(example = "/Date(1573755038314)/", value = "UTC timestamp of last update to budget")
+  /** 
    * UTC timestamp of last update to budget
-   *
    * @return updatedDateUTC String
-   */
+  **/
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-  /**
+  /** 
    * UTC timestamp of last update to budget
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   /**
-   * budgetLines
-   *
-   * @param budgetLines List&lt;BudgetLine&gt;
-   * @return Budget
-   */
+  * budgetLines
+  * @param budgetLines  List&lt;BudgetLine&gt;
+  * @return Budget
+  **/
   public Budget budgetLines(List<BudgetLine> budgetLines) {
     this.budgetLines = budgetLines;
     return this;
@@ -243,10 +244,9 @@ public class Budget {
 
   /**
    * budgetLines
-   *
-   * @param budgetLinesItem BudgetLine
+   * @param budgetLinesItem BudgetLine 
    * @return Budget
-   */
+  **/
   public Budget addBudgetLinesItem(BudgetLine budgetLinesItem) {
     if (this.budgetLines == null) {
       this.budgetLines = new ArrayList<BudgetLine>();
@@ -255,36 +255,33 @@ public class Budget {
     return this;
   }
 
-  /**
+   /**
    * Get budgetLines
-   *
    * @return budgetLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * budgetLines
-   *
    * @return budgetLines List<BudgetLine>
-   */
+  **/
   public List<BudgetLine> getBudgetLines() {
     return budgetLines;
   }
 
-  /**
-   * budgetLines
-   *
-   * @param budgetLines List&lt;BudgetLine&gt;
-   */
+  /** 
+  * budgetLines
+  * @param budgetLines List&lt;BudgetLine&gt; 
+  **/
+
   public void setBudgetLines(List<BudgetLine> budgetLines) {
     this.budgetLines = budgetLines;
   }
 
   /**
-   * tracking
-   *
-   * @param tracking List&lt;TrackingCategory&gt;
-   * @return Budget
-   */
+  * tracking
+  * @param tracking  List&lt;TrackingCategory&gt;
+  * @return Budget
+  **/
   public Budget tracking(List<TrackingCategory> tracking) {
     this.tracking = tracking;
     return this;
@@ -292,10 +289,9 @@ public class Budget {
 
   /**
    * tracking
-   *
-   * @param trackingItem TrackingCategory
+   * @param trackingItem TrackingCategory 
    * @return Budget
-   */
+  **/
   public Budget addTrackingItem(TrackingCategory trackingItem) {
     if (this.tracking == null) {
       this.tracking = new ArrayList<TrackingCategory>();
@@ -304,29 +300,28 @@ public class Budget {
     return this;
   }
 
-  /**
+   /**
    * Get tracking
-   *
    * @return tracking
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * tracking
-   *
    * @return tracking List<TrackingCategory>
-   */
+  **/
   public List<TrackingCategory> getTracking() {
     return tracking;
   }
 
-  /**
-   * tracking
-   *
-   * @param tracking List&lt;TrackingCategory&gt;
-   */
+  /** 
+  * tracking
+  * @param tracking List&lt;TrackingCategory&gt; 
+  **/
+
   public void setTracking(List<TrackingCategory> tracking) {
     this.tracking = tracking;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -337,18 +332,19 @@ public class Budget {
       return false;
     }
     Budget budget = (Budget) o;
-    return Objects.equals(this.budgetID, budget.budgetID)
-        && Objects.equals(this.type, budget.type)
-        && Objects.equals(this.description, budget.description)
-        && Objects.equals(this.updatedDateUTC, budget.updatedDateUTC)
-        && Objects.equals(this.budgetLines, budget.budgetLines)
-        && Objects.equals(this.tracking, budget.tracking);
+    return Objects.equals(this.budgetID, budget.budgetID) &&
+        Objects.equals(this.type, budget.type) &&
+        Objects.equals(this.description, budget.description) &&
+        Objects.equals(this.updatedDateUTC, budget.updatedDateUTC) &&
+        Objects.equals(this.budgetLines, budget.budgetLines) &&
+        Objects.equals(this.tracking, budget.tracking);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(budgetID, type, description, updatedDateUTC, budgetLines, tracking);
   }
+
 
   @Override
   public String toString() {
@@ -365,7 +361,8 @@ public class Budget {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -373,4 +370,6 @@ public class Budget {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

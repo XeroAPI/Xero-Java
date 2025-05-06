@@ -9,16 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.file;
 
+package com.xero.models.file;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.file.FileObject;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Files */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Files
+ */
+
 public class Files {
   StringUtil util = new StringUtil();
 
@@ -34,116 +52,106 @@ public class Files {
   @JsonProperty("Items")
   private List<FileObject> items = new ArrayList<FileObject>();
   /**
-   * totalCount
-   *
-   * @param totalCount Integer
-   * @return Files
-   */
+  * totalCount
+  * @param totalCount  Integer
+  * @return Files
+  **/
   public Files totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
   }
 
-  /**
+   /**
    * Get totalCount
-   *
    * @return totalCount
-   */
+  **/
   @ApiModelProperty(example = "2", value = "")
-  /**
+  /** 
    * totalCount
-   *
    * @return totalCount Integer
-   */
+  **/
   public Integer getTotalCount() {
     return totalCount;
   }
 
-  /**
-   * totalCount
-   *
-   * @param totalCount Integer
-   */
+  /** 
+  * totalCount
+  * @param totalCount  Integer
+  **/
+
   public void setTotalCount(Integer totalCount) {
     this.totalCount = totalCount;
   }
 
   /**
-   * page
-   *
-   * @param page Integer
-   * @return Files
-   */
+  * page
+  * @param page  Integer
+  * @return Files
+  **/
   public Files page(Integer page) {
     this.page = page;
     return this;
   }
 
-  /**
+   /**
    * Get page
-   *
    * @return page
-   */
+  **/
   @ApiModelProperty(example = "1", value = "")
-  /**
+  /** 
    * page
-   *
    * @return page Integer
-   */
+  **/
   public Integer getPage() {
     return page;
   }
 
-  /**
-   * page
-   *
-   * @param page Integer
-   */
+  /** 
+  * page
+  * @param page  Integer
+  **/
+
   public void setPage(Integer page) {
     this.page = page;
   }
 
   /**
-   * perPage
-   *
-   * @param perPage Integer
-   * @return Files
-   */
+  * perPage
+  * @param perPage  Integer
+  * @return Files
+  **/
   public Files perPage(Integer perPage) {
     this.perPage = perPage;
     return this;
   }
 
-  /**
+   /**
    * Get perPage
-   *
    * @return perPage
-   */
+  **/
   @ApiModelProperty(example = "50", value = "")
-  /**
+  /** 
    * perPage
-   *
    * @return perPage Integer
-   */
+  **/
   public Integer getPerPage() {
     return perPage;
   }
 
-  /**
-   * perPage
-   *
-   * @param perPage Integer
-   */
+  /** 
+  * perPage
+  * @param perPage  Integer
+  **/
+
   public void setPerPage(Integer perPage) {
     this.perPage = perPage;
   }
 
   /**
-   * items
-   *
-   * @param items List&lt;FileObject&gt;
-   * @return Files
-   */
+  * items
+  * @param items  List&lt;FileObject&gt;
+  * @return Files
+  **/
   public Files items(List<FileObject> items) {
     this.items = items;
     return this;
@@ -151,10 +159,9 @@ public class Files {
 
   /**
    * items
-   *
-   * @param itemsItem FileObject
+   * @param itemsItem FileObject 
    * @return Files
-   */
+  **/
   public Files addItemsItem(FileObject itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<FileObject>();
@@ -163,29 +170,28 @@ public class Files {
     return this;
   }
 
-  /**
+   /**
    * Get items
-   *
    * @return items
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * items
-   *
    * @return items List<FileObject>
-   */
+  **/
   public List<FileObject> getItems() {
     return items;
   }
 
-  /**
-   * items
-   *
-   * @param items List&lt;FileObject&gt;
-   */
+  /** 
+  * items
+  * @param items List&lt;FileObject&gt; 
+  **/
+
   public void setItems(List<FileObject> items) {
     this.items = items;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -196,16 +202,17 @@ public class Files {
       return false;
     }
     Files files = (Files) o;
-    return Objects.equals(this.totalCount, files.totalCount)
-        && Objects.equals(this.page, files.page)
-        && Objects.equals(this.perPage, files.perPage)
-        && Objects.equals(this.items, files.items);
+    return Objects.equals(this.totalCount, files.totalCount) &&
+        Objects.equals(this.page, files.page) &&
+        Objects.equals(this.perPage, files.perPage) &&
+        Objects.equals(this.items, files.items);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(totalCount, page, perPage, items);
   }
+
 
   @Override
   public String toString() {
@@ -220,7 +227,8 @@ public class Files {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -228,4 +236,6 @@ public class Files {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

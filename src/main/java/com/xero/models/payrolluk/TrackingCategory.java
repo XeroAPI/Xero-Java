@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** TrackingCategory */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TrackingCategory
+ */
+
 public class TrackingCategory {
   StringUtil util = new StringUtil();
 
@@ -27,74 +44,69 @@ public class TrackingCategory {
   @JsonProperty("timesheetTrackingCategoryID")
   private UUID timesheetTrackingCategoryID;
   /**
-   * The Xero identifier for Employee groups tracking category.
-   *
-   * @param employeeGroupsTrackingCategoryID UUID
-   * @return TrackingCategory
-   */
+  * The Xero identifier for Employee groups tracking category.
+  * @param employeeGroupsTrackingCategoryID  UUID
+  * @return TrackingCategory
+  **/
   public TrackingCategory employeeGroupsTrackingCategoryID(UUID employeeGroupsTrackingCategoryID) {
     this.employeeGroupsTrackingCategoryID = employeeGroupsTrackingCategoryID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for Employee groups tracking category.
-   *
    * @return employeeGroupsTrackingCategoryID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for Employee groups tracking category.")
-  /**
+  /** 
    * The Xero identifier for Employee groups tracking category.
-   *
    * @return employeeGroupsTrackingCategoryID UUID
-   */
+  **/
   public UUID getEmployeeGroupsTrackingCategoryID() {
     return employeeGroupsTrackingCategoryID;
   }
 
-  /**
-   * The Xero identifier for Employee groups tracking category.
-   *
-   * @param employeeGroupsTrackingCategoryID UUID
-   */
+  /** 
+  * The Xero identifier for Employee groups tracking category.
+  * @param employeeGroupsTrackingCategoryID  UUID
+  **/
+
   public void setEmployeeGroupsTrackingCategoryID(UUID employeeGroupsTrackingCategoryID) {
     this.employeeGroupsTrackingCategoryID = employeeGroupsTrackingCategoryID;
   }
 
   /**
-   * The Xero identifier for Timesheet tracking category.
-   *
-   * @param timesheetTrackingCategoryID UUID
-   * @return TrackingCategory
-   */
+  * The Xero identifier for Timesheet tracking category.
+  * @param timesheetTrackingCategoryID  UUID
+  * @return TrackingCategory
+  **/
   public TrackingCategory timesheetTrackingCategoryID(UUID timesheetTrackingCategoryID) {
     this.timesheetTrackingCategoryID = timesheetTrackingCategoryID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for Timesheet tracking category.
-   *
    * @return timesheetTrackingCategoryID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for Timesheet tracking category.")
-  /**
+  /** 
    * The Xero identifier for Timesheet tracking category.
-   *
    * @return timesheetTrackingCategoryID UUID
-   */
+  **/
   public UUID getTimesheetTrackingCategoryID() {
     return timesheetTrackingCategoryID;
   }
 
-  /**
-   * The Xero identifier for Timesheet tracking category.
-   *
-   * @param timesheetTrackingCategoryID UUID
-   */
+  /** 
+  * The Xero identifier for Timesheet tracking category.
+  * @param timesheetTrackingCategoryID  UUID
+  **/
+
   public void setTimesheetTrackingCategoryID(UUID timesheetTrackingCategoryID) {
     this.timesheetTrackingCategoryID = timesheetTrackingCategoryID;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -105,11 +117,8 @@ public class TrackingCategory {
       return false;
     }
     TrackingCategory trackingCategory = (TrackingCategory) o;
-    return Objects.equals(
-            this.employeeGroupsTrackingCategoryID,
-            trackingCategory.employeeGroupsTrackingCategoryID)
-        && Objects.equals(
-            this.timesheetTrackingCategoryID, trackingCategory.timesheetTrackingCategoryID);
+    return Objects.equals(this.employeeGroupsTrackingCategoryID, trackingCategory.employeeGroupsTrackingCategoryID) &&
+        Objects.equals(this.timesheetTrackingCategoryID, trackingCategory.timesheetTrackingCategoryID);
   }
 
   @Override
@@ -117,22 +126,20 @@ public class TrackingCategory {
     return Objects.hash(employeeGroupsTrackingCategoryID, timesheetTrackingCategoryID);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TrackingCategory {\n");
-    sb.append("    employeeGroupsTrackingCategoryID: ")
-        .append(toIndentedString(employeeGroupsTrackingCategoryID))
-        .append("\n");
-    sb.append("    timesheetTrackingCategoryID: ")
-        .append(toIndentedString(timesheetTrackingCategoryID))
-        .append("\n");
+    sb.append("    employeeGroupsTrackingCategoryID: ").append(toIndentedString(employeeGroupsTrackingCategoryID)).append("\n");
+    sb.append("    timesheetTrackingCategoryID: ").append(toIndentedString(timesheetTrackingCategoryID)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -140,4 +147,6 @@ public class TrackingCategory {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

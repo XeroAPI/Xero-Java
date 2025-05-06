@@ -9,20 +9,39 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.bankfeeds;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.bankfeeds;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.bankfeeds.EndBalance;
+import com.xero.models.bankfeeds.Error;
+import com.xero.models.bankfeeds.StartBalance;
+import com.xero.models.bankfeeds.StatementLine;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** Statement */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Statement
+ */
+
 public class Statement {
   StringUtil util = new StringUtil();
 
@@ -31,15 +50,23 @@ public class Statement {
 
   @JsonProperty("feedConnectionId")
   private UUID feedConnectionId;
-  /** Current status of statements */
+  /**
+   * Current status of statements
+   */
   public enum StatusEnum {
-    /** PENDING */
+    /**
+     * PENDING
+     */
     PENDING("PENDING"),
-
-    /** REJECTED */
+    
+    /**
+     * REJECTED
+     */
     REJECTED("REJECTED"),
-
-    /** DELIVERED */
+    
+    /**
+     * DELIVERED
+     */
     DELIVERED("DELIVERED");
 
     private String value;
@@ -48,31 +75,25 @@ public class Statement {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -83,6 +104,7 @@ public class Statement {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("status")
   private StatusEnum status;
@@ -108,273 +130,234 @@ public class Statement {
   @JsonProperty("statementLineCount")
   private Integer statementLineCount;
   /**
-   * GUID used to identify the Statement.
-   *
-   * @param id UUID
-   * @return Statement
-   */
+  * GUID used to identify the Statement.
+  * @param id  UUID
+  * @return Statement
+  **/
   public Statement id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
+   /**
    * GUID used to identify the Statement.
-   *
    * @return id
-   */
-  @ApiModelProperty(
-      example = "ba4f3127-5e46-427d-80ea-dea2fcd26afe",
-      value = "GUID used to identify the Statement.")
-  /**
+  **/
+  @ApiModelProperty(example = "ba4f3127-5e46-427d-80ea-dea2fcd26afe", value = "GUID used to identify the Statement.")
+  /** 
    * GUID used to identify the Statement.
-   *
    * @return id UUID
-   */
+  **/
   public UUID getId() {
     return id;
   }
 
-  /**
-   * GUID used to identify the Statement.
-   *
-   * @param id UUID
-   */
+  /** 
+  * GUID used to identify the Statement.
+  * @param id  UUID
+  **/
+
   public void setId(UUID id) {
     this.id = id;
   }
 
   /**
-   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into
-   * which the statement should be delivered. This is obtained by calling GET FeedConnections.
-   *
-   * @param feedConnectionId UUID
-   * @return Statement
-   */
+  * The Xero generated feed connection Id that identifies the Xero Bank Account Container into which the statement should be delivered. This is obtained by calling GET FeedConnections.
+  * @param feedConnectionId  UUID
+  * @return Statement
+  **/
   public Statement feedConnectionId(UUID feedConnectionId) {
     this.feedConnectionId = feedConnectionId;
     return this;
   }
 
-  /**
-   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into
-   * which the statement should be delivered. This is obtained by calling GET FeedConnections.
-   *
+   /**
+   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into which the statement should be delivered. This is obtained by calling GET FeedConnections.
    * @return feedConnectionId
-   */
-  @ApiModelProperty(
-      example = "87cb0dc8-fa32-409c-b622-19f8de8dcc83",
-      value =
-          "The Xero generated feed connection Id that identifies the Xero Bank Account Container"
-              + " into which the statement should be delivered. This is obtained by calling GET"
-              + " FeedConnections.")
-  /**
-   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into
-   * which the statement should be delivered. This is obtained by calling GET FeedConnections.
-   *
+  **/
+  @ApiModelProperty(example = "87cb0dc8-fa32-409c-b622-19f8de8dcc83", value = "The Xero generated feed connection Id that identifies the Xero Bank Account Container into which the statement should be delivered. This is obtained by calling GET FeedConnections.")
+  /** 
+   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into which the statement should be delivered. This is obtained by calling GET FeedConnections.
    * @return feedConnectionId UUID
-   */
+  **/
   public UUID getFeedConnectionId() {
     return feedConnectionId;
   }
 
-  /**
-   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into
-   * which the statement should be delivered. This is obtained by calling GET FeedConnections.
-   *
-   * @param feedConnectionId UUID
-   */
+  /** 
+  * The Xero generated feed connection Id that identifies the Xero Bank Account Container into which the statement should be delivered. This is obtained by calling GET FeedConnections.
+  * @param feedConnectionId  UUID
+  **/
+
   public void setFeedConnectionId(UUID feedConnectionId) {
     this.feedConnectionId = feedConnectionId;
   }
 
   /**
-   * Current status of statements
-   *
-   * @param status StatusEnum
-   * @return Statement
-   */
+  * Current status of statements
+  * @param status  StatusEnum
+  * @return Statement
+  **/
   public Statement status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * Current status of statements
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(example = "PENDING", value = "Current status of statements")
-  /**
+  /** 
    * Current status of statements
-   *
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * Current status of statements
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * Current status of statements
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
   /**
-   * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
-   *
-   * @param startDate LocalDate
-   * @return Statement
-   */
+  * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
+  * @param startDate  LocalDate
+  * @return Statement
+  **/
   public Statement startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
-   *
    * @return startDate
-   */
-  @ApiModelProperty(
-      example = "Fri Jul 27 00:00:00 UTC 2018",
-      value =
-          "Opening balance date (can be no older than one year from the current date) ISO-8601"
-              + " YYYY-MM-DD")
-  /**
+  **/
+  @ApiModelProperty(example = "Fri Jul 27 00:00:00 UTC 2018", value = "Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD")
+  /** 
    * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * Closing balance date ISO-8601 YYYY-MM-DD
-   *
-   * @param endDate LocalDate
-   * @return Statement
-   */
+  * Closing balance date ISO-8601 YYYY-MM-DD
+  * @param endDate  LocalDate
+  * @return Statement
+  **/
   public Statement endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * Closing balance date ISO-8601 YYYY-MM-DD
-   *
    * @return endDate
-   */
-  @ApiModelProperty(
-      example = "Fri Jul 27 00:00:00 UTC 2018",
-      value = "Closing balance date ISO-8601 YYYY-MM-DD")
-  /**
+  **/
+  @ApiModelProperty(example = "Fri Jul 27 00:00:00 UTC 2018", value = "Closing balance date ISO-8601 YYYY-MM-DD")
+  /** 
    * Closing balance date ISO-8601 YYYY-MM-DD
-   *
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * Closing balance date ISO-8601 YYYY-MM-DD
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * Closing balance date ISO-8601 YYYY-MM-DD
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * startBalance
-   *
-   * @param startBalance StartBalance
-   * @return Statement
-   */
+  * startBalance
+  * @param startBalance  StartBalance
+  * @return Statement
+  **/
   public Statement startBalance(StartBalance startBalance) {
     this.startBalance = startBalance;
     return this;
   }
 
-  /**
+   /**
    * Get startBalance
-   *
    * @return startBalance
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * startBalance
-   *
    * @return startBalance StartBalance
-   */
+  **/
   public StartBalance getStartBalance() {
     return startBalance;
   }
 
-  /**
-   * startBalance
-   *
-   * @param startBalance StartBalance
-   */
+  /** 
+  * startBalance
+  * @param startBalance  StartBalance
+  **/
+
   public void setStartBalance(StartBalance startBalance) {
     this.startBalance = startBalance;
   }
 
   /**
-   * endBalance
-   *
-   * @param endBalance EndBalance
-   * @return Statement
-   */
+  * endBalance
+  * @param endBalance  EndBalance
+  * @return Statement
+  **/
   public Statement endBalance(EndBalance endBalance) {
     this.endBalance = endBalance;
     return this;
   }
 
-  /**
+   /**
    * Get endBalance
-   *
    * @return endBalance
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * endBalance
-   *
    * @return endBalance EndBalance
-   */
+  **/
   public EndBalance getEndBalance() {
     return endBalance;
   }
 
-  /**
-   * endBalance
-   *
-   * @param endBalance EndBalance
-   */
+  /** 
+  * endBalance
+  * @param endBalance  EndBalance
+  **/
+
   public void setEndBalance(EndBalance endBalance) {
     this.endBalance = endBalance;
   }
 
   /**
-   * statementLines
-   *
-   * @param statementLines List&lt;StatementLine&gt;
-   * @return Statement
-   */
+  * statementLines
+  * @param statementLines  List&lt;StatementLine&gt;
+  * @return Statement
+  **/
   public Statement statementLines(List<StatementLine> statementLines) {
     this.statementLines = statementLines;
     return this;
@@ -382,10 +365,9 @@ public class Statement {
 
   /**
    * statementLines
-   *
-   * @param statementLinesItem StatementLine
+   * @param statementLinesItem StatementLine 
    * @return Statement
-   */
+  **/
   public Statement addStatementLinesItem(StatementLine statementLinesItem) {
     if (this.statementLines == null) {
       this.statementLines = new ArrayList<StatementLine>();
@@ -394,36 +376,33 @@ public class Statement {
     return this;
   }
 
-  /**
+   /**
    * Get statementLines
-   *
    * @return statementLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * statementLines
-   *
    * @return statementLines List<StatementLine>
-   */
+  **/
   public List<StatementLine> getStatementLines() {
     return statementLines;
   }
 
-  /**
-   * statementLines
-   *
-   * @param statementLines List&lt;StatementLine&gt;
-   */
+  /** 
+  * statementLines
+  * @param statementLines List&lt;StatementLine&gt; 
+  **/
+
   public void setStatementLines(List<StatementLine> statementLines) {
     this.statementLines = statementLines;
   }
 
   /**
-   * errors
-   *
-   * @param errors List&lt;Error&gt;
-   * @return Statement
-   */
+  * errors
+  * @param errors  List&lt;Error&gt;
+  * @return Statement
+  **/
   public Statement errors(List<Error> errors) {
     this.errors = errors;
     return this;
@@ -431,10 +410,9 @@ public class Statement {
 
   /**
    * errors
-   *
-   * @param errorsItem Error
+   * @param errorsItem Error 
    * @return Statement
-   */
+  **/
   public Statement addErrorsItem(Error errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<Error>();
@@ -443,64 +421,60 @@ public class Statement {
     return this;
   }
 
-  /**
+   /**
    * Get errors
-   *
    * @return errors
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * errors
-   *
    * @return errors List<Error>
-   */
+  **/
   public List<Error> getErrors() {
     return errors;
   }
 
-  /**
-   * errors
-   *
-   * @param errors List&lt;Error&gt;
-   */
+  /** 
+  * errors
+  * @param errors List&lt;Error&gt; 
+  **/
+
   public void setErrors(List<Error> errors) {
     this.errors = errors;
   }
 
   /**
-   * statementLineCount
-   *
-   * @param statementLineCount Integer
-   * @return Statement
-   */
+  * statementLineCount
+  * @param statementLineCount  Integer
+  * @return Statement
+  **/
   public Statement statementLineCount(Integer statementLineCount) {
     this.statementLineCount = statementLineCount;
     return this;
   }
 
-  /**
+   /**
    * Get statementLineCount
-   *
    * @return statementLineCount
-   */
+  **/
   @ApiModelProperty(example = "1", value = "")
-  /**
+  /** 
    * statementLineCount
-   *
    * @return statementLineCount Integer
-   */
+  **/
   public Integer getStatementLineCount() {
     return statementLineCount;
   }
 
-  /**
-   * statementLineCount
-   *
-   * @param statementLineCount Integer
-   */
+  /** 
+  * statementLineCount
+  * @param statementLineCount  Integer
+  **/
+
   public void setStatementLineCount(Integer statementLineCount) {
     this.statementLineCount = statementLineCount;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -511,32 +485,23 @@ public class Statement {
       return false;
     }
     Statement statement = (Statement) o;
-    return Objects.equals(this.id, statement.id)
-        && Objects.equals(this.feedConnectionId, statement.feedConnectionId)
-        && Objects.equals(this.status, statement.status)
-        && Objects.equals(this.startDate, statement.startDate)
-        && Objects.equals(this.endDate, statement.endDate)
-        && Objects.equals(this.startBalance, statement.startBalance)
-        && Objects.equals(this.endBalance, statement.endBalance)
-        && Objects.equals(this.statementLines, statement.statementLines)
-        && Objects.equals(this.errors, statement.errors)
-        && Objects.equals(this.statementLineCount, statement.statementLineCount);
+    return Objects.equals(this.id, statement.id) &&
+        Objects.equals(this.feedConnectionId, statement.feedConnectionId) &&
+        Objects.equals(this.status, statement.status) &&
+        Objects.equals(this.startDate, statement.startDate) &&
+        Objects.equals(this.endDate, statement.endDate) &&
+        Objects.equals(this.startBalance, statement.startBalance) &&
+        Objects.equals(this.endBalance, statement.endBalance) &&
+        Objects.equals(this.statementLines, statement.statementLines) &&
+        Objects.equals(this.errors, statement.errors) &&
+        Objects.equals(this.statementLineCount, statement.statementLineCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        id,
-        feedConnectionId,
-        status,
-        startDate,
-        endDate,
-        startBalance,
-        endBalance,
-        statementLines,
-        errors,
-        statementLineCount);
+    return Objects.hash(id, feedConnectionId, status, startDate, endDate, startBalance, endBalance, statementLines, errors, statementLineCount);
   }
+
 
   @Override
   public String toString() {
@@ -557,7 +522,8 @@ public class Statement {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -565,4 +531,6 @@ public class Statement {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

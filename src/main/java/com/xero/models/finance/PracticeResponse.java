@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** PracticeResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PracticeResponse
+ */
+
 public class PracticeResponse {
   StringUtil util = new StringUtil();
 
@@ -35,179 +52,165 @@ public class PracticeResponse {
   @JsonProperty("staffCertified")
   private Boolean staffCertified;
   /**
-   * Year of becoming a partner.
-   *
-   * @param xeroPartnerSince Integer
-   * @return PracticeResponse
-   */
+  * Year of becoming a partner.
+  * @param xeroPartnerSince  Integer
+  * @return PracticeResponse
+  **/
   public PracticeResponse xeroPartnerSince(Integer xeroPartnerSince) {
     this.xeroPartnerSince = xeroPartnerSince;
     return this;
   }
 
-  /**
+   /**
    * Year of becoming a partner.
-   *
    * @return xeroPartnerSince
-   */
+  **/
   @ApiModelProperty(value = "Year of becoming a partner.")
-  /**
+  /** 
    * Year of becoming a partner.
-   *
    * @return xeroPartnerSince Integer
-   */
+  **/
   public Integer getXeroPartnerSince() {
     return xeroPartnerSince;
   }
 
-  /**
-   * Year of becoming a partner.
-   *
-   * @param xeroPartnerSince Integer
-   */
+  /** 
+  * Year of becoming a partner.
+  * @param xeroPartnerSince  Integer
+  **/
+
   public void setXeroPartnerSince(Integer xeroPartnerSince) {
     this.xeroPartnerSince = xeroPartnerSince;
   }
 
   /**
-   * Customer tier e.g. Silver
-   *
-   * @param tier String
-   * @return PracticeResponse
-   */
+  * Customer tier e.g. Silver
+  * @param tier  String
+  * @return PracticeResponse
+  **/
   public PracticeResponse tier(String tier) {
     this.tier = tier;
     return this;
   }
 
-  /**
+   /**
    * Customer tier e.g. Silver
-   *
    * @return tier
-   */
+  **/
   @ApiModelProperty(value = "Customer tier e.g. Silver")
-  /**
+  /** 
    * Customer tier e.g. Silver
-   *
    * @return tier String
-   */
+  **/
   public String getTier() {
     return tier;
   }
 
-  /**
-   * Customer tier e.g. Silver
-   *
-   * @param tier String
-   */
+  /** 
+  * Customer tier e.g. Silver
+  * @param tier  String
+  **/
+
   public void setTier(String tier) {
     this.tier = tier;
   }
 
   /**
-   * Country of location.
-   *
-   * @param location String
-   * @return PracticeResponse
-   */
+  * Country of location.
+  * @param location  String
+  * @return PracticeResponse
+  **/
   public PracticeResponse location(String location) {
     this.location = location;
     return this;
   }
 
-  /**
+   /**
    * Country of location.
-   *
    * @return location
-   */
+  **/
   @ApiModelProperty(value = "Country of location.")
-  /**
+  /** 
    * Country of location.
-   *
    * @return location String
-   */
+  **/
   public String getLocation() {
     return location;
   }
 
-  /**
-   * Country of location.
-   *
-   * @param location String
-   */
+  /** 
+  * Country of location.
+  * @param location  String
+  **/
+
   public void setLocation(String location) {
     this.location = location;
   }
 
   /**
-   * Organisation count.
-   *
-   * @param organisationCount Integer
-   * @return PracticeResponse
-   */
+  * Organisation count.
+  * @param organisationCount  Integer
+  * @return PracticeResponse
+  **/
   public PracticeResponse organisationCount(Integer organisationCount) {
     this.organisationCount = organisationCount;
     return this;
   }
 
-  /**
+   /**
    * Organisation count.
-   *
    * @return organisationCount
-   */
+  **/
   @ApiModelProperty(value = "Organisation count.")
-  /**
+  /** 
    * Organisation count.
-   *
    * @return organisationCount Integer
-   */
+  **/
   public Integer getOrganisationCount() {
     return organisationCount;
   }
 
-  /**
-   * Organisation count.
-   *
-   * @param organisationCount Integer
-   */
+  /** 
+  * Organisation count.
+  * @param organisationCount  Integer
+  **/
+
   public void setOrganisationCount(Integer organisationCount) {
     this.organisationCount = organisationCount;
   }
 
   /**
-   * Staff certified (true/false).
-   *
-   * @param staffCertified Boolean
-   * @return PracticeResponse
-   */
+  * Staff certified (true/false).
+  * @param staffCertified  Boolean
+  * @return PracticeResponse
+  **/
   public PracticeResponse staffCertified(Boolean staffCertified) {
     this.staffCertified = staffCertified;
     return this;
   }
 
-  /**
+   /**
    * Staff certified (true/false).
-   *
    * @return staffCertified
-   */
+  **/
   @ApiModelProperty(value = "Staff certified (true/false).")
-  /**
+  /** 
    * Staff certified (true/false).
-   *
    * @return staffCertified Boolean
-   */
+  **/
   public Boolean getStaffCertified() {
     return staffCertified;
   }
 
-  /**
-   * Staff certified (true/false).
-   *
-   * @param staffCertified Boolean
-   */
+  /** 
+  * Staff certified (true/false).
+  * @param staffCertified  Boolean
+  **/
+
   public void setStaffCertified(Boolean staffCertified) {
     this.staffCertified = staffCertified;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -218,17 +221,18 @@ public class PracticeResponse {
       return false;
     }
     PracticeResponse practiceResponse = (PracticeResponse) o;
-    return Objects.equals(this.xeroPartnerSince, practiceResponse.xeroPartnerSince)
-        && Objects.equals(this.tier, practiceResponse.tier)
-        && Objects.equals(this.location, practiceResponse.location)
-        && Objects.equals(this.organisationCount, practiceResponse.organisationCount)
-        && Objects.equals(this.staffCertified, practiceResponse.staffCertified);
+    return Objects.equals(this.xeroPartnerSince, practiceResponse.xeroPartnerSince) &&
+        Objects.equals(this.tier, practiceResponse.tier) &&
+        Objects.equals(this.location, practiceResponse.location) &&
+        Objects.equals(this.organisationCount, practiceResponse.organisationCount) &&
+        Objects.equals(this.staffCertified, practiceResponse.staffCertified);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(xeroPartnerSince, tier, location, organisationCount, staffCertified);
   }
+
 
   @Override
   public String toString() {
@@ -244,7 +248,8 @@ public class PracticeResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -252,4 +257,6 @@ public class PracticeResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

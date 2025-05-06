@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** SuperFundProduct */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * SuperFundProduct
+ */
+
 public class SuperFundProduct {
   StringUtil util = new StringUtil();
 
@@ -32,156 +49,133 @@ public class SuperFundProduct {
   @JsonProperty("ProductName")
   private String productName;
   /**
-   * The ABN of the Regulated SuperFund
-   *
-   * @param ABN String
-   * @return SuperFundProduct
-   */
+  * The ABN of the Regulated SuperFund
+  * @param ABN  String
+  * @return SuperFundProduct
+  **/
   public SuperFundProduct ABN(String ABN) {
     this.ABN = ABN;
     return this;
   }
 
-  /**
+   /**
    * The ABN of the Regulated SuperFund
-   *
    * @return ABN
-   */
+  **/
   @ApiModelProperty(example = "839182848805", value = "The ABN of the Regulated SuperFund")
-  /**
+  /** 
    * The ABN of the Regulated SuperFund
-   *
    * @return ABN String
-   */
+  **/
   public String getABN() {
     return ABN;
   }
 
-  /**
-   * The ABN of the Regulated SuperFund
-   *
-   * @param ABN String
-   */
+  /** 
+  * The ABN of the Regulated SuperFund
+  * @param ABN  String
+  **/
+
   public void setABN(String ABN) {
     this.ABN = ABN;
   }
 
   /**
-   * The USI of the Regulated SuperFund
-   *
-   * @param USI String
-   * @return SuperFundProduct
-   */
+  * The USI of the Regulated SuperFund
+  * @param USI  String
+  * @return SuperFundProduct
+  **/
   public SuperFundProduct USI(String USI) {
     this.USI = USI;
     return this;
   }
 
-  /**
+   /**
    * The USI of the Regulated SuperFund
-   *
    * @return USI
-   */
+  **/
   @ApiModelProperty(example = "839182848805001", value = "The USI of the Regulated SuperFund")
-  /**
+  /** 
    * The USI of the Regulated SuperFund
-   *
    * @return USI String
-   */
+  **/
   public String getUSI() {
     return USI;
   }
 
-  /**
-   * The USI of the Regulated SuperFund
-   *
-   * @param USI String
-   */
+  /** 
+  * The USI of the Regulated SuperFund
+  * @param USI  String
+  **/
+
   public void setUSI(String USI) {
     this.USI = USI;
   }
 
   /**
-   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not
-   * have a SPIN value. The USI field should be used instead of SPIN
-   *
-   * @param SPIN String
-   * @return SuperFundProduct
-   */
+  * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not have a SPIN value. The USI field should be used instead of SPIN
+  * @param SPIN  String
+  * @return SuperFundProduct
+  **/
   public SuperFundProduct SPIN(String SPIN) {
     this.SPIN = SPIN;
     return this;
   }
 
-  /**
-   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not
-   * have a SPIN value. The USI field should be used instead of SPIN
-   *
+   /**
+   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not have a SPIN value. The USI field should be used instead of SPIN
    * @return SPIN
-   */
-  @ApiModelProperty(
-      example = "NML0117AU",
-      value =
-          "The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds"
-              + " will not have a SPIN value. The USI field should be used instead of SPIN")
-  /**
-   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not
-   * have a SPIN value. The USI field should be used instead of SPIN
-   *
+  **/
+  @ApiModelProperty(example = "NML0117AU", value = "The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not have a SPIN value. The USI field should be used instead of SPIN")
+  /** 
+   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not have a SPIN value. The USI field should be used instead of SPIN
    * @return SPIN String
-   */
+  **/
   public String getSPIN() {
     return SPIN;
   }
 
-  /**
-   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not
-   * have a SPIN value. The USI field should be used instead of SPIN
-   *
-   * @param SPIN String
-   */
+  /** 
+  * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not have a SPIN value. The USI field should be used instead of SPIN
+  * @param SPIN  String
+  **/
+
   public void setSPIN(String SPIN) {
     this.SPIN = SPIN;
   }
 
   /**
-   * The name of the Regulated SuperFund
-   *
-   * @param productName String
-   * @return SuperFundProduct
-   */
+  * The name of the Regulated SuperFund
+  * @param productName  String
+  * @return SuperFundProduct
+  **/
   public SuperFundProduct productName(String productName) {
     this.productName = productName;
     return this;
   }
 
-  /**
+   /**
    * The name of the Regulated SuperFund
-   *
    * @return productName
-   */
-  @ApiModelProperty(
-      example =
-          "MLC Navigator Retirement Plan - Superannuation Service (including Series 2) (MLC"
-              + " Superannuation Fund)",
-      value = "The name of the Regulated SuperFund")
-  /**
+  **/
+  @ApiModelProperty(example = "MLC Navigator Retirement Plan - Superannuation Service (including Series 2) (MLC Superannuation Fund)", value = "The name of the Regulated SuperFund")
+  /** 
    * The name of the Regulated SuperFund
-   *
    * @return productName String
-   */
+  **/
   public String getProductName() {
     return productName;
   }
 
-  /**
-   * The name of the Regulated SuperFund
-   *
-   * @param productName String
-   */
+  /** 
+  * The name of the Regulated SuperFund
+  * @param productName  String
+  **/
+
   public void setProductName(String productName) {
     this.productName = productName;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -192,16 +186,17 @@ public class SuperFundProduct {
       return false;
     }
     SuperFundProduct superFundProduct = (SuperFundProduct) o;
-    return Objects.equals(this.ABN, superFundProduct.ABN)
-        && Objects.equals(this.USI, superFundProduct.USI)
-        && Objects.equals(this.SPIN, superFundProduct.SPIN)
-        && Objects.equals(this.productName, superFundProduct.productName);
+    return Objects.equals(this.ABN, superFundProduct.ABN) &&
+        Objects.equals(this.USI, superFundProduct.USI) &&
+        Objects.equals(this.SPIN, superFundProduct.SPIN) &&
+        Objects.equals(this.productName, superFundProduct.productName);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(ABN, USI, SPIN, productName);
   }
+
 
   @Override
   public String toString() {
@@ -216,7 +211,8 @@ public class SuperFundProduct {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -224,4 +220,6 @@ public class SuperFundProduct {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

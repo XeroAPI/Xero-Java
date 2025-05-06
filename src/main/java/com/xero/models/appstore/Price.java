@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.appstore;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Price */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Price
+ */
+
 public class Price {
   StringUtil util = new StringUtil();
 
@@ -30,109 +47,101 @@ public class Price {
   @JsonProperty("id")
   private UUID id;
   /**
-   * The net (before tax) amount.
-   *
-   * @param amount Double
-   * @return Price
-   */
+  * The net (before tax) amount.
+  * @param amount  Double
+  * @return Price
+  **/
   public Price amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * The net (before tax) amount.
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(required = true, value = "The net (before tax) amount.")
-  /**
+  /** 
    * The net (before tax) amount.
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * The net (before tax) amount.
-   *
-   * @param amount Double
-   */
+  /** 
+  * The net (before tax) amount.
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * The currency of the price.
-   *
-   * @param currency String
-   * @return Price
-   */
+  * The currency of the price.
+  * @param currency  String
+  * @return Price
+  **/
   public Price currency(String currency) {
     this.currency = currency;
     return this;
   }
 
-  /**
+   /**
    * The currency of the price.
-   *
    * @return currency
-   */
+  **/
   @ApiModelProperty(required = true, value = "The currency of the price.")
-  /**
+  /** 
    * The currency of the price.
-   *
    * @return currency String
-   */
+  **/
   public String getCurrency() {
     return currency;
   }
 
-  /**
-   * The currency of the price.
-   *
-   * @param currency String
-   */
+  /** 
+  * The currency of the price.
+  * @param currency  String
+  **/
+
   public void setCurrency(String currency) {
     this.currency = currency;
   }
 
   /**
-   * The unique identifier of the price.
-   *
-   * @param id UUID
-   * @return Price
-   */
+  * The unique identifier of the price.
+  * @param id  UUID
+  * @return Price
+  **/
   public Price id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier of the price.
-   *
    * @return id
-   */
+  **/
   @ApiModelProperty(required = true, value = "The unique identifier of the price.")
-  /**
+  /** 
    * The unique identifier of the price.
-   *
    * @return id UUID
-   */
+  **/
   public UUID getId() {
     return id;
   }
 
-  /**
-   * The unique identifier of the price.
-   *
-   * @param id UUID
-   */
+  /** 
+  * The unique identifier of the price.
+  * @param id  UUID
+  **/
+
   public void setId(UUID id) {
     this.id = id;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -143,15 +152,16 @@ public class Price {
       return false;
     }
     Price price = (Price) o;
-    return Objects.equals(this.amount, price.amount)
-        && Objects.equals(this.currency, price.currency)
-        && Objects.equals(this.id, price.id);
+    return Objects.equals(this.amount, price.amount) &&
+        Objects.equals(this.currency, price.currency) &&
+        Objects.equals(this.id, price.id);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(amount, currency, id);
   }
+
 
   @Override
   public String toString() {
@@ -165,7 +175,8 @@ public class Price {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -173,4 +184,6 @@ public class Price {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

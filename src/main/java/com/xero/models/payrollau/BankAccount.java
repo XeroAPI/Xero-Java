@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** BankAccount */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BankAccount
+ */
+
 public class BankAccount {
   StringUtil util = new StringUtil();
 
@@ -38,225 +55,197 @@ public class BankAccount {
   @JsonProperty("Amount")
   private Double amount;
   /**
-   * The text that will appear on your employee&#39;s bank statement when they receive payment
-   *
-   * @param statementText String
-   * @return BankAccount
-   */
+  * The text that will appear on your employee&#39;s bank statement when they receive payment
+  * @param statementText  String
+  * @return BankAccount
+  **/
   public BankAccount statementText(String statementText) {
     this.statementText = statementText;
     return this;
   }
 
-  /**
+   /**
    * The text that will appear on your employee&#39;s bank statement when they receive payment
-   *
    * @return statementText
-   */
-  @ApiModelProperty(
-      example = "Salary",
-      value =
-          "The text that will appear on your employee's bank statement when they receive payment")
-  /**
+  **/
+  @ApiModelProperty(example = "Salary", value = "The text that will appear on your employee's bank statement when they receive payment")
+  /** 
    * The text that will appear on your employee&#39;s bank statement when they receive payment
-   *
    * @return statementText String
-   */
+  **/
   public String getStatementText() {
     return statementText;
   }
 
-  /**
-   * The text that will appear on your employee&#39;s bank statement when they receive payment
-   *
-   * @param statementText String
-   */
+  /** 
+  * The text that will appear on your employee&#39;s bank statement when they receive payment
+  * @param statementText  String
+  **/
+
   public void setStatementText(String statementText) {
     this.statementText = statementText;
   }
 
   /**
-   * The name of the account
-   *
-   * @param accountName String
-   * @return BankAccount
-   */
+  * The name of the account
+  * @param accountName  String
+  * @return BankAccount
+  **/
   public BankAccount accountName(String accountName) {
     this.accountName = accountName;
     return this;
   }
 
-  /**
+   /**
    * The name of the account
-   *
    * @return accountName
-   */
+  **/
   @ApiModelProperty(example = "James Lebron Savings", value = "The name of the account")
-  /**
+  /** 
    * The name of the account
-   *
    * @return accountName String
-   */
+  **/
   public String getAccountName() {
     return accountName;
   }
 
-  /**
-   * The name of the account
-   *
-   * @param accountName String
-   */
+  /** 
+  * The name of the account
+  * @param accountName  String
+  **/
+
   public void setAccountName(String accountName) {
     this.accountName = accountName;
   }
 
   /**
-   * The BSB number of the account
-   *
-   * @param BSB String
-   * @return BankAccount
-   */
+  * The BSB number of the account
+  * @param BSB  String
+  * @return BankAccount
+  **/
   public BankAccount BSB(String BSB) {
     this.BSB = BSB;
     return this;
   }
 
-  /**
+   /**
    * The BSB number of the account
-   *
    * @return BSB
-   */
+  **/
   @ApiModelProperty(example = "122344", value = "The BSB number of the account")
-  /**
+  /** 
    * The BSB number of the account
-   *
    * @return BSB String
-   */
+  **/
   public String getBSB() {
     return BSB;
   }
 
-  /**
-   * The BSB number of the account
-   *
-   * @param BSB String
-   */
+  /** 
+  * The BSB number of the account
+  * @param BSB  String
+  **/
+
   public void setBSB(String BSB) {
     this.BSB = BSB;
   }
 
   /**
-   * The account number
-   *
-   * @param accountNumber String
-   * @return BankAccount
-   */
+  * The account number
+  * @param accountNumber  String
+  * @return BankAccount
+  **/
   public BankAccount accountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
     return this;
   }
 
-  /**
+   /**
    * The account number
-   *
    * @return accountNumber
-   */
+  **/
   @ApiModelProperty(example = "345678", value = "The account number")
-  /**
+  /** 
    * The account number
-   *
    * @return accountNumber String
-   */
+  **/
   public String getAccountNumber() {
     return accountNumber;
   }
 
-  /**
-   * The account number
-   *
-   * @param accountNumber String
-   */
+  /** 
+  * The account number
+  * @param accountNumber  String
+  **/
+
   public void setAccountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
   }
 
   /**
-   * If this account is the Remaining bank account
-   *
-   * @param remainder Boolean
-   * @return BankAccount
-   */
+  * If this account is the Remaining bank account
+  * @param remainder  Boolean
+  * @return BankAccount
+  **/
   public BankAccount remainder(Boolean remainder) {
     this.remainder = remainder;
     return this;
   }
 
-  /**
+   /**
    * If this account is the Remaining bank account
-   *
    * @return remainder
-   */
+  **/
   @ApiModelProperty(example = "false", value = "If this account is the Remaining bank account")
-  /**
+  /** 
    * If this account is the Remaining bank account
-   *
    * @return remainder Boolean
-   */
+  **/
   public Boolean getRemainder() {
     return remainder;
   }
 
-  /**
-   * If this account is the Remaining bank account
-   *
-   * @param remainder Boolean
-   */
+  /** 
+  * If this account is the Remaining bank account
+  * @param remainder  Boolean
+  **/
+
   public void setRemainder(Boolean remainder) {
     this.remainder = remainder;
   }
 
   /**
-   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to
-   * one account, and the remaining amount to another)
-   *
-   * @param amount Double
-   * @return BankAccount
-   */
+  * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to one account, and the remaining amount to another)
+  * @param amount  Double
+  * @return BankAccount
+  **/
   public BankAccount amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
-   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to
-   * one account, and the remaining amount to another)
-   *
+   /**
+   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to one account, and the remaining amount to another)
    * @return amount
-   */
-  @ApiModelProperty(
-      example = "200.0",
-      value =
-          "Fixed amounts (for example, if an employee wants to have $100 of their salary"
-              + " transferred to one account, and the remaining amount to another)")
-  /**
-   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to
-   * one account, and the remaining amount to another)
-   *
+  **/
+  @ApiModelProperty(example = "200.0", value = "Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to one account, and the remaining amount to another)")
+  /** 
+   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to one account, and the remaining amount to another)
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to
-   * one account, and the remaining amount to another)
-   *
-   * @param amount Double
-   */
+  /** 
+  * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to one account, and the remaining amount to another)
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -267,18 +256,19 @@ public class BankAccount {
       return false;
     }
     BankAccount bankAccount = (BankAccount) o;
-    return Objects.equals(this.statementText, bankAccount.statementText)
-        && Objects.equals(this.accountName, bankAccount.accountName)
-        && Objects.equals(this.BSB, bankAccount.BSB)
-        && Objects.equals(this.accountNumber, bankAccount.accountNumber)
-        && Objects.equals(this.remainder, bankAccount.remainder)
-        && Objects.equals(this.amount, bankAccount.amount);
+    return Objects.equals(this.statementText, bankAccount.statementText) &&
+        Objects.equals(this.accountName, bankAccount.accountName) &&
+        Objects.equals(this.BSB, bankAccount.BSB) &&
+        Objects.equals(this.accountNumber, bankAccount.accountNumber) &&
+        Objects.equals(this.remainder, bankAccount.remainder) &&
+        Objects.equals(this.amount, bankAccount.amount);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(statementText, accountName, BSB, accountNumber, remainder, amount);
   }
+
 
   @Override
   public String toString() {
@@ -295,7 +285,8 @@ public class BankAccount {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -303,4 +294,6 @@ public class BankAccount {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

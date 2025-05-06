@@ -9,37 +9,66 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.assets;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** BookDepreciationSetting */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BookDepreciationSetting
+ */
+
 public class BookDepreciationSetting {
   StringUtil util = new StringUtil();
-  /** The method of depreciation applied to this asset. See Depreciation Methods */
+  /**
+   * The method of depreciation applied to this asset. See Depreciation Methods
+   */
   public enum DepreciationMethodEnum {
-    /** NODEPRECIATION */
+    /**
+     * NODEPRECIATION
+     */
     NODEPRECIATION("NoDepreciation"),
-
-    /** STRAIGHTLINE */
+    
+    /**
+     * STRAIGHTLINE
+     */
     STRAIGHTLINE("StraightLine"),
-
-    /** DIMINISHINGVALUE100 */
+    
+    /**
+     * DIMINISHINGVALUE100
+     */
     DIMINISHINGVALUE100("DiminishingValue100"),
-
-    /** DIMINISHINGVALUE150 */
+    
+    /**
+     * DIMINISHINGVALUE150
+     */
     DIMINISHINGVALUE150("DiminishingValue150"),
-
-    /** DIMINISHINGVALUE200 */
+    
+    /**
+     * DIMINISHINGVALUE200
+     */
     DIMINISHINGVALUE200("DiminishingValue200"),
-
-    /** FULLDEPRECIATION */
+    
+    /**
+     * FULLDEPRECIATION
+     */
     FULLDEPRECIATION("FullDepreciation");
 
     private String value;
@@ -48,31 +77,25 @@ public class BookDepreciationSetting {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static DepreciationMethodEnum fromValue(String value) {
       for (DepreciationMethodEnum b : DepreciationMethodEnum.values()) {
@@ -84,14 +107,21 @@ public class BookDepreciationSetting {
     }
   }
 
+
   @JsonProperty("depreciationMethod")
   private DepreciationMethodEnum depreciationMethod;
-  /** The method of averaging applied to this asset. See Averaging Methods */
+  /**
+   * The method of averaging applied to this asset. See Averaging Methods
+   */
   public enum AveragingMethodEnum {
-    /** FULLMONTH */
+    /**
+     * FULLMONTH
+     */
     FULLMONTH("FullMonth"),
-
-    /** ACTUALDAYS */
+    
+    /**
+     * ACTUALDAYS
+     */
     ACTUALDAYS("ActualDays");
 
     private String value;
@@ -100,31 +130,25 @@ public class BookDepreciationSetting {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static AveragingMethodEnum fromValue(String value) {
       for (AveragingMethodEnum b : AveragingMethodEnum.values()) {
@@ -136,6 +160,7 @@ public class BookDepreciationSetting {
     }
   }
 
+
   @JsonProperty("averagingMethod")
   private AveragingMethodEnum averagingMethod;
 
@@ -144,15 +169,23 @@ public class BookDepreciationSetting {
 
   @JsonProperty("effectiveLifeYears")
   private Integer effectiveLifeYears;
-  /** See Depreciation Calculation Methods */
+  /**
+   * See Depreciation Calculation Methods
+   */
   public enum DepreciationCalculationMethodEnum {
-    /** RATE */
+    /**
+     * RATE
+     */
     RATE("Rate"),
-
-    /** LIFE */
+    
+    /**
+     * LIFE
+     */
     LIFE("Life"),
-
-    /** NONE */
+    
+    /**
+     * NONE
+     */
     NONE("None");
 
     private String value;
@@ -161,31 +194,25 @@ public class BookDepreciationSetting {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static DepreciationCalculationMethodEnum fromValue(String value) {
       for (DepreciationCalculationMethodEnum b : DepreciationCalculationMethodEnum.values()) {
@@ -196,6 +223,7 @@ public class BookDepreciationSetting {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("depreciationCalculationMethod")
   private DepreciationCalculationMethodEnum depreciationCalculationMethod;
@@ -209,294 +237,261 @@ public class BookDepreciationSetting {
   @JsonProperty("bookEffectiveDateOfChangeId")
   private UUID bookEffectiveDateOfChangeId;
   /**
-   * The method of depreciation applied to this asset. See Depreciation Methods
-   *
-   * @param depreciationMethod DepreciationMethodEnum
-   * @return BookDepreciationSetting
-   */
+  * The method of depreciation applied to this asset. See Depreciation Methods
+  * @param depreciationMethod  DepreciationMethodEnum
+  * @return BookDepreciationSetting
+  **/
   public BookDepreciationSetting depreciationMethod(DepreciationMethodEnum depreciationMethod) {
     this.depreciationMethod = depreciationMethod;
     return this;
   }
 
-  /**
+   /**
    * The method of depreciation applied to this asset. See Depreciation Methods
-   *
    * @return depreciationMethod
-   */
-  @ApiModelProperty(
-      example = "StraightLine",
-      value = "The method of depreciation applied to this asset. See Depreciation Methods")
-  /**
+  **/
+  @ApiModelProperty(example = "StraightLine", value = "The method of depreciation applied to this asset. See Depreciation Methods")
+  /** 
    * The method of depreciation applied to this asset. See Depreciation Methods
-   *
    * @return depreciationMethod DepreciationMethodEnum
-   */
+  **/
   public DepreciationMethodEnum getDepreciationMethod() {
     return depreciationMethod;
   }
 
-  /**
-   * The method of depreciation applied to this asset. See Depreciation Methods
-   *
-   * @param depreciationMethod DepreciationMethodEnum
-   */
+  /** 
+  * The method of depreciation applied to this asset. See Depreciation Methods
+  * @param depreciationMethod  DepreciationMethodEnum
+  **/
+
   public void setDepreciationMethod(DepreciationMethodEnum depreciationMethod) {
     this.depreciationMethod = depreciationMethod;
   }
 
   /**
-   * The method of averaging applied to this asset. See Averaging Methods
-   *
-   * @param averagingMethod AveragingMethodEnum
-   * @return BookDepreciationSetting
-   */
+  * The method of averaging applied to this asset. See Averaging Methods
+  * @param averagingMethod  AveragingMethodEnum
+  * @return BookDepreciationSetting
+  **/
   public BookDepreciationSetting averagingMethod(AveragingMethodEnum averagingMethod) {
     this.averagingMethod = averagingMethod;
     return this;
   }
 
-  /**
+   /**
    * The method of averaging applied to this asset. See Averaging Methods
-   *
    * @return averagingMethod
-   */
-  @ApiModelProperty(
-      example = "ActualDays",
-      value = "The method of averaging applied to this asset. See Averaging Methods")
-  /**
+  **/
+  @ApiModelProperty(example = "ActualDays", value = "The method of averaging applied to this asset. See Averaging Methods")
+  /** 
    * The method of averaging applied to this asset. See Averaging Methods
-   *
    * @return averagingMethod AveragingMethodEnum
-   */
+  **/
   public AveragingMethodEnum getAveragingMethod() {
     return averagingMethod;
   }
 
-  /**
-   * The method of averaging applied to this asset. See Averaging Methods
-   *
-   * @param averagingMethod AveragingMethodEnum
-   */
+  /** 
+  * The method of averaging applied to this asset. See Averaging Methods
+  * @param averagingMethod  AveragingMethodEnum
+  **/
+
   public void setAveragingMethod(AveragingMethodEnum averagingMethod) {
     this.averagingMethod = averagingMethod;
   }
 
   /**
-   * The rate of depreciation (e.g. 0.05)
-   *
-   * @param depreciationRate Double
-   * @return BookDepreciationSetting
-   */
+  * The rate of depreciation (e.g. 0.05)
+  * @param depreciationRate  Double
+  * @return BookDepreciationSetting
+  **/
   public BookDepreciationSetting depreciationRate(Double depreciationRate) {
     this.depreciationRate = depreciationRate;
     return this;
   }
 
-  /**
+   /**
    * The rate of depreciation (e.g. 0.05)
-   *
    * @return depreciationRate
-   */
+  **/
   @ApiModelProperty(example = "0.05", value = "The rate of depreciation (e.g. 0.05)")
-  /**
+  /** 
    * The rate of depreciation (e.g. 0.05)
-   *
    * @return depreciationRate Double
-   */
+  **/
   public Double getDepreciationRate() {
     return depreciationRate;
   }
 
-  /**
-   * The rate of depreciation (e.g. 0.05)
-   *
-   * @param depreciationRate Double
-   */
+  /** 
+  * The rate of depreciation (e.g. 0.05)
+  * @param depreciationRate  Double
+  **/
+
   public void setDepreciationRate(Double depreciationRate) {
     this.depreciationRate = depreciationRate;
   }
 
   /**
-   * Effective life of the asset in years (e.g. 5)
-   *
-   * @param effectiveLifeYears Integer
-   * @return BookDepreciationSetting
-   */
+  * Effective life of the asset in years (e.g. 5)
+  * @param effectiveLifeYears  Integer
+  * @return BookDepreciationSetting
+  **/
   public BookDepreciationSetting effectiveLifeYears(Integer effectiveLifeYears) {
     this.effectiveLifeYears = effectiveLifeYears;
     return this;
   }
 
-  /**
+   /**
    * Effective life of the asset in years (e.g. 5)
-   *
    * @return effectiveLifeYears
-   */
+  **/
   @ApiModelProperty(example = "5", value = "Effective life of the asset in years (e.g. 5)")
-  /**
+  /** 
    * Effective life of the asset in years (e.g. 5)
-   *
    * @return effectiveLifeYears Integer
-   */
+  **/
   public Integer getEffectiveLifeYears() {
     return effectiveLifeYears;
   }
 
-  /**
-   * Effective life of the asset in years (e.g. 5)
-   *
-   * @param effectiveLifeYears Integer
-   */
+  /** 
+  * Effective life of the asset in years (e.g. 5)
+  * @param effectiveLifeYears  Integer
+  **/
+
   public void setEffectiveLifeYears(Integer effectiveLifeYears) {
     this.effectiveLifeYears = effectiveLifeYears;
   }
 
   /**
-   * See Depreciation Calculation Methods
-   *
-   * @param depreciationCalculationMethod DepreciationCalculationMethodEnum
-   * @return BookDepreciationSetting
-   */
-  public BookDepreciationSetting depreciationCalculationMethod(
-      DepreciationCalculationMethodEnum depreciationCalculationMethod) {
+  * See Depreciation Calculation Methods
+  * @param depreciationCalculationMethod  DepreciationCalculationMethodEnum
+  * @return BookDepreciationSetting
+  **/
+  public BookDepreciationSetting depreciationCalculationMethod(DepreciationCalculationMethodEnum depreciationCalculationMethod) {
     this.depreciationCalculationMethod = depreciationCalculationMethod;
     return this;
   }
 
-  /**
+   /**
    * See Depreciation Calculation Methods
-   *
    * @return depreciationCalculationMethod
-   */
+  **/
   @ApiModelProperty(example = "None", value = "See Depreciation Calculation Methods")
-  /**
+  /** 
    * See Depreciation Calculation Methods
-   *
    * @return depreciationCalculationMethod DepreciationCalculationMethodEnum
-   */
+  **/
   public DepreciationCalculationMethodEnum getDepreciationCalculationMethod() {
     return depreciationCalculationMethod;
   }
 
-  /**
-   * See Depreciation Calculation Methods
-   *
-   * @param depreciationCalculationMethod DepreciationCalculationMethodEnum
-   */
-  public void setDepreciationCalculationMethod(
-      DepreciationCalculationMethodEnum depreciationCalculationMethod) {
+  /** 
+  * See Depreciation Calculation Methods
+  * @param depreciationCalculationMethod  DepreciationCalculationMethodEnum
+  **/
+
+  public void setDepreciationCalculationMethod(DepreciationCalculationMethodEnum depreciationCalculationMethod) {
     this.depreciationCalculationMethod = depreciationCalculationMethod;
   }
 
   /**
-   * Unique Xero identifier for the depreciable object
-   *
-   * @param depreciableObjectId UUID
-   * @return BookDepreciationSetting
-   */
+  * Unique Xero identifier for the depreciable object
+  * @param depreciableObjectId  UUID
+  * @return BookDepreciationSetting
+  **/
   public BookDepreciationSetting depreciableObjectId(UUID depreciableObjectId) {
     this.depreciableObjectId = depreciableObjectId;
     return this;
   }
 
-  /**
+   /**
    * Unique Xero identifier for the depreciable object
-   *
    * @return depreciableObjectId
-   */
-  @ApiModelProperty(
-      example = "68f17094-af97-4f1b-b36b-013b45b6ad3c",
-      value = "Unique Xero identifier for the depreciable object")
-  /**
+  **/
+  @ApiModelProperty(example = "68f17094-af97-4f1b-b36b-013b45b6ad3c", value = "Unique Xero identifier for the depreciable object")
+  /** 
    * Unique Xero identifier for the depreciable object
-   *
    * @return depreciableObjectId UUID
-   */
+  **/
   public UUID getDepreciableObjectId() {
     return depreciableObjectId;
   }
 
-  /**
-   * Unique Xero identifier for the depreciable object
-   *
-   * @param depreciableObjectId UUID
-   */
+  /** 
+  * Unique Xero identifier for the depreciable object
+  * @param depreciableObjectId  UUID
+  **/
+
   public void setDepreciableObjectId(UUID depreciableObjectId) {
     this.depreciableObjectId = depreciableObjectId;
   }
 
   /**
-   * The type of asset object
-   *
-   * @param depreciableObjectType String
-   * @return BookDepreciationSetting
-   */
+  * The type of asset object
+  * @param depreciableObjectType  String
+  * @return BookDepreciationSetting
+  **/
   public BookDepreciationSetting depreciableObjectType(String depreciableObjectType) {
     this.depreciableObjectType = depreciableObjectType;
     return this;
   }
 
-  /**
+   /**
    * The type of asset object
-   *
    * @return depreciableObjectType
-   */
+  **/
   @ApiModelProperty(example = "Asset", value = "The type of asset object")
-  /**
+  /** 
    * The type of asset object
-   *
    * @return depreciableObjectType String
-   */
+  **/
   public String getDepreciableObjectType() {
     return depreciableObjectType;
   }
 
-  /**
-   * The type of asset object
-   *
-   * @param depreciableObjectType String
-   */
+  /** 
+  * The type of asset object
+  * @param depreciableObjectType  String
+  **/
+
   public void setDepreciableObjectType(String depreciableObjectType) {
     this.depreciableObjectType = depreciableObjectType;
   }
 
   /**
-   * Unique Xero identifier for the effective date change
-   *
-   * @param bookEffectiveDateOfChangeId UUID
-   * @return BookDepreciationSetting
-   */
+  * Unique Xero identifier for the effective date change
+  * @param bookEffectiveDateOfChangeId  UUID
+  * @return BookDepreciationSetting
+  **/
   public BookDepreciationSetting bookEffectiveDateOfChangeId(UUID bookEffectiveDateOfChangeId) {
     this.bookEffectiveDateOfChangeId = bookEffectiveDateOfChangeId;
     return this;
   }
 
-  /**
+   /**
    * Unique Xero identifier for the effective date change
-   *
    * @return bookEffectiveDateOfChangeId
-   */
-  @ApiModelProperty(
-      example = "68f17094-af97-4f1b-b36b-013b45b6ad3c",
-      value = "Unique Xero identifier for the effective date change")
-  /**
+  **/
+  @ApiModelProperty(example = "68f17094-af97-4f1b-b36b-013b45b6ad3c", value = "Unique Xero identifier for the effective date change")
+  /** 
    * Unique Xero identifier for the effective date change
-   *
    * @return bookEffectiveDateOfChangeId UUID
-   */
+  **/
   public UUID getBookEffectiveDateOfChangeId() {
     return bookEffectiveDateOfChangeId;
   }
 
-  /**
-   * Unique Xero identifier for the effective date change
-   *
-   * @param bookEffectiveDateOfChangeId UUID
-   */
+  /** 
+  * Unique Xero identifier for the effective date change
+  * @param bookEffectiveDateOfChangeId  UUID
+  **/
+
   public void setBookEffectiveDateOfChangeId(UUID bookEffectiveDateOfChangeId) {
     this.bookEffectiveDateOfChangeId = bookEffectiveDateOfChangeId;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -507,31 +502,21 @@ public class BookDepreciationSetting {
       return false;
     }
     BookDepreciationSetting bookDepreciationSetting = (BookDepreciationSetting) o;
-    return Objects.equals(this.depreciationMethod, bookDepreciationSetting.depreciationMethod)
-        && Objects.equals(this.averagingMethod, bookDepreciationSetting.averagingMethod)
-        && Objects.equals(this.depreciationRate, bookDepreciationSetting.depreciationRate)
-        && Objects.equals(this.effectiveLifeYears, bookDepreciationSetting.effectiveLifeYears)
-        && Objects.equals(
-            this.depreciationCalculationMethod,
-            bookDepreciationSetting.depreciationCalculationMethod)
-        && Objects.equals(this.depreciableObjectId, bookDepreciationSetting.depreciableObjectId)
-        && Objects.equals(this.depreciableObjectType, bookDepreciationSetting.depreciableObjectType)
-        && Objects.equals(
-            this.bookEffectiveDateOfChangeId, bookDepreciationSetting.bookEffectiveDateOfChangeId);
+    return Objects.equals(this.depreciationMethod, bookDepreciationSetting.depreciationMethod) &&
+        Objects.equals(this.averagingMethod, bookDepreciationSetting.averagingMethod) &&
+        Objects.equals(this.depreciationRate, bookDepreciationSetting.depreciationRate) &&
+        Objects.equals(this.effectiveLifeYears, bookDepreciationSetting.effectiveLifeYears) &&
+        Objects.equals(this.depreciationCalculationMethod, bookDepreciationSetting.depreciationCalculationMethod) &&
+        Objects.equals(this.depreciableObjectId, bookDepreciationSetting.depreciableObjectId) &&
+        Objects.equals(this.depreciableObjectType, bookDepreciationSetting.depreciableObjectType) &&
+        Objects.equals(this.bookEffectiveDateOfChangeId, bookDepreciationSetting.bookEffectiveDateOfChangeId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        depreciationMethod,
-        averagingMethod,
-        depreciationRate,
-        effectiveLifeYears,
-        depreciationCalculationMethod,
-        depreciableObjectId,
-        depreciableObjectType,
-        bookEffectiveDateOfChangeId);
+    return Objects.hash(depreciationMethod, averagingMethod, depreciationRate, effectiveLifeYears, depreciationCalculationMethod, depreciableObjectId, depreciableObjectType, bookEffectiveDateOfChangeId);
   }
+
 
   @Override
   public String toString() {
@@ -541,24 +526,17 @@ public class BookDepreciationSetting {
     sb.append("    averagingMethod: ").append(toIndentedString(averagingMethod)).append("\n");
     sb.append("    depreciationRate: ").append(toIndentedString(depreciationRate)).append("\n");
     sb.append("    effectiveLifeYears: ").append(toIndentedString(effectiveLifeYears)).append("\n");
-    sb.append("    depreciationCalculationMethod: ")
-        .append(toIndentedString(depreciationCalculationMethod))
-        .append("\n");
-    sb.append("    depreciableObjectId: ")
-        .append(toIndentedString(depreciableObjectId))
-        .append("\n");
-    sb.append("    depreciableObjectType: ")
-        .append(toIndentedString(depreciableObjectType))
-        .append("\n");
-    sb.append("    bookEffectiveDateOfChangeId: ")
-        .append(toIndentedString(bookEffectiveDateOfChangeId))
-        .append("\n");
+    sb.append("    depreciationCalculationMethod: ").append(toIndentedString(depreciationCalculationMethod)).append("\n");
+    sb.append("    depreciableObjectId: ").append(toIndentedString(depreciableObjectId)).append("\n");
+    sb.append("    depreciableObjectType: ").append(toIndentedString(depreciableObjectType)).append("\n");
+    sb.append("    bookEffectiveDateOfChangeId: ").append(toIndentedString(bookEffectiveDateOfChangeId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -566,4 +544,6 @@ public class BookDepreciationSetting {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

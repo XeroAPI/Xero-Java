@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** PaidLeaveEarningsLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PaidLeaveEarningsLine
+ */
+
 public class PaidLeaveEarningsLine {
   StringUtil util = new StringUtil();
 
@@ -36,208 +53,165 @@ public class PaidLeaveEarningsLine {
   @JsonProperty("ResetSTPCategorisation")
   private Boolean resetSTPCategorisation;
   /**
-   * Xero leave type identifier
-   *
-   * @param leaveTypeID UUID
-   * @return PaidLeaveEarningsLine
-   */
+  * Xero leave type identifier
+  * @param leaveTypeID  UUID
+  * @return PaidLeaveEarningsLine
+  **/
   public PaidLeaveEarningsLine leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero leave type identifier
-   *
    * @return leaveTypeID
-   */
-  @ApiModelProperty(
-      example = "742998cb-7584-4ecf-aa88-d694f59c50f9",
-      required = true,
-      value = "Xero leave type identifier")
-  /**
+  **/
+  @ApiModelProperty(example = "742998cb-7584-4ecf-aa88-d694f59c50f9", required = true, value = "Xero leave type identifier")
+  /** 
    * Xero leave type identifier
-   *
    * @return leaveTypeID UUID
-   */
+  **/
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
-  /**
-   * Xero leave type identifier
-   *
-   * @param leaveTypeID UUID
-   */
+  /** 
+  * Xero leave type identifier
+  * @param leaveTypeID  UUID
+  **/
+
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
   /**
-   * Paid leave amount
-   *
-   * @param amount Double
-   * @return PaidLeaveEarningsLine
-   */
+  * Paid leave amount
+  * @param amount  Double
+  * @return PaidLeaveEarningsLine
+  **/
   public PaidLeaveEarningsLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * Paid leave amount
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(example = "500.0", required = true, value = "Paid leave amount")
-  /**
+  /** 
    * Paid leave amount
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * Paid leave amount
-   *
-   * @param amount Double
-   */
+  /** 
+  * Paid leave amount
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * The amount of leave loading applied for the leave type that is subject to Superannuation
-   * Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
-   *
-   * @param sgCAppliedLeaveLoadingAmount Double
-   * @return PaidLeaveEarningsLine
-   */
+  * The amount of leave loading applied for the leave type that is subject to Superannuation Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
+  * @param sgCAppliedLeaveLoadingAmount  Double
+  * @return PaidLeaveEarningsLine
+  **/
   public PaidLeaveEarningsLine sgCAppliedLeaveLoadingAmount(Double sgCAppliedLeaveLoadingAmount) {
     this.sgCAppliedLeaveLoadingAmount = sgCAppliedLeaveLoadingAmount;
     return this;
   }
 
-  /**
-   * The amount of leave loading applied for the leave type that is subject to Superannuation
-   * Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
-   *
+   /**
+   * The amount of leave loading applied for the leave type that is subject to Superannuation Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
    * @return sgCAppliedLeaveLoadingAmount
-   */
-  @ApiModelProperty(
-      example = "50.0",
-      value =
-          "The amount of leave loading applied for the leave type that is subject to"
-              + " Superannuation Guarantee Contributions. *Only applicable for Leave Types with"
-              + " Annual Leave Categories")
-  /**
-   * The amount of leave loading applied for the leave type that is subject to Superannuation
-   * Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
-   *
+  **/
+  @ApiModelProperty(example = "50.0", value = "The amount of leave loading applied for the leave type that is subject to Superannuation Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories")
+  /** 
+   * The amount of leave loading applied for the leave type that is subject to Superannuation Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
    * @return sgCAppliedLeaveLoadingAmount Double
-   */
+  **/
   public Double getSgCAppliedLeaveLoadingAmount() {
     return sgCAppliedLeaveLoadingAmount;
   }
 
-  /**
-   * The amount of leave loading applied for the leave type that is subject to Superannuation
-   * Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
-   *
-   * @param sgCAppliedLeaveLoadingAmount Double
-   */
+  /** 
+  * The amount of leave loading applied for the leave type that is subject to Superannuation Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
+  * @param sgCAppliedLeaveLoadingAmount  Double
+  **/
+
   public void setSgCAppliedLeaveLoadingAmount(Double sgCAppliedLeaveLoadingAmount) {
     this.sgCAppliedLeaveLoadingAmount = sgCAppliedLeaveLoadingAmount;
   }
 
   /**
-   * The amount of leave loading applied for the leave type that is exempt from Superannuation
-   * Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
-   *
-   * @param sgCExemptedLeaveLoadingAmount Double
-   * @return PaidLeaveEarningsLine
-   */
+  * The amount of leave loading applied for the leave type that is exempt from Superannuation Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
+  * @param sgCExemptedLeaveLoadingAmount  Double
+  * @return PaidLeaveEarningsLine
+  **/
   public PaidLeaveEarningsLine sgCExemptedLeaveLoadingAmount(Double sgCExemptedLeaveLoadingAmount) {
     this.sgCExemptedLeaveLoadingAmount = sgCExemptedLeaveLoadingAmount;
     return this;
   }
 
-  /**
-   * The amount of leave loading applied for the leave type that is exempt from Superannuation
-   * Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
-   *
+   /**
+   * The amount of leave loading applied for the leave type that is exempt from Superannuation Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
    * @return sgCExemptedLeaveLoadingAmount
-   */
-  @ApiModelProperty(
-      example = "60.0",
-      value =
-          "The amount of leave loading applied for the leave type that is exempt from"
-              + " Superannuation Guarantee Contributions. *Only applicable for Leave Types with"
-              + " Annual Leave Categories")
-  /**
-   * The amount of leave loading applied for the leave type that is exempt from Superannuation
-   * Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
-   *
+  **/
+  @ApiModelProperty(example = "60.0", value = "The amount of leave loading applied for the leave type that is exempt from Superannuation Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories")
+  /** 
+   * The amount of leave loading applied for the leave type that is exempt from Superannuation Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
    * @return sgCExemptedLeaveLoadingAmount Double
-   */
+  **/
   public Double getSgCExemptedLeaveLoadingAmount() {
     return sgCExemptedLeaveLoadingAmount;
   }
 
-  /**
-   * The amount of leave loading applied for the leave type that is exempt from Superannuation
-   * Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
-   *
-   * @param sgCExemptedLeaveLoadingAmount Double
-   */
+  /** 
+  * The amount of leave loading applied for the leave type that is exempt from Superannuation Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories
+  * @param sgCExemptedLeaveLoadingAmount  Double
+  **/
+
   public void setSgCExemptedLeaveLoadingAmount(Double sgCExemptedLeaveLoadingAmount) {
     this.sgCExemptedLeaveLoadingAmount = sgCExemptedLeaveLoadingAmount;
   }
 
   /**
-   * Reset the STP categorisations for the leave type. *Only applicable for Leave Types with Annual
-   * Leave Categories
-   *
-   * @param resetSTPCategorisation Boolean
-   * @return PaidLeaveEarningsLine
-   */
+  * Reset the STP categorisations for the leave type. *Only applicable for Leave Types with Annual Leave Categories
+  * @param resetSTPCategorisation  Boolean
+  * @return PaidLeaveEarningsLine
+  **/
   public PaidLeaveEarningsLine resetSTPCategorisation(Boolean resetSTPCategorisation) {
     this.resetSTPCategorisation = resetSTPCategorisation;
     return this;
   }
 
-  /**
-   * Reset the STP categorisations for the leave type. *Only applicable for Leave Types with Annual
-   * Leave Categories
-   *
+   /**
+   * Reset the STP categorisations for the leave type. *Only applicable for Leave Types with Annual Leave Categories
    * @return resetSTPCategorisation
-   */
-  @ApiModelProperty(
-      example = "true",
-      value =
-          "Reset the STP categorisations for the leave type. *Only applicable for Leave Types with"
-              + " Annual Leave Categories")
-  /**
-   * Reset the STP categorisations for the leave type. *Only applicable for Leave Types with Annual
-   * Leave Categories
-   *
+  **/
+  @ApiModelProperty(example = "true", value = "Reset the STP categorisations for the leave type. *Only applicable for Leave Types with Annual Leave Categories")
+  /** 
+   * Reset the STP categorisations for the leave type. *Only applicable for Leave Types with Annual Leave Categories
    * @return resetSTPCategorisation Boolean
-   */
+  **/
   public Boolean getResetSTPCategorisation() {
     return resetSTPCategorisation;
   }
 
-  /**
-   * Reset the STP categorisations for the leave type. *Only applicable for Leave Types with Annual
-   * Leave Categories
-   *
-   * @param resetSTPCategorisation Boolean
-   */
+  /** 
+  * Reset the STP categorisations for the leave type. *Only applicable for Leave Types with Annual Leave Categories
+  * @param resetSTPCategorisation  Boolean
+  **/
+
   public void setResetSTPCategorisation(Boolean resetSTPCategorisation) {
     this.resetSTPCategorisation = resetSTPCategorisation;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -248,25 +222,18 @@ public class PaidLeaveEarningsLine {
       return false;
     }
     PaidLeaveEarningsLine paidLeaveEarningsLine = (PaidLeaveEarningsLine) o;
-    return Objects.equals(this.leaveTypeID, paidLeaveEarningsLine.leaveTypeID)
-        && Objects.equals(this.amount, paidLeaveEarningsLine.amount)
-        && Objects.equals(
-            this.sgCAppliedLeaveLoadingAmount, paidLeaveEarningsLine.sgCAppliedLeaveLoadingAmount)
-        && Objects.equals(
-            this.sgCExemptedLeaveLoadingAmount, paidLeaveEarningsLine.sgCExemptedLeaveLoadingAmount)
-        && Objects.equals(
-            this.resetSTPCategorisation, paidLeaveEarningsLine.resetSTPCategorisation);
+    return Objects.equals(this.leaveTypeID, paidLeaveEarningsLine.leaveTypeID) &&
+        Objects.equals(this.amount, paidLeaveEarningsLine.amount) &&
+        Objects.equals(this.sgCAppliedLeaveLoadingAmount, paidLeaveEarningsLine.sgCAppliedLeaveLoadingAmount) &&
+        Objects.equals(this.sgCExemptedLeaveLoadingAmount, paidLeaveEarningsLine.sgCExemptedLeaveLoadingAmount) &&
+        Objects.equals(this.resetSTPCategorisation, paidLeaveEarningsLine.resetSTPCategorisation);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        leaveTypeID,
-        amount,
-        sgCAppliedLeaveLoadingAmount,
-        sgCExemptedLeaveLoadingAmount,
-        resetSTPCategorisation);
+    return Objects.hash(leaveTypeID, amount, sgCAppliedLeaveLoadingAmount, sgCExemptedLeaveLoadingAmount, resetSTPCategorisation);
   }
+
 
   @Override
   public String toString() {
@@ -274,21 +241,16 @@ public class PaidLeaveEarningsLine {
     sb.append("class PaidLeaveEarningsLine {\n");
     sb.append("    leaveTypeID: ").append(toIndentedString(leaveTypeID)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    sgCAppliedLeaveLoadingAmount: ")
-        .append(toIndentedString(sgCAppliedLeaveLoadingAmount))
-        .append("\n");
-    sb.append("    sgCExemptedLeaveLoadingAmount: ")
-        .append(toIndentedString(sgCExemptedLeaveLoadingAmount))
-        .append("\n");
-    sb.append("    resetSTPCategorisation: ")
-        .append(toIndentedString(resetSTPCategorisation))
-        .append("\n");
+    sb.append("    sgCAppliedLeaveLoadingAmount: ").append(toIndentedString(sgCAppliedLeaveLoadingAmount)).append("\n");
+    sb.append("    sgCExemptedLeaveLoadingAmount: ").append(toIndentedString(sgCExemptedLeaveLoadingAmount)).append("\n");
+    sb.append("    resetSTPCategorisation: ").append(toIndentedString(resetSTPCategorisation)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -296,4 +258,6 @@ public class PaidLeaveEarningsLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

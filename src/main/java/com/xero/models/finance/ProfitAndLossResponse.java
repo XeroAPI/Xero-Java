@@ -9,15 +9,33 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.PnlAccountClass;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** ProfitAndLossResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ProfitAndLossResponse
+ */
+
 public class ProfitAndLossResponse {
   StringUtil util = new StringUtil();
 
@@ -36,179 +54,165 @@ public class ProfitAndLossResponse {
   @JsonProperty("expense")
   private PnlAccountClass expense;
   /**
-   * Start date of the report
-   *
-   * @param startDate LocalDate
-   * @return ProfitAndLossResponse
-   */
+  * Start date of the report
+  * @param startDate  LocalDate
+  * @return ProfitAndLossResponse
+  **/
   public ProfitAndLossResponse startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * Start date of the report
-   *
    * @return startDate
-   */
+  **/
   @ApiModelProperty(value = "Start date of the report")
-  /**
+  /** 
    * Start date of the report
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * Start date of the report
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * Start date of the report
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * End date of the report
-   *
-   * @param endDate LocalDate
-   * @return ProfitAndLossResponse
-   */
+  * End date of the report
+  * @param endDate  LocalDate
+  * @return ProfitAndLossResponse
+  **/
   public ProfitAndLossResponse endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * End date of the report
-   *
    * @return endDate
-   */
+  **/
   @ApiModelProperty(value = "End date of the report")
-  /**
+  /** 
    * End date of the report
-   *
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * End date of the report
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * End date of the report
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * Net profit loss value
-   *
-   * @param netProfitLoss Double
-   * @return ProfitAndLossResponse
-   */
+  * Net profit loss value
+  * @param netProfitLoss  Double
+  * @return ProfitAndLossResponse
+  **/
   public ProfitAndLossResponse netProfitLoss(Double netProfitLoss) {
     this.netProfitLoss = netProfitLoss;
     return this;
   }
 
-  /**
+   /**
    * Net profit loss value
-   *
    * @return netProfitLoss
-   */
+  **/
   @ApiModelProperty(value = "Net profit loss value")
-  /**
+  /** 
    * Net profit loss value
-   *
    * @return netProfitLoss Double
-   */
+  **/
   public Double getNetProfitLoss() {
     return netProfitLoss;
   }
 
-  /**
-   * Net profit loss value
-   *
-   * @param netProfitLoss Double
-   */
+  /** 
+  * Net profit loss value
+  * @param netProfitLoss  Double
+  **/
+
   public void setNetProfitLoss(Double netProfitLoss) {
     this.netProfitLoss = netProfitLoss;
   }
 
   /**
-   * revenue
-   *
-   * @param revenue PnlAccountClass
-   * @return ProfitAndLossResponse
-   */
+  * revenue
+  * @param revenue  PnlAccountClass
+  * @return ProfitAndLossResponse
+  **/
   public ProfitAndLossResponse revenue(PnlAccountClass revenue) {
     this.revenue = revenue;
     return this;
   }
 
-  /**
+   /**
    * Get revenue
-   *
    * @return revenue
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * revenue
-   *
    * @return revenue PnlAccountClass
-   */
+  **/
   public PnlAccountClass getRevenue() {
     return revenue;
   }
 
-  /**
-   * revenue
-   *
-   * @param revenue PnlAccountClass
-   */
+  /** 
+  * revenue
+  * @param revenue  PnlAccountClass
+  **/
+
   public void setRevenue(PnlAccountClass revenue) {
     this.revenue = revenue;
   }
 
   /**
-   * expense
-   *
-   * @param expense PnlAccountClass
-   * @return ProfitAndLossResponse
-   */
+  * expense
+  * @param expense  PnlAccountClass
+  * @return ProfitAndLossResponse
+  **/
   public ProfitAndLossResponse expense(PnlAccountClass expense) {
     this.expense = expense;
     return this;
   }
 
-  /**
+   /**
    * Get expense
-   *
    * @return expense
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * expense
-   *
    * @return expense PnlAccountClass
-   */
+  **/
   public PnlAccountClass getExpense() {
     return expense;
   }
 
-  /**
-   * expense
-   *
-   * @param expense PnlAccountClass
-   */
+  /** 
+  * expense
+  * @param expense  PnlAccountClass
+  **/
+
   public void setExpense(PnlAccountClass expense) {
     this.expense = expense;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -219,17 +223,18 @@ public class ProfitAndLossResponse {
       return false;
     }
     ProfitAndLossResponse profitAndLossResponse = (ProfitAndLossResponse) o;
-    return Objects.equals(this.startDate, profitAndLossResponse.startDate)
-        && Objects.equals(this.endDate, profitAndLossResponse.endDate)
-        && Objects.equals(this.netProfitLoss, profitAndLossResponse.netProfitLoss)
-        && Objects.equals(this.revenue, profitAndLossResponse.revenue)
-        && Objects.equals(this.expense, profitAndLossResponse.expense);
+    return Objects.equals(this.startDate, profitAndLossResponse.startDate) &&
+        Objects.equals(this.endDate, profitAndLossResponse.endDate) &&
+        Objects.equals(this.netProfitLoss, profitAndLossResponse.netProfitLoss) &&
+        Objects.equals(this.revenue, profitAndLossResponse.revenue) &&
+        Objects.equals(this.expense, profitAndLossResponse.expense);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(startDate, endDate, netProfitLoss, revenue, expense);
   }
+
 
   @Override
   public String toString() {
@@ -245,7 +250,8 @@ public class ProfitAndLossResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -253,4 +259,6 @@ public class ProfitAndLossResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

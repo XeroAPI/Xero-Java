@@ -9,15 +9,33 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.PayOutType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** LeaveEarningsLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LeaveEarningsLine
+ */
+
 public class LeaveEarningsLine {
   StringUtil util = new StringUtil();
 
@@ -33,144 +51,133 @@ public class LeaveEarningsLine {
   @JsonProperty("PayOutType")
   private PayOutType payOutType;
   /**
-   * Xero identifier
-   *
-   * @param earningsRateID UUID
-   * @return LeaveEarningsLine
-   */
+  * Xero identifier
+  * @param earningsRateID  UUID
+  * @return LeaveEarningsLine
+  **/
   public LeaveEarningsLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier
-   *
    * @return earningsRateID
-   */
+  **/
   @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "Xero identifier")
-  /**
+  /** 
    * Xero identifier
-   *
    * @return earningsRateID UUID
-   */
+  **/
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
-  /**
-   * Xero identifier
-   *
-   * @param earningsRateID UUID
-   */
+  /** 
+  * Xero identifier
+  * @param earningsRateID  UUID
+  **/
+
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
   /**
-   * Rate per unit of the EarningsLine.
-   *
-   * @param ratePerUnit Double
-   * @return LeaveEarningsLine
-   */
+  * Rate per unit of the EarningsLine.
+  * @param ratePerUnit  Double
+  * @return LeaveEarningsLine
+  **/
   public LeaveEarningsLine ratePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
   }
 
-  /**
+   /**
    * Rate per unit of the EarningsLine.
-   *
    * @return ratePerUnit
-   */
+  **/
   @ApiModelProperty(example = "38.0", value = "Rate per unit of the EarningsLine.")
-  /**
+  /** 
    * Rate per unit of the EarningsLine.
-   *
    * @return ratePerUnit Double
-   */
+  **/
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
 
-  /**
-   * Rate per unit of the EarningsLine.
-   *
-   * @param ratePerUnit Double
-   */
+  /** 
+  * Rate per unit of the EarningsLine.
+  * @param ratePerUnit  Double
+  **/
+
   public void setRatePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
   }
 
   /**
-   * Earnings rate number of units.
-   *
-   * @param numberOfUnits Double
-   * @return LeaveEarningsLine
-   */
+  * Earnings rate number of units.
+  * @param numberOfUnits  Double
+  * @return LeaveEarningsLine
+  **/
   public LeaveEarningsLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
   }
 
-  /**
+   /**
    * Earnings rate number of units.
-   *
    * @return numberOfUnits
-   */
+  **/
   @ApiModelProperty(example = "2.5", value = "Earnings rate number of units.")
-  /**
+  /** 
    * Earnings rate number of units.
-   *
    * @return numberOfUnits Double
-   */
+  **/
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
-  /**
-   * Earnings rate number of units.
-   *
-   * @param numberOfUnits Double
-   */
+  /** 
+  * Earnings rate number of units.
+  * @param numberOfUnits  Double
+  **/
+
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
   /**
-   * payOutType
-   *
-   * @param payOutType PayOutType
-   * @return LeaveEarningsLine
-   */
+  * payOutType
+  * @param payOutType  PayOutType
+  * @return LeaveEarningsLine
+  **/
   public LeaveEarningsLine payOutType(PayOutType payOutType) {
     this.payOutType = payOutType;
     return this;
   }
 
-  /**
+   /**
    * Get payOutType
-   *
    * @return payOutType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * payOutType
-   *
    * @return payOutType PayOutType
-   */
+  **/
   public PayOutType getPayOutType() {
     return payOutType;
   }
 
-  /**
-   * payOutType
-   *
-   * @param payOutType PayOutType
-   */
+  /** 
+  * payOutType
+  * @param payOutType  PayOutType
+  **/
+
   public void setPayOutType(PayOutType payOutType) {
     this.payOutType = payOutType;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -181,16 +188,17 @@ public class LeaveEarningsLine {
       return false;
     }
     LeaveEarningsLine leaveEarningsLine = (LeaveEarningsLine) o;
-    return Objects.equals(this.earningsRateID, leaveEarningsLine.earningsRateID)
-        && Objects.equals(this.ratePerUnit, leaveEarningsLine.ratePerUnit)
-        && Objects.equals(this.numberOfUnits, leaveEarningsLine.numberOfUnits)
-        && Objects.equals(this.payOutType, leaveEarningsLine.payOutType);
+    return Objects.equals(this.earningsRateID, leaveEarningsLine.earningsRateID) &&
+        Objects.equals(this.ratePerUnit, leaveEarningsLine.ratePerUnit) &&
+        Objects.equals(this.numberOfUnits, leaveEarningsLine.numberOfUnits) &&
+        Objects.equals(this.payOutType, leaveEarningsLine.payOutType);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(earningsRateID, ratePerUnit, numberOfUnits, payOutType);
   }
+
 
   @Override
   public String toString() {
@@ -205,7 +213,8 @@ public class LeaveEarningsLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -213,4 +222,6 @@ public class LeaveEarningsLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

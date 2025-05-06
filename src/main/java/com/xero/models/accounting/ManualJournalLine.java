@@ -9,17 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.TrackingCategory;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** ManualJournalLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ManualJournalLine
+ */
+
 public class ManualJournalLine {
   StringUtil util = new StringUtil();
 
@@ -47,203 +65,180 @@ public class ManualJournalLine {
   @JsonProperty("IsBlank")
   private Boolean isBlank;
   /**
-   * total for line. Debits are positive, credits are negative value
-   *
-   * @param lineAmount Double
-   * @return ManualJournalLine
-   */
+  * total for line. Debits are positive, credits are negative value
+  * @param lineAmount  Double
+  * @return ManualJournalLine
+  **/
   public ManualJournalLine lineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
     return this;
   }
 
-  /**
+   /**
    * total for line. Debits are positive, credits are negative value
-   *
    * @return lineAmount
-   */
-  @ApiModelProperty(
-      example = "-2569.0",
-      value = "total for line. Debits are positive, credits are negative value")
-  /**
+  **/
+  @ApiModelProperty(example = "-2569.0", value = "total for line. Debits are positive, credits are negative value")
+  /** 
    * total for line. Debits are positive, credits are negative value
-   *
    * @return lineAmount Double
-   */
+  **/
   public Double getLineAmount() {
     return lineAmount;
   }
 
-  /**
-   * total for line. Debits are positive, credits are negative value
-   *
-   * @param lineAmount Double
-   */
+  /** 
+  * total for line. Debits are positive, credits are negative value
+  * @param lineAmount  Double
+  **/
+
   public void setLineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
   }
 
   /**
-   * See Accounts
-   *
-   * @param accountCode String
-   * @return ManualJournalLine
-   */
+  * See Accounts
+  * @param accountCode  String
+  * @return ManualJournalLine
+  **/
   public ManualJournalLine accountCode(String accountCode) {
     this.accountCode = accountCode;
     return this;
   }
 
-  /**
+   /**
    * See Accounts
-   *
    * @return accountCode
-   */
+  **/
   @ApiModelProperty(example = "720", value = "See Accounts")
-  /**
+  /** 
    * See Accounts
-   *
    * @return accountCode String
-   */
+  **/
   public String getAccountCode() {
     return accountCode;
   }
 
-  /**
-   * See Accounts
-   *
-   * @param accountCode String
-   */
+  /** 
+  * See Accounts
+  * @param accountCode  String
+  **/
+
   public void setAccountCode(String accountCode) {
     this.accountCode = accountCode;
   }
 
   /**
-   * See Accounts
-   *
-   * @param accountID UUID
-   * @return ManualJournalLine
-   */
+  * See Accounts
+  * @param accountID  UUID
+  * @return ManualJournalLine
+  **/
   public ManualJournalLine accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
   }
 
-  /**
+   /**
    * See Accounts
-   *
    * @return accountID
-   */
+  **/
   @ApiModelProperty(value = "See Accounts")
-  /**
+  /** 
    * See Accounts
-   *
    * @return accountID UUID
-   */
+  **/
   public UUID getAccountID() {
     return accountID;
   }
 
-  /**
-   * See Accounts
-   *
-   * @param accountID UUID
-   */
+  /** 
+  * See Accounts
+  * @param accountID  UUID
+  **/
+
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
   /**
-   * Description for journal line
-   *
-   * @param description String
-   * @return ManualJournalLine
-   */
+  * Description for journal line
+  * @param description  String
+  * @return ManualJournalLine
+  **/
   public ManualJournalLine description(String description) {
     this.description = description;
     return this;
   }
 
-  /**
+   /**
    * Description for journal line
-   *
    * @return description
-   */
-  @ApiModelProperty(
-      example = "Coded incorrectly Office Equipment should be Computer Equipment",
-      value = "Description for journal line")
-  /**
+  **/
+  @ApiModelProperty(example = "Coded incorrectly Office Equipment should be Computer Equipment", value = "Description for journal line")
+  /** 
    * Description for journal line
-   *
    * @return description String
-   */
+  **/
   public String getDescription() {
     return description;
   }
 
-  /**
-   * Description for journal line
-   *
-   * @param description String
-   */
+  /** 
+  * Description for journal line
+  * @param description  String
+  **/
+
   public void setDescription(String description) {
     this.description = description;
   }
 
   /**
-   * The tax type from TaxRates
-   *
-   * @param taxType String
-   * @return ManualJournalLine
-   */
+  * The tax type from TaxRates
+  * @param taxType  String
+  * @return ManualJournalLine
+  **/
   public ManualJournalLine taxType(String taxType) {
     this.taxType = taxType;
     return this;
   }
 
-  /**
+   /**
    * The tax type from TaxRates
-   *
    * @return taxType
-   */
+  **/
   @ApiModelProperty(value = "The tax type from TaxRates")
-  /**
+  /** 
    * The tax type from TaxRates
-   *
    * @return taxType String
-   */
+  **/
   public String getTaxType() {
     return taxType;
   }
 
-  /**
-   * The tax type from TaxRates
-   *
-   * @param taxType String
-   */
+  /** 
+  * The tax type from TaxRates
+  * @param taxType  String
+  **/
+
   public void setTaxType(String taxType) {
     this.taxType = taxType;
   }
 
   /**
-   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2
-   * &lt;TrackingCategory&gt; elements.
-   *
-   * @param tracking List&lt;TrackingCategory&gt;
-   * @return ManualJournalLine
-   */
+  * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2 &lt;TrackingCategory&gt; elements.
+  * @param tracking  List&lt;TrackingCategory&gt;
+  * @return ManualJournalLine
+  **/
   public ManualJournalLine tracking(List<TrackingCategory> tracking) {
     this.tracking = tracking;
     return this;
   }
 
   /**
-   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2
-   * &lt;TrackingCategory&gt; elements.
-   *
-   * @param trackingItem TrackingCategory
+   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2 &lt;TrackingCategory&gt; elements.
+   * @param trackingItem TrackingCategory 
    * @return ManualJournalLine
-   */
+  **/
   public ManualJournalLine addTrackingItem(TrackingCategory trackingItem) {
     if (this.tracking == null) {
       this.tracking = new ArrayList<TrackingCategory>();
@@ -252,107 +247,92 @@ public class ManualJournalLine {
     return this;
   }
 
-  /**
-   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2
-   * &lt;TrackingCategory&gt; elements.
-   *
+   /**
+   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2 &lt;TrackingCategory&gt; elements.
    * @return tracking
-   */
-  @ApiModelProperty(
-      value =
-          "Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2"
-              + " <TrackingCategory> elements.")
-  /**
-   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2
-   * &lt;TrackingCategory&gt; elements.
-   *
+  **/
+  @ApiModelProperty(value = "Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2 <TrackingCategory> elements.")
+  /** 
+   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2 &lt;TrackingCategory&gt; elements.
    * @return tracking List<TrackingCategory>
-   */
+  **/
   public List<TrackingCategory> getTracking() {
     return tracking;
   }
 
-  /**
-   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2
-   * &lt;TrackingCategory&gt; elements.
-   *
-   * @param tracking List&lt;TrackingCategory&gt;
-   */
+  /** 
+  * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2 &lt;TrackingCategory&gt; elements.
+  * @param tracking List&lt;TrackingCategory&gt; 
+  **/
+
   public void setTracking(List<TrackingCategory> tracking) {
     this.tracking = tracking;
   }
 
   /**
-   * The calculated tax amount based on the TaxType and LineAmount
-   *
-   * @param taxAmount Double
-   * @return ManualJournalLine
-   */
+  * The calculated tax amount based on the TaxType and LineAmount
+  * @param taxAmount  Double
+  * @return ManualJournalLine
+  **/
   public ManualJournalLine taxAmount(Double taxAmount) {
     this.taxAmount = taxAmount;
     return this;
   }
 
-  /**
+   /**
    * The calculated tax amount based on the TaxType and LineAmount
-   *
    * @return taxAmount
-   */
-  @ApiModelProperty(
-      example = "0.0",
-      value = "The calculated tax amount based on the TaxType and LineAmount")
-  /**
+  **/
+  @ApiModelProperty(example = "0.0", value = "The calculated tax amount based on the TaxType and LineAmount")
+  /** 
    * The calculated tax amount based on the TaxType and LineAmount
-   *
    * @return taxAmount Double
-   */
+  **/
   public Double getTaxAmount() {
     return taxAmount;
   }
 
-  /**
-   * The calculated tax amount based on the TaxType and LineAmount
-   *
-   * @param taxAmount Double
-   */
+  /** 
+  * The calculated tax amount based on the TaxType and LineAmount
+  * @param taxAmount  Double
+  **/
+
   public void setTaxAmount(Double taxAmount) {
     this.taxAmount = taxAmount;
   }
 
   /**
-   * is the line blank
-   *
-   * @param isBlank Boolean
-   * @return ManualJournalLine
-   */
+  * is the line blank
+  * @param isBlank  Boolean
+  * @return ManualJournalLine
+  **/
   public ManualJournalLine isBlank(Boolean isBlank) {
     this.isBlank = isBlank;
     return this;
   }
 
-  /**
+   /**
    * is the line blank
-   *
    * @return isBlank
-   */
+  **/
   @ApiModelProperty(example = "false", value = "is the line blank")
-  /**
+  /** 
    * is the line blank
-   *
    * @return isBlank Boolean
-   */
+  **/
   public Boolean getIsBlank() {
     return isBlank;
   }
 
-  /**
-   * is the line blank
-   *
-   * @param isBlank Boolean
-   */
+  /** 
+  * is the line blank
+  * @param isBlank  Boolean
+  **/
+
   public void setIsBlank(Boolean isBlank) {
     this.isBlank = isBlank;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -363,21 +343,21 @@ public class ManualJournalLine {
       return false;
     }
     ManualJournalLine manualJournalLine = (ManualJournalLine) o;
-    return Objects.equals(this.lineAmount, manualJournalLine.lineAmount)
-        && Objects.equals(this.accountCode, manualJournalLine.accountCode)
-        && Objects.equals(this.accountID, manualJournalLine.accountID)
-        && Objects.equals(this.description, manualJournalLine.description)
-        && Objects.equals(this.taxType, manualJournalLine.taxType)
-        && Objects.equals(this.tracking, manualJournalLine.tracking)
-        && Objects.equals(this.taxAmount, manualJournalLine.taxAmount)
-        && Objects.equals(this.isBlank, manualJournalLine.isBlank);
+    return Objects.equals(this.lineAmount, manualJournalLine.lineAmount) &&
+        Objects.equals(this.accountCode, manualJournalLine.accountCode) &&
+        Objects.equals(this.accountID, manualJournalLine.accountID) &&
+        Objects.equals(this.description, manualJournalLine.description) &&
+        Objects.equals(this.taxType, manualJournalLine.taxType) &&
+        Objects.equals(this.tracking, manualJournalLine.tracking) &&
+        Objects.equals(this.taxAmount, manualJournalLine.taxAmount) &&
+        Objects.equals(this.isBlank, manualJournalLine.isBlank);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        lineAmount, accountCode, accountID, description, taxType, tracking, taxAmount, isBlank);
+    return Objects.hash(lineAmount, accountCode, accountID, description, taxType, tracking, taxAmount, isBlank);
   }
+
 
   @Override
   public String toString() {
@@ -396,7 +376,8 @@ public class ManualJournalLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -404,4 +385,6 @@ public class ManualJournalLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,17 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** PayslipSummary */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PayslipSummary
+ */
+
 public class PayslipSummary {
   StringUtil util = new StringUtil();
 
@@ -59,423 +74,384 @@ public class PayslipSummary {
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
   /**
-   * The Xero identifier for an employee
-   *
-   * @param employeeID UUID
-   * @return PayslipSummary
-   */
+  * The Xero identifier for an employee
+  * @param employeeID  UUID
+  * @return PayslipSummary
+  **/
   public PayslipSummary employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for an employee
-   *
    * @return employeeID
-   */
-  @ApiModelProperty(
-      example = "4729f087-8eec-49c1-8294-4d11a5a0a37c",
-      value = "The Xero identifier for an employee")
-  /**
+  **/
+  @ApiModelProperty(example = "4729f087-8eec-49c1-8294-4d11a5a0a37c", value = "The Xero identifier for an employee")
+  /** 
    * The Xero identifier for an employee
-   *
    * @return employeeID UUID
-   */
+  **/
   public UUID getEmployeeID() {
     return employeeID;
   }
 
-  /**
-   * The Xero identifier for an employee
-   *
-   * @param employeeID UUID
-   */
+  /** 
+  * The Xero identifier for an employee
+  * @param employeeID  UUID
+  **/
+
   public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
   /**
-   * Xero identifier for the payslip
-   *
-   * @param payslipID UUID
-   * @return PayslipSummary
-   */
+  * Xero identifier for the payslip
+  * @param payslipID  UUID
+  * @return PayslipSummary
+  **/
   public PayslipSummary payslipID(UUID payslipID) {
     this.payslipID = payslipID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for the payslip
-   *
    * @return payslipID
-   */
-  @ApiModelProperty(
-      example = "f3c0874d-7cdd-459a-a95c-d90d51decc42",
-      value = "Xero identifier for the payslip")
-  /**
+  **/
+  @ApiModelProperty(example = "f3c0874d-7cdd-459a-a95c-d90d51decc42", value = "Xero identifier for the payslip")
+  /** 
    * Xero identifier for the payslip
-   *
    * @return payslipID UUID
-   */
+  **/
   public UUID getPayslipID() {
     return payslipID;
   }
 
-  /**
-   * Xero identifier for the payslip
-   *
-   * @param payslipID UUID
-   */
+  /** 
+  * Xero identifier for the payslip
+  * @param payslipID  UUID
+  **/
+
   public void setPayslipID(UUID payslipID) {
     this.payslipID = payslipID;
   }
 
   /**
-   * First name of employee
-   *
-   * @param firstName String
-   * @return PayslipSummary
-   */
+  * First name of employee
+  * @param firstName  String
+  * @return PayslipSummary
+  **/
   public PayslipSummary firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
 
-  /**
+   /**
    * First name of employee
-   *
    * @return firstName
-   */
+  **/
   @ApiModelProperty(example = "Karen", value = "First name of employee")
-  /**
+  /** 
    * First name of employee
-   *
    * @return firstName String
-   */
+  **/
   public String getFirstName() {
     return firstName;
   }
 
-  /**
-   * First name of employee
-   *
-   * @param firstName String
-   */
+  /** 
+  * First name of employee
+  * @param firstName  String
+  **/
+
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
   /**
-   * Last name of employee
-   *
-   * @param lastName String
-   * @return PayslipSummary
-   */
+  * Last name of employee
+  * @param lastName  String
+  * @return PayslipSummary
+  **/
   public PayslipSummary lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
 
-  /**
+   /**
    * Last name of employee
-   *
    * @return lastName
-   */
+  **/
   @ApiModelProperty(example = "Jones", value = "Last name of employee")
-  /**
+  /** 
    * Last name of employee
-   *
    * @return lastName String
-   */
+  **/
   public String getLastName() {
     return lastName;
   }
 
-  /**
-   * Last name of employee
-   *
-   * @param lastName String
-   */
+  /** 
+  * Last name of employee
+  * @param lastName  String
+  **/
+
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
   /**
-   * Employee group name
-   *
-   * @param employeeGroup String
-   * @return PayslipSummary
-   */
+  * Employee group name
+  * @param employeeGroup  String
+  * @return PayslipSummary
+  **/
   public PayslipSummary employeeGroup(String employeeGroup) {
     this.employeeGroup = employeeGroup;
     return this;
   }
 
-  /**
+   /**
    * Employee group name
-   *
    * @return employeeGroup
-   */
+  **/
   @ApiModelProperty(example = "Marketing", value = "Employee group name")
-  /**
+  /** 
    * Employee group name
-   *
    * @return employeeGroup String
-   */
+  **/
   public String getEmployeeGroup() {
     return employeeGroup;
   }
 
-  /**
-   * Employee group name
-   *
-   * @param employeeGroup String
-   */
+  /** 
+  * Employee group name
+  * @param employeeGroup  String
+  **/
+
   public void setEmployeeGroup(String employeeGroup) {
     this.employeeGroup = employeeGroup;
   }
 
   /**
-   * The Wages for the Payslip
-   *
-   * @param wages Double
-   * @return PayslipSummary
-   */
+  * The Wages for the Payslip
+  * @param wages  Double
+  * @return PayslipSummary
+  **/
   public PayslipSummary wages(Double wages) {
     this.wages = wages;
     return this;
   }
 
-  /**
+   /**
    * The Wages for the Payslip
-   *
    * @return wages
-   */
+  **/
   @ApiModelProperty(example = "1060.5", value = "The Wages for the Payslip")
-  /**
+  /** 
    * The Wages for the Payslip
-   *
    * @return wages Double
-   */
+  **/
   public Double getWages() {
     return wages;
   }
 
-  /**
-   * The Wages for the Payslip
-   *
-   * @param wages Double
-   */
+  /** 
+  * The Wages for the Payslip
+  * @param wages  Double
+  **/
+
   public void setWages(Double wages) {
     this.wages = wages;
   }
 
   /**
-   * The Deductions for the Payslip
-   *
-   * @param deductions Double
-   * @return PayslipSummary
-   */
+  * The Deductions for the Payslip
+  * @param deductions  Double
+  * @return PayslipSummary
+  **/
   public PayslipSummary deductions(Double deductions) {
     this.deductions = deductions;
     return this;
   }
 
-  /**
+   /**
    * The Deductions for the Payslip
-   *
    * @return deductions
-   */
+  **/
   @ApiModelProperty(example = "0.0", value = "The Deductions for the Payslip")
-  /**
+  /** 
    * The Deductions for the Payslip
-   *
    * @return deductions Double
-   */
+  **/
   public Double getDeductions() {
     return deductions;
   }
 
-  /**
-   * The Deductions for the Payslip
-   *
-   * @param deductions Double
-   */
+  /** 
+  * The Deductions for the Payslip
+  * @param deductions  Double
+  **/
+
   public void setDeductions(Double deductions) {
     this.deductions = deductions;
   }
 
   /**
-   * The Tax for the Payslip
-   *
-   * @param tax Double
-   * @return PayslipSummary
-   */
+  * The Tax for the Payslip
+  * @param tax  Double
+  * @return PayslipSummary
+  **/
   public PayslipSummary tax(Double tax) {
     this.tax = tax;
     return this;
   }
 
-  /**
+   /**
    * The Tax for the Payslip
-   *
    * @return tax
-   */
+  **/
   @ApiModelProperty(example = "198.0", value = "The Tax for the Payslip")
-  /**
+  /** 
    * The Tax for the Payslip
-   *
    * @return tax Double
-   */
+  **/
   public Double getTax() {
     return tax;
   }
 
-  /**
-   * The Tax for the Payslip
-   *
-   * @param tax Double
-   */
+  /** 
+  * The Tax for the Payslip
+  * @param tax  Double
+  **/
+
   public void setTax(Double tax) {
     this.tax = tax;
   }
 
   /**
-   * The Super for the Payslip
-   *
-   * @param _super Double
-   * @return PayslipSummary
-   */
+  * The Super for the Payslip
+  * @param _super  Double
+  * @return PayslipSummary
+  **/
   public PayslipSummary _super(Double _super) {
     this._super = _super;
     return this;
   }
 
-  /**
+   /**
    * The Super for the Payslip
-   *
    * @return _super
-   */
+  **/
   @ApiModelProperty(example = "75.6", value = "The Super for the Payslip")
-  /**
+  /** 
    * The Super for the Payslip
-   *
    * @return _super Double
-   */
+  **/
   public Double getSuper() {
     return _super;
   }
 
-  /**
-   * The Super for the Payslip
-   *
-   * @param _super Double
-   */
+  /** 
+  * The Super for the Payslip
+  * @param _super  Double
+  **/
+
   public void setSuper(Double _super) {
     this._super = _super;
   }
 
   /**
-   * The Reimbursements for the Payslip
-   *
-   * @param reimbursements Double
-   * @return PayslipSummary
-   */
+  * The Reimbursements for the Payslip
+  * @param reimbursements  Double
+  * @return PayslipSummary
+  **/
   public PayslipSummary reimbursements(Double reimbursements) {
     this.reimbursements = reimbursements;
     return this;
   }
 
-  /**
+   /**
    * The Reimbursements for the Payslip
-   *
    * @return reimbursements
-   */
+  **/
   @ApiModelProperty(example = "0.0", value = "The Reimbursements for the Payslip")
-  /**
+  /** 
    * The Reimbursements for the Payslip
-   *
    * @return reimbursements Double
-   */
+  **/
   public Double getReimbursements() {
     return reimbursements;
   }
 
-  /**
-   * The Reimbursements for the Payslip
-   *
-   * @param reimbursements Double
-   */
+  /** 
+  * The Reimbursements for the Payslip
+  * @param reimbursements  Double
+  **/
+
   public void setReimbursements(Double reimbursements) {
     this.reimbursements = reimbursements;
   }
 
   /**
-   * The NetPay for the Payslip
-   *
-   * @param netPay Double
-   * @return PayslipSummary
-   */
+  * The NetPay for the Payslip
+  * @param netPay  Double
+  * @return PayslipSummary
+  **/
   public PayslipSummary netPay(Double netPay) {
     this.netPay = netPay;
     return this;
   }
 
-  /**
+   /**
    * The NetPay for the Payslip
-   *
    * @return netPay
-   */
+  **/
   @ApiModelProperty(example = "862.5", value = "The NetPay for the Payslip")
-  /**
+  /** 
    * The NetPay for the Payslip
-   *
    * @return netPay Double
-   */
+  **/
   public Double getNetPay() {
     return netPay;
   }
 
-  /**
-   * The NetPay for the Payslip
-   *
-   * @param netPay Double
-   */
+  /** 
+  * The NetPay for the Payslip
+  * @param netPay  Double
+  **/
+
   public void setNetPay(Double netPay) {
     this.netPay = netPay;
   }
 
-  /**
+   /**
    * Last modified timestamp
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
-  /**
+  /** 
    * Last modified timestamp
-   *
    * @return updatedDateUTC String
-   */
+  **/
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-  /**
+  /** 
    * Last modified timestamp
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -486,36 +462,25 @@ public class PayslipSummary {
       return false;
     }
     PayslipSummary payslipSummary = (PayslipSummary) o;
-    return Objects.equals(this.employeeID, payslipSummary.employeeID)
-        && Objects.equals(this.payslipID, payslipSummary.payslipID)
-        && Objects.equals(this.firstName, payslipSummary.firstName)
-        && Objects.equals(this.lastName, payslipSummary.lastName)
-        && Objects.equals(this.employeeGroup, payslipSummary.employeeGroup)
-        && Objects.equals(this.wages, payslipSummary.wages)
-        && Objects.equals(this.deductions, payslipSummary.deductions)
-        && Objects.equals(this.tax, payslipSummary.tax)
-        && Objects.equals(this._super, payslipSummary._super)
-        && Objects.equals(this.reimbursements, payslipSummary.reimbursements)
-        && Objects.equals(this.netPay, payslipSummary.netPay)
-        && Objects.equals(this.updatedDateUTC, payslipSummary.updatedDateUTC);
+    return Objects.equals(this.employeeID, payslipSummary.employeeID) &&
+        Objects.equals(this.payslipID, payslipSummary.payslipID) &&
+        Objects.equals(this.firstName, payslipSummary.firstName) &&
+        Objects.equals(this.lastName, payslipSummary.lastName) &&
+        Objects.equals(this.employeeGroup, payslipSummary.employeeGroup) &&
+        Objects.equals(this.wages, payslipSummary.wages) &&
+        Objects.equals(this.deductions, payslipSummary.deductions) &&
+        Objects.equals(this.tax, payslipSummary.tax) &&
+        Objects.equals(this._super, payslipSummary._super) &&
+        Objects.equals(this.reimbursements, payslipSummary.reimbursements) &&
+        Objects.equals(this.netPay, payslipSummary.netPay) &&
+        Objects.equals(this.updatedDateUTC, payslipSummary.updatedDateUTC);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        employeeID,
-        payslipID,
-        firstName,
-        lastName,
-        employeeGroup,
-        wages,
-        deductions,
-        tax,
-        _super,
-        reimbursements,
-        netPay,
-        updatedDateUTC);
+    return Objects.hash(employeeID, payslipID, firstName, lastName, employeeGroup, wages, deductions, tax, _super, reimbursements, netPay, updatedDateUTC);
   }
+
 
   @Override
   public String toString() {
@@ -538,7 +503,8 @@ public class PayslipSummary {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -546,4 +512,6 @@ public class PayslipSummary {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

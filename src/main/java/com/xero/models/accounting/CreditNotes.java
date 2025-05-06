@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.CreditNote;
+import com.xero.models.accounting.Pagination;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** CreditNotes */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * CreditNotes
+ */
+
 public class CreditNotes {
   StringUtil util = new StringUtil();
 
@@ -31,46 +51,42 @@ public class CreditNotes {
   @JsonProperty("CreditNotes")
   private List<CreditNote> creditNotes = new ArrayList<CreditNote>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return CreditNotes
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return CreditNotes
+  **/
   public CreditNotes pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   * @return CreditNotes
-   */
+  * Displays array of warning messages from the API
+  * @param warnings  List&lt;ValidationError&gt;
+  * @return CreditNotes
+  **/
   public CreditNotes warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
@@ -78,10 +94,9 @@ public class CreditNotes {
 
   /**
    * Displays array of warning messages from the API
-   *
-   * @param warningsItem ValidationError
+   * @param warningsItem ValidationError 
    * @return CreditNotes
-   */
+  **/
   public CreditNotes addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -90,36 +105,33 @@ public class CreditNotes {
     return this;
   }
 
-  /**
+   /**
    * Displays array of warning messages from the API
-   *
    * @return warnings
-   */
+  **/
   @ApiModelProperty(value = "Displays array of warning messages from the API")
-  /**
+  /** 
    * Displays array of warning messages from the API
-   *
    * @return warnings List<ValidationError>
-   */
+  **/
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
-  /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of warning messages from the API
+  * @param warnings List&lt;ValidationError&gt; 
+  **/
+
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
   /**
-   * creditNotes
-   *
-   * @param creditNotes List&lt;CreditNote&gt;
-   * @return CreditNotes
-   */
+  * creditNotes
+  * @param creditNotes  List&lt;CreditNote&gt;
+  * @return CreditNotes
+  **/
   public CreditNotes creditNotes(List<CreditNote> creditNotes) {
     this.creditNotes = creditNotes;
     return this;
@@ -127,10 +139,9 @@ public class CreditNotes {
 
   /**
    * creditNotes
-   *
-   * @param creditNotesItem CreditNote
+   * @param creditNotesItem CreditNote 
    * @return CreditNotes
-   */
+  **/
   public CreditNotes addCreditNotesItem(CreditNote creditNotesItem) {
     if (this.creditNotes == null) {
       this.creditNotes = new ArrayList<CreditNote>();
@@ -139,29 +150,28 @@ public class CreditNotes {
     return this;
   }
 
-  /**
+   /**
    * Get creditNotes
-   *
    * @return creditNotes
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * creditNotes
-   *
    * @return creditNotes List<CreditNote>
-   */
+  **/
   public List<CreditNote> getCreditNotes() {
     return creditNotes;
   }
 
-  /**
-   * creditNotes
-   *
-   * @param creditNotes List&lt;CreditNote&gt;
-   */
+  /** 
+  * creditNotes
+  * @param creditNotes List&lt;CreditNote&gt; 
+  **/
+
   public void setCreditNotes(List<CreditNote> creditNotes) {
     this.creditNotes = creditNotes;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -172,15 +182,16 @@ public class CreditNotes {
       return false;
     }
     CreditNotes creditNotes = (CreditNotes) o;
-    return Objects.equals(this.pagination, creditNotes.pagination)
-        && Objects.equals(this.warnings, creditNotes.warnings)
-        && Objects.equals(this.creditNotes, creditNotes.creditNotes);
+    return Objects.equals(this.pagination, creditNotes.pagination) &&
+        Objects.equals(this.warnings, creditNotes.warnings) &&
+        Objects.equals(this.creditNotes, creditNotes.creditNotes);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, warnings, creditNotes);
   }
+
 
   @Override
   public String toString() {
@@ -194,7 +205,8 @@ public class CreditNotes {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -202,4 +214,6 @@ public class CreditNotes {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrolluk;
 
+package com.xero.models.payrolluk;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.Pagination;
+import com.xero.models.payrolluk.Problem;
+import com.xero.models.payrolluk.Timesheet;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Timesheets */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Timesheets
+ */
+
 public class Timesheets {
   StringUtil util = new StringUtil();
 
@@ -31,81 +51,74 @@ public class Timesheets {
   @JsonProperty("timesheets")
   private List<Timesheet> timesheets = new ArrayList<Timesheet>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return Timesheets
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return Timesheets
+  **/
   public Timesheets pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return Timesheets
-   */
+  * problem
+  * @param problem  Problem
+  * @return Timesheets
+  **/
   public Timesheets problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * timesheets
-   *
-   * @param timesheets List&lt;Timesheet&gt;
-   * @return Timesheets
-   */
+  * timesheets
+  * @param timesheets  List&lt;Timesheet&gt;
+  * @return Timesheets
+  **/
   public Timesheets timesheets(List<Timesheet> timesheets) {
     this.timesheets = timesheets;
     return this;
@@ -113,10 +126,9 @@ public class Timesheets {
 
   /**
    * timesheets
-   *
-   * @param timesheetsItem Timesheet
+   * @param timesheetsItem Timesheet 
    * @return Timesheets
-   */
+  **/
   public Timesheets addTimesheetsItem(Timesheet timesheetsItem) {
     if (this.timesheets == null) {
       this.timesheets = new ArrayList<Timesheet>();
@@ -125,29 +137,28 @@ public class Timesheets {
     return this;
   }
 
-  /**
+   /**
    * Get timesheets
-   *
    * @return timesheets
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * timesheets
-   *
    * @return timesheets List<Timesheet>
-   */
+  **/
   public List<Timesheet> getTimesheets() {
     return timesheets;
   }
 
-  /**
-   * timesheets
-   *
-   * @param timesheets List&lt;Timesheet&gt;
-   */
+  /** 
+  * timesheets
+  * @param timesheets List&lt;Timesheet&gt; 
+  **/
+
   public void setTimesheets(List<Timesheet> timesheets) {
     this.timesheets = timesheets;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,15 +169,16 @@ public class Timesheets {
       return false;
     }
     Timesheets timesheets = (Timesheets) o;
-    return Objects.equals(this.pagination, timesheets.pagination)
-        && Objects.equals(this.problem, timesheets.problem)
-        && Objects.equals(this.timesheets, timesheets.timesheets);
+    return Objects.equals(this.pagination, timesheets.pagination) &&
+        Objects.equals(this.problem, timesheets.problem) &&
+        Objects.equals(this.timesheets, timesheets.timesheets);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, timesheets);
   }
+
 
   @Override
   public String toString() {
@@ -180,7 +192,8 @@ public class Timesheets {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,4 +201,6 @@ public class Timesheets {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.assets;
 
+package com.xero.models.assets;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.assets.Asset;
+import com.xero.models.assets.Pagination;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Assets */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Assets
+ */
+
 public class Assets {
   StringUtil util = new StringUtil();
 
@@ -28,46 +47,42 @@ public class Assets {
   @JsonProperty("items")
   private List<Asset> items = new ArrayList<Asset>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return Assets
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return Assets
+  **/
   public Assets pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * items
-   *
-   * @param items List&lt;Asset&gt;
-   * @return Assets
-   */
+  * items
+  * @param items  List&lt;Asset&gt;
+  * @return Assets
+  **/
   public Assets items(List<Asset> items) {
     this.items = items;
     return this;
@@ -75,10 +90,9 @@ public class Assets {
 
   /**
    * items
-   *
-   * @param itemsItem Asset
+   * @param itemsItem Asset 
    * @return Assets
-   */
+  **/
   public Assets addItemsItem(Asset itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<Asset>();
@@ -87,29 +101,28 @@ public class Assets {
     return this;
   }
 
-  /**
+   /**
    * Get items
-   *
    * @return items
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * items
-   *
    * @return items List<Asset>
-   */
+  **/
   public List<Asset> getItems() {
     return items;
   }
 
-  /**
-   * items
-   *
-   * @param items List&lt;Asset&gt;
-   */
+  /** 
+  * items
+  * @param items List&lt;Asset&gt; 
+  **/
+
   public void setItems(List<Asset> items) {
     this.items = items;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -120,14 +133,15 @@ public class Assets {
       return false;
     }
     Assets assets = (Assets) o;
-    return Objects.equals(this.pagination, assets.pagination)
-        && Objects.equals(this.items, assets.items);
+    return Objects.equals(this.pagination, assets.pagination) &&
+        Objects.equals(this.items, assets.items);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, items);
   }
+
 
   @Override
   public String toString() {
@@ -140,7 +154,8 @@ public class Assets {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -148,4 +163,6 @@ public class Assets {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

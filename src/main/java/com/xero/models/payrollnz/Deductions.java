@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.Deduction;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Deductions */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Deductions
+ */
+
 public class Deductions {
   StringUtil util = new StringUtil();
 
@@ -31,81 +51,74 @@ public class Deductions {
   @JsonProperty("deductions")
   private List<Deduction> deductions = new ArrayList<Deduction>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return Deductions
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return Deductions
+  **/
   public Deductions pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return Deductions
-   */
+  * problem
+  * @param problem  Problem
+  * @return Deductions
+  **/
   public Deductions problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * deductions
-   *
-   * @param deductions List&lt;Deduction&gt;
-   * @return Deductions
-   */
+  * deductions
+  * @param deductions  List&lt;Deduction&gt;
+  * @return Deductions
+  **/
   public Deductions deductions(List<Deduction> deductions) {
     this.deductions = deductions;
     return this;
@@ -113,10 +126,9 @@ public class Deductions {
 
   /**
    * deductions
-   *
-   * @param deductionsItem Deduction
+   * @param deductionsItem Deduction 
    * @return Deductions
-   */
+  **/
   public Deductions addDeductionsItem(Deduction deductionsItem) {
     if (this.deductions == null) {
       this.deductions = new ArrayList<Deduction>();
@@ -125,29 +137,28 @@ public class Deductions {
     return this;
   }
 
-  /**
+   /**
    * Get deductions
-   *
    * @return deductions
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * deductions
-   *
    * @return deductions List<Deduction>
-   */
+  **/
   public List<Deduction> getDeductions() {
     return deductions;
   }
 
-  /**
-   * deductions
-   *
-   * @param deductions List&lt;Deduction&gt;
-   */
+  /** 
+  * deductions
+  * @param deductions List&lt;Deduction&gt; 
+  **/
+
   public void setDeductions(List<Deduction> deductions) {
     this.deductions = deductions;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,15 +169,16 @@ public class Deductions {
       return false;
     }
     Deductions deductions = (Deductions) o;
-    return Objects.equals(this.pagination, deductions.pagination)
-        && Objects.equals(this.problem, deductions.problem)
-        && Objects.equals(this.deductions, deductions.deductions);
+    return Objects.equals(this.pagination, deductions.pagination) &&
+        Objects.equals(this.problem, deductions.problem) &&
+        Objects.equals(this.deductions, deductions.deductions);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, deductions);
   }
+
 
   @Override
   public String toString() {
@@ -180,7 +192,8 @@ public class Deductions {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,4 +201,6 @@ public class Deductions {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+
