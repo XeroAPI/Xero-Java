@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** BankAccount */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BankAccount
+ */
+
 public class BankAccount {
   StringUtil util = new StringUtil();
 
@@ -29,109 +46,101 @@ public class BankAccount {
   @JsonProperty("sortCode")
   private String sortCode;
   /**
-   * Bank account name (max length &#x3D; 32)
-   *
-   * @param accountName String
-   * @return BankAccount
-   */
+  * Bank account name (max length &#x3D; 32)
+  * @param accountName  String
+  * @return BankAccount
+  **/
   public BankAccount accountName(String accountName) {
     this.accountName = accountName;
     return this;
   }
 
-  /**
+   /**
    * Bank account name (max length &#x3D; 32)
-   *
    * @return accountName
-   */
+  **/
   @ApiModelProperty(required = true, value = "Bank account name (max length = 32)")
-  /**
+  /** 
    * Bank account name (max length &#x3D; 32)
-   *
    * @return accountName String
-   */
+  **/
   public String getAccountName() {
     return accountName;
   }
 
-  /**
-   * Bank account name (max length &#x3D; 32)
-   *
-   * @param accountName String
-   */
+  /** 
+  * Bank account name (max length &#x3D; 32)
+  * @param accountName  String
+  **/
+
   public void setAccountName(String accountName) {
     this.accountName = accountName;
   }
 
   /**
-   * Bank account number (digits only; max length &#x3D; 8)
-   *
-   * @param accountNumber String
-   * @return BankAccount
-   */
+  * Bank account number (digits only; max length &#x3D; 8)
+  * @param accountNumber  String
+  * @return BankAccount
+  **/
   public BankAccount accountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
     return this;
   }
 
-  /**
+   /**
    * Bank account number (digits only; max length &#x3D; 8)
-   *
    * @return accountNumber
-   */
+  **/
   @ApiModelProperty(required = true, value = "Bank account number (digits only; max length = 8)")
-  /**
+  /** 
    * Bank account number (digits only; max length &#x3D; 8)
-   *
    * @return accountNumber String
-   */
+  **/
   public String getAccountNumber() {
     return accountNumber;
   }
 
-  /**
-   * Bank account number (digits only; max length &#x3D; 8)
-   *
-   * @param accountNumber String
-   */
+  /** 
+  * Bank account number (digits only; max length &#x3D; 8)
+  * @param accountNumber  String
+  **/
+
   public void setAccountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
   }
 
   /**
-   * Bank account sort code (6 digits)
-   *
-   * @param sortCode String
-   * @return BankAccount
-   */
+  * Bank account sort code (6 digits)
+  * @param sortCode  String
+  * @return BankAccount
+  **/
   public BankAccount sortCode(String sortCode) {
     this.sortCode = sortCode;
     return this;
   }
 
-  /**
+   /**
    * Bank account sort code (6 digits)
-   *
    * @return sortCode
-   */
+  **/
   @ApiModelProperty(required = true, value = "Bank account sort code (6 digits)")
-  /**
+  /** 
    * Bank account sort code (6 digits)
-   *
    * @return sortCode String
-   */
+  **/
   public String getSortCode() {
     return sortCode;
   }
 
-  /**
-   * Bank account sort code (6 digits)
-   *
-   * @param sortCode String
-   */
+  /** 
+  * Bank account sort code (6 digits)
+  * @param sortCode  String
+  **/
+
   public void setSortCode(String sortCode) {
     this.sortCode = sortCode;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +151,16 @@ public class BankAccount {
       return false;
     }
     BankAccount bankAccount = (BankAccount) o;
-    return Objects.equals(this.accountName, bankAccount.accountName)
-        && Objects.equals(this.accountNumber, bankAccount.accountNumber)
-        && Objects.equals(this.sortCode, bankAccount.sortCode);
+    return Objects.equals(this.accountName, bankAccount.accountName) &&
+        Objects.equals(this.accountNumber, bankAccount.accountNumber) &&
+        Objects.equals(this.sortCode, bankAccount.sortCode);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accountName, accountNumber, sortCode);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +174,8 @@ public class BankAccount {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +183,6 @@ public class BankAccount {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

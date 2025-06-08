@@ -9,34 +9,59 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets AllowanceCategory */
+/**
+ * Gets or Sets AllowanceCategory
+ */
 public enum AllowanceCategory {
-
-  /** NONDEDUCTIBLE */
+  
+    /**
+     * NONDEDUCTIBLE
+     */
   NONDEDUCTIBLE("NONDEDUCTIBLE"),
-
-  /** UNIFORM */
+  
+    /**
+     * UNIFORM
+     */
   UNIFORM("UNIFORM"),
-
-  /** PRIVATEVEHICLE */
+  
+    /**
+     * PRIVATEVEHICLE
+     */
   PRIVATEVEHICLE("PRIVATEVEHICLE"),
-
-  /** HOMEOFFICE */
+  
+    /**
+     * HOMEOFFICE
+     */
   HOMEOFFICE("HOMEOFFICE"),
-
-  /** TRANSPORT */
+  
+    /**
+     * TRANSPORT
+     */
   TRANSPORT("TRANSPORT"),
-
-  /** GENERAL */
+  
+    /**
+     * GENERAL
+     */
   GENERAL("GENERAL"),
-
-  /** OTHER */
+  
+    /**
+     * OTHER
+     */
   OTHER("OTHER");
 
   private String value;
@@ -45,26 +70,24 @@ public enum AllowanceCategory {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static AllowanceCategory fromValue(String value) {
@@ -76,3 +99,4 @@ public enum AllowanceCategory {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

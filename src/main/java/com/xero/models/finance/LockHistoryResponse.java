@@ -9,18 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.LockHistoryModel;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** LockHistoryResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LockHistoryResponse
+ */
+
 public class LockHistoryResponse {
   StringUtil util = new StringUtil();
 
@@ -33,81 +51,74 @@ public class LockHistoryResponse {
   @JsonProperty("lockDates")
   private List<LockHistoryModel> lockDates = new ArrayList<LockHistoryModel>();
   /**
-   * The requested Organisation to which the data pertains
-   *
-   * @param organisationId UUID
-   * @return LockHistoryResponse
-   */
+  * The requested Organisation to which the data pertains
+  * @param organisationId  UUID
+  * @return LockHistoryResponse
+  **/
   public LockHistoryResponse organisationId(UUID organisationId) {
     this.organisationId = organisationId;
     return this;
   }
 
-  /**
+   /**
    * The requested Organisation to which the data pertains
-   *
    * @return organisationId
-   */
+  **/
   @ApiModelProperty(value = "The requested Organisation to which the data pertains")
-  /**
+  /** 
    * The requested Organisation to which the data pertains
-   *
    * @return organisationId UUID
-   */
+  **/
   public UUID getOrganisationId() {
     return organisationId;
   }
 
-  /**
-   * The requested Organisation to which the data pertains
-   *
-   * @param organisationId UUID
-   */
+  /** 
+  * The requested Organisation to which the data pertains
+  * @param organisationId  UUID
+  **/
+
   public void setOrganisationId(UUID organisationId) {
     this.organisationId = organisationId;
   }
 
   /**
-   * The end date of the report
-   *
-   * @param endDate LocalDate
-   * @return LockHistoryResponse
-   */
+  * The end date of the report
+  * @param endDate  LocalDate
+  * @return LockHistoryResponse
+  **/
   public LockHistoryResponse endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * The end date of the report
-   *
    * @return endDate
-   */
+  **/
   @ApiModelProperty(value = "The end date of the report")
-  /**
+  /** 
    * The end date of the report
-   *
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * The end date of the report
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * The end date of the report
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * lockDates
-   *
-   * @param lockDates List&lt;LockHistoryModel&gt;
-   * @return LockHistoryResponse
-   */
+  * lockDates
+  * @param lockDates  List&lt;LockHistoryModel&gt;
+  * @return LockHistoryResponse
+  **/
   public LockHistoryResponse lockDates(List<LockHistoryModel> lockDates) {
     this.lockDates = lockDates;
     return this;
@@ -115,10 +126,9 @@ public class LockHistoryResponse {
 
   /**
    * lockDates
-   *
-   * @param lockDatesItem LockHistoryModel
+   * @param lockDatesItem LockHistoryModel 
    * @return LockHistoryResponse
-   */
+  **/
   public LockHistoryResponse addLockDatesItem(LockHistoryModel lockDatesItem) {
     if (this.lockDates == null) {
       this.lockDates = new ArrayList<LockHistoryModel>();
@@ -127,29 +137,28 @@ public class LockHistoryResponse {
     return this;
   }
 
-  /**
+   /**
    * Get lockDates
-   *
    * @return lockDates
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * lockDates
-   *
    * @return lockDates List<LockHistoryModel>
-   */
+  **/
   public List<LockHistoryModel> getLockDates() {
     return lockDates;
   }
 
-  /**
-   * lockDates
-   *
-   * @param lockDates List&lt;LockHistoryModel&gt;
-   */
+  /** 
+  * lockDates
+  * @param lockDates List&lt;LockHistoryModel&gt; 
+  **/
+
   public void setLockDates(List<LockHistoryModel> lockDates) {
     this.lockDates = lockDates;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -160,15 +169,16 @@ public class LockHistoryResponse {
       return false;
     }
     LockHistoryResponse lockHistoryResponse = (LockHistoryResponse) o;
-    return Objects.equals(this.organisationId, lockHistoryResponse.organisationId)
-        && Objects.equals(this.endDate, lockHistoryResponse.endDate)
-        && Objects.equals(this.lockDates, lockHistoryResponse.lockDates);
+    return Objects.equals(this.organisationId, lockHistoryResponse.organisationId) &&
+        Objects.equals(this.endDate, lockHistoryResponse.endDate) &&
+        Objects.equals(this.lockDates, lockHistoryResponse.lockDates);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(organisationId, endDate, lockDates);
   }
+
 
   @Override
   public String toString() {
@@ -182,7 +192,8 @@ public class LockHistoryResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -190,4 +201,6 @@ public class LockHistoryResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

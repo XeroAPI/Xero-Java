@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.identity;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** AccessToken */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * AccessToken
+ */
+
 public class AccessToken {
   StringUtil util = new StringUtil();
 
@@ -35,179 +52,165 @@ public class AccessToken {
   @JsonProperty("refresh_token")
   private String refreshToken;
   /**
-   * Xero unique identifier
-   *
-   * @param idToken String
-   * @return AccessToken
-   */
+  * Xero unique identifier
+  * @param idToken  String
+  * @return AccessToken
+  **/
   public AccessToken idToken(String idToken) {
     this.idToken = idToken;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier
-   *
    * @return idToken
-   */
+  **/
   @ApiModelProperty(value = "Xero unique identifier")
-  /**
+  /** 
    * Xero unique identifier
-   *
    * @return idToken String
-   */
+  **/
   public String getIdToken() {
     return idToken;
   }
 
-  /**
-   * Xero unique identifier
-   *
-   * @param idToken String
-   */
+  /** 
+  * Xero unique identifier
+  * @param idToken  String
+  **/
+
   public void setIdToken(String idToken) {
     this.idToken = idToken;
   }
 
   /**
-   * access token provided during authentication flow
-   *
-   * @param accessToken String
-   * @return AccessToken
-   */
+  * access token provided during authentication flow
+  * @param accessToken  String
+  * @return AccessToken
+  **/
   public AccessToken accessToken(String accessToken) {
     this.accessToken = accessToken;
     return this;
   }
 
-  /**
+   /**
    * access token provided during authentication flow
-   *
    * @return accessToken
-   */
+  **/
   @ApiModelProperty(value = "access token provided during authentication flow")
-  /**
+  /** 
    * access token provided during authentication flow
-   *
    * @return accessToken String
-   */
+  **/
   public String getAccessToken() {
     return accessToken;
   }
 
-  /**
-   * access token provided during authentication flow
-   *
-   * @param accessToken String
-   */
+  /** 
+  * access token provided during authentication flow
+  * @param accessToken  String
+  **/
+
   public void setAccessToken(String accessToken) {
     this.accessToken = accessToken;
   }
 
   /**
-   * time in seconds until access token expires.
-   *
-   * @param expiresIn Long
-   * @return AccessToken
-   */
+  * time in seconds until access token expires.
+  * @param expiresIn  Long
+  * @return AccessToken
+  **/
   public AccessToken expiresIn(Long expiresIn) {
     this.expiresIn = expiresIn;
     return this;
   }
 
-  /**
+   /**
    * time in seconds until access token expires.
-   *
    * @return expiresIn
-   */
+  **/
   @ApiModelProperty(value = "time in seconds until access token expires.")
-  /**
+  /** 
    * time in seconds until access token expires.
-   *
    * @return expiresIn Long
-   */
+  **/
   public Long getExpiresIn() {
     return expiresIn;
   }
 
-  /**
-   * time in seconds until access token expires.
-   *
-   * @param expiresIn Long
-   */
+  /** 
+  * time in seconds until access token expires.
+  * @param expiresIn  Long
+  **/
+
   public void setExpiresIn(Long expiresIn) {
     this.expiresIn = expiresIn;
   }
 
   /**
-   * type of token i.e. Bearer
-   *
-   * @param tokenType String
-   * @return AccessToken
-   */
+  * type of token i.e. Bearer
+  * @param tokenType  String
+  * @return AccessToken
+  **/
   public AccessToken tokenType(String tokenType) {
     this.tokenType = tokenType;
     return this;
   }
 
-  /**
+   /**
    * type of token i.e. Bearer
-   *
    * @return tokenType
-   */
+  **/
   @ApiModelProperty(value = "type of token i.e. Bearer")
-  /**
+  /** 
    * type of token i.e. Bearer
-   *
    * @return tokenType String
-   */
+  **/
   public String getTokenType() {
     return tokenType;
   }
 
-  /**
-   * type of token i.e. Bearer
-   *
-   * @param tokenType String
-   */
+  /** 
+  * type of token i.e. Bearer
+  * @param tokenType  String
+  **/
+
   public void setTokenType(String tokenType) {
     this.tokenType = tokenType;
   }
 
   /**
-   * token used to refresh an expired access token
-   *
-   * @param refreshToken String
-   * @return AccessToken
-   */
+  * token used to refresh an expired access token
+  * @param refreshToken  String
+  * @return AccessToken
+  **/
   public AccessToken refreshToken(String refreshToken) {
     this.refreshToken = refreshToken;
     return this;
   }
 
-  /**
+   /**
    * token used to refresh an expired access token
-   *
    * @return refreshToken
-   */
+  **/
   @ApiModelProperty(value = "token used to refresh an expired access token")
-  /**
+  /** 
    * token used to refresh an expired access token
-   *
    * @return refreshToken String
-   */
+  **/
   public String getRefreshToken() {
     return refreshToken;
   }
 
-  /**
-   * token used to refresh an expired access token
-   *
-   * @param refreshToken String
-   */
+  /** 
+  * token used to refresh an expired access token
+  * @param refreshToken  String
+  **/
+
   public void setRefreshToken(String refreshToken) {
     this.refreshToken = refreshToken;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -218,17 +221,18 @@ public class AccessToken {
       return false;
     }
     AccessToken accessToken = (AccessToken) o;
-    return Objects.equals(this.idToken, accessToken.idToken)
-        && Objects.equals(this.accessToken, accessToken.accessToken)
-        && Objects.equals(this.expiresIn, accessToken.expiresIn)
-        && Objects.equals(this.tokenType, accessToken.tokenType)
-        && Objects.equals(this.refreshToken, accessToken.refreshToken);
+    return Objects.equals(this.idToken, accessToken.idToken) &&
+        Objects.equals(this.accessToken, accessToken.accessToken) &&
+        Objects.equals(this.expiresIn, accessToken.expiresIn) &&
+        Objects.equals(this.tokenType, accessToken.tokenType) &&
+        Objects.equals(this.refreshToken, accessToken.refreshToken);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(idToken, accessToken, expiresIn, tokenType, refreshToken);
   }
+
 
   @Override
   public String toString() {
@@ -244,7 +248,8 @@ public class AccessToken {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -252,4 +257,6 @@ public class AccessToken {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

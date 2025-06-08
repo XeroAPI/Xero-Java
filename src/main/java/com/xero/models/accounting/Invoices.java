@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Invoice;
+import com.xero.models.accounting.Pagination;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Invoices */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Invoices
+ */
+
 public class Invoices {
   StringUtil util = new StringUtil();
 
@@ -31,46 +51,42 @@ public class Invoices {
   @JsonProperty("Invoices")
   private List<Invoice> invoices = new ArrayList<Invoice>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return Invoices
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return Invoices
+  **/
   public Invoices pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   * @return Invoices
-   */
+  * Displays array of warning messages from the API
+  * @param warnings  List&lt;ValidationError&gt;
+  * @return Invoices
+  **/
   public Invoices warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
@@ -78,10 +94,9 @@ public class Invoices {
 
   /**
    * Displays array of warning messages from the API
-   *
-   * @param warningsItem ValidationError
+   * @param warningsItem ValidationError 
    * @return Invoices
-   */
+  **/
   public Invoices addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -90,36 +105,33 @@ public class Invoices {
     return this;
   }
 
-  /**
+   /**
    * Displays array of warning messages from the API
-   *
    * @return warnings
-   */
+  **/
   @ApiModelProperty(value = "Displays array of warning messages from the API")
-  /**
+  /** 
    * Displays array of warning messages from the API
-   *
    * @return warnings List<ValidationError>
-   */
+  **/
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
-  /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of warning messages from the API
+  * @param warnings List&lt;ValidationError&gt; 
+  **/
+
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
   /**
-   * invoices
-   *
-   * @param invoices List&lt;Invoice&gt;
-   * @return Invoices
-   */
+  * invoices
+  * @param invoices  List&lt;Invoice&gt;
+  * @return Invoices
+  **/
   public Invoices invoices(List<Invoice> invoices) {
     this.invoices = invoices;
     return this;
@@ -127,10 +139,9 @@ public class Invoices {
 
   /**
    * invoices
-   *
-   * @param invoicesItem Invoice
+   * @param invoicesItem Invoice 
    * @return Invoices
-   */
+  **/
   public Invoices addInvoicesItem(Invoice invoicesItem) {
     if (this.invoices == null) {
       this.invoices = new ArrayList<Invoice>();
@@ -139,29 +150,28 @@ public class Invoices {
     return this;
   }
 
-  /**
+   /**
    * Get invoices
-   *
    * @return invoices
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * invoices
-   *
    * @return invoices List<Invoice>
-   */
+  **/
   public List<Invoice> getInvoices() {
     return invoices;
   }
 
-  /**
-   * invoices
-   *
-   * @param invoices List&lt;Invoice&gt;
-   */
+  /** 
+  * invoices
+  * @param invoices List&lt;Invoice&gt; 
+  **/
+
   public void setInvoices(List<Invoice> invoices) {
     this.invoices = invoices;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -172,15 +182,16 @@ public class Invoices {
       return false;
     }
     Invoices invoices = (Invoices) o;
-    return Objects.equals(this.pagination, invoices.pagination)
-        && Objects.equals(this.warnings, invoices.warnings)
-        && Objects.equals(this.invoices, invoices.invoices);
+    return Objects.equals(this.pagination, invoices.pagination) &&
+        Objects.equals(this.warnings, invoices.warnings) &&
+        Objects.equals(this.invoices, invoices.invoices);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, warnings, invoices);
   }
+
 
   @Override
   public String toString() {
@@ -194,7 +205,8 @@ public class Invoices {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -202,4 +214,6 @@ public class Invoices {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,17 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.CashBalance;
+import com.xero.models.finance.CashflowActivity;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** CashflowResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * CashflowResponse
+ */
+
 public class CashflowResponse {
   StringUtil util = new StringUtil();
 
@@ -35,116 +54,106 @@ public class CashflowResponse {
   @JsonProperty("cashflowActivities")
   private List<CashflowActivity> cashflowActivities = new ArrayList<CashflowActivity>();
   /**
-   * Start date of the report
-   *
-   * @param startDate LocalDate
-   * @return CashflowResponse
-   */
+  * Start date of the report
+  * @param startDate  LocalDate
+  * @return CashflowResponse
+  **/
   public CashflowResponse startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * Start date of the report
-   *
    * @return startDate
-   */
+  **/
   @ApiModelProperty(value = "Start date of the report")
-  /**
+  /** 
    * Start date of the report
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * Start date of the report
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * Start date of the report
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * End date of the report
-   *
-   * @param endDate LocalDate
-   * @return CashflowResponse
-   */
+  * End date of the report
+  * @param endDate  LocalDate
+  * @return CashflowResponse
+  **/
   public CashflowResponse endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * End date of the report
-   *
    * @return endDate
-   */
+  **/
   @ApiModelProperty(value = "End date of the report")
-  /**
+  /** 
    * End date of the report
-   *
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * End date of the report
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * End date of the report
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * cashBalance
-   *
-   * @param cashBalance CashBalance
-   * @return CashflowResponse
-   */
+  * cashBalance
+  * @param cashBalance  CashBalance
+  * @return CashflowResponse
+  **/
   public CashflowResponse cashBalance(CashBalance cashBalance) {
     this.cashBalance = cashBalance;
     return this;
   }
 
-  /**
+   /**
    * Get cashBalance
-   *
    * @return cashBalance
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * cashBalance
-   *
    * @return cashBalance CashBalance
-   */
+  **/
   public CashBalance getCashBalance() {
     return cashBalance;
   }
 
-  /**
-   * cashBalance
-   *
-   * @param cashBalance CashBalance
-   */
+  /** 
+  * cashBalance
+  * @param cashBalance  CashBalance
+  **/
+
   public void setCashBalance(CashBalance cashBalance) {
     this.cashBalance = cashBalance;
   }
 
   /**
-   * Break down of cash and cash equivalents for the period
-   *
-   * @param cashflowActivities List&lt;CashflowActivity&gt;
-   * @return CashflowResponse
-   */
+  * Break down of cash and cash equivalents for the period
+  * @param cashflowActivities  List&lt;CashflowActivity&gt;
+  * @return CashflowResponse
+  **/
   public CashflowResponse cashflowActivities(List<CashflowActivity> cashflowActivities) {
     this.cashflowActivities = cashflowActivities;
     return this;
@@ -152,10 +161,9 @@ public class CashflowResponse {
 
   /**
    * Break down of cash and cash equivalents for the period
-   *
-   * @param cashflowActivitiesItem CashflowActivity
+   * @param cashflowActivitiesItem CashflowActivity 
    * @return CashflowResponse
-   */
+  **/
   public CashflowResponse addCashflowActivitiesItem(CashflowActivity cashflowActivitiesItem) {
     if (this.cashflowActivities == null) {
       this.cashflowActivities = new ArrayList<CashflowActivity>();
@@ -164,29 +172,28 @@ public class CashflowResponse {
     return this;
   }
 
-  /**
+   /**
    * Break down of cash and cash equivalents for the period
-   *
    * @return cashflowActivities
-   */
+  **/
   @ApiModelProperty(value = "Break down of cash and cash equivalents for the period")
-  /**
+  /** 
    * Break down of cash and cash equivalents for the period
-   *
    * @return cashflowActivities List<CashflowActivity>
-   */
+  **/
   public List<CashflowActivity> getCashflowActivities() {
     return cashflowActivities;
   }
 
-  /**
-   * Break down of cash and cash equivalents for the period
-   *
-   * @param cashflowActivities List&lt;CashflowActivity&gt;
-   */
+  /** 
+  * Break down of cash and cash equivalents for the period
+  * @param cashflowActivities List&lt;CashflowActivity&gt; 
+  **/
+
   public void setCashflowActivities(List<CashflowActivity> cashflowActivities) {
     this.cashflowActivities = cashflowActivities;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -197,16 +204,17 @@ public class CashflowResponse {
       return false;
     }
     CashflowResponse cashflowResponse = (CashflowResponse) o;
-    return Objects.equals(this.startDate, cashflowResponse.startDate)
-        && Objects.equals(this.endDate, cashflowResponse.endDate)
-        && Objects.equals(this.cashBalance, cashflowResponse.cashBalance)
-        && Objects.equals(this.cashflowActivities, cashflowResponse.cashflowActivities);
+    return Objects.equals(this.startDate, cashflowResponse.startDate) &&
+        Objects.equals(this.endDate, cashflowResponse.endDate) &&
+        Objects.equals(this.cashBalance, cashflowResponse.cashBalance) &&
+        Objects.equals(this.cashflowActivities, cashflowResponse.cashflowActivities);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(startDate, endDate, cashBalance, cashflowActivities);
   }
+
 
   @Override
   public String toString() {
@@ -221,7 +229,8 @@ public class CashflowResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -229,4 +238,6 @@ public class CashflowResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

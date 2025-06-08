@@ -9,14 +9,33 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.project;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.project.Amount;
+import com.xero.models.project.ChargeType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** TaskCreateOrUpdate */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TaskCreateOrUpdate
+ */
+
 public class TaskCreateOrUpdate {
   StringUtil util = new StringUtil();
 
@@ -32,144 +51,133 @@ public class TaskCreateOrUpdate {
   @JsonProperty("estimateMinutes")
   private Integer estimateMinutes;
   /**
-   * Name of the task. Max length 100 characters.
-   *
-   * @param name String
-   * @return TaskCreateOrUpdate
-   */
+  * Name of the task. Max length 100 characters.
+  * @param name  String
+  * @return TaskCreateOrUpdate
+  **/
   public TaskCreateOrUpdate name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the task. Max length 100 characters.
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(required = true, value = "Name of the task. Max length 100 characters.")
-  /**
+  /** 
    * Name of the task. Max length 100 characters.
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of the task. Max length 100 characters.
-   *
-   * @param name String
-   */
+  /** 
+  * Name of the task. Max length 100 characters.
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * rate
-   *
-   * @param rate Amount
-   * @return TaskCreateOrUpdate
-   */
+  * rate
+  * @param rate  Amount
+  * @return TaskCreateOrUpdate
+  **/
   public TaskCreateOrUpdate rate(Amount rate) {
     this.rate = rate;
     return this;
   }
 
-  /**
+   /**
    * Get rate
-   *
    * @return rate
-   */
+  **/
   @ApiModelProperty(required = true, value = "")
-  /**
+  /** 
    * rate
-   *
    * @return rate Amount
-   */
+  **/
   public Amount getRate() {
     return rate;
   }
 
-  /**
-   * rate
-   *
-   * @param rate Amount
-   */
+  /** 
+  * rate
+  * @param rate  Amount
+  **/
+
   public void setRate(Amount rate) {
     this.rate = rate;
   }
 
   /**
-   * chargeType
-   *
-   * @param chargeType ChargeType
-   * @return TaskCreateOrUpdate
-   */
+  * chargeType
+  * @param chargeType  ChargeType
+  * @return TaskCreateOrUpdate
+  **/
   public TaskCreateOrUpdate chargeType(ChargeType chargeType) {
     this.chargeType = chargeType;
     return this;
   }
 
-  /**
+   /**
    * Get chargeType
-   *
    * @return chargeType
-   */
+  **/
   @ApiModelProperty(required = true, value = "")
-  /**
+  /** 
    * chargeType
-   *
    * @return chargeType ChargeType
-   */
+  **/
   public ChargeType getChargeType() {
     return chargeType;
   }
 
-  /**
-   * chargeType
-   *
-   * @param chargeType ChargeType
-   */
+  /** 
+  * chargeType
+  * @param chargeType  ChargeType
+  **/
+
   public void setChargeType(ChargeType chargeType) {
     this.chargeType = chargeType;
   }
 
   /**
-   * An estimated time to perform the task
-   *
-   * @param estimateMinutes Integer
-   * @return TaskCreateOrUpdate
-   */
+  * An estimated time to perform the task
+  * @param estimateMinutes  Integer
+  * @return TaskCreateOrUpdate
+  **/
   public TaskCreateOrUpdate estimateMinutes(Integer estimateMinutes) {
     this.estimateMinutes = estimateMinutes;
     return this;
   }
 
-  /**
+   /**
    * An estimated time to perform the task
-   *
    * @return estimateMinutes
-   */
+  **/
   @ApiModelProperty(value = "An estimated time to perform the task")
-  /**
+  /** 
    * An estimated time to perform the task
-   *
    * @return estimateMinutes Integer
-   */
+  **/
   public Integer getEstimateMinutes() {
     return estimateMinutes;
   }
 
-  /**
-   * An estimated time to perform the task
-   *
-   * @param estimateMinutes Integer
-   */
+  /** 
+  * An estimated time to perform the task
+  * @param estimateMinutes  Integer
+  **/
+
   public void setEstimateMinutes(Integer estimateMinutes) {
     this.estimateMinutes = estimateMinutes;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -180,16 +188,17 @@ public class TaskCreateOrUpdate {
       return false;
     }
     TaskCreateOrUpdate taskCreateOrUpdate = (TaskCreateOrUpdate) o;
-    return Objects.equals(this.name, taskCreateOrUpdate.name)
-        && Objects.equals(this.rate, taskCreateOrUpdate.rate)
-        && Objects.equals(this.chargeType, taskCreateOrUpdate.chargeType)
-        && Objects.equals(this.estimateMinutes, taskCreateOrUpdate.estimateMinutes);
+    return Objects.equals(this.name, taskCreateOrUpdate.name) &&
+        Objects.equals(this.rate, taskCreateOrUpdate.rate) &&
+        Objects.equals(this.chargeType, taskCreateOrUpdate.chargeType) &&
+        Objects.equals(this.estimateMinutes, taskCreateOrUpdate.estimateMinutes);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, rate, chargeType, estimateMinutes);
   }
+
 
   @Override
   public String toString() {
@@ -204,7 +213,8 @@ public class TaskCreateOrUpdate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -212,4 +222,6 @@ public class TaskCreateOrUpdate {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

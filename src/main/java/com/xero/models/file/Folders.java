@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.file;
 
+package com.xero.models.file;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.file.Folder;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Folders */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Folders
+ */
+
 public class Folders {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Folders")
   private List<Folder> folders = new ArrayList<Folder>();
   /**
-   * folders
-   *
-   * @param folders List&lt;Folder&gt;
-   * @return Folders
-   */
+  * folders
+  * @param folders  List&lt;Folder&gt;
+  * @return Folders
+  **/
   public Folders folders(List<Folder> folders) {
     this.folders = folders;
     return this;
@@ -37,10 +54,9 @@ public class Folders {
 
   /**
    * folders
-   *
-   * @param foldersItem Folder
+   * @param foldersItem Folder 
    * @return Folders
-   */
+  **/
   public Folders addFoldersItem(Folder foldersItem) {
     if (this.folders == null) {
       this.folders = new ArrayList<Folder>();
@@ -49,29 +65,28 @@ public class Folders {
     return this;
   }
 
-  /**
+   /**
    * Get folders
-   *
    * @return folders
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * folders
-   *
    * @return folders List<Folder>
-   */
+  **/
   public List<Folder> getFolders() {
     return folders;
   }
 
-  /**
-   * folders
-   *
-   * @param folders List&lt;Folder&gt;
-   */
+  /** 
+  * folders
+  * @param folders List&lt;Folder&gt; 
+  **/
+
   public void setFolders(List<Folder> folders) {
     this.folders = folders;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class Folders {
     return Objects.hash(folders);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class Folders {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class Folders {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

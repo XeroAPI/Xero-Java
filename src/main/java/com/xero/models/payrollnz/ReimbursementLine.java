@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** ReimbursementLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ReimbursementLine
+ */
+
 public class ReimbursementLine {
   StringUtil util = new StringUtil();
 
@@ -36,179 +53,165 @@ public class ReimbursementLine {
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
   /**
-   * Xero identifier for payroll reimbursement
-   *
-   * @param reimbursementTypeID UUID
-   * @return ReimbursementLine
-   */
+  * Xero identifier for payroll reimbursement
+  * @param reimbursementTypeID  UUID
+  * @return ReimbursementLine
+  **/
   public ReimbursementLine reimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for payroll reimbursement
-   *
    * @return reimbursementTypeID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for payroll reimbursement")
-  /**
+  /** 
    * Xero identifier for payroll reimbursement
-   *
    * @return reimbursementTypeID UUID
-   */
+  **/
   public UUID getReimbursementTypeID() {
     return reimbursementTypeID;
   }
 
-  /**
-   * Xero identifier for payroll reimbursement
-   *
-   * @param reimbursementTypeID UUID
-   */
+  /** 
+  * Xero identifier for payroll reimbursement
+  * @param reimbursementTypeID  UUID
+  **/
+
   public void setReimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
   }
 
   /**
-   * Reimbursement line description
-   *
-   * @param description String
-   * @return ReimbursementLine
-   */
+  * Reimbursement line description
+  * @param description  String
+  * @return ReimbursementLine
+  **/
   public ReimbursementLine description(String description) {
     this.description = description;
     return this;
   }
 
-  /**
+   /**
    * Reimbursement line description
-   *
    * @return description
-   */
+  **/
   @ApiModelProperty(value = "Reimbursement line description")
-  /**
+  /** 
    * Reimbursement line description
-   *
    * @return description String
-   */
+  **/
   public String getDescription() {
     return description;
   }
 
-  /**
-   * Reimbursement line description
-   *
-   * @param description String
-   */
+  /** 
+  * Reimbursement line description
+  * @param description  String
+  **/
+
   public void setDescription(String description) {
     this.description = description;
   }
 
   /**
-   * Reimbursement amount
-   *
-   * @param amount Double
-   * @return ReimbursementLine
-   */
+  * Reimbursement amount
+  * @param amount  Double
+  * @return ReimbursementLine
+  **/
   public ReimbursementLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * Reimbursement amount
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "Reimbursement amount")
-  /**
+  /** 
    * Reimbursement amount
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * Reimbursement amount
-   *
-   * @param amount Double
-   */
+  /** 
+  * Reimbursement amount
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * Rate per unit for leave earnings line
-   *
-   * @param ratePerUnit Double
-   * @return ReimbursementLine
-   */
+  * Rate per unit for leave earnings line
+  * @param ratePerUnit  Double
+  * @return ReimbursementLine
+  **/
   public ReimbursementLine ratePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
   }
 
-  /**
+   /**
    * Rate per unit for leave earnings line
-   *
    * @return ratePerUnit
-   */
+  **/
   @ApiModelProperty(value = "Rate per unit for leave earnings line")
-  /**
+  /** 
    * Rate per unit for leave earnings line
-   *
    * @return ratePerUnit Double
-   */
+  **/
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
 
-  /**
-   * Rate per unit for leave earnings line
-   *
-   * @param ratePerUnit Double
-   */
+  /** 
+  * Rate per unit for leave earnings line
+  * @param ratePerUnit  Double
+  **/
+
   public void setRatePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
   }
 
   /**
-   * Leave earnings number of units
-   *
-   * @param numberOfUnits Double
-   * @return ReimbursementLine
-   */
+  * Leave earnings number of units
+  * @param numberOfUnits  Double
+  * @return ReimbursementLine
+  **/
   public ReimbursementLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
   }
 
-  /**
+   /**
    * Leave earnings number of units
-   *
    * @return numberOfUnits
-   */
+  **/
   @ApiModelProperty(value = "Leave earnings number of units")
-  /**
+  /** 
    * Leave earnings number of units
-   *
    * @return numberOfUnits Double
-   */
+  **/
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
-  /**
-   * Leave earnings number of units
-   *
-   * @param numberOfUnits Double
-   */
+  /** 
+  * Leave earnings number of units
+  * @param numberOfUnits  Double
+  **/
+
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -219,11 +222,11 @@ public class ReimbursementLine {
       return false;
     }
     ReimbursementLine reimbursementLine = (ReimbursementLine) o;
-    return Objects.equals(this.reimbursementTypeID, reimbursementLine.reimbursementTypeID)
-        && Objects.equals(this.description, reimbursementLine.description)
-        && Objects.equals(this.amount, reimbursementLine.amount)
-        && Objects.equals(this.ratePerUnit, reimbursementLine.ratePerUnit)
-        && Objects.equals(this.numberOfUnits, reimbursementLine.numberOfUnits);
+    return Objects.equals(this.reimbursementTypeID, reimbursementLine.reimbursementTypeID) &&
+        Objects.equals(this.description, reimbursementLine.description) &&
+        Objects.equals(this.amount, reimbursementLine.amount) &&
+        Objects.equals(this.ratePerUnit, reimbursementLine.ratePerUnit) &&
+        Objects.equals(this.numberOfUnits, reimbursementLine.numberOfUnits);
   }
 
   @Override
@@ -231,13 +234,12 @@ public class ReimbursementLine {
     return Objects.hash(reimbursementTypeID, description, amount, ratePerUnit, numberOfUnits);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ReimbursementLine {\n");
-    sb.append("    reimbursementTypeID: ")
-        .append(toIndentedString(reimbursementTypeID))
-        .append("\n");
+    sb.append("    reimbursementTypeID: ").append(toIndentedString(reimbursementTypeID)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    ratePerUnit: ").append(toIndentedString(ratePerUnit)).append("\n");
@@ -247,7 +249,8 @@ public class ReimbursementLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -255,4 +258,6 @@ public class ReimbursementLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.appstore;
 
+package com.xero.models.appstore;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-import java.util.Objects;
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** UsageRecord */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * UsageRecord
+ */
+
 public class UsageRecord {
   StringUtil util = new StringUtil();
 
@@ -46,284 +63,261 @@ public class UsageRecord {
   @JsonProperty("productId")
   private String productId;
   /**
-   * The quantity recorded
-   *
-   * @param quantity Integer
-   * @return UsageRecord
-   */
+  * The quantity recorded
+  * @param quantity  Integer
+  * @return UsageRecord
+  **/
   public UsageRecord quantity(Integer quantity) {
     this.quantity = quantity;
     return this;
   }
 
-  /**
+   /**
    * The quantity recorded
-   *
    * @return quantity
-   */
+  **/
   @ApiModelProperty(required = true, value = "The quantity recorded")
-  /**
+  /** 
    * The quantity recorded
-   *
    * @return quantity Integer
-   */
+  **/
   public Integer getQuantity() {
     return quantity;
   }
 
-  /**
-   * The quantity recorded
-   *
-   * @param quantity Integer
-   */
+  /** 
+  * The quantity recorded
+  * @param quantity  Integer
+  **/
+
   public void setQuantity(Integer quantity) {
     this.quantity = quantity;
   }
 
   /**
-   * The unique identifier of the Subscription.
-   *
-   * @param subscriptionId String
-   * @return UsageRecord
-   */
+  * The unique identifier of the Subscription.
+  * @param subscriptionId  String
+  * @return UsageRecord
+  **/
   public UsageRecord subscriptionId(String subscriptionId) {
     this.subscriptionId = subscriptionId;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier of the Subscription.
-   *
    * @return subscriptionId
-   */
+  **/
   @ApiModelProperty(required = true, value = "The unique identifier of the Subscription.")
-  /**
+  /** 
    * The unique identifier of the Subscription.
-   *
    * @return subscriptionId String
-   */
+  **/
   public String getSubscriptionId() {
     return subscriptionId;
   }
 
-  /**
-   * The unique identifier of the Subscription.
-   *
-   * @param subscriptionId String
-   */
+  /** 
+  * The unique identifier of the Subscription.
+  * @param subscriptionId  String
+  **/
+
   public void setSubscriptionId(String subscriptionId) {
     this.subscriptionId = subscriptionId;
   }
 
   /**
-   * The unique identifier of the SubscriptionItem.
-   *
-   * @param subscriptionItemId String
-   * @return UsageRecord
-   */
+  * The unique identifier of the SubscriptionItem.
+  * @param subscriptionItemId  String
+  * @return UsageRecord
+  **/
   public UsageRecord subscriptionItemId(String subscriptionItemId) {
     this.subscriptionItemId = subscriptionItemId;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier of the SubscriptionItem.
-   *
    * @return subscriptionItemId
-   */
+  **/
   @ApiModelProperty(required = true, value = "The unique identifier of the SubscriptionItem.")
-  /**
+  /** 
    * The unique identifier of the SubscriptionItem.
-   *
    * @return subscriptionItemId String
-   */
+  **/
   public String getSubscriptionItemId() {
     return subscriptionItemId;
   }
 
-  /**
-   * The unique identifier of the SubscriptionItem.
-   *
-   * @param subscriptionItemId String
-   */
+  /** 
+  * The unique identifier of the SubscriptionItem.
+  * @param subscriptionItemId  String
+  **/
+
   public void setSubscriptionItemId(String subscriptionItemId) {
     this.subscriptionItemId = subscriptionItemId;
   }
 
   /**
-   * If the subscription is a test subscription
-   *
-   * @param testMode Boolean
-   * @return UsageRecord
-   */
+  * If the subscription is a test subscription
+  * @param testMode  Boolean
+  * @return UsageRecord
+  **/
   public UsageRecord testMode(Boolean testMode) {
     this.testMode = testMode;
     return this;
   }
 
-  /**
+   /**
    * If the subscription is a test subscription
-   *
    * @return testMode
-   */
+  **/
   @ApiModelProperty(required = true, value = "If the subscription is a test subscription")
-  /**
+  /** 
    * If the subscription is a test subscription
-   *
    * @return testMode Boolean
-   */
+  **/
   public Boolean getTestMode() {
     return testMode;
   }
 
-  /**
-   * If the subscription is a test subscription
-   *
-   * @param testMode Boolean
-   */
+  /** 
+  * If the subscription is a test subscription
+  * @param testMode  Boolean
+  **/
+
   public void setTestMode(Boolean testMode) {
     this.testMode = testMode;
   }
 
   /**
-   * The time when this usage was recorded in UTC
-   *
-   * @param recordedAt LocalDateTime
-   * @return UsageRecord
-   */
+  * The time when this usage was recorded in UTC
+  * @param recordedAt LocalDateTime
+  * @return UsageRecord
+  **/
   public UsageRecord recordedAt(LocalDateTime recordedAt) {
     this.recordedAt = recordedAt;
     return this;
   }
 
-  /**
+   /**
    * The time when this usage was recorded in UTC
-   *
    * @return recordedAt
-   */
+  **/
   @ApiModelProperty(required = true, value = "The time when this usage was recorded in UTC")
-  /**
+  /** 
    * The time when this usage was recorded in UTC
-   *
    * @return recordedAt LocalDateTime
-   */
+  **/
   public LocalDateTime getRecordedAt() {
     return recordedAt;
   }
 
-  /**
-   * The time when this usage was recorded in UTC
-   *
-   * @param recordedAt LocalDateTime
-   */
+  /** 
+  * The time when this usage was recorded in UTC
+  * @param recordedAt LocalDateTime
+  **/
+
   public void setRecordedAt(LocalDateTime recordedAt) {
     this.recordedAt = recordedAt;
   }
 
   /**
-   * The unique identifier of the usageRecord.
-   *
-   * @param usageRecordId String
-   * @return UsageRecord
-   */
+  * The unique identifier of the usageRecord.
+  * @param usageRecordId  String
+  * @return UsageRecord
+  **/
   public UsageRecord usageRecordId(String usageRecordId) {
     this.usageRecordId = usageRecordId;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier of the usageRecord.
-   *
    * @return usageRecordId
-   */
+  **/
   @ApiModelProperty(required = true, value = "The unique identifier of the usageRecord.")
-  /**
+  /** 
    * The unique identifier of the usageRecord.
-   *
    * @return usageRecordId String
-   */
+  **/
   public String getUsageRecordId() {
     return usageRecordId;
   }
 
-  /**
-   * The unique identifier of the usageRecord.
-   *
-   * @param usageRecordId String
-   */
+  /** 
+  * The unique identifier of the usageRecord.
+  * @param usageRecordId  String
+  **/
+
   public void setUsageRecordId(String usageRecordId) {
     this.usageRecordId = usageRecordId;
   }
 
   /**
-   * The price per unit
-   *
-   * @param pricePerUnit BigDecimal
-   * @return UsageRecord
-   */
+  * The price per unit
+  * @param pricePerUnit  BigDecimal
+  * @return UsageRecord
+  **/
   public UsageRecord pricePerUnit(BigDecimal pricePerUnit) {
     this.pricePerUnit = pricePerUnit;
     return this;
   }
 
-  /**
+   /**
    * The price per unit
-   *
    * @return pricePerUnit
-   */
+  **/
   @ApiModelProperty(required = true, value = "The price per unit")
-  /**
+  /** 
    * The price per unit
-   *
    * @return pricePerUnit BigDecimal
-   */
+  **/
   public BigDecimal getPricePerUnit() {
     return pricePerUnit;
   }
 
-  /**
-   * The price per unit
-   *
-   * @param pricePerUnit BigDecimal
-   */
+  /** 
+  * The price per unit
+  * @param pricePerUnit  BigDecimal
+  **/
+
   public void setPricePerUnit(BigDecimal pricePerUnit) {
     this.pricePerUnit = pricePerUnit;
   }
 
   /**
-   * The unique identifier of the linked Product
-   *
-   * @param productId String
-   * @return UsageRecord
-   */
+  * The unique identifier of the linked Product
+  * @param productId  String
+  * @return UsageRecord
+  **/
   public UsageRecord productId(String productId) {
     this.productId = productId;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier of the linked Product
-   *
    * @return productId
-   */
+  **/
   @ApiModelProperty(required = true, value = "The unique identifier of the linked Product")
-  /**
+  /** 
    * The unique identifier of the linked Product
-   *
    * @return productId String
-   */
+  **/
   public String getProductId() {
     return productId;
   }
 
-  /**
-   * The unique identifier of the linked Product
-   *
-   * @param productId String
-   */
+  /** 
+  * The unique identifier of the linked Product
+  * @param productId  String
+  **/
+
   public void setProductId(String productId) {
     this.productId = productId;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -334,28 +328,21 @@ public class UsageRecord {
       return false;
     }
     UsageRecord usageRecord = (UsageRecord) o;
-    return Objects.equals(this.quantity, usageRecord.quantity)
-        && Objects.equals(this.subscriptionId, usageRecord.subscriptionId)
-        && Objects.equals(this.subscriptionItemId, usageRecord.subscriptionItemId)
-        && Objects.equals(this.testMode, usageRecord.testMode)
-        && Objects.equals(this.recordedAt, usageRecord.recordedAt)
-        && Objects.equals(this.usageRecordId, usageRecord.usageRecordId)
-        && Objects.equals(this.pricePerUnit, usageRecord.pricePerUnit)
-        && Objects.equals(this.productId, usageRecord.productId);
+    return Objects.equals(this.quantity, usageRecord.quantity) &&
+        Objects.equals(this.subscriptionId, usageRecord.subscriptionId) &&
+        Objects.equals(this.subscriptionItemId, usageRecord.subscriptionItemId) &&
+        Objects.equals(this.testMode, usageRecord.testMode) &&
+        Objects.equals(this.recordedAt, usageRecord.recordedAt) &&
+        Objects.equals(this.usageRecordId, usageRecord.usageRecordId) &&
+        Objects.equals(this.pricePerUnit, usageRecord.pricePerUnit) &&
+        Objects.equals(this.productId, usageRecord.productId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        quantity,
-        subscriptionId,
-        subscriptionItemId,
-        testMode,
-        recordedAt,
-        usageRecordId,
-        pricePerUnit,
-        productId);
+    return Objects.hash(quantity, subscriptionId, subscriptionItemId, testMode, recordedAt, usageRecordId, pricePerUnit, productId);
   }
+
 
   @Override
   public String toString() {
@@ -374,7 +361,8 @@ public class UsageRecord {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -382,4 +370,6 @@ public class UsageRecord {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

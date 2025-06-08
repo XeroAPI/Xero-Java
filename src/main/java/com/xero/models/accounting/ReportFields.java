@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** ReportFields */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ReportFields
+ */
+
 public class ReportFields {
   StringUtil util = new StringUtil();
 
@@ -29,109 +46,101 @@ public class ReportFields {
   @JsonProperty("Value")
   private String value;
   /**
-   * fieldID
-   *
-   * @param fieldID String
-   * @return ReportFields
-   */
+  * fieldID
+  * @param fieldID  String
+  * @return ReportFields
+  **/
   public ReportFields fieldID(String fieldID) {
     this.fieldID = fieldID;
     return this;
   }
 
-  /**
+   /**
    * Get fieldID
-   *
    * @return fieldID
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * fieldID
-   *
    * @return fieldID String
-   */
+  **/
   public String getFieldID() {
     return fieldID;
   }
 
-  /**
-   * fieldID
-   *
-   * @param fieldID String
-   */
+  /** 
+  * fieldID
+  * @param fieldID  String
+  **/
+
   public void setFieldID(String fieldID) {
     this.fieldID = fieldID;
   }
 
   /**
-   * description
-   *
-   * @param description String
-   * @return ReportFields
-   */
+  * description
+  * @param description  String
+  * @return ReportFields
+  **/
   public ReportFields description(String description) {
     this.description = description;
     return this;
   }
 
-  /**
+   /**
    * Get description
-   *
    * @return description
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * description
-   *
    * @return description String
-   */
+  **/
   public String getDescription() {
     return description;
   }
 
-  /**
-   * description
-   *
-   * @param description String
-   */
+  /** 
+  * description
+  * @param description  String
+  **/
+
   public void setDescription(String description) {
     this.description = description;
   }
 
   /**
-   * value
-   *
-   * @param value String
-   * @return ReportFields
-   */
+  * value
+  * @param value  String
+  * @return ReportFields
+  **/
   public ReportFields value(String value) {
     this.value = value;
     return this;
   }
 
-  /**
+   /**
    * Get value
-   *
    * @return value
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * value
-   *
    * @return value String
-   */
+  **/
   public String getValue() {
     return value;
   }
 
-  /**
-   * value
-   *
-   * @param value String
-   */
+  /** 
+  * value
+  * @param value  String
+  **/
+
   public void setValue(String value) {
     this.value = value;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +151,16 @@ public class ReportFields {
       return false;
     }
     ReportFields reportFields = (ReportFields) o;
-    return Objects.equals(this.fieldID, reportFields.fieldID)
-        && Objects.equals(this.description, reportFields.description)
-        && Objects.equals(this.value, reportFields.value);
+    return Objects.equals(this.fieldID, reportFields.fieldID) &&
+        Objects.equals(this.description, reportFields.description) &&
+        Objects.equals(this.value, reportFields.value);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(fieldID, description, value);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +174,8 @@ public class ReportFields {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +183,6 @@ public class ReportFields {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,14 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.project;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.project.CurrencyCode;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** Amount */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Amount
+ */
+
 public class Amount {
   StringUtil util = new StringUtil();
 
@@ -26,74 +44,69 @@ public class Amount {
   @JsonProperty("value")
   private Double value;
   /**
-   * currency
-   *
-   * @param currency CurrencyCode
-   * @return Amount
-   */
+  * currency
+  * @param currency  CurrencyCode
+  * @return Amount
+  **/
   public Amount currency(CurrencyCode currency) {
     this.currency = currency;
     return this;
   }
 
-  /**
+   /**
    * Get currency
-   *
    * @return currency
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * currency
-   *
    * @return currency CurrencyCode
-   */
+  **/
   public CurrencyCode getCurrency() {
     return currency;
   }
 
-  /**
-   * currency
-   *
-   * @param currency CurrencyCode
-   */
+  /** 
+  * currency
+  * @param currency  CurrencyCode
+  **/
+
   public void setCurrency(CurrencyCode currency) {
     this.currency = currency;
   }
 
   /**
-   * value
-   *
-   * @param value Double
-   * @return Amount
-   */
+  * value
+  * @param value  Double
+  * @return Amount
+  **/
   public Amount value(Double value) {
     this.value = value;
     return this;
   }
 
-  /**
+   /**
    * Get value
-   *
    * @return value
-   */
+  **/
   @ApiModelProperty(example = "1.0", value = "")
-  /**
+  /** 
    * value
-   *
    * @return value Double
-   */
+  **/
   public Double getValue() {
     return value;
   }
 
-  /**
-   * value
-   *
-   * @param value Double
-   */
+  /** 
+  * value
+  * @param value  Double
+  **/
+
   public void setValue(Double value) {
     this.value = value;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -104,14 +117,15 @@ public class Amount {
       return false;
     }
     Amount amount = (Amount) o;
-    return Objects.equals(this.currency, amount.currency)
-        && Objects.equals(this.value, amount.value);
+    return Objects.equals(this.currency, amount.currency) &&
+        Objects.equals(this.value, amount.value);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(currency, value);
   }
+
 
   @Override
   public String toString() {
@@ -124,7 +138,8 @@ public class Amount {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -132,4 +147,6 @@ public class Amount {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.LeaveApplication;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** LeaveApplications */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LeaveApplications
+ */
+
 public class LeaveApplications {
   StringUtil util = new StringUtil();
 
   @JsonProperty("LeaveApplications")
   private List<LeaveApplication> leaveApplications = new ArrayList<LeaveApplication>();
   /**
-   * leaveApplications
-   *
-   * @param leaveApplications List&lt;LeaveApplication&gt;
-   * @return LeaveApplications
-   */
+  * leaveApplications
+  * @param leaveApplications  List&lt;LeaveApplication&gt;
+  * @return LeaveApplications
+  **/
   public LeaveApplications leaveApplications(List<LeaveApplication> leaveApplications) {
     this.leaveApplications = leaveApplications;
     return this;
@@ -37,10 +54,9 @@ public class LeaveApplications {
 
   /**
    * leaveApplications
-   *
-   * @param leaveApplicationsItem LeaveApplication
+   * @param leaveApplicationsItem LeaveApplication 
    * @return LeaveApplications
-   */
+  **/
   public LeaveApplications addLeaveApplicationsItem(LeaveApplication leaveApplicationsItem) {
     if (this.leaveApplications == null) {
       this.leaveApplications = new ArrayList<LeaveApplication>();
@@ -49,29 +65,28 @@ public class LeaveApplications {
     return this;
   }
 
-  /**
+   /**
    * Get leaveApplications
-   *
    * @return leaveApplications
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * leaveApplications
-   *
    * @return leaveApplications List<LeaveApplication>
-   */
+  **/
   public List<LeaveApplication> getLeaveApplications() {
     return leaveApplications;
   }
 
-  /**
-   * leaveApplications
-   *
-   * @param leaveApplications List&lt;LeaveApplication&gt;
-   */
+  /** 
+  * leaveApplications
+  * @param leaveApplications List&lt;LeaveApplication&gt; 
+  **/
+
   public void setLeaveApplications(List<LeaveApplication> leaveApplications) {
     this.leaveApplications = leaveApplications;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class LeaveApplications {
     return Objects.hash(leaveApplications);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class LeaveApplications {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class LeaveApplications {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

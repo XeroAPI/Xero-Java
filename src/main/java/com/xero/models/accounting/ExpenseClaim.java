@@ -9,42 +9,69 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.accounting.Payment;
+import com.xero.models.accounting.Receipt;
+import com.xero.models.accounting.User;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** ExpenseClaim */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ExpenseClaim
+ */
+
 public class ExpenseClaim {
   StringUtil util = new StringUtil();
 
   @JsonProperty("ExpenseClaimID")
   private UUID expenseClaimID;
-  /** Current status of an expense claim – see status types */
+  /**
+   * Current status of an expense claim – see status types
+   */
   public enum StatusEnum {
-    /** SUBMITTED */
+    /**
+     * SUBMITTED
+     */
     SUBMITTED("SUBMITTED"),
-
-    /** AUTHORISED */
+    
+    /**
+     * AUTHORISED
+     */
     AUTHORISED("AUTHORISED"),
-
-    /** PAID */
+    
+    /**
+     * PAID
+     */
     PAID("PAID"),
-
-    /** VOIDED */
+    
+    /**
+     * VOIDED
+     */
     VOIDED("VOIDED"),
-
-    /** DELETED */
+    
+    /**
+     * DELETED
+     */
     DELETED("DELETED");
 
     private String value;
@@ -53,31 +80,25 @@ public class ExpenseClaim {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -88,6 +109,7 @@ public class ExpenseClaim {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("Status")
   private StatusEnum status;
@@ -122,81 +144,74 @@ public class ExpenseClaim {
   @JsonProperty("ReceiptID")
   private UUID receiptID;
   /**
-   * Xero generated unique identifier for an expense claim
-   *
-   * @param expenseClaimID UUID
-   * @return ExpenseClaim
-   */
+  * Xero generated unique identifier for an expense claim
+  * @param expenseClaimID  UUID
+  * @return ExpenseClaim
+  **/
   public ExpenseClaim expenseClaimID(UUID expenseClaimID) {
     this.expenseClaimID = expenseClaimID;
     return this;
   }
 
-  /**
+   /**
    * Xero generated unique identifier for an expense claim
-   *
    * @return expenseClaimID
-   */
+  **/
   @ApiModelProperty(value = "Xero generated unique identifier for an expense claim")
-  /**
+  /** 
    * Xero generated unique identifier for an expense claim
-   *
    * @return expenseClaimID UUID
-   */
+  **/
   public UUID getExpenseClaimID() {
     return expenseClaimID;
   }
 
-  /**
-   * Xero generated unique identifier for an expense claim
-   *
-   * @param expenseClaimID UUID
-   */
+  /** 
+  * Xero generated unique identifier for an expense claim
+  * @param expenseClaimID  UUID
+  **/
+
   public void setExpenseClaimID(UUID expenseClaimID) {
     this.expenseClaimID = expenseClaimID;
   }
 
   /**
-   * Current status of an expense claim – see status types
-   *
-   * @param status StatusEnum
-   * @return ExpenseClaim
-   */
+  * Current status of an expense claim – see status types
+  * @param status  StatusEnum
+  * @return ExpenseClaim
+  **/
   public ExpenseClaim status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * Current status of an expense claim – see status types
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(value = "Current status of an expense claim – see status types")
-  /**
+  /** 
    * Current status of an expense claim – see status types
-   *
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * Current status of an expense claim – see status types
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * Current status of an expense claim – see status types
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
   /**
-   * See Payments
-   *
-   * @param payments List&lt;Payment&gt;
-   * @return ExpenseClaim
-   */
+  * See Payments
+  * @param payments  List&lt;Payment&gt;
+  * @return ExpenseClaim
+  **/
   public ExpenseClaim payments(List<Payment> payments) {
     this.payments = payments;
     return this;
@@ -204,10 +219,9 @@ public class ExpenseClaim {
 
   /**
    * See Payments
-   *
-   * @param paymentsItem Payment
+   * @param paymentsItem Payment 
    * @return ExpenseClaim
-   */
+  **/
   public ExpenseClaim addPaymentsItem(Payment paymentsItem) {
     if (this.payments == null) {
       this.payments = new ArrayList<Payment>();
@@ -216,71 +230,65 @@ public class ExpenseClaim {
     return this;
   }
 
-  /**
+   /**
    * See Payments
-   *
    * @return payments
-   */
+  **/
   @ApiModelProperty(value = "See Payments")
-  /**
+  /** 
    * See Payments
-   *
    * @return payments List<Payment>
-   */
+  **/
   public List<Payment> getPayments() {
     return payments;
   }
 
-  /**
-   * See Payments
-   *
-   * @param payments List&lt;Payment&gt;
-   */
+  /** 
+  * See Payments
+  * @param payments List&lt;Payment&gt; 
+  **/
+
   public void setPayments(List<Payment> payments) {
     this.payments = payments;
   }
 
   /**
-   * user
-   *
-   * @param user User
-   * @return ExpenseClaim
-   */
+  * user
+  * @param user  User
+  * @return ExpenseClaim
+  **/
   public ExpenseClaim user(User user) {
     this.user = user;
     return this;
   }
 
-  /**
+   /**
    * Get user
-   *
    * @return user
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * user
-   *
    * @return user User
-   */
+  **/
   public User getUser() {
     return user;
   }
 
-  /**
-   * user
-   *
-   * @param user User
-   */
+  /** 
+  * user
+  * @param user  User
+  **/
+
   public void setUser(User user) {
     this.user = user;
   }
 
   /**
-   * receipts
-   *
-   * @param receipts List&lt;Receipt&gt;
-   * @return ExpenseClaim
-   */
+  * receipts
+  * @param receipts  List&lt;Receipt&gt;
+  * @return ExpenseClaim
+  **/
   public ExpenseClaim receipts(List<Receipt> receipts) {
     this.receipts = receipts;
     return this;
@@ -288,10 +296,9 @@ public class ExpenseClaim {
 
   /**
    * receipts
-   *
-   * @param receiptsItem Receipt
+   * @param receiptsItem Receipt 
    * @return ExpenseClaim
-   */
+  **/
   public ExpenseClaim addReceiptsItem(Receipt receiptsItem) {
     if (this.receipts == null) {
       this.receipts = new ArrayList<Receipt>();
@@ -300,200 +307,180 @@ public class ExpenseClaim {
     return this;
   }
 
-  /**
+   /**
    * Get receipts
-   *
    * @return receipts
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * receipts
-   *
    * @return receipts List<Receipt>
-   */
+  **/
   public List<Receipt> getReceipts() {
     return receipts;
   }
 
-  /**
-   * receipts
-   *
-   * @param receipts List&lt;Receipt&gt;
-   */
+  /** 
+  * receipts
+  * @param receipts List&lt;Receipt&gt; 
+  **/
+
   public void setReceipts(List<Receipt> receipts) {
     this.receipts = receipts;
   }
 
-  /**
+   /**
    * Last modified date UTC format
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
-  /**
+  /** 
    * Last modified date UTC format
-   *
    * @return updatedDateUTC String
-   */
+  **/
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-  /**
+  /** 
    * Last modified date UTC format
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
-  /**
+   /**
    * The total of an expense claim being paid
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "The total of an expense claim being paid")
-  /**
+  /** 
    * The total of an expense claim being paid
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
+   /**
    * The amount due to be paid for an expense claim
-   *
    * @return amountDue
-   */
+  **/
   @ApiModelProperty(value = "The amount due to be paid for an expense claim")
-  /**
+  /** 
    * The amount due to be paid for an expense claim
-   *
    * @return amountDue Double
-   */
+  **/
   public Double getAmountDue() {
     return amountDue;
   }
 
-  /**
+   /**
    * The amount still to pay for an expense claim
-   *
    * @return amountPaid
-   */
+  **/
   @ApiModelProperty(value = "The amount still to pay for an expense claim")
-  /**
+  /** 
    * The amount still to pay for an expense claim
-   *
    * @return amountPaid Double
-   */
+  **/
   public Double getAmountPaid() {
     return amountPaid;
   }
 
-  /**
+   /**
    * The date when the expense claim is due to be paid YYYY-MM-DD
-   *
    * @return paymentDueDate
-   */
+  **/
   @ApiModelProperty(value = "The date when the expense claim is due to be paid YYYY-MM-DD")
-  /**
+  /** 
    * The date when the expense claim is due to be paid YYYY-MM-DD
-   *
    * @return paymentDueDate String
-   */
+  **/
   public String getPaymentDueDate() {
     return paymentDueDate;
   }
-  /**
+  /** 
    * The date when the expense claim is due to be paid YYYY-MM-DD
-   *
    * @return LocalDate
-   */
+  **/
   public LocalDate getPaymentDueDateAsDate() {
     if (this.paymentDueDate != null) {
       try {
         return util.convertStringToDate(this.paymentDueDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
-  /**
+   /**
    * The date the expense claim will be reported in Xero YYYY-MM-DD
-   *
    * @return reportingDate
-   */
+  **/
   @ApiModelProperty(value = "The date the expense claim will be reported in Xero YYYY-MM-DD")
-  /**
+  /** 
    * The date the expense claim will be reported in Xero YYYY-MM-DD
-   *
    * @return reportingDate String
-   */
+  **/
   public String getReportingDate() {
     return reportingDate;
   }
-  /**
+  /** 
    * The date the expense claim will be reported in Xero YYYY-MM-DD
-   *
    * @return LocalDate
-   */
+  **/
   public LocalDate getReportingDateAsDate() {
     if (this.reportingDate != null) {
       try {
         return util.convertStringToDate(this.reportingDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   /**
-   * The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9
-   *
-   * @param receiptID UUID
-   * @return ExpenseClaim
-   */
+  * The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9
+  * @param receiptID  UUID
+  * @return ExpenseClaim
+  **/
   public ExpenseClaim receiptID(UUID receiptID) {
     this.receiptID = receiptID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9
-   *
    * @return receiptID
-   */
-  @ApiModelProperty(
-      value = "The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9")
-  /**
+  **/
+  @ApiModelProperty(value = "The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9")
+  /** 
    * The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9
-   *
    * @return receiptID UUID
-   */
+  **/
   public UUID getReceiptID() {
     return receiptID;
   }
 
-  /**
-   * The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9
-   *
-   * @param receiptID UUID
-   */
+  /** 
+  * The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9
+  * @param receiptID  UUID
+  **/
+
   public void setReceiptID(UUID receiptID) {
     this.receiptID = receiptID;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -504,36 +491,25 @@ public class ExpenseClaim {
       return false;
     }
     ExpenseClaim expenseClaim = (ExpenseClaim) o;
-    return Objects.equals(this.expenseClaimID, expenseClaim.expenseClaimID)
-        && Objects.equals(this.status, expenseClaim.status)
-        && Objects.equals(this.payments, expenseClaim.payments)
-        && Objects.equals(this.user, expenseClaim.user)
-        && Objects.equals(this.receipts, expenseClaim.receipts)
-        && Objects.equals(this.updatedDateUTC, expenseClaim.updatedDateUTC)
-        && Objects.equals(this.total, expenseClaim.total)
-        && Objects.equals(this.amountDue, expenseClaim.amountDue)
-        && Objects.equals(this.amountPaid, expenseClaim.amountPaid)
-        && Objects.equals(this.paymentDueDate, expenseClaim.paymentDueDate)
-        && Objects.equals(this.reportingDate, expenseClaim.reportingDate)
-        && Objects.equals(this.receiptID, expenseClaim.receiptID);
+    return Objects.equals(this.expenseClaimID, expenseClaim.expenseClaimID) &&
+        Objects.equals(this.status, expenseClaim.status) &&
+        Objects.equals(this.payments, expenseClaim.payments) &&
+        Objects.equals(this.user, expenseClaim.user) &&
+        Objects.equals(this.receipts, expenseClaim.receipts) &&
+        Objects.equals(this.updatedDateUTC, expenseClaim.updatedDateUTC) &&
+        Objects.equals(this.total, expenseClaim.total) &&
+        Objects.equals(this.amountDue, expenseClaim.amountDue) &&
+        Objects.equals(this.amountPaid, expenseClaim.amountPaid) &&
+        Objects.equals(this.paymentDueDate, expenseClaim.paymentDueDate) &&
+        Objects.equals(this.reportingDate, expenseClaim.reportingDate) &&
+        Objects.equals(this.receiptID, expenseClaim.receiptID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        expenseClaimID,
-        status,
-        payments,
-        user,
-        receipts,
-        updatedDateUTC,
-        total,
-        amountDue,
-        amountPaid,
-        paymentDueDate,
-        reportingDate,
-        receiptID);
+    return Objects.hash(expenseClaimID, status, payments, user, receipts, updatedDateUTC, total, amountDue, amountPaid, paymentDueDate, reportingDate, receiptID);
   }
+
 
   @Override
   public String toString() {
@@ -556,7 +532,8 @@ public class ExpenseClaim {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -564,4 +541,6 @@ public class ExpenseClaim {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

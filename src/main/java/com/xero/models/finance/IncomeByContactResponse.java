@@ -9,17 +9,38 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.ContactDetail;
+import com.xero.models.finance.ManualJournalTotal;
+import com.xero.models.finance.TotalDetail;
+import com.xero.models.finance.TotalOther;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** IncomeByContactResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * IncomeByContactResponse
+ */
+
 public class IncomeByContactResponse {
   StringUtil util = new StringUtil();
 
@@ -44,186 +65,170 @@ public class IncomeByContactResponse {
   @JsonProperty("manualJournals")
   private ManualJournalTotal manualJournals;
   /**
-   * Start date of the report
-   *
-   * @param startDate LocalDate
-   * @return IncomeByContactResponse
-   */
+  * Start date of the report
+  * @param startDate  LocalDate
+  * @return IncomeByContactResponse
+  **/
   public IncomeByContactResponse startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * Start date of the report
-   *
    * @return startDate
-   */
+  **/
   @ApiModelProperty(value = "Start date of the report")
-  /**
+  /** 
    * Start date of the report
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * Start date of the report
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * Start date of the report
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * End date of the report
-   *
-   * @param endDate LocalDate
-   * @return IncomeByContactResponse
-   */
+  * End date of the report
+  * @param endDate  LocalDate
+  * @return IncomeByContactResponse
+  **/
   public IncomeByContactResponse endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * End date of the report
-   *
    * @return endDate
-   */
+  **/
   @ApiModelProperty(value = "End date of the report")
-  /**
+  /** 
    * End date of the report
-   *
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * End date of the report
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * End date of the report
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * Total value
-   *
-   * @param total Double
-   * @return IncomeByContactResponse
-   */
+  * Total value
+  * @param total  Double
+  * @return IncomeByContactResponse
+  **/
   public IncomeByContactResponse total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total value
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total value")
-  /**
+  /** 
    * Total value
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total value
-   *
-   * @param total Double
-   */
+  /** 
+  * Total value
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
 
   /**
-   * totalDetail
-   *
-   * @param totalDetail TotalDetail
-   * @return IncomeByContactResponse
-   */
+  * totalDetail
+  * @param totalDetail  TotalDetail
+  * @return IncomeByContactResponse
+  **/
   public IncomeByContactResponse totalDetail(TotalDetail totalDetail) {
     this.totalDetail = totalDetail;
     return this;
   }
 
-  /**
+   /**
    * Get totalDetail
-   *
    * @return totalDetail
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * totalDetail
-   *
    * @return totalDetail TotalDetail
-   */
+  **/
   public TotalDetail getTotalDetail() {
     return totalDetail;
   }
 
-  /**
-   * totalDetail
-   *
-   * @param totalDetail TotalDetail
-   */
+  /** 
+  * totalDetail
+  * @param totalDetail  TotalDetail
+  **/
+
   public void setTotalDetail(TotalDetail totalDetail) {
     this.totalDetail = totalDetail;
   }
 
   /**
-   * totalOther
-   *
-   * @param totalOther TotalOther
-   * @return IncomeByContactResponse
-   */
+  * totalOther
+  * @param totalOther  TotalOther
+  * @return IncomeByContactResponse
+  **/
   public IncomeByContactResponse totalOther(TotalOther totalOther) {
     this.totalOther = totalOther;
     return this;
   }
 
-  /**
+   /**
    * Get totalOther
-   *
    * @return totalOther
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * totalOther
-   *
    * @return totalOther TotalOther
-   */
+  **/
   public TotalOther getTotalOther() {
     return totalOther;
   }
 
-  /**
-   * totalOther
-   *
-   * @param totalOther TotalOther
-   */
+  /** 
+  * totalOther
+  * @param totalOther  TotalOther
+  **/
+
   public void setTotalOther(TotalOther totalOther) {
     this.totalOther = totalOther;
   }
 
   /**
-   * contacts
-   *
-   * @param contacts List&lt;ContactDetail&gt;
-   * @return IncomeByContactResponse
-   */
+  * contacts
+  * @param contacts  List&lt;ContactDetail&gt;
+  * @return IncomeByContactResponse
+  **/
   public IncomeByContactResponse contacts(List<ContactDetail> contacts) {
     this.contacts = contacts;
     return this;
@@ -231,10 +236,9 @@ public class IncomeByContactResponse {
 
   /**
    * contacts
-   *
-   * @param contactsItem ContactDetail
+   * @param contactsItem ContactDetail 
    * @return IncomeByContactResponse
-   */
+  **/
   public IncomeByContactResponse addContactsItem(ContactDetail contactsItem) {
     if (this.contacts == null) {
       this.contacts = new ArrayList<ContactDetail>();
@@ -243,64 +247,60 @@ public class IncomeByContactResponse {
     return this;
   }
 
-  /**
+   /**
    * Get contacts
-   *
    * @return contacts
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * contacts
-   *
    * @return contacts List<ContactDetail>
-   */
+  **/
   public List<ContactDetail> getContacts() {
     return contacts;
   }
 
-  /**
-   * contacts
-   *
-   * @param contacts List&lt;ContactDetail&gt;
-   */
+  /** 
+  * contacts
+  * @param contacts List&lt;ContactDetail&gt; 
+  **/
+
   public void setContacts(List<ContactDetail> contacts) {
     this.contacts = contacts;
   }
 
   /**
-   * manualJournals
-   *
-   * @param manualJournals ManualJournalTotal
-   * @return IncomeByContactResponse
-   */
+  * manualJournals
+  * @param manualJournals  ManualJournalTotal
+  * @return IncomeByContactResponse
+  **/
   public IncomeByContactResponse manualJournals(ManualJournalTotal manualJournals) {
     this.manualJournals = manualJournals;
     return this;
   }
 
-  /**
+   /**
    * Get manualJournals
-   *
    * @return manualJournals
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * manualJournals
-   *
    * @return manualJournals ManualJournalTotal
-   */
+  **/
   public ManualJournalTotal getManualJournals() {
     return manualJournals;
   }
 
-  /**
-   * manualJournals
-   *
-   * @param manualJournals ManualJournalTotal
-   */
+  /** 
+  * manualJournals
+  * @param manualJournals  ManualJournalTotal
+  **/
+
   public void setManualJournals(ManualJournalTotal manualJournals) {
     this.manualJournals = manualJournals;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -311,20 +311,20 @@ public class IncomeByContactResponse {
       return false;
     }
     IncomeByContactResponse incomeByContactResponse = (IncomeByContactResponse) o;
-    return Objects.equals(this.startDate, incomeByContactResponse.startDate)
-        && Objects.equals(this.endDate, incomeByContactResponse.endDate)
-        && Objects.equals(this.total, incomeByContactResponse.total)
-        && Objects.equals(this.totalDetail, incomeByContactResponse.totalDetail)
-        && Objects.equals(this.totalOther, incomeByContactResponse.totalOther)
-        && Objects.equals(this.contacts, incomeByContactResponse.contacts)
-        && Objects.equals(this.manualJournals, incomeByContactResponse.manualJournals);
+    return Objects.equals(this.startDate, incomeByContactResponse.startDate) &&
+        Objects.equals(this.endDate, incomeByContactResponse.endDate) &&
+        Objects.equals(this.total, incomeByContactResponse.total) &&
+        Objects.equals(this.totalDetail, incomeByContactResponse.totalDetail) &&
+        Objects.equals(this.totalOther, incomeByContactResponse.totalOther) &&
+        Objects.equals(this.contacts, incomeByContactResponse.contacts) &&
+        Objects.equals(this.manualJournals, incomeByContactResponse.manualJournals);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        startDate, endDate, total, totalDetail, totalOther, contacts, manualJournals);
+    return Objects.hash(startDate, endDate, total, totalDetail, totalOther, contacts, manualJournals);
   }
+
 
   @Override
   public String toString() {
@@ -342,7 +342,8 @@ public class IncomeByContactResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -350,4 +351,6 @@ public class IncomeByContactResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

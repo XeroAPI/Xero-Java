@@ -9,16 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Element;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Error */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Error
+ */
+
 public class Error {
   StringUtil util = new StringUtil();
 
@@ -34,116 +52,106 @@ public class Error {
   @JsonProperty("Elements")
   private List<Element> elements = new ArrayList<Element>();
   /**
-   * Exception number
-   *
-   * @param errorNumber Integer
-   * @return Error
-   */
+  * Exception number
+  * @param errorNumber  Integer
+  * @return Error
+  **/
   public Error errorNumber(Integer errorNumber) {
     this.errorNumber = errorNumber;
     return this;
   }
 
-  /**
+   /**
    * Exception number
-   *
    * @return errorNumber
-   */
+  **/
   @ApiModelProperty(value = "Exception number")
-  /**
+  /** 
    * Exception number
-   *
    * @return errorNumber Integer
-   */
+  **/
   public Integer getErrorNumber() {
     return errorNumber;
   }
 
-  /**
-   * Exception number
-   *
-   * @param errorNumber Integer
-   */
+  /** 
+  * Exception number
+  * @param errorNumber  Integer
+  **/
+
   public void setErrorNumber(Integer errorNumber) {
     this.errorNumber = errorNumber;
   }
 
   /**
-   * Exception type
-   *
-   * @param type String
-   * @return Error
-   */
+  * Exception type
+  * @param type  String
+  * @return Error
+  **/
   public Error type(String type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * Exception type
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "Exception type")
-  /**
+  /** 
    * Exception type
-   *
    * @return type String
-   */
+  **/
   public String getType() {
     return type;
   }
 
-  /**
-   * Exception type
-   *
-   * @param type String
-   */
+  /** 
+  * Exception type
+  * @param type  String
+  **/
+
   public void setType(String type) {
     this.type = type;
   }
 
   /**
-   * Exception message
-   *
-   * @param message String
-   * @return Error
-   */
+  * Exception message
+  * @param message  String
+  * @return Error
+  **/
   public Error message(String message) {
     this.message = message;
     return this;
   }
 
-  /**
+   /**
    * Exception message
-   *
    * @return message
-   */
+  **/
   @ApiModelProperty(value = "Exception message")
-  /**
+  /** 
    * Exception message
-   *
    * @return message String
-   */
+  **/
   public String getMessage() {
     return message;
   }
 
-  /**
-   * Exception message
-   *
-   * @param message String
-   */
+  /** 
+  * Exception message
+  * @param message  String
+  **/
+
   public void setMessage(String message) {
     this.message = message;
   }
 
   /**
-   * Array of Elements of validation Errors
-   *
-   * @param elements List&lt;Element&gt;
-   * @return Error
-   */
+  * Array of Elements of validation Errors
+  * @param elements  List&lt;Element&gt;
+  * @return Error
+  **/
   public Error elements(List<Element> elements) {
     this.elements = elements;
     return this;
@@ -151,10 +159,9 @@ public class Error {
 
   /**
    * Array of Elements of validation Errors
-   *
-   * @param elementsItem Element
+   * @param elementsItem Element 
    * @return Error
-   */
+  **/
   public Error addElementsItem(Element elementsItem) {
     if (this.elements == null) {
       this.elements = new ArrayList<Element>();
@@ -163,29 +170,28 @@ public class Error {
     return this;
   }
 
-  /**
+   /**
    * Array of Elements of validation Errors
-   *
    * @return elements
-   */
+  **/
   @ApiModelProperty(value = "Array of Elements of validation Errors")
-  /**
+  /** 
    * Array of Elements of validation Errors
-   *
    * @return elements List<Element>
-   */
+  **/
   public List<Element> getElements() {
     return elements;
   }
 
-  /**
-   * Array of Elements of validation Errors
-   *
-   * @param elements List&lt;Element&gt;
-   */
+  /** 
+  * Array of Elements of validation Errors
+  * @param elements List&lt;Element&gt; 
+  **/
+
   public void setElements(List<Element> elements) {
     this.elements = elements;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -196,16 +202,17 @@ public class Error {
       return false;
     }
     Error error = (Error) o;
-    return Objects.equals(this.errorNumber, error.errorNumber)
-        && Objects.equals(this.type, error.type)
-        && Objects.equals(this.message, error.message)
-        && Objects.equals(this.elements, error.elements);
+    return Objects.equals(this.errorNumber, error.errorNumber) &&
+        Objects.equals(this.type, error.type) &&
+        Objects.equals(this.message, error.message) &&
+        Objects.equals(this.elements, error.elements);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(errorNumber, type, message, elements);
   }
+
 
   @Override
   public String toString() {
@@ -220,7 +227,8 @@ public class Error {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -228,4 +236,6 @@ public class Error {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

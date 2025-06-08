@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** StatutoryDeductionLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * StatutoryDeductionLine
+ */
+
 public class StatutoryDeductionLine {
   StringUtil util = new StringUtil();
 
@@ -33,144 +50,133 @@ public class StatutoryDeductionLine {
   @JsonProperty("manualAdjustment")
   private Boolean manualAdjustment;
   /**
-   * Xero identifier for payroll statutory deduction type
-   *
-   * @param statutoryDeductionTypeID UUID
-   * @return StatutoryDeductionLine
-   */
+  * Xero identifier for payroll statutory deduction type
+  * @param statutoryDeductionTypeID  UUID
+  * @return StatutoryDeductionLine
+  **/
   public StatutoryDeductionLine statutoryDeductionTypeID(UUID statutoryDeductionTypeID) {
     this.statutoryDeductionTypeID = statutoryDeductionTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for payroll statutory deduction type
-   *
    * @return statutoryDeductionTypeID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for payroll statutory deduction type")
-  /**
+  /** 
    * Xero identifier for payroll statutory deduction type
-   *
    * @return statutoryDeductionTypeID UUID
-   */
+  **/
   public UUID getStatutoryDeductionTypeID() {
     return statutoryDeductionTypeID;
   }
 
-  /**
-   * Xero identifier for payroll statutory deduction type
-   *
-   * @param statutoryDeductionTypeID UUID
-   */
+  /** 
+  * Xero identifier for payroll statutory deduction type
+  * @param statutoryDeductionTypeID  UUID
+  **/
+
   public void setStatutoryDeductionTypeID(UUID statutoryDeductionTypeID) {
     this.statutoryDeductionTypeID = statutoryDeductionTypeID;
   }
 
   /**
-   * The amount of the statutory deduction line
-   *
-   * @param amount Double
-   * @return StatutoryDeductionLine
-   */
+  * The amount of the statutory deduction line
+  * @param amount  Double
+  * @return StatutoryDeductionLine
+  **/
   public StatutoryDeductionLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * The amount of the statutory deduction line
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "The amount of the statutory deduction line")
-  /**
+  /** 
    * The amount of the statutory deduction line
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * The amount of the statutory deduction line
-   *
-   * @param amount Double
-   */
+  /** 
+  * The amount of the statutory deduction line
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * Fixed Amount
-   *
-   * @param fixedAmount Double
-   * @return StatutoryDeductionLine
-   */
+  * Fixed Amount
+  * @param fixedAmount  Double
+  * @return StatutoryDeductionLine
+  **/
   public StatutoryDeductionLine fixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
     return this;
   }
 
-  /**
+   /**
    * Fixed Amount
-   *
    * @return fixedAmount
-   */
+  **/
   @ApiModelProperty(value = "Fixed Amount")
-  /**
+  /** 
    * Fixed Amount
-   *
    * @return fixedAmount Double
-   */
+  **/
   public Double getFixedAmount() {
     return fixedAmount;
   }
 
-  /**
-   * Fixed Amount
-   *
-   * @param fixedAmount Double
-   */
+  /** 
+  * Fixed Amount
+  * @param fixedAmount  Double
+  **/
+
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
 
   /**
-   * Identifies if the tax line is a manual adjustment
-   *
-   * @param manualAdjustment Boolean
-   * @return StatutoryDeductionLine
-   */
+  * Identifies if the tax line is a manual adjustment
+  * @param manualAdjustment  Boolean
+  * @return StatutoryDeductionLine
+  **/
   public StatutoryDeductionLine manualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
     return this;
   }
 
-  /**
+   /**
    * Identifies if the tax line is a manual adjustment
-   *
    * @return manualAdjustment
-   */
+  **/
   @ApiModelProperty(value = "Identifies if the tax line is a manual adjustment")
-  /**
+  /** 
    * Identifies if the tax line is a manual adjustment
-   *
    * @return manualAdjustment Boolean
-   */
+  **/
   public Boolean getManualAdjustment() {
     return manualAdjustment;
   }
 
-  /**
-   * Identifies if the tax line is a manual adjustment
-   *
-   * @param manualAdjustment Boolean
-   */
+  /** 
+  * Identifies if the tax line is a manual adjustment
+  * @param manualAdjustment  Boolean
+  **/
+
   public void setManualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -181,11 +187,10 @@ public class StatutoryDeductionLine {
       return false;
     }
     StatutoryDeductionLine statutoryDeductionLine = (StatutoryDeductionLine) o;
-    return Objects.equals(
-            this.statutoryDeductionTypeID, statutoryDeductionLine.statutoryDeductionTypeID)
-        && Objects.equals(this.amount, statutoryDeductionLine.amount)
-        && Objects.equals(this.fixedAmount, statutoryDeductionLine.fixedAmount)
-        && Objects.equals(this.manualAdjustment, statutoryDeductionLine.manualAdjustment);
+    return Objects.equals(this.statutoryDeductionTypeID, statutoryDeductionLine.statutoryDeductionTypeID) &&
+        Objects.equals(this.amount, statutoryDeductionLine.amount) &&
+        Objects.equals(this.fixedAmount, statutoryDeductionLine.fixedAmount) &&
+        Objects.equals(this.manualAdjustment, statutoryDeductionLine.manualAdjustment);
   }
 
   @Override
@@ -193,13 +198,12 @@ public class StatutoryDeductionLine {
     return Objects.hash(statutoryDeductionTypeID, amount, fixedAmount, manualAdjustment);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class StatutoryDeductionLine {\n");
-    sb.append("    statutoryDeductionTypeID: ")
-        .append(toIndentedString(statutoryDeductionTypeID))
-        .append("\n");
+    sb.append("    statutoryDeductionTypeID: ").append(toIndentedString(statutoryDeductionTypeID)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    fixedAmount: ").append(toIndentedString(fixedAmount)).append("\n");
     sb.append("    manualAdjustment: ").append(toIndentedString(manualAdjustment)).append("\n");
@@ -208,7 +212,8 @@ public class StatutoryDeductionLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -216,4 +221,6 @@ public class StatutoryDeductionLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

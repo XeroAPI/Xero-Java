@@ -9,35 +9,60 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrolluk;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.payrolluk;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** EmployeeLeaveType */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeLeaveType
+ */
+
 public class EmployeeLeaveType {
   StringUtil util = new StringUtil();
 
   @JsonProperty("leaveTypeID")
   private UUID leaveTypeID;
-  /** The schedule of accrual */
+  /**
+   * The schedule of accrual
+   */
   public enum ScheduleOfAccrualEnum {
-    /** BEGINNINGOFCALENDARYEAR */
+    /**
+     * BEGINNINGOFCALENDARYEAR
+     */
     BEGINNINGOFCALENDARYEAR("BeginningOfCalendarYear"),
-
-    /** ONANNIVERSARYDATE */
+    
+    /**
+     * ONANNIVERSARYDATE
+     */
     ONANNIVERSARYDATE("OnAnniversaryDate"),
-
-    /** EACHPAYPERIOD */
+    
+    /**
+     * EACHPAYPERIOD
+     */
     EACHPAYPERIOD("EachPayPeriod"),
-
-    /** ONHOURWORKED */
+    
+    /**
+     * ONHOURWORKED
+     */
     ONHOURWORKED("OnHourWorked");
 
     private String value;
@@ -46,31 +71,25 @@ public class EmployeeLeaveType {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static ScheduleOfAccrualEnum fromValue(String value) {
       for (ScheduleOfAccrualEnum b : ScheduleOfAccrualEnum.values()) {
@@ -81,6 +100,7 @@ public class EmployeeLeaveType {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("scheduleOfAccrual")
   private ScheduleOfAccrualEnum scheduleOfAccrual;
@@ -100,272 +120,229 @@ public class EmployeeLeaveType {
   @JsonProperty("scheduleOfAccrualDate")
   private LocalDate scheduleOfAccrualDate;
   /**
-   * The Xero identifier for leave type
-   *
-   * @param leaveTypeID UUID
-   * @return EmployeeLeaveType
-   */
+  * The Xero identifier for leave type
+  * @param leaveTypeID  UUID
+  * @return EmployeeLeaveType
+  **/
   public EmployeeLeaveType leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for leave type
-   *
    * @return leaveTypeID
-   */
+  **/
   @ApiModelProperty(required = true, value = "The Xero identifier for leave type")
-  /**
+  /** 
    * The Xero identifier for leave type
-   *
    * @return leaveTypeID UUID
-   */
+  **/
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
-  /**
-   * The Xero identifier for leave type
-   *
-   * @param leaveTypeID UUID
-   */
+  /** 
+  * The Xero identifier for leave type
+  * @param leaveTypeID  UUID
+  **/
+
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
   /**
-   * The schedule of accrual
-   *
-   * @param scheduleOfAccrual ScheduleOfAccrualEnum
-   * @return EmployeeLeaveType
-   */
+  * The schedule of accrual
+  * @param scheduleOfAccrual  ScheduleOfAccrualEnum
+  * @return EmployeeLeaveType
+  **/
   public EmployeeLeaveType scheduleOfAccrual(ScheduleOfAccrualEnum scheduleOfAccrual) {
     this.scheduleOfAccrual = scheduleOfAccrual;
     return this;
   }
 
-  /**
+   /**
    * The schedule of accrual
-   *
    * @return scheduleOfAccrual
-   */
+  **/
   @ApiModelProperty(required = true, value = "The schedule of accrual")
-  /**
+  /** 
    * The schedule of accrual
-   *
    * @return scheduleOfAccrual ScheduleOfAccrualEnum
-   */
+  **/
   public ScheduleOfAccrualEnum getScheduleOfAccrual() {
     return scheduleOfAccrual;
   }
 
-  /**
-   * The schedule of accrual
-   *
-   * @param scheduleOfAccrual ScheduleOfAccrualEnum
-   */
+  /** 
+  * The schedule of accrual
+  * @param scheduleOfAccrual  ScheduleOfAccrualEnum
+  **/
+
   public void setScheduleOfAccrual(ScheduleOfAccrualEnum scheduleOfAccrual) {
     this.scheduleOfAccrual = scheduleOfAccrual;
   }
 
   /**
-   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
-   * is \&quot;OnHourWorked\&quot;
-   *
-   * @param hoursAccruedAnnually Double
-   * @return EmployeeLeaveType
-   */
+  * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+  * @param hoursAccruedAnnually  Double
+  * @return EmployeeLeaveType
+  **/
   public EmployeeLeaveType hoursAccruedAnnually(Double hoursAccruedAnnually) {
     this.hoursAccruedAnnually = hoursAccruedAnnually;
     return this;
   }
 
-  /**
-   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
-   * is \&quot;OnHourWorked\&quot;
-   *
+   /**
+   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
    * @return hoursAccruedAnnually
-   */
-  @ApiModelProperty(
-      value =
-          "The number of hours accrued for the leave annually. This is 0 when the"
-              + " scheduleOfAccrual chosen is \"OnHourWorked\"")
-  /**
-   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
-   * is \&quot;OnHourWorked\&quot;
-   *
+  **/
+  @ApiModelProperty(value = "The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen is \"OnHourWorked\"")
+  /** 
+   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
    * @return hoursAccruedAnnually Double
-   */
+  **/
   public Double getHoursAccruedAnnually() {
     return hoursAccruedAnnually;
   }
 
-  /**
-   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
-   * is \&quot;OnHourWorked\&quot;
-   *
-   * @param hoursAccruedAnnually Double
-   */
+  /** 
+  * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+  * @param hoursAccruedAnnually  Double
+  **/
+
   public void setHoursAccruedAnnually(Double hoursAccruedAnnually) {
     this.hoursAccruedAnnually = hoursAccruedAnnually;
   }
 
   /**
-   * The maximum number of hours that can be accrued for the leave
-   *
-   * @param maximumToAccrue Double
-   * @return EmployeeLeaveType
-   */
+  * The maximum number of hours that can be accrued for the leave
+  * @param maximumToAccrue  Double
+  * @return EmployeeLeaveType
+  **/
   public EmployeeLeaveType maximumToAccrue(Double maximumToAccrue) {
     this.maximumToAccrue = maximumToAccrue;
     return this;
   }
 
-  /**
+   /**
    * The maximum number of hours that can be accrued for the leave
-   *
    * @return maximumToAccrue
-   */
+  **/
   @ApiModelProperty(value = "The maximum number of hours that can be accrued for the leave")
-  /**
+  /** 
    * The maximum number of hours that can be accrued for the leave
-   *
    * @return maximumToAccrue Double
-   */
+  **/
   public Double getMaximumToAccrue() {
     return maximumToAccrue;
   }
 
-  /**
-   * The maximum number of hours that can be accrued for the leave
-   *
-   * @param maximumToAccrue Double
-   */
+  /** 
+  * The maximum number of hours that can be accrued for the leave
+  * @param maximumToAccrue  Double
+  **/
+
   public void setMaximumToAccrue(Double maximumToAccrue) {
     this.maximumToAccrue = maximumToAccrue;
   }
 
   /**
-   * The initial number of hours assigned when the leave was added to the employee
-   *
-   * @param openingBalance Double
-   * @return EmployeeLeaveType
-   */
+  * The initial number of hours assigned when the leave was added to the employee
+  * @param openingBalance  Double
+  * @return EmployeeLeaveType
+  **/
   public EmployeeLeaveType openingBalance(Double openingBalance) {
     this.openingBalance = openingBalance;
     return this;
   }
 
-  /**
+   /**
    * The initial number of hours assigned when the leave was added to the employee
-   *
    * @return openingBalance
-   */
-  @ApiModelProperty(
-      value = "The initial number of hours assigned when the leave was added to the employee")
-  /**
+  **/
+  @ApiModelProperty(value = "The initial number of hours assigned when the leave was added to the employee")
+  /** 
    * The initial number of hours assigned when the leave was added to the employee
-   *
    * @return openingBalance Double
-   */
+  **/
   public Double getOpeningBalance() {
     return openingBalance;
   }
 
-  /**
-   * The initial number of hours assigned when the leave was added to the employee
-   *
-   * @param openingBalance Double
-   */
+  /** 
+  * The initial number of hours assigned when the leave was added to the employee
+  * @param openingBalance  Double
+  **/
+
   public void setOpeningBalance(Double openingBalance) {
     this.openingBalance = openingBalance;
   }
 
   /**
-   * The number of hours added to the leave balance for every hour worked by the employee. This is
-   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
-   *
-   * @param rateAccruedHourly Double
-   * @return EmployeeLeaveType
-   */
+  * The number of hours added to the leave balance for every hour worked by the employee. This is normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+  * @param rateAccruedHourly  Double
+  * @return EmployeeLeaveType
+  **/
   public EmployeeLeaveType rateAccruedHourly(Double rateAccruedHourly) {
     this.rateAccruedHourly = rateAccruedHourly;
     return this;
   }
 
-  /**
-   * The number of hours added to the leave balance for every hour worked by the employee. This is
-   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
-   *
+   /**
+   * The number of hours added to the leave balance for every hour worked by the employee. This is normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
    * @return rateAccruedHourly
-   */
-  @ApiModelProperty(
-      value =
-          "The number of hours added to the leave balance for every hour worked by the employee."
-              + " This is normally 0, unless the scheduleOfAccrual chosen is \"OnHourWorked\"")
-  /**
-   * The number of hours added to the leave balance for every hour worked by the employee. This is
-   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
-   *
+  **/
+  @ApiModelProperty(value = "The number of hours added to the leave balance for every hour worked by the employee. This is normally 0, unless the scheduleOfAccrual chosen is \"OnHourWorked\"")
+  /** 
+   * The number of hours added to the leave balance for every hour worked by the employee. This is normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
    * @return rateAccruedHourly Double
-   */
+  **/
   public Double getRateAccruedHourly() {
     return rateAccruedHourly;
   }
 
-  /**
-   * The number of hours added to the leave balance for every hour worked by the employee. This is
-   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
-   *
-   * @param rateAccruedHourly Double
-   */
+  /** 
+  * The number of hours added to the leave balance for every hour worked by the employee. This is normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+  * @param rateAccruedHourly  Double
+  **/
+
   public void setRateAccruedHourly(Double rateAccruedHourly) {
     this.rateAccruedHourly = rateAccruedHourly;
   }
 
   /**
-   * The date when an employee becomes entitled to their accrual. Only applicable when
-   * scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
-   *
-   * @param scheduleOfAccrualDate LocalDate
-   * @return EmployeeLeaveType
-   */
+  * The date when an employee becomes entitled to their accrual. Only applicable when scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
+  * @param scheduleOfAccrualDate  LocalDate
+  * @return EmployeeLeaveType
+  **/
   public EmployeeLeaveType scheduleOfAccrualDate(LocalDate scheduleOfAccrualDate) {
     this.scheduleOfAccrualDate = scheduleOfAccrualDate;
     return this;
   }
 
-  /**
-   * The date when an employee becomes entitled to their accrual. Only applicable when
-   * scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
-   *
+   /**
+   * The date when an employee becomes entitled to their accrual. Only applicable when scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
    * @return scheduleOfAccrualDate
-   */
-  @ApiModelProperty(
-      example = "Mon Apr 01 00:00:00 UTC 2024",
-      value =
-          "The date when an employee becomes entitled to their accrual. Only applicable when"
-              + " scheduleOfAccrual is \"OnAnniversaryDate\"")
-  /**
-   * The date when an employee becomes entitled to their accrual. Only applicable when
-   * scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
-   *
+  **/
+  @ApiModelProperty(example = "Mon Apr 01 00:00:00 UTC 2024", value = "The date when an employee becomes entitled to their accrual. Only applicable when scheduleOfAccrual is \"OnAnniversaryDate\"")
+  /** 
+   * The date when an employee becomes entitled to their accrual. Only applicable when scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
    * @return scheduleOfAccrualDate LocalDate
-   */
+  **/
   public LocalDate getScheduleOfAccrualDate() {
     return scheduleOfAccrualDate;
   }
 
-  /**
-   * The date when an employee becomes entitled to their accrual. Only applicable when
-   * scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
-   *
-   * @param scheduleOfAccrualDate LocalDate
-   */
+  /** 
+  * The date when an employee becomes entitled to their accrual. Only applicable when scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
+  * @param scheduleOfAccrualDate  LocalDate
+  **/
+
   public void setScheduleOfAccrualDate(LocalDate scheduleOfAccrualDate) {
     this.scheduleOfAccrualDate = scheduleOfAccrualDate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -376,26 +353,20 @@ public class EmployeeLeaveType {
       return false;
     }
     EmployeeLeaveType employeeLeaveType = (EmployeeLeaveType) o;
-    return Objects.equals(this.leaveTypeID, employeeLeaveType.leaveTypeID)
-        && Objects.equals(this.scheduleOfAccrual, employeeLeaveType.scheduleOfAccrual)
-        && Objects.equals(this.hoursAccruedAnnually, employeeLeaveType.hoursAccruedAnnually)
-        && Objects.equals(this.maximumToAccrue, employeeLeaveType.maximumToAccrue)
-        && Objects.equals(this.openingBalance, employeeLeaveType.openingBalance)
-        && Objects.equals(this.rateAccruedHourly, employeeLeaveType.rateAccruedHourly)
-        && Objects.equals(this.scheduleOfAccrualDate, employeeLeaveType.scheduleOfAccrualDate);
+    return Objects.equals(this.leaveTypeID, employeeLeaveType.leaveTypeID) &&
+        Objects.equals(this.scheduleOfAccrual, employeeLeaveType.scheduleOfAccrual) &&
+        Objects.equals(this.hoursAccruedAnnually, employeeLeaveType.hoursAccruedAnnually) &&
+        Objects.equals(this.maximumToAccrue, employeeLeaveType.maximumToAccrue) &&
+        Objects.equals(this.openingBalance, employeeLeaveType.openingBalance) &&
+        Objects.equals(this.rateAccruedHourly, employeeLeaveType.rateAccruedHourly) &&
+        Objects.equals(this.scheduleOfAccrualDate, employeeLeaveType.scheduleOfAccrualDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        leaveTypeID,
-        scheduleOfAccrual,
-        hoursAccruedAnnually,
-        maximumToAccrue,
-        openingBalance,
-        rateAccruedHourly,
-        scheduleOfAccrualDate);
+    return Objects.hash(leaveTypeID, scheduleOfAccrual, hoursAccruedAnnually, maximumToAccrue, openingBalance, rateAccruedHourly, scheduleOfAccrualDate);
   }
+
 
   @Override
   public String toString() {
@@ -403,21 +374,18 @@ public class EmployeeLeaveType {
     sb.append("class EmployeeLeaveType {\n");
     sb.append("    leaveTypeID: ").append(toIndentedString(leaveTypeID)).append("\n");
     sb.append("    scheduleOfAccrual: ").append(toIndentedString(scheduleOfAccrual)).append("\n");
-    sb.append("    hoursAccruedAnnually: ")
-        .append(toIndentedString(hoursAccruedAnnually))
-        .append("\n");
+    sb.append("    hoursAccruedAnnually: ").append(toIndentedString(hoursAccruedAnnually)).append("\n");
     sb.append("    maximumToAccrue: ").append(toIndentedString(maximumToAccrue)).append("\n");
     sb.append("    openingBalance: ").append(toIndentedString(openingBalance)).append("\n");
     sb.append("    rateAccruedHourly: ").append(toIndentedString(rateAccruedHourly)).append("\n");
-    sb.append("    scheduleOfAccrualDate: ")
-        .append(toIndentedString(scheduleOfAccrualDate))
-        .append("\n");
+    sb.append("    scheduleOfAccrualDate: ").append(toIndentedString(scheduleOfAccrualDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -425,4 +393,6 @@ public class EmployeeLeaveType {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

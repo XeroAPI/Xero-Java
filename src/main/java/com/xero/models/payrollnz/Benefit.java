@@ -9,17 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Benefit */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Benefit
+ */
+
 public class Benefit {
   StringUtil util = new StringUtil();
 
@@ -28,15 +43,23 @@ public class Benefit {
 
   @JsonProperty("name")
   private String name;
-  /** Superannuations Category type */
+  /**
+   * Superannuations Category type
+   */
   public enum CategoryEnum {
-    /** KIWISAVER */
+    /**
+     * KIWISAVER
+     */
     KIWISAVER("KiwiSaver"),
-
-    /** COMPLYINGFUND */
+    
+    /**
+     * COMPLYINGFUND
+     */
     COMPLYINGFUND("ComplyingFund"),
-
-    /** OTHER */
+    
+    /**
+     * OTHER
+     */
     OTHER("Other");
 
     private String value;
@@ -45,31 +68,25 @@ public class Benefit {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static CategoryEnum fromValue(String value) {
       for (CategoryEnum b : CategoryEnum.values()) {
@@ -81,6 +98,7 @@ public class Benefit {
     }
   }
 
+
   @JsonProperty("category")
   private CategoryEnum category;
 
@@ -89,12 +107,18 @@ public class Benefit {
 
   @JsonProperty("expenseAccountId")
   private UUID expenseAccountId;
-  /** Calculation Type of the superannuation either FixedAmount or PercentageOfTaxableEarnings */
+  /**
+   * Calculation Type of the superannuation either FixedAmount or PercentageOfTaxableEarnings
+   */
   public enum CalculationTypeNZEnum {
-    /** FIXEDAMOUNT */
+    /**
+     * FIXEDAMOUNT
+     */
     FIXEDAMOUNT("FixedAmount"),
-
-    /** PERCENTAGEOFTAXABLEEARNINGS */
+    
+    /**
+     * PERCENTAGEOFTAXABLEEARNINGS
+     */
     PERCENTAGEOFTAXABLEEARNINGS("PercentageOfTaxableEarnings");
 
     private String value;
@@ -103,31 +127,25 @@ public class Benefit {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static CalculationTypeNZEnum fromValue(String value) {
       for (CalculationTypeNZEnum b : CalculationTypeNZEnum.values()) {
@@ -138,6 +156,7 @@ public class Benefit {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("calculationTypeNZ")
   private CalculationTypeNZEnum calculationTypeNZ;
@@ -154,357 +173,325 @@ public class Benefit {
   @JsonProperty("currentRecord")
   private Boolean currentRecord;
   /**
-   * The Xero identifier for superannuation
-   *
-   * @param id UUID
-   * @return Benefit
-   */
+  * The Xero identifier for superannuation
+  * @param id  UUID
+  * @return Benefit
+  **/
   public Benefit id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for superannuation
-   *
    * @return id
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for superannuation")
-  /**
+  /** 
    * The Xero identifier for superannuation
-   *
    * @return id UUID
-   */
+  **/
   public UUID getId() {
     return id;
   }
 
-  /**
-   * The Xero identifier for superannuation
-   *
-   * @param id UUID
-   */
+  /** 
+  * The Xero identifier for superannuation
+  * @param id  UUID
+  **/
+
   public void setId(UUID id) {
     this.id = id;
   }
 
   /**
-   * Name of the superannuations
-   *
-   * @param name String
-   * @return Benefit
-   */
+  * Name of the superannuations
+  * @param name  String
+  * @return Benefit
+  **/
   public Benefit name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the superannuations
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(required = true, value = "Name of the superannuations")
-  /**
+  /** 
    * Name of the superannuations
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of the superannuations
-   *
-   * @param name String
-   */
+  /** 
+  * Name of the superannuations
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Superannuations Category type
-   *
-   * @param category CategoryEnum
-   * @return Benefit
-   */
+  * Superannuations Category type
+  * @param category  CategoryEnum
+  * @return Benefit
+  **/
   public Benefit category(CategoryEnum category) {
     this.category = category;
     return this;
   }
 
-  /**
+   /**
    * Superannuations Category type
-   *
    * @return category
-   */
+  **/
   @ApiModelProperty(required = true, value = "Superannuations Category type")
-  /**
+  /** 
    * Superannuations Category type
-   *
    * @return category CategoryEnum
-   */
+  **/
   public CategoryEnum getCategory() {
     return category;
   }
 
-  /**
-   * Superannuations Category type
-   *
-   * @param category CategoryEnum
-   */
+  /** 
+  * Superannuations Category type
+  * @param category  CategoryEnum
+  **/
+
   public void setCategory(CategoryEnum category) {
     this.category = category;
   }
 
   /**
-   * Xero identifier for Liability Account
-   *
-   * @param liabilityAccountId UUID
-   * @return Benefit
-   */
+  * Xero identifier for Liability Account
+  * @param liabilityAccountId  UUID
+  * @return Benefit
+  **/
   public Benefit liabilityAccountId(UUID liabilityAccountId) {
     this.liabilityAccountId = liabilityAccountId;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for Liability Account
-   *
    * @return liabilityAccountId
-   */
+  **/
   @ApiModelProperty(required = true, value = "Xero identifier for Liability Account")
-  /**
+  /** 
    * Xero identifier for Liability Account
-   *
    * @return liabilityAccountId UUID
-   */
+  **/
   public UUID getLiabilityAccountId() {
     return liabilityAccountId;
   }
 
-  /**
-   * Xero identifier for Liability Account
-   *
-   * @param liabilityAccountId UUID
-   */
+  /** 
+  * Xero identifier for Liability Account
+  * @param liabilityAccountId  UUID
+  **/
+
   public void setLiabilityAccountId(UUID liabilityAccountId) {
     this.liabilityAccountId = liabilityAccountId;
   }
 
   /**
-   * Xero identifier for Expense Account
-   *
-   * @param expenseAccountId UUID
-   * @return Benefit
-   */
+  * Xero identifier for Expense Account
+  * @param expenseAccountId  UUID
+  * @return Benefit
+  **/
   public Benefit expenseAccountId(UUID expenseAccountId) {
     this.expenseAccountId = expenseAccountId;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for Expense Account
-   *
    * @return expenseAccountId
-   */
+  **/
   @ApiModelProperty(required = true, value = "Xero identifier for Expense Account")
-  /**
+  /** 
    * Xero identifier for Expense Account
-   *
    * @return expenseAccountId UUID
-   */
+  **/
   public UUID getExpenseAccountId() {
     return expenseAccountId;
   }
 
-  /**
-   * Xero identifier for Expense Account
-   *
-   * @param expenseAccountId UUID
-   */
+  /** 
+  * Xero identifier for Expense Account
+  * @param expenseAccountId  UUID
+  **/
+
   public void setExpenseAccountId(UUID expenseAccountId) {
     this.expenseAccountId = expenseAccountId;
   }
 
   /**
-   * Calculation Type of the superannuation either FixedAmount or PercentageOfTaxableEarnings
-   *
-   * @param calculationTypeNZ CalculationTypeNZEnum
-   * @return Benefit
-   */
+  * Calculation Type of the superannuation either FixedAmount or PercentageOfTaxableEarnings
+  * @param calculationTypeNZ  CalculationTypeNZEnum
+  * @return Benefit
+  **/
   public Benefit calculationTypeNZ(CalculationTypeNZEnum calculationTypeNZ) {
     this.calculationTypeNZ = calculationTypeNZ;
     return this;
   }
 
-  /**
+   /**
    * Calculation Type of the superannuation either FixedAmount or PercentageOfTaxableEarnings
-   *
    * @return calculationTypeNZ
-   */
-  @ApiModelProperty(
-      value =
-          "Calculation Type of the superannuation either FixedAmount or"
-              + " PercentageOfTaxableEarnings")
-  /**
+  **/
+  @ApiModelProperty(value = "Calculation Type of the superannuation either FixedAmount or PercentageOfTaxableEarnings")
+  /** 
    * Calculation Type of the superannuation either FixedAmount or PercentageOfTaxableEarnings
-   *
    * @return calculationTypeNZ CalculationTypeNZEnum
-   */
+  **/
   public CalculationTypeNZEnum getCalculationTypeNZ() {
     return calculationTypeNZ;
   }
 
-  /**
-   * Calculation Type of the superannuation either FixedAmount or PercentageOfTaxableEarnings
-   *
-   * @param calculationTypeNZ CalculationTypeNZEnum
-   */
+  /** 
+  * Calculation Type of the superannuation either FixedAmount or PercentageOfTaxableEarnings
+  * @param calculationTypeNZ  CalculationTypeNZEnum
+  **/
+
   public void setCalculationTypeNZ(CalculationTypeNZEnum calculationTypeNZ) {
     this.calculationTypeNZ = calculationTypeNZ;
   }
 
   /**
-   * Standard amount of the superannuation
-   *
-   * @param standardAmount Double
-   * @return Benefit
-   */
+  * Standard amount of the superannuation
+  * @param standardAmount  Double
+  * @return Benefit
+  **/
   public Benefit standardAmount(Double standardAmount) {
     this.standardAmount = standardAmount;
     return this;
   }
 
-  /**
+   /**
    * Standard amount of the superannuation
-   *
    * @return standardAmount
-   */
+  **/
   @ApiModelProperty(value = "Standard amount of the superannuation")
-  /**
+  /** 
    * Standard amount of the superannuation
-   *
    * @return standardAmount Double
-   */
+  **/
   public Double getStandardAmount() {
     return standardAmount;
   }
 
-  /**
-   * Standard amount of the superannuation
-   *
-   * @param standardAmount Double
-   */
+  /** 
+  * Standard amount of the superannuation
+  * @param standardAmount  Double
+  **/
+
   public void setStandardAmount(Double standardAmount) {
     this.standardAmount = standardAmount;
   }
 
   /**
-   * Percentage of Taxable Earnings of the superannuation
-   *
-   * @param percentage Double
-   * @return Benefit
-   */
+  * Percentage of Taxable Earnings of the superannuation
+  * @param percentage  Double
+  * @return Benefit
+  **/
   public Benefit percentage(Double percentage) {
     this.percentage = percentage;
     return this;
   }
 
-  /**
+   /**
    * Percentage of Taxable Earnings of the superannuation
-   *
    * @return percentage
-   */
+  **/
   @ApiModelProperty(value = "Percentage of Taxable Earnings of the superannuation")
-  /**
+  /** 
    * Percentage of Taxable Earnings of the superannuation
-   *
    * @return percentage Double
-   */
+  **/
   public Double getPercentage() {
     return percentage;
   }
 
-  /**
-   * Percentage of Taxable Earnings of the superannuation
-   *
-   * @param percentage Double
-   */
+  /** 
+  * Percentage of Taxable Earnings of the superannuation
+  * @param percentage  Double
+  **/
+
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
 
   /**
-   * Company Maximum amount of the superannuation
-   *
-   * @param companyMax Double
-   * @return Benefit
-   */
+  * Company Maximum amount of the superannuation
+  * @param companyMax  Double
+  * @return Benefit
+  **/
   public Benefit companyMax(Double companyMax) {
     this.companyMax = companyMax;
     return this;
   }
 
-  /**
+   /**
    * Company Maximum amount of the superannuation
-   *
    * @return companyMax
-   */
+  **/
   @ApiModelProperty(value = "Company Maximum amount of the superannuation")
-  /**
+  /** 
    * Company Maximum amount of the superannuation
-   *
    * @return companyMax Double
-   */
+  **/
   public Double getCompanyMax() {
     return companyMax;
   }
 
-  /**
-   * Company Maximum amount of the superannuation
-   *
-   * @param companyMax Double
-   */
+  /** 
+  * Company Maximum amount of the superannuation
+  * @param companyMax  Double
+  **/
+
   public void setCompanyMax(Double companyMax) {
     this.companyMax = companyMax;
   }
 
   /**
-   * Identifier of a record is active or not.
-   *
-   * @param currentRecord Boolean
-   * @return Benefit
-   */
+  * Identifier of a record is active or not.
+  * @param currentRecord  Boolean
+  * @return Benefit
+  **/
   public Benefit currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
   }
 
-  /**
+   /**
    * Identifier of a record is active or not.
-   *
    * @return currentRecord
-   */
+  **/
   @ApiModelProperty(value = "Identifier of a record is active or not.")
-  /**
+  /** 
    * Identifier of a record is active or not.
-   *
    * @return currentRecord Boolean
-   */
+  **/
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
-  /**
-   * Identifier of a record is active or not.
-   *
-   * @param currentRecord Boolean
-   */
+  /** 
+  * Identifier of a record is active or not.
+  * @param currentRecord  Boolean
+  **/
+
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -515,32 +502,23 @@ public class Benefit {
       return false;
     }
     Benefit benefit = (Benefit) o;
-    return Objects.equals(this.id, benefit.id)
-        && Objects.equals(this.name, benefit.name)
-        && Objects.equals(this.category, benefit.category)
-        && Objects.equals(this.liabilityAccountId, benefit.liabilityAccountId)
-        && Objects.equals(this.expenseAccountId, benefit.expenseAccountId)
-        && Objects.equals(this.calculationTypeNZ, benefit.calculationTypeNZ)
-        && Objects.equals(this.standardAmount, benefit.standardAmount)
-        && Objects.equals(this.percentage, benefit.percentage)
-        && Objects.equals(this.companyMax, benefit.companyMax)
-        && Objects.equals(this.currentRecord, benefit.currentRecord);
+    return Objects.equals(this.id, benefit.id) &&
+        Objects.equals(this.name, benefit.name) &&
+        Objects.equals(this.category, benefit.category) &&
+        Objects.equals(this.liabilityAccountId, benefit.liabilityAccountId) &&
+        Objects.equals(this.expenseAccountId, benefit.expenseAccountId) &&
+        Objects.equals(this.calculationTypeNZ, benefit.calculationTypeNZ) &&
+        Objects.equals(this.standardAmount, benefit.standardAmount) &&
+        Objects.equals(this.percentage, benefit.percentage) &&
+        Objects.equals(this.companyMax, benefit.companyMax) &&
+        Objects.equals(this.currentRecord, benefit.currentRecord);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        id,
-        name,
-        category,
-        liabilityAccountId,
-        expenseAccountId,
-        calculationTypeNZ,
-        standardAmount,
-        percentage,
-        companyMax,
-        currentRecord);
+    return Objects.hash(id, name, category, liabilityAccountId, expenseAccountId, calculationTypeNZ, standardAmount, percentage, companyMax, currentRecord);
   }
+
 
   @Override
   public String toString() {
@@ -561,7 +539,8 @@ public class Benefit {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -569,4 +548,6 @@ public class Benefit {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

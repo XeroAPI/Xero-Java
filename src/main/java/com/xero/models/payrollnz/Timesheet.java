@@ -9,21 +9,37 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.payrollnz.TimesheetLine;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** Timesheet */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Timesheet
+ */
+
 public class Timesheet {
   StringUtil util = new StringUtil();
 
@@ -41,18 +57,28 @@ public class Timesheet {
 
   @JsonProperty("endDate")
   private LocalDate endDate;
-  /** Status of the timesheet */
+  /**
+   * Status of the timesheet
+   */
   public enum StatusEnum {
-    /** DRAFT */
+    /**
+     * DRAFT
+     */
     DRAFT("Draft"),
-
-    /** APPROVED */
+    
+    /**
+     * APPROVED
+     */
     APPROVED("Approved"),
-
-    /** COMPLETED */
+    
+    /**
+     * COMPLETED
+     */
     COMPLETED("Completed"),
-
-    /** REQUESTED */
+    
+    /**
+     * REQUESTED
+     */
     REQUESTED("Requested");
 
     private String value;
@@ -61,31 +87,25 @@ public class Timesheet {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -96,6 +116,7 @@ public class Timesheet {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("status")
   private StatusEnum status;
@@ -109,295 +130,266 @@ public class Timesheet {
   @JsonProperty("timesheetLines")
   private List<TimesheetLine> timesheetLines = new ArrayList<TimesheetLine>();
   /**
-   * The Xero identifier for a Timesheet
-   *
-   * @param timesheetID UUID
-   * @return Timesheet
-   */
+  * The Xero identifier for a Timesheet
+  * @param timesheetID  UUID
+  * @return Timesheet
+  **/
   public Timesheet timesheetID(UUID timesheetID) {
     this.timesheetID = timesheetID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for a Timesheet
-   *
    * @return timesheetID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for a Timesheet")
-  /**
+  /** 
    * The Xero identifier for a Timesheet
-   *
    * @return timesheetID UUID
-   */
+  **/
   public UUID getTimesheetID() {
     return timesheetID;
   }
 
-  /**
-   * The Xero identifier for a Timesheet
-   *
-   * @param timesheetID UUID
-   */
+  /** 
+  * The Xero identifier for a Timesheet
+  * @param timesheetID  UUID
+  **/
+
   public void setTimesheetID(UUID timesheetID) {
     this.timesheetID = timesheetID;
   }
 
   /**
-   * The Xero identifier for the Payroll Calendar that the Timesheet applies to
-   *
-   * @param payrollCalendarID UUID
-   * @return Timesheet
-   */
+  * The Xero identifier for the Payroll Calendar that the Timesheet applies to
+  * @param payrollCalendarID  UUID
+  * @return Timesheet
+  **/
   public Timesheet payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for the Payroll Calendar that the Timesheet applies to
-   *
    * @return payrollCalendarID
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The Xero identifier for the Payroll Calendar that the Timesheet applies to")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The Xero identifier for the Payroll Calendar that the Timesheet applies to")
+  /** 
    * The Xero identifier for the Payroll Calendar that the Timesheet applies to
-   *
    * @return payrollCalendarID UUID
-   */
+  **/
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
-  /**
-   * The Xero identifier for the Payroll Calendar that the Timesheet applies to
-   *
-   * @param payrollCalendarID UUID
-   */
+  /** 
+  * The Xero identifier for the Payroll Calendar that the Timesheet applies to
+  * @param payrollCalendarID  UUID
+  **/
+
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
   /**
-   * The Xero identifier for the Employee that the Timesheet is for
-   *
-   * @param employeeID UUID
-   * @return Timesheet
-   */
+  * The Xero identifier for the Employee that the Timesheet is for
+  * @param employeeID  UUID
+  * @return Timesheet
+  **/
   public Timesheet employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for the Employee that the Timesheet is for
-   *
    * @return employeeID
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The Xero identifier for the Employee that the Timesheet is for")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The Xero identifier for the Employee that the Timesheet is for")
+  /** 
    * The Xero identifier for the Employee that the Timesheet is for
-   *
    * @return employeeID UUID
-   */
+  **/
   public UUID getEmployeeID() {
     return employeeID;
   }
 
-  /**
-   * The Xero identifier for the Employee that the Timesheet is for
-   *
-   * @param employeeID UUID
-   */
+  /** 
+  * The Xero identifier for the Employee that the Timesheet is for
+  * @param employeeID  UUID
+  **/
+
   public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
   /**
-   * The Start Date of the Timesheet period (YYYY-MM-DD)
-   *
-   * @param startDate LocalDate
-   * @return Timesheet
-   */
+  * The Start Date of the Timesheet period (YYYY-MM-DD)
+  * @param startDate  LocalDate
+  * @return Timesheet
+  **/
   public Timesheet startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * The Start Date of the Timesheet period (YYYY-MM-DD)
-   *
    * @return startDate
-   */
+  **/
   @ApiModelProperty(required = true, value = "The Start Date of the Timesheet period (YYYY-MM-DD)")
-  /**
+  /** 
    * The Start Date of the Timesheet period (YYYY-MM-DD)
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * The Start Date of the Timesheet period (YYYY-MM-DD)
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * The Start Date of the Timesheet period (YYYY-MM-DD)
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * The End Date of the Timesheet period (YYYY-MM-DD)
-   *
-   * @param endDate LocalDate
-   * @return Timesheet
-   */
+  * The End Date of the Timesheet period (YYYY-MM-DD)
+  * @param endDate  LocalDate
+  * @return Timesheet
+  **/
   public Timesheet endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * The End Date of the Timesheet period (YYYY-MM-DD)
-   *
    * @return endDate
-   */
+  **/
   @ApiModelProperty(required = true, value = "The End Date of the Timesheet period (YYYY-MM-DD)")
-  /**
+  /** 
    * The End Date of the Timesheet period (YYYY-MM-DD)
-   *
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * The End Date of the Timesheet period (YYYY-MM-DD)
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * The End Date of the Timesheet period (YYYY-MM-DD)
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * Status of the timesheet
-   *
-   * @param status StatusEnum
-   * @return Timesheet
-   */
+  * Status of the timesheet
+  * @param status  StatusEnum
+  * @return Timesheet
+  **/
   public Timesheet status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * Status of the timesheet
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(value = "Status of the timesheet")
-  /**
+  /** 
    * Status of the timesheet
-   *
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * Status of the timesheet
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * Status of the timesheet
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
   /**
-   * The Total Hours of the Timesheet
-   *
-   * @param totalHours Double
-   * @return Timesheet
-   */
+  * The Total Hours of the Timesheet
+  * @param totalHours  Double
+  * @return Timesheet
+  **/
   public Timesheet totalHours(Double totalHours) {
     this.totalHours = totalHours;
     return this;
   }
 
-  /**
+   /**
    * The Total Hours of the Timesheet
-   *
    * @return totalHours
-   */
+  **/
   @ApiModelProperty(value = "The Total Hours of the Timesheet")
-  /**
+  /** 
    * The Total Hours of the Timesheet
-   *
    * @return totalHours Double
-   */
+  **/
   public Double getTotalHours() {
     return totalHours;
   }
 
-  /**
-   * The Total Hours of the Timesheet
-   *
-   * @param totalHours Double
-   */
+  /** 
+  * The Total Hours of the Timesheet
+  * @param totalHours  Double
+  **/
+
   public void setTotalHours(Double totalHours) {
     this.totalHours = totalHours;
   }
 
   /**
-   * The UTC date time that the Timesheet was last updated
-   *
-   * @param updatedDateUTC LocalDateTime
-   * @return Timesheet
-   */
+  * The UTC date time that the Timesheet was last updated
+  * @param updatedDateUTC LocalDateTime
+  * @return Timesheet
+  **/
   public Timesheet updatedDateUTC(LocalDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
 
-  /**
+   /**
    * The UTC date time that the Timesheet was last updated
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(value = "The UTC date time that the Timesheet was last updated")
-  /**
+  /** 
    * The UTC date time that the Timesheet was last updated
-   *
    * @return updatedDateUTC LocalDateTime
-   */
+  **/
   public LocalDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  /**
-   * The UTC date time that the Timesheet was last updated
-   *
-   * @param updatedDateUTC LocalDateTime
-   */
+  /** 
+  * The UTC date time that the Timesheet was last updated
+  * @param updatedDateUTC LocalDateTime
+  **/
+
   public void setUpdatedDateUTC(LocalDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 
   /**
-   * timesheetLines
-   *
-   * @param timesheetLines List&lt;TimesheetLine&gt;
-   * @return Timesheet
-   */
+  * timesheetLines
+  * @param timesheetLines  List&lt;TimesheetLine&gt;
+  * @return Timesheet
+  **/
   public Timesheet timesheetLines(List<TimesheetLine> timesheetLines) {
     this.timesheetLines = timesheetLines;
     return this;
@@ -405,10 +397,9 @@ public class Timesheet {
 
   /**
    * timesheetLines
-   *
-   * @param timesheetLinesItem TimesheetLine
+   * @param timesheetLinesItem TimesheetLine 
    * @return Timesheet
-   */
+  **/
   public Timesheet addTimesheetLinesItem(TimesheetLine timesheetLinesItem) {
     if (this.timesheetLines == null) {
       this.timesheetLines = new ArrayList<TimesheetLine>();
@@ -417,29 +408,28 @@ public class Timesheet {
     return this;
   }
 
-  /**
+   /**
    * Get timesheetLines
-   *
    * @return timesheetLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * timesheetLines
-   *
    * @return timesheetLines List<TimesheetLine>
-   */
+  **/
   public List<TimesheetLine> getTimesheetLines() {
     return timesheetLines;
   }
 
-  /**
-   * timesheetLines
-   *
-   * @param timesheetLines List&lt;TimesheetLine&gt;
-   */
+  /** 
+  * timesheetLines
+  * @param timesheetLines List&lt;TimesheetLine&gt; 
+  **/
+
   public void setTimesheetLines(List<TimesheetLine> timesheetLines) {
     this.timesheetLines = timesheetLines;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -450,30 +440,22 @@ public class Timesheet {
       return false;
     }
     Timesheet timesheet = (Timesheet) o;
-    return Objects.equals(this.timesheetID, timesheet.timesheetID)
-        && Objects.equals(this.payrollCalendarID, timesheet.payrollCalendarID)
-        && Objects.equals(this.employeeID, timesheet.employeeID)
-        && Objects.equals(this.startDate, timesheet.startDate)
-        && Objects.equals(this.endDate, timesheet.endDate)
-        && Objects.equals(this.status, timesheet.status)
-        && Objects.equals(this.totalHours, timesheet.totalHours)
-        && Objects.equals(this.updatedDateUTC, timesheet.updatedDateUTC)
-        && Objects.equals(this.timesheetLines, timesheet.timesheetLines);
+    return Objects.equals(this.timesheetID, timesheet.timesheetID) &&
+        Objects.equals(this.payrollCalendarID, timesheet.payrollCalendarID) &&
+        Objects.equals(this.employeeID, timesheet.employeeID) &&
+        Objects.equals(this.startDate, timesheet.startDate) &&
+        Objects.equals(this.endDate, timesheet.endDate) &&
+        Objects.equals(this.status, timesheet.status) &&
+        Objects.equals(this.totalHours, timesheet.totalHours) &&
+        Objects.equals(this.updatedDateUTC, timesheet.updatedDateUTC) &&
+        Objects.equals(this.timesheetLines, timesheet.timesheetLines);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        timesheetID,
-        payrollCalendarID,
-        employeeID,
-        startDate,
-        endDate,
-        status,
-        totalHours,
-        updatedDateUTC,
-        timesheetLines);
+    return Objects.hash(timesheetID, payrollCalendarID, employeeID, startDate, endDate, status, totalHours, updatedDateUTC, timesheetLines);
   }
+
 
   @Override
   public String toString() {
@@ -493,7 +475,8 @@ public class Timesheet {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -501,4 +484,6 @@ public class Timesheet {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

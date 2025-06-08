@@ -9,17 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Deduction */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Deduction
+ */
+
 public class Deduction {
   StringUtil util = new StringUtil();
 
@@ -28,18 +43,28 @@ public class Deduction {
 
   @JsonProperty("deductionName")
   private String deductionName;
-  /** Deduction Category type */
+  /**
+   * Deduction Category type
+   */
   public enum DeductionCategoryEnum {
-    /** PAYROLLGIVING */
+    /**
+     * PAYROLLGIVING
+     */
     PAYROLLGIVING("PayrollGiving"),
-
-    /** KIWISAVERVOLUNTARYCONTRIBUTIONS */
+    
+    /**
+     * KIWISAVERVOLUNTARYCONTRIBUTIONS
+     */
     KIWISAVERVOLUNTARYCONTRIBUTIONS("KiwiSaverVoluntaryContributions"),
-
-    /** SUPERANNUATION */
+    
+    /**
+     * SUPERANNUATION
+     */
     SUPERANNUATION("Superannuation"),
-
-    /** NZOTHER */
+    
+    /**
+     * NZOTHER
+     */
     NZOTHER("NzOther");
 
     private String value;
@@ -48,31 +73,25 @@ public class Deduction {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static DeductionCategoryEnum fromValue(String value) {
       for (DeductionCategoryEnum b : DeductionCategoryEnum.values()) {
@@ -83,6 +102,7 @@ public class Deduction {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("deductionCategory")
   private DeductionCategoryEnum deductionCategory;
@@ -96,214 +116,197 @@ public class Deduction {
   @JsonProperty("standardAmount")
   private Double standardAmount;
   /**
-   * The Xero identifier for Deduction
-   *
-   * @param deductionId UUID
-   * @return Deduction
-   */
+  * The Xero identifier for Deduction
+  * @param deductionId  UUID
+  * @return Deduction
+  **/
   public Deduction deductionId(UUID deductionId) {
     this.deductionId = deductionId;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for Deduction
-   *
    * @return deductionId
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for Deduction")
-  /**
+  /** 
    * The Xero identifier for Deduction
-   *
    * @return deductionId UUID
-   */
+  **/
   public UUID getDeductionId() {
     return deductionId;
   }
 
-  /**
-   * The Xero identifier for Deduction
-   *
-   * @param deductionId UUID
-   */
+  /** 
+  * The Xero identifier for Deduction
+  * @param deductionId  UUID
+  **/
+
   public void setDeductionId(UUID deductionId) {
     this.deductionId = deductionId;
   }
 
   /**
-   * Name of the deduction
-   *
-   * @param deductionName String
-   * @return Deduction
-   */
+  * Name of the deduction
+  * @param deductionName  String
+  * @return Deduction
+  **/
   public Deduction deductionName(String deductionName) {
     this.deductionName = deductionName;
     return this;
   }
 
-  /**
+   /**
    * Name of the deduction
-   *
    * @return deductionName
-   */
+  **/
   @ApiModelProperty(required = true, value = "Name of the deduction")
-  /**
+  /** 
    * Name of the deduction
-   *
    * @return deductionName String
-   */
+  **/
   public String getDeductionName() {
     return deductionName;
   }
 
-  /**
-   * Name of the deduction
-   *
-   * @param deductionName String
-   */
+  /** 
+  * Name of the deduction
+  * @param deductionName  String
+  **/
+
   public void setDeductionName(String deductionName) {
     this.deductionName = deductionName;
   }
 
   /**
-   * Deduction Category type
-   *
-   * @param deductionCategory DeductionCategoryEnum
-   * @return Deduction
-   */
+  * Deduction Category type
+  * @param deductionCategory  DeductionCategoryEnum
+  * @return Deduction
+  **/
   public Deduction deductionCategory(DeductionCategoryEnum deductionCategory) {
     this.deductionCategory = deductionCategory;
     return this;
   }
 
-  /**
+   /**
    * Deduction Category type
-   *
    * @return deductionCategory
-   */
+  **/
   @ApiModelProperty(required = true, value = "Deduction Category type")
-  /**
+  /** 
    * Deduction Category type
-   *
    * @return deductionCategory DeductionCategoryEnum
-   */
+  **/
   public DeductionCategoryEnum getDeductionCategory() {
     return deductionCategory;
   }
 
-  /**
-   * Deduction Category type
-   *
-   * @param deductionCategory DeductionCategoryEnum
-   */
+  /** 
+  * Deduction Category type
+  * @param deductionCategory  DeductionCategoryEnum
+  **/
+
   public void setDeductionCategory(DeductionCategoryEnum deductionCategory) {
     this.deductionCategory = deductionCategory;
   }
 
   /**
-   * Xero identifier for Liability Account
-   *
-   * @param liabilityAccountId UUID
-   * @return Deduction
-   */
+  * Xero identifier for Liability Account
+  * @param liabilityAccountId  UUID
+  * @return Deduction
+  **/
   public Deduction liabilityAccountId(UUID liabilityAccountId) {
     this.liabilityAccountId = liabilityAccountId;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for Liability Account
-   *
    * @return liabilityAccountId
-   */
+  **/
   @ApiModelProperty(required = true, value = "Xero identifier for Liability Account")
-  /**
+  /** 
    * Xero identifier for Liability Account
-   *
    * @return liabilityAccountId UUID
-   */
+  **/
   public UUID getLiabilityAccountId() {
     return liabilityAccountId;
   }
 
-  /**
-   * Xero identifier for Liability Account
-   *
-   * @param liabilityAccountId UUID
-   */
+  /** 
+  * Xero identifier for Liability Account
+  * @param liabilityAccountId  UUID
+  **/
+
   public void setLiabilityAccountId(UUID liabilityAccountId) {
     this.liabilityAccountId = liabilityAccountId;
   }
 
   /**
-   * Identifier of a record is active or not.
-   *
-   * @param currentRecord Boolean
-   * @return Deduction
-   */
+  * Identifier of a record is active or not.
+  * @param currentRecord  Boolean
+  * @return Deduction
+  **/
   public Deduction currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
   }
 
-  /**
+   /**
    * Identifier of a record is active or not.
-   *
    * @return currentRecord
-   */
+  **/
   @ApiModelProperty(value = "Identifier of a record is active or not.")
-  /**
+  /** 
    * Identifier of a record is active or not.
-   *
    * @return currentRecord Boolean
-   */
+  **/
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
-  /**
-   * Identifier of a record is active or not.
-   *
-   * @param currentRecord Boolean
-   */
+  /** 
+  * Identifier of a record is active or not.
+  * @param currentRecord  Boolean
+  **/
+
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }
 
   /**
-   * Standard amount of the deduction.
-   *
-   * @param standardAmount Double
-   * @return Deduction
-   */
+  * Standard amount of the deduction.
+  * @param standardAmount  Double
+  * @return Deduction
+  **/
   public Deduction standardAmount(Double standardAmount) {
     this.standardAmount = standardAmount;
     return this;
   }
 
-  /**
+   /**
    * Standard amount of the deduction.
-   *
    * @return standardAmount
-   */
+  **/
   @ApiModelProperty(value = "Standard amount of the deduction.")
-  /**
+  /** 
    * Standard amount of the deduction.
-   *
    * @return standardAmount Double
-   */
+  **/
   public Double getStandardAmount() {
     return standardAmount;
   }
 
-  /**
-   * Standard amount of the deduction.
-   *
-   * @param standardAmount Double
-   */
+  /** 
+  * Standard amount of the deduction.
+  * @param standardAmount  Double
+  **/
+
   public void setStandardAmount(Double standardAmount) {
     this.standardAmount = standardAmount;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -314,24 +317,19 @@ public class Deduction {
       return false;
     }
     Deduction deduction = (Deduction) o;
-    return Objects.equals(this.deductionId, deduction.deductionId)
-        && Objects.equals(this.deductionName, deduction.deductionName)
-        && Objects.equals(this.deductionCategory, deduction.deductionCategory)
-        && Objects.equals(this.liabilityAccountId, deduction.liabilityAccountId)
-        && Objects.equals(this.currentRecord, deduction.currentRecord)
-        && Objects.equals(this.standardAmount, deduction.standardAmount);
+    return Objects.equals(this.deductionId, deduction.deductionId) &&
+        Objects.equals(this.deductionName, deduction.deductionName) &&
+        Objects.equals(this.deductionCategory, deduction.deductionCategory) &&
+        Objects.equals(this.liabilityAccountId, deduction.liabilityAccountId) &&
+        Objects.equals(this.currentRecord, deduction.currentRecord) &&
+        Objects.equals(this.standardAmount, deduction.standardAmount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        deductionId,
-        deductionName,
-        deductionCategory,
-        liabilityAccountId,
-        currentRecord,
-        standardAmount);
+    return Objects.hash(deductionId, deductionName, deductionCategory, liabilityAccountId, currentRecord, standardAmount);
   }
+
 
   @Override
   public String toString() {
@@ -348,7 +346,8 @@ public class Deduction {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -356,4 +355,6 @@ public class Deduction {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

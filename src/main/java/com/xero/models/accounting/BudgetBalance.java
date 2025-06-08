@@ -9,18 +9,31 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.Objects;
+
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.ZoneId;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** BudgetBalance */
+/**
+ * BudgetBalance
+ */
+
 public class BudgetBalance {
   StringUtil util = new StringUtil();
 
@@ -36,172 +49,159 @@ public class BudgetBalance {
   @JsonProperty("Notes")
   private String notes;
   /**
-   * Period the amount applies to (e.g. “2019-08”)
-   *
-   * @param period String
-   * @return BudgetBalance
-   */
+  * Period the amount applies to (e.g. “2019-08”)
+  * @param period  String
+  * @return BudgetBalance
+  **/
   public BudgetBalance period(String period) {
     this.period = period;
     return this;
   }
 
-  /**
+   /**
    * Period the amount applies to (e.g. “2019-08”)
-   *
    * @return period
-   */
+  **/
   @ApiModelProperty(value = "Period the amount applies to (e.g. “2019-08”)")
-  /**
+  /** 
    * Period the amount applies to (e.g. “2019-08”)
-   *
    * @return period String
-   */
+  **/
   public String getPeriod() {
     return period;
   }
-  /**
+  /** 
    * Period the amount applies to (e.g. “2019-08”)
-   *
    * @return LocalDate
-   */
+  **/
   public LocalDate getPeriodAsDate() {
     if (this.period != null) {
       try {
         return util.convertStringToDate(this.period);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
-  /**
-   * Period the amount applies to (e.g. “2019-08”)
-   *
-   * @param period String
-   */
+  /** 
+  * Period the amount applies to (e.g. “2019-08”)
+  * @param period  String
+  **/
+
   public void setPeriod(String period) {
     this.period = period;
   }
 
-  /**
-   * Period the amount applies to (e.g. “2019-08”)
-   *
-   * @param period LocalDateTime
-   */
+  /** 
+  * Period the amount applies to (e.g. “2019-08”)
+  * @param period LocalDateTime
+  **/
   public void setPeriod(LocalDate period) {
-    // CONVERT LocalDate args into MS DateFromat String
-    Instant instant = period.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
+    //CONVERT LocalDate args into MS DateFromat String
+    Instant instant =  period.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
     long timeInMillis = instant.toEpochMilli();
 
     this.period = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
   /**
-   * LineItem Quantity
-   *
-   * @param amount Double
-   * @return BudgetBalance
-   */
+  * LineItem Quantity
+  * @param amount  Double
+  * @return BudgetBalance
+  **/
   public BudgetBalance amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * LineItem Quantity
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "LineItem Quantity")
-  /**
+  /** 
    * LineItem Quantity
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * LineItem Quantity
-   *
-   * @param amount Double
-   */
+  /** 
+  * LineItem Quantity
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * Budgeted amount
-   *
-   * @param unitAmount Double
-   * @return BudgetBalance
-   */
+  * Budgeted amount
+  * @param unitAmount  Double
+  * @return BudgetBalance
+  **/
   public BudgetBalance unitAmount(Double unitAmount) {
     this.unitAmount = unitAmount;
     return this;
   }
 
-  /**
+   /**
    * Budgeted amount
-   *
    * @return unitAmount
-   */
+  **/
   @ApiModelProperty(value = "Budgeted amount")
-  /**
+  /** 
    * Budgeted amount
-   *
    * @return unitAmount Double
-   */
+  **/
   public Double getUnitAmount() {
     return unitAmount;
   }
 
-  /**
-   * Budgeted amount
-   *
-   * @param unitAmount Double
-   */
+  /** 
+  * Budgeted amount
+  * @param unitAmount  Double
+  **/
+
   public void setUnitAmount(Double unitAmount) {
     this.unitAmount = unitAmount;
   }
 
   /**
-   * Any footnotes associated with this balance
-   *
-   * @param notes String
-   * @return BudgetBalance
-   */
+  * Any footnotes associated with this balance
+  * @param notes  String
+  * @return BudgetBalance
+  **/
   public BudgetBalance notes(String notes) {
     this.notes = notes;
     return this;
   }
 
-  /**
+   /**
    * Any footnotes associated with this balance
-   *
    * @return notes
-   */
+  **/
   @ApiModelProperty(value = "Any footnotes associated with this balance")
-  /**
+  /** 
    * Any footnotes associated with this balance
-   *
    * @return notes String
-   */
+  **/
   public String getNotes() {
     return notes;
   }
 
-  /**
-   * Any footnotes associated with this balance
-   *
-   * @param notes String
-   */
+  /** 
+  * Any footnotes associated with this balance
+  * @param notes  String
+  **/
+
   public void setNotes(String notes) {
     this.notes = notes;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -212,16 +212,17 @@ public class BudgetBalance {
       return false;
     }
     BudgetBalance budgetBalance = (BudgetBalance) o;
-    return Objects.equals(this.period, budgetBalance.period)
-        && Objects.equals(this.amount, budgetBalance.amount)
-        && Objects.equals(this.unitAmount, budgetBalance.unitAmount)
-        && Objects.equals(this.notes, budgetBalance.notes);
+    return Objects.equals(this.period, budgetBalance.period) &&
+        Objects.equals(this.amount, budgetBalance.amount) &&
+        Objects.equals(this.unitAmount, budgetBalance.unitAmount) &&
+        Objects.equals(this.notes, budgetBalance.notes);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(period, amount, unitAmount, notes);
   }
+
 
   @Override
   public String toString() {
@@ -236,7 +237,8 @@ public class BudgetBalance {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -244,4 +246,6 @@ public class BudgetBalance {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** CISOrgSetting */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * CISOrgSetting
+ */
+
 public class CISOrgSetting {
   StringUtil util = new StringUtil();
 
@@ -29,91 +46,82 @@ public class CISOrgSetting {
   @JsonProperty("Rate")
   private Double rate;
   /**
-   * true or false - Boolean that describes if the organisation is a CIS Contractor
-   *
-   * @param ciSContractorEnabled Boolean
-   * @return CISOrgSetting
-   */
+  * true or false - Boolean that describes if the organisation is a CIS Contractor
+  * @param ciSContractorEnabled  Boolean
+  * @return CISOrgSetting
+  **/
   public CISOrgSetting ciSContractorEnabled(Boolean ciSContractorEnabled) {
     this.ciSContractorEnabled = ciSContractorEnabled;
     return this;
   }
 
-  /**
+   /**
    * true or false - Boolean that describes if the organisation is a CIS Contractor
-   *
    * @return ciSContractorEnabled
-   */
-  @ApiModelProperty(
-      value = "true or false - Boolean that describes if the organisation is a CIS Contractor")
-  /**
+  **/
+  @ApiModelProperty(value = "true or false - Boolean that describes if the organisation is a CIS Contractor")
+  /** 
    * true or false - Boolean that describes if the organisation is a CIS Contractor
-   *
    * @return ciSContractorEnabled Boolean
-   */
+  **/
   public Boolean getCiSContractorEnabled() {
     return ciSContractorEnabled;
   }
 
-  /**
-   * true or false - Boolean that describes if the organisation is a CIS Contractor
-   *
-   * @param ciSContractorEnabled Boolean
-   */
+  /** 
+  * true or false - Boolean that describes if the organisation is a CIS Contractor
+  * @param ciSContractorEnabled  Boolean
+  **/
+
   public void setCiSContractorEnabled(Boolean ciSContractorEnabled) {
     this.ciSContractorEnabled = ciSContractorEnabled;
   }
 
   /**
-   * true or false - Boolean that describes if the organisation is a CIS SubContractor
-   *
-   * @param ciSSubContractorEnabled Boolean
-   * @return CISOrgSetting
-   */
+  * true or false - Boolean that describes if the organisation is a CIS SubContractor
+  * @param ciSSubContractorEnabled  Boolean
+  * @return CISOrgSetting
+  **/
   public CISOrgSetting ciSSubContractorEnabled(Boolean ciSSubContractorEnabled) {
     this.ciSSubContractorEnabled = ciSSubContractorEnabled;
     return this;
   }
 
-  /**
+   /**
    * true or false - Boolean that describes if the organisation is a CIS SubContractor
-   *
    * @return ciSSubContractorEnabled
-   */
-  @ApiModelProperty(
-      value = "true or false - Boolean that describes if the organisation is a CIS SubContractor")
-  /**
+  **/
+  @ApiModelProperty(value = "true or false - Boolean that describes if the organisation is a CIS SubContractor")
+  /** 
    * true or false - Boolean that describes if the organisation is a CIS SubContractor
-   *
    * @return ciSSubContractorEnabled Boolean
-   */
+  **/
   public Boolean getCiSSubContractorEnabled() {
     return ciSSubContractorEnabled;
   }
 
-  /**
-   * true or false - Boolean that describes if the organisation is a CIS SubContractor
-   *
-   * @param ciSSubContractorEnabled Boolean
-   */
+  /** 
+  * true or false - Boolean that describes if the organisation is a CIS SubContractor
+  * @param ciSSubContractorEnabled  Boolean
+  **/
+
   public void setCiSSubContractorEnabled(Boolean ciSSubContractorEnabled) {
     this.ciSSubContractorEnabled = ciSSubContractorEnabled;
   }
 
-  /**
+   /**
    * CIS Deduction rate for the organisation
-   *
    * @return rate
-   */
+  **/
   @ApiModelProperty(value = "CIS Deduction rate for the organisation")
-  /**
+  /** 
    * CIS Deduction rate for the organisation
-   *
    * @return rate Double
-   */
+  **/
   public Double getRate() {
     return rate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -124,9 +132,9 @@ public class CISOrgSetting {
       return false;
     }
     CISOrgSetting ciSOrgSetting = (CISOrgSetting) o;
-    return Objects.equals(this.ciSContractorEnabled, ciSOrgSetting.ciSContractorEnabled)
-        && Objects.equals(this.ciSSubContractorEnabled, ciSOrgSetting.ciSSubContractorEnabled)
-        && Objects.equals(this.rate, ciSOrgSetting.rate);
+    return Objects.equals(this.ciSContractorEnabled, ciSOrgSetting.ciSContractorEnabled) &&
+        Objects.equals(this.ciSSubContractorEnabled, ciSOrgSetting.ciSSubContractorEnabled) &&
+        Objects.equals(this.rate, ciSOrgSetting.rate);
   }
 
   @Override
@@ -134,23 +142,21 @@ public class CISOrgSetting {
     return Objects.hash(ciSContractorEnabled, ciSSubContractorEnabled, rate);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CISOrgSetting {\n");
-    sb.append("    ciSContractorEnabled: ")
-        .append(toIndentedString(ciSContractorEnabled))
-        .append("\n");
-    sb.append("    ciSSubContractorEnabled: ")
-        .append(toIndentedString(ciSSubContractorEnabled))
-        .append("\n");
+    sb.append("    ciSContractorEnabled: ").append(toIndentedString(ciSContractorEnabled)).append("\n");
+    sb.append("    ciSSubContractorEnabled: ").append(toIndentedString(ciSSubContractorEnabled)).append("\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -158,4 +164,6 @@ public class CISOrgSetting {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

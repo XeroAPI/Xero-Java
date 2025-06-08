@@ -9,70 +9,120 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Tax codes used for employee tax */
+/**
+ * Tax codes used for employee tax
+ */
 public enum TaxCode {
-
-  /** ND */
+  
+    /**
+     * ND
+     */
   ND("ND"),
-
-  /** M */
+  
+    /**
+     * M
+     */
   M("M"),
-
-  /** ME */
+  
+    /**
+     * ME
+     */
   ME("ME"),
-
-  /** MSL */
+  
+    /**
+     * MSL
+     */
   MSL("MSL"),
-
-  /** MESL */
+  
+    /**
+     * MESL
+     */
   MESL("MESL"),
-
-  /** SB */
+  
+    /**
+     * SB
+     */
   SB("SB"),
-
-  /** S */
+  
+    /**
+     * S
+     */
   S("S"),
-
-  /** SH */
+  
+    /**
+     * SH
+     */
   SH("SH"),
-
-  /** ST */
+  
+    /**
+     * ST
+     */
   ST("ST"),
-
-  /** SBSL */
+  
+    /**
+     * SBSL
+     */
   SBSL("SBSL"),
-
-  /** SSL */
+  
+    /**
+     * SSL
+     */
   SSL("SSL"),
-
-  /** SHSL */
+  
+    /**
+     * SHSL
+     */
   SHSL("SHSL"),
-
-  /** STSL */
+  
+    /**
+     * STSL
+     */
   STSL("STSL"),
-
-  /** WT */
+  
+    /**
+     * WT
+     */
   WT("WT"),
-
-  /** CAE */
+  
+    /**
+     * CAE
+     */
   CAE("CAE"),
-
-  /** EDW */
+  
+    /**
+     * EDW
+     */
   EDW("EDW"),
-
-  /** NSW */
+  
+    /**
+     * NSW
+     */
   NSW("NSW"),
-
-  /** STC */
+  
+    /**
+     * STC
+     */
   STC("STC"),
-
-  /** STCSL */
+  
+    /**
+     * STCSL
+     */
   STCSL("STCSL");
 
   private String value;
@@ -81,26 +131,24 @@ public enum TaxCode {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static TaxCode fromValue(String value) {
@@ -112,3 +160,4 @@ public enum TaxCode {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

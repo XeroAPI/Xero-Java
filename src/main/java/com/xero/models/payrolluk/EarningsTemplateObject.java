@@ -9,14 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.EarningsTemplate;
+import com.xero.models.payrolluk.Pagination;
+import com.xero.models.payrolluk.Problem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** EarningsTemplateObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EarningsTemplateObject
+ */
+
 public class EarningsTemplateObject {
   StringUtil util = new StringUtil();
 
@@ -29,109 +49,101 @@ public class EarningsTemplateObject {
   @JsonProperty("earningTemplate")
   private EarningsTemplate earningTemplate;
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return EarningsTemplateObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return EarningsTemplateObject
+  **/
   public EarningsTemplateObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return EarningsTemplateObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return EarningsTemplateObject
+  **/
   public EarningsTemplateObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * earningTemplate
-   *
-   * @param earningTemplate EarningsTemplate
-   * @return EarningsTemplateObject
-   */
+  * earningTemplate
+  * @param earningTemplate  EarningsTemplate
+  * @return EarningsTemplateObject
+  **/
   public EarningsTemplateObject earningTemplate(EarningsTemplate earningTemplate) {
     this.earningTemplate = earningTemplate;
     return this;
   }
 
-  /**
+   /**
    * Get earningTemplate
-   *
    * @return earningTemplate
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * earningTemplate
-   *
    * @return earningTemplate EarningsTemplate
-   */
+  **/
   public EarningsTemplate getEarningTemplate() {
     return earningTemplate;
   }
 
-  /**
-   * earningTemplate
-   *
-   * @param earningTemplate EarningsTemplate
-   */
+  /** 
+  * earningTemplate
+  * @param earningTemplate  EarningsTemplate
+  **/
+
   public void setEarningTemplate(EarningsTemplate earningTemplate) {
     this.earningTemplate = earningTemplate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +154,16 @@ public class EarningsTemplateObject {
       return false;
     }
     EarningsTemplateObject earningsTemplateObject = (EarningsTemplateObject) o;
-    return Objects.equals(this.pagination, earningsTemplateObject.pagination)
-        && Objects.equals(this.problem, earningsTemplateObject.problem)
-        && Objects.equals(this.earningTemplate, earningsTemplateObject.earningTemplate);
+    return Objects.equals(this.pagination, earningsTemplateObject.pagination) &&
+        Objects.equals(this.problem, earningsTemplateObject.problem) &&
+        Objects.equals(this.earningTemplate, earningsTemplateObject.earningTemplate);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, earningTemplate);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +177,8 @@ public class EarningsTemplateObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +186,6 @@ public class EarningsTemplateObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

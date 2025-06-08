@@ -9,17 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.appstore;
 
+package com.xero.models.appstore;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** Data transfer object for public create usage end point */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Data transfer object for public create usage end point
+ */
 @ApiModel(description = "Data transfer object for public create usage end point")
+
 public class CreateUsageRecord {
   StringUtil util = new StringUtil();
 
@@ -29,84 +45,69 @@ public class CreateUsageRecord {
   @JsonProperty("timestamp")
   private LocalDateTime timestamp;
   /**
-   * The initial quantity for the usage record. Must be a whole number that is greater than or equal
-   * to 0
-   *
-   * @param quantity Integer
-   * @return CreateUsageRecord
-   */
+  * The initial quantity for the usage record. Must be a whole number that is greater than or equal to 0
+  * @param quantity  Integer
+  * @return CreateUsageRecord
+  **/
   public CreateUsageRecord quantity(Integer quantity) {
     this.quantity = quantity;
     return this;
   }
 
-  /**
-   * The initial quantity for the usage record. Must be a whole number that is greater than or equal
-   * to 0
-   *
+   /**
+   * The initial quantity for the usage record. Must be a whole number that is greater than or equal to 0
    * @return quantity
-   */
-  @ApiModelProperty(
-      required = true,
-      value =
-          "The initial quantity for the usage record. Must be a whole number that is greater than"
-              + " or equal to 0")
-  /**
-   * The initial quantity for the usage record. Must be a whole number that is greater than or equal
-   * to 0
-   *
+  **/
+  @ApiModelProperty(required = true, value = "The initial quantity for the usage record. Must be a whole number that is greater than or equal to 0")
+  /** 
+   * The initial quantity for the usage record. Must be a whole number that is greater than or equal to 0
    * @return quantity Integer
-   */
+  **/
   public Integer getQuantity() {
     return quantity;
   }
 
-  /**
-   * The initial quantity for the usage record. Must be a whole number that is greater than or equal
-   * to 0
-   *
-   * @param quantity Integer
-   */
+  /** 
+  * The initial quantity for the usage record. Must be a whole number that is greater than or equal to 0
+  * @param quantity  Integer
+  **/
+
   public void setQuantity(Integer quantity) {
     this.quantity = quantity;
   }
 
   /**
-   * DateTime in UTC of when the the product was consumed/used
-   *
-   * @param timestamp LocalDateTime
-   * @return CreateUsageRecord
-   */
+  * DateTime in UTC of when the the product was consumed/used
+  * @param timestamp LocalDateTime
+  * @return CreateUsageRecord
+  **/
   public CreateUsageRecord timestamp(LocalDateTime timestamp) {
     this.timestamp = timestamp;
     return this;
   }
 
-  /**
+   /**
    * DateTime in UTC of when the the product was consumed/used
-   *
    * @return timestamp
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "DateTime in UTC of when the the product was consumed/used")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "DateTime in UTC of when the the product was consumed/used")
+  /** 
    * DateTime in UTC of when the the product was consumed/used
-   *
    * @return timestamp LocalDateTime
-   */
+  **/
   public LocalDateTime getTimestamp() {
     return timestamp;
   }
 
-  /**
-   * DateTime in UTC of when the the product was consumed/used
-   *
-   * @param timestamp LocalDateTime
-   */
+  /** 
+  * DateTime in UTC of when the the product was consumed/used
+  * @param timestamp LocalDateTime
+  **/
+
   public void setTimestamp(LocalDateTime timestamp) {
     this.timestamp = timestamp;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -117,14 +118,15 @@ public class CreateUsageRecord {
       return false;
     }
     CreateUsageRecord createUsageRecord = (CreateUsageRecord) o;
-    return Objects.equals(this.quantity, createUsageRecord.quantity)
-        && Objects.equals(this.timestamp, createUsageRecord.timestamp);
+    return Objects.equals(this.quantity, createUsageRecord.quantity) &&
+        Objects.equals(this.timestamp, createUsageRecord.timestamp);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(quantity, timestamp);
   }
+
 
   @Override
   public String toString() {
@@ -137,7 +139,8 @@ public class CreateUsageRecord {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -145,4 +148,6 @@ public class CreateUsageRecord {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

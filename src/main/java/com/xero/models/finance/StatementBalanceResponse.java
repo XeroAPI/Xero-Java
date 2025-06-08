@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** StatementBalanceResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * StatementBalanceResponse
+ */
+
 public class StatementBalanceResponse {
   StringUtil util = new StringUtil();
 
@@ -26,90 +43,69 @@ public class StatementBalanceResponse {
   @JsonProperty("type")
   private String type;
   /**
-   * Total closing balance of the account. This includes both reconciled and unreconciled bank
-   * statement lines. The closing balance will always be represented as a positive number, with it’s
-   * debit/credit status defined in the statementBalanceDebitCredit field.
-   *
-   * @param value Double
-   * @return StatementBalanceResponse
-   */
+  * Total closing balance of the account. This includes both reconciled and unreconciled bank statement lines. The closing balance will always be represented as a positive number, with it’s debit/credit status defined in the statementBalanceDebitCredit field.
+  * @param value  Double
+  * @return StatementBalanceResponse
+  **/
   public StatementBalanceResponse value(Double value) {
     this.value = value;
     return this;
   }
 
-  /**
-   * Total closing balance of the account. This includes both reconciled and unreconciled bank
-   * statement lines. The closing balance will always be represented as a positive number, with it’s
-   * debit/credit status defined in the statementBalanceDebitCredit field.
-   *
+   /**
+   * Total closing balance of the account. This includes both reconciled and unreconciled bank statement lines. The closing balance will always be represented as a positive number, with it’s debit/credit status defined in the statementBalanceDebitCredit field.
    * @return value
-   */
-  @ApiModelProperty(
-      value =
-          "Total closing balance of the account. This includes both reconciled and unreconciled"
-              + " bank statement lines. The closing balance will always be represented as a"
-              + " positive number, with it’s debit/credit status defined in the"
-              + " statementBalanceDebitCredit field.")
-  /**
-   * Total closing balance of the account. This includes both reconciled and unreconciled bank
-   * statement lines. The closing balance will always be represented as a positive number, with it’s
-   * debit/credit status defined in the statementBalanceDebitCredit field.
-   *
+  **/
+  @ApiModelProperty(value = "Total closing balance of the account. This includes both reconciled and unreconciled bank statement lines. The closing balance will always be represented as a positive number, with it’s debit/credit status defined in the statementBalanceDebitCredit field.")
+  /** 
+   * Total closing balance of the account. This includes both reconciled and unreconciled bank statement lines. The closing balance will always be represented as a positive number, with it’s debit/credit status defined in the statementBalanceDebitCredit field.
    * @return value Double
-   */
+  **/
   public Double getValue() {
     return value;
   }
 
-  /**
-   * Total closing balance of the account. This includes both reconciled and unreconciled bank
-   * statement lines. The closing balance will always be represented as a positive number, with it’s
-   * debit/credit status defined in the statementBalanceDebitCredit field.
-   *
-   * @param value Double
-   */
+  /** 
+  * Total closing balance of the account. This includes both reconciled and unreconciled bank statement lines. The closing balance will always be represented as a positive number, with it’s debit/credit status defined in the statementBalanceDebitCredit field.
+  * @param value  Double
+  **/
+
   public void setValue(Double value) {
     this.value = value;
   }
 
   /**
-   * The DEBIT or CREDIT status of the account. Cash accounts in credit have a negative balance.
-   *
-   * @param type String
-   * @return StatementBalanceResponse
-   */
+  * The DEBIT or CREDIT status of the account. Cash accounts in credit have a negative balance.
+  * @param type  String
+  * @return StatementBalanceResponse
+  **/
   public StatementBalanceResponse type(String type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * The DEBIT or CREDIT status of the account. Cash accounts in credit have a negative balance.
-   *
    * @return type
-   */
-  @ApiModelProperty(
-      value =
-          "The DEBIT or CREDIT status of the account. Cash accounts in credit have a negative"
-              + " balance.")
-  /**
+  **/
+  @ApiModelProperty(value = "The DEBIT or CREDIT status of the account. Cash accounts in credit have a negative balance.")
+  /** 
    * The DEBIT or CREDIT status of the account. Cash accounts in credit have a negative balance.
-   *
    * @return type String
-   */
+  **/
   public String getType() {
     return type;
   }
 
-  /**
-   * The DEBIT or CREDIT status of the account. Cash accounts in credit have a negative balance.
-   *
-   * @param type String
-   */
+  /** 
+  * The DEBIT or CREDIT status of the account. Cash accounts in credit have a negative balance.
+  * @param type  String
+  **/
+
   public void setType(String type) {
     this.type = type;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -120,14 +116,15 @@ public class StatementBalanceResponse {
       return false;
     }
     StatementBalanceResponse statementBalanceResponse = (StatementBalanceResponse) o;
-    return Objects.equals(this.value, statementBalanceResponse.value)
-        && Objects.equals(this.type, statementBalanceResponse.type);
+    return Objects.equals(this.value, statementBalanceResponse.value) &&
+        Objects.equals(this.type, statementBalanceResponse.type);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(value, type);
   }
+
 
   @Override
   public String toString() {
@@ -140,7 +137,8 @@ public class StatementBalanceResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -148,4 +146,6 @@ public class StatementBalanceResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

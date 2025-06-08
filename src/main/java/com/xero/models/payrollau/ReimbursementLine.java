@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** ReimbursementLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ReimbursementLine
+ */
+
 public class ReimbursementLine {
   StringUtil util = new StringUtil();
 
@@ -33,156 +50,133 @@ public class ReimbursementLine {
   @JsonProperty("ExpenseAccount")
   private String expenseAccount;
   /**
-   * Xero reimbursement type identifier
-   *
-   * @param reimbursementTypeID UUID
-   * @return ReimbursementLine
-   */
+  * Xero reimbursement type identifier
+  * @param reimbursementTypeID  UUID
+  * @return ReimbursementLine
+  **/
   public ReimbursementLine reimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero reimbursement type identifier
-   *
    * @return reimbursementTypeID
-   */
-  @ApiModelProperty(
-      example = "bd246b96-c637-4767-81cf-851ba8fa93c2",
-      value = "Xero reimbursement type identifier")
-  /**
+  **/
+  @ApiModelProperty(example = "bd246b96-c637-4767-81cf-851ba8fa93c2", value = "Xero reimbursement type identifier")
+  /** 
    * Xero reimbursement type identifier
-   *
    * @return reimbursementTypeID UUID
-   */
+  **/
   public UUID getReimbursementTypeID() {
     return reimbursementTypeID;
   }
 
-  /**
-   * Xero reimbursement type identifier
-   *
-   * @param reimbursementTypeID UUID
-   */
+  /** 
+  * Xero reimbursement type identifier
+  * @param reimbursementTypeID  UUID
+  **/
+
   public void setReimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
   }
 
   /**
-   * Reimbursement type amount
-   *
-   * @param amount Double
-   * @return ReimbursementLine
-   */
+  * Reimbursement type amount
+  * @param amount  Double
+  * @return ReimbursementLine
+  **/
   public ReimbursementLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * Reimbursement type amount
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(example = "10.0", value = "Reimbursement type amount")
-  /**
+  /** 
    * Reimbursement type amount
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * Reimbursement type amount
-   *
-   * @param amount Double
-   */
+  /** 
+  * Reimbursement type amount
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * Reimbursement lines description (max length 50)
-   *
-   * @param description String
-   * @return ReimbursementLine
-   */
+  * Reimbursement lines description (max length 50)
+  * @param description  String
+  * @return ReimbursementLine
+  **/
   public ReimbursementLine description(String description) {
     this.description = description;
     return this;
   }
 
-  /**
+   /**
    * Reimbursement lines description (max length 50)
-   *
    * @return description
-   */
-  @ApiModelProperty(
-      example = "For the taxi",
-      value = "Reimbursement lines description (max length 50)")
-  /**
+  **/
+  @ApiModelProperty(example = "For the taxi", value = "Reimbursement lines description (max length 50)")
+  /** 
    * Reimbursement lines description (max length 50)
-   *
    * @return description String
-   */
+  **/
   public String getDescription() {
     return description;
   }
 
-  /**
-   * Reimbursement lines description (max length 50)
-   *
-   * @param description String
-   */
+  /** 
+  * Reimbursement lines description (max length 50)
+  * @param description  String
+  **/
+
   public void setDescription(String description) {
     this.description = description;
   }
 
   /**
-   * Reimbursement expense account. For posted pay run you should be able to see expense account
-   * code.
-   *
-   * @param expenseAccount String
-   * @return ReimbursementLine
-   */
+  * Reimbursement expense account. For posted pay run you should be able to see expense account code.
+  * @param expenseAccount  String
+  * @return ReimbursementLine
+  **/
   public ReimbursementLine expenseAccount(String expenseAccount) {
     this.expenseAccount = expenseAccount;
     return this;
   }
 
-  /**
-   * Reimbursement expense account. For posted pay run you should be able to see expense account
-   * code.
-   *
+   /**
+   * Reimbursement expense account. For posted pay run you should be able to see expense account code.
    * @return expenseAccount
-   */
-  @ApiModelProperty(
-      example = "420",
-      value =
-          "Reimbursement expense account. For posted pay run you should be able to see expense"
-              + " account code.")
-  /**
-   * Reimbursement expense account. For posted pay run you should be able to see expense account
-   * code.
-   *
+  **/
+  @ApiModelProperty(example = "420", value = "Reimbursement expense account. For posted pay run you should be able to see expense account code.")
+  /** 
+   * Reimbursement expense account. For posted pay run you should be able to see expense account code.
    * @return expenseAccount String
-   */
+  **/
   public String getExpenseAccount() {
     return expenseAccount;
   }
 
-  /**
-   * Reimbursement expense account. For posted pay run you should be able to see expense account
-   * code.
-   *
-   * @param expenseAccount String
-   */
+  /** 
+  * Reimbursement expense account. For posted pay run you should be able to see expense account code.
+  * @param expenseAccount  String
+  **/
+
   public void setExpenseAccount(String expenseAccount) {
     this.expenseAccount = expenseAccount;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -193,10 +187,10 @@ public class ReimbursementLine {
       return false;
     }
     ReimbursementLine reimbursementLine = (ReimbursementLine) o;
-    return Objects.equals(this.reimbursementTypeID, reimbursementLine.reimbursementTypeID)
-        && Objects.equals(this.amount, reimbursementLine.amount)
-        && Objects.equals(this.description, reimbursementLine.description)
-        && Objects.equals(this.expenseAccount, reimbursementLine.expenseAccount);
+    return Objects.equals(this.reimbursementTypeID, reimbursementLine.reimbursementTypeID) &&
+        Objects.equals(this.amount, reimbursementLine.amount) &&
+        Objects.equals(this.description, reimbursementLine.description) &&
+        Objects.equals(this.expenseAccount, reimbursementLine.expenseAccount);
   }
 
   @Override
@@ -204,13 +198,12 @@ public class ReimbursementLine {
     return Objects.hash(reimbursementTypeID, amount, description, expenseAccount);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ReimbursementLine {\n");
-    sb.append("    reimbursementTypeID: ")
-        .append(toIndentedString(reimbursementTypeID))
-        .append("\n");
+    sb.append("    reimbursementTypeID: ").append(toIndentedString(reimbursementTypeID)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    expenseAccount: ").append(toIndentedString(expenseAccount)).append("\n");
@@ -219,7 +212,8 @@ public class ReimbursementLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -227,4 +221,6 @@ public class ReimbursementLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** DeductionLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * DeductionLine
+ */
+
 public class DeductionLine {
   StringUtil util = new StringUtil();
 
@@ -36,179 +53,165 @@ public class DeductionLine {
   @JsonProperty("percentage")
   private Double percentage;
   /**
-   * Xero identifier for payroll deduction
-   *
-   * @param deductionTypeID UUID
-   * @return DeductionLine
-   */
+  * Xero identifier for payroll deduction
+  * @param deductionTypeID  UUID
+  * @return DeductionLine
+  **/
   public DeductionLine deductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for payroll deduction
-   *
    * @return deductionTypeID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for payroll deduction")
-  /**
+  /** 
    * Xero identifier for payroll deduction
-   *
    * @return deductionTypeID UUID
-   */
+  **/
   public UUID getDeductionTypeID() {
     return deductionTypeID;
   }
 
-  /**
-   * Xero identifier for payroll deduction
-   *
-   * @param deductionTypeID UUID
-   */
+  /** 
+  * Xero identifier for payroll deduction
+  * @param deductionTypeID  UUID
+  **/
+
   public void setDeductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
   }
 
   /**
-   * name of earnings rate for display in UI
-   *
-   * @param displayName String
-   * @return DeductionLine
-   */
+  * name of earnings rate for display in UI
+  * @param displayName  String
+  * @return DeductionLine
+  **/
   public DeductionLine displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
 
-  /**
+   /**
    * name of earnings rate for display in UI
-   *
    * @return displayName
-   */
+  **/
   @ApiModelProperty(value = "name of earnings rate for display in UI")
-  /**
+  /** 
    * name of earnings rate for display in UI
-   *
    * @return displayName String
-   */
+  **/
   public String getDisplayName() {
     return displayName;
   }
 
-  /**
-   * name of earnings rate for display in UI
-   *
-   * @param displayName String
-   */
+  /** 
+  * name of earnings rate for display in UI
+  * @param displayName  String
+  **/
+
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
   }
 
   /**
-   * The amount of the deduction line
-   *
-   * @param amount Double
-   * @return DeductionLine
-   */
+  * The amount of the deduction line
+  * @param amount  Double
+  * @return DeductionLine
+  **/
   public DeductionLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * The amount of the deduction line
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "The amount of the deduction line")
-  /**
+  /** 
    * The amount of the deduction line
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * The amount of the deduction line
-   *
-   * @param amount Double
-   */
+  /** 
+  * The amount of the deduction line
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * Identifies if the deduction is subject to tax
-   *
-   * @param subjectToTax Boolean
-   * @return DeductionLine
-   */
+  * Identifies if the deduction is subject to tax
+  * @param subjectToTax  Boolean
+  * @return DeductionLine
+  **/
   public DeductionLine subjectToTax(Boolean subjectToTax) {
     this.subjectToTax = subjectToTax;
     return this;
   }
 
-  /**
+   /**
    * Identifies if the deduction is subject to tax
-   *
    * @return subjectToTax
-   */
+  **/
   @ApiModelProperty(value = "Identifies if the deduction is subject to tax")
-  /**
+  /** 
    * Identifies if the deduction is subject to tax
-   *
    * @return subjectToTax Boolean
-   */
+  **/
   public Boolean getSubjectToTax() {
     return subjectToTax;
   }
 
-  /**
-   * Identifies if the deduction is subject to tax
-   *
-   * @param subjectToTax Boolean
-   */
+  /** 
+  * Identifies if the deduction is subject to tax
+  * @param subjectToTax  Boolean
+  **/
+
   public void setSubjectToTax(Boolean subjectToTax) {
     this.subjectToTax = subjectToTax;
   }
 
   /**
-   * Deduction rate percentage
-   *
-   * @param percentage Double
-   * @return DeductionLine
-   */
+  * Deduction rate percentage
+  * @param percentage  Double
+  * @return DeductionLine
+  **/
   public DeductionLine percentage(Double percentage) {
     this.percentage = percentage;
     return this;
   }
 
-  /**
+   /**
    * Deduction rate percentage
-   *
    * @return percentage
-   */
+  **/
   @ApiModelProperty(value = "Deduction rate percentage")
-  /**
+  /** 
    * Deduction rate percentage
-   *
    * @return percentage Double
-   */
+  **/
   public Double getPercentage() {
     return percentage;
   }
 
-  /**
-   * Deduction rate percentage
-   *
-   * @param percentage Double
-   */
+  /** 
+  * Deduction rate percentage
+  * @param percentage  Double
+  **/
+
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -219,17 +222,18 @@ public class DeductionLine {
       return false;
     }
     DeductionLine deductionLine = (DeductionLine) o;
-    return Objects.equals(this.deductionTypeID, deductionLine.deductionTypeID)
-        && Objects.equals(this.displayName, deductionLine.displayName)
-        && Objects.equals(this.amount, deductionLine.amount)
-        && Objects.equals(this.subjectToTax, deductionLine.subjectToTax)
-        && Objects.equals(this.percentage, deductionLine.percentage);
+    return Objects.equals(this.deductionTypeID, deductionLine.deductionTypeID) &&
+        Objects.equals(this.displayName, deductionLine.displayName) &&
+        Objects.equals(this.amount, deductionLine.amount) &&
+        Objects.equals(this.subjectToTax, deductionLine.subjectToTax) &&
+        Objects.equals(this.percentage, deductionLine.percentage);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(deductionTypeID, displayName, amount, subjectToTax, percentage);
   }
+
 
   @Override
   public String toString() {
@@ -245,7 +249,8 @@ public class DeductionLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -253,4 +258,6 @@ public class DeductionLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

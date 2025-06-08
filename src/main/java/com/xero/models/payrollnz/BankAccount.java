@@ -9,16 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** BankAccount */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BankAccount
+ */
+
 public class BankAccount {
   StringUtil util = new StringUtil();
 
@@ -42,12 +57,18 @@ public class BankAccount {
 
   @JsonProperty("reference")
   private String reference;
-  /** Calculation type for the transaction can be &#39;Fixed Amount&#39; or &#39;Balance&#39; */
+  /**
+   * Calculation type for the transaction can be &#39;Fixed Amount&#39; or &#39;Balance&#39;
+   */
   public enum CalculationTypeEnum {
-    /** FIXEDAMOUNT */
+    /**
+     * FIXEDAMOUNT
+     */
     FIXEDAMOUNT("FixedAmount"),
-
-    /** BALANCE */
+    
+    /**
+     * BALANCE
+     */
     BALANCE("Balance");
 
     private String value;
@@ -56,31 +77,25 @@ public class BankAccount {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static CalculationTypeEnum fromValue(String value) {
       for (CalculationTypeEnum b : CalculationTypeEnum.values()) {
@@ -92,289 +107,265 @@ public class BankAccount {
     }
   }
 
+
   @JsonProperty("calculationType")
   private CalculationTypeEnum calculationType;
   /**
-   * Bank account name (max length &#x3D; 32)
-   *
-   * @param accountName String
-   * @return BankAccount
-   */
+  * Bank account name (max length &#x3D; 32)
+  * @param accountName  String
+  * @return BankAccount
+  **/
   public BankAccount accountName(String accountName) {
     this.accountName = accountName;
     return this;
   }
 
-  /**
+   /**
    * Bank account name (max length &#x3D; 32)
-   *
    * @return accountName
-   */
+  **/
   @ApiModelProperty(required = true, value = "Bank account name (max length = 32)")
-  /**
+  /** 
    * Bank account name (max length &#x3D; 32)
-   *
    * @return accountName String
-   */
+  **/
   public String getAccountName() {
     return accountName;
   }
 
-  /**
-   * Bank account name (max length &#x3D; 32)
-   *
-   * @param accountName String
-   */
+  /** 
+  * Bank account name (max length &#x3D; 32)
+  * @param accountName  String
+  **/
+
   public void setAccountName(String accountName) {
     this.accountName = accountName;
   }
 
   /**
-   * Bank account number (digits only; max length &#x3D; 8)
-   *
-   * @param accountNumber String
-   * @return BankAccount
-   */
+  * Bank account number (digits only; max length &#x3D; 8)
+  * @param accountNumber  String
+  * @return BankAccount
+  **/
   public BankAccount accountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
     return this;
   }
 
-  /**
+   /**
    * Bank account number (digits only; max length &#x3D; 8)
-   *
    * @return accountNumber
-   */
+  **/
   @ApiModelProperty(required = true, value = "Bank account number (digits only; max length = 8)")
-  /**
+  /** 
    * Bank account number (digits only; max length &#x3D; 8)
-   *
    * @return accountNumber String
-   */
+  **/
   public String getAccountNumber() {
     return accountNumber;
   }
 
-  /**
-   * Bank account number (digits only; max length &#x3D; 8)
-   *
-   * @param accountNumber String
-   */
+  /** 
+  * Bank account number (digits only; max length &#x3D; 8)
+  * @param accountNumber  String
+  **/
+
   public void setAccountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
   }
 
   /**
-   * Bank account sort code (6 digits)
-   *
-   * @param sortCode String
-   * @return BankAccount
-   */
+  * Bank account sort code (6 digits)
+  * @param sortCode  String
+  * @return BankAccount
+  **/
   public BankAccount sortCode(String sortCode) {
     this.sortCode = sortCode;
     return this;
   }
 
-  /**
+   /**
    * Bank account sort code (6 digits)
-   *
    * @return sortCode
-   */
+  **/
   @ApiModelProperty(required = true, value = "Bank account sort code (6 digits)")
-  /**
+  /** 
    * Bank account sort code (6 digits)
-   *
    * @return sortCode String
-   */
+  **/
   public String getSortCode() {
     return sortCode;
   }
 
-  /**
-   * Bank account sort code (6 digits)
-   *
-   * @param sortCode String
-   */
+  /** 
+  * Bank account sort code (6 digits)
+  * @param sortCode  String
+  **/
+
   public void setSortCode(String sortCode) {
     this.sortCode = sortCode;
   }
 
   /**
-   * Particulars that appear on the statement.
-   *
-   * @param particulars String
-   * @return BankAccount
-   */
+  * Particulars that appear on the statement.
+  * @param particulars  String
+  * @return BankAccount
+  **/
   public BankAccount particulars(String particulars) {
     this.particulars = particulars;
     return this;
   }
 
-  /**
+   /**
    * Particulars that appear on the statement.
-   *
    * @return particulars
-   */
+  **/
   @ApiModelProperty(value = "Particulars that appear on the statement.")
-  /**
+  /** 
    * Particulars that appear on the statement.
-   *
    * @return particulars String
-   */
+  **/
   public String getParticulars() {
     return particulars;
   }
 
-  /**
-   * Particulars that appear on the statement.
-   *
-   * @param particulars String
-   */
+  /** 
+  * Particulars that appear on the statement.
+  * @param particulars  String
+  **/
+
   public void setParticulars(String particulars) {
     this.particulars = particulars;
   }
 
   /**
-   * Code of a transaction that appear on the statement.
-   *
-   * @param code String
-   * @return BankAccount
-   */
+  * Code of a transaction that appear on the statement.
+  * @param code  String
+  * @return BankAccount
+  **/
   public BankAccount code(String code) {
     this.code = code;
     return this;
   }
 
-  /**
+   /**
    * Code of a transaction that appear on the statement.
-   *
    * @return code
-   */
+  **/
   @ApiModelProperty(value = "Code of a transaction that appear on the statement.")
-  /**
+  /** 
    * Code of a transaction that appear on the statement.
-   *
    * @return code String
-   */
+  **/
   public String getCode() {
     return code;
   }
 
-  /**
-   * Code of a transaction that appear on the statement.
-   *
-   * @param code String
-   */
+  /** 
+  * Code of a transaction that appear on the statement.
+  * @param code  String
+  **/
+
   public void setCode(String code) {
     this.code = code;
   }
 
   /**
-   * Dollar amount of a transaction.
-   *
-   * @param dollarAmount Double
-   * @return BankAccount
-   */
+  * Dollar amount of a transaction.
+  * @param dollarAmount  Double
+  * @return BankAccount
+  **/
   public BankAccount dollarAmount(Double dollarAmount) {
     this.dollarAmount = dollarAmount;
     return this;
   }
 
-  /**
+   /**
    * Dollar amount of a transaction.
-   *
    * @return dollarAmount
-   */
+  **/
   @ApiModelProperty(value = "Dollar amount of a transaction.")
-  /**
+  /** 
    * Dollar amount of a transaction.
-   *
    * @return dollarAmount Double
-   */
+  **/
   public Double getDollarAmount() {
     return dollarAmount;
   }
 
-  /**
-   * Dollar amount of a transaction.
-   *
-   * @param dollarAmount Double
-   */
+  /** 
+  * Dollar amount of a transaction.
+  * @param dollarAmount  Double
+  **/
+
   public void setDollarAmount(Double dollarAmount) {
     this.dollarAmount = dollarAmount;
   }
 
   /**
-   * Statement Text/reference for a transaction that appear on the statement.
-   *
-   * @param reference String
-   * @return BankAccount
-   */
+  * Statement Text/reference for a transaction that appear on the statement.
+  * @param reference  String
+  * @return BankAccount
+  **/
   public BankAccount reference(String reference) {
     this.reference = reference;
     return this;
   }
 
-  /**
+   /**
    * Statement Text/reference for a transaction that appear on the statement.
-   *
    * @return reference
-   */
-  @ApiModelProperty(
-      value = "Statement Text/reference for a transaction that appear on the statement.")
-  /**
+  **/
+  @ApiModelProperty(value = "Statement Text/reference for a transaction that appear on the statement.")
+  /** 
    * Statement Text/reference for a transaction that appear on the statement.
-   *
    * @return reference String
-   */
+  **/
   public String getReference() {
     return reference;
   }
 
-  /**
-   * Statement Text/reference for a transaction that appear on the statement.
-   *
-   * @param reference String
-   */
+  /** 
+  * Statement Text/reference for a transaction that appear on the statement.
+  * @param reference  String
+  **/
+
   public void setReference(String reference) {
     this.reference = reference;
   }
 
   /**
-   * Calculation type for the transaction can be &#39;Fixed Amount&#39; or &#39;Balance&#39;
-   *
-   * @param calculationType CalculationTypeEnum
-   * @return BankAccount
-   */
+  * Calculation type for the transaction can be &#39;Fixed Amount&#39; or &#39;Balance&#39;
+  * @param calculationType  CalculationTypeEnum
+  * @return BankAccount
+  **/
   public BankAccount calculationType(CalculationTypeEnum calculationType) {
     this.calculationType = calculationType;
     return this;
   }
 
-  /**
+   /**
    * Calculation type for the transaction can be &#39;Fixed Amount&#39; or &#39;Balance&#39;
-   *
    * @return calculationType
-   */
-  @ApiModelProperty(
-      value = "Calculation type for the transaction can be 'Fixed Amount' or 'Balance'")
-  /**
+  **/
+  @ApiModelProperty(value = "Calculation type for the transaction can be 'Fixed Amount' or 'Balance'")
+  /** 
    * Calculation type for the transaction can be &#39;Fixed Amount&#39; or &#39;Balance&#39;
-   *
    * @return calculationType CalculationTypeEnum
-   */
+  **/
   public CalculationTypeEnum getCalculationType() {
     return calculationType;
   }
 
-  /**
-   * Calculation type for the transaction can be &#39;Fixed Amount&#39; or &#39;Balance&#39;
-   *
-   * @param calculationType CalculationTypeEnum
-   */
+  /** 
+  * Calculation type for the transaction can be &#39;Fixed Amount&#39; or &#39;Balance&#39;
+  * @param calculationType  CalculationTypeEnum
+  **/
+
   public void setCalculationType(CalculationTypeEnum calculationType) {
     this.calculationType = calculationType;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -385,28 +376,21 @@ public class BankAccount {
       return false;
     }
     BankAccount bankAccount = (BankAccount) o;
-    return Objects.equals(this.accountName, bankAccount.accountName)
-        && Objects.equals(this.accountNumber, bankAccount.accountNumber)
-        && Objects.equals(this.sortCode, bankAccount.sortCode)
-        && Objects.equals(this.particulars, bankAccount.particulars)
-        && Objects.equals(this.code, bankAccount.code)
-        && Objects.equals(this.dollarAmount, bankAccount.dollarAmount)
-        && Objects.equals(this.reference, bankAccount.reference)
-        && Objects.equals(this.calculationType, bankAccount.calculationType);
+    return Objects.equals(this.accountName, bankAccount.accountName) &&
+        Objects.equals(this.accountNumber, bankAccount.accountNumber) &&
+        Objects.equals(this.sortCode, bankAccount.sortCode) &&
+        Objects.equals(this.particulars, bankAccount.particulars) &&
+        Objects.equals(this.code, bankAccount.code) &&
+        Objects.equals(this.dollarAmount, bankAccount.dollarAmount) &&
+        Objects.equals(this.reference, bankAccount.reference) &&
+        Objects.equals(this.calculationType, bankAccount.calculationType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        accountName,
-        accountNumber,
-        sortCode,
-        particulars,
-        code,
-        dollarAmount,
-        reference,
-        calculationType);
+    return Objects.hash(accountName, accountNumber, sortCode, particulars, code, dollarAmount, reference, calculationType);
   }
+
 
   @Override
   public String toString() {
@@ -425,7 +409,8 @@ public class BankAccount {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -433,4 +418,6 @@ public class BankAccount {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

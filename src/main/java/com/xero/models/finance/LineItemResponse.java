@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** LineItemResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LineItemResponse
+ */
+
 public class LineItemResponse {
   StringUtil util = new StringUtil();
 
@@ -33,144 +50,133 @@ public class LineItemResponse {
   @JsonProperty("accountType")
   private String accountType;
   /**
-   * Xero Identifier of account
-   *
-   * @param accountId UUID
-   * @return LineItemResponse
-   */
+  * Xero Identifier of account
+  * @param accountId  UUID
+  * @return LineItemResponse
+  **/
   public LineItemResponse accountId(UUID accountId) {
     this.accountId = accountId;
     return this;
   }
 
-  /**
+   /**
    * Xero Identifier of account
-   *
    * @return accountId
-   */
+  **/
   @ApiModelProperty(value = "Xero Identifier of account")
-  /**
+  /** 
    * Xero Identifier of account
-   *
    * @return accountId UUID
-   */
+  **/
   public UUID getAccountId() {
     return accountId;
   }
 
-  /**
-   * Xero Identifier of account
-   *
-   * @param accountId UUID
-   */
+  /** 
+  * Xero Identifier of account
+  * @param accountId  UUID
+  **/
+
   public void setAccountId(UUID accountId) {
     this.accountId = accountId;
   }
 
   /**
-   * Shown if set
-   *
-   * @param reportingCode String
-   * @return LineItemResponse
-   */
+  * Shown if set
+  * @param reportingCode  String
+  * @return LineItemResponse
+  **/
   public LineItemResponse reportingCode(String reportingCode) {
     this.reportingCode = reportingCode;
     return this;
   }
 
-  /**
+   /**
    * Shown if set
-   *
    * @return reportingCode
-   */
+  **/
   @ApiModelProperty(value = "Shown if set")
-  /**
+  /** 
    * Shown if set
-   *
    * @return reportingCode String
-   */
+  **/
   public String getReportingCode() {
     return reportingCode;
   }
 
-  /**
-   * Shown if set
-   *
-   * @param reportingCode String
-   */
+  /** 
+  * Shown if set
+  * @param reportingCode  String
+  **/
+
   public void setReportingCode(String reportingCode) {
     this.reportingCode = reportingCode;
   }
 
   /**
-   * Amount of line item
-   *
-   * @param lineAmount Double
-   * @return LineItemResponse
-   */
+  * Amount of line item
+  * @param lineAmount  Double
+  * @return LineItemResponse
+  **/
   public LineItemResponse lineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
     return this;
   }
 
-  /**
+   /**
    * Amount of line item
-   *
    * @return lineAmount
-   */
+  **/
   @ApiModelProperty(value = "Amount of line item")
-  /**
+  /** 
    * Amount of line item
-   *
    * @return lineAmount Double
-   */
+  **/
   public Double getLineAmount() {
     return lineAmount;
   }
 
-  /**
-   * Amount of line item
-   *
-   * @param lineAmount Double
-   */
+  /** 
+  * Amount of line item
+  * @param lineAmount  Double
+  **/
+
   public void setLineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
   }
 
   /**
-   * Account type
-   *
-   * @param accountType String
-   * @return LineItemResponse
-   */
+  * Account type
+  * @param accountType  String
+  * @return LineItemResponse
+  **/
   public LineItemResponse accountType(String accountType) {
     this.accountType = accountType;
     return this;
   }
 
-  /**
+   /**
    * Account type
-   *
    * @return accountType
-   */
+  **/
   @ApiModelProperty(value = "Account type")
-  /**
+  /** 
    * Account type
-   *
    * @return accountType String
-   */
+  **/
   public String getAccountType() {
     return accountType;
   }
 
-  /**
-   * Account type
-   *
-   * @param accountType String
-   */
+  /** 
+  * Account type
+  * @param accountType  String
+  **/
+
   public void setAccountType(String accountType) {
     this.accountType = accountType;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -181,16 +187,17 @@ public class LineItemResponse {
       return false;
     }
     LineItemResponse lineItemResponse = (LineItemResponse) o;
-    return Objects.equals(this.accountId, lineItemResponse.accountId)
-        && Objects.equals(this.reportingCode, lineItemResponse.reportingCode)
-        && Objects.equals(this.lineAmount, lineItemResponse.lineAmount)
-        && Objects.equals(this.accountType, lineItemResponse.accountType);
+    return Objects.equals(this.accountId, lineItemResponse.accountId) &&
+        Objects.equals(this.reportingCode, lineItemResponse.reportingCode) &&
+        Objects.equals(this.lineAmount, lineItemResponse.lineAmount) &&
+        Objects.equals(this.accountType, lineItemResponse.accountType);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accountId, reportingCode, lineAmount, accountType);
   }
+
 
   @Override
   public String toString() {
@@ -205,7 +212,8 @@ public class LineItemResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -213,4 +221,6 @@ public class LineItemResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

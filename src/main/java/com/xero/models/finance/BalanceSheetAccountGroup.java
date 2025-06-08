@@ -9,16 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.BalanceSheetAccountType;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** BalanceSheetAccountGroup */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BalanceSheetAccountGroup
+ */
+
 public class BalanceSheetAccountGroup {
   StringUtil util = new StringUtil();
 
@@ -28,11 +46,10 @@ public class BalanceSheetAccountGroup {
   @JsonProperty("total")
   private Double total;
   /**
-   * accountTypes
-   *
-   * @param accountTypes List&lt;BalanceSheetAccountType&gt;
-   * @return BalanceSheetAccountGroup
-   */
+  * accountTypes
+  * @param accountTypes  List&lt;BalanceSheetAccountType&gt;
+  * @return BalanceSheetAccountGroup
+  **/
   public BalanceSheetAccountGroup accountTypes(List<BalanceSheetAccountType> accountTypes) {
     this.accountTypes = accountTypes;
     return this;
@@ -40,10 +57,9 @@ public class BalanceSheetAccountGroup {
 
   /**
    * accountTypes
-   *
-   * @param accountTypesItem BalanceSheetAccountType
+   * @param accountTypesItem BalanceSheetAccountType 
    * @return BalanceSheetAccountGroup
-   */
+  **/
   public BalanceSheetAccountGroup addAccountTypesItem(BalanceSheetAccountType accountTypesItem) {
     if (this.accountTypes == null) {
       this.accountTypes = new ArrayList<BalanceSheetAccountType>();
@@ -52,64 +68,60 @@ public class BalanceSheetAccountGroup {
     return this;
   }
 
-  /**
+   /**
    * Get accountTypes
-   *
    * @return accountTypes
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * accountTypes
-   *
    * @return accountTypes List<BalanceSheetAccountType>
-   */
+  **/
   public List<BalanceSheetAccountType> getAccountTypes() {
     return accountTypes;
   }
 
-  /**
-   * accountTypes
-   *
-   * @param accountTypes List&lt;BalanceSheetAccountType&gt;
-   */
+  /** 
+  * accountTypes
+  * @param accountTypes List&lt;BalanceSheetAccountType&gt; 
+  **/
+
   public void setAccountTypes(List<BalanceSheetAccountType> accountTypes) {
     this.accountTypes = accountTypes;
   }
 
   /**
-   * Total value of all the accounts in this type
-   *
-   * @param total Double
-   * @return BalanceSheetAccountGroup
-   */
+  * Total value of all the accounts in this type
+  * @param total  Double
+  * @return BalanceSheetAccountGroup
+  **/
   public BalanceSheetAccountGroup total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total value of all the accounts in this type
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total value of all the accounts in this type")
-  /**
+  /** 
    * Total value of all the accounts in this type
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total value of all the accounts in this type
-   *
-   * @param total Double
-   */
+  /** 
+  * Total value of all the accounts in this type
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -120,14 +132,15 @@ public class BalanceSheetAccountGroup {
       return false;
     }
     BalanceSheetAccountGroup balanceSheetAccountGroup = (BalanceSheetAccountGroup) o;
-    return Objects.equals(this.accountTypes, balanceSheetAccountGroup.accountTypes)
-        && Objects.equals(this.total, balanceSheetAccountGroup.total);
+    return Objects.equals(this.accountTypes, balanceSheetAccountGroup.accountTypes) &&
+        Objects.equals(this.total, balanceSheetAccountGroup.total);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accountTypes, total);
   }
+
 
   @Override
   public String toString() {
@@ -140,7 +153,8 @@ public class BalanceSheetAccountGroup {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -148,4 +162,6 @@ public class BalanceSheetAccountGroup {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

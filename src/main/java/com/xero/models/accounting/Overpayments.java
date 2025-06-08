@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Overpayment;
+import com.xero.models.accounting.Pagination;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Overpayments */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Overpayments
+ */
+
 public class Overpayments {
   StringUtil util = new StringUtil();
 
@@ -31,46 +51,42 @@ public class Overpayments {
   @JsonProperty("Overpayments")
   private List<Overpayment> overpayments = new ArrayList<Overpayment>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return Overpayments
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return Overpayments
+  **/
   public Overpayments pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   * @return Overpayments
-   */
+  * Displays array of warning messages from the API
+  * @param warnings  List&lt;ValidationError&gt;
+  * @return Overpayments
+  **/
   public Overpayments warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
@@ -78,10 +94,9 @@ public class Overpayments {
 
   /**
    * Displays array of warning messages from the API
-   *
-   * @param warningsItem ValidationError
+   * @param warningsItem ValidationError 
    * @return Overpayments
-   */
+  **/
   public Overpayments addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -90,36 +105,33 @@ public class Overpayments {
     return this;
   }
 
-  /**
+   /**
    * Displays array of warning messages from the API
-   *
    * @return warnings
-   */
+  **/
   @ApiModelProperty(value = "Displays array of warning messages from the API")
-  /**
+  /** 
    * Displays array of warning messages from the API
-   *
    * @return warnings List<ValidationError>
-   */
+  **/
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
-  /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of warning messages from the API
+  * @param warnings List&lt;ValidationError&gt; 
+  **/
+
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
   /**
-   * overpayments
-   *
-   * @param overpayments List&lt;Overpayment&gt;
-   * @return Overpayments
-   */
+  * overpayments
+  * @param overpayments  List&lt;Overpayment&gt;
+  * @return Overpayments
+  **/
   public Overpayments overpayments(List<Overpayment> overpayments) {
     this.overpayments = overpayments;
     return this;
@@ -127,10 +139,9 @@ public class Overpayments {
 
   /**
    * overpayments
-   *
-   * @param overpaymentsItem Overpayment
+   * @param overpaymentsItem Overpayment 
    * @return Overpayments
-   */
+  **/
   public Overpayments addOverpaymentsItem(Overpayment overpaymentsItem) {
     if (this.overpayments == null) {
       this.overpayments = new ArrayList<Overpayment>();
@@ -139,29 +150,28 @@ public class Overpayments {
     return this;
   }
 
-  /**
+   /**
    * Get overpayments
-   *
    * @return overpayments
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * overpayments
-   *
    * @return overpayments List<Overpayment>
-   */
+  **/
   public List<Overpayment> getOverpayments() {
     return overpayments;
   }
 
-  /**
-   * overpayments
-   *
-   * @param overpayments List&lt;Overpayment&gt;
-   */
+  /** 
+  * overpayments
+  * @param overpayments List&lt;Overpayment&gt; 
+  **/
+
   public void setOverpayments(List<Overpayment> overpayments) {
     this.overpayments = overpayments;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -172,15 +182,16 @@ public class Overpayments {
       return false;
     }
     Overpayments overpayments = (Overpayments) o;
-    return Objects.equals(this.pagination, overpayments.pagination)
-        && Objects.equals(this.warnings, overpayments.warnings)
-        && Objects.equals(this.overpayments, overpayments.overpayments);
+    return Objects.equals(this.pagination, overpayments.pagination) &&
+        Objects.equals(this.warnings, overpayments.warnings) &&
+        Objects.equals(this.overpayments, overpayments.overpayments);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, warnings, overpayments);
   }
+
 
   @Override
   public String toString() {
@@ -194,7 +205,8 @@ public class Overpayments {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -202,4 +214,6 @@ public class Overpayments {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

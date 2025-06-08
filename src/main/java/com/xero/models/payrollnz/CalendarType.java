@@ -9,34 +9,60 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Calendar type of the pay run */
+/**
+ * Calendar type of the pay run
+ */
 public enum CalendarType {
-
-  /** WEEKLY */
+  
+    /**
+     * WEEKLY
+     */
   WEEKLY("Weekly"),
-
-  /** FORTNIGHTLY */
+  
+    /**
+     * FORTNIGHTLY
+     */
   FORTNIGHTLY("Fortnightly"),
-
-  /** FOURWEEKLY */
+  
+    /**
+     * FOURWEEKLY
+     */
   FOURWEEKLY("FourWeekly"),
-
-  /** MONTHLY */
+  
+    /**
+     * MONTHLY
+     */
   MONTHLY("Monthly"),
-
-  /** ANNUAL */
+  
+    /**
+     * ANNUAL
+     */
   ANNUAL("Annual"),
-
-  /** QUARTERLY */
+  
+    /**
+     * QUARTERLY
+     */
   QUARTERLY("Quarterly"),
-
-  /** TWICEMONTHLY */
+  
+    /**
+     * TWICEMONTHLY
+     */
   TWICEMONTHLY("TwiceMonthly");
 
   private String value;
@@ -45,26 +71,24 @@ public enum CalendarType {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static CalendarType fromValue(String value) {
@@ -76,3 +100,4 @@ public enum CalendarType {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import com.xero.models.payrollnz.StatutoryDeduction;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** StatutoryDeductions */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * StatutoryDeductions
+ */
+
 public class StatutoryDeductions {
   StringUtil util = new StringUtil();
 
@@ -31,81 +51,74 @@ public class StatutoryDeductions {
   @JsonProperty("statutoryDeductions")
   private List<StatutoryDeduction> statutoryDeductions = new ArrayList<StatutoryDeduction>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return StatutoryDeductions
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return StatutoryDeductions
+  **/
   public StatutoryDeductions pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return StatutoryDeductions
-   */
+  * problem
+  * @param problem  Problem
+  * @return StatutoryDeductions
+  **/
   public StatutoryDeductions problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * statutoryDeductions
-   *
-   * @param statutoryDeductions List&lt;StatutoryDeduction&gt;
-   * @return StatutoryDeductions
-   */
+  * statutoryDeductions
+  * @param statutoryDeductions  List&lt;StatutoryDeduction&gt;
+  * @return StatutoryDeductions
+  **/
   public StatutoryDeductions statutoryDeductions(List<StatutoryDeduction> statutoryDeductions) {
     this.statutoryDeductions = statutoryDeductions;
     return this;
@@ -113,12 +126,10 @@ public class StatutoryDeductions {
 
   /**
    * statutoryDeductions
-   *
-   * @param statutoryDeductionsItem StatutoryDeduction
+   * @param statutoryDeductionsItem StatutoryDeduction 
    * @return StatutoryDeductions
-   */
-  public StatutoryDeductions addStatutoryDeductionsItem(
-      StatutoryDeduction statutoryDeductionsItem) {
+  **/
+  public StatutoryDeductions addStatutoryDeductionsItem(StatutoryDeduction statutoryDeductionsItem) {
     if (this.statutoryDeductions == null) {
       this.statutoryDeductions = new ArrayList<StatutoryDeduction>();
     }
@@ -126,29 +137,28 @@ public class StatutoryDeductions {
     return this;
   }
 
-  /**
+   /**
    * Get statutoryDeductions
-   *
    * @return statutoryDeductions
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * statutoryDeductions
-   *
    * @return statutoryDeductions List<StatutoryDeduction>
-   */
+  **/
   public List<StatutoryDeduction> getStatutoryDeductions() {
     return statutoryDeductions;
   }
 
-  /**
-   * statutoryDeductions
-   *
-   * @param statutoryDeductions List&lt;StatutoryDeduction&gt;
-   */
+  /** 
+  * statutoryDeductions
+  * @param statutoryDeductions List&lt;StatutoryDeduction&gt; 
+  **/
+
   public void setStatutoryDeductions(List<StatutoryDeduction> statutoryDeductions) {
     this.statutoryDeductions = statutoryDeductions;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -159,9 +169,9 @@ public class StatutoryDeductions {
       return false;
     }
     StatutoryDeductions statutoryDeductions = (StatutoryDeductions) o;
-    return Objects.equals(this.pagination, statutoryDeductions.pagination)
-        && Objects.equals(this.problem, statutoryDeductions.problem)
-        && Objects.equals(this.statutoryDeductions, statutoryDeductions.statutoryDeductions);
+    return Objects.equals(this.pagination, statutoryDeductions.pagination) &&
+        Objects.equals(this.problem, statutoryDeductions.problem) &&
+        Objects.equals(this.statutoryDeductions, statutoryDeductions.statutoryDeductions);
   }
 
   @Override
@@ -169,21 +179,21 @@ public class StatutoryDeductions {
     return Objects.hash(pagination, problem, statutoryDeductions);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class StatutoryDeductions {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    problem: ").append(toIndentedString(problem)).append("\n");
-    sb.append("    statutoryDeductions: ")
-        .append(toIndentedString(statutoryDeductions))
-        .append("\n");
+    sb.append("    statutoryDeductions: ").append(toIndentedString(statutoryDeductions)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -191,4 +201,6 @@ public class StatutoryDeductions {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

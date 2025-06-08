@@ -9,16 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.project;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.project;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** TimeEntryCreateOrUpdate */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TimeEntryCreateOrUpdate
+ */
+
 public class TimeEntryCreateOrUpdate {
   StringUtil util = new StringUtil();
 
@@ -37,192 +54,165 @@ public class TimeEntryCreateOrUpdate {
   @JsonProperty("description")
   private String description;
   /**
-   * The xero user identifier of the person logging the time.
-   *
-   * @param userId UUID
-   * @return TimeEntryCreateOrUpdate
-   */
+  * The xero user identifier of the person logging the time.
+  * @param userId  UUID
+  * @return TimeEntryCreateOrUpdate
+  **/
   public TimeEntryCreateOrUpdate userId(UUID userId) {
     this.userId = userId;
     return this;
   }
 
-  /**
+   /**
    * The xero user identifier of the person logging the time.
-   *
    * @return userId
-   */
-  @ApiModelProperty(
-      example = "00000000-0000-0000-0000-000000000000",
-      required = true,
-      value = "The xero user identifier of the person logging the time.")
-  /**
+  **/
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", required = true, value = "The xero user identifier of the person logging the time.")
+  /** 
    * The xero user identifier of the person logging the time.
-   *
    * @return userId UUID
-   */
+  **/
   public UUID getUserId() {
     return userId;
   }
 
-  /**
-   * The xero user identifier of the person logging the time.
-   *
-   * @param userId UUID
-   */
+  /** 
+  * The xero user identifier of the person logging the time.
+  * @param userId  UUID
+  **/
+
   public void setUserId(UUID userId) {
     this.userId = userId;
   }
 
   /**
-   * Identifier of the task that time entry is logged against.
-   *
-   * @param taskId UUID
-   * @return TimeEntryCreateOrUpdate
-   */
+  * Identifier of the task that time entry is logged against.
+  * @param taskId  UUID
+  * @return TimeEntryCreateOrUpdate
+  **/
   public TimeEntryCreateOrUpdate taskId(UUID taskId) {
     this.taskId = taskId;
     return this;
   }
 
-  /**
+   /**
    * Identifier of the task that time entry is logged against.
-   *
    * @return taskId
-   */
-  @ApiModelProperty(
-      example = "00000000-0000-0000-0000-000000000000",
-      required = true,
-      value = "Identifier of the task that time entry is logged against.")
-  /**
+  **/
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", required = true, value = "Identifier of the task that time entry is logged against.")
+  /** 
    * Identifier of the task that time entry is logged against.
-   *
    * @return taskId UUID
-   */
+  **/
   public UUID getTaskId() {
     return taskId;
   }
 
-  /**
-   * Identifier of the task that time entry is logged against.
-   *
-   * @param taskId UUID
-   */
+  /** 
+  * Identifier of the task that time entry is logged against.
+  * @param taskId  UUID
+  **/
+
   public void setTaskId(UUID taskId) {
     this.taskId = taskId;
   }
 
   /**
-   * Date time entry is logged on. UTC Date Time in ISO-8601 format.
-   *
-   * @param dateUtc OffsetDateTime
-   * @return TimeEntryCreateOrUpdate
-   */
+  * Date time entry is logged on. UTC Date Time in ISO-8601 format.
+  * @param dateUtc  OffsetDateTime
+  * @return TimeEntryCreateOrUpdate
+  **/
   public TimeEntryCreateOrUpdate dateUtc(OffsetDateTime dateUtc) {
     this.dateUtc = dateUtc;
     return this;
   }
 
-  /**
+   /**
    * Date time entry is logged on. UTC Date Time in ISO-8601 format.
-   *
    * @return dateUtc
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "Date time entry is logged on. UTC Date Time in ISO-8601 format.")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "Date time entry is logged on. UTC Date Time in ISO-8601 format.")
+  /** 
    * Date time entry is logged on. UTC Date Time in ISO-8601 format.
-   *
    * @return dateUtc OffsetDateTime
-   */
+  **/
   public OffsetDateTime getDateUtc() {
     return dateUtc;
   }
 
-  /**
-   * Date time entry is logged on. UTC Date Time in ISO-8601 format.
-   *
-   * @param dateUtc OffsetDateTime
-   */
+  /** 
+  * Date time entry is logged on. UTC Date Time in ISO-8601 format.
+  * @param dateUtc  OffsetDateTime
+  **/
+
   public void setDateUtc(OffsetDateTime dateUtc) {
     this.dateUtc = dateUtc;
   }
 
   /**
-   * Number of minutes to be logged. Duration is between 1 and 59940 inclusively.
-   *
-   * @param duration Integer
-   * @return TimeEntryCreateOrUpdate
-   */
+  * Number of minutes to be logged. Duration is between 1 and 59940 inclusively.
+  * @param duration  Integer
+  * @return TimeEntryCreateOrUpdate
+  **/
   public TimeEntryCreateOrUpdate duration(Integer duration) {
     this.duration = duration;
     return this;
   }
 
-  /**
+   /**
    * Number of minutes to be logged. Duration is between 1 and 59940 inclusively.
-   *
    * @return duration
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "Number of minutes to be logged. Duration is between 1 and 59940 inclusively.")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "Number of minutes to be logged. Duration is between 1 and 59940 inclusively.")
+  /** 
    * Number of minutes to be logged. Duration is between 1 and 59940 inclusively.
-   *
    * @return duration Integer
-   */
+  **/
   public Integer getDuration() {
     return duration;
   }
 
-  /**
-   * Number of minutes to be logged. Duration is between 1 and 59940 inclusively.
-   *
-   * @param duration Integer
-   */
+  /** 
+  * Number of minutes to be logged. Duration is between 1 and 59940 inclusively.
+  * @param duration  Integer
+  **/
+
   public void setDuration(Integer duration) {
     this.duration = duration;
   }
 
   /**
-   * An optional description of the time entry, will be set to null if not provided during update.
-   *
-   * @param description String
-   * @return TimeEntryCreateOrUpdate
-   */
+  * An optional description of the time entry, will be set to null if not provided during update.
+  * @param description  String
+  * @return TimeEntryCreateOrUpdate
+  **/
   public TimeEntryCreateOrUpdate description(String description) {
     this.description = description;
     return this;
   }
 
-  /**
+   /**
    * An optional description of the time entry, will be set to null if not provided during update.
-   *
    * @return description
-   */
-  @ApiModelProperty(
-      value =
-          "An optional description of the time entry, will be set to null if not provided during"
-              + " update.")
-  /**
+  **/
+  @ApiModelProperty(value = "An optional description of the time entry, will be set to null if not provided during update.")
+  /** 
    * An optional description of the time entry, will be set to null if not provided during update.
-   *
    * @return description String
-   */
+  **/
   public String getDescription() {
     return description;
   }
 
-  /**
-   * An optional description of the time entry, will be set to null if not provided during update.
-   *
-   * @param description String
-   */
+  /** 
+  * An optional description of the time entry, will be set to null if not provided during update.
+  * @param description  String
+  **/
+
   public void setDescription(String description) {
     this.description = description;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -233,17 +223,18 @@ public class TimeEntryCreateOrUpdate {
       return false;
     }
     TimeEntryCreateOrUpdate timeEntryCreateOrUpdate = (TimeEntryCreateOrUpdate) o;
-    return Objects.equals(this.userId, timeEntryCreateOrUpdate.userId)
-        && Objects.equals(this.taskId, timeEntryCreateOrUpdate.taskId)
-        && Objects.equals(this.dateUtc, timeEntryCreateOrUpdate.dateUtc)
-        && Objects.equals(this.duration, timeEntryCreateOrUpdate.duration)
-        && Objects.equals(this.description, timeEntryCreateOrUpdate.description);
+    return Objects.equals(this.userId, timeEntryCreateOrUpdate.userId) &&
+        Objects.equals(this.taskId, timeEntryCreateOrUpdate.taskId) &&
+        Objects.equals(this.dateUtc, timeEntryCreateOrUpdate.dateUtc) &&
+        Objects.equals(this.duration, timeEntryCreateOrUpdate.duration) &&
+        Objects.equals(this.description, timeEntryCreateOrUpdate.description);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(userId, taskId, dateUtc, duration, description);
   }
+
 
   @Override
   public String toString() {
@@ -259,7 +250,8 @@ public class TimeEntryCreateOrUpdate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -267,4 +259,6 @@ public class TimeEntryCreateOrUpdate {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

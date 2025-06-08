@@ -9,55 +9,95 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
+import java.util.Objects;
+import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Statutory Deduction Category */
+/**
+ * Statutory Deduction Category
+ */
 public enum StatutoryDeductionCategory {
-
-  /** ADDITIONALSTUDENTLOAN */
+  
+    /**
+     * ADDITIONALSTUDENTLOAN
+     */
   ADDITIONALSTUDENTLOAN("AdditionalStudentLoan"),
-
-  /** CHILDSUPPORT */
+  
+    /**
+     * CHILDSUPPORT
+     */
   CHILDSUPPORT("ChildSupport"),
-
-  /** COURTFINES */
+  
+    /**
+     * COURTFINES
+     */
   COURTFINES("CourtFines"),
-
-  /** CREDITOR */
+  
+    /**
+     * CREDITOR
+     */
   CREDITOR("Creditor"),
-
-  /** FEDERALLEVY */
+  
+    /**
+     * FEDERALLEVY
+     */
   FEDERALLEVY("FederalLevy"),
-
-  /** INLANDREVENUEARREARS */
+  
+    /**
+     * INLANDREVENUEARREARS
+     */
   INLANDREVENUEARREARS("InlandRevenueArrears"),
-
-  /** KIWISAVER */
+  
+    /**
+     * KIWISAVER
+     */
   KIWISAVER("KiwiSaver"),
-
-  /** MSDREPAYMENTS */
+  
+    /**
+     * MSDREPAYMENTS
+     */
   MSDREPAYMENTS("MsdRepayments"),
-
-  /** NONPRIORITYORDER */
+  
+    /**
+     * NONPRIORITYORDER
+     */
   NONPRIORITYORDER("NonPriorityOrder"),
-
-  /** PRIORITYORDER */
+  
+    /**
+     * PRIORITYORDER
+     */
   PRIORITYORDER("PriorityOrder"),
-
-  /** TABLEBASED */
+  
+    /**
+     * TABLEBASED
+     */
   TABLEBASED("TableBased"),
-
-  /** STUDENTLOAN */
+  
+    /**
+     * STUDENTLOAN
+     */
   STUDENTLOAN("StudentLoan"),
-
-  /** VOLUNTARYSTUDENTLOAN */
+  
+    /**
+     * VOLUNTARYSTUDENTLOAN
+     */
   VOLUNTARYSTUDENTLOAN("VoluntaryStudentLoan"),
-
-  /** USCHILDSUPPORT */
+  
+    /**
+     * USCHILDSUPPORT
+     */
   USCHILDSUPPORT("USChildSupport");
 
   private String value;
@@ -66,26 +106,24 @@ public enum StatutoryDeductionCategory {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static StatutoryDeductionCategory fromValue(String value) {
@@ -97,3 +135,4 @@ public enum StatutoryDeductionCategory {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

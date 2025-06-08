@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Report;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Reports */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Reports
+ */
+
 public class Reports {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Reports")
   private List<Report> reports = new ArrayList<Report>();
   /**
-   * reports
-   *
-   * @param reports List&lt;Report&gt;
-   * @return Reports
-   */
+  * reports
+  * @param reports  List&lt;Report&gt;
+  * @return Reports
+  **/
   public Reports reports(List<Report> reports) {
     this.reports = reports;
     return this;
@@ -37,10 +54,9 @@ public class Reports {
 
   /**
    * reports
-   *
-   * @param reportsItem Report
+   * @param reportsItem Report 
    * @return Reports
-   */
+  **/
   public Reports addReportsItem(Report reportsItem) {
     if (this.reports == null) {
       this.reports = new ArrayList<Report>();
@@ -49,29 +65,28 @@ public class Reports {
     return this;
   }
 
-  /**
+   /**
    * Get reports
-   *
    * @return reports
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * reports
-   *
    * @return reports List<Report>
-   */
+  **/
   public List<Report> getReports() {
     return reports;
   }
 
-  /**
-   * reports
-   *
-   * @param reports List&lt;Report&gt;
-   */
+  /** 
+  * reports
+  * @param reports List&lt;Report&gt; 
+  **/
+
   public void setReports(List<Report> reports) {
     this.reports = reports;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class Reports {
     return Objects.hash(reports);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class Reports {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class Reports {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

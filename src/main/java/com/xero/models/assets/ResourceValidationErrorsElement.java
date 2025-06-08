@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.assets;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** ResourceValidationErrorsElement */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ResourceValidationErrorsElement
+ */
+
 public class ResourceValidationErrorsElement {
   StringUtil util = new StringUtil();
 
@@ -35,179 +52,165 @@ public class ResourceValidationErrorsElement {
   @JsonProperty("detail")
   private String detail;
   /**
-   * The field name of the erroneous field
-   *
-   * @param resourceName String
-   * @return ResourceValidationErrorsElement
-   */
+  * The field name of the erroneous field
+  * @param resourceName  String
+  * @return ResourceValidationErrorsElement
+  **/
   public ResourceValidationErrorsElement resourceName(String resourceName) {
     this.resourceName = resourceName;
     return this;
   }
 
-  /**
+   /**
    * The field name of the erroneous field
-   *
    * @return resourceName
-   */
+  **/
   @ApiModelProperty(value = "The field name of the erroneous field")
-  /**
+  /** 
    * The field name of the erroneous field
-   *
    * @return resourceName String
-   */
+  **/
   public String getResourceName() {
     return resourceName;
   }
 
-  /**
-   * The field name of the erroneous field
-   *
-   * @param resourceName String
-   */
+  /** 
+  * The field name of the erroneous field
+  * @param resourceName  String
+  **/
+
   public void setResourceName(String resourceName) {
     this.resourceName = resourceName;
   }
 
   /**
-   * Explanation of the resource validation error
-   *
-   * @param localisedMessage String
-   * @return ResourceValidationErrorsElement
-   */
+  * Explanation of the resource validation error
+  * @param localisedMessage  String
+  * @return ResourceValidationErrorsElement
+  **/
   public ResourceValidationErrorsElement localisedMessage(String localisedMessage) {
     this.localisedMessage = localisedMessage;
     return this;
   }
 
-  /**
+   /**
    * Explanation of the resource validation error
-   *
    * @return localisedMessage
-   */
+  **/
   @ApiModelProperty(value = "Explanation of the resource validation error")
-  /**
+  /** 
    * Explanation of the resource validation error
-   *
    * @return localisedMessage String
-   */
+  **/
   public String getLocalisedMessage() {
     return localisedMessage;
   }
 
-  /**
-   * Explanation of the resource validation error
-   *
-   * @param localisedMessage String
-   */
+  /** 
+  * Explanation of the resource validation error
+  * @param localisedMessage  String
+  **/
+
   public void setLocalisedMessage(String localisedMessage) {
     this.localisedMessage = localisedMessage;
   }
 
   /**
-   * Internal type of the resource error message
-   *
-   * @param type String
-   * @return ResourceValidationErrorsElement
-   */
+  * Internal type of the resource error message
+  * @param type  String
+  * @return ResourceValidationErrorsElement
+  **/
   public ResourceValidationErrorsElement type(String type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * Internal type of the resource error message
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "Internal type of the resource error message")
-  /**
+  /** 
    * Internal type of the resource error message
-   *
    * @return type String
-   */
+  **/
   public String getType() {
     return type;
   }
 
-  /**
-   * Internal type of the resource error message
-   *
-   * @param type String
-   */
+  /** 
+  * Internal type of the resource error message
+  * @param type  String
+  **/
+
   public void setType(String type) {
     this.type = type;
   }
 
   /**
-   * Title of the resource validation error
-   *
-   * @param title String
-   * @return ResourceValidationErrorsElement
-   */
+  * Title of the resource validation error
+  * @param title  String
+  * @return ResourceValidationErrorsElement
+  **/
   public ResourceValidationErrorsElement title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
+   /**
    * Title of the resource validation error
-   *
    * @return title
-   */
+  **/
   @ApiModelProperty(value = "Title of the resource validation error")
-  /**
+  /** 
    * Title of the resource validation error
-   *
    * @return title String
-   */
+  **/
   public String getTitle() {
     return title;
   }
 
-  /**
-   * Title of the resource validation error
-   *
-   * @param title String
-   */
+  /** 
+  * Title of the resource validation error
+  * @param title  String
+  **/
+
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
-   * Detail of the resource validation error
-   *
-   * @param detail String
-   * @return ResourceValidationErrorsElement
-   */
+  * Detail of the resource validation error
+  * @param detail  String
+  * @return ResourceValidationErrorsElement
+  **/
   public ResourceValidationErrorsElement detail(String detail) {
     this.detail = detail;
     return this;
   }
 
-  /**
+   /**
    * Detail of the resource validation error
-   *
    * @return detail
-   */
+  **/
   @ApiModelProperty(value = "Detail of the resource validation error")
-  /**
+  /** 
    * Detail of the resource validation error
-   *
    * @return detail String
-   */
+  **/
   public String getDetail() {
     return detail;
   }
 
-  /**
-   * Detail of the resource validation error
-   *
-   * @param detail String
-   */
+  /** 
+  * Detail of the resource validation error
+  * @param detail  String
+  **/
+
   public void setDetail(String detail) {
     this.detail = detail;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -217,19 +220,19 @@ public class ResourceValidationErrorsElement {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ResourceValidationErrorsElement resourceValidationErrorsElement =
-        (ResourceValidationErrorsElement) o;
-    return Objects.equals(this.resourceName, resourceValidationErrorsElement.resourceName)
-        && Objects.equals(this.localisedMessage, resourceValidationErrorsElement.localisedMessage)
-        && Objects.equals(this.type, resourceValidationErrorsElement.type)
-        && Objects.equals(this.title, resourceValidationErrorsElement.title)
-        && Objects.equals(this.detail, resourceValidationErrorsElement.detail);
+    ResourceValidationErrorsElement resourceValidationErrorsElement = (ResourceValidationErrorsElement) o;
+    return Objects.equals(this.resourceName, resourceValidationErrorsElement.resourceName) &&
+        Objects.equals(this.localisedMessage, resourceValidationErrorsElement.localisedMessage) &&
+        Objects.equals(this.type, resourceValidationErrorsElement.type) &&
+        Objects.equals(this.title, resourceValidationErrorsElement.title) &&
+        Objects.equals(this.detail, resourceValidationErrorsElement.detail);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(resourceName, localisedMessage, type, title, detail);
   }
+
 
   @Override
   public String toString() {
@@ -245,7 +248,8 @@ public class ResourceValidationErrorsElement {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -253,4 +257,6 @@ public class ResourceValidationErrorsElement {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

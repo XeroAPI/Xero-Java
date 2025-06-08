@@ -9,18 +9,37 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.BankTransactionResponse;
+import com.xero.models.finance.PaymentResponse;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** StatementLineResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * StatementLineResponse
+ */
+
 public class StatementLineResponse {
   StringUtil util = new StringUtil();
 
@@ -66,431 +85,394 @@ public class StatementLineResponse {
   @JsonProperty("bankTransactions")
   private List<BankTransactionResponse> bankTransactions = new ArrayList<BankTransactionResponse>();
   /**
-   * Xero Identifier of statement line
-   *
-   * @param statementLineId UUID
-   * @return StatementLineResponse
-   */
+  * Xero Identifier of statement line
+  * @param statementLineId  UUID
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse statementLineId(UUID statementLineId) {
     this.statementLineId = statementLineId;
     return this;
   }
 
-  /**
+   /**
    * Xero Identifier of statement line
-   *
    * @return statementLineId
-   */
+  **/
   @ApiModelProperty(value = "Xero Identifier of statement line")
-  /**
+  /** 
    * Xero Identifier of statement line
-   *
    * @return statementLineId UUID
-   */
+  **/
   public UUID getStatementLineId() {
     return statementLineId;
   }
 
-  /**
-   * Xero Identifier of statement line
-   *
-   * @param statementLineId UUID
-   */
+  /** 
+  * Xero Identifier of statement line
+  * @param statementLineId  UUID
+  **/
+
   public void setStatementLineId(UUID statementLineId) {
     this.statementLineId = statementLineId;
   }
 
   /**
-   * Date of when statement line was posted
-   *
-   * @param postedDate LocalDate
-   * @return StatementLineResponse
-   */
+  * Date of when statement line was posted
+  * @param postedDate  LocalDate
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse postedDate(LocalDate postedDate) {
     this.postedDate = postedDate;
     return this;
   }
 
-  /**
+   /**
    * Date of when statement line was posted
-   *
    * @return postedDate
-   */
+  **/
   @ApiModelProperty(value = "Date of when statement line was posted")
-  /**
+  /** 
    * Date of when statement line was posted
-   *
    * @return postedDate LocalDate
-   */
+  **/
   public LocalDate getPostedDate() {
     return postedDate;
   }
 
-  /**
-   * Date of when statement line was posted
-   *
-   * @param postedDate LocalDate
-   */
+  /** 
+  * Date of when statement line was posted
+  * @param postedDate  LocalDate
+  **/
+
   public void setPostedDate(LocalDate postedDate) {
     this.postedDate = postedDate;
   }
 
   /**
-   * Payee description of statement line
-   *
-   * @param payee String
-   * @return StatementLineResponse
-   */
+  * Payee description of statement line
+  * @param payee  String
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse payee(String payee) {
     this.payee = payee;
     return this;
   }
 
-  /**
+   /**
    * Payee description of statement line
-   *
    * @return payee
-   */
+  **/
   @ApiModelProperty(value = "Payee description of statement line")
-  /**
+  /** 
    * Payee description of statement line
-   *
    * @return payee String
-   */
+  **/
   public String getPayee() {
     return payee;
   }
 
-  /**
-   * Payee description of statement line
-   *
-   * @param payee String
-   */
+  /** 
+  * Payee description of statement line
+  * @param payee  String
+  **/
+
   public void setPayee(String payee) {
     this.payee = payee;
   }
 
   /**
-   * Reference description of statement line
-   *
-   * @param reference String
-   * @return StatementLineResponse
-   */
+  * Reference description of statement line
+  * @param reference  String
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse reference(String reference) {
     this.reference = reference;
     return this;
   }
 
-  /**
+   /**
    * Reference description of statement line
-   *
    * @return reference
-   */
+  **/
   @ApiModelProperty(value = "Reference description of statement line")
-  /**
+  /** 
    * Reference description of statement line
-   *
    * @return reference String
-   */
+  **/
   public String getReference() {
     return reference;
   }
 
-  /**
-   * Reference description of statement line
-   *
-   * @param reference String
-   */
+  /** 
+  * Reference description of statement line
+  * @param reference  String
+  **/
+
   public void setReference(String reference) {
     this.reference = reference;
   }
 
   /**
-   * Notes description of statement line
-   *
-   * @param notes String
-   * @return StatementLineResponse
-   */
+  * Notes description of statement line
+  * @param notes  String
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse notes(String notes) {
     this.notes = notes;
     return this;
   }
 
-  /**
+   /**
    * Notes description of statement line
-   *
    * @return notes
-   */
+  **/
   @ApiModelProperty(value = "Notes description of statement line")
-  /**
+  /** 
    * Notes description of statement line
-   *
    * @return notes String
-   */
+  **/
   public String getNotes() {
     return notes;
   }
 
-  /**
-   * Notes description of statement line
-   *
-   * @param notes String
-   */
+  /** 
+  * Notes description of statement line
+  * @param notes  String
+  **/
+
   public void setNotes(String notes) {
     this.notes = notes;
   }
 
   /**
-   * Cheque number of statement line
-   *
-   * @param chequeNo String
-   * @return StatementLineResponse
-   */
+  * Cheque number of statement line
+  * @param chequeNo  String
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse chequeNo(String chequeNo) {
     this.chequeNo = chequeNo;
     return this;
   }
 
-  /**
+   /**
    * Cheque number of statement line
-   *
    * @return chequeNo
-   */
+  **/
   @ApiModelProperty(value = "Cheque number of statement line")
-  /**
+  /** 
    * Cheque number of statement line
-   *
    * @return chequeNo String
-   */
+  **/
   public String getChequeNo() {
     return chequeNo;
   }
 
-  /**
-   * Cheque number of statement line
-   *
-   * @param chequeNo String
-   */
+  /** 
+  * Cheque number of statement line
+  * @param chequeNo  String
+  **/
+
   public void setChequeNo(String chequeNo) {
     this.chequeNo = chequeNo;
   }
 
   /**
-   * Amount of statement line
-   *
-   * @param amount Double
-   * @return StatementLineResponse
-   */
+  * Amount of statement line
+  * @param amount  Double
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * Amount of statement line
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "Amount of statement line")
-  /**
+  /** 
    * Amount of statement line
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * Amount of statement line
-   *
-   * @param amount Double
-   */
+  /** 
+  * Amount of statement line
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * Transaction date of statement line
-   *
-   * @param transactionDate LocalDate
-   * @return StatementLineResponse
-   */
+  * Transaction date of statement line
+  * @param transactionDate  LocalDate
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse transactionDate(LocalDate transactionDate) {
     this.transactionDate = transactionDate;
     return this;
   }
 
-  /**
+   /**
    * Transaction date of statement line
-   *
    * @return transactionDate
-   */
+  **/
   @ApiModelProperty(value = "Transaction date of statement line")
-  /**
+  /** 
    * Transaction date of statement line
-   *
    * @return transactionDate LocalDate
-   */
+  **/
   public LocalDate getTransactionDate() {
     return transactionDate;
   }
 
-  /**
-   * Transaction date of statement line
-   *
-   * @param transactionDate LocalDate
-   */
+  /** 
+  * Transaction date of statement line
+  * @param transactionDate  LocalDate
+  **/
+
   public void setTransactionDate(LocalDate transactionDate) {
     this.transactionDate = transactionDate;
   }
 
   /**
-   * Type of statement line
-   *
-   * @param type String
-   * @return StatementLineResponse
-   */
+  * Type of statement line
+  * @param type  String
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse type(String type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * Type of statement line
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "Type of statement line")
-  /**
+  /** 
    * Type of statement line
-   *
    * @return type String
-   */
+  **/
   public String getType() {
     return type;
   }
 
-  /**
-   * Type of statement line
-   *
-   * @param type String
-   */
+  /** 
+  * Type of statement line
+  * @param type  String
+  **/
+
   public void setType(String type) {
     this.type = type;
   }
 
   /**
-   * Boolean to show if statement line is reconciled
-   *
-   * @param isReconciled Boolean
-   * @return StatementLineResponse
-   */
+  * Boolean to show if statement line is reconciled
+  * @param isReconciled  Boolean
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse isReconciled(Boolean isReconciled) {
     this.isReconciled = isReconciled;
     return this;
   }
 
-  /**
+   /**
    * Boolean to show if statement line is reconciled
-   *
    * @return isReconciled
-   */
+  **/
   @ApiModelProperty(value = "Boolean to show if statement line is reconciled")
-  /**
+  /** 
    * Boolean to show if statement line is reconciled
-   *
    * @return isReconciled Boolean
-   */
+  **/
   public Boolean getIsReconciled() {
     return isReconciled;
   }
 
-  /**
-   * Boolean to show if statement line is reconciled
-   *
-   * @param isReconciled Boolean
-   */
+  /** 
+  * Boolean to show if statement line is reconciled
+  * @param isReconciled  Boolean
+  **/
+
   public void setIsReconciled(Boolean isReconciled) {
     this.isReconciled = isReconciled;
   }
 
   /**
-   * Boolean to show if statement line is duplicate
-   *
-   * @param isDuplicate Boolean
-   * @return StatementLineResponse
-   */
+  * Boolean to show if statement line is duplicate
+  * @param isDuplicate  Boolean
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse isDuplicate(Boolean isDuplicate) {
     this.isDuplicate = isDuplicate;
     return this;
   }
 
-  /**
+   /**
    * Boolean to show if statement line is duplicate
-   *
    * @return isDuplicate
-   */
+  **/
   @ApiModelProperty(value = "Boolean to show if statement line is duplicate")
-  /**
+  /** 
    * Boolean to show if statement line is duplicate
-   *
    * @return isDuplicate Boolean
-   */
+  **/
   public Boolean getIsDuplicate() {
     return isDuplicate;
   }
 
-  /**
-   * Boolean to show if statement line is duplicate
-   *
-   * @param isDuplicate Boolean
-   */
+  /** 
+  * Boolean to show if statement line is duplicate
+  * @param isDuplicate  Boolean
+  **/
+
   public void setIsDuplicate(Boolean isDuplicate) {
     this.isDuplicate = isDuplicate;
   }
 
   /**
-   * Boolean to show if statement line is deleted
-   *
-   * @param isDeleted Boolean
-   * @return StatementLineResponse
-   */
+  * Boolean to show if statement line is deleted
+  * @param isDeleted  Boolean
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse isDeleted(Boolean isDeleted) {
     this.isDeleted = isDeleted;
     return this;
   }
 
-  /**
+   /**
    * Boolean to show if statement line is deleted
-   *
    * @return isDeleted
-   */
+  **/
   @ApiModelProperty(value = "Boolean to show if statement line is deleted")
-  /**
+  /** 
    * Boolean to show if statement line is deleted
-   *
    * @return isDeleted Boolean
-   */
+  **/
   public Boolean getIsDeleted() {
     return isDeleted;
   }
 
-  /**
-   * Boolean to show if statement line is deleted
-   *
-   * @param isDeleted Boolean
-   */
+  /** 
+  * Boolean to show if statement line is deleted
+  * @param isDeleted  Boolean
+  **/
+
   public void setIsDeleted(Boolean isDeleted) {
     this.isDeleted = isDeleted;
   }
 
   /**
-   * List of payments associated with reconciled statement lines
-   *
-   * @param payments List&lt;PaymentResponse&gt;
-   * @return StatementLineResponse
-   */
+  * List of payments associated with reconciled statement lines
+  * @param payments  List&lt;PaymentResponse&gt;
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse payments(List<PaymentResponse> payments) {
     this.payments = payments;
     return this;
@@ -498,10 +480,9 @@ public class StatementLineResponse {
 
   /**
    * List of payments associated with reconciled statement lines
-   *
-   * @param paymentsItem PaymentResponse
+   * @param paymentsItem PaymentResponse 
    * @return StatementLineResponse
-   */
+  **/
   public StatementLineResponse addPaymentsItem(PaymentResponse paymentsItem) {
     if (this.payments == null) {
       this.payments = new ArrayList<PaymentResponse>();
@@ -510,36 +491,33 @@ public class StatementLineResponse {
     return this;
   }
 
-  /**
+   /**
    * List of payments associated with reconciled statement lines
-   *
    * @return payments
-   */
+  **/
   @ApiModelProperty(value = "List of payments associated with reconciled statement lines")
-  /**
+  /** 
    * List of payments associated with reconciled statement lines
-   *
    * @return payments List<PaymentResponse>
-   */
+  **/
   public List<PaymentResponse> getPayments() {
     return payments;
   }
 
-  /**
-   * List of payments associated with reconciled statement lines
-   *
-   * @param payments List&lt;PaymentResponse&gt;
-   */
+  /** 
+  * List of payments associated with reconciled statement lines
+  * @param payments List&lt;PaymentResponse&gt; 
+  **/
+
   public void setPayments(List<PaymentResponse> payments) {
     this.payments = payments;
   }
 
   /**
-   * List of bank transactions associated with reconciled statement lines
-   *
-   * @param bankTransactions List&lt;BankTransactionResponse&gt;
-   * @return StatementLineResponse
-   */
+  * List of bank transactions associated with reconciled statement lines
+  * @param bankTransactions  List&lt;BankTransactionResponse&gt;
+  * @return StatementLineResponse
+  **/
   public StatementLineResponse bankTransactions(List<BankTransactionResponse> bankTransactions) {
     this.bankTransactions = bankTransactions;
     return this;
@@ -547,12 +525,10 @@ public class StatementLineResponse {
 
   /**
    * List of bank transactions associated with reconciled statement lines
-   *
-   * @param bankTransactionsItem BankTransactionResponse
+   * @param bankTransactionsItem BankTransactionResponse 
    * @return StatementLineResponse
-   */
-  public StatementLineResponse addBankTransactionsItem(
-      BankTransactionResponse bankTransactionsItem) {
+  **/
+  public StatementLineResponse addBankTransactionsItem(BankTransactionResponse bankTransactionsItem) {
     if (this.bankTransactions == null) {
       this.bankTransactions = new ArrayList<BankTransactionResponse>();
     }
@@ -560,29 +536,28 @@ public class StatementLineResponse {
     return this;
   }
 
-  /**
+   /**
    * List of bank transactions associated with reconciled statement lines
-   *
    * @return bankTransactions
-   */
+  **/
   @ApiModelProperty(value = "List of bank transactions associated with reconciled statement lines")
-  /**
+  /** 
    * List of bank transactions associated with reconciled statement lines
-   *
    * @return bankTransactions List<BankTransactionResponse>
-   */
+  **/
   public List<BankTransactionResponse> getBankTransactions() {
     return bankTransactions;
   }
 
-  /**
-   * List of bank transactions associated with reconciled statement lines
-   *
-   * @param bankTransactions List&lt;BankTransactionResponse&gt;
-   */
+  /** 
+  * List of bank transactions associated with reconciled statement lines
+  * @param bankTransactions List&lt;BankTransactionResponse&gt; 
+  **/
+
   public void setBankTransactions(List<BankTransactionResponse> bankTransactions) {
     this.bankTransactions = bankTransactions;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -593,40 +568,27 @@ public class StatementLineResponse {
       return false;
     }
     StatementLineResponse statementLineResponse = (StatementLineResponse) o;
-    return Objects.equals(this.statementLineId, statementLineResponse.statementLineId)
-        && Objects.equals(this.postedDate, statementLineResponse.postedDate)
-        && Objects.equals(this.payee, statementLineResponse.payee)
-        && Objects.equals(this.reference, statementLineResponse.reference)
-        && Objects.equals(this.notes, statementLineResponse.notes)
-        && Objects.equals(this.chequeNo, statementLineResponse.chequeNo)
-        && Objects.equals(this.amount, statementLineResponse.amount)
-        && Objects.equals(this.transactionDate, statementLineResponse.transactionDate)
-        && Objects.equals(this.type, statementLineResponse.type)
-        && Objects.equals(this.isReconciled, statementLineResponse.isReconciled)
-        && Objects.equals(this.isDuplicate, statementLineResponse.isDuplicate)
-        && Objects.equals(this.isDeleted, statementLineResponse.isDeleted)
-        && Objects.equals(this.payments, statementLineResponse.payments)
-        && Objects.equals(this.bankTransactions, statementLineResponse.bankTransactions);
+    return Objects.equals(this.statementLineId, statementLineResponse.statementLineId) &&
+        Objects.equals(this.postedDate, statementLineResponse.postedDate) &&
+        Objects.equals(this.payee, statementLineResponse.payee) &&
+        Objects.equals(this.reference, statementLineResponse.reference) &&
+        Objects.equals(this.notes, statementLineResponse.notes) &&
+        Objects.equals(this.chequeNo, statementLineResponse.chequeNo) &&
+        Objects.equals(this.amount, statementLineResponse.amount) &&
+        Objects.equals(this.transactionDate, statementLineResponse.transactionDate) &&
+        Objects.equals(this.type, statementLineResponse.type) &&
+        Objects.equals(this.isReconciled, statementLineResponse.isReconciled) &&
+        Objects.equals(this.isDuplicate, statementLineResponse.isDuplicate) &&
+        Objects.equals(this.isDeleted, statementLineResponse.isDeleted) &&
+        Objects.equals(this.payments, statementLineResponse.payments) &&
+        Objects.equals(this.bankTransactions, statementLineResponse.bankTransactions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        statementLineId,
-        postedDate,
-        payee,
-        reference,
-        notes,
-        chequeNo,
-        amount,
-        transactionDate,
-        type,
-        isReconciled,
-        isDuplicate,
-        isDeleted,
-        payments,
-        bankTransactions);
+    return Objects.hash(statementLineId, postedDate, payee, reference, notes, chequeNo, amount, transactionDate, type, isReconciled, isDuplicate, isDeleted, payments, bankTransactions);
   }
+
 
   @Override
   public String toString() {
@@ -651,7 +613,8 @@ public class StatementLineResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -659,4 +622,6 @@ public class StatementLineResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

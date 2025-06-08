@@ -9,17 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.bankfeeds;
 
+package com.xero.models.bankfeeds;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.bankfeeds.CreditDebitIndicator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** the lines details for a statement */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * the lines details for a statement
+ */
 @ApiModel(description = "the lines details for a statement")
+
 public class StatementLine {
   StringUtil util = new StringUtil();
 
@@ -50,339 +67,293 @@ public class StatementLine {
   @JsonProperty("transactionType")
   private String transactionType;
   /**
-   * The date that the transaction was processed or cleared as seen in internet banking ISO-8601
-   * YYYY-MM-DD
-   *
-   * @param postedDate LocalDate
-   * @return StatementLine
-   */
+  * The date that the transaction was processed or cleared as seen in internet banking ISO-8601 YYYY-MM-DD
+  * @param postedDate  LocalDate
+  * @return StatementLine
+  **/
   public StatementLine postedDate(LocalDate postedDate) {
     this.postedDate = postedDate;
     return this;
   }
 
-  /**
-   * The date that the transaction was processed or cleared as seen in internet banking ISO-8601
-   * YYYY-MM-DD
-   *
+   /**
+   * The date that the transaction was processed or cleared as seen in internet banking ISO-8601 YYYY-MM-DD
    * @return postedDate
-   */
-  @ApiModelProperty(
-      example = "Sun Jun 10 00:00:00 UTC 2018",
-      value =
-          "The date that the transaction was processed or cleared as seen in internet banking"
-              + " ISO-8601 YYYY-MM-DD")
-  /**
-   * The date that the transaction was processed or cleared as seen in internet banking ISO-8601
-   * YYYY-MM-DD
-   *
+  **/
+  @ApiModelProperty(example = "Sun Jun 10 00:00:00 UTC 2018", value = "The date that the transaction was processed or cleared as seen in internet banking ISO-8601 YYYY-MM-DD")
+  /** 
+   * The date that the transaction was processed or cleared as seen in internet banking ISO-8601 YYYY-MM-DD
    * @return postedDate LocalDate
-   */
+  **/
   public LocalDate getPostedDate() {
     return postedDate;
   }
 
-  /**
-   * The date that the transaction was processed or cleared as seen in internet banking ISO-8601
-   * YYYY-MM-DD
-   *
-   * @param postedDate LocalDate
-   */
+  /** 
+  * The date that the transaction was processed or cleared as seen in internet banking ISO-8601 YYYY-MM-DD
+  * @param postedDate  LocalDate
+  **/
+
   public void setPostedDate(LocalDate postedDate) {
     this.postedDate = postedDate;
   }
 
   /**
-   * Transaction description
-   *
-   * @param description String
-   * @return StatementLine
-   */
+  * Transaction description
+  * @param description  String
+  * @return StatementLine
+  **/
   public StatementLine description(String description) {
     this.description = description;
     return this;
   }
 
-  /**
+   /**
    * Transaction description
-   *
    * @return description
-   */
+  **/
   @ApiModelProperty(example = "Description for statement line 2", value = "Transaction description")
-  /**
+  /** 
    * Transaction description
-   *
    * @return description String
-   */
+  **/
   public String getDescription() {
     return description;
   }
 
-  /**
-   * Transaction description
-   *
-   * @param description String
-   */
+  /** 
+  * Transaction description
+  * @param description  String
+  **/
+
   public void setDescription(String description) {
     this.description = description;
   }
 
   /**
-   * Transaction amount
-   *
-   * @param amount Double
-   * @return StatementLine
-   */
+  * Transaction amount
+  * @param amount  Double
+  * @return StatementLine
+  **/
   public StatementLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * Transaction amount
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(example = "5.00", value = "Transaction amount")
-  /**
+  /** 
    * Transaction amount
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * Transaction amount
-   *
-   * @param amount Double
-   */
+  /** 
+  * Transaction amount
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * creditDebitIndicator
-   *
-   * @param creditDebitIndicator CreditDebitIndicator
-   * @return StatementLine
-   */
+  * creditDebitIndicator
+  * @param creditDebitIndicator  CreditDebitIndicator
+  * @return StatementLine
+  **/
   public StatementLine creditDebitIndicator(CreditDebitIndicator creditDebitIndicator) {
     this.creditDebitIndicator = creditDebitIndicator;
     return this;
   }
 
-  /**
+   /**
    * Get creditDebitIndicator
-   *
    * @return creditDebitIndicator
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * creditDebitIndicator
-   *
    * @return creditDebitIndicator CreditDebitIndicator
-   */
+  **/
   public CreditDebitIndicator getCreditDebitIndicator() {
     return creditDebitIndicator;
   }
 
-  /**
-   * creditDebitIndicator
-   *
-   * @param creditDebitIndicator CreditDebitIndicator
-   */
+  /** 
+  * creditDebitIndicator
+  * @param creditDebitIndicator  CreditDebitIndicator
+  **/
+
   public void setCreditDebitIndicator(CreditDebitIndicator creditDebitIndicator) {
     this.creditDebitIndicator = creditDebitIndicator;
   }
 
   /**
-   * Financial institute&#39;s internal transaction identifier. If provided this field is factored
-   * into duplicate detection.
-   *
-   * @param transactionId String
-   * @return StatementLine
-   */
+  * Financial institute&#39;s internal transaction identifier. If provided this field is factored into duplicate detection.
+  * @param transactionId  String
+  * @return StatementLine
+  **/
   public StatementLine transactionId(String transactionId) {
     this.transactionId = transactionId;
     return this;
   }
 
-  /**
-   * Financial institute&#39;s internal transaction identifier. If provided this field is factored
-   * into duplicate detection.
-   *
+   /**
+   * Financial institute&#39;s internal transaction identifier. If provided this field is factored into duplicate detection.
    * @return transactionId
-   */
-  @ApiModelProperty(
-      example = "transaction-id-2",
-      value =
-          "Financial institute's internal transaction identifier. If provided this field is"
-              + " factored into duplicate detection.")
-  /**
-   * Financial institute&#39;s internal transaction identifier. If provided this field is factored
-   * into duplicate detection.
-   *
+  **/
+  @ApiModelProperty(example = "transaction-id-2", value = "Financial institute's internal transaction identifier. If provided this field is factored into duplicate detection.")
+  /** 
+   * Financial institute&#39;s internal transaction identifier. If provided this field is factored into duplicate detection.
    * @return transactionId String
-   */
+  **/
   public String getTransactionId() {
     return transactionId;
   }
 
-  /**
-   * Financial institute&#39;s internal transaction identifier. If provided this field is factored
-   * into duplicate detection.
-   *
-   * @param transactionId String
-   */
+  /** 
+  * Financial institute&#39;s internal transaction identifier. If provided this field is factored into duplicate detection.
+  * @param transactionId  String
+  **/
+
   public void setTransactionId(String transactionId) {
     this.transactionId = transactionId;
   }
 
   /**
-   * Typically the merchant or payee name
-   *
-   * @param payeeName String
-   * @return StatementLine
-   */
+  * Typically the merchant or payee name
+  * @param payeeName  String
+  * @return StatementLine
+  **/
   public StatementLine payeeName(String payeeName) {
     this.payeeName = payeeName;
     return this;
   }
 
-  /**
+   /**
    * Typically the merchant or payee name
-   *
    * @return payeeName
-   */
-  @ApiModelProperty(
-      example = "Payee name for statement line 2",
-      value = "Typically the merchant or payee name")
-  /**
+  **/
+  @ApiModelProperty(example = "Payee name for statement line 2", value = "Typically the merchant or payee name")
+  /** 
    * Typically the merchant or payee name
-   *
    * @return payeeName String
-   */
+  **/
   public String getPayeeName() {
     return payeeName;
   }
 
-  /**
-   * Typically the merchant or payee name
-   *
-   * @param payeeName String
-   */
+  /** 
+  * Typically the merchant or payee name
+  * @param payeeName  String
+  **/
+
   public void setPayeeName(String payeeName) {
     this.payeeName = payeeName;
   }
 
   /**
-   * Optional field to enhance the Description
-   *
-   * @param reference String
-   * @return StatementLine
-   */
+  * Optional field to enhance the Description
+  * @param reference  String
+  * @return StatementLine
+  **/
   public StatementLine reference(String reference) {
     this.reference = reference;
     return this;
   }
 
-  /**
+   /**
    * Optional field to enhance the Description
-   *
    * @return reference
-   */
-  @ApiModelProperty(
-      example = "Reference for statement line 2",
-      value = "Optional field to enhance the Description")
-  /**
+  **/
+  @ApiModelProperty(example = "Reference for statement line 2", value = "Optional field to enhance the Description")
+  /** 
    * Optional field to enhance the Description
-   *
    * @return reference String
-   */
+  **/
   public String getReference() {
     return reference;
   }
 
-  /**
-   * Optional field to enhance the Description
-   *
-   * @param reference String
-   */
+  /** 
+  * Optional field to enhance the Description
+  * @param reference  String
+  **/
+
   public void setReference(String reference) {
     this.reference = reference;
   }
 
   /**
-   * The cheque/check number
-   *
-   * @param chequeNumber String
-   * @return StatementLine
-   */
+  * The cheque/check number
+  * @param chequeNumber  String
+  * @return StatementLine
+  **/
   public StatementLine chequeNumber(String chequeNumber) {
     this.chequeNumber = chequeNumber;
     return this;
   }
 
-  /**
+   /**
    * The cheque/check number
-   *
    * @return chequeNumber
-   */
+  **/
   @ApiModelProperty(example = "021", value = "The cheque/check number")
-  /**
+  /** 
    * The cheque/check number
-   *
    * @return chequeNumber String
-   */
+  **/
   public String getChequeNumber() {
     return chequeNumber;
   }
 
-  /**
-   * The cheque/check number
-   *
-   * @param chequeNumber String
-   */
+  /** 
+  * The cheque/check number
+  * @param chequeNumber  String
+  **/
+
   public void setChequeNumber(String chequeNumber) {
     this.chequeNumber = chequeNumber;
   }
 
   /**
-   * Descriptive transaction type
-   *
-   * @param transactionType String
-   * @return StatementLine
-   */
+  * Descriptive transaction type
+  * @param transactionType  String
+  * @return StatementLine
+  **/
   public StatementLine transactionType(String transactionType) {
     this.transactionType = transactionType;
     return this;
   }
 
-  /**
+   /**
    * Descriptive transaction type
-   *
    * @return transactionType
-   */
+  **/
   @ApiModelProperty(example = "Refund", value = "Descriptive transaction type")
-  /**
+  /** 
    * Descriptive transaction type
-   *
    * @return transactionType String
-   */
+  **/
   public String getTransactionType() {
     return transactionType;
   }
 
-  /**
-   * Descriptive transaction type
-   *
-   * @param transactionType String
-   */
+  /** 
+  * Descriptive transaction type
+  * @param transactionType  String
+  **/
+
   public void setTransactionType(String transactionType) {
     this.transactionType = transactionType;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -393,30 +364,22 @@ public class StatementLine {
       return false;
     }
     StatementLine statementLine = (StatementLine) o;
-    return Objects.equals(this.postedDate, statementLine.postedDate)
-        && Objects.equals(this.description, statementLine.description)
-        && Objects.equals(this.amount, statementLine.amount)
-        && Objects.equals(this.creditDebitIndicator, statementLine.creditDebitIndicator)
-        && Objects.equals(this.transactionId, statementLine.transactionId)
-        && Objects.equals(this.payeeName, statementLine.payeeName)
-        && Objects.equals(this.reference, statementLine.reference)
-        && Objects.equals(this.chequeNumber, statementLine.chequeNumber)
-        && Objects.equals(this.transactionType, statementLine.transactionType);
+    return Objects.equals(this.postedDate, statementLine.postedDate) &&
+        Objects.equals(this.description, statementLine.description) &&
+        Objects.equals(this.amount, statementLine.amount) &&
+        Objects.equals(this.creditDebitIndicator, statementLine.creditDebitIndicator) &&
+        Objects.equals(this.transactionId, statementLine.transactionId) &&
+        Objects.equals(this.payeeName, statementLine.payeeName) &&
+        Objects.equals(this.reference, statementLine.reference) &&
+        Objects.equals(this.chequeNumber, statementLine.chequeNumber) &&
+        Objects.equals(this.transactionType, statementLine.transactionType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        postedDate,
-        description,
-        amount,
-        creditDebitIndicator,
-        transactionId,
-        payeeName,
-        reference,
-        chequeNumber,
-        transactionType);
+    return Objects.hash(postedDate, description, amount, creditDebitIndicator, transactionId, payeeName, reference, chequeNumber, transactionType);
   }
+
 
   @Override
   public String toString() {
@@ -425,9 +388,7 @@ public class StatementLine {
     sb.append("    postedDate: ").append(toIndentedString(postedDate)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    creditDebitIndicator: ")
-        .append(toIndentedString(creditDebitIndicator))
-        .append("\n");
+    sb.append("    creditDebitIndicator: ").append(toIndentedString(creditDebitIndicator)).append("\n");
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    payeeName: ").append(toIndentedString(payeeName)).append("\n");
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
@@ -438,7 +399,8 @@ public class StatementLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -446,4 +408,6 @@ public class StatementLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

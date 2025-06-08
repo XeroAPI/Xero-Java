@@ -9,16 +9,33 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** LeaveType */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LeaveType
+ */
+
 public class LeaveType {
   StringUtil util = new StringUtil();
 
@@ -46,288 +63,261 @@ public class LeaveType {
   @JsonProperty("typeOfUnitsToAccrue")
   private String typeOfUnitsToAccrue;
   /**
-   * Xero unique identifier for the leave type
-   *
-   * @param leaveTypeID UUID
-   * @return LeaveType
-   */
+  * Xero unique identifier for the leave type
+  * @param leaveTypeID  UUID
+  * @return LeaveType
+  **/
   public LeaveType leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for the leave type
-   *
    * @return leaveTypeID
-   */
+  **/
   @ApiModelProperty(value = "Xero unique identifier for the leave type")
-  /**
+  /** 
    * Xero unique identifier for the leave type
-   *
    * @return leaveTypeID UUID
-   */
+  **/
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
-  /**
-   * Xero unique identifier for the leave type
-   *
-   * @param leaveTypeID UUID
-   */
+  /** 
+  * Xero unique identifier for the leave type
+  * @param leaveTypeID  UUID
+  **/
+
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
   /**
-   * Name of the leave type
-   *
-   * @param name String
-   * @return LeaveType
-   */
+  * Name of the leave type
+  * @param name  String
+  * @return LeaveType
+  **/
   public LeaveType name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the leave type
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(required = true, value = "Name of the leave type")
-  /**
+  /** 
    * Name of the leave type
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of the leave type
-   *
-   * @param name String
-   */
+  /** 
+  * Name of the leave type
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Indicate that an employee will be paid when taking this type of leave
-   *
-   * @param isPaidLeave Boolean
-   * @return LeaveType
-   */
+  * Indicate that an employee will be paid when taking this type of leave
+  * @param isPaidLeave  Boolean
+  * @return LeaveType
+  **/
   public LeaveType isPaidLeave(Boolean isPaidLeave) {
     this.isPaidLeave = isPaidLeave;
     return this;
   }
 
-  /**
+   /**
    * Indicate that an employee will be paid when taking this type of leave
-   *
    * @return isPaidLeave
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "Indicate that an employee will be paid when taking this type of leave")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "Indicate that an employee will be paid when taking this type of leave")
+  /** 
    * Indicate that an employee will be paid when taking this type of leave
-   *
    * @return isPaidLeave Boolean
-   */
+  **/
   public Boolean getIsPaidLeave() {
     return isPaidLeave;
   }
 
-  /**
-   * Indicate that an employee will be paid when taking this type of leave
-   *
-   * @param isPaidLeave Boolean
-   */
+  /** 
+  * Indicate that an employee will be paid when taking this type of leave
+  * @param isPaidLeave  Boolean
+  **/
+
   public void setIsPaidLeave(Boolean isPaidLeave) {
     this.isPaidLeave = isPaidLeave;
   }
 
   /**
-   * Indicate that a balance for this leave type to be shown on the employee’s payslips
-   *
-   * @param showOnPayslip Boolean
-   * @return LeaveType
-   */
+  * Indicate that a balance for this leave type to be shown on the employee’s payslips
+  * @param showOnPayslip  Boolean
+  * @return LeaveType
+  **/
   public LeaveType showOnPayslip(Boolean showOnPayslip) {
     this.showOnPayslip = showOnPayslip;
     return this;
   }
 
-  /**
+   /**
    * Indicate that a balance for this leave type to be shown on the employee’s payslips
-   *
    * @return showOnPayslip
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "Indicate that a balance for this leave type to be shown on the employee’s payslips")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "Indicate that a balance for this leave type to be shown on the employee’s payslips")
+  /** 
    * Indicate that a balance for this leave type to be shown on the employee’s payslips
-   *
    * @return showOnPayslip Boolean
-   */
+  **/
   public Boolean getShowOnPayslip() {
     return showOnPayslip;
   }
 
-  /**
-   * Indicate that a balance for this leave type to be shown on the employee’s payslips
-   *
-   * @param showOnPayslip Boolean
-   */
+  /** 
+  * Indicate that a balance for this leave type to be shown on the employee’s payslips
+  * @param showOnPayslip  Boolean
+  **/
+
   public void setShowOnPayslip(Boolean showOnPayslip) {
     this.showOnPayslip = showOnPayslip;
   }
 
   /**
-   * UTC timestamp of last update to the leave type note
-   *
-   * @param updatedDateUTC LocalDateTime
-   * @return LeaveType
-   */
+  * UTC timestamp of last update to the leave type note
+  * @param updatedDateUTC LocalDateTime
+  * @return LeaveType
+  **/
   public LeaveType updatedDateUTC(LocalDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
 
-  /**
+   /**
    * UTC timestamp of last update to the leave type note
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(value = "UTC timestamp of last update to the leave type note")
-  /**
+  /** 
    * UTC timestamp of last update to the leave type note
-   *
    * @return updatedDateUTC LocalDateTime
-   */
+  **/
   public LocalDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  /**
-   * UTC timestamp of last update to the leave type note
-   *
-   * @param updatedDateUTC LocalDateTime
-   */
+  /** 
+  * UTC timestamp of last update to the leave type note
+  * @param updatedDateUTC LocalDateTime
+  **/
+
   public void setUpdatedDateUTC(LocalDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 
   /**
-   * Shows whether the leave type is active or not
-   *
-   * @param isActive Boolean
-   * @return LeaveType
-   */
+  * Shows whether the leave type is active or not
+  * @param isActive  Boolean
+  * @return LeaveType
+  **/
   public LeaveType isActive(Boolean isActive) {
     this.isActive = isActive;
     return this;
   }
 
-  /**
+   /**
    * Shows whether the leave type is active or not
-   *
    * @return isActive
-   */
+  **/
   @ApiModelProperty(value = "Shows whether the leave type is active or not")
-  /**
+  /** 
    * Shows whether the leave type is active or not
-   *
    * @return isActive Boolean
-   */
+  **/
   public Boolean getIsActive() {
     return isActive;
   }
 
-  /**
-   * Shows whether the leave type is active or not
-   *
-   * @param isActive Boolean
-   */
+  /** 
+  * Shows whether the leave type is active or not
+  * @param isActive  Boolean
+  **/
+
   public void setIsActive(Boolean isActive) {
     this.isActive = isActive;
   }
 
   /**
-   * The type of units to be paid for the leave type
-   *
-   * @param typeOfUnits String
-   * @return LeaveType
-   */
+  * The type of units to be paid for the leave type
+  * @param typeOfUnits  String
+  * @return LeaveType
+  **/
   public LeaveType typeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
     return this;
   }
 
-  /**
+   /**
    * The type of units to be paid for the leave type
-   *
    * @return typeOfUnits
-   */
+  **/
   @ApiModelProperty(value = "The type of units to be paid for the leave type")
-  /**
+  /** 
    * The type of units to be paid for the leave type
-   *
    * @return typeOfUnits String
-   */
+  **/
   public String getTypeOfUnits() {
     return typeOfUnits;
   }
 
-  /**
-   * The type of units to be paid for the leave type
-   *
-   * @param typeOfUnits String
-   */
+  /** 
+  * The type of units to be paid for the leave type
+  * @param typeOfUnits  String
+  **/
+
   public void setTypeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
   }
 
   /**
-   * The type of units to be accrued for the leave type
-   *
-   * @param typeOfUnitsToAccrue String
-   * @return LeaveType
-   */
+  * The type of units to be accrued for the leave type
+  * @param typeOfUnitsToAccrue  String
+  * @return LeaveType
+  **/
   public LeaveType typeOfUnitsToAccrue(String typeOfUnitsToAccrue) {
     this.typeOfUnitsToAccrue = typeOfUnitsToAccrue;
     return this;
   }
 
-  /**
+   /**
    * The type of units to be accrued for the leave type
-   *
    * @return typeOfUnitsToAccrue
-   */
+  **/
   @ApiModelProperty(value = "The type of units to be accrued for the leave type")
-  /**
+  /** 
    * The type of units to be accrued for the leave type
-   *
    * @return typeOfUnitsToAccrue String
-   */
+  **/
   public String getTypeOfUnitsToAccrue() {
     return typeOfUnitsToAccrue;
   }
 
-  /**
-   * The type of units to be accrued for the leave type
-   *
-   * @param typeOfUnitsToAccrue String
-   */
+  /** 
+  * The type of units to be accrued for the leave type
+  * @param typeOfUnitsToAccrue  String
+  **/
+
   public void setTypeOfUnitsToAccrue(String typeOfUnitsToAccrue) {
     this.typeOfUnitsToAccrue = typeOfUnitsToAccrue;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -338,28 +328,21 @@ public class LeaveType {
       return false;
     }
     LeaveType leaveType = (LeaveType) o;
-    return Objects.equals(this.leaveTypeID, leaveType.leaveTypeID)
-        && Objects.equals(this.name, leaveType.name)
-        && Objects.equals(this.isPaidLeave, leaveType.isPaidLeave)
-        && Objects.equals(this.showOnPayslip, leaveType.showOnPayslip)
-        && Objects.equals(this.updatedDateUTC, leaveType.updatedDateUTC)
-        && Objects.equals(this.isActive, leaveType.isActive)
-        && Objects.equals(this.typeOfUnits, leaveType.typeOfUnits)
-        && Objects.equals(this.typeOfUnitsToAccrue, leaveType.typeOfUnitsToAccrue);
+    return Objects.equals(this.leaveTypeID, leaveType.leaveTypeID) &&
+        Objects.equals(this.name, leaveType.name) &&
+        Objects.equals(this.isPaidLeave, leaveType.isPaidLeave) &&
+        Objects.equals(this.showOnPayslip, leaveType.showOnPayslip) &&
+        Objects.equals(this.updatedDateUTC, leaveType.updatedDateUTC) &&
+        Objects.equals(this.isActive, leaveType.isActive) &&
+        Objects.equals(this.typeOfUnits, leaveType.typeOfUnits) &&
+        Objects.equals(this.typeOfUnitsToAccrue, leaveType.typeOfUnitsToAccrue);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        leaveTypeID,
-        name,
-        isPaidLeave,
-        showOnPayslip,
-        updatedDateUTC,
-        isActive,
-        typeOfUnits,
-        typeOfUnitsToAccrue);
+    return Objects.hash(leaveTypeID, name, isPaidLeave, showOnPayslip, updatedDateUTC, isActive, typeOfUnits, typeOfUnitsToAccrue);
   }
+
 
   @Override
   public String toString() {
@@ -372,15 +355,14 @@ public class LeaveType {
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
     sb.append("    typeOfUnits: ").append(toIndentedString(typeOfUnits)).append("\n");
-    sb.append("    typeOfUnitsToAccrue: ")
-        .append(toIndentedString(typeOfUnitsToAccrue))
-        .append("\n");
+    sb.append("    typeOfUnitsToAccrue: ").append(toIndentedString(typeOfUnitsToAccrue)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -388,4 +370,6 @@ public class LeaveType {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

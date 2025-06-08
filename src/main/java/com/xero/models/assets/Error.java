@@ -9,26 +9,43 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.assets;
 
+package com.xero.models.assets;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.assets.FieldValidationErrorsElement;
+import com.xero.models.assets.ResourceValidationErrorsElement;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Error */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Error
+ */
+
 public class Error {
   StringUtil util = new StringUtil();
 
   @JsonProperty("resourceValidationErrors")
-  private List<ResourceValidationErrorsElement> resourceValidationErrors =
-      new ArrayList<ResourceValidationErrorsElement>();
+  private List<ResourceValidationErrorsElement> resourceValidationErrors = new ArrayList<ResourceValidationErrorsElement>();
 
   @JsonProperty("fieldValidationErrors")
-  private List<FieldValidationErrorsElement> fieldValidationErrors =
-      new ArrayList<FieldValidationErrorsElement>();
+  private List<FieldValidationErrorsElement> fieldValidationErrors = new ArrayList<FieldValidationErrorsElement>();
 
   @JsonProperty("type")
   private String type;
@@ -39,25 +56,21 @@ public class Error {
   @JsonProperty("detail")
   private String detail;
   /**
-   * Array of elements of resource validation errors
-   *
-   * @param resourceValidationErrors List&lt;ResourceValidationErrorsElement&gt;
-   * @return Error
-   */
-  public Error resourceValidationErrors(
-      List<ResourceValidationErrorsElement> resourceValidationErrors) {
+  * Array of elements of resource validation errors
+  * @param resourceValidationErrors  List&lt;ResourceValidationErrorsElement&gt;
+  * @return Error
+  **/
+  public Error resourceValidationErrors(List<ResourceValidationErrorsElement> resourceValidationErrors) {
     this.resourceValidationErrors = resourceValidationErrors;
     return this;
   }
 
   /**
    * Array of elements of resource validation errors
-   *
-   * @param resourceValidationErrorsItem ResourceValidationErrorsElement
+   * @param resourceValidationErrorsItem ResourceValidationErrorsElement 
    * @return Error
-   */
-  public Error addResourceValidationErrorsItem(
-      ResourceValidationErrorsElement resourceValidationErrorsItem) {
+  **/
+  public Error addResourceValidationErrorsItem(ResourceValidationErrorsElement resourceValidationErrorsItem) {
     if (this.resourceValidationErrors == null) {
       this.resourceValidationErrors = new ArrayList<ResourceValidationErrorsElement>();
     }
@@ -65,37 +78,33 @@ public class Error {
     return this;
   }
 
-  /**
+   /**
    * Array of elements of resource validation errors
-   *
    * @return resourceValidationErrors
-   */
+  **/
   @ApiModelProperty(value = "Array of elements of resource validation errors")
-  /**
+  /** 
    * Array of elements of resource validation errors
-   *
    * @return resourceValidationErrors List<ResourceValidationErrorsElement>
-   */
+  **/
   public List<ResourceValidationErrorsElement> getResourceValidationErrors() {
     return resourceValidationErrors;
   }
 
-  /**
-   * Array of elements of resource validation errors
-   *
-   * @param resourceValidationErrors List&lt;ResourceValidationErrorsElement&gt;
-   */
-  public void setResourceValidationErrors(
-      List<ResourceValidationErrorsElement> resourceValidationErrors) {
+  /** 
+  * Array of elements of resource validation errors
+  * @param resourceValidationErrors List&lt;ResourceValidationErrorsElement&gt; 
+  **/
+
+  public void setResourceValidationErrors(List<ResourceValidationErrorsElement> resourceValidationErrors) {
     this.resourceValidationErrors = resourceValidationErrors;
   }
 
   /**
-   * Array of elements of field validation errors
-   *
-   * @param fieldValidationErrors List&lt;FieldValidationErrorsElement&gt;
-   * @return Error
-   */
+  * Array of elements of field validation errors
+  * @param fieldValidationErrors  List&lt;FieldValidationErrorsElement&gt;
+  * @return Error
+  **/
   public Error fieldValidationErrors(List<FieldValidationErrorsElement> fieldValidationErrors) {
     this.fieldValidationErrors = fieldValidationErrors;
     return this;
@@ -103,12 +112,10 @@ public class Error {
 
   /**
    * Array of elements of field validation errors
-   *
-   * @param fieldValidationErrorsItem FieldValidationErrorsElement
+   * @param fieldValidationErrorsItem FieldValidationErrorsElement 
    * @return Error
-   */
-  public Error addFieldValidationErrorsItem(
-      FieldValidationErrorsElement fieldValidationErrorsItem) {
+  **/
+  public Error addFieldValidationErrorsItem(FieldValidationErrorsElement fieldValidationErrorsItem) {
     if (this.fieldValidationErrors == null) {
       this.fieldValidationErrors = new ArrayList<FieldValidationErrorsElement>();
     }
@@ -116,134 +123,124 @@ public class Error {
     return this;
   }
 
-  /**
+   /**
    * Array of elements of field validation errors
-   *
    * @return fieldValidationErrors
-   */
+  **/
   @ApiModelProperty(value = "Array of elements of field validation errors")
-  /**
+  /** 
    * Array of elements of field validation errors
-   *
    * @return fieldValidationErrors List<FieldValidationErrorsElement>
-   */
+  **/
   public List<FieldValidationErrorsElement> getFieldValidationErrors() {
     return fieldValidationErrors;
   }
 
-  /**
-   * Array of elements of field validation errors
-   *
-   * @param fieldValidationErrors List&lt;FieldValidationErrorsElement&gt;
-   */
+  /** 
+  * Array of elements of field validation errors
+  * @param fieldValidationErrors List&lt;FieldValidationErrorsElement&gt; 
+  **/
+
   public void setFieldValidationErrors(List<FieldValidationErrorsElement> fieldValidationErrors) {
     this.fieldValidationErrors = fieldValidationErrors;
   }
 
   /**
-   * The internal type of error, not accessible externally
-   *
-   * @param type String
-   * @return Error
-   */
+  * The internal type of error, not accessible externally
+  * @param type  String
+  * @return Error
+  **/
   public Error type(String type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * The internal type of error, not accessible externally
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "The internal type of error, not accessible externally")
-  /**
+  /** 
    * The internal type of error, not accessible externally
-   *
    * @return type String
-   */
+  **/
   public String getType() {
     return type;
   }
 
-  /**
-   * The internal type of error, not accessible externally
-   *
-   * @param type String
-   */
+  /** 
+  * The internal type of error, not accessible externally
+  * @param type  String
+  **/
+
   public void setType(String type) {
     this.type = type;
   }
 
   /**
-   * Title of the error
-   *
-   * @param title String
-   * @return Error
-   */
+  * Title of the error
+  * @param title  String
+  * @return Error
+  **/
   public Error title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
+   /**
    * Title of the error
-   *
    * @return title
-   */
+  **/
   @ApiModelProperty(value = "Title of the error")
-  /**
+  /** 
    * Title of the error
-   *
    * @return title String
-   */
+  **/
   public String getTitle() {
     return title;
   }
 
-  /**
-   * Title of the error
-   *
-   * @param title String
-   */
+  /** 
+  * Title of the error
+  * @param title  String
+  **/
+
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
-   * Detail of the error
-   *
-   * @param detail String
-   * @return Error
-   */
+  * Detail of the error
+  * @param detail  String
+  * @return Error
+  **/
   public Error detail(String detail) {
     this.detail = detail;
     return this;
   }
 
-  /**
+   /**
    * Detail of the error
-   *
    * @return detail
-   */
+  **/
   @ApiModelProperty(value = "Detail of the error")
-  /**
+  /** 
    * Detail of the error
-   *
    * @return detail String
-   */
+  **/
   public String getDetail() {
     return detail;
   }
 
-  /**
-   * Detail of the error
-   *
-   * @param detail String
-   */
+  /** 
+  * Detail of the error
+  * @param detail  String
+  **/
+
   public void setDetail(String detail) {
     this.detail = detail;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -254,11 +251,11 @@ public class Error {
       return false;
     }
     Error error = (Error) o;
-    return Objects.equals(this.resourceValidationErrors, error.resourceValidationErrors)
-        && Objects.equals(this.fieldValidationErrors, error.fieldValidationErrors)
-        && Objects.equals(this.type, error.type)
-        && Objects.equals(this.title, error.title)
-        && Objects.equals(this.detail, error.detail);
+    return Objects.equals(this.resourceValidationErrors, error.resourceValidationErrors) &&
+        Objects.equals(this.fieldValidationErrors, error.fieldValidationErrors) &&
+        Objects.equals(this.type, error.type) &&
+        Objects.equals(this.title, error.title) &&
+        Objects.equals(this.detail, error.detail);
   }
 
   @Override
@@ -266,16 +263,13 @@ public class Error {
     return Objects.hash(resourceValidationErrors, fieldValidationErrors, type, title, detail);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Error {\n");
-    sb.append("    resourceValidationErrors: ")
-        .append(toIndentedString(resourceValidationErrors))
-        .append("\n");
-    sb.append("    fieldValidationErrors: ")
-        .append(toIndentedString(fieldValidationErrors))
-        .append("\n");
+    sb.append("    resourceValidationErrors: ").append(toIndentedString(resourceValidationErrors)).append("\n");
+    sb.append("    fieldValidationErrors: ").append(toIndentedString(fieldValidationErrors)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    detail: ").append(toIndentedString(detail)).append("\n");
@@ -284,7 +278,8 @@ public class Error {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -292,4 +287,6 @@ public class Error {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+
