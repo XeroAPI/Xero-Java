@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.is;
 import java.util.UUID;
 
 import com.xero.api.ApiClient;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.bankfeeds.FeedConnection;
 import com.xero.models.bankfeeds.FeedConnections;
 
@@ -28,11 +29,9 @@ public class BankfeedApiFeedConnectionTest {
 		// Set Access Token and Tenant Id
         accessToken = "123";
         xeroTenantId = "xyz";
-        
-        // Init AccountingApi client
-		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/bankfeeds/1.0.0",null,null,null,null);
-		defaultClient = new ApiClient("https://3e140044-4914-47dd-b4e1-df0cc040a44f.mock.pstmn.io/bankfeeds.xro/1.0",null,null,null,null);
-        bankfeedsApi = BankFeedsApi.getInstance(defaultClient);	
+
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("bankfeeds.api.url"),null,null,null,null);
+        bankfeedsApi = BankFeedsApi.getInstance(defaultClient); 
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {

@@ -15,8 +15,6 @@ package com.xero.api.client;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.FileContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpHeaders;
@@ -255,6 +253,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts");
     String url = uriBuilder.build().toString();
@@ -266,143 +265,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(account);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for createAccountAttachmentByFileName to allow byte[] or File type to be passed
-  // as body
-  /**
-   * Creates an attachment on a specific account
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param accountID Unique identifier for Account object
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createAccountAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID accountID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createAccountAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, accountID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createAccountAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates an attachment on a specific account
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param accountID Unique identifier for Account object
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createAccountAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID accountID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createAccountAttachmentByFileName");
-    } // verify the required parameter 'accountID' is set
-    if (accountID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accountID' when calling"
-              + " createAccountAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " createAccountAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling createAccountAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createAccountAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("AccountID", accountID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/Accounts/{AccountID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -527,6 +389,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -541,155 +404,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
+    content = apiClient.new JacksonJsonHttpContent(body);
 
-  // Overload params for createBankTransactionAttachmentByFileName to allow byte[] or File type to
-  // be passed as body
-  /**
-   * Creates an attachment for a specific bank transaction by filename
-   *
-   * <p><b>200</b> - Success - return response of Attachments array of Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param bankTransactionID Xero generated unique identifier for a bank transaction
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createBankTransactionAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID bankTransactionID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createBankTransactionAttachmentByFileNameForHttpResponse(
-              accessToken,
-              xeroTenantId,
-              bankTransactionID,
-              fileName,
-              body,
-              idempotencyKey,
-              mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createBankTransactionAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates an attachment for a specific bank transaction by filename
-   *
-   * <p><b>200</b> - Success - return response of Attachments array of Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param bankTransactionID Xero generated unique identifier for a bank transaction
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createBankTransactionAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID bankTransactionID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createBankTransactionAttachmentByFileName");
-    } // verify the required parameter 'bankTransactionID' is set
-    if (bankTransactionID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'bankTransactionID' when calling"
-              + " createBankTransactionAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " createBankTransactionAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " createBankTransactionAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createBankTransactionAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("BankTransactionID", bankTransactionID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath()
-                + "/BankTransactions/{BankTransactionID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -815,6 +533,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -830,10 +549,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -952,6 +671,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1089,6 +809,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions");
     if (summarizeErrors != null) {
@@ -1238,6 +959,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers");
     String url = uriBuilder.build().toString();
@@ -1249,142 +971,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(bankTransfers);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for createBankTransferAttachmentByFileName to allow byte[] or File type to be
-  // passed as body
-  /**
-   * <b>200</b> - Success - return response of Attachments array of 0 to N Attachment for a Bank
-   * Transfer
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param bankTransferID Xero generated unique identifier for a bank transfer
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createBankTransferAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID bankTransferID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createBankTransferAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, bankTransferID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createBankTransferAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * <b>200</b> - Success - return response of Attachments array of 0 to N Attachment for a Bank
-   * Transfer
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param bankTransferID Xero generated unique identifier for a bank transfer
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createBankTransferAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID bankTransferID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createBankTransferAttachmentByFileName");
-    } // verify the required parameter 'bankTransferID' is set
-    if (bankTransferID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'bankTransferID' when calling"
-              + " createBankTransferAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " createBankTransferAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " createBankTransferAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createBankTransferAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("BankTransferID", bankTransferID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/BankTransfers/{BankTransferID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -1508,6 +1094,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1522,10 +1109,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -1644,6 +1231,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1770,6 +1358,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BatchPayments");
     if (summarizeErrors != null) {
@@ -1919,6 +1508,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2053,6 +1643,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2076,141 +1667,6 @@ public class AccountingApi {
     HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
     return requestFactory
         .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for createContactAttachmentByFileName to allow byte[] or File type to be passed
-  // as body
-  /**
-   * <b>200</b> - Success - return response of type Attachments array with an newly created
-   * Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param contactID Unique identifier for a Contact
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createContactAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID contactID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createContactAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, contactID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createContactAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * <b>200</b> - Success - return response of type Attachments array with an newly created
-   * Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param contactID Unique identifier for a Contact
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createContactAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID contactID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createContactAttachmentByFileName");
-    } // verify the required parameter 'contactID' is set
-    if (contactID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'contactID' when calling"
-              + " createContactAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " createContactAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling createContactAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createContactAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("ContactID", contactID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/Contacts/{ContactID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
         .setHeaders(headers)
         .setConnectTimeout(apiClient.getConnectionTimeout())
         .setReadTimeout(apiClient.getReadTimeout())
@@ -2327,6 +1783,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2341,10 +1798,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -2445,6 +1902,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ContactGroups");
     String url = uriBuilder.build().toString();
@@ -2571,6 +2029,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2701,6 +2160,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2827,6 +2287,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts");
     if (summarizeErrors != null) {
@@ -2983,6 +2444,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -3019,179 +2481,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(allocations);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for createCreditNoteAttachmentByFileName to allow byte[] or File type to be
-  // passed as body
-  /**
-   * Creates an attachment for a specific credit note
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with newly created
-   * Attachment for specific Credit Note
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param creditNoteID Unique identifier for a Credit Note
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param includeOnline Allows an attachment to be seen by the end customer within their online
-   *     invoice
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createCreditNoteAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID creditNoteID,
-      String fileName,
-      byte[] body,
-      Boolean includeOnline,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createCreditNoteAttachmentByFileNameForHttpResponse(
-              accessToken,
-              xeroTenantId,
-              creditNoteID,
-              fileName,
-              body,
-              includeOnline,
-              idempotencyKey,
-              mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createCreditNoteAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates an attachment for a specific credit note
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with newly created
-   * Attachment for specific Credit Note
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param creditNoteID Unique identifier for a Credit Note
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param includeOnline Allows an attachment to be seen by the end customer within their online
-   *     invoice
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createCreditNoteAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID creditNoteID,
-      String fileName,
-      byte[] body,
-      Boolean includeOnline,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createCreditNoteAttachmentByFileName");
-    } // verify the required parameter 'creditNoteID' is set
-    if (creditNoteID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'creditNoteID' when calling"
-              + " createCreditNoteAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " createCreditNoteAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " createCreditNoteAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createCreditNoteAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("CreditNoteID", creditNoteID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/Attachments/{FileName}");
-    if (includeOnline != null) {
-      String key = "IncludeOnline";
-      Object value = includeOnline;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
-        }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -3331,6 +2620,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -3365,10 +2655,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -3483,6 +2773,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -3617,6 +2908,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes");
     if (summarizeErrors != null) {
@@ -3763,6 +3055,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Currencies");
     String url = uriBuilder.build().toString();
@@ -3884,6 +3177,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees");
     if (summarizeErrors != null) {
@@ -4025,6 +3319,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -4141,6 +3436,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ExpenseClaims");
     String url = uriBuilder.build().toString();
@@ -4152,178 +3448,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(expenseClaims);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for createInvoiceAttachmentByFileName to allow byte[] or File type to be passed
-  // as body
-  /**
-   * Creates an attachment for a specific invoice or purchase bill by filename
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with newly created
-   * Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param invoiceID Unique identifier for an Invoice
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param includeOnline Allows an attachment to be seen by the end customer within their online
-   *     invoice
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createInvoiceAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID invoiceID,
-      String fileName,
-      byte[] body,
-      Boolean includeOnline,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createInvoiceAttachmentByFileNameForHttpResponse(
-              accessToken,
-              xeroTenantId,
-              invoiceID,
-              fileName,
-              body,
-              includeOnline,
-              idempotencyKey,
-              mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createInvoiceAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates an attachment for a specific invoice or purchase bill by filename
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with newly created
-   * Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param invoiceID Unique identifier for an Invoice
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param includeOnline Allows an attachment to be seen by the end customer within their online
-   *     invoice
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createInvoiceAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID invoiceID,
-      String fileName,
-      byte[] body,
-      Boolean includeOnline,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createInvoiceAttachmentByFileName");
-    } // verify the required parameter 'invoiceID' is set
-    if (invoiceID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'invoiceID' when calling"
-              + " createInvoiceAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " createInvoiceAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling createInvoiceAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createInvoiceAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("InvoiceID", invoiceID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/Invoices/{InvoiceID}/Attachments/{FileName}");
-    if (includeOnline != null) {
-      String key = "IncludeOnline";
-      Object value = includeOnline;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
-        }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -4456,6 +3580,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -4490,10 +3615,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -4608,6 +3733,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -4740,6 +3866,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices");
     if (summarizeErrors != null) {
@@ -4901,6 +4028,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -5032,6 +4160,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Items");
     if (summarizeErrors != null) {
@@ -5190,6 +4319,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/LinkedTransactions");
     String url = uriBuilder.build().toString();
@@ -5201,146 +4331,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(linkedTransaction);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for createManualJournalAttachmentByFileName to allow byte[] or File type to be
-  // passed as body
-  /**
-   * Creates a specific attachment for a specific manual journal by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with a newly created
-   * Attachment for a ManualJournals
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param manualJournalID Unique identifier for a ManualJournal
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createManualJournalAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID manualJournalID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createManualJournalAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, manualJournalID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createManualJournalAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates a specific attachment for a specific manual journal by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with a newly created
-   * Attachment for a ManualJournals
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param manualJournalID Unique identifier for a ManualJournal
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createManualJournalAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID manualJournalID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createManualJournalAttachmentByFileName");
-    } // verify the required parameter 'manualJournalID' is set
-    if (manualJournalID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'manualJournalID' when calling"
-              + " createManualJournalAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " createManualJournalAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " createManualJournalAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createManualJournalAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("ManualJournalID", manualJournalID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -5468,6 +4458,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -5482,10 +4473,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -5604,6 +4595,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -5732,6 +4724,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals");
     if (summarizeErrors != null) {
@@ -5890,6 +4883,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -6042,6 +5036,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -6155,6 +5150,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payments");
     String url = uriBuilder.build().toString();
@@ -6282,6 +5278,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -6404,6 +5401,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PaymentServices");
     String url = uriBuilder.build().toString();
@@ -6525,6 +5523,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payments");
     if (summarizeErrors != null) {
@@ -6681,6 +5680,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -6833,6 +5833,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -6849,144 +5850,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(historyRecords);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for createPurchaseOrderAttachmentByFileName to allow byte[] or File type to be
-  // passed as body
-  /**
-   * Creates attachment for a specific purchase order
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param purchaseOrderID Unique identifier for an Purchase Order
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createPurchaseOrderAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID purchaseOrderID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createPurchaseOrderAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, purchaseOrderID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createPurchaseOrderAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates attachment for a specific purchase order
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param purchaseOrderID Unique identifier for an Purchase Order
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createPurchaseOrderAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID purchaseOrderID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createPurchaseOrderAttachmentByFileName");
-    } // verify the required parameter 'purchaseOrderID' is set
-    if (purchaseOrderID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'purchaseOrderID' when calling"
-              + " createPurchaseOrderAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " createPurchaseOrderAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " createPurchaseOrderAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createPurchaseOrderAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("PurchaseOrderID", purchaseOrderID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -7112,6 +5975,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -7126,10 +5990,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -7246,6 +6110,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -7374,6 +6239,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders");
     if (summarizeErrors != null) {
@@ -7405,140 +6271,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for createQuoteAttachmentByFileName to allow byte[] or File type to be passed
-  // as body
-  /**
-   * Creates attachment for a specific quote
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param quoteID Unique identifier for an Quote
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createQuoteAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID quoteID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createQuoteAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, quoteID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createQuoteAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates attachment for a specific quote
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param quoteID Unique identifier for an Quote
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createQuoteAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID quoteID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createQuoteAttachmentByFileName");
-    } // verify the required parameter 'quoteID' is set
-    if (quoteID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'quoteID' when calling createQuoteAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling createQuoteAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling createQuoteAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createQuoteAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("QuoteID", quoteID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -7661,6 +6393,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -7674,10 +6407,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -7792,6 +6525,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -7918,6 +6652,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes");
     if (summarizeErrors != null) {
@@ -8058,6 +6793,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts");
     if (unitdp != null) {
@@ -8089,145 +6825,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(receipts);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for createReceiptAttachmentByFileName to allow byte[] or File type to be passed
-  // as body
-  /**
-   * Creates an attachment on a specific expense claim receipts by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with newly created
-   * Attachment for a specified Receipt
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param receiptID Unique identifier for a Receipt
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createReceiptAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID receiptID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createReceiptAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, receiptID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createReceiptAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates an attachment on a specific expense claim receipts by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with newly created
-   * Attachment for a specified Receipt
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param receiptID Unique identifier for a Receipt
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createReceiptAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID receiptID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createReceiptAttachmentByFileName");
-    } // verify the required parameter 'receiptID' is set
-    if (receiptID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'receiptID' when calling"
-              + " createReceiptAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " createReceiptAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling createReceiptAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createReceiptAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("ReceiptID", receiptID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/Receipts/{ReceiptID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -8354,6 +6951,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -8368,10 +6966,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -8488,6 +7086,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -8504,153 +7103,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(historyRecords);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for createRepeatingInvoiceAttachmentByFileName to allow byte[] or File type to
-  // be passed as body
-  /**
-   * Creates an attachment from a specific repeating invoices by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment for
-   * a specified Repeating Invoice
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments createRepeatingInvoiceAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID repeatingInvoiceID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createRepeatingInvoiceAttachmentByFileNameForHttpResponse(
-              accessToken,
-              xeroTenantId,
-              repeatingInvoiceID,
-              fileName,
-              body,
-              idempotencyKey,
-              mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createRepeatingInvoiceAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates an attachment from a specific repeating invoices by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment for
-   * a specified Repeating Invoice
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse createRepeatingInvoiceAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID repeatingInvoiceID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " createRepeatingInvoiceAttachmentByFileName");
-    } // verify the required parameter 'repeatingInvoiceID' is set
-    if (repeatingInvoiceID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'repeatingInvoiceID' when calling"
-              + " createRepeatingInvoiceAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " createRepeatingInvoiceAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " createRepeatingInvoiceAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " createRepeatingInvoiceAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath()
-                + "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -8778,6 +7230,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -8793,10 +7246,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -8915,6 +7368,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -9047,6 +7501,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices");
     if (summarizeErrors != null) {
@@ -9175,6 +7630,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TaxRates");
     String url = uriBuilder.build().toString();
@@ -9292,6 +7748,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TrackingCategories");
     String url = uriBuilder.build().toString();
@@ -9417,6 +7874,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -9642,6 +8100,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BatchPayments");
     String url = uriBuilder.build().toString();
@@ -9761,6 +8220,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -10451,6 +8911,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -10876,6 +9337,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -26524,6 +24986,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Setup");
     String url = uriBuilder.build().toString();
@@ -26649,6 +25112,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -26664,143 +25128,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(accounts);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for updateAccountAttachmentByFileName to allow byte[] or File type to be passed
-  // as body
-  /**
-   * Updates attachment on a specific account by filename
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param accountID Unique identifier for Account object
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updateAccountAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID accountID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updateAccountAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, accountID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateAccountAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Updates attachment on a specific account by filename
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param accountID Unique identifier for Account object
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updateAccountAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID accountID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updateAccountAttachmentByFileName");
-    } // verify the required parameter 'accountID' is set
-    if (accountID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accountID' when calling"
-              + " updateAccountAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " updateAccountAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling updateAccountAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updateAccountAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("AccountID", accountID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/Accounts/{AccountID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -26925,6 +25252,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -26939,10 +25267,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -27068,6 +25396,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -27104,151 +25433,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(bankTransactions);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for updateBankTransactionAttachmentByFileName to allow byte[] or File type to
-  // be passed as body
-  /**
-   * Updates a specific attachment from a specific bank transaction by filename
-   *
-   * <p><b>200</b> - Success - return response of Attachments array of Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param bankTransactionID Xero generated unique identifier for a bank transaction
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updateBankTransactionAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID bankTransactionID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updateBankTransactionAttachmentByFileNameForHttpResponse(
-              accessToken,
-              xeroTenantId,
-              bankTransactionID,
-              fileName,
-              body,
-              idempotencyKey,
-              mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateBankTransactionAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Updates a specific attachment from a specific bank transaction by filename
-   *
-   * <p><b>200</b> - Success - return response of Attachments array of Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param bankTransactionID Xero generated unique identifier for a bank transaction
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updateBankTransactionAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID bankTransactionID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updateBankTransactionAttachmentByFileName");
-    } // verify the required parameter 'bankTransactionID' is set
-    if (bankTransactionID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'bankTransactionID' when calling"
-              + " updateBankTransactionAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " updateBankTransactionAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " updateBankTransactionAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updateBankTransactionAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("BankTransactionID", bankTransactionID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath()
-                + "/BankTransactions/{BankTransactionID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -27374,6 +25558,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -27389,146 +25574,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
+    content = apiClient.new JacksonJsonHttpContent(body);
 
-  // Overload params for updateBankTransferAttachmentByFileName to allow byte[] or File type to be
-  // passed as body
-  /**
-   * <b>200</b> - Success - return response of Attachments array of 0 to N Attachment for a Bank
-   * Transfer
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param bankTransferID Xero generated unique identifier for a bank transfer
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updateBankTransferAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID bankTransferID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updateBankTransferAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, bankTransferID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateBankTransferAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * <b>200</b> - Success - return response of Attachments array of 0 to N Attachment for a Bank
-   * Transfer
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param bankTransferID Xero generated unique identifier for a bank transfer
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updateBankTransferAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID bankTransferID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updateBankTransferAttachmentByFileName");
-    } // verify the required parameter 'bankTransferID' is set
-    if (bankTransferID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'bankTransferID' when calling"
-              + " updateBankTransferAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " updateBankTransferAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " updateBankTransferAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updateBankTransferAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("BankTransferID", bankTransferID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/BankTransfers/{BankTransferID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -27652,6 +25701,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -27666,10 +25716,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -27782,6 +25832,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -27797,139 +25848,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(contacts);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for updateContactAttachmentByFileName to allow byte[] or File type to be passed
-  // as body
-  /**
-   * <b>200</b> - Success - return response of type Attachments array with an updated Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param contactID Unique identifier for a Contact
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updateContactAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID contactID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updateContactAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, contactID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateContactAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * <b>200</b> - Success - return response of type Attachments array with an updated Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param contactID Unique identifier for a Contact
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updateContactAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID contactID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updateContactAttachmentByFileName");
-    } // verify the required parameter 'contactID' is set
-    if (contactID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'contactID' when calling"
-              + " updateContactAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " updateContactAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling updateContactAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updateContactAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("ContactID", contactID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/Contacts/{ContactID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -28050,6 +25968,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -28064,10 +25983,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -28180,6 +26099,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -28314,6 +26234,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -28350,146 +26271,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(creditNotes);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for updateCreditNoteAttachmentByFileName to allow byte[] or File type to be
-  // passed as body
-  /**
-   * Updates attachments on a specific credit note by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment for
-   * specific Credit Note
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param creditNoteID Unique identifier for a Credit Note
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updateCreditNoteAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID creditNoteID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updateCreditNoteAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, creditNoteID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateCreditNoteAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Updates attachments on a specific credit note by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment for
-   * specific Credit Note
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param creditNoteID Unique identifier for a Credit Note
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updateCreditNoteAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID creditNoteID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updateCreditNoteAttachmentByFileName");
-    } // verify the required parameter 'creditNoteID' is set
-    if (creditNoteID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'creditNoteID' when calling"
-              + " updateCreditNoteAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " updateCreditNoteAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " updateCreditNoteAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updateCreditNoteAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("CreditNoteID", creditNoteID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -28617,6 +26398,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -28631,10 +26413,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -28747,6 +26529,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -28881,6 +26664,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -28916,143 +26700,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(invoices);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for updateInvoiceAttachmentByFileName to allow byte[] or File type to be passed
-  // as body
-  /**
-   * Updates an attachment from a specific invoices or purchase bill by filename
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param invoiceID Unique identifier for an Invoice
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updateInvoiceAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID invoiceID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updateInvoiceAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, invoiceID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateInvoiceAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Updates an attachment from a specific invoices or purchase bill by filename
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param invoiceID Unique identifier for an Invoice
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updateInvoiceAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID invoiceID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updateInvoiceAttachmentByFileName");
-    } // verify the required parameter 'invoiceID' is set
-    if (invoiceID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'invoiceID' when calling"
-              + " updateInvoiceAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " updateInvoiceAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling updateInvoiceAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updateInvoiceAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("InvoiceID", invoiceID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/Invoices/{InvoiceID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -29177,6 +26824,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -29191,10 +26839,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -29313,6 +26961,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -29466,6 +27115,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -29596,6 +27246,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -29612,146 +27263,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(manualJournals);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for updateManualJournalAttachmentByFileName to allow byte[] or File type to be
-  // passed as body
-  /**
-   * Updates a specific attachment from a specific manual journal by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with an update Attachment
-   * for a ManualJournals
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param manualJournalID Unique identifier for a ManualJournal
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updateManualJournalAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID manualJournalID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updateManualJournalAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, manualJournalID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateManualJournalAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Updates a specific attachment from a specific manual journal by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with an update Attachment
-   * for a ManualJournals
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param manualJournalID Unique identifier for a ManualJournal
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updateManualJournalAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID manualJournalID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updateManualJournalAttachmentByFileName");
-    } // verify the required parameter 'manualJournalID' is set
-    if (manualJournalID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'manualJournalID' when calling"
-              + " updateManualJournalAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " updateManualJournalAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " updateManualJournalAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updateManualJournalAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("ManualJournalID", manualJournalID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -29879,6 +27390,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -29893,10 +27405,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -30018,6 +27530,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions");
     if (summarizeErrors != null) {
@@ -30179,6 +27692,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts");
     if (summarizeErrors != null) {
@@ -30328,6 +27842,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes");
     if (summarizeErrors != null) {
@@ -30489,6 +28004,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees");
     if (summarizeErrors != null) {
@@ -30636,6 +28152,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices");
     if (summarizeErrors != null) {
@@ -30803,6 +28320,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Items");
     if (summarizeErrors != null) {
@@ -30968,6 +28486,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals");
     if (summarizeErrors != null) {
@@ -31113,6 +28632,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders");
     if (summarizeErrors != null) {
@@ -31254,6 +28774,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes");
     if (summarizeErrors != null) {
@@ -31402,6 +28923,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices");
     if (summarizeErrors != null) {
@@ -31545,6 +29067,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -31561,144 +29084,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for updatePurchaseOrderAttachmentByFileName to allow byte[] or File type to be
-  // passed as body
-  /**
-   * Updates a specific attachment for a specific purchase order by filename
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param purchaseOrderID Unique identifier for an Purchase Order
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updatePurchaseOrderAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID purchaseOrderID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updatePurchaseOrderAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, purchaseOrderID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updatePurchaseOrderAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Updates a specific attachment for a specific purchase order by filename
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param purchaseOrderID Unique identifier for an Purchase Order
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updatePurchaseOrderAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID purchaseOrderID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updatePurchaseOrderAttachmentByFileName");
-    } // verify the required parameter 'purchaseOrderID' is set
-    if (purchaseOrderID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'purchaseOrderID' when calling"
-              + " updatePurchaseOrderAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " updatePurchaseOrderAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " updatePurchaseOrderAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updatePurchaseOrderAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("PurchaseOrderID", purchaseOrderID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -31824,6 +29209,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -31838,10 +29224,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -31945,6 +29331,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -31960,140 +29347,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(quotes);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for updateQuoteAttachmentByFileName to allow byte[] or File type to be passed
-  // as body
-  /**
-   * Updates a specific attachment from a specific quote by filename
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param quoteID Unique identifier for an Quote
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updateQuoteAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID quoteID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updateQuoteAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, quoteID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateQuoteAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Updates a specific attachment from a specific quote by filename
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
-   *
-   * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param quoteID Unique identifier for an Quote
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updateQuoteAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID quoteID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updateQuoteAttachmentByFileName");
-    } // verify the required parameter 'quoteID' is set
-    if (quoteID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'quoteID' when calling updateQuoteAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling updateQuoteAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling updateQuoteAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updateQuoteAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("QuoteID", quoteID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -32216,6 +29469,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -32229,10 +29483,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -32351,6 +29605,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -32386,145 +29641,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(receipts);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for updateReceiptAttachmentByFileName to allow byte[] or File type to be passed
-  // as body
-  /**
-   * Updates a specific attachment on a specific expense claim receipts by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment for
-   * a specified Receipt
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param receiptID Unique identifier for a Receipt
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updateReceiptAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID receiptID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updateReceiptAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, receiptID, fileName, body, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateReceiptAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Updates a specific attachment on a specific expense claim receipts by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment for
-   * a specified Receipt
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param receiptID Unique identifier for a Receipt
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updateReceiptAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID receiptID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updateReceiptAttachmentByFileName");
-    } // verify the required parameter 'receiptID' is set
-    if (receiptID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'receiptID' when calling"
-              + " updateReceiptAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " updateReceiptAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling updateReceiptAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updateReceiptAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("ReceiptID", receiptID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath() + "/Receipts/{ReceiptID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -32651,6 +29767,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -32665,10 +29782,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -32782,6 +29899,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -32798,153 +29916,6 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(repeatingInvoices);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  // Overload params for updateRepeatingInvoiceAttachmentByFileName to allow byte[] or File type to
-  // be passed as body
-  /**
-   * Updates a specific attachment from a specific repeating invoices by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with specified Attachment
-   * for a specified Repeating Invoice
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Attachments
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public Attachments updateRepeatingInvoiceAttachmentByFileName(
-      String accessToken,
-      String xeroTenantId,
-      UUID repeatingInvoiceID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          updateRepeatingInvoiceAttachmentByFileNameForHttpResponse(
-              accessToken,
-              xeroTenantId,
-              repeatingInvoiceID,
-              fileName,
-              body,
-              idempotencyKey,
-              mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateRepeatingInvoiceAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Updates a specific attachment from a specific repeating invoices by file name
-   *
-   * <p><b>200</b> - Success - return response of type Attachments array with specified Attachment
-   * for a specified Repeating Invoice
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
-   * @param fileName Name of the attachment
-   * @param body Byte array of file in body of request
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The type of file being attached
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public HttpResponse updateRepeatingInvoiceAttachmentByFileNameForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID repeatingInvoiceID,
-      String fileName,
-      byte[] body,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " updateRepeatingInvoiceAttachmentByFileName");
-    } // verify the required parameter 'repeatingInvoiceID' is set
-    if (repeatingInvoiceID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'repeatingInvoiceID' when calling"
-              + " updateRepeatingInvoiceAttachmentByFileName");
-    } // verify the required parameter 'fileName' is set
-    if (fileName == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileName' when calling"
-              + " updateRepeatingInvoiceAttachmentByFileName");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling"
-              + " updateRepeatingInvoiceAttachmentByFileName");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " updateRepeatingInvoiceAttachmentByFileName");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
-    uriVariables.put("FileName", fileName);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(
-            apiClient.getBasePath()
-                + "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
-    }
-
-    ByteArrayContent content = null;
-
-    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -33072,6 +30043,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -33087,10 +30059,10 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("POST " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = java.nio.file.Files.probeContentType(bodyPath);
+
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = apiClient.new JacksonJsonHttpContent(body);
+
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -33188,6 +30160,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TaxRates");
     String url = uriBuilder.build().toString();
@@ -33314,6 +30287,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -33457,6 +30431,7 @@ public class AccountingApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
