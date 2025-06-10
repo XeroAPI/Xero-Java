@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.project;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** Error */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Error
+ */
+
 public class Error {
   StringUtil util = new StringUtil();
 
@@ -26,74 +43,69 @@ public class Error {
   @JsonProperty("modelState")
   private Object modelState;
   /**
-   * Exception message
-   *
-   * @param message String
-   * @return Error
-   */
+  * Exception message
+  * @param message  String
+  * @return Error
+  **/
   public Error message(String message) {
     this.message = message;
     return this;
   }
 
-  /**
+   /**
    * Exception message
-   *
    * @return message
-   */
+  **/
   @ApiModelProperty(value = "Exception message")
-  /**
+  /** 
    * Exception message
-   *
    * @return message String
-   */
+  **/
   public String getMessage() {
     return message;
   }
 
-  /**
-   * Exception message
-   *
-   * @param message String
-   */
+  /** 
+  * Exception message
+  * @param message  String
+  **/
+
   public void setMessage(String message) {
     this.message = message;
   }
 
   /**
-   * Array of Elements of validation Errors
-   *
-   * @param modelState Object
-   * @return Error
-   */
+  * Array of Elements of validation Errors
+  * @param modelState  Object
+  * @return Error
+  **/
   public Error modelState(Object modelState) {
     this.modelState = modelState;
     return this;
   }
 
-  /**
+   /**
    * Array of Elements of validation Errors
-   *
    * @return modelState
-   */
+  **/
   @ApiModelProperty(value = "Array of Elements of validation Errors")
-  /**
+  /** 
    * Array of Elements of validation Errors
-   *
    * @return modelState Object
-   */
+  **/
   public Object getModelState() {
     return modelState;
   }
 
-  /**
-   * Array of Elements of validation Errors
-   *
-   * @param modelState Object
-   */
+  /** 
+  * Array of Elements of validation Errors
+  * @param modelState  Object
+  **/
+
   public void setModelState(Object modelState) {
     this.modelState = modelState;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -104,14 +116,15 @@ public class Error {
       return false;
     }
     Error error = (Error) o;
-    return Objects.equals(this.message, error.message)
-        && Objects.equals(this.modelState, error.modelState);
+    return Objects.equals(this.message, error.message) &&
+        Objects.equals(this.modelState, error.modelState);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(message, modelState);
   }
+
 
   @Override
   public String toString() {
@@ -124,7 +137,8 @@ public class Error {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -132,4 +146,6 @@ public class Error {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

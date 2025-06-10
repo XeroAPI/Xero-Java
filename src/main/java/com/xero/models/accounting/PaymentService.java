@@ -9,17 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** PaymentService */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PaymentService
+ */
+
 public class PaymentService {
   StringUtil util = new StringUtil();
 
@@ -41,193 +59,170 @@ public class PaymentService {
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
   /**
-   * Xero identifier
-   *
-   * @param paymentServiceID UUID
-   * @return PaymentService
-   */
+  * Xero identifier
+  * @param paymentServiceID  UUID
+  * @return PaymentService
+  **/
   public PaymentService paymentServiceID(UUID paymentServiceID) {
     this.paymentServiceID = paymentServiceID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier
-   *
    * @return paymentServiceID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier")
-  /**
+  /** 
    * Xero identifier
-   *
    * @return paymentServiceID UUID
-   */
+  **/
   public UUID getPaymentServiceID() {
     return paymentServiceID;
   }
 
-  /**
-   * Xero identifier
-   *
-   * @param paymentServiceID UUID
-   */
+  /** 
+  * Xero identifier
+  * @param paymentServiceID  UUID
+  **/
+
   public void setPaymentServiceID(UUID paymentServiceID) {
     this.paymentServiceID = paymentServiceID;
   }
 
   /**
-   * Name of payment service
-   *
-   * @param paymentServiceName String
-   * @return PaymentService
-   */
+  * Name of payment service
+  * @param paymentServiceName  String
+  * @return PaymentService
+  **/
   public PaymentService paymentServiceName(String paymentServiceName) {
     this.paymentServiceName = paymentServiceName;
     return this;
   }
 
-  /**
+   /**
    * Name of payment service
-   *
    * @return paymentServiceName
-   */
+  **/
   @ApiModelProperty(value = "Name of payment service")
-  /**
+  /** 
    * Name of payment service
-   *
    * @return paymentServiceName String
-   */
+  **/
   public String getPaymentServiceName() {
     return paymentServiceName;
   }
 
-  /**
-   * Name of payment service
-   *
-   * @param paymentServiceName String
-   */
+  /** 
+  * Name of payment service
+  * @param paymentServiceName  String
+  **/
+
   public void setPaymentServiceName(String paymentServiceName) {
     this.paymentServiceName = paymentServiceName;
   }
 
   /**
-   * The custom payment URL
-   *
-   * @param paymentServiceUrl String
-   * @return PaymentService
-   */
+  * The custom payment URL
+  * @param paymentServiceUrl  String
+  * @return PaymentService
+  **/
   public PaymentService paymentServiceUrl(String paymentServiceUrl) {
     this.paymentServiceUrl = paymentServiceUrl;
     return this;
   }
 
-  /**
+   /**
    * The custom payment URL
-   *
    * @return paymentServiceUrl
-   */
+  **/
   @ApiModelProperty(value = "The custom payment URL")
-  /**
+  /** 
    * The custom payment URL
-   *
    * @return paymentServiceUrl String
-   */
+  **/
   public String getPaymentServiceUrl() {
     return paymentServiceUrl;
   }
 
-  /**
-   * The custom payment URL
-   *
-   * @param paymentServiceUrl String
-   */
+  /** 
+  * The custom payment URL
+  * @param paymentServiceUrl  String
+  **/
+
   public void setPaymentServiceUrl(String paymentServiceUrl) {
     this.paymentServiceUrl = paymentServiceUrl;
   }
 
   /**
-   * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will
-   * default to Pay by credit card
-   *
-   * @param payNowText String
-   * @return PaymentService
-   */
+  * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will default to Pay by credit card
+  * @param payNowText  String
+  * @return PaymentService
+  **/
   public PaymentService payNowText(String payNowText) {
     this.payNowText = payNowText;
     return this;
   }
 
-  /**
-   * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will
-   * default to Pay by credit card
-   *
+   /**
+   * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will default to Pay by credit card
    * @return payNowText
-   */
-  @ApiModelProperty(
-      value =
-          "The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set"
-              + " it will default to Pay by credit card")
-  /**
-   * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will
-   * default to Pay by credit card
-   *
+  **/
+  @ApiModelProperty(value = "The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will default to Pay by credit card")
+  /** 
+   * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will default to Pay by credit card
    * @return payNowText String
-   */
+  **/
   public String getPayNowText() {
     return payNowText;
   }
 
-  /**
-   * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will
-   * default to Pay by credit card
-   *
-   * @param payNowText String
-   */
+  /** 
+  * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will default to Pay by credit card
+  * @param payNowText  String
+  **/
+
   public void setPayNowText(String payNowText) {
     this.payNowText = payNowText;
   }
 
   /**
-   * This will always be CUSTOM for payment services created via the API.
-   *
-   * @param paymentServiceType String
-   * @return PaymentService
-   */
+  * This will always be CUSTOM for payment services created via the API.
+  * @param paymentServiceType  String
+  * @return PaymentService
+  **/
   public PaymentService paymentServiceType(String paymentServiceType) {
     this.paymentServiceType = paymentServiceType;
     return this;
   }
 
-  /**
+   /**
    * This will always be CUSTOM for payment services created via the API.
-   *
    * @return paymentServiceType
-   */
+  **/
   @ApiModelProperty(value = "This will always be CUSTOM for payment services created via the API.")
-  /**
+  /** 
    * This will always be CUSTOM for payment services created via the API.
-   *
    * @return paymentServiceType String
-   */
+  **/
   public String getPaymentServiceType() {
     return paymentServiceType;
   }
 
-  /**
-   * This will always be CUSTOM for payment services created via the API.
-   *
-   * @param paymentServiceType String
-   */
+  /** 
+  * This will always be CUSTOM for payment services created via the API.
+  * @param paymentServiceType  String
+  **/
+
   public void setPaymentServiceType(String paymentServiceType) {
     this.paymentServiceType = paymentServiceType;
   }
 
   /**
-   * Displays array of validation error messages from the API
-   *
-   * @param validationErrors List&lt;ValidationError&gt;
-   * @return PaymentService
-   */
+  * Displays array of validation error messages from the API
+  * @param validationErrors  List&lt;ValidationError&gt;
+  * @return PaymentService
+  **/
   public PaymentService validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
@@ -235,10 +230,9 @@ public class PaymentService {
 
   /**
    * Displays array of validation error messages from the API
-   *
-   * @param validationErrorsItem ValidationError
+   * @param validationErrorsItem ValidationError 
    * @return PaymentService
-   */
+  **/
   public PaymentService addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -247,29 +241,28 @@ public class PaymentService {
     return this;
   }
 
-  /**
+   /**
    * Displays array of validation error messages from the API
-   *
    * @return validationErrors
-   */
+  **/
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
-  /**
+  /** 
    * Displays array of validation error messages from the API
-   *
    * @return validationErrors List<ValidationError>
-   */
+  **/
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
-  /**
-   * Displays array of validation error messages from the API
-   *
-   * @param validationErrors List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of validation error messages from the API
+  * @param validationErrors List&lt;ValidationError&gt; 
+  **/
+
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -280,24 +273,19 @@ public class PaymentService {
       return false;
     }
     PaymentService paymentService = (PaymentService) o;
-    return Objects.equals(this.paymentServiceID, paymentService.paymentServiceID)
-        && Objects.equals(this.paymentServiceName, paymentService.paymentServiceName)
-        && Objects.equals(this.paymentServiceUrl, paymentService.paymentServiceUrl)
-        && Objects.equals(this.payNowText, paymentService.payNowText)
-        && Objects.equals(this.paymentServiceType, paymentService.paymentServiceType)
-        && Objects.equals(this.validationErrors, paymentService.validationErrors);
+    return Objects.equals(this.paymentServiceID, paymentService.paymentServiceID) &&
+        Objects.equals(this.paymentServiceName, paymentService.paymentServiceName) &&
+        Objects.equals(this.paymentServiceUrl, paymentService.paymentServiceUrl) &&
+        Objects.equals(this.payNowText, paymentService.payNowText) &&
+        Objects.equals(this.paymentServiceType, paymentService.paymentServiceType) &&
+        Objects.equals(this.validationErrors, paymentService.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        paymentServiceID,
-        paymentServiceName,
-        paymentServiceUrl,
-        payNowText,
-        paymentServiceType,
-        validationErrors);
+    return Objects.hash(paymentServiceID, paymentServiceName, paymentServiceUrl, payNowText, paymentServiceType, validationErrors);
   }
+
 
   @Override
   public String toString() {
@@ -314,7 +302,8 @@ public class PaymentService {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -322,4 +311,6 @@ public class PaymentService {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,46 +9,79 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets ProblemType */
+/**
+ * Gets or Sets ProblemType
+ */
 public enum ProblemType {
-
-  /** NOTSET */
+  
+    /**
+     * NOTSET
+     */
   NOTSET("NotSet"),
-
-  /** BANK_ACCOUNT_NOT_FOUND */
+  
+    /**
+     * BANK_ACCOUNT_NOT_FOUND
+     */
   BANK_ACCOUNT_NOT_FOUND("bank-account-not-found"),
-
-  /** INTERNAL_ERROR */
+  
+    /**
+     * INTERNAL_ERROR
+     */
   INTERNAL_ERROR("internal-error"),
-
-  /** INVALID_APPLICATION */
+  
+    /**
+     * INVALID_APPLICATION
+     */
   INVALID_APPLICATION("invalid-application"),
-
-  /** INVALID_REQUEST */
+  
+    /**
+     * INVALID_REQUEST
+     */
   INVALID_REQUEST("invalid-request"),
-
-  /** ORGANISATION_NOT_FOUND */
+  
+    /**
+     * ORGANISATION_NOT_FOUND
+     */
   ORGANISATION_NOT_FOUND("organisation-not-found"),
-
-  /** ORGANISATION_OFFLINE */
+  
+    /**
+     * ORGANISATION_OFFLINE
+     */
   ORGANISATION_OFFLINE("organisation-offline"),
-
-  /** REQUEST_TIMEOUT */
+  
+    /**
+     * REQUEST_TIMEOUT
+     */
   REQUEST_TIMEOUT("request-timeout"),
-
-  /** SERVICE_UNAVAILABLE */
+  
+    /**
+     * SERVICE_UNAVAILABLE
+     */
   SERVICE_UNAVAILABLE("service-unavailable"),
-
-  /** UNAUTHORIZED */
+  
+    /**
+     * UNAUTHORIZED
+     */
   UNAUTHORIZED("unauthorized"),
-
-  /** RATE_LIMIT_ERROR */
+  
+    /**
+     * RATE_LIMIT_ERROR
+     */
   RATE_LIMIT_ERROR("rate-limit-error");
 
   private String value;
@@ -57,26 +90,24 @@ public enum ProblemType {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static ProblemType fromValue(String value) {
@@ -88,3 +119,4 @@ public enum ProblemType {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

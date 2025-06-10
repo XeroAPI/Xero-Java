@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.EmployeeWorkingPattern;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** EmployeeWorkingPatternsObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeWorkingPatternsObject
+ */
+
 public class EmployeeWorkingPatternsObject {
   StringUtil util = new StringUtil();
 
@@ -29,98 +49,87 @@ public class EmployeeWorkingPatternsObject {
   private Problem problem;
 
   @JsonProperty("payeeWorkingPatterns")
-  private List<EmployeeWorkingPattern> payeeWorkingPatterns =
-      new ArrayList<EmployeeWorkingPattern>();
+  private List<EmployeeWorkingPattern> payeeWorkingPatterns = new ArrayList<EmployeeWorkingPattern>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return EmployeeWorkingPatternsObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return EmployeeWorkingPatternsObject
+  **/
   public EmployeeWorkingPatternsObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return EmployeeWorkingPatternsObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return EmployeeWorkingPatternsObject
+  **/
   public EmployeeWorkingPatternsObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * payeeWorkingPatterns
-   *
-   * @param payeeWorkingPatterns List&lt;EmployeeWorkingPattern&gt;
-   * @return EmployeeWorkingPatternsObject
-   */
-  public EmployeeWorkingPatternsObject payeeWorkingPatterns(
-      List<EmployeeWorkingPattern> payeeWorkingPatterns) {
+  * payeeWorkingPatterns
+  * @param payeeWorkingPatterns  List&lt;EmployeeWorkingPattern&gt;
+  * @return EmployeeWorkingPatternsObject
+  **/
+  public EmployeeWorkingPatternsObject payeeWorkingPatterns(List<EmployeeWorkingPattern> payeeWorkingPatterns) {
     this.payeeWorkingPatterns = payeeWorkingPatterns;
     return this;
   }
 
   /**
    * payeeWorkingPatterns
-   *
-   * @param payeeWorkingPatternsItem EmployeeWorkingPattern
+   * @param payeeWorkingPatternsItem EmployeeWorkingPattern 
    * @return EmployeeWorkingPatternsObject
-   */
-  public EmployeeWorkingPatternsObject addPayeeWorkingPatternsItem(
-      EmployeeWorkingPattern payeeWorkingPatternsItem) {
+  **/
+  public EmployeeWorkingPatternsObject addPayeeWorkingPatternsItem(EmployeeWorkingPattern payeeWorkingPatternsItem) {
     if (this.payeeWorkingPatterns == null) {
       this.payeeWorkingPatterns = new ArrayList<EmployeeWorkingPattern>();
     }
@@ -128,29 +137,28 @@ public class EmployeeWorkingPatternsObject {
     return this;
   }
 
-  /**
+   /**
    * Get payeeWorkingPatterns
-   *
    * @return payeeWorkingPatterns
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * payeeWorkingPatterns
-   *
    * @return payeeWorkingPatterns List<EmployeeWorkingPattern>
-   */
+  **/
   public List<EmployeeWorkingPattern> getPayeeWorkingPatterns() {
     return payeeWorkingPatterns;
   }
 
-  /**
-   * payeeWorkingPatterns
-   *
-   * @param payeeWorkingPatterns List&lt;EmployeeWorkingPattern&gt;
-   */
+  /** 
+  * payeeWorkingPatterns
+  * @param payeeWorkingPatterns List&lt;EmployeeWorkingPattern&gt; 
+  **/
+
   public void setPayeeWorkingPatterns(List<EmployeeWorkingPattern> payeeWorkingPatterns) {
     this.payeeWorkingPatterns = payeeWorkingPatterns;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -161,10 +169,9 @@ public class EmployeeWorkingPatternsObject {
       return false;
     }
     EmployeeWorkingPatternsObject employeeWorkingPatternsObject = (EmployeeWorkingPatternsObject) o;
-    return Objects.equals(this.pagination, employeeWorkingPatternsObject.pagination)
-        && Objects.equals(this.problem, employeeWorkingPatternsObject.problem)
-        && Objects.equals(
-            this.payeeWorkingPatterns, employeeWorkingPatternsObject.payeeWorkingPatterns);
+    return Objects.equals(this.pagination, employeeWorkingPatternsObject.pagination) &&
+        Objects.equals(this.problem, employeeWorkingPatternsObject.problem) &&
+        Objects.equals(this.payeeWorkingPatterns, employeeWorkingPatternsObject.payeeWorkingPatterns);
   }
 
   @Override
@@ -172,21 +179,21 @@ public class EmployeeWorkingPatternsObject {
     return Objects.hash(pagination, problem, payeeWorkingPatterns);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EmployeeWorkingPatternsObject {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    problem: ").append(toIndentedString(problem)).append("\n");
-    sb.append("    payeeWorkingPatterns: ")
-        .append(toIndentedString(payeeWorkingPatterns))
-        .append("\n");
+    sb.append("    payeeWorkingPatterns: ").append(toIndentedString(payeeWorkingPatterns)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -194,4 +201,6 @@ public class EmployeeWorkingPatternsObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

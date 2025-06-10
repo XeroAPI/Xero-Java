@@ -9,517 +9,865 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** 3 letter alpha code for the currency – see list of currency codes */
+/**
+ * 3 letter alpha code for the currency – see list of currency codes
+ */
 public enum CurrencyCode {
-
-  /** AED */
+  
+    /**
+     * AED
+     */
   AED("AED"),
-
-  /** AFN */
+  
+    /**
+     * AFN
+     */
   AFN("AFN"),
-
-  /** ALL */
+  
+    /**
+     * ALL
+     */
   ALL("ALL"),
-
-  /** AMD */
+  
+    /**
+     * AMD
+     */
   AMD("AMD"),
-
-  /** ANG */
+  
+    /**
+     * ANG
+     */
   ANG("ANG"),
-
-  /** AOA */
+  
+    /**
+     * AOA
+     */
   AOA("AOA"),
-
-  /** ARS */
+  
+    /**
+     * ARS
+     */
   ARS("ARS"),
-
-  /** AUD */
+  
+    /**
+     * AUD
+     */
   AUD("AUD"),
-
-  /** AWG */
+  
+    /**
+     * AWG
+     */
   AWG("AWG"),
-
-  /** AZN */
+  
+    /**
+     * AZN
+     */
   AZN("AZN"),
-
-  /** BAM */
+  
+    /**
+     * BAM
+     */
   BAM("BAM"),
-
-  /** BBD */
+  
+    /**
+     * BBD
+     */
   BBD("BBD"),
-
-  /** BDT */
+  
+    /**
+     * BDT
+     */
   BDT("BDT"),
-
-  /** BGN */
+  
+    /**
+     * BGN
+     */
   BGN("BGN"),
-
-  /** BHD */
+  
+    /**
+     * BHD
+     */
   BHD("BHD"),
-
-  /** BIF */
+  
+    /**
+     * BIF
+     */
   BIF("BIF"),
-
-  /** BMD */
+  
+    /**
+     * BMD
+     */
   BMD("BMD"),
-
-  /** BND */
+  
+    /**
+     * BND
+     */
   BND("BND"),
-
-  /** BOB */
+  
+    /**
+     * BOB
+     */
   BOB("BOB"),
-
-  /** BRL */
+  
+    /**
+     * BRL
+     */
   BRL("BRL"),
-
-  /** BSD */
+  
+    /**
+     * BSD
+     */
   BSD("BSD"),
-
-  /** BTN */
+  
+    /**
+     * BTN
+     */
   BTN("BTN"),
-
-  /** BWP */
+  
+    /**
+     * BWP
+     */
   BWP("BWP"),
-
-  /** BYN */
+  
+    /**
+     * BYN
+     */
   BYN("BYN"),
-
-  /** BYR */
+  
+    /**
+     * BYR
+     */
   BYR("BYR"),
-
-  /** BZD */
+  
+    /**
+     * BZD
+     */
   BZD("BZD"),
-
-  /** CAD */
+  
+    /**
+     * CAD
+     */
   CAD("CAD"),
-
-  /** CDF */
+  
+    /**
+     * CDF
+     */
   CDF("CDF"),
-
-  /** CHF */
+  
+    /**
+     * CHF
+     */
   CHF("CHF"),
-
-  /** CLF */
+  
+    /**
+     * CLF
+     */
   CLF("CLF"),
-
-  /** CLP */
+  
+    /**
+     * CLP
+     */
   CLP("CLP"),
-
-  /** CNY */
+  
+    /**
+     * CNY
+     */
   CNY("CNY"),
-
-  /** COP */
+  
+    /**
+     * COP
+     */
   COP("COP"),
-
-  /** CRC */
+  
+    /**
+     * CRC
+     */
   CRC("CRC"),
-
-  /** CUC */
+  
+    /**
+     * CUC
+     */
   CUC("CUC"),
-
-  /** CUP */
+  
+    /**
+     * CUP
+     */
   CUP("CUP"),
-
-  /** CVE */
+  
+    /**
+     * CVE
+     */
   CVE("CVE"),
-
-  /** CZK */
+  
+    /**
+     * CZK
+     */
   CZK("CZK"),
-
-  /** DJF */
+  
+    /**
+     * DJF
+     */
   DJF("DJF"),
-
-  /** DKK */
+  
+    /**
+     * DKK
+     */
   DKK("DKK"),
-
-  /** DOP */
+  
+    /**
+     * DOP
+     */
   DOP("DOP"),
-
-  /** DZD */
+  
+    /**
+     * DZD
+     */
   DZD("DZD"),
-
-  /** EEK */
+  
+    /**
+     * EEK
+     */
   EEK("EEK"),
-
-  /** EGP */
+  
+    /**
+     * EGP
+     */
   EGP("EGP"),
-
-  /** ERN */
+  
+    /**
+     * ERN
+     */
   ERN("ERN"),
-
-  /** ETB */
+  
+    /**
+     * ETB
+     */
   ETB("ETB"),
-
-  /** EUR */
+  
+    /**
+     * EUR
+     */
   EUR("EUR"),
-
-  /** FJD */
+  
+    /**
+     * FJD
+     */
   FJD("FJD"),
-
-  /** FKP */
+  
+    /**
+     * FKP
+     */
   FKP("FKP"),
-
-  /** GBP */
+  
+    /**
+     * GBP
+     */
   GBP("GBP"),
-
-  /** GEL */
+  
+    /**
+     * GEL
+     */
   GEL("GEL"),
-
-  /** GHS */
+  
+    /**
+     * GHS
+     */
   GHS("GHS"),
-
-  /** GIP */
+  
+    /**
+     * GIP
+     */
   GIP("GIP"),
-
-  /** GMD */
+  
+    /**
+     * GMD
+     */
   GMD("GMD"),
-
-  /** GNF */
+  
+    /**
+     * GNF
+     */
   GNF("GNF"),
-
-  /** GTQ */
+  
+    /**
+     * GTQ
+     */
   GTQ("GTQ"),
-
-  /** GYD */
+  
+    /**
+     * GYD
+     */
   GYD("GYD"),
-
-  /** HKD */
+  
+    /**
+     * HKD
+     */
   HKD("HKD"),
-
-  /** HNL */
+  
+    /**
+     * HNL
+     */
   HNL("HNL"),
-
-  /** HRK */
+  
+    /**
+     * HRK
+     */
   HRK("HRK"),
-
-  /** HTG */
+  
+    /**
+     * HTG
+     */
   HTG("HTG"),
-
-  /** HUF */
+  
+    /**
+     * HUF
+     */
   HUF("HUF"),
-
-  /** IDR */
+  
+    /**
+     * IDR
+     */
   IDR("IDR"),
-
-  /** ILS */
+  
+    /**
+     * ILS
+     */
   ILS("ILS"),
-
-  /** INR */
+  
+    /**
+     * INR
+     */
   INR("INR"),
-
-  /** IQD */
+  
+    /**
+     * IQD
+     */
   IQD("IQD"),
-
-  /** IRR */
+  
+    /**
+     * IRR
+     */
   IRR("IRR"),
-
-  /** ISK */
+  
+    /**
+     * ISK
+     */
   ISK("ISK"),
-
-  /** JMD */
+  
+    /**
+     * JMD
+     */
   JMD("JMD"),
-
-  /** JOD */
+  
+    /**
+     * JOD
+     */
   JOD("JOD"),
-
-  /** JPY */
+  
+    /**
+     * JPY
+     */
   JPY("JPY"),
-
-  /** KES */
+  
+    /**
+     * KES
+     */
   KES("KES"),
-
-  /** KGS */
+  
+    /**
+     * KGS
+     */
   KGS("KGS"),
-
-  /** KHR */
+  
+    /**
+     * KHR
+     */
   KHR("KHR"),
-
-  /** KMF */
+  
+    /**
+     * KMF
+     */
   KMF("KMF"),
-
-  /** KPW */
+  
+    /**
+     * KPW
+     */
   KPW("KPW"),
-
-  /** KRW */
+  
+    /**
+     * KRW
+     */
   KRW("KRW"),
-
-  /** KWD */
+  
+    /**
+     * KWD
+     */
   KWD("KWD"),
-
-  /** KYD */
+  
+    /**
+     * KYD
+     */
   KYD("KYD"),
-
-  /** KZT */
+  
+    /**
+     * KZT
+     */
   KZT("KZT"),
-
-  /** LAK */
+  
+    /**
+     * LAK
+     */
   LAK("LAK"),
-
-  /** LBP */
+  
+    /**
+     * LBP
+     */
   LBP("LBP"),
-
-  /** LKR */
+  
+    /**
+     * LKR
+     */
   LKR("LKR"),
-
-  /** LRD */
+  
+    /**
+     * LRD
+     */
   LRD("LRD"),
-
-  /** LSL */
+  
+    /**
+     * LSL
+     */
   LSL("LSL"),
-
-  /** LTL */
+  
+    /**
+     * LTL
+     */
   LTL("LTL"),
-
-  /** LVL */
+  
+    /**
+     * LVL
+     */
   LVL("LVL"),
-
-  /** LYD */
+  
+    /**
+     * LYD
+     */
   LYD("LYD"),
-
-  /** MAD */
+  
+    /**
+     * MAD
+     */
   MAD("MAD"),
-
-  /** MDL */
+  
+    /**
+     * MDL
+     */
   MDL("MDL"),
-
-  /** MGA */
+  
+    /**
+     * MGA
+     */
   MGA("MGA"),
-
-  /** MKD */
+  
+    /**
+     * MKD
+     */
   MKD("MKD"),
-
-  /** MMK */
+  
+    /**
+     * MMK
+     */
   MMK("MMK"),
-
-  /** MNT */
+  
+    /**
+     * MNT
+     */
   MNT("MNT"),
-
-  /** MOP */
+  
+    /**
+     * MOP
+     */
   MOP("MOP"),
-
-  /** MRO */
+  
+    /**
+     * MRO
+     */
   MRO("MRO"),
-
-  /** MRU */
+  
+    /**
+     * MRU
+     */
   MRU("MRU"),
-
-  /** MUR */
+  
+    /**
+     * MUR
+     */
   MUR("MUR"),
-
-  /** MVR */
+  
+    /**
+     * MVR
+     */
   MVR("MVR"),
-
-  /** MWK */
+  
+    /**
+     * MWK
+     */
   MWK("MWK"),
-
-  /** MXN */
+  
+    /**
+     * MXN
+     */
   MXN("MXN"),
-
-  /** MXV */
+  
+    /**
+     * MXV
+     */
   MXV("MXV"),
-
-  /** MYR */
+  
+    /**
+     * MYR
+     */
   MYR("MYR"),
-
-  /** MZN */
+  
+    /**
+     * MZN
+     */
   MZN("MZN"),
-
-  /** NAD */
+  
+    /**
+     * NAD
+     */
   NAD("NAD"),
-
-  /** NGN */
+  
+    /**
+     * NGN
+     */
   NGN("NGN"),
-
-  /** NIO */
+  
+    /**
+     * NIO
+     */
   NIO("NIO"),
-
-  /** NOK */
+  
+    /**
+     * NOK
+     */
   NOK("NOK"),
-
-  /** NPR */
+  
+    /**
+     * NPR
+     */
   NPR("NPR"),
-
-  /** NZD */
+  
+    /**
+     * NZD
+     */
   NZD("NZD"),
-
-  /** OMR */
+  
+    /**
+     * OMR
+     */
   OMR("OMR"),
-
-  /** PAB */
+  
+    /**
+     * PAB
+     */
   PAB("PAB"),
-
-  /** PEN */
+  
+    /**
+     * PEN
+     */
   PEN("PEN"),
-
-  /** PGK */
+  
+    /**
+     * PGK
+     */
   PGK("PGK"),
-
-  /** PHP */
+  
+    /**
+     * PHP
+     */
   PHP("PHP"),
-
-  /** PKR */
+  
+    /**
+     * PKR
+     */
   PKR("PKR"),
-
-  /** PLN */
+  
+    /**
+     * PLN
+     */
   PLN("PLN"),
-
-  /** PYG */
+  
+    /**
+     * PYG
+     */
   PYG("PYG"),
-
-  /** QAR */
+  
+    /**
+     * QAR
+     */
   QAR("QAR"),
-
-  /** RON */
+  
+    /**
+     * RON
+     */
   RON("RON"),
-
-  /** RSD */
+  
+    /**
+     * RSD
+     */
   RSD("RSD"),
-
-  /** RUB */
+  
+    /**
+     * RUB
+     */
   RUB("RUB"),
-
-  /** RWF */
+  
+    /**
+     * RWF
+     */
   RWF("RWF"),
-
-  /** SAR */
+  
+    /**
+     * SAR
+     */
   SAR("SAR"),
-
-  /** SBD */
+  
+    /**
+     * SBD
+     */
   SBD("SBD"),
-
-  /** SCR */
+  
+    /**
+     * SCR
+     */
   SCR("SCR"),
-
-  /** SDG */
+  
+    /**
+     * SDG
+     */
   SDG("SDG"),
-
-  /** SEK */
+  
+    /**
+     * SEK
+     */
   SEK("SEK"),
-
-  /** SGD */
+  
+    /**
+     * SGD
+     */
   SGD("SGD"),
-
-  /** SHP */
+  
+    /**
+     * SHP
+     */
   SHP("SHP"),
-
-  /** SKK */
+  
+    /**
+     * SKK
+     */
   SKK("SKK"),
-
-  /** SLE */
+  
+    /**
+     * SLE
+     */
   SLE("SLE"),
-
-  /** SLL */
+  
+    /**
+     * SLL
+     */
   SLL("SLL"),
-
-  /** SOS */
+  
+    /**
+     * SOS
+     */
   SOS("SOS"),
-
-  /** SRD */
+  
+    /**
+     * SRD
+     */
   SRD("SRD"),
-
-  /** STN */
+  
+    /**
+     * STN
+     */
   STN("STD"),
-
-  /** STD */
+  
+    /**
+     * STD
+     */
   STD("STN"),
-
-  /** SVC */
+  
+    /**
+     * SVC
+     */
   SVC("SVC"),
-
-  /** SYP */
+  
+    /**
+     * SYP
+     */
   SYP("SYP"),
-
-  /** SZL */
+  
+    /**
+     * SZL
+     */
   SZL("SZL"),
-
-  /** THB */
+  
+    /**
+     * THB
+     */
   THB("THB"),
-
-  /** TJS */
+  
+    /**
+     * TJS
+     */
   TJS("TJS"),
-
-  /** TMT */
+  
+    /**
+     * TMT
+     */
   TMT("TMT"),
-
-  /** TND */
+  
+    /**
+     * TND
+     */
   TND("TND"),
-
-  /** TOP */
+  
+    /**
+     * TOP
+     */
   TOP("TOP"),
-
-  /** TRY_LIRA */
+  
+    /**
+     * TRY_LIRA
+     */
   TRY_LIRA("TRY"),
-
-  /** TTD */
+  
+    /**
+     * TTD
+     */
   TTD("TTD"),
-
-  /** TWD */
+  
+    /**
+     * TWD
+     */
   TWD("TWD"),
-
-  /** TZS */
+  
+    /**
+     * TZS
+     */
   TZS("TZS"),
-
-  /** UAH */
+  
+    /**
+     * UAH
+     */
   UAH("UAH"),
-
-  /** UGX */
+  
+    /**
+     * UGX
+     */
   UGX("UGX"),
-
-  /** USD */
+  
+    /**
+     * USD
+     */
   USD("USD"),
-
-  /** UYU */
+  
+    /**
+     * UYU
+     */
   UYU("UYU"),
-
-  /** UZS */
+  
+    /**
+     * UZS
+     */
   UZS("UZS"),
-
-  /** VEF */
+  
+    /**
+     * VEF
+     */
   VEF("VEF"),
-
-  /** VES */
+  
+    /**
+     * VES
+     */
   VES("VES"),
-
-  /** VND */
+  
+    /**
+     * VND
+     */
   VND("VND"),
-
-  /** VUV */
+  
+    /**
+     * VUV
+     */
   VUV("VUV"),
-
-  /** WST */
+  
+    /**
+     * WST
+     */
   WST("WST"),
-
-  /** XAF */
+  
+    /**
+     * XAF
+     */
   XAF("XAF"),
-
-  /** XCD */
+  
+    /**
+     * XCD
+     */
   XCD("XCD"),
-
-  /** XOF */
+  
+    /**
+     * XOF
+     */
   XOF("XOF"),
-
-  /** XPF */
+  
+    /**
+     * XPF
+     */
   XPF("XPF"),
-
-  /** YER */
+  
+    /**
+     * YER
+     */
   YER("YER"),
-
-  /** ZAR */
+  
+    /**
+     * ZAR
+     */
   ZAR("ZAR"),
-
-  /** ZMW */
+  
+    /**
+     * ZMW
+     */
   ZMW("ZMW"),
-
-  /** ZMK */
+  
+    /**
+     * ZMK
+     */
   ZMK("ZMK"),
-
-  /** ZWD */
+  
+    /**
+     * ZWD
+     */
   ZWD("ZWD");
 
   private String value;
@@ -528,26 +876,24 @@ public enum CurrencyCode {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static CurrencyCode fromValue(String value) {
@@ -559,3 +905,4 @@ public enum CurrencyCode {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

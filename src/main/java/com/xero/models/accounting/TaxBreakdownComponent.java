@@ -9,38 +9,65 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** TaxBreakdownComponent */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TaxBreakdownComponent
+ */
+
 public class TaxBreakdownComponent {
   StringUtil util = new StringUtil();
 
   @JsonProperty("TaxComponentId")
   private UUID taxComponentId;
-  /** The type of the jurisdiction */
+  /**
+   * The type of the jurisdiction
+   */
   public enum TypeEnum {
-    /** USCOUNTRY */
+    /**
+     * USCOUNTRY
+     */
     USCOUNTRY("SYSGST/USCOUNTRY"),
-
-    /** USSTATE */
+    
+    /**
+     * USSTATE
+     */
     USSTATE("SYSGST/USSTATE"),
-
-    /** USCOUNTY */
+    
+    /**
+     * USCOUNTY
+     */
     USCOUNTY("SYSGST/USCOUNTY"),
-
-    /** USCITY */
+    
+    /**
+     * USCITY
+     */
     USCITY("SYSGST/USCITY"),
-
-    /** USSPECIAL */
+    
+    /**
+     * USSPECIAL
+     */
     USSPECIAL("SYSGST/USSPECIAL");
 
     private String value;
@@ -49,31 +76,25 @@ public class TaxBreakdownComponent {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -84,6 +105,7 @@ public class TaxBreakdownComponent {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("Type")
   private TypeEnum type;
@@ -112,354 +134,325 @@ public class TaxBreakdownComponent {
   @JsonProperty("JurisdictionRegion")
   private String jurisdictionRegion;
   /**
-   * The unique ID number of this component
-   *
-   * @param taxComponentId UUID
-   * @return TaxBreakdownComponent
-   */
+  * The unique ID number of this component
+  * @param taxComponentId  UUID
+  * @return TaxBreakdownComponent
+  **/
   public TaxBreakdownComponent taxComponentId(UUID taxComponentId) {
     this.taxComponentId = taxComponentId;
     return this;
   }
 
-  /**
+   /**
    * The unique ID number of this component
-   *
    * @return taxComponentId
-   */
+  **/
   @ApiModelProperty(value = "The unique ID number of this component")
-  /**
+  /** 
    * The unique ID number of this component
-   *
    * @return taxComponentId UUID
-   */
+  **/
   public UUID getTaxComponentId() {
     return taxComponentId;
   }
 
-  /**
-   * The unique ID number of this component
-   *
-   * @param taxComponentId UUID
-   */
+  /** 
+  * The unique ID number of this component
+  * @param taxComponentId  UUID
+  **/
+
   public void setTaxComponentId(UUID taxComponentId) {
     this.taxComponentId = taxComponentId;
   }
 
   /**
-   * The type of the jurisdiction
-   *
-   * @param type TypeEnum
-   * @return TaxBreakdownComponent
-   */
+  * The type of the jurisdiction
+  * @param type  TypeEnum
+  * @return TaxBreakdownComponent
+  **/
   public TaxBreakdownComponent type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * The type of the jurisdiction
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "The type of the jurisdiction")
-  /**
+  /** 
    * The type of the jurisdiction
-   *
    * @return type TypeEnum
-   */
+  **/
   public TypeEnum getType() {
     return type;
   }
 
-  /**
-   * The type of the jurisdiction
-   *
-   * @param type TypeEnum
-   */
+  /** 
+  * The type of the jurisdiction
+  * @param type  TypeEnum
+  **/
+
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
   /**
-   * The name of the jurisdiction
-   *
-   * @param name String
-   * @return TaxBreakdownComponent
-   */
+  * The name of the jurisdiction
+  * @param name  String
+  * @return TaxBreakdownComponent
+  **/
   public TaxBreakdownComponent name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * The name of the jurisdiction
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "The name of the jurisdiction")
-  /**
+  /** 
    * The name of the jurisdiction
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * The name of the jurisdiction
-   *
-   * @param name String
-   */
+  /** 
+  * The name of the jurisdiction
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * The percentage of the tax
-   *
-   * @param taxPercentage BigDecimal
-   * @return TaxBreakdownComponent
-   */
+  * The percentage of the tax
+  * @param taxPercentage  BigDecimal
+  * @return TaxBreakdownComponent
+  **/
   public TaxBreakdownComponent taxPercentage(BigDecimal taxPercentage) {
     this.taxPercentage = taxPercentage;
     return this;
   }
 
-  /**
+   /**
    * The percentage of the tax
-   *
    * @return taxPercentage
-   */
+  **/
   @ApiModelProperty(value = "The percentage of the tax")
-  /**
+  /** 
    * The percentage of the tax
-   *
    * @return taxPercentage BigDecimal
-   */
+  **/
   public BigDecimal getTaxPercentage() {
     return taxPercentage;
   }
 
-  /**
-   * The percentage of the tax
-   *
-   * @param taxPercentage BigDecimal
-   */
+  /** 
+  * The percentage of the tax
+  * @param taxPercentage  BigDecimal
+  **/
+
   public void setTaxPercentage(BigDecimal taxPercentage) {
     this.taxPercentage = taxPercentage;
   }
 
   /**
-   * The amount of the tax
-   *
-   * @param taxAmount BigDecimal
-   * @return TaxBreakdownComponent
-   */
+  * The amount of the tax
+  * @param taxAmount  BigDecimal
+  * @return TaxBreakdownComponent
+  **/
   public TaxBreakdownComponent taxAmount(BigDecimal taxAmount) {
     this.taxAmount = taxAmount;
     return this;
   }
 
-  /**
+   /**
    * The amount of the tax
-   *
    * @return taxAmount
-   */
+  **/
   @ApiModelProperty(value = "The amount of the tax")
-  /**
+  /** 
    * The amount of the tax
-   *
    * @return taxAmount BigDecimal
-   */
+  **/
   public BigDecimal getTaxAmount() {
     return taxAmount;
   }
 
-  /**
-   * The amount of the tax
-   *
-   * @param taxAmount BigDecimal
-   */
+  /** 
+  * The amount of the tax
+  * @param taxAmount  BigDecimal
+  **/
+
   public void setTaxAmount(BigDecimal taxAmount) {
     this.taxAmount = taxAmount;
   }
 
   /**
-   * The amount that is taxable
-   *
-   * @param taxableAmount BigDecimal
-   * @return TaxBreakdownComponent
-   */
+  * The amount that is taxable
+  * @param taxableAmount  BigDecimal
+  * @return TaxBreakdownComponent
+  **/
   public TaxBreakdownComponent taxableAmount(BigDecimal taxableAmount) {
     this.taxableAmount = taxableAmount;
     return this;
   }
 
-  /**
+   /**
    * The amount that is taxable
-   *
    * @return taxableAmount
-   */
+  **/
   @ApiModelProperty(value = "The amount that is taxable")
-  /**
+  /** 
    * The amount that is taxable
-   *
    * @return taxableAmount BigDecimal
-   */
+  **/
   public BigDecimal getTaxableAmount() {
     return taxableAmount;
   }
 
-  /**
-   * The amount that is taxable
-   *
-   * @param taxableAmount BigDecimal
-   */
+  /** 
+  * The amount that is taxable
+  * @param taxableAmount  BigDecimal
+  **/
+
   public void setTaxableAmount(BigDecimal taxableAmount) {
     this.taxableAmount = taxableAmount;
   }
 
   /**
-   * The amount that is not taxable
-   *
-   * @param nonTaxableAmount BigDecimal
-   * @return TaxBreakdownComponent
-   */
+  * The amount that is not taxable
+  * @param nonTaxableAmount  BigDecimal
+  * @return TaxBreakdownComponent
+  **/
   public TaxBreakdownComponent nonTaxableAmount(BigDecimal nonTaxableAmount) {
     this.nonTaxableAmount = nonTaxableAmount;
     return this;
   }
 
-  /**
+   /**
    * The amount that is not taxable
-   *
    * @return nonTaxableAmount
-   */
+  **/
   @ApiModelProperty(value = "The amount that is not taxable")
-  /**
+  /** 
    * The amount that is not taxable
-   *
    * @return nonTaxableAmount BigDecimal
-   */
+  **/
   public BigDecimal getNonTaxableAmount() {
     return nonTaxableAmount;
   }
 
-  /**
-   * The amount that is not taxable
-   *
-   * @param nonTaxableAmount BigDecimal
-   */
+  /** 
+  * The amount that is not taxable
+  * @param nonTaxableAmount  BigDecimal
+  **/
+
   public void setNonTaxableAmount(BigDecimal nonTaxableAmount) {
     this.nonTaxableAmount = nonTaxableAmount;
   }
 
   /**
-   * The amount that is exempt
-   *
-   * @param exemptAmount BigDecimal
-   * @return TaxBreakdownComponent
-   */
+  * The amount that is exempt
+  * @param exemptAmount  BigDecimal
+  * @return TaxBreakdownComponent
+  **/
   public TaxBreakdownComponent exemptAmount(BigDecimal exemptAmount) {
     this.exemptAmount = exemptAmount;
     return this;
   }
 
-  /**
+   /**
    * The amount that is exempt
-   *
    * @return exemptAmount
-   */
+  **/
   @ApiModelProperty(value = "The amount that is exempt")
-  /**
+  /** 
    * The amount that is exempt
-   *
    * @return exemptAmount BigDecimal
-   */
+  **/
   public BigDecimal getExemptAmount() {
     return exemptAmount;
   }
 
-  /**
-   * The amount that is exempt
-   *
-   * @param exemptAmount BigDecimal
-   */
+  /** 
+  * The amount that is exempt
+  * @param exemptAmount  BigDecimal
+  **/
+
   public void setExemptAmount(BigDecimal exemptAmount) {
     this.exemptAmount = exemptAmount;
   }
 
   /**
-   * The state assigned number of the jurisdiction
-   *
-   * @param stateAssignedNo String
-   * @return TaxBreakdownComponent
-   */
+  * The state assigned number of the jurisdiction
+  * @param stateAssignedNo  String
+  * @return TaxBreakdownComponent
+  **/
   public TaxBreakdownComponent stateAssignedNo(String stateAssignedNo) {
     this.stateAssignedNo = stateAssignedNo;
     return this;
   }
 
-  /**
+   /**
    * The state assigned number of the jurisdiction
-   *
    * @return stateAssignedNo
-   */
+  **/
   @ApiModelProperty(value = "The state assigned number of the jurisdiction")
-  /**
+  /** 
    * The state assigned number of the jurisdiction
-   *
    * @return stateAssignedNo String
-   */
+  **/
   public String getStateAssignedNo() {
     return stateAssignedNo;
   }
 
-  /**
-   * The state assigned number of the jurisdiction
-   *
-   * @param stateAssignedNo String
-   */
+  /** 
+  * The state assigned number of the jurisdiction
+  * @param stateAssignedNo  String
+  **/
+
   public void setStateAssignedNo(String stateAssignedNo) {
     this.stateAssignedNo = stateAssignedNo;
   }
 
   /**
-   * Name identifying the region within the country
-   *
-   * @param jurisdictionRegion String
-   * @return TaxBreakdownComponent
-   */
+  * Name identifying the region within the country
+  * @param jurisdictionRegion  String
+  * @return TaxBreakdownComponent
+  **/
   public TaxBreakdownComponent jurisdictionRegion(String jurisdictionRegion) {
     this.jurisdictionRegion = jurisdictionRegion;
     return this;
   }
 
-  /**
+   /**
    * Name identifying the region within the country
-   *
    * @return jurisdictionRegion
-   */
+  **/
   @ApiModelProperty(value = "Name identifying the region within the country")
-  /**
+  /** 
    * Name identifying the region within the country
-   *
    * @return jurisdictionRegion String
-   */
+  **/
   public String getJurisdictionRegion() {
     return jurisdictionRegion;
   }
 
-  /**
-   * Name identifying the region within the country
-   *
-   * @param jurisdictionRegion String
-   */
+  /** 
+  * Name identifying the region within the country
+  * @param jurisdictionRegion  String
+  **/
+
   public void setJurisdictionRegion(String jurisdictionRegion) {
     this.jurisdictionRegion = jurisdictionRegion;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -470,32 +463,23 @@ public class TaxBreakdownComponent {
       return false;
     }
     TaxBreakdownComponent taxBreakdownComponent = (TaxBreakdownComponent) o;
-    return Objects.equals(this.taxComponentId, taxBreakdownComponent.taxComponentId)
-        && Objects.equals(this.type, taxBreakdownComponent.type)
-        && Objects.equals(this.name, taxBreakdownComponent.name)
-        && Objects.equals(this.taxPercentage, taxBreakdownComponent.taxPercentage)
-        && Objects.equals(this.taxAmount, taxBreakdownComponent.taxAmount)
-        && Objects.equals(this.taxableAmount, taxBreakdownComponent.taxableAmount)
-        && Objects.equals(this.nonTaxableAmount, taxBreakdownComponent.nonTaxableAmount)
-        && Objects.equals(this.exemptAmount, taxBreakdownComponent.exemptAmount)
-        && Objects.equals(this.stateAssignedNo, taxBreakdownComponent.stateAssignedNo)
-        && Objects.equals(this.jurisdictionRegion, taxBreakdownComponent.jurisdictionRegion);
+    return Objects.equals(this.taxComponentId, taxBreakdownComponent.taxComponentId) &&
+        Objects.equals(this.type, taxBreakdownComponent.type) &&
+        Objects.equals(this.name, taxBreakdownComponent.name) &&
+        Objects.equals(this.taxPercentage, taxBreakdownComponent.taxPercentage) &&
+        Objects.equals(this.taxAmount, taxBreakdownComponent.taxAmount) &&
+        Objects.equals(this.taxableAmount, taxBreakdownComponent.taxableAmount) &&
+        Objects.equals(this.nonTaxableAmount, taxBreakdownComponent.nonTaxableAmount) &&
+        Objects.equals(this.exemptAmount, taxBreakdownComponent.exemptAmount) &&
+        Objects.equals(this.stateAssignedNo, taxBreakdownComponent.stateAssignedNo) &&
+        Objects.equals(this.jurisdictionRegion, taxBreakdownComponent.jurisdictionRegion);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        taxComponentId,
-        type,
-        name,
-        taxPercentage,
-        taxAmount,
-        taxableAmount,
-        nonTaxableAmount,
-        exemptAmount,
-        stateAssignedNo,
-        jurisdictionRegion);
+    return Objects.hash(taxComponentId, type, name, taxPercentage, taxAmount, taxableAmount, nonTaxableAmount, exemptAmount, stateAssignedNo, jurisdictionRegion);
   }
+
 
   @Override
   public String toString() {
@@ -516,7 +500,8 @@ public class TaxBreakdownComponent {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -524,4 +509,6 @@ public class TaxBreakdownComponent {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

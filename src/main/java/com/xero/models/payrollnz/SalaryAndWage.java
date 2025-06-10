@@ -9,18 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.payrollnz;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** SalaryAndWage */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * SalaryAndWage
+ */
+
 public class SalaryAndWage {
   StringUtil util = new StringUtil();
 
@@ -47,15 +62,23 @@ public class SalaryAndWage {
 
   @JsonProperty("annualSalary")
   private Double annualSalary;
-  /** The current status of the corresponding salary and wages */
+  /**
+   * The current status of the corresponding salary and wages
+   */
   public enum StatusEnum {
-    /** ACTIVE */
+    /**
+     * ACTIVE
+     */
     ACTIVE("Active"),
-
-    /** PENDING */
+    
+    /**
+     * PENDING
+     */
     PENDING("Pending"),
-
-    /** HISTORY */
+    
+    /**
+     * HISTORY
+     */
     HISTORY("History");
 
     private String value;
@@ -64,31 +87,25 @@ public class SalaryAndWage {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -100,14 +117,21 @@ public class SalaryAndWage {
     }
   }
 
+
   @JsonProperty("status")
   private StatusEnum status;
-  /** The type of the payment of the corresponding salary and wages */
+  /**
+   * The type of the payment of the corresponding salary and wages
+   */
   public enum PaymentTypeEnum {
-    /** SALARY */
+    /**
+     * SALARY
+     */
     SALARY("Salary"),
-
-    /** HOURLY */
+    
+    /**
+     * HOURLY
+     */
     HOURLY("Hourly");
 
     private String value;
@@ -116,31 +140,25 @@ public class SalaryAndWage {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static PaymentTypeEnum fromValue(String value) {
       for (PaymentTypeEnum b : PaymentTypeEnum.values()) {
@@ -152,14 +170,21 @@ public class SalaryAndWage {
     }
   }
 
+
   @JsonProperty("paymentType")
   private PaymentTypeEnum paymentType;
-  /** The type of the Working Pattern of the corresponding salary and wages */
+  /**
+   * The type of the Working Pattern of the corresponding salary and wages
+   */
   public enum WorkPatternTypeEnum {
-    /** DAYSANDHOURS */
+    /**
+     * DAYSANDHOURS
+     */
     DAYSANDHOURS("DaysAndHours"),
-
-    /** REGULARWEEK */
+    
+    /**
+     * REGULARWEEK
+     */
     REGULARWEEK("RegularWeek");
 
     private String value;
@@ -168,31 +193,25 @@ public class SalaryAndWage {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static WorkPatternTypeEnum fromValue(String value) {
       for (WorkPatternTypeEnum b : WorkPatternTypeEnum.values()) {
@@ -204,402 +223,361 @@ public class SalaryAndWage {
     }
   }
 
+
   @JsonProperty("workPatternType")
   private WorkPatternTypeEnum workPatternType;
   /**
-   * Xero unique identifier for a salary and wages record
-   *
-   * @param salaryAndWagesID UUID
-   * @return SalaryAndWage
-   */
+  * Xero unique identifier for a salary and wages record
+  * @param salaryAndWagesID  UUID
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage salaryAndWagesID(UUID salaryAndWagesID) {
     this.salaryAndWagesID = salaryAndWagesID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for a salary and wages record
-   *
    * @return salaryAndWagesID
-   */
+  **/
   @ApiModelProperty(value = "Xero unique identifier for a salary and wages record")
-  /**
+  /** 
    * Xero unique identifier for a salary and wages record
-   *
    * @return salaryAndWagesID UUID
-   */
+  **/
   public UUID getSalaryAndWagesID() {
     return salaryAndWagesID;
   }
 
-  /**
-   * Xero unique identifier for a salary and wages record
-   *
-   * @param salaryAndWagesID UUID
-   */
+  /** 
+  * Xero unique identifier for a salary and wages record
+  * @param salaryAndWagesID  UUID
+  **/
+
   public void setSalaryAndWagesID(UUID salaryAndWagesID) {
     this.salaryAndWagesID = salaryAndWagesID;
   }
 
   /**
-   * Xero unique identifier for an earnings rate
-   *
-   * @param earningsRateID UUID
-   * @return SalaryAndWage
-   */
+  * Xero unique identifier for an earnings rate
+  * @param earningsRateID  UUID
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for an earnings rate
-   *
    * @return earningsRateID
-   */
+  **/
   @ApiModelProperty(required = true, value = "Xero unique identifier for an earnings rate")
-  /**
+  /** 
    * Xero unique identifier for an earnings rate
-   *
    * @return earningsRateID UUID
-   */
+  **/
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
-  /**
-   * Xero unique identifier for an earnings rate
-   *
-   * @param earningsRateID UUID
-   */
+  /** 
+  * Xero unique identifier for an earnings rate
+  * @param earningsRateID  UUID
+  **/
+
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
   /**
-   * The Number of Units per week for the corresponding salary and wages
-   *
-   * @param numberOfUnitsPerWeek Double
-   * @return SalaryAndWage
-   */
+  * The Number of Units per week for the corresponding salary and wages
+  * @param numberOfUnitsPerWeek  Double
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage numberOfUnitsPerWeek(Double numberOfUnitsPerWeek) {
     this.numberOfUnitsPerWeek = numberOfUnitsPerWeek;
     return this;
   }
 
-  /**
+   /**
    * The Number of Units per week for the corresponding salary and wages
-   *
    * @return numberOfUnitsPerWeek
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The Number of Units per week for the corresponding salary and wages")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The Number of Units per week for the corresponding salary and wages")
+  /** 
    * The Number of Units per week for the corresponding salary and wages
-   *
    * @return numberOfUnitsPerWeek Double
-   */
+  **/
   public Double getNumberOfUnitsPerWeek() {
     return numberOfUnitsPerWeek;
   }
 
-  /**
-   * The Number of Units per week for the corresponding salary and wages
-   *
-   * @param numberOfUnitsPerWeek Double
-   */
+  /** 
+  * The Number of Units per week for the corresponding salary and wages
+  * @param numberOfUnitsPerWeek  Double
+  **/
+
   public void setNumberOfUnitsPerWeek(Double numberOfUnitsPerWeek) {
     this.numberOfUnitsPerWeek = numberOfUnitsPerWeek;
   }
 
   /**
-   * The rate of each unit for the corresponding salary and wages
-   *
-   * @param ratePerUnit Double
-   * @return SalaryAndWage
-   */
+  * The rate of each unit for the corresponding salary and wages
+  * @param ratePerUnit  Double
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage ratePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
   }
 
-  /**
+   /**
    * The rate of each unit for the corresponding salary and wages
-   *
    * @return ratePerUnit
-   */
+  **/
   @ApiModelProperty(value = "The rate of each unit for the corresponding salary and wages")
-  /**
+  /** 
    * The rate of each unit for the corresponding salary and wages
-   *
    * @return ratePerUnit Double
-   */
+  **/
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
 
-  /**
-   * The rate of each unit for the corresponding salary and wages
-   *
-   * @param ratePerUnit Double
-   */
+  /** 
+  * The rate of each unit for the corresponding salary and wages
+  * @param ratePerUnit  Double
+  **/
+
   public void setRatePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
   }
 
   /**
-   * The Number of Units per day for the corresponding salary and wages
-   *
-   * @param numberOfUnitsPerDay Double
-   * @return SalaryAndWage
-   */
+  * The Number of Units per day for the corresponding salary and wages
+  * @param numberOfUnitsPerDay  Double
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage numberOfUnitsPerDay(Double numberOfUnitsPerDay) {
     this.numberOfUnitsPerDay = numberOfUnitsPerDay;
     return this;
   }
 
-  /**
+   /**
    * The Number of Units per day for the corresponding salary and wages
-   *
    * @return numberOfUnitsPerDay
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The Number of Units per day for the corresponding salary and wages")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The Number of Units per day for the corresponding salary and wages")
+  /** 
    * The Number of Units per day for the corresponding salary and wages
-   *
    * @return numberOfUnitsPerDay Double
-   */
+  **/
   public Double getNumberOfUnitsPerDay() {
     return numberOfUnitsPerDay;
   }
 
-  /**
-   * The Number of Units per day for the corresponding salary and wages
-   *
-   * @param numberOfUnitsPerDay Double
-   */
+  /** 
+  * The Number of Units per day for the corresponding salary and wages
+  * @param numberOfUnitsPerDay  Double
+  **/
+
   public void setNumberOfUnitsPerDay(Double numberOfUnitsPerDay) {
     this.numberOfUnitsPerDay = numberOfUnitsPerDay;
   }
 
   /**
-   * The days per week for the salary.
-   *
-   * @param daysPerWeek Double
-   * @return SalaryAndWage
-   */
+  * The days per week for the salary.
+  * @param daysPerWeek  Double
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage daysPerWeek(Double daysPerWeek) {
     this.daysPerWeek = daysPerWeek;
     return this;
   }
 
-  /**
+   /**
    * The days per week for the salary.
-   *
    * @return daysPerWeek
-   */
+  **/
   @ApiModelProperty(value = "The days per week for the salary.")
-  /**
+  /** 
    * The days per week for the salary.
-   *
    * @return daysPerWeek Double
-   */
+  **/
   public Double getDaysPerWeek() {
     return daysPerWeek;
   }
 
-  /**
-   * The days per week for the salary.
-   *
-   * @param daysPerWeek Double
-   */
+  /** 
+  * The days per week for the salary.
+  * @param daysPerWeek  Double
+  **/
+
   public void setDaysPerWeek(Double daysPerWeek) {
     this.daysPerWeek = daysPerWeek;
   }
 
   /**
-   * The effective date of the corresponding salary and wages
-   *
-   * @param effectiveFrom LocalDate
-   * @return SalaryAndWage
-   */
+  * The effective date of the corresponding salary and wages
+  * @param effectiveFrom  LocalDate
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage effectiveFrom(LocalDate effectiveFrom) {
     this.effectiveFrom = effectiveFrom;
     return this;
   }
 
-  /**
+   /**
    * The effective date of the corresponding salary and wages
-   *
    * @return effectiveFrom
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The effective date of the corresponding salary and wages")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The effective date of the corresponding salary and wages")
+  /** 
    * The effective date of the corresponding salary and wages
-   *
    * @return effectiveFrom LocalDate
-   */
+  **/
   public LocalDate getEffectiveFrom() {
     return effectiveFrom;
   }
 
-  /**
-   * The effective date of the corresponding salary and wages
-   *
-   * @param effectiveFrom LocalDate
-   */
+  /** 
+  * The effective date of the corresponding salary and wages
+  * @param effectiveFrom  LocalDate
+  **/
+
   public void setEffectiveFrom(LocalDate effectiveFrom) {
     this.effectiveFrom = effectiveFrom;
   }
 
   /**
-   * The annual salary
-   *
-   * @param annualSalary Double
-   * @return SalaryAndWage
-   */
+  * The annual salary
+  * @param annualSalary  Double
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage annualSalary(Double annualSalary) {
     this.annualSalary = annualSalary;
     return this;
   }
 
-  /**
+   /**
    * The annual salary
-   *
    * @return annualSalary
-   */
+  **/
   @ApiModelProperty(required = true, value = "The annual salary")
-  /**
+  /** 
    * The annual salary
-   *
    * @return annualSalary Double
-   */
+  **/
   public Double getAnnualSalary() {
     return annualSalary;
   }
 
-  /**
-   * The annual salary
-   *
-   * @param annualSalary Double
-   */
+  /** 
+  * The annual salary
+  * @param annualSalary  Double
+  **/
+
   public void setAnnualSalary(Double annualSalary) {
     this.annualSalary = annualSalary;
   }
 
   /**
-   * The current status of the corresponding salary and wages
-   *
-   * @param status StatusEnum
-   * @return SalaryAndWage
-   */
+  * The current status of the corresponding salary and wages
+  * @param status  StatusEnum
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * The current status of the corresponding salary and wages
-   *
    * @return status
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The current status of the corresponding salary and wages")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The current status of the corresponding salary and wages")
+  /** 
    * The current status of the corresponding salary and wages
-   *
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * The current status of the corresponding salary and wages
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * The current status of the corresponding salary and wages
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
   /**
-   * The type of the payment of the corresponding salary and wages
-   *
-   * @param paymentType PaymentTypeEnum
-   * @return SalaryAndWage
-   */
+  * The type of the payment of the corresponding salary and wages
+  * @param paymentType  PaymentTypeEnum
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage paymentType(PaymentTypeEnum paymentType) {
     this.paymentType = paymentType;
     return this;
   }
 
-  /**
+   /**
    * The type of the payment of the corresponding salary and wages
-   *
    * @return paymentType
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The type of the payment of the corresponding salary and wages")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The type of the payment of the corresponding salary and wages")
+  /** 
    * The type of the payment of the corresponding salary and wages
-   *
    * @return paymentType PaymentTypeEnum
-   */
+  **/
   public PaymentTypeEnum getPaymentType() {
     return paymentType;
   }
 
-  /**
-   * The type of the payment of the corresponding salary and wages
-   *
-   * @param paymentType PaymentTypeEnum
-   */
+  /** 
+  * The type of the payment of the corresponding salary and wages
+  * @param paymentType  PaymentTypeEnum
+  **/
+
   public void setPaymentType(PaymentTypeEnum paymentType) {
     this.paymentType = paymentType;
   }
 
   /**
-   * The type of the Working Pattern of the corresponding salary and wages
-   *
-   * @param workPatternType WorkPatternTypeEnum
-   * @return SalaryAndWage
-   */
+  * The type of the Working Pattern of the corresponding salary and wages
+  * @param workPatternType  WorkPatternTypeEnum
+  * @return SalaryAndWage
+  **/
   public SalaryAndWage workPatternType(WorkPatternTypeEnum workPatternType) {
     this.workPatternType = workPatternType;
     return this;
   }
 
-  /**
+   /**
    * The type of the Working Pattern of the corresponding salary and wages
-   *
    * @return workPatternType
-   */
+  **/
   @ApiModelProperty(value = "The type of the Working Pattern of the corresponding salary and wages")
-  /**
+  /** 
    * The type of the Working Pattern of the corresponding salary and wages
-   *
    * @return workPatternType WorkPatternTypeEnum
-   */
+  **/
   public WorkPatternTypeEnum getWorkPatternType() {
     return workPatternType;
   }
 
-  /**
-   * The type of the Working Pattern of the corresponding salary and wages
-   *
-   * @param workPatternType WorkPatternTypeEnum
-   */
+  /** 
+  * The type of the Working Pattern of the corresponding salary and wages
+  * @param workPatternType  WorkPatternTypeEnum
+  **/
+
   public void setWorkPatternType(WorkPatternTypeEnum workPatternType) {
     this.workPatternType = workPatternType;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -610,34 +588,24 @@ public class SalaryAndWage {
       return false;
     }
     SalaryAndWage salaryAndWage = (SalaryAndWage) o;
-    return Objects.equals(this.salaryAndWagesID, salaryAndWage.salaryAndWagesID)
-        && Objects.equals(this.earningsRateID, salaryAndWage.earningsRateID)
-        && Objects.equals(this.numberOfUnitsPerWeek, salaryAndWage.numberOfUnitsPerWeek)
-        && Objects.equals(this.ratePerUnit, salaryAndWage.ratePerUnit)
-        && Objects.equals(this.numberOfUnitsPerDay, salaryAndWage.numberOfUnitsPerDay)
-        && Objects.equals(this.daysPerWeek, salaryAndWage.daysPerWeek)
-        && Objects.equals(this.effectiveFrom, salaryAndWage.effectiveFrom)
-        && Objects.equals(this.annualSalary, salaryAndWage.annualSalary)
-        && Objects.equals(this.status, salaryAndWage.status)
-        && Objects.equals(this.paymentType, salaryAndWage.paymentType)
-        && Objects.equals(this.workPatternType, salaryAndWage.workPatternType);
+    return Objects.equals(this.salaryAndWagesID, salaryAndWage.salaryAndWagesID) &&
+        Objects.equals(this.earningsRateID, salaryAndWage.earningsRateID) &&
+        Objects.equals(this.numberOfUnitsPerWeek, salaryAndWage.numberOfUnitsPerWeek) &&
+        Objects.equals(this.ratePerUnit, salaryAndWage.ratePerUnit) &&
+        Objects.equals(this.numberOfUnitsPerDay, salaryAndWage.numberOfUnitsPerDay) &&
+        Objects.equals(this.daysPerWeek, salaryAndWage.daysPerWeek) &&
+        Objects.equals(this.effectiveFrom, salaryAndWage.effectiveFrom) &&
+        Objects.equals(this.annualSalary, salaryAndWage.annualSalary) &&
+        Objects.equals(this.status, salaryAndWage.status) &&
+        Objects.equals(this.paymentType, salaryAndWage.paymentType) &&
+        Objects.equals(this.workPatternType, salaryAndWage.workPatternType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        salaryAndWagesID,
-        earningsRateID,
-        numberOfUnitsPerWeek,
-        ratePerUnit,
-        numberOfUnitsPerDay,
-        daysPerWeek,
-        effectiveFrom,
-        annualSalary,
-        status,
-        paymentType,
-        workPatternType);
+    return Objects.hash(salaryAndWagesID, earningsRateID, numberOfUnitsPerWeek, ratePerUnit, numberOfUnitsPerDay, daysPerWeek, effectiveFrom, annualSalary, status, paymentType, workPatternType);
   }
+
 
   @Override
   public String toString() {
@@ -645,13 +613,9 @@ public class SalaryAndWage {
     sb.append("class SalaryAndWage {\n");
     sb.append("    salaryAndWagesID: ").append(toIndentedString(salaryAndWagesID)).append("\n");
     sb.append("    earningsRateID: ").append(toIndentedString(earningsRateID)).append("\n");
-    sb.append("    numberOfUnitsPerWeek: ")
-        .append(toIndentedString(numberOfUnitsPerWeek))
-        .append("\n");
+    sb.append("    numberOfUnitsPerWeek: ").append(toIndentedString(numberOfUnitsPerWeek)).append("\n");
     sb.append("    ratePerUnit: ").append(toIndentedString(ratePerUnit)).append("\n");
-    sb.append("    numberOfUnitsPerDay: ")
-        .append(toIndentedString(numberOfUnitsPerDay))
-        .append("\n");
+    sb.append("    numberOfUnitsPerDay: ").append(toIndentedString(numberOfUnitsPerDay)).append("\n");
     sb.append("    daysPerWeek: ").append(toIndentedString(daysPerWeek)).append("\n");
     sb.append("    effectiveFrom: ").append(toIndentedString(effectiveFrom)).append("\n");
     sb.append("    annualSalary: ").append(toIndentedString(annualSalary)).append("\n");
@@ -663,7 +627,8 @@ public class SalaryAndWage {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -671,4 +636,6 @@ public class SalaryAndWage {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

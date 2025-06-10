@@ -9,24 +9,38 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.accounting.Attachment;
+import com.xero.models.accounting.LineAmountTypes;
+import com.xero.models.accounting.ManualJournalLine;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
+
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.ZoneId;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** ManualJournal */
+/**
+ * ManualJournal
+ */
+
 public class ManualJournal {
   StringUtil util = new StringUtil();
 
@@ -41,21 +55,33 @@ public class ManualJournal {
 
   @JsonProperty("LineAmountTypes")
   private LineAmountTypes lineAmountTypes;
-  /** See Manual Journal Status Codes */
+  /**
+   * See Manual Journal Status Codes
+   */
   public enum StatusEnum {
-    /** DRAFT */
+    /**
+     * DRAFT
+     */
     DRAFT("DRAFT"),
-
-    /** POSTED */
+    
+    /**
+     * POSTED
+     */
     POSTED("POSTED"),
-
-    /** DELETED */
+    
+    /**
+     * DELETED
+     */
     DELETED("DELETED"),
-
-    /** VOIDED */
+    
+    /**
+     * VOIDED
+     */
     VOIDED("VOIDED"),
-
-    /** ARCHIVED */
+    
+    /**
+     * ARCHIVED
+     */
     ARCHIVED("ARCHIVED");
 
     private String value;
@@ -64,31 +90,25 @@ public class ManualJournal {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -99,6 +119,7 @@ public class ManualJournal {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("Status")
   private StatusEnum status;
@@ -130,46 +151,42 @@ public class ManualJournal {
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
   /**
-   * Description of journal being posted
-   *
-   * @param narration String
-   * @return ManualJournal
-   */
+  * Description of journal being posted
+  * @param narration  String
+  * @return ManualJournal
+  **/
   public ManualJournal narration(String narration) {
     this.narration = narration;
     return this;
   }
 
-  /**
+   /**
    * Description of journal being posted
-   *
    * @return narration
-   */
+  **/
   @ApiModelProperty(required = true, value = "Description of journal being posted")
-  /**
+  /** 
    * Description of journal being posted
-   *
    * @return narration String
-   */
+  **/
   public String getNarration() {
     return narration;
   }
 
-  /**
-   * Description of journal being posted
-   *
-   * @param narration String
-   */
+  /** 
+  * Description of journal being posted
+  * @param narration  String
+  **/
+
   public void setNarration(String narration) {
     this.narration = narration;
   }
 
   /**
-   * See JournalLines
-   *
-   * @param journalLines List&lt;ManualJournalLine&gt;
-   * @return ManualJournal
-   */
+  * See JournalLines
+  * @param journalLines  List&lt;ManualJournalLine&gt;
+  * @return ManualJournal
+  **/
   public ManualJournal journalLines(List<ManualJournalLine> journalLines) {
     this.journalLines = journalLines;
     return this;
@@ -177,10 +194,9 @@ public class ManualJournal {
 
   /**
    * See JournalLines
-   *
-   * @param journalLinesItem ManualJournalLine
+   * @param journalLinesItem ManualJournalLine 
    * @return ManualJournal
-   */
+  **/
   public ManualJournal addJournalLinesItem(ManualJournalLine journalLinesItem) {
     if (this.journalLines == null) {
       this.journalLines = new ArrayList<ManualJournalLine>();
@@ -189,357 +205,323 @@ public class ManualJournal {
     return this;
   }
 
-  /**
+   /**
    * See JournalLines
-   *
    * @return journalLines
-   */
+  **/
   @ApiModelProperty(value = "See JournalLines")
-  /**
+  /** 
    * See JournalLines
-   *
    * @return journalLines List<ManualJournalLine>
-   */
+  **/
   public List<ManualJournalLine> getJournalLines() {
     return journalLines;
   }
 
-  /**
-   * See JournalLines
-   *
-   * @param journalLines List&lt;ManualJournalLine&gt;
-   */
+  /** 
+  * See JournalLines
+  * @param journalLines List&lt;ManualJournalLine&gt; 
+  **/
+
   public void setJournalLines(List<ManualJournalLine> journalLines) {
     this.journalLines = journalLines;
   }
 
   /**
-   * Date journal was posted – YYYY-MM-DD
-   *
-   * @param date String
-   * @return ManualJournal
-   */
+  * Date journal was posted – YYYY-MM-DD
+  * @param date  String
+  * @return ManualJournal
+  **/
   public ManualJournal date(String date) {
     this.date = date;
     return this;
   }
 
-  /**
+   /**
    * Date journal was posted – YYYY-MM-DD
-   *
    * @return date
-   */
+  **/
   @ApiModelProperty(value = "Date journal was posted – YYYY-MM-DD")
-  /**
+  /** 
    * Date journal was posted – YYYY-MM-DD
-   *
    * @return date String
-   */
+  **/
   public String getDate() {
     return date;
   }
-  /**
+  /** 
    * Date journal was posted – YYYY-MM-DD
-   *
    * @return LocalDate
-   */
+  **/
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
         return util.convertStringToDate(this.date);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
-  /**
-   * Date journal was posted – YYYY-MM-DD
-   *
-   * @param date String
-   */
+  /** 
+  * Date journal was posted – YYYY-MM-DD
+  * @param date  String
+  **/
+
   public void setDate(String date) {
     this.date = date;
   }
 
-  /**
-   * Date journal was posted – YYYY-MM-DD
-   *
-   * @param date LocalDateTime
-   */
+  /** 
+  * Date journal was posted – YYYY-MM-DD
+  * @param date LocalDateTime
+  **/
   public void setDate(LocalDate date) {
-    // CONVERT LocalDate args into MS DateFromat String
-    Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
+    //CONVERT LocalDate args into MS DateFromat String
+    Instant instant =  date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
     long timeInMillis = instant.toEpochMilli();
 
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
   /**
-   * lineAmountTypes
-   *
-   * @param lineAmountTypes LineAmountTypes
-   * @return ManualJournal
-   */
+  * lineAmountTypes
+  * @param lineAmountTypes  LineAmountTypes
+  * @return ManualJournal
+  **/
   public ManualJournal lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
 
-  /**
+   /**
    * Get lineAmountTypes
-   *
    * @return lineAmountTypes
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * lineAmountTypes
-   *
    * @return lineAmountTypes LineAmountTypes
-   */
+  **/
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  /**
-   * lineAmountTypes
-   *
-   * @param lineAmountTypes LineAmountTypes
-   */
+  /** 
+  * lineAmountTypes
+  * @param lineAmountTypes  LineAmountTypes
+  **/
+
   public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
   /**
-   * See Manual Journal Status Codes
-   *
-   * @param status StatusEnum
-   * @return ManualJournal
-   */
+  * See Manual Journal Status Codes
+  * @param status  StatusEnum
+  * @return ManualJournal
+  **/
   public ManualJournal status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * See Manual Journal Status Codes
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(value = "See Manual Journal Status Codes")
-  /**
+  /** 
    * See Manual Journal Status Codes
-   *
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * See Manual Journal Status Codes
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * See Manual Journal Status Codes
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
   /**
-   * Url link to a source document – shown as “Go to [appName]” in the Xero app
-   *
-   * @param url String
-   * @return ManualJournal
-   */
+  * Url link to a source document – shown as “Go to [appName]” in the Xero app
+  * @param url  String
+  * @return ManualJournal
+  **/
   public ManualJournal url(String url) {
     this.url = url;
     return this;
   }
 
-  /**
+   /**
    * Url link to a source document – shown as “Go to [appName]” in the Xero app
-   *
    * @return url
-   */
-  @ApiModelProperty(
-      value = "Url link to a source document – shown as “Go to [appName]” in the Xero app")
-  /**
+  **/
+  @ApiModelProperty(value = "Url link to a source document – shown as “Go to [appName]” in the Xero app")
+  /** 
    * Url link to a source document – shown as “Go to [appName]” in the Xero app
-   *
    * @return url String
-   */
+  **/
   public String getUrl() {
     return url;
   }
 
-  /**
-   * Url link to a source document – shown as “Go to [appName]” in the Xero app
-   *
-   * @param url String
-   */
+  /** 
+  * Url link to a source document – shown as “Go to [appName]” in the Xero app
+  * @param url  String
+  **/
+
   public void setUrl(String url) {
     this.url = url;
   }
 
   /**
-   * Boolean – default is true if not specified
-   *
-   * @param showOnCashBasisReports Boolean
-   * @return ManualJournal
-   */
+  * Boolean – default is true if not specified
+  * @param showOnCashBasisReports  Boolean
+  * @return ManualJournal
+  **/
   public ManualJournal showOnCashBasisReports(Boolean showOnCashBasisReports) {
     this.showOnCashBasisReports = showOnCashBasisReports;
     return this;
   }
 
-  /**
+   /**
    * Boolean – default is true if not specified
-   *
    * @return showOnCashBasisReports
-   */
+  **/
   @ApiModelProperty(value = "Boolean – default is true if not specified")
-  /**
+  /** 
    * Boolean – default is true if not specified
-   *
    * @return showOnCashBasisReports Boolean
-   */
+  **/
   public Boolean getShowOnCashBasisReports() {
     return showOnCashBasisReports;
   }
 
-  /**
-   * Boolean – default is true if not specified
-   *
-   * @param showOnCashBasisReports Boolean
-   */
+  /** 
+  * Boolean – default is true if not specified
+  * @param showOnCashBasisReports  Boolean
+  **/
+
   public void setShowOnCashBasisReports(Boolean showOnCashBasisReports) {
     this.showOnCashBasisReports = showOnCashBasisReports;
   }
 
-  /**
+   /**
    * Boolean to indicate if a manual journal has an attachment
-   *
    * @return hasAttachments
-   */
-  @ApiModelProperty(
-      example = "false",
-      value = "Boolean to indicate if a manual journal has an attachment")
-  /**
+  **/
+  @ApiModelProperty(example = "false", value = "Boolean to indicate if a manual journal has an attachment")
+  /** 
    * Boolean to indicate if a manual journal has an attachment
-   *
    * @return hasAttachments Boolean
-   */
+  **/
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
 
-  /**
+   /**
    * Last modified date UTC format
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
-  /**
+  /** 
    * Last modified date UTC format
-   *
    * @return updatedDateUTC String
-   */
+  **/
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-  /**
+  /** 
    * Last modified date UTC format
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   /**
-   * The Xero identifier for a Manual Journal
-   *
-   * @param manualJournalID UUID
-   * @return ManualJournal
-   */
+  * The Xero identifier for a Manual Journal
+  * @param manualJournalID  UUID
+  * @return ManualJournal
+  **/
   public ManualJournal manualJournalID(UUID manualJournalID) {
     this.manualJournalID = manualJournalID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for a Manual Journal
-   *
    * @return manualJournalID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for a Manual Journal")
-  /**
+  /** 
    * The Xero identifier for a Manual Journal
-   *
    * @return manualJournalID UUID
-   */
+  **/
   public UUID getManualJournalID() {
     return manualJournalID;
   }
 
-  /**
-   * The Xero identifier for a Manual Journal
-   *
-   * @param manualJournalID UUID
-   */
+  /** 
+  * The Xero identifier for a Manual Journal
+  * @param manualJournalID  UUID
+  **/
+
   public void setManualJournalID(UUID manualJournalID) {
     this.manualJournalID = manualJournalID;
   }
 
   /**
-   * A string to indicate if a invoice status
-   *
-   * @param statusAttributeString String
-   * @return ManualJournal
-   */
+  * A string to indicate if a invoice status
+  * @param statusAttributeString  String
+  * @return ManualJournal
+  **/
   public ManualJournal statusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
     return this;
   }
 
-  /**
+   /**
    * A string to indicate if a invoice status
-   *
    * @return statusAttributeString
-   */
+  **/
   @ApiModelProperty(example = "ERROR", value = "A string to indicate if a invoice status")
-  /**
+  /** 
    * A string to indicate if a invoice status
-   *
    * @return statusAttributeString String
-   */
+  **/
   public String getStatusAttributeString() {
     return statusAttributeString;
   }
 
-  /**
-   * A string to indicate if a invoice status
-   *
-   * @param statusAttributeString String
-   */
+  /** 
+  * A string to indicate if a invoice status
+  * @param statusAttributeString  String
+  **/
+
   public void setStatusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
   }
 
   /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   * @return ManualJournal
-   */
+  * Displays array of warning messages from the API
+  * @param warnings  List&lt;ValidationError&gt;
+  * @return ManualJournal
+  **/
   public ManualJournal warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
@@ -547,10 +529,9 @@ public class ManualJournal {
 
   /**
    * Displays array of warning messages from the API
-   *
-   * @param warningsItem ValidationError
+   * @param warningsItem ValidationError 
    * @return ManualJournal
-   */
+  **/
   public ManualJournal addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -559,36 +540,33 @@ public class ManualJournal {
     return this;
   }
 
-  /**
+   /**
    * Displays array of warning messages from the API
-   *
    * @return warnings
-   */
+  **/
   @ApiModelProperty(value = "Displays array of warning messages from the API")
-  /**
+  /** 
    * Displays array of warning messages from the API
-   *
    * @return warnings List<ValidationError>
-   */
+  **/
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
-  /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of warning messages from the API
+  * @param warnings List&lt;ValidationError&gt; 
+  **/
+
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
   /**
-   * Displays array of validation error messages from the API
-   *
-   * @param validationErrors List&lt;ValidationError&gt;
-   * @return ManualJournal
-   */
+  * Displays array of validation error messages from the API
+  * @param validationErrors  List&lt;ValidationError&gt;
+  * @return ManualJournal
+  **/
   public ManualJournal validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
@@ -596,10 +574,9 @@ public class ManualJournal {
 
   /**
    * Displays array of validation error messages from the API
-   *
-   * @param validationErrorsItem ValidationError
+   * @param validationErrorsItem ValidationError 
    * @return ManualJournal
-   */
+  **/
   public ManualJournal addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -608,36 +585,33 @@ public class ManualJournal {
     return this;
   }
 
-  /**
+   /**
    * Displays array of validation error messages from the API
-   *
    * @return validationErrors
-   */
+  **/
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
-  /**
+  /** 
    * Displays array of validation error messages from the API
-   *
    * @return validationErrors List<ValidationError>
-   */
+  **/
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
-  /**
-   * Displays array of validation error messages from the API
-   *
-   * @param validationErrors List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of validation error messages from the API
+  * @param validationErrors List&lt;ValidationError&gt; 
+  **/
+
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
 
   /**
-   * Displays array of attachments from the API
-   *
-   * @param attachments List&lt;Attachment&gt;
-   * @return ManualJournal
-   */
+  * Displays array of attachments from the API
+  * @param attachments  List&lt;Attachment&gt;
+  * @return ManualJournal
+  **/
   public ManualJournal attachments(List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
@@ -645,10 +619,9 @@ public class ManualJournal {
 
   /**
    * Displays array of attachments from the API
-   *
-   * @param attachmentsItem Attachment
+   * @param attachmentsItem Attachment 
    * @return ManualJournal
-   */
+  **/
   public ManualJournal addAttachmentsItem(Attachment attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<Attachment>();
@@ -657,29 +630,28 @@ public class ManualJournal {
     return this;
   }
 
-  /**
+   /**
    * Displays array of attachments from the API
-   *
    * @return attachments
-   */
+  **/
   @ApiModelProperty(value = "Displays array of attachments from the API")
-  /**
+  /** 
    * Displays array of attachments from the API
-   *
    * @return attachments List<Attachment>
-   */
+  **/
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
-  /**
-   * Displays array of attachments from the API
-   *
-   * @param attachments List&lt;Attachment&gt;
-   */
+  /** 
+  * Displays array of attachments from the API
+  * @param attachments List&lt;Attachment&gt; 
+  **/
+
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -690,40 +662,27 @@ public class ManualJournal {
       return false;
     }
     ManualJournal manualJournal = (ManualJournal) o;
-    return Objects.equals(this.narration, manualJournal.narration)
-        && Objects.equals(this.journalLines, manualJournal.journalLines)
-        && Objects.equals(this.date, manualJournal.date)
-        && Objects.equals(this.lineAmountTypes, manualJournal.lineAmountTypes)
-        && Objects.equals(this.status, manualJournal.status)
-        && Objects.equals(this.url, manualJournal.url)
-        && Objects.equals(this.showOnCashBasisReports, manualJournal.showOnCashBasisReports)
-        && Objects.equals(this.hasAttachments, manualJournal.hasAttachments)
-        && Objects.equals(this.updatedDateUTC, manualJournal.updatedDateUTC)
-        && Objects.equals(this.manualJournalID, manualJournal.manualJournalID)
-        && Objects.equals(this.statusAttributeString, manualJournal.statusAttributeString)
-        && Objects.equals(this.warnings, manualJournal.warnings)
-        && Objects.equals(this.validationErrors, manualJournal.validationErrors)
-        && Objects.equals(this.attachments, manualJournal.attachments);
+    return Objects.equals(this.narration, manualJournal.narration) &&
+        Objects.equals(this.journalLines, manualJournal.journalLines) &&
+        Objects.equals(this.date, manualJournal.date) &&
+        Objects.equals(this.lineAmountTypes, manualJournal.lineAmountTypes) &&
+        Objects.equals(this.status, manualJournal.status) &&
+        Objects.equals(this.url, manualJournal.url) &&
+        Objects.equals(this.showOnCashBasisReports, manualJournal.showOnCashBasisReports) &&
+        Objects.equals(this.hasAttachments, manualJournal.hasAttachments) &&
+        Objects.equals(this.updatedDateUTC, manualJournal.updatedDateUTC) &&
+        Objects.equals(this.manualJournalID, manualJournal.manualJournalID) &&
+        Objects.equals(this.statusAttributeString, manualJournal.statusAttributeString) &&
+        Objects.equals(this.warnings, manualJournal.warnings) &&
+        Objects.equals(this.validationErrors, manualJournal.validationErrors) &&
+        Objects.equals(this.attachments, manualJournal.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        narration,
-        journalLines,
-        date,
-        lineAmountTypes,
-        status,
-        url,
-        showOnCashBasisReports,
-        hasAttachments,
-        updatedDateUTC,
-        manualJournalID,
-        statusAttributeString,
-        warnings,
-        validationErrors,
-        attachments);
+    return Objects.hash(narration, journalLines, date, lineAmountTypes, status, url, showOnCashBasisReports, hasAttachments, updatedDateUTC, manualJournalID, statusAttributeString, warnings, validationErrors, attachments);
   }
+
 
   @Override
   public String toString() {
@@ -735,15 +694,11 @@ public class ManualJournal {
     sb.append("    lineAmountTypes: ").append(toIndentedString(lineAmountTypes)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("    showOnCashBasisReports: ")
-        .append(toIndentedString(showOnCashBasisReports))
-        .append("\n");
+    sb.append("    showOnCashBasisReports: ").append(toIndentedString(showOnCashBasisReports)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    manualJournalID: ").append(toIndentedString(manualJournalID)).append("\n");
-    sb.append("    statusAttributeString: ")
-        .append(toIndentedString(statusAttributeString))
-        .append("\n");
+    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
     sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
@@ -752,7 +707,8 @@ public class ManualJournal {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -760,4 +716,6 @@ public class ManualJournal {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

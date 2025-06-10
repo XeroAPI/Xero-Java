@@ -9,14 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.LeaveType;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** LeaveTypeObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LeaveTypeObject
+ */
+
 public class LeaveTypeObject {
   StringUtil util = new StringUtil();
 
@@ -29,109 +49,101 @@ public class LeaveTypeObject {
   @JsonProperty("leaveType")
   private LeaveType leaveType;
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return LeaveTypeObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return LeaveTypeObject
+  **/
   public LeaveTypeObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return LeaveTypeObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return LeaveTypeObject
+  **/
   public LeaveTypeObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * leaveType
-   *
-   * @param leaveType LeaveType
-   * @return LeaveTypeObject
-   */
+  * leaveType
+  * @param leaveType  LeaveType
+  * @return LeaveTypeObject
+  **/
   public LeaveTypeObject leaveType(LeaveType leaveType) {
     this.leaveType = leaveType;
     return this;
   }
 
-  /**
+   /**
    * Get leaveType
-   *
    * @return leaveType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * leaveType
-   *
    * @return leaveType LeaveType
-   */
+  **/
   public LeaveType getLeaveType() {
     return leaveType;
   }
 
-  /**
-   * leaveType
-   *
-   * @param leaveType LeaveType
-   */
+  /** 
+  * leaveType
+  * @param leaveType  LeaveType
+  **/
+
   public void setLeaveType(LeaveType leaveType) {
     this.leaveType = leaveType;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +154,16 @@ public class LeaveTypeObject {
       return false;
     }
     LeaveTypeObject leaveTypeObject = (LeaveTypeObject) o;
-    return Objects.equals(this.pagination, leaveTypeObject.pagination)
-        && Objects.equals(this.problem, leaveTypeObject.problem)
-        && Objects.equals(this.leaveType, leaveTypeObject.leaveType);
+    return Objects.equals(this.pagination, leaveTypeObject.pagination) &&
+        Objects.equals(this.problem, leaveTypeObject.problem) &&
+        Objects.equals(this.leaveType, leaveTypeObject.leaveType);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, leaveType);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +177,8 @@ public class LeaveTypeObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +186,6 @@ public class LeaveTypeObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

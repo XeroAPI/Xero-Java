@@ -9,16 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.BalanceSheetAccountDetail;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** BalanceSheetAccountType */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BalanceSheetAccountType
+ */
+
 public class BalanceSheetAccountType {
   StringUtil util = new StringUtil();
 
@@ -31,71 +49,52 @@ public class BalanceSheetAccountType {
   @JsonProperty("total")
   private Double total;
   /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
-   * @param accountType String
-   * @return BalanceSheetAccountType
-   */
+  * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
+  * @param accountType  String
+  * @return BalanceSheetAccountType
+  **/
   public BalanceSheetAccountType accountType(String accountType) {
     this.accountType = accountType;
     return this;
   }
 
-  /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
+   /**
+   * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
    * @return accountType
-   */
-  @ApiModelProperty(
-      value =
-          "The type of the account. See <a"
-              + " href='https://developer.xero.com/documentation/api/types#AccountTypes'>Account"
-              + " Types</a>")
-  /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
+  **/
+  @ApiModelProperty(value = "The type of the account. See <a href='https://developer.xero.com/documentation/api/types#AccountTypes'>Account Types</a>")
+  /** 
+   * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
    * @return accountType String
-   */
+  **/
   public String getAccountType() {
     return accountType;
   }
 
-  /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
-   * @param accountType String
-   */
+  /** 
+  * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
+  * @param accountType  String
+  **/
+
   public void setAccountType(String accountType) {
     this.accountType = accountType;
   }
 
   /**
-   * A list of all accounts of this type. Refer to the Account section below for each account
-   * element detail.
-   *
-   * @param accounts List&lt;BalanceSheetAccountDetail&gt;
-   * @return BalanceSheetAccountType
-   */
+  * A list of all accounts of this type. Refer to the Account section below for each account element detail.
+  * @param accounts  List&lt;BalanceSheetAccountDetail&gt;
+  * @return BalanceSheetAccountType
+  **/
   public BalanceSheetAccountType accounts(List<BalanceSheetAccountDetail> accounts) {
     this.accounts = accounts;
     return this;
   }
 
   /**
-   * A list of all accounts of this type. Refer to the Account section below for each account
-   * element detail.
-   *
-   * @param accountsItem BalanceSheetAccountDetail
+   * A list of all accounts of this type. Refer to the Account section below for each account element detail.
+   * @param accountsItem BalanceSheetAccountDetail 
    * @return BalanceSheetAccountType
-   */
+  **/
   public BalanceSheetAccountType addAccountsItem(BalanceSheetAccountDetail accountsItem) {
     if (this.accounts == null) {
       this.accounts = new ArrayList<BalanceSheetAccountDetail>();
@@ -104,70 +103,60 @@ public class BalanceSheetAccountType {
     return this;
   }
 
-  /**
-   * A list of all accounts of this type. Refer to the Account section below for each account
-   * element detail.
-   *
+   /**
+   * A list of all accounts of this type. Refer to the Account section below for each account element detail.
    * @return accounts
-   */
-  @ApiModelProperty(
-      value =
-          "A list of all accounts of this type. Refer to the Account section below for each"
-              + " account element detail.")
-  /**
-   * A list of all accounts of this type. Refer to the Account section below for each account
-   * element detail.
-   *
+  **/
+  @ApiModelProperty(value = "A list of all accounts of this type. Refer to the Account section below for each account element detail.")
+  /** 
+   * A list of all accounts of this type. Refer to the Account section below for each account element detail.
    * @return accounts List<BalanceSheetAccountDetail>
-   */
+  **/
   public List<BalanceSheetAccountDetail> getAccounts() {
     return accounts;
   }
 
-  /**
-   * A list of all accounts of this type. Refer to the Account section below for each account
-   * element detail.
-   *
-   * @param accounts List&lt;BalanceSheetAccountDetail&gt;
-   */
+  /** 
+  * A list of all accounts of this type. Refer to the Account section below for each account element detail.
+  * @param accounts List&lt;BalanceSheetAccountDetail&gt; 
+  **/
+
   public void setAccounts(List<BalanceSheetAccountDetail> accounts) {
     this.accounts = accounts;
   }
 
   /**
-   * Total value of all the accounts in this type
-   *
-   * @param total Double
-   * @return BalanceSheetAccountType
-   */
+  * Total value of all the accounts in this type
+  * @param total  Double
+  * @return BalanceSheetAccountType
+  **/
   public BalanceSheetAccountType total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total value of all the accounts in this type
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total value of all the accounts in this type")
-  /**
+  /** 
    * Total value of all the accounts in this type
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total value of all the accounts in this type
-   *
-   * @param total Double
-   */
+  /** 
+  * Total value of all the accounts in this type
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -178,15 +167,16 @@ public class BalanceSheetAccountType {
       return false;
     }
     BalanceSheetAccountType balanceSheetAccountType = (BalanceSheetAccountType) o;
-    return Objects.equals(this.accountType, balanceSheetAccountType.accountType)
-        && Objects.equals(this.accounts, balanceSheetAccountType.accounts)
-        && Objects.equals(this.total, balanceSheetAccountType.total);
+    return Objects.equals(this.accountType, balanceSheetAccountType.accountType) &&
+        Objects.equals(this.accounts, balanceSheetAccountType.accounts) &&
+        Objects.equals(this.total, balanceSheetAccountType.total);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accountType, accounts, total);
   }
+
 
   @Override
   public String toString() {
@@ -200,7 +190,8 @@ public class BalanceSheetAccountType {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -208,4 +199,6 @@ public class BalanceSheetAccountType {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,53 +9,68 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** ValidationError */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ValidationError
+ */
+
 public class ValidationError {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Message")
   private String message;
   /**
-   * Validation error message
-   *
-   * @param message String
-   * @return ValidationError
-   */
+  * Validation error message
+  * @param message  String
+  * @return ValidationError
+  **/
   public ValidationError message(String message) {
     this.message = message;
     return this;
   }
 
-  /**
+   /**
    * Validation error message
-   *
    * @return message
-   */
+  **/
   @ApiModelProperty(value = "Validation error message")
-  /**
+  /** 
    * Validation error message
-   *
    * @return message String
-   */
+  **/
   public String getMessage() {
     return message;
   }
 
-  /**
-   * Validation error message
-   *
-   * @param message String
-   */
+  /** 
+  * Validation error message
+  * @param message  String
+  **/
+
   public void setMessage(String message) {
     this.message = message;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -74,6 +89,7 @@ public class ValidationError {
     return Objects.hash(message);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -84,7 +100,8 @@ public class ValidationError {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -92,4 +109,6 @@ public class ValidationError {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

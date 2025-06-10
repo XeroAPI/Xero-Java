@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Reimbursement */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Reimbursement
+ */
+
 public class Reimbursement {
   StringUtil util = new StringUtil();
 
@@ -33,146 +50,133 @@ public class Reimbursement {
   @JsonProperty("currentRecord")
   private Boolean currentRecord;
   /**
-   * Xero unique identifier for a reimbursement
-   *
-   * @param reimbursementID UUID
-   * @return Reimbursement
-   */
+  * Xero unique identifier for a reimbursement
+  * @param reimbursementID  UUID
+  * @return Reimbursement
+  **/
   public Reimbursement reimbursementID(UUID reimbursementID) {
     this.reimbursementID = reimbursementID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for a reimbursement
-   *
    * @return reimbursementID
-   */
+  **/
   @ApiModelProperty(value = "Xero unique identifier for a reimbursement")
-  /**
+  /** 
    * Xero unique identifier for a reimbursement
-   *
    * @return reimbursementID UUID
-   */
+  **/
   public UUID getReimbursementID() {
     return reimbursementID;
   }
 
-  /**
-   * Xero unique identifier for a reimbursement
-   *
-   * @param reimbursementID UUID
-   */
+  /** 
+  * Xero unique identifier for a reimbursement
+  * @param reimbursementID  UUID
+  **/
+
   public void setReimbursementID(UUID reimbursementID) {
     this.reimbursementID = reimbursementID;
   }
 
   /**
-   * Name of the reimbursement
-   *
-   * @param name String
-   * @return Reimbursement
-   */
+  * Name of the reimbursement
+  * @param name  String
+  * @return Reimbursement
+  **/
   public Reimbursement name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the reimbursement
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(required = true, value = "Name of the reimbursement")
-  /**
+  /** 
    * Name of the reimbursement
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of the reimbursement
-   *
-   * @param name String
-   */
+  /** 
+  * Name of the reimbursement
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Xero unique identifier for the account used for the reimbursement
-   *
-   * @param accountID UUID
-   * @return Reimbursement
-   */
+  * Xero unique identifier for the account used for the reimbursement
+  * @param accountID  UUID
+  * @return Reimbursement
+  **/
   public Reimbursement accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for the account used for the reimbursement
-   *
    * @return accountID
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "Xero unique identifier for the account used for the reimbursement")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "Xero unique identifier for the account used for the reimbursement")
+  /** 
    * Xero unique identifier for the account used for the reimbursement
-   *
    * @return accountID UUID
-   */
+  **/
   public UUID getAccountID() {
     return accountID;
   }
 
-  /**
-   * Xero unique identifier for the account used for the reimbursement
-   *
-   * @param accountID UUID
-   */
+  /** 
+  * Xero unique identifier for the account used for the reimbursement
+  * @param accountID  UUID
+  **/
+
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
   /**
-   * Indicates that whether the reimbursement is active
-   *
-   * @param currentRecord Boolean
-   * @return Reimbursement
-   */
+  * Indicates that whether the reimbursement is active
+  * @param currentRecord  Boolean
+  * @return Reimbursement
+  **/
   public Reimbursement currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
   }
 
-  /**
+   /**
    * Indicates that whether the reimbursement is active
-   *
    * @return currentRecord
-   */
+  **/
   @ApiModelProperty(value = "Indicates that whether the reimbursement is active")
-  /**
+  /** 
    * Indicates that whether the reimbursement is active
-   *
    * @return currentRecord Boolean
-   */
+  **/
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
-  /**
-   * Indicates that whether the reimbursement is active
-   *
-   * @param currentRecord Boolean
-   */
+  /** 
+  * Indicates that whether the reimbursement is active
+  * @param currentRecord  Boolean
+  **/
+
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -183,16 +187,17 @@ public class Reimbursement {
       return false;
     }
     Reimbursement reimbursement = (Reimbursement) o;
-    return Objects.equals(this.reimbursementID, reimbursement.reimbursementID)
-        && Objects.equals(this.name, reimbursement.name)
-        && Objects.equals(this.accountID, reimbursement.accountID)
-        && Objects.equals(this.currentRecord, reimbursement.currentRecord);
+    return Objects.equals(this.reimbursementID, reimbursement.reimbursementID) &&
+        Objects.equals(this.name, reimbursement.name) &&
+        Objects.equals(this.accountID, reimbursement.accountID) &&
+        Objects.equals(this.currentRecord, reimbursement.currentRecord);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(reimbursementID, name, accountID, currentRecord);
   }
+
 
   @Override
   public String toString() {
@@ -207,7 +212,8 @@ public class Reimbursement {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -215,4 +221,6 @@ public class Reimbursement {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

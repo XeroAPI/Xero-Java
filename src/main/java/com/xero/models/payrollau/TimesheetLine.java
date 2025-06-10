@@ -9,19 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** TimesheetLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TimesheetLine
+ */
+
 public class TimesheetLine {
   StringUtil util = new StringUtil();
 
@@ -37,91 +52,74 @@ public class TimesheetLine {
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
   /**
-   * The Xero identifier for an Earnings Rate
-   *
-   * @param earningsRateID UUID
-   * @return TimesheetLine
-   */
+  * The Xero identifier for an Earnings Rate
+  * @param earningsRateID  UUID
+  * @return TimesheetLine
+  **/
   public TimesheetLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for an Earnings Rate
-   *
    * @return earningsRateID
-   */
-  @ApiModelProperty(
-      example = "966c5c77-2ef0-4320-b6a9-6c27b080ecc5",
-      value = "The Xero identifier for an Earnings Rate")
-  /**
+  **/
+  @ApiModelProperty(example = "966c5c77-2ef0-4320-b6a9-6c27b080ecc5", value = "The Xero identifier for an Earnings Rate")
+  /** 
    * The Xero identifier for an Earnings Rate
-   *
    * @return earningsRateID UUID
-   */
+  **/
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
-  /**
-   * The Xero identifier for an Earnings Rate
-   *
-   * @param earningsRateID UUID
-   */
+  /** 
+  * The Xero identifier for an Earnings Rate
+  * @param earningsRateID  UUID
+  **/
+
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
   /**
-   * The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the
-   * TrackingCategory selected as TimesheetCategories under Payroll Settings.
-   *
-   * @param trackingItemID UUID
-   * @return TimesheetLine
-   */
+  * The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the TrackingCategory selected as TimesheetCategories under Payroll Settings.
+  * @param trackingItemID  UUID
+  * @return TimesheetLine
+  **/
   public TimesheetLine trackingItemID(UUID trackingItemID) {
     this.trackingItemID = trackingItemID;
     return this;
   }
 
-  /**
-   * The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the
-   * TrackingCategory selected as TimesheetCategories under Payroll Settings.
-   *
+   /**
+   * The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the TrackingCategory selected as TimesheetCategories under Payroll Settings.
    * @return trackingItemID
-   */
-  @ApiModelProperty(
-      example = "ae777a87-5ef3-4fa0-a4f0-d10e1f13073a",
-      value =
-          "The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the"
-              + " TrackingCategory selected as TimesheetCategories under Payroll Settings.")
-  /**
-   * The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the
-   * TrackingCategory selected as TimesheetCategories under Payroll Settings.
-   *
+  **/
+  @ApiModelProperty(example = "ae777a87-5ef3-4fa0-a4f0-d10e1f13073a", value = "The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the TrackingCategory selected as TimesheetCategories under Payroll Settings.")
+  /** 
+   * The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the TrackingCategory selected as TimesheetCategories under Payroll Settings.
    * @return trackingItemID UUID
-   */
+  **/
   public UUID getTrackingItemID() {
     return trackingItemID;
   }
 
-  /**
-   * The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the
-   * TrackingCategory selected as TimesheetCategories under Payroll Settings.
-   *
-   * @param trackingItemID UUID
-   */
+  /** 
+  * The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the TrackingCategory selected as TimesheetCategories under Payroll Settings.
+  * @param trackingItemID  UUID
+  **/
+
   public void setTrackingItemID(UUID trackingItemID) {
     this.trackingItemID = trackingItemID;
   }
 
   /**
-   * The number of units on a timesheet line
-   *
-   * @param numberOfUnits List&lt;&gt;
-   * @return TimesheetLine
-   */
+  * The number of units on a timesheet line
+  * @param numberOfUnits  List&lt;&gt;
+  * @return TimesheetLine
+  **/
   public TimesheetLine numberOfUnits(List<Double> numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -129,10 +127,9 @@ public class TimesheetLine {
 
   /**
    * The number of units on a timesheet line
-   *
-   * @param numberOfUnitsItem Double
+   * @param numberOfUnitsItem Double 
    * @return TimesheetLine
-   */
+  **/
   public TimesheetLine addNumberOfUnitsItem(Double numberOfUnitsItem) {
     if (this.numberOfUnits == null) {
       this.numberOfUnits = new ArrayList<Double>();
@@ -141,59 +138,55 @@ public class TimesheetLine {
     return this;
   }
 
-  /**
+   /**
    * The number of units on a timesheet line
-   *
    * @return numberOfUnits
-   */
+  **/
   @ApiModelProperty(value = "The number of units on a timesheet line")
-  /**
+  /** 
    * The number of units on a timesheet line
-   *
    * @return numberOfUnits List<Double>
-   */
+  **/
   public List<Double> getNumberOfUnits() {
     return numberOfUnits;
   }
 
-  /**
-   * The number of units on a timesheet line
-   *
-   * @param numberOfUnits List&lt;&gt;
-   */
+  /** 
+  * The number of units on a timesheet line
+  * @param numberOfUnits List&lt;&gt; 
+  **/
+
   public void setNumberOfUnits(List<Double> numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
-  /**
+   /**
    * Last modified timestamp
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
-  /**
+  /** 
    * Last modified timestamp
-   *
    * @return updatedDateUTC String
-   */
+  **/
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-  /**
+  /** 
    * Last modified timestamp
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -204,16 +197,17 @@ public class TimesheetLine {
       return false;
     }
     TimesheetLine timesheetLine = (TimesheetLine) o;
-    return Objects.equals(this.earningsRateID, timesheetLine.earningsRateID)
-        && Objects.equals(this.trackingItemID, timesheetLine.trackingItemID)
-        && Objects.equals(this.numberOfUnits, timesheetLine.numberOfUnits)
-        && Objects.equals(this.updatedDateUTC, timesheetLine.updatedDateUTC);
+    return Objects.equals(this.earningsRateID, timesheetLine.earningsRateID) &&
+        Objects.equals(this.trackingItemID, timesheetLine.trackingItemID) &&
+        Objects.equals(this.numberOfUnits, timesheetLine.numberOfUnits) &&
+        Objects.equals(this.updatedDateUTC, timesheetLine.updatedDateUTC);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(earningsRateID, trackingItemID, numberOfUnits, updatedDateUTC);
   }
+
 
   @Override
   public String toString() {
@@ -228,7 +222,8 @@ public class TimesheetLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -236,4 +231,6 @@ public class TimesheetLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

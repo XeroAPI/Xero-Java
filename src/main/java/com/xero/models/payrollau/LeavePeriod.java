@@ -9,18 +9,32 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.LeavePeriodStatus;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.Objects;
+
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.ZoneId;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** LeavePeriod */
+/**
+ * LeavePeriod
+ */
+
 public class LeavePeriod {
   StringUtil util = new StringUtil();
 
@@ -36,204 +50,185 @@ public class LeavePeriod {
   @JsonProperty("LeavePeriodStatus")
   private LeavePeriodStatus leavePeriodStatus;
   /**
-   * The Number of Units for the leave
-   *
-   * @param numberOfUnits Double
-   * @return LeavePeriod
-   */
+  * The Number of Units for the leave
+  * @param numberOfUnits  Double
+  * @return LeavePeriod
+  **/
   public LeavePeriod numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
   }
 
-  /**
+   /**
    * The Number of Units for the leave
-   *
    * @return numberOfUnits
-   */
+  **/
   @ApiModelProperty(example = "22.8", value = "The Number of Units for the leave")
-  /**
+  /** 
    * The Number of Units for the leave
-   *
    * @return numberOfUnits Double
-   */
+  **/
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
-  /**
-   * The Number of Units for the leave
-   *
-   * @param numberOfUnits Double
-   */
+  /** 
+  * The Number of Units for the leave
+  * @param numberOfUnits  Double
+  **/
+
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
   /**
-   * The Pay Period End Date (YYYY-MM-DD)
-   *
-   * @param payPeriodEndDate String
-   * @return LeavePeriod
-   */
+  * The Pay Period End Date (YYYY-MM-DD)
+  * @param payPeriodEndDate  String
+  * @return LeavePeriod
+  **/
   public LeavePeriod payPeriodEndDate(String payPeriodEndDate) {
     this.payPeriodEndDate = payPeriodEndDate;
     return this;
   }
 
-  /**
+   /**
    * The Pay Period End Date (YYYY-MM-DD)
-   *
    * @return payPeriodEndDate
-   */
-  @ApiModelProperty(
-      example = "/Date(322560000000+0000)/",
-      value = "The Pay Period End Date (YYYY-MM-DD)")
-  /**
+  **/
+  @ApiModelProperty(example = "/Date(322560000000+0000)/", value = "The Pay Period End Date (YYYY-MM-DD)")
+  /** 
    * The Pay Period End Date (YYYY-MM-DD)
-   *
    * @return payPeriodEndDate String
-   */
+  **/
   public String getPayPeriodEndDate() {
     return payPeriodEndDate;
   }
-  /**
+  /** 
    * The Pay Period End Date (YYYY-MM-DD)
-   *
    * @return LocalDate
-   */
+  **/
   public LocalDate getPayPeriodEndDateAsDate() {
     if (this.payPeriodEndDate != null) {
       try {
         return util.convertStringToDate(this.payPeriodEndDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
-  /**
-   * The Pay Period End Date (YYYY-MM-DD)
-   *
-   * @param payPeriodEndDate String
-   */
+  /** 
+  * The Pay Period End Date (YYYY-MM-DD)
+  * @param payPeriodEndDate  String
+  **/
+
   public void setPayPeriodEndDate(String payPeriodEndDate) {
     this.payPeriodEndDate = payPeriodEndDate;
   }
 
-  /**
-   * The Pay Period End Date (YYYY-MM-DD)
-   *
-   * @param payPeriodEndDate LocalDateTime
-   */
+  /** 
+  * The Pay Period End Date (YYYY-MM-DD)
+  * @param payPeriodEndDate LocalDateTime
+  **/
   public void setPayPeriodEndDate(LocalDate payPeriodEndDate) {
-    // CONVERT LocalDate args into MS DateFromat String
-    Instant instant = payPeriodEndDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
+    //CONVERT LocalDate args into MS DateFromat String
+    Instant instant =  payPeriodEndDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
     long timeInMillis = instant.toEpochMilli();
 
     this.payPeriodEndDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
   /**
-   * The Pay Period Start Date (YYYY-MM-DD)
-   *
-   * @param payPeriodStartDate String
-   * @return LeavePeriod
-   */
+  * The Pay Period Start Date (YYYY-MM-DD)
+  * @param payPeriodStartDate  String
+  * @return LeavePeriod
+  **/
   public LeavePeriod payPeriodStartDate(String payPeriodStartDate) {
     this.payPeriodStartDate = payPeriodStartDate;
     return this;
   }
 
-  /**
+   /**
    * The Pay Period Start Date (YYYY-MM-DD)
-   *
    * @return payPeriodStartDate
-   */
-  @ApiModelProperty(
-      example = "/Date(322560000000+0000)/",
-      value = "The Pay Period Start Date (YYYY-MM-DD)")
-  /**
+  **/
+  @ApiModelProperty(example = "/Date(322560000000+0000)/", value = "The Pay Period Start Date (YYYY-MM-DD)")
+  /** 
    * The Pay Period Start Date (YYYY-MM-DD)
-   *
    * @return payPeriodStartDate String
-   */
+  **/
   public String getPayPeriodStartDate() {
     return payPeriodStartDate;
   }
-  /**
+  /** 
    * The Pay Period Start Date (YYYY-MM-DD)
-   *
    * @return LocalDate
-   */
+  **/
   public LocalDate getPayPeriodStartDateAsDate() {
     if (this.payPeriodStartDate != null) {
       try {
         return util.convertStringToDate(this.payPeriodStartDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
-  /**
-   * The Pay Period Start Date (YYYY-MM-DD)
-   *
-   * @param payPeriodStartDate String
-   */
+  /** 
+  * The Pay Period Start Date (YYYY-MM-DD)
+  * @param payPeriodStartDate  String
+  **/
+
   public void setPayPeriodStartDate(String payPeriodStartDate) {
     this.payPeriodStartDate = payPeriodStartDate;
   }
 
-  /**
-   * The Pay Period Start Date (YYYY-MM-DD)
-   *
-   * @param payPeriodStartDate LocalDateTime
-   */
+  /** 
+  * The Pay Period Start Date (YYYY-MM-DD)
+  * @param payPeriodStartDate LocalDateTime
+  **/
   public void setPayPeriodStartDate(LocalDate payPeriodStartDate) {
-    // CONVERT LocalDate args into MS DateFromat String
-    Instant instant = payPeriodStartDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
+    //CONVERT LocalDate args into MS DateFromat String
+    Instant instant =  payPeriodStartDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
     long timeInMillis = instant.toEpochMilli();
 
     this.payPeriodStartDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
   /**
-   * leavePeriodStatus
-   *
-   * @param leavePeriodStatus LeavePeriodStatus
-   * @return LeavePeriod
-   */
+  * leavePeriodStatus
+  * @param leavePeriodStatus  LeavePeriodStatus
+  * @return LeavePeriod
+  **/
   public LeavePeriod leavePeriodStatus(LeavePeriodStatus leavePeriodStatus) {
     this.leavePeriodStatus = leavePeriodStatus;
     return this;
   }
 
-  /**
+   /**
    * Get leavePeriodStatus
-   *
    * @return leavePeriodStatus
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * leavePeriodStatus
-   *
    * @return leavePeriodStatus LeavePeriodStatus
-   */
+  **/
   public LeavePeriodStatus getLeavePeriodStatus() {
     return leavePeriodStatus;
   }
 
-  /**
-   * leavePeriodStatus
-   *
-   * @param leavePeriodStatus LeavePeriodStatus
-   */
+  /** 
+  * leavePeriodStatus
+  * @param leavePeriodStatus  LeavePeriodStatus
+  **/
+
   public void setLeavePeriodStatus(LeavePeriodStatus leavePeriodStatus) {
     this.leavePeriodStatus = leavePeriodStatus;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -244,16 +239,17 @@ public class LeavePeriod {
       return false;
     }
     LeavePeriod leavePeriod = (LeavePeriod) o;
-    return Objects.equals(this.numberOfUnits, leavePeriod.numberOfUnits)
-        && Objects.equals(this.payPeriodEndDate, leavePeriod.payPeriodEndDate)
-        && Objects.equals(this.payPeriodStartDate, leavePeriod.payPeriodStartDate)
-        && Objects.equals(this.leavePeriodStatus, leavePeriod.leavePeriodStatus);
+    return Objects.equals(this.numberOfUnits, leavePeriod.numberOfUnits) &&
+        Objects.equals(this.payPeriodEndDate, leavePeriod.payPeriodEndDate) &&
+        Objects.equals(this.payPeriodStartDate, leavePeriod.payPeriodStartDate) &&
+        Objects.equals(this.leavePeriodStatus, leavePeriod.leavePeriodStatus);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(numberOfUnits, payPeriodEndDate, payPeriodStartDate, leavePeriodStatus);
   }
+
 
   @Override
   public String toString() {
@@ -268,7 +264,8 @@ public class LeavePeriod {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -276,4 +273,6 @@ public class LeavePeriod {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

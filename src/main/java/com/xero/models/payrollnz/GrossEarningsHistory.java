@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** GrossEarningsHistory */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * GrossEarningsHistory
+ */
+
 public class GrossEarningsHistory {
   StringUtil util = new StringUtil();
 
@@ -26,75 +43,69 @@ public class GrossEarningsHistory {
   @JsonProperty("unpaidWeeks")
   private Integer unpaidWeeks;
   /**
-   * Number of days the employee worked in the pay period (0 - 365)
-   *
-   * @param daysPaid Integer
-   * @return GrossEarningsHistory
-   */
+  * Number of days the employee worked in the pay period (0 - 365)
+  * @param daysPaid  Integer
+  * @return GrossEarningsHistory
+  **/
   public GrossEarningsHistory daysPaid(Integer daysPaid) {
     this.daysPaid = daysPaid;
     return this;
   }
 
-  /**
+   /**
    * Number of days the employee worked in the pay period (0 - 365)
-   *
    * @return daysPaid
-   */
+  **/
   @ApiModelProperty(value = "Number of days the employee worked in the pay period (0 - 365)")
-  /**
+  /** 
    * Number of days the employee worked in the pay period (0 - 365)
-   *
    * @return daysPaid Integer
-   */
+  **/
   public Integer getDaysPaid() {
     return daysPaid;
   }
 
-  /**
-   * Number of days the employee worked in the pay period (0 - 365)
-   *
-   * @param daysPaid Integer
-   */
+  /** 
+  * Number of days the employee worked in the pay period (0 - 365)
+  * @param daysPaid  Integer
+  **/
+
   public void setDaysPaid(Integer daysPaid) {
     this.daysPaid = daysPaid;
   }
 
   /**
-   * Number of full weeks the employee didn&#39;t work in the pay period (0 - 52)
-   *
-   * @param unpaidWeeks Integer
-   * @return GrossEarningsHistory
-   */
+  * Number of full weeks the employee didn&#39;t work in the pay period (0 - 52)
+  * @param unpaidWeeks  Integer
+  * @return GrossEarningsHistory
+  **/
   public GrossEarningsHistory unpaidWeeks(Integer unpaidWeeks) {
     this.unpaidWeeks = unpaidWeeks;
     return this;
   }
 
-  /**
+   /**
    * Number of full weeks the employee didn&#39;t work in the pay period (0 - 52)
-   *
    * @return unpaidWeeks
-   */
-  @ApiModelProperty(
-      value = "Number of full weeks the employee didn't work in the pay period (0 - 52)")
-  /**
+  **/
+  @ApiModelProperty(value = "Number of full weeks the employee didn't work in the pay period (0 - 52)")
+  /** 
    * Number of full weeks the employee didn&#39;t work in the pay period (0 - 52)
-   *
    * @return unpaidWeeks Integer
-   */
+  **/
   public Integer getUnpaidWeeks() {
     return unpaidWeeks;
   }
 
-  /**
-   * Number of full weeks the employee didn&#39;t work in the pay period (0 - 52)
-   *
-   * @param unpaidWeeks Integer
-   */
+  /** 
+  * Number of full weeks the employee didn&#39;t work in the pay period (0 - 52)
+  * @param unpaidWeeks  Integer
+  **/
+
   public void setUnpaidWeeks(Integer unpaidWeeks) {
     this.unpaidWeeks = unpaidWeeks;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -105,14 +116,15 @@ public class GrossEarningsHistory {
       return false;
     }
     GrossEarningsHistory grossEarningsHistory = (GrossEarningsHistory) o;
-    return Objects.equals(this.daysPaid, grossEarningsHistory.daysPaid)
-        && Objects.equals(this.unpaidWeeks, grossEarningsHistory.unpaidWeeks);
+    return Objects.equals(this.daysPaid, grossEarningsHistory.daysPaid) &&
+        Objects.equals(this.unpaidWeeks, grossEarningsHistory.unpaidWeeks);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(daysPaid, unpaidWeeks);
   }
+
 
   @Override
   public String toString() {
@@ -125,7 +137,8 @@ public class GrossEarningsHistory {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -133,4 +146,6 @@ public class GrossEarningsHistory {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

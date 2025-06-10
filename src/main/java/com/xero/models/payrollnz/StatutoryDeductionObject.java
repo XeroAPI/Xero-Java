@@ -9,14 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import com.xero.models.payrollnz.StatutoryDeduction;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** StatutoryDeductionObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * StatutoryDeductionObject
+ */
+
 public class StatutoryDeductionObject {
   StringUtil util = new StringUtil();
 
@@ -29,109 +49,101 @@ public class StatutoryDeductionObject {
   @JsonProperty("statutoryDeduction")
   private StatutoryDeduction statutoryDeduction;
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return StatutoryDeductionObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return StatutoryDeductionObject
+  **/
   public StatutoryDeductionObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return StatutoryDeductionObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return StatutoryDeductionObject
+  **/
   public StatutoryDeductionObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * statutoryDeduction
-   *
-   * @param statutoryDeduction StatutoryDeduction
-   * @return StatutoryDeductionObject
-   */
+  * statutoryDeduction
+  * @param statutoryDeduction  StatutoryDeduction
+  * @return StatutoryDeductionObject
+  **/
   public StatutoryDeductionObject statutoryDeduction(StatutoryDeduction statutoryDeduction) {
     this.statutoryDeduction = statutoryDeduction;
     return this;
   }
 
-  /**
+   /**
    * Get statutoryDeduction
-   *
    * @return statutoryDeduction
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * statutoryDeduction
-   *
    * @return statutoryDeduction StatutoryDeduction
-   */
+  **/
   public StatutoryDeduction getStatutoryDeduction() {
     return statutoryDeduction;
   }
 
-  /**
-   * statutoryDeduction
-   *
-   * @param statutoryDeduction StatutoryDeduction
-   */
+  /** 
+  * statutoryDeduction
+  * @param statutoryDeduction  StatutoryDeduction
+  **/
+
   public void setStatutoryDeduction(StatutoryDeduction statutoryDeduction) {
     this.statutoryDeduction = statutoryDeduction;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +154,16 @@ public class StatutoryDeductionObject {
       return false;
     }
     StatutoryDeductionObject statutoryDeductionObject = (StatutoryDeductionObject) o;
-    return Objects.equals(this.pagination, statutoryDeductionObject.pagination)
-        && Objects.equals(this.problem, statutoryDeductionObject.problem)
-        && Objects.equals(this.statutoryDeduction, statutoryDeductionObject.statutoryDeduction);
+    return Objects.equals(this.pagination, statutoryDeductionObject.pagination) &&
+        Objects.equals(this.problem, statutoryDeductionObject.problem) &&
+        Objects.equals(this.statutoryDeduction, statutoryDeductionObject.statutoryDeduction);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, statutoryDeduction);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +177,8 @@ public class StatutoryDeductionObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +186,6 @@ public class StatutoryDeductionObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

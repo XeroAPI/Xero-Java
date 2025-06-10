@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** EmployeeLeaveBalance */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeLeaveBalance
+ */
+
 public class EmployeeLeaveBalance {
   StringUtil util = new StringUtil();
 
@@ -33,144 +50,133 @@ public class EmployeeLeaveBalance {
   @JsonProperty("typeOfUnits")
   private String typeOfUnits;
   /**
-   * Name of the leave type.
-   *
-   * @param name String
-   * @return EmployeeLeaveBalance
-   */
+  * Name of the leave type.
+  * @param name  String
+  * @return EmployeeLeaveBalance
+  **/
   public EmployeeLeaveBalance name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the leave type.
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(example = "Holiday", value = "Name of the leave type.")
-  /**
+  /** 
    * Name of the leave type.
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of the leave type.
-   *
-   * @param name String
-   */
+  /** 
+  * Name of the leave type.
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * The Xero identifier for leave type
-   *
-   * @param leaveTypeID UUID
-   * @return EmployeeLeaveBalance
-   */
+  * The Xero identifier for leave type
+  * @param leaveTypeID  UUID
+  * @return EmployeeLeaveBalance
+  **/
   public EmployeeLeaveBalance leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for leave type
-   *
    * @return leaveTypeID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for leave type")
-  /**
+  /** 
    * The Xero identifier for leave type
-   *
    * @return leaveTypeID UUID
-   */
+  **/
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
-  /**
-   * The Xero identifier for leave type
-   *
-   * @param leaveTypeID UUID
-   */
+  /** 
+  * The Xero identifier for leave type
+  * @param leaveTypeID  UUID
+  **/
+
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
   /**
-   * The employees current balance for the corresponding leave type.
-   *
-   * @param balance Double
-   * @return EmployeeLeaveBalance
-   */
+  * The employees current balance for the corresponding leave type.
+  * @param balance  Double
+  * @return EmployeeLeaveBalance
+  **/
   public EmployeeLeaveBalance balance(Double balance) {
     this.balance = balance;
     return this;
   }
 
-  /**
+   /**
    * The employees current balance for the corresponding leave type.
-   *
    * @return balance
-   */
+  **/
   @ApiModelProperty(value = "The employees current balance for the corresponding leave type.")
-  /**
+  /** 
    * The employees current balance for the corresponding leave type.
-   *
    * @return balance Double
-   */
+  **/
   public Double getBalance() {
     return balance;
   }
 
-  /**
-   * The employees current balance for the corresponding leave type.
-   *
-   * @param balance Double
-   */
+  /** 
+  * The employees current balance for the corresponding leave type.
+  * @param balance  Double
+  **/
+
   public void setBalance(Double balance) {
     this.balance = balance;
   }
 
   /**
-   * The type of the units of the leave.
-   *
-   * @param typeOfUnits String
-   * @return EmployeeLeaveBalance
-   */
+  * The type of the units of the leave.
+  * @param typeOfUnits  String
+  * @return EmployeeLeaveBalance
+  **/
   public EmployeeLeaveBalance typeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
     return this;
   }
 
-  /**
+   /**
    * The type of the units of the leave.
-   *
    * @return typeOfUnits
-   */
+  **/
   @ApiModelProperty(example = "hours", value = "The type of the units of the leave.")
-  /**
+  /** 
    * The type of the units of the leave.
-   *
    * @return typeOfUnits String
-   */
+  **/
   public String getTypeOfUnits() {
     return typeOfUnits;
   }
 
-  /**
-   * The type of the units of the leave.
-   *
-   * @param typeOfUnits String
-   */
+  /** 
+  * The type of the units of the leave.
+  * @param typeOfUnits  String
+  **/
+
   public void setTypeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -181,16 +187,17 @@ public class EmployeeLeaveBalance {
       return false;
     }
     EmployeeLeaveBalance employeeLeaveBalance = (EmployeeLeaveBalance) o;
-    return Objects.equals(this.name, employeeLeaveBalance.name)
-        && Objects.equals(this.leaveTypeID, employeeLeaveBalance.leaveTypeID)
-        && Objects.equals(this.balance, employeeLeaveBalance.balance)
-        && Objects.equals(this.typeOfUnits, employeeLeaveBalance.typeOfUnits);
+    return Objects.equals(this.name, employeeLeaveBalance.name) &&
+        Objects.equals(this.leaveTypeID, employeeLeaveBalance.leaveTypeID) &&
+        Objects.equals(this.balance, employeeLeaveBalance.balance) &&
+        Objects.equals(this.typeOfUnits, employeeLeaveBalance.typeOfUnits);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, leaveTypeID, balance, typeOfUnits);
   }
+
 
   @Override
   public String toString() {
@@ -205,7 +212,8 @@ public class EmployeeLeaveBalance {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -213,4 +221,6 @@ public class EmployeeLeaveBalance {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

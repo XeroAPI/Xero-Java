@@ -9,14 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import com.xero.models.payrollnz.TimesheetLine;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** TimesheetLineObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TimesheetLineObject
+ */
+
 public class TimesheetLineObject {
   StringUtil util = new StringUtil();
 
@@ -29,109 +49,101 @@ public class TimesheetLineObject {
   @JsonProperty("timesheetLine")
   private TimesheetLine timesheetLine;
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return TimesheetLineObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return TimesheetLineObject
+  **/
   public TimesheetLineObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return TimesheetLineObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return TimesheetLineObject
+  **/
   public TimesheetLineObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * timesheetLine
-   *
-   * @param timesheetLine TimesheetLine
-   * @return TimesheetLineObject
-   */
+  * timesheetLine
+  * @param timesheetLine  TimesheetLine
+  * @return TimesheetLineObject
+  **/
   public TimesheetLineObject timesheetLine(TimesheetLine timesheetLine) {
     this.timesheetLine = timesheetLine;
     return this;
   }
 
-  /**
+   /**
    * Get timesheetLine
-   *
    * @return timesheetLine
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * timesheetLine
-   *
    * @return timesheetLine TimesheetLine
-   */
+  **/
   public TimesheetLine getTimesheetLine() {
     return timesheetLine;
   }
 
-  /**
-   * timesheetLine
-   *
-   * @param timesheetLine TimesheetLine
-   */
+  /** 
+  * timesheetLine
+  * @param timesheetLine  TimesheetLine
+  **/
+
   public void setTimesheetLine(TimesheetLine timesheetLine) {
     this.timesheetLine = timesheetLine;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +154,16 @@ public class TimesheetLineObject {
       return false;
     }
     TimesheetLineObject timesheetLineObject = (TimesheetLineObject) o;
-    return Objects.equals(this.pagination, timesheetLineObject.pagination)
-        && Objects.equals(this.problem, timesheetLineObject.problem)
-        && Objects.equals(this.timesheetLine, timesheetLineObject.timesheetLine);
+    return Objects.equals(this.pagination, timesheetLineObject.pagination) &&
+        Objects.equals(this.problem, timesheetLineObject.problem) &&
+        Objects.equals(this.timesheetLine, timesheetLineObject.timesheetLine);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, timesheetLine);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +177,8 @@ public class TimesheetLineObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +186,6 @@ public class TimesheetLineObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** EmployeeOpeningBalance */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeOpeningBalance
+ */
+
 public class EmployeeOpeningBalance {
   StringUtil util = new StringUtil();
 
@@ -33,144 +50,133 @@ public class EmployeeOpeningBalance {
   @JsonProperty("grossEarnings")
   private Double grossEarnings;
   /**
-   * The opening balance period end date.
-   *
-   * @param periodEndDate LocalDate
-   * @return EmployeeOpeningBalance
-   */
+  * The opening balance period end date.
+  * @param periodEndDate  LocalDate
+  * @return EmployeeOpeningBalance
+  **/
   public EmployeeOpeningBalance periodEndDate(LocalDate periodEndDate) {
     this.periodEndDate = periodEndDate;
     return this;
   }
 
-  /**
+   /**
    * The opening balance period end date.
-   *
    * @return periodEndDate
-   */
+  **/
   @ApiModelProperty(value = "The opening balance period end date.")
-  /**
+  /** 
    * The opening balance period end date.
-   *
    * @return periodEndDate LocalDate
-   */
+  **/
   public LocalDate getPeriodEndDate() {
     return periodEndDate;
   }
 
-  /**
-   * The opening balance period end date.
-   *
-   * @param periodEndDate LocalDate
-   */
+  /** 
+  * The opening balance period end date.
+  * @param periodEndDate  LocalDate
+  **/
+
   public void setPeriodEndDate(LocalDate periodEndDate) {
     this.periodEndDate = periodEndDate;
   }
 
   /**
-   * The paid number of days.
-   *
-   * @param daysPaid Integer
-   * @return EmployeeOpeningBalance
-   */
+  * The paid number of days.
+  * @param daysPaid  Integer
+  * @return EmployeeOpeningBalance
+  **/
   public EmployeeOpeningBalance daysPaid(Integer daysPaid) {
     this.daysPaid = daysPaid;
     return this;
   }
 
-  /**
+   /**
    * The paid number of days.
-   *
    * @return daysPaid
-   */
+  **/
   @ApiModelProperty(value = "The paid number of days.")
-  /**
+  /** 
    * The paid number of days.
-   *
    * @return daysPaid Integer
-   */
+  **/
   public Integer getDaysPaid() {
     return daysPaid;
   }
 
-  /**
-   * The paid number of days.
-   *
-   * @param daysPaid Integer
-   */
+  /** 
+  * The paid number of days.
+  * @param daysPaid  Integer
+  **/
+
   public void setDaysPaid(Integer daysPaid) {
     this.daysPaid = daysPaid;
   }
 
   /**
-   * The number of unpaid weeks.
-   *
-   * @param unpaidWeeks Integer
-   * @return EmployeeOpeningBalance
-   */
+  * The number of unpaid weeks.
+  * @param unpaidWeeks  Integer
+  * @return EmployeeOpeningBalance
+  **/
   public EmployeeOpeningBalance unpaidWeeks(Integer unpaidWeeks) {
     this.unpaidWeeks = unpaidWeeks;
     return this;
   }
 
-  /**
+   /**
    * The number of unpaid weeks.
-   *
    * @return unpaidWeeks
-   */
+  **/
   @ApiModelProperty(value = "The number of unpaid weeks.")
-  /**
+  /** 
    * The number of unpaid weeks.
-   *
    * @return unpaidWeeks Integer
-   */
+  **/
   public Integer getUnpaidWeeks() {
     return unpaidWeeks;
   }
 
-  /**
-   * The number of unpaid weeks.
-   *
-   * @param unpaidWeeks Integer
-   */
+  /** 
+  * The number of unpaid weeks.
+  * @param unpaidWeeks  Integer
+  **/
+
   public void setUnpaidWeeks(Integer unpaidWeeks) {
     this.unpaidWeeks = unpaidWeeks;
   }
 
   /**
-   * The gross earnings during the period.
-   *
-   * @param grossEarnings Double
-   * @return EmployeeOpeningBalance
-   */
+  * The gross earnings during the period.
+  * @param grossEarnings  Double
+  * @return EmployeeOpeningBalance
+  **/
   public EmployeeOpeningBalance grossEarnings(Double grossEarnings) {
     this.grossEarnings = grossEarnings;
     return this;
   }
 
-  /**
+   /**
    * The gross earnings during the period.
-   *
    * @return grossEarnings
-   */
+  **/
   @ApiModelProperty(value = "The gross earnings during the period.")
-  /**
+  /** 
    * The gross earnings during the period.
-   *
    * @return grossEarnings Double
-   */
+  **/
   public Double getGrossEarnings() {
     return grossEarnings;
   }
 
-  /**
-   * The gross earnings during the period.
-   *
-   * @param grossEarnings Double
-   */
+  /** 
+  * The gross earnings during the period.
+  * @param grossEarnings  Double
+  **/
+
   public void setGrossEarnings(Double grossEarnings) {
     this.grossEarnings = grossEarnings;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -181,16 +187,17 @@ public class EmployeeOpeningBalance {
       return false;
     }
     EmployeeOpeningBalance employeeOpeningBalance = (EmployeeOpeningBalance) o;
-    return Objects.equals(this.periodEndDate, employeeOpeningBalance.periodEndDate)
-        && Objects.equals(this.daysPaid, employeeOpeningBalance.daysPaid)
-        && Objects.equals(this.unpaidWeeks, employeeOpeningBalance.unpaidWeeks)
-        && Objects.equals(this.grossEarnings, employeeOpeningBalance.grossEarnings);
+    return Objects.equals(this.periodEndDate, employeeOpeningBalance.periodEndDate) &&
+        Objects.equals(this.daysPaid, employeeOpeningBalance.daysPaid) &&
+        Objects.equals(this.unpaidWeeks, employeeOpeningBalance.unpaidWeeks) &&
+        Objects.equals(this.grossEarnings, employeeOpeningBalance.grossEarnings);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(periodEndDate, daysPaid, unpaidWeeks, grossEarnings);
   }
+
 
   @Override
   public String toString() {
@@ -205,7 +212,8 @@ public class EmployeeOpeningBalance {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -213,4 +221,6 @@ public class EmployeeOpeningBalance {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

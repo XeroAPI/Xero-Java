@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** InvalidField */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * InvalidField
+ */
+
 public class InvalidField {
   StringUtil util = new StringUtil();
 
@@ -26,76 +43,69 @@ public class InvalidField {
   @JsonProperty("reason")
   private String reason;
   /**
-   * The name of the field that caused the error
-   *
-   * @param name String
-   * @return InvalidField
-   */
+  * The name of the field that caused the error
+  * @param name  String
+  * @return InvalidField
+  **/
   public InvalidField name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * The name of the field that caused the error
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(example = "DateOfBirth", value = "The name of the field that caused the error")
-  /**
+  /** 
    * The name of the field that caused the error
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * The name of the field that caused the error
-   *
-   * @param name String
-   */
+  /** 
+  * The name of the field that caused the error
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * The reason the error occurred
-   *
-   * @param reason String
-   * @return InvalidField
-   */
+  * The reason the error occurred
+  * @param reason  String
+  * @return InvalidField
+  **/
   public InvalidField reason(String reason) {
     this.reason = reason;
     return this;
   }
 
-  /**
+   /**
    * The reason the error occurred
-   *
    * @return reason
-   */
-  @ApiModelProperty(
-      example = "The Date of Birth is required.",
-      value = "The reason the error occurred")
-  /**
+  **/
+  @ApiModelProperty(example = "The Date of Birth is required.", value = "The reason the error occurred")
+  /** 
    * The reason the error occurred
-   *
    * @return reason String
-   */
+  **/
   public String getReason() {
     return reason;
   }
 
-  /**
-   * The reason the error occurred
-   *
-   * @param reason String
-   */
+  /** 
+  * The reason the error occurred
+  * @param reason  String
+  **/
+
   public void setReason(String reason) {
     this.reason = reason;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -106,14 +116,15 @@ public class InvalidField {
       return false;
     }
     InvalidField invalidField = (InvalidField) o;
-    return Objects.equals(this.name, invalidField.name)
-        && Objects.equals(this.reason, invalidField.reason);
+    return Objects.equals(this.name, invalidField.name) &&
+        Objects.equals(this.reason, invalidField.reason);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, reason);
   }
+
 
   @Override
   public String toString() {
@@ -126,7 +137,8 @@ public class InvalidField {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -134,4 +146,6 @@ public class InvalidField {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

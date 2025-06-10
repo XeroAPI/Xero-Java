@@ -9,29 +9,45 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.ReimbursementLine;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** The reimbursement type lines */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * The reimbursement type lines
+ */
 @ApiModel(description = "The reimbursement type lines")
+
 public class ReimbursementLines {
   StringUtil util = new StringUtil();
 
   @JsonProperty("ReimbursementLines")
   private List<ReimbursementLine> reimbursementLines = new ArrayList<ReimbursementLine>();
   /**
-   * reimbursementLines
-   *
-   * @param reimbursementLines List&lt;ReimbursementLine&gt;
-   * @return ReimbursementLines
-   */
+  * reimbursementLines
+  * @param reimbursementLines  List&lt;ReimbursementLine&gt;
+  * @return ReimbursementLines
+  **/
   public ReimbursementLines reimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
     return this;
@@ -39,10 +55,9 @@ public class ReimbursementLines {
 
   /**
    * reimbursementLines
-   *
-   * @param reimbursementLinesItem ReimbursementLine
+   * @param reimbursementLinesItem ReimbursementLine 
    * @return ReimbursementLines
-   */
+  **/
   public ReimbursementLines addReimbursementLinesItem(ReimbursementLine reimbursementLinesItem) {
     if (this.reimbursementLines == null) {
       this.reimbursementLines = new ArrayList<ReimbursementLine>();
@@ -51,29 +66,28 @@ public class ReimbursementLines {
     return this;
   }
 
-  /**
+   /**
    * Get reimbursementLines
-   *
    * @return reimbursementLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * reimbursementLines
-   *
    * @return reimbursementLines List<ReimbursementLine>
-   */
+  **/
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
   }
 
-  /**
-   * reimbursementLines
-   *
-   * @param reimbursementLines List&lt;ReimbursementLine&gt;
-   */
+  /** 
+  * reimbursementLines
+  * @param reimbursementLines List&lt;ReimbursementLine&gt; 
+  **/
+
   public void setReimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -92,6 +106,7 @@ public class ReimbursementLines {
     return Objects.hash(reimbursementLines);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -102,7 +117,8 @@ public class ReimbursementLines {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -110,4 +126,6 @@ public class ReimbursementLines {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

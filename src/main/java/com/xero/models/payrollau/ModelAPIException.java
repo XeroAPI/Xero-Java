@@ -9,17 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-import java.util.Objects;
+import java.io.IOException;
 
-/** The object returned for a bad request */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * The object returned for a bad request
+ */
 @ApiModel(description = "The object returned for a bad request")
+
 public class ModelAPIException {
   StringUtil util = new StringUtil();
 
@@ -32,111 +48,101 @@ public class ModelAPIException {
   @JsonProperty("Message")
   private String message;
   /**
-   * The error number
-   *
-   * @param errorNumber BigDecimal
-   * @return ModelAPIException
-   */
+  * The error number
+  * @param errorNumber  BigDecimal
+  * @return ModelAPIException
+  **/
   public ModelAPIException errorNumber(BigDecimal errorNumber) {
     this.errorNumber = errorNumber;
     return this;
   }
 
-  /**
+   /**
    * The error number
-   *
    * @return errorNumber
-   */
+  **/
   @ApiModelProperty(example = "16", value = "The error number")
-  /**
+  /** 
    * The error number
-   *
    * @return errorNumber BigDecimal
-   */
+  **/
   public BigDecimal getErrorNumber() {
     return errorNumber;
   }
 
-  /**
-   * The error number
-   *
-   * @param errorNumber BigDecimal
-   */
+  /** 
+  * The error number
+  * @param errorNumber  BigDecimal
+  **/
+
   public void setErrorNumber(BigDecimal errorNumber) {
     this.errorNumber = errorNumber;
   }
 
   /**
-   * The type of error
-   *
-   * @param type String
-   * @return ModelAPIException
-   */
+  * The type of error
+  * @param type  String
+  * @return ModelAPIException
+  **/
   public ModelAPIException type(String type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * The type of error
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(example = "QueryParseException", value = "The type of error")
-  /**
+  /** 
    * The type of error
-   *
    * @return type String
-   */
+  **/
   public String getType() {
     return type;
   }
 
-  /**
-   * The type of error
-   *
-   * @param type String
-   */
+  /** 
+  * The type of error
+  * @param type  String
+  **/
+
   public void setType(String type) {
     this.type = type;
   }
 
   /**
-   * The message describing the error
-   *
-   * @param message String
-   * @return ModelAPIException
-   */
+  * The message describing the error
+  * @param message  String
+  * @return ModelAPIException
+  **/
   public ModelAPIException message(String message) {
     this.message = message;
     return this;
   }
 
-  /**
+   /**
    * The message describing the error
-   *
    * @return message
-   */
-  @ApiModelProperty(
-      example = "No property or field 'hi' exists in type 'Employee' (at index 0)",
-      value = "The message describing the error")
-  /**
+  **/
+  @ApiModelProperty(example = "No property or field 'hi' exists in type 'Employee' (at index 0)", value = "The message describing the error")
+  /** 
    * The message describing the error
-   *
    * @return message String
-   */
+  **/
   public String getMessage() {
     return message;
   }
 
-  /**
-   * The message describing the error
-   *
-   * @param message String
-   */
+  /** 
+  * The message describing the error
+  * @param message  String
+  **/
+
   public void setMessage(String message) {
     this.message = message;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -147,15 +153,16 @@ public class ModelAPIException {
       return false;
     }
     ModelAPIException _apIException = (ModelAPIException) o;
-    return Objects.equals(this.errorNumber, _apIException.errorNumber)
-        && Objects.equals(this.type, _apIException.type)
-        && Objects.equals(this.message, _apIException.message);
+    return Objects.equals(this.errorNumber, _apIException.errorNumber) &&
+        Objects.equals(this.type, _apIException.type) &&
+        Objects.equals(this.message, _apIException.message);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(errorNumber, type, message);
   }
+
 
   @Override
   public String toString() {
@@ -169,7 +176,8 @@ public class ModelAPIException {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -177,4 +185,6 @@ public class ModelAPIException {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.Account;
+import com.xero.models.payrollau.SettingsTrackingCategories;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Settings */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Settings
+ */
+
 public class Settings {
   StringUtil util = new StringUtil();
 
@@ -34,24 +53,20 @@ public class Settings {
   @JsonProperty("EmployeesAreSTP2")
   private Boolean employeesAreSTP2;
   /**
-   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
-   * WagesPayable.
-   *
-   * @param accounts List&lt;Account&gt;
-   * @return Settings
-   */
+  * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp; WagesPayable.
+  * @param accounts  List&lt;Account&gt;
+  * @return Settings
+  **/
   public Settings accounts(List<Account> accounts) {
     this.accounts = accounts;
     return this;
   }
 
   /**
-   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
-   * WagesPayable.
-   *
-   * @param accountsItem Account
+   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp; WagesPayable.
+   * @param accountsItem Account 
    * @return Settings
-   */
+  **/
   public Settings addAccountsItem(Account accountsItem) {
     if (this.accounts == null) {
       this.accounts = new ArrayList<Account>();
@@ -60,143 +75,124 @@ public class Settings {
     return this;
   }
 
-  /**
-   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
-   * WagesPayable.
-   *
+   /**
+   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp; WagesPayable.
    * @return accounts
-   */
-  @ApiModelProperty(
-      value =
-          "Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &"
-              + " WagesPayable.")
-  /**
-   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
-   * WagesPayable.
-   *
+  **/
+  @ApiModelProperty(value = "Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability & WagesPayable.")
+  /** 
+   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp; WagesPayable.
    * @return accounts List<Account>
-   */
+  **/
   public List<Account> getAccounts() {
     return accounts;
   }
 
-  /**
-   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
-   * WagesPayable.
-   *
-   * @param accounts List&lt;Account&gt;
-   */
+  /** 
+  * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp; WagesPayable.
+  * @param accounts List&lt;Account&gt; 
+  **/
+
   public void setAccounts(List<Account> accounts) {
     this.accounts = accounts;
   }
 
   /**
-   * trackingCategories
-   *
-   * @param trackingCategories SettingsTrackingCategories
-   * @return Settings
-   */
+  * trackingCategories
+  * @param trackingCategories  SettingsTrackingCategories
+  * @return Settings
+  **/
   public Settings trackingCategories(SettingsTrackingCategories trackingCategories) {
     this.trackingCategories = trackingCategories;
     return this;
   }
 
-  /**
+   /**
    * Get trackingCategories
-   *
    * @return trackingCategories
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * trackingCategories
-   *
    * @return trackingCategories SettingsTrackingCategories
-   */
+  **/
   public SettingsTrackingCategories getTrackingCategories() {
     return trackingCategories;
   }
 
-  /**
-   * trackingCategories
-   *
-   * @param trackingCategories SettingsTrackingCategories
-   */
+  /** 
+  * trackingCategories
+  * @param trackingCategories  SettingsTrackingCategories
+  **/
+
   public void setTrackingCategories(SettingsTrackingCategories trackingCategories) {
     this.trackingCategories = trackingCategories;
   }
 
   /**
-   * Number of days in the Payroll year
-   *
-   * @param daysInPayrollYear Integer
-   * @return Settings
-   */
+  * Number of days in the Payroll year
+  * @param daysInPayrollYear  Integer
+  * @return Settings
+  **/
   public Settings daysInPayrollYear(Integer daysInPayrollYear) {
     this.daysInPayrollYear = daysInPayrollYear;
     return this;
   }
 
-  /**
+   /**
    * Number of days in the Payroll year
-   *
    * @return daysInPayrollYear
-   */
+  **/
   @ApiModelProperty(example = "365", value = "Number of days in the Payroll year")
-  /**
+  /** 
    * Number of days in the Payroll year
-   *
    * @return daysInPayrollYear Integer
-   */
+  **/
   public Integer getDaysInPayrollYear() {
     return daysInPayrollYear;
   }
 
-  /**
-   * Number of days in the Payroll year
-   *
-   * @param daysInPayrollYear Integer
-   */
+  /** 
+  * Number of days in the Payroll year
+  * @param daysInPayrollYear  Integer
+  **/
+
   public void setDaysInPayrollYear(Integer daysInPayrollYear) {
     this.daysInPayrollYear = daysInPayrollYear;
   }
 
   /**
-   * Indicates if the organisation has been enabled for STP Phase 2 editing of employees.
-   *
-   * @param employeesAreSTP2 Boolean
-   * @return Settings
-   */
+  * Indicates if the organisation has been enabled for STP Phase 2 editing of employees.
+  * @param employeesAreSTP2  Boolean
+  * @return Settings
+  **/
   public Settings employeesAreSTP2(Boolean employeesAreSTP2) {
     this.employeesAreSTP2 = employeesAreSTP2;
     return this;
   }
 
-  /**
+   /**
    * Indicates if the organisation has been enabled for STP Phase 2 editing of employees.
-   *
    * @return employeesAreSTP2
-   */
-  @ApiModelProperty(
-      example = "true",
-      value =
-          "Indicates if the organisation has been enabled for STP Phase 2 editing of employees.")
-  /**
+  **/
+  @ApiModelProperty(example = "true", value = "Indicates if the organisation has been enabled for STP Phase 2 editing of employees.")
+  /** 
    * Indicates if the organisation has been enabled for STP Phase 2 editing of employees.
-   *
    * @return employeesAreSTP2 Boolean
-   */
+  **/
   public Boolean getEmployeesAreSTP2() {
     return employeesAreSTP2;
   }
 
-  /**
-   * Indicates if the organisation has been enabled for STP Phase 2 editing of employees.
-   *
-   * @param employeesAreSTP2 Boolean
-   */
+  /** 
+  * Indicates if the organisation has been enabled for STP Phase 2 editing of employees.
+  * @param employeesAreSTP2  Boolean
+  **/
+
   public void setEmployeesAreSTP2(Boolean employeesAreSTP2) {
     this.employeesAreSTP2 = employeesAreSTP2;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -207,16 +203,17 @@ public class Settings {
       return false;
     }
     Settings settings = (Settings) o;
-    return Objects.equals(this.accounts, settings.accounts)
-        && Objects.equals(this.trackingCategories, settings.trackingCategories)
-        && Objects.equals(this.daysInPayrollYear, settings.daysInPayrollYear)
-        && Objects.equals(this.employeesAreSTP2, settings.employeesAreSTP2);
+    return Objects.equals(this.accounts, settings.accounts) &&
+        Objects.equals(this.trackingCategories, settings.trackingCategories) &&
+        Objects.equals(this.daysInPayrollYear, settings.daysInPayrollYear) &&
+        Objects.equals(this.employeesAreSTP2, settings.employeesAreSTP2);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accounts, trackingCategories, daysInPayrollYear, employeesAreSTP2);
   }
+
 
   @Override
   public String toString() {
@@ -231,7 +228,8 @@ public class Settings {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -239,4 +237,6 @@ public class Settings {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** LineItemItem */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LineItemItem
+ */
+
 public class LineItemItem {
   StringUtil util = new StringUtil();
 
@@ -30,109 +47,101 @@ public class LineItemItem {
   @JsonProperty("ItemID")
   private UUID itemID;
   /**
-   * User defined item code (max length &#x3D; 30)
-   *
-   * @param code String
-   * @return LineItemItem
-   */
+  * User defined item code (max length &#x3D; 30)
+  * @param code  String
+  * @return LineItemItem
+  **/
   public LineItemItem code(String code) {
     this.code = code;
     return this;
   }
 
-  /**
+   /**
    * User defined item code (max length &#x3D; 30)
-   *
    * @return code
-   */
+  **/
   @ApiModelProperty(value = "User defined item code (max length = 30)")
-  /**
+  /** 
    * User defined item code (max length &#x3D; 30)
-   *
    * @return code String
-   */
+  **/
   public String getCode() {
     return code;
   }
 
-  /**
-   * User defined item code (max length &#x3D; 30)
-   *
-   * @param code String
-   */
+  /** 
+  * User defined item code (max length &#x3D; 30)
+  * @param code  String
+  **/
+
   public void setCode(String code) {
     this.code = code;
   }
 
   /**
-   * The name of the item (max length &#x3D; 50)
-   *
-   * @param name String
-   * @return LineItemItem
-   */
+  * The name of the item (max length &#x3D; 50)
+  * @param name  String
+  * @return LineItemItem
+  **/
   public LineItemItem name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * The name of the item (max length &#x3D; 50)
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "The name of the item (max length = 50)")
-  /**
+  /** 
    * The name of the item (max length &#x3D; 50)
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * The name of the item (max length &#x3D; 50)
-   *
-   * @param name String
-   */
+  /** 
+  * The name of the item (max length &#x3D; 50)
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * The Xero identifier for an Item
-   *
-   * @param itemID UUID
-   * @return LineItemItem
-   */
+  * The Xero identifier for an Item
+  * @param itemID  UUID
+  * @return LineItemItem
+  **/
   public LineItemItem itemID(UUID itemID) {
     this.itemID = itemID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for an Item
-   *
    * @return itemID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for an Item")
-  /**
+  /** 
    * The Xero identifier for an Item
-   *
    * @return itemID UUID
-   */
+  **/
   public UUID getItemID() {
     return itemID;
   }
 
-  /**
-   * The Xero identifier for an Item
-   *
-   * @param itemID UUID
-   */
+  /** 
+  * The Xero identifier for an Item
+  * @param itemID  UUID
+  **/
+
   public void setItemID(UUID itemID) {
     this.itemID = itemID;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -143,15 +152,16 @@ public class LineItemItem {
       return false;
     }
     LineItemItem lineItemItem = (LineItemItem) o;
-    return Objects.equals(this.code, lineItemItem.code)
-        && Objects.equals(this.name, lineItemItem.name)
-        && Objects.equals(this.itemID, lineItemItem.itemID);
+    return Objects.equals(this.code, lineItemItem.code) &&
+        Objects.equals(this.name, lineItemItem.name) &&
+        Objects.equals(this.itemID, lineItemItem.itemID);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(code, name, itemID);
   }
+
 
   @Override
   public String toString() {
@@ -165,7 +175,8 @@ public class LineItemItem {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -173,4 +184,6 @@ public class LineItemItem {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

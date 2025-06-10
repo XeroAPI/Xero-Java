@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** CashAccountResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * CashAccountResponse
+ */
+
 public class CashAccountResponse {
   StringUtil util = new StringUtil();
 
@@ -35,200 +52,165 @@ public class CashAccountResponse {
   @JsonProperty("balanceCurrency")
   private String balanceCurrency;
   /**
-   * Total value of transactions in the journals which are not reconciled to bank statement lines,
-   * and have a positive (debit) value.
-   *
-   * @param unreconciledAmountPos Double
-   * @return CashAccountResponse
-   */
+  * Total value of transactions in the journals which are not reconciled to bank statement lines, and have a positive (debit) value.
+  * @param unreconciledAmountPos  Double
+  * @return CashAccountResponse
+  **/
   public CashAccountResponse unreconciledAmountPos(Double unreconciledAmountPos) {
     this.unreconciledAmountPos = unreconciledAmountPos;
     return this;
   }
 
-  /**
-   * Total value of transactions in the journals which are not reconciled to bank statement lines,
-   * and have a positive (debit) value.
-   *
+   /**
+   * Total value of transactions in the journals which are not reconciled to bank statement lines, and have a positive (debit) value.
    * @return unreconciledAmountPos
-   */
-  @ApiModelProperty(
-      value =
-          "Total value of transactions in the journals which are not reconciled to bank statement"
-              + " lines, and have a positive (debit) value.")
-  /**
-   * Total value of transactions in the journals which are not reconciled to bank statement lines,
-   * and have a positive (debit) value.
-   *
+  **/
+  @ApiModelProperty(value = "Total value of transactions in the journals which are not reconciled to bank statement lines, and have a positive (debit) value.")
+  /** 
+   * Total value of transactions in the journals which are not reconciled to bank statement lines, and have a positive (debit) value.
    * @return unreconciledAmountPos Double
-   */
+  **/
   public Double getUnreconciledAmountPos() {
     return unreconciledAmountPos;
   }
 
-  /**
-   * Total value of transactions in the journals which are not reconciled to bank statement lines,
-   * and have a positive (debit) value.
-   *
-   * @param unreconciledAmountPos Double
-   */
+  /** 
+  * Total value of transactions in the journals which are not reconciled to bank statement lines, and have a positive (debit) value.
+  * @param unreconciledAmountPos  Double
+  **/
+
   public void setUnreconciledAmountPos(Double unreconciledAmountPos) {
     this.unreconciledAmountPos = unreconciledAmountPos;
   }
 
   /**
-   * Total value of transactions in the journals which are not reconciled to bank statement lines,
-   * and have a negative (credit) value.
-   *
-   * @param unreconciledAmountNeg Double
-   * @return CashAccountResponse
-   */
+  * Total value of transactions in the journals which are not reconciled to bank statement lines, and have a negative (credit) value.
+  * @param unreconciledAmountNeg  Double
+  * @return CashAccountResponse
+  **/
   public CashAccountResponse unreconciledAmountNeg(Double unreconciledAmountNeg) {
     this.unreconciledAmountNeg = unreconciledAmountNeg;
     return this;
   }
 
-  /**
-   * Total value of transactions in the journals which are not reconciled to bank statement lines,
-   * and have a negative (credit) value.
-   *
+   /**
+   * Total value of transactions in the journals which are not reconciled to bank statement lines, and have a negative (credit) value.
    * @return unreconciledAmountNeg
-   */
-  @ApiModelProperty(
-      value =
-          "Total value of transactions in the journals which are not reconciled to bank statement"
-              + " lines, and have a negative (credit) value.")
-  /**
-   * Total value of transactions in the journals which are not reconciled to bank statement lines,
-   * and have a negative (credit) value.
-   *
+  **/
+  @ApiModelProperty(value = "Total value of transactions in the journals which are not reconciled to bank statement lines, and have a negative (credit) value.")
+  /** 
+   * Total value of transactions in the journals which are not reconciled to bank statement lines, and have a negative (credit) value.
    * @return unreconciledAmountNeg Double
-   */
+  **/
   public Double getUnreconciledAmountNeg() {
     return unreconciledAmountNeg;
   }
 
-  /**
-   * Total value of transactions in the journals which are not reconciled to bank statement lines,
-   * and have a negative (credit) value.
-   *
-   * @param unreconciledAmountNeg Double
-   */
+  /** 
+  * Total value of transactions in the journals which are not reconciled to bank statement lines, and have a negative (credit) value.
+  * @param unreconciledAmountNeg  Double
+  **/
+
   public void setUnreconciledAmountNeg(Double unreconciledAmountNeg) {
     this.unreconciledAmountNeg = unreconciledAmountNeg;
   }
 
   /**
-   * Starting (or historic) balance from the journals (manually keyed in by users on account
-   * creation - unverified).
-   *
-   * @param startingBalance Double
-   * @return CashAccountResponse
-   */
+  * Starting (or historic) balance from the journals (manually keyed in by users on account creation - unverified).
+  * @param startingBalance  Double
+  * @return CashAccountResponse
+  **/
   public CashAccountResponse startingBalance(Double startingBalance) {
     this.startingBalance = startingBalance;
     return this;
   }
 
-  /**
-   * Starting (or historic) balance from the journals (manually keyed in by users on account
-   * creation - unverified).
-   *
+   /**
+   * Starting (or historic) balance from the journals (manually keyed in by users on account creation - unverified).
    * @return startingBalance
-   */
-  @ApiModelProperty(
-      value =
-          "Starting (or historic) balance from the journals (manually keyed in by users on account"
-              + " creation - unverified).")
-  /**
-   * Starting (or historic) balance from the journals (manually keyed in by users on account
-   * creation - unverified).
-   *
+  **/
+  @ApiModelProperty(value = "Starting (or historic) balance from the journals (manually keyed in by users on account creation - unverified).")
+  /** 
+   * Starting (or historic) balance from the journals (manually keyed in by users on account creation - unverified).
    * @return startingBalance Double
-   */
+  **/
   public Double getStartingBalance() {
     return startingBalance;
   }
 
-  /**
-   * Starting (or historic) balance from the journals (manually keyed in by users on account
-   * creation - unverified).
-   *
-   * @param startingBalance Double
-   */
+  /** 
+  * Starting (or historic) balance from the journals (manually keyed in by users on account creation - unverified).
+  * @param startingBalance  Double
+  **/
+
   public void setStartingBalance(Double startingBalance) {
     this.startingBalance = startingBalance;
   }
 
   /**
-   * Current cash at bank accounting value from the journals.
-   *
-   * @param accountBalance Double
-   * @return CashAccountResponse
-   */
+  * Current cash at bank accounting value from the journals.
+  * @param accountBalance  Double
+  * @return CashAccountResponse
+  **/
   public CashAccountResponse accountBalance(Double accountBalance) {
     this.accountBalance = accountBalance;
     return this;
   }
 
-  /**
+   /**
    * Current cash at bank accounting value from the journals.
-   *
    * @return accountBalance
-   */
+  **/
   @ApiModelProperty(value = "Current cash at bank accounting value from the journals.")
-  /**
+  /** 
    * Current cash at bank accounting value from the journals.
-   *
    * @return accountBalance Double
-   */
+  **/
   public Double getAccountBalance() {
     return accountBalance;
   }
 
-  /**
-   * Current cash at bank accounting value from the journals.
-   *
-   * @param accountBalance Double
-   */
+  /** 
+  * Current cash at bank accounting value from the journals.
+  * @param accountBalance  Double
+  **/
+
   public void setAccountBalance(Double accountBalance) {
     this.accountBalance = accountBalance;
   }
 
   /**
-   * Currency which the cashAccount transactions relate to.
-   *
-   * @param balanceCurrency String
-   * @return CashAccountResponse
-   */
+  * Currency which the cashAccount transactions relate to.
+  * @param balanceCurrency  String
+  * @return CashAccountResponse
+  **/
   public CashAccountResponse balanceCurrency(String balanceCurrency) {
     this.balanceCurrency = balanceCurrency;
     return this;
   }
 
-  /**
+   /**
    * Currency which the cashAccount transactions relate to.
-   *
    * @return balanceCurrency
-   */
+  **/
   @ApiModelProperty(value = "Currency which the cashAccount transactions relate to.")
-  /**
+  /** 
    * Currency which the cashAccount transactions relate to.
-   *
    * @return balanceCurrency String
-   */
+  **/
   public String getBalanceCurrency() {
     return balanceCurrency;
   }
 
-  /**
-   * Currency which the cashAccount transactions relate to.
-   *
-   * @param balanceCurrency String
-   */
+  /** 
+  * Currency which the cashAccount transactions relate to.
+  * @param balanceCurrency  String
+  **/
+
   public void setBalanceCurrency(String balanceCurrency) {
     this.balanceCurrency = balanceCurrency;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -239,33 +221,25 @@ public class CashAccountResponse {
       return false;
     }
     CashAccountResponse cashAccountResponse = (CashAccountResponse) o;
-    return Objects.equals(this.unreconciledAmountPos, cashAccountResponse.unreconciledAmountPos)
-        && Objects.equals(this.unreconciledAmountNeg, cashAccountResponse.unreconciledAmountNeg)
-        && Objects.equals(this.startingBalance, cashAccountResponse.startingBalance)
-        && Objects.equals(this.accountBalance, cashAccountResponse.accountBalance)
-        && Objects.equals(this.balanceCurrency, cashAccountResponse.balanceCurrency);
+    return Objects.equals(this.unreconciledAmountPos, cashAccountResponse.unreconciledAmountPos) &&
+        Objects.equals(this.unreconciledAmountNeg, cashAccountResponse.unreconciledAmountNeg) &&
+        Objects.equals(this.startingBalance, cashAccountResponse.startingBalance) &&
+        Objects.equals(this.accountBalance, cashAccountResponse.accountBalance) &&
+        Objects.equals(this.balanceCurrency, cashAccountResponse.balanceCurrency);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        unreconciledAmountPos,
-        unreconciledAmountNeg,
-        startingBalance,
-        accountBalance,
-        balanceCurrency);
+    return Objects.hash(unreconciledAmountPos, unreconciledAmountNeg, startingBalance, accountBalance, balanceCurrency);
   }
+
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CashAccountResponse {\n");
-    sb.append("    unreconciledAmountPos: ")
-        .append(toIndentedString(unreconciledAmountPos))
-        .append("\n");
-    sb.append("    unreconciledAmountNeg: ")
-        .append(toIndentedString(unreconciledAmountNeg))
-        .append("\n");
+    sb.append("    unreconciledAmountPos: ").append(toIndentedString(unreconciledAmountPos)).append("\n");
+    sb.append("    unreconciledAmountNeg: ").append(toIndentedString(unreconciledAmountNeg)).append("\n");
     sb.append("    startingBalance: ").append(toIndentedString(startingBalance)).append("\n");
     sb.append("    accountBalance: ").append(toIndentedString(accountBalance)).append("\n");
     sb.append("    balanceCurrency: ").append(toIndentedString(balanceCurrency)).append("\n");
@@ -274,7 +248,8 @@ public class CashAccountResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -282,4 +257,6 @@ public class CashAccountResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

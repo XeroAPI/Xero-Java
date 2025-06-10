@@ -9,14 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.EmployeeStatutorySickLeave;
+import com.xero.models.payrolluk.Pagination;
+import com.xero.models.payrolluk.Problem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** EmployeeStatutorySickLeaveObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeStatutorySickLeaveObject
+ */
+
 public class EmployeeStatutorySickLeaveObject {
   StringUtil util = new StringUtil();
 
@@ -29,110 +49,101 @@ public class EmployeeStatutorySickLeaveObject {
   @JsonProperty("statutorySickLeave")
   private EmployeeStatutorySickLeave statutorySickLeave;
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return EmployeeStatutorySickLeaveObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return EmployeeStatutorySickLeaveObject
+  **/
   public EmployeeStatutorySickLeaveObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return EmployeeStatutorySickLeaveObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return EmployeeStatutorySickLeaveObject
+  **/
   public EmployeeStatutorySickLeaveObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * statutorySickLeave
-   *
-   * @param statutorySickLeave EmployeeStatutorySickLeave
-   * @return EmployeeStatutorySickLeaveObject
-   */
-  public EmployeeStatutorySickLeaveObject statutorySickLeave(
-      EmployeeStatutorySickLeave statutorySickLeave) {
+  * statutorySickLeave
+  * @param statutorySickLeave  EmployeeStatutorySickLeave
+  * @return EmployeeStatutorySickLeaveObject
+  **/
+  public EmployeeStatutorySickLeaveObject statutorySickLeave(EmployeeStatutorySickLeave statutorySickLeave) {
     this.statutorySickLeave = statutorySickLeave;
     return this;
   }
 
-  /**
+   /**
    * Get statutorySickLeave
-   *
    * @return statutorySickLeave
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * statutorySickLeave
-   *
    * @return statutorySickLeave EmployeeStatutorySickLeave
-   */
+  **/
   public EmployeeStatutorySickLeave getStatutorySickLeave() {
     return statutorySickLeave;
   }
 
-  /**
-   * statutorySickLeave
-   *
-   * @param statutorySickLeave EmployeeStatutorySickLeave
-   */
+  /** 
+  * statutorySickLeave
+  * @param statutorySickLeave  EmployeeStatutorySickLeave
+  **/
+
   public void setStatutorySickLeave(EmployeeStatutorySickLeave statutorySickLeave) {
     this.statutorySickLeave = statutorySickLeave;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,18 +153,17 @@ public class EmployeeStatutorySickLeaveObject {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EmployeeStatutorySickLeaveObject employeeStatutorySickLeaveObject =
-        (EmployeeStatutorySickLeaveObject) o;
-    return Objects.equals(this.pagination, employeeStatutorySickLeaveObject.pagination)
-        && Objects.equals(this.problem, employeeStatutorySickLeaveObject.problem)
-        && Objects.equals(
-            this.statutorySickLeave, employeeStatutorySickLeaveObject.statutorySickLeave);
+    EmployeeStatutorySickLeaveObject employeeStatutorySickLeaveObject = (EmployeeStatutorySickLeaveObject) o;
+    return Objects.equals(this.pagination, employeeStatutorySickLeaveObject.pagination) &&
+        Objects.equals(this.problem, employeeStatutorySickLeaveObject.problem) &&
+        Objects.equals(this.statutorySickLeave, employeeStatutorySickLeaveObject.statutorySickLeave);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, statutorySickLeave);
   }
+
 
   @Override
   public String toString() {
@@ -167,7 +177,8 @@ public class EmployeeStatutorySickLeaveObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -175,4 +186,6 @@ public class EmployeeStatutorySickLeaveObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

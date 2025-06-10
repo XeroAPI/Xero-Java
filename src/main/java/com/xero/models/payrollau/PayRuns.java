@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.PayRun;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** PayRuns */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PayRuns
+ */
+
 public class PayRuns {
   StringUtil util = new StringUtil();
 
   @JsonProperty("PayRuns")
   private List<PayRun> payRuns = new ArrayList<PayRun>();
   /**
-   * payRuns
-   *
-   * @param payRuns List&lt;PayRun&gt;
-   * @return PayRuns
-   */
+  * payRuns
+  * @param payRuns  List&lt;PayRun&gt;
+  * @return PayRuns
+  **/
   public PayRuns payRuns(List<PayRun> payRuns) {
     this.payRuns = payRuns;
     return this;
@@ -37,10 +54,9 @@ public class PayRuns {
 
   /**
    * payRuns
-   *
-   * @param payRunsItem PayRun
+   * @param payRunsItem PayRun 
    * @return PayRuns
-   */
+  **/
   public PayRuns addPayRunsItem(PayRun payRunsItem) {
     if (this.payRuns == null) {
       this.payRuns = new ArrayList<PayRun>();
@@ -49,29 +65,28 @@ public class PayRuns {
     return this;
   }
 
-  /**
+   /**
    * Get payRuns
-   *
    * @return payRuns
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * payRuns
-   *
    * @return payRuns List<PayRun>
-   */
+  **/
   public List<PayRun> getPayRuns() {
     return payRuns;
   }
 
-  /**
-   * payRuns
-   *
-   * @param payRuns List&lt;PayRun&gt;
-   */
+  /** 
+  * payRuns
+  * @param payRuns List&lt;PayRun&gt; 
+  **/
+
   public void setPayRuns(List<PayRun> payRuns) {
     this.payRuns = payRuns;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class PayRuns {
     return Objects.hash(payRuns);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class PayRuns {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class PayRuns {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

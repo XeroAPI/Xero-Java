@@ -9,82 +9,140 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import java.io.IOException;
 
-
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** See Account Types */
+/**
+ * See Account Types
+ */
 public enum AccountType {
-
-  /** BANK */
+  
+    /**
+     * BANK
+     */
   BANK("BANK"),
-
-  /** CURRENT */
+  
+    /**
+     * CURRENT
+     */
   CURRENT("CURRENT"),
-
-  /** CURRLIAB */
+  
+    /**
+     * CURRLIAB
+     */
   CURRLIAB("CURRLIAB"),
-
-  /** DEPRECIATN */
+  
+    /**
+     * DEPRECIATN
+     */
   DEPRECIATN("DEPRECIATN"),
-
-  /** DIRECTCOSTS */
+  
+    /**
+     * DIRECTCOSTS
+     */
   DIRECTCOSTS("DIRECTCOSTS"),
-
-  /** EQUITY */
+  
+    /**
+     * EQUITY
+     */
   EQUITY("EQUITY"),
-
-  /** EXPENSE */
+  
+    /**
+     * EXPENSE
+     */
   EXPENSE("EXPENSE"),
-
-  /** FIXED */
+  
+    /**
+     * FIXED
+     */
   FIXED("FIXED"),
-
-  /** INVENTORY */
+  
+    /**
+     * INVENTORY
+     */
   INVENTORY("INVENTORY"),
-
-  /** LIABILITY */
+  
+    /**
+     * LIABILITY
+     */
   LIABILITY("LIABILITY"),
-
-  /** NONCURRENT */
+  
+    /**
+     * NONCURRENT
+     */
   NONCURRENT("NONCURRENT"),
-
-  /** OTHERINCOME */
+  
+    /**
+     * OTHERINCOME
+     */
   OTHERINCOME("OTHERINCOME"),
-
-  /** OVERHEADS */
+  
+    /**
+     * OVERHEADS
+     */
   OVERHEADS("OVERHEADS"),
-
-  /** PREPAYMENT */
+  
+    /**
+     * PREPAYMENT
+     */
   PREPAYMENT("PREPAYMENT"),
-
-  /** REVENUE */
+  
+    /**
+     * REVENUE
+     */
   REVENUE("REVENUE"),
-
-  /** SALES */
+  
+    /**
+     * SALES
+     */
   SALES("SALES"),
-
-  /** TERMLIAB */
+  
+    /**
+     * TERMLIAB
+     */
   TERMLIAB("TERMLIAB"),
-
-  /** PAYGLIABILITY */
+  
+    /**
+     * PAYGLIABILITY
+     */
   PAYGLIABILITY("PAYGLIABILITY"),
-
-  /** PAYG */
+  
+    /**
+     * PAYG
+     */
   PAYG("PAYG"),
-
-  /** SUPERANNUATIONEXPENSE */
+  
+    /**
+     * SUPERANNUATIONEXPENSE
+     */
   SUPERANNUATIONEXPENSE("SUPERANNUATIONEXPENSE"),
-
-  /** SUPERANNUATIONLIABILITY */
+  
+    /**
+     * SUPERANNUATIONLIABILITY
+     */
   SUPERANNUATIONLIABILITY("SUPERANNUATIONLIABILITY"),
-
-  /** WAGESEXPENSE */
+  
+    /**
+     * WAGESEXPENSE
+     */
   WAGESEXPENSE("WAGESEXPENSE"),
-
-  /** WAGESPAYABLELIABILITY */
+  
+    /**
+     * WAGESPAYABLELIABILITY
+     */
   WAGESPAYABLELIABILITY("WAGESPAYABLELIABILITY");
 
   private String value;
@@ -93,26 +151,24 @@ public enum AccountType {
     this.value = value;
   }
 
-  /** @return String value */
+  /**
+   * @return String value
+   */
   @JsonValue
   public String getValue() {
     return value;
   }
 
-  /**
-   * toString
-   *
-   * @return String value
-   */
+  /** toString
+  * @return String value
+  */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
-  /**
-   * fromValue
-   *
-   * @param value String
+   /** fromValue
+   * @param value String 
    */
   @JsonCreator
   public static AccountType fromValue(String value) {
@@ -124,3 +180,4 @@ public enum AccountType {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+
