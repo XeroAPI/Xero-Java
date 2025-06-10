@@ -9,29 +9,53 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.payrollnz.BankAccount;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** PaymentMethod */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PaymentMethod
+ */
+
 public class PaymentMethod {
   StringUtil util = new StringUtil();
-  /** The payment method code */
+  /**
+   * The payment method code
+   */
   public enum PaymentMethodEnum {
-    /** CHEQUE */
+    /**
+     * CHEQUE
+     */
     CHEQUE("Cheque"),
-
-    /** ELECTRONICALLY */
+    
+    /**
+     * ELECTRONICALLY
+     */
     ELECTRONICALLY("Electronically"),
-
-    /** MANUAL */
+    
+    /**
+     * MANUAL
+     */
     MANUAL("Manual");
 
     private String value;
@@ -40,31 +64,25 @@ public class PaymentMethod {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static PaymentMethodEnum fromValue(String value) {
       for (PaymentMethodEnum b : PaymentMethodEnum.values()) {
@@ -76,52 +94,49 @@ public class PaymentMethod {
     }
   }
 
+
   @JsonProperty("paymentMethod")
   private PaymentMethodEnum paymentMethod;
 
   @JsonProperty("bankAccounts")
   private List<BankAccount> bankAccounts = new ArrayList<BankAccount>();
   /**
-   * The payment method code
-   *
-   * @param paymentMethod PaymentMethodEnum
-   * @return PaymentMethod
-   */
+  * The payment method code
+  * @param paymentMethod  PaymentMethodEnum
+  * @return PaymentMethod
+  **/
   public PaymentMethod paymentMethod(PaymentMethodEnum paymentMethod) {
     this.paymentMethod = paymentMethod;
     return this;
   }
 
-  /**
+   /**
    * The payment method code
-   *
    * @return paymentMethod
-   */
+  **/
   @ApiModelProperty(value = "The payment method code")
-  /**
+  /** 
    * The payment method code
-   *
    * @return paymentMethod PaymentMethodEnum
-   */
+  **/
   public PaymentMethodEnum getPaymentMethod() {
     return paymentMethod;
   }
 
-  /**
-   * The payment method code
-   *
-   * @param paymentMethod PaymentMethodEnum
-   */
+  /** 
+  * The payment method code
+  * @param paymentMethod  PaymentMethodEnum
+  **/
+
   public void setPaymentMethod(PaymentMethodEnum paymentMethod) {
     this.paymentMethod = paymentMethod;
   }
 
   /**
-   * bankAccounts
-   *
-   * @param bankAccounts List&lt;BankAccount&gt;
-   * @return PaymentMethod
-   */
+  * bankAccounts
+  * @param bankAccounts  List&lt;BankAccount&gt;
+  * @return PaymentMethod
+  **/
   public PaymentMethod bankAccounts(List<BankAccount> bankAccounts) {
     this.bankAccounts = bankAccounts;
     return this;
@@ -129,10 +144,9 @@ public class PaymentMethod {
 
   /**
    * bankAccounts
-   *
-   * @param bankAccountsItem BankAccount
+   * @param bankAccountsItem BankAccount 
    * @return PaymentMethod
-   */
+  **/
   public PaymentMethod addBankAccountsItem(BankAccount bankAccountsItem) {
     if (this.bankAccounts == null) {
       this.bankAccounts = new ArrayList<BankAccount>();
@@ -141,29 +155,28 @@ public class PaymentMethod {
     return this;
   }
 
-  /**
+   /**
    * Get bankAccounts
-   *
    * @return bankAccounts
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * bankAccounts
-   *
    * @return bankAccounts List<BankAccount>
-   */
+  **/
   public List<BankAccount> getBankAccounts() {
     return bankAccounts;
   }
 
-  /**
-   * bankAccounts
-   *
-   * @param bankAccounts List&lt;BankAccount&gt;
-   */
+  /** 
+  * bankAccounts
+  * @param bankAccounts List&lt;BankAccount&gt; 
+  **/
+
   public void setBankAccounts(List<BankAccount> bankAccounts) {
     this.bankAccounts = bankAccounts;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -174,14 +187,15 @@ public class PaymentMethod {
       return false;
     }
     PaymentMethod paymentMethod = (PaymentMethod) o;
-    return Objects.equals(this.paymentMethod, paymentMethod.paymentMethod)
-        && Objects.equals(this.bankAccounts, paymentMethod.bankAccounts);
+    return Objects.equals(this.paymentMethod, paymentMethod.paymentMethod) &&
+        Objects.equals(this.bankAccounts, paymentMethod.bankAccounts);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(paymentMethod, bankAccounts);
   }
+
 
   @Override
   public String toString() {
@@ -194,7 +208,8 @@ public class PaymentMethod {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -202,4 +217,6 @@ public class PaymentMethod {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

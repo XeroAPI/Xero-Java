@@ -9,22 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-
+ 
 package com.xero.api.client;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.http.HttpMethods;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpResponseException;
-import com.google.api.client.http.HttpTransport;
 import com.xero.api.ApiClient;
-import com.xero.api.XeroApiExceptionHandler;
+
 import com.xero.models.finance.AccountUsageResponse;
 import com.xero.models.finance.BalanceSheetResponse;
 import com.xero.models.finance.BankStatementAccountingResponse;
@@ -32,1943 +21,1540 @@ import com.xero.models.finance.CashValidationResponse;
 import com.xero.models.finance.CashflowResponse;
 import com.xero.models.finance.IncomeByContactResponse;
 import com.xero.models.finance.LockHistoryResponse;
+import com.xero.models.finance.Problem;
 import com.xero.models.finance.ProfitAndLossResponse;
 import com.xero.models.finance.ReportHistoryResponse;
 import com.xero.models.finance.TrialBalanceResponse;
+import java.util.UUID;
 import com.xero.models.finance.UserActivitiesResponse;
+import com.xero.api.XeroApiException;
+import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.api.client.http.ByteArrayContent;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpContent;
+import com.google.api.client.http.HttpMethods;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpHeaders;
+import com.google.api.client.http.HttpMediaType;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpResponseException;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.MultipartContent;
+import com.google.api.client.http.FileContent;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.util.Maps;
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+
 import jakarta.ws.rs.core.UriBuilder;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
-import java.util.UUID;
+
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
-/** FinanceApi has methods for interacting with all endpoints in the API set */
+
+/** FinanceApi has methods for interacting with all endpoints in the API set  */
 public class FinanceApi {
-  private ApiClient apiClient;
-  private static FinanceApi instance = null;
-  private String userAgent = "Default";
-  private String version = "10.2.0";
-  static final Logger logger = LoggerFactory.getLogger(FinanceApi.class);
+    private ApiClient apiClient;
+    private static FinanceApi instance = null;
+    private String userAgent = "Default";
+    private String version = "10.2.0";
+    final static Logger logger = LoggerFactory.getLogger(FinanceApi.class);
 
-  /** FinanceApi */
-  public FinanceApi() {
-    this(new ApiClient());
-  }
-
-  /**
-   * FinanceApi getInstance
-   *
-   * @param apiClient ApiClient pass into the new instance of this class
-   * @return instance of this class
-   */
-  public static FinanceApi getInstance(ApiClient apiClient) {
-    if (instance == null) {
-      instance = new FinanceApi(apiClient);
+    /** FinanceApi  */
+    public FinanceApi() {
+        this(new ApiClient());
     }
-    return instance;
-  }
 
-  /**
-   * FinanceApi
-   *
-   * @param apiClient ApiClient pass into the new instance of this class
-   */
-  public FinanceApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * get ApiClient
-   *
-   * @return apiClient the current ApiClient
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
-
-  /**
-   * set ApiClient
-   *
-   * @param apiClient ApiClient pass into the new instance of this class
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * set user agent
-   *
-   * @param userAgent string to override the user agent
-   */
-  public void setUserAgent(String userAgent) {
-    this.userAgent = userAgent;
-  }
-
-  /**
-   * get user agent
-   *
-   * @return String of user agent
-   */
-  public String getUserAgent() {
-    return this.userAgent + " [Xero-Java-" + this.version + "]";
-  }
-
-  /**
-   * Get account usage A summary of how each account is being transacted on exposing the level of
-   * detail and amounts attributable to manual adjustments.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param startMonth date, yyyy-MM If no parameter is provided, the month 12 months prior to the
-   *     end month will be used. Account usage for up to 12 months from this date will be returned.
-   * @param endMonth date, yyyy-MM If no parameter is provided, the current month will be used.
-   *     Account usage for up to 12 months prior to this date will be returned.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return AccountUsageResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public AccountUsageResponse getAccountingActivityAccountUsage(
-      String accessToken, String xeroTenantId, String startMonth, String endMonth)
-      throws IOException {
-    try {
-      TypeReference<AccountUsageResponse> typeRef = new TypeReference<AccountUsageResponse>() {};
-      HttpResponse response =
-          getAccountingActivityAccountUsageForHttpResponse(
-              accessToken, xeroTenantId, startMonth, endMonth);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getAccountingActivityAccountUsage -------------------");
-        logger.debug(e.toString());
+    /** FinanceApi getInstance
+    * @param apiClient ApiClient pass into the new instance of this class 
+    * @return instance of this class
+    */
+    public static FinanceApi getInstance(ApiClient apiClient) {
+      if (instance == null) {
+        instance = new FinanceApi(apiClient);
       }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
+      return instance;
     }
-    return null;
-  }
 
-  /**
-   * Get account usage A summary of how each account is being transacted on exposing the level of
-   * detail and amounts attributable to manual adjustments.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param startMonth date, yyyy-MM If no parameter is provided, the month 12 months prior to the
-   *     end month will be used. Account usage for up to 12 months from this date will be returned.
-   * @param endMonth date, yyyy-MM If no parameter is provided, the current month will be used.
-   *     Account usage for up to 12 months prior to this date will be returned.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getAccountingActivityAccountUsageForHttpResponse(
-      String accessToken, String xeroTenantId, String startMonth, String endMonth)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " getAccountingActivityAccountUsage");
+    /** FinanceApi
+    * @param apiClient ApiClient pass into the new instance of this class 
+    */
+    public FinanceApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
     }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " getAccountingActivityAccountUsage");
+
+    /** get ApiClient
+    * @return apiClient the current ApiClient  
+    */
+    public ApiClient getApiClient() {
+        return apiClient;
     }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/AccountUsage");
-    if (startMonth != null) {
-      String key = "startMonth";
-      Object value = startMonth;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /** set ApiClient
+    * @param apiClient ApiClient pass into the new instance of this class 
+    */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
+    }
+
+    /** set user agent
+    * @param userAgent string to override the user agent
+    */
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
+    }
+    
+    /** get user agent
+    * @return String of user agent
+    */
+    public String getUserAgent() {
+        return this.userAgent +  " [Xero-Java-" + this.version + "]";
+    }
+
+    
+    /**
+    * Get account usage
+    * A summary of how each account is being transacted on exposing the level of detail and amounts attributable to manual adjustments.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param startMonth date, yyyy-MM                 If no parameter is provided, the month 12 months prior to the end month will be used.                Account usage for up to 12 months from this date will be returned.
+    * @param endMonth date, yyyy-MM                 If no parameter is provided, the current month will be used.                Account usage for up to 12 months prior to this date will be returned.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  AccountUsageResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public AccountUsageResponse  getAccountingActivityAccountUsage(String accessToken, String xeroTenantId, String startMonth, String endMonth) throws IOException {
+        try {
+            TypeReference<AccountUsageResponse> typeRef = new TypeReference<AccountUsageResponse>() {};
+            HttpResponse response = getAccountingActivityAccountUsageForHttpResponse(accessToken, xeroTenantId, startMonth, endMonth);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAccountingActivityAccountUsage -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        return null;
     }
-    if (endMonth != null) {
-      String key = "endMonth";
-      Object value = endMonth;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Get account usage
+    * A summary of how each account is being transacted on exposing the level of detail and amounts attributable to manual adjustments.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param startMonth date, yyyy-MM                 If no parameter is provided, the month 12 months prior to the end month will be used.                Account usage for up to 12 months from this date will be returned.
+    * @param endMonth date, yyyy-MM                 If no parameter is provided, the current month will be used.                Account usage for up to 12 months prior to this date will be returned.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getAccountingActivityAccountUsageForHttpResponse(String accessToken, String xeroTenantId, String startMonth, String endMonth) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAccountingActivityAccountUsage");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get lock history Provides a history of locking of accounting books. Locking may be an indicator
-   * of good accounting practices that could reduce the risk of changes to accounting records in
-   * prior periods.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param endDate date, yyyy-MM-dd If no parameter is provided, the current date will be used. Any
-   *     changes to hard or soft lock dates that were made within the period up to 12 months before
-   *     this date will be returned. Please be aware that there may be a delay of up to 3 days
-   *     before a change is visible from this API.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return LockHistoryResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public LockHistoryResponse getAccountingActivityLockHistory(
-      String accessToken, String xeroTenantId, String endDate) throws IOException {
-    try {
-      TypeReference<LockHistoryResponse> typeRef = new TypeReference<LockHistoryResponse>() {};
-      HttpResponse response =
-          getAccountingActivityLockHistoryForHttpResponse(accessToken, xeroTenantId, endDate);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getAccountingActivityLockHistory -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get lock history Provides a history of locking of accounting books. Locking may be an indicator
-   * of good accounting practices that could reduce the risk of changes to accounting records in
-   * prior periods.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param endDate date, yyyy-MM-dd If no parameter is provided, the current date will be used. Any
-   *     changes to hard or soft lock dates that were made within the period up to 12 months before
-   *     this date will be returned. Please be aware that there may be a delay of up to 3 days
-   *     before a change is visible from this API.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getAccountingActivityLockHistoryForHttpResponse(
-      String accessToken, String xeroTenantId, String endDate) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " getAccountingActivityLockHistory");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " getAccountingActivityLockHistory");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/LockHistory");
-    if (endDate != null) {
-      String key = "endDate";
-      Object value = endDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getAccountingActivityAccountUsage");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get report history For a specified organisation, provides a summary of all the reports
-   * published within a given period, which may be an indicator for good business management and
-   * oversight.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param endDate date, yyyy-MM-dd If no parameter is provided, the current date will be used. Any
-   *     reports that were published within the period up to 12 months before this date will be
-   *     returned. Please be aware that there may be a delay of up to 3 days before a published
-   *     report is visible from this API.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return ReportHistoryResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public ReportHistoryResponse getAccountingActivityReportHistory(
-      String accessToken, String xeroTenantId, String endDate) throws IOException {
-    try {
-      TypeReference<ReportHistoryResponse> typeRef = new TypeReference<ReportHistoryResponse>() {};
-      HttpResponse response =
-          getAccountingActivityReportHistoryForHttpResponse(accessToken, xeroTenantId, endDate);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getAccountingActivityReportHistory -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get report history For a specified organisation, provides a summary of all the reports
-   * published within a given period, which may be an indicator for good business management and
-   * oversight.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param endDate date, yyyy-MM-dd If no parameter is provided, the current date will be used. Any
-   *     reports that were published within the period up to 12 months before this date will be
-   *     returned. Please be aware that there may be a delay of up to 3 days before a published
-   *     report is visible from this API.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getAccountingActivityReportHistoryForHttpResponse(
-      String accessToken, String xeroTenantId, String endDate) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " getAccountingActivityReportHistory");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " getAccountingActivityReportHistory");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/ReportHistory");
-    if (endDate != null) {
-      String key = "endDate";
-      Object value = endDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/AccountUsage");
+        if (startMonth != null) {
+            String key = "startMonth";
+            Object value = startMonth;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (endMonth != null) {
+            String key = "endMonth";
+            Object value = endMonth;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get user activities For a specified organisation, provides a list of all the users registered,
-   * and a history of their accounting transactions. Also identifies the existence of an external
-   * accounting advisor and the level of interaction.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param dataMonth date, yyyy-MM The specified month must be complete (in the past); The current
-   *     month cannot be specified since it is not complete. If no parameter is provided, the month
-   *     immediately previous to the current month will be used. Any user activities occurring
-   *     within the specified month will be returned. Please be aware that there may be a delay of
-   *     up to 3 days before a user activity is visible from this API.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return UserActivitiesResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public UserActivitiesResponse getAccountingActivityUserActivities(
-      String accessToken, String xeroTenantId, String dataMonth) throws IOException {
-    try {
-      TypeReference<UserActivitiesResponse> typeRef =
-          new TypeReference<UserActivitiesResponse>() {};
-      HttpResponse response =
-          getAccountingActivityUserActivitiesForHttpResponse(accessToken, xeroTenantId, dataMonth);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getAccountingActivityUserActivities -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get user activities For a specified organisation, provides a list of all the users registered,
-   * and a history of their accounting transactions. Also identifies the existence of an external
-   * accounting advisor and the level of interaction.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param dataMonth date, yyyy-MM The specified month must be complete (in the past); The current
-   *     month cannot be specified since it is not complete. If no parameter is provided, the month
-   *     immediately previous to the current month will be used. Any user activities occurring
-   *     within the specified month will be returned. Please be aware that there may be a delay of
-   *     up to 3 days before a user activity is visible from this API.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getAccountingActivityUserActivitiesForHttpResponse(
-      String accessToken, String xeroTenantId, String dataMonth) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " getAccountingActivityUserActivities");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " getAccountingActivityUserActivities");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/UserActivities");
-    if (dataMonth != null) {
-      String key = "dataMonth";
-      Object value = dataMonth;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get Bank Statement Accounting For lenders that prefer using bank statement data as the source
-   * of truth. We provide a data point that will allow access to customer bank statements, plus for
-   * reconciled bank transactions the matching accounting, invoice and billing data as well. As
-   * customers reconcile bank statements to invoices and bills, this transaction detail will provide
-   * valuable insight for lender&#39;s assessment measures.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param bankAccountID string, GUID Bank account Id
-   * @param fromDate date, yyyy-MM-dd Specifies the start date of the query period. The maximum
-   *     range of the query period is 12 months. If the specified query period is more than 12
-   *     months the request will be rejected.
-   * @param toDate date, yyyy-MM-dd Specifies the end date of the query period. If the end date is a
-   *     future date, the request will be rejected.
-   * @param summaryOnly boolean, true/false The default value is true if no parameter is provided.
-   *     In summary mode, the response will exclude the computation-heavy LineItems fields from bank
-   *     transaction, invoice, credit note, prepayment and overpayment data, making the API calls
-   *     quicker and more efficient.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return BankStatementAccountingResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public BankStatementAccountingResponse getBankStatementAccounting(
-      String accessToken,
-      String xeroTenantId,
-      UUID bankAccountID,
-      String fromDate,
-      String toDate,
-      Boolean summaryOnly)
-      throws IOException {
-    try {
-      TypeReference<BankStatementAccountingResponse> typeRef =
-          new TypeReference<BankStatementAccountingResponse>() {};
-      HttpResponse response =
-          getBankStatementAccountingForHttpResponse(
-              accessToken, xeroTenantId, bankAccountID, fromDate, toDate, summaryOnly);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getBankStatementAccounting -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get Bank Statement Accounting For lenders that prefer using bank statement data as the source
-   * of truth. We provide a data point that will allow access to customer bank statements, plus for
-   * reconciled bank transactions the matching accounting, invoice and billing data as well. As
-   * customers reconcile bank statements to invoices and bills, this transaction detail will provide
-   * valuable insight for lender&#39;s assessment measures.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param bankAccountID string, GUID Bank account Id
-   * @param fromDate date, yyyy-MM-dd Specifies the start date of the query period. The maximum
-   *     range of the query period is 12 months. If the specified query period is more than 12
-   *     months the request will be rejected.
-   * @param toDate date, yyyy-MM-dd Specifies the end date of the query period. If the end date is a
-   *     future date, the request will be rejected.
-   * @param summaryOnly boolean, true/false The default value is true if no parameter is provided.
-   *     In summary mode, the response will exclude the computation-heavy LineItems fields from bank
-   *     transaction, invoice, credit note, prepayment and overpayment data, making the API calls
-   *     quicker and more efficient.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getBankStatementAccountingForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID bankAccountID,
-      String fromDate,
-      String toDate,
-      Boolean summaryOnly)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getBankStatementAccounting");
-    } // verify the required parameter 'bankAccountID' is set
-    if (bankAccountID == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'bankAccountID' when calling getBankStatementAccounting");
-    } // verify the required parameter 'fromDate' is set
-    if (fromDate == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fromDate' when calling getBankStatementAccounting");
-    } // verify the required parameter 'toDate' is set
-    if (toDate == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'toDate' when calling getBankStatementAccounting");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getBankStatementAccounting");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/BankStatementsPlus/statements");
-    if (bankAccountID != null) {
-      String key = "BankAccountID";
-      Object value = bankAccountID;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+    
+    /**
+    * Get lock history
+    * Provides a history of locking of accounting books. Locking may be an indicator of good accounting practices that could reduce the risk of changes to accounting records in prior periods.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param endDate date, yyyy-MM-dd                 If no parameter is provided, the current date will be used.                Any changes to hard or soft lock dates that were made within the period up to 12 months before this date will be returned.                Please be aware that there may be a delay of up to 3 days before a change is visible from this API.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  LockHistoryResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public LockHistoryResponse  getAccountingActivityLockHistory(String accessToken, String xeroTenantId, String endDate) throws IOException {
+        try {
+            TypeReference<LockHistoryResponse> typeRef = new TypeReference<LockHistoryResponse>() {};
+            HttpResponse response = getAccountingActivityLockHistoryForHttpResponse(accessToken, xeroTenantId, endDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAccountingActivityLockHistory -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        return null;
     }
-    if (fromDate != null) {
-      String key = "FromDate";
-      Object value = fromDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Get lock history
+    * Provides a history of locking of accounting books. Locking may be an indicator of good accounting practices that could reduce the risk of changes to accounting records in prior periods.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param endDate date, yyyy-MM-dd                 If no parameter is provided, the current date will be used.                Any changes to hard or soft lock dates that were made within the period up to 12 months before this date will be returned.                Please be aware that there may be a delay of up to 3 days before a change is visible from this API.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getAccountingActivityLockHistoryForHttpResponse(String accessToken, String xeroTenantId, String endDate) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAccountingActivityLockHistory");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (toDate != null) {
-      String key = "ToDate";
-      Object value = toDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getAccountingActivityLockHistory");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (summaryOnly != null) {
-      String key = "SummaryOnly";
-      Object value = summaryOnly;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/LockHistory");
+        if (endDate != null) {
+            String key = "endDate";
+            Object value = endDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get cash validation Summarizes the total cash position for each account for an org
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param balanceDate date, yyyy-MM-dd If no parameter is provided, the current date will be used.
-   *     The ‘balance date’ will return transactions based on the accounting date entered by the
-   *     user. Transactions before the balanceDate will be included. The user has discretion as to
-   *     which accounting period the transaction relates to. The ‘balance date’ will control the
-   *     latest maximum date of transactions included in the aggregate numbers. Balance date does
-   *     not affect the CurrentStatement object, as this will always return the most recent
-   *     statement before asAtSystemDate (if specified)
-   * @param asAtSystemDate date, yyyy-MM-dd If no parameter is provided, the current date will be
-   *     used. The ‘as at’ date will return transactions based on the creation date. It reflects the
-   *     date the transactions were entered into Xero, not the accounting date. The ‘as at’ date can
-   *     not be overridden by the user. This can be used to estimate a ‘historical frequency of
-   *     reconciliation’. The ‘as at’ date will affect the current statement in the response, as any
-   *     candidate statements created after this date will be filtered out. Thus the current
-   *     statement returned will be the most recent statement prior to the specified ‘as at’ date.
-   *     Be aware that neither the begin date, nor the balance date, will affect the current
-   *     statement. Note; information is only presented when system architecture allows, meaning
-   *     historical cash validation information will be an estimate. In addition, delete events are
-   *     not aware of the ‘as at’ functionality in this endpoint, meaning that transactions deleted
-   *     at the time the API is accessed will be considered to always have been deleted.
-   * @param beginDate date, yyyy-MM-dd If no parameter is provided, the aggregate results will be
-   *     drawn from the user’s total history. The ‘begin date’ will return transactions based on the
-   *     accounting date entered by the user. Transactions after the beginDate will be included. The
-   *     user has discretion as to which accounting period the transaction relates to.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return List&lt;CashValidationResponse&gt;
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public List<CashValidationResponse> getCashValidation(
-      String accessToken,
-      String xeroTenantId,
-      String balanceDate,
-      String asAtSystemDate,
-      String beginDate)
-      throws IOException {
-    try {
-      TypeReference<List<CashValidationResponse>> typeRef =
-          new TypeReference<List<CashValidationResponse>>() {};
-      HttpResponse response =
-          getCashValidationForHttpResponse(
-              accessToken, xeroTenantId, balanceDate, asAtSystemDate, beginDate);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getCashValidation -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get cash validation Summarizes the total cash position for each account for an org
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - BadRequest
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param balanceDate date, yyyy-MM-dd If no parameter is provided, the current date will be used.
-   *     The ‘balance date’ will return transactions based on the accounting date entered by the
-   *     user. Transactions before the balanceDate will be included. The user has discretion as to
-   *     which accounting period the transaction relates to. The ‘balance date’ will control the
-   *     latest maximum date of transactions included in the aggregate numbers. Balance date does
-   *     not affect the CurrentStatement object, as this will always return the most recent
-   *     statement before asAtSystemDate (if specified)
-   * @param asAtSystemDate date, yyyy-MM-dd If no parameter is provided, the current date will be
-   *     used. The ‘as at’ date will return transactions based on the creation date. It reflects the
-   *     date the transactions were entered into Xero, not the accounting date. The ‘as at’ date can
-   *     not be overridden by the user. This can be used to estimate a ‘historical frequency of
-   *     reconciliation’. The ‘as at’ date will affect the current statement in the response, as any
-   *     candidate statements created after this date will be filtered out. Thus the current
-   *     statement returned will be the most recent statement prior to the specified ‘as at’ date.
-   *     Be aware that neither the begin date, nor the balance date, will affect the current
-   *     statement. Note; information is only presented when system architecture allows, meaning
-   *     historical cash validation information will be an estimate. In addition, delete events are
-   *     not aware of the ‘as at’ functionality in this endpoint, meaning that transactions deleted
-   *     at the time the API is accessed will be considered to always have been deleted.
-   * @param beginDate date, yyyy-MM-dd If no parameter is provided, the aggregate results will be
-   *     drawn from the user’s total history. The ‘begin date’ will return transactions based on the
-   *     accounting date entered by the user. Transactions after the beginDate will be included. The
-   *     user has discretion as to which accounting period the transaction relates to.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getCashValidationForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      String balanceDate,
-      String asAtSystemDate,
-      String beginDate)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getCashValidation");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getCashValidation");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CashValidation");
-    if (balanceDate != null) {
-      String key = "balanceDate";
-      Object value = balanceDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
-    if (asAtSystemDate != null) {
-      String key = "asAtSystemDate";
-      Object value = asAtSystemDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    
+    /**
+    * Get report history
+    * For a specified organisation, provides a summary of all the reports published within a given period, which may be an indicator for good business management and oversight.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param endDate date, yyyy-MM-dd                 If no parameter is provided, the current date will be used.                Any reports that were published within the period up to 12 months before this date will be returned.                Please be aware that there may be a delay of up to 3 days before a published report is visible from this API.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  ReportHistoryResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public ReportHistoryResponse  getAccountingActivityReportHistory(String accessToken, String xeroTenantId, String endDate) throws IOException {
+        try {
+            TypeReference<ReportHistoryResponse> typeRef = new TypeReference<ReportHistoryResponse>() {};
+            HttpResponse response = getAccountingActivityReportHistoryForHttpResponse(accessToken, xeroTenantId, endDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAccountingActivityReportHistory -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        return null;
     }
-    if (beginDate != null) {
-      String key = "beginDate";
-      Object value = beginDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Get report history
+    * For a specified organisation, provides a summary of all the reports published within a given period, which may be an indicator for good business management and oversight.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param endDate date, yyyy-MM-dd                 If no parameter is provided, the current date will be used.                Any reports that were published within the period up to 12 months before this date will be returned.                Please be aware that there may be a delay of up to 3 days before a published report is visible from this API.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getAccountingActivityReportHistoryForHttpResponse(String accessToken, String xeroTenantId, String endDate) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAccountingActivityReportHistory");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get Balance Sheet report The balance sheet report is a standard financial report which
-   * describes the financial position of an organisation at a point in time.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * <p><b>503</b> - Server Error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param balanceDate Specifies the date for balance sheet report. Format yyyy-MM-dd. If no
-   *     parameter is provided, the current date will be used.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return BalanceSheetResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public BalanceSheetResponse getFinancialStatementBalanceSheet(
-      String accessToken, String xeroTenantId, String balanceDate) throws IOException {
-    try {
-      TypeReference<BalanceSheetResponse> typeRef = new TypeReference<BalanceSheetResponse>() {};
-      HttpResponse response =
-          getFinancialStatementBalanceSheetForHttpResponse(accessToken, xeroTenantId, balanceDate);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFinancialStatementBalanceSheet -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get Balance Sheet report The balance sheet report is a standard financial report which
-   * describes the financial position of an organisation at a point in time.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * <p><b>503</b> - Server Error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param balanceDate Specifies the date for balance sheet report. Format yyyy-MM-dd. If no
-   *     parameter is provided, the current date will be used.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFinancialStatementBalanceSheetForHttpResponse(
-      String accessToken, String xeroTenantId, String balanceDate) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " getFinancialStatementBalanceSheet");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " getFinancialStatementBalanceSheet");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/BalanceSheet");
-    if (balanceDate != null) {
-      String key = "balanceDate";
-      Object value = balanceDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getAccountingActivityReportHistory");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get Cash flow report The statement of cash flows - direct method, provides the year to date
-   * changes in operating, financing and investing cash flow activities for an organisation.
-   * Cashflow statement is not available in US region at this stage.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * <p><b>503</b> - Server Error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param startDate Date e.g. yyyy-MM-dd Specifies the start date for cash flow report. If no
-   *     parameter is provided, the date of 12 months before the end date will be used.
-   * @param endDate Date e.g. yyyy-MM-dd Specifies the end date for cash flow report. If no
-   *     parameter is provided, the current date will be used.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return CashflowResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public CashflowResponse getFinancialStatementCashflow(
-      String accessToken, String xeroTenantId, String startDate, String endDate)
-      throws IOException {
-    try {
-      TypeReference<CashflowResponse> typeRef = new TypeReference<CashflowResponse>() {};
-      HttpResponse response =
-          getFinancialStatementCashflowForHttpResponse(
-              accessToken, xeroTenantId, startDate, endDate);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFinancialStatementCashflow -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get Cash flow report The statement of cash flows - direct method, provides the year to date
-   * changes in operating, financing and investing cash flow activities for an organisation.
-   * Cashflow statement is not available in US region at this stage.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * <p><b>503</b> - Server Error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param startDate Date e.g. yyyy-MM-dd Specifies the start date for cash flow report. If no
-   *     parameter is provided, the date of 12 months before the end date will be used.
-   * @param endDate Date e.g. yyyy-MM-dd Specifies the end date for cash flow report. If no
-   *     parameter is provided, the current date will be used.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFinancialStatementCashflowForHttpResponse(
-      String accessToken, String xeroTenantId, String startDate, String endDate)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " getFinancialStatementCashflow");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " getFinancialStatementCashflow");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/Cashflow");
-    if (startDate != null) {
-      String key = "startDate";
-      Object value = startDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/ReportHistory");
+        if (endDate != null) {
+            String key = "endDate";
+            Object value = endDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (endDate != null) {
-      String key = "endDate";
-      Object value = endDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get expense by contacts report The expense by contact report provides a year to date profit and
-   * loss for customers and suppliers for a given organisation, including detailed contact
-   * information.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param contactIds Specifies the customer contacts to be included in the report. If no parameter
-   *     is provided, all customer contacts will be included
-   * @param includeManualJournals Specifies whether to include the manual journals in the report. If
-   *     no parameter is provided, manual journals will not be included.
-   * @param startDate Date yyyy-MM-dd Specifies the start date for the report. If no parameter is
-   *     provided, the date of 12 months before the end date will be used. It is recommended to
-   *     always specify both a start date and end date; While the initial range may be set to 12
-   *     months, this may need to be reduced for high volume organisations in order to improve
-   *     latency.
-   * @param endDate Date yyyy-MM-dd Specifies the end date for the report. If no parameter is
-   *     provided, the current date will be used. It is recommended to always specify both a start
-   *     date and end date; While the initial range may be set to 12 months, this may need to be
-   *     reduced for high volume organisations in order to improve latency.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return IncomeByContactResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public IncomeByContactResponse getFinancialStatementContactsExpense(
-      String accessToken,
-      String xeroTenantId,
-      List<UUID> contactIds,
-      Boolean includeManualJournals,
-      String startDate,
-      String endDate)
-      throws IOException {
-    try {
-      TypeReference<IncomeByContactResponse> typeRef =
-          new TypeReference<IncomeByContactResponse>() {};
-      HttpResponse response =
-          getFinancialStatementContactsExpenseForHttpResponse(
-              accessToken, xeroTenantId, contactIds, includeManualJournals, startDate, endDate);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFinancialStatementContactsExpense -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get expense by contacts report The expense by contact report provides a year to date profit and
-   * loss for customers and suppliers for a given organisation, including detailed contact
-   * information.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param contactIds Specifies the customer contacts to be included in the report. If no parameter
-   *     is provided, all customer contacts will be included
-   * @param includeManualJournals Specifies whether to include the manual journals in the report. If
-   *     no parameter is provided, manual journals will not be included.
-   * @param startDate Date yyyy-MM-dd Specifies the start date for the report. If no parameter is
-   *     provided, the date of 12 months before the end date will be used. It is recommended to
-   *     always specify both a start date and end date; While the initial range may be set to 12
-   *     months, this may need to be reduced for high volume organisations in order to improve
-   *     latency.
-   * @param endDate Date yyyy-MM-dd Specifies the end date for the report. If no parameter is
-   *     provided, the current date will be used. It is recommended to always specify both a start
-   *     date and end date; While the initial range may be set to 12 months, this may need to be
-   *     reduced for high volume organisations in order to improve latency.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFinancialStatementContactsExpenseForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      List<UUID> contactIds,
-      Boolean includeManualJournals,
-      String startDate,
-      String endDate)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " getFinancialStatementContactsExpense");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " getFinancialStatementContactsExpense");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/contacts/expense");
-    if (contactIds != null) {
-      String key = "contactIds";
-      Object value = contactIds;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+    
+    /**
+    * Get user activities
+    * For a specified organisation, provides a list of all the users registered, and a history of their accounting transactions. Also identifies the existence of an external accounting advisor and the level of interaction.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param dataMonth date, yyyy-MM                 The specified month must be complete (in the past); The current month cannot be specified since it is not complete.                If no parameter is provided, the month immediately previous to the current month will be used.                Any user activities occurring within the specified month will be returned.                Please be aware that there may be a delay of up to 3 days before a user activity is visible from this API.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  UserActivitiesResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public UserActivitiesResponse  getAccountingActivityUserActivities(String accessToken, String xeroTenantId, String dataMonth) throws IOException {
+        try {
+            TypeReference<UserActivitiesResponse> typeRef = new TypeReference<UserActivitiesResponse>() {};
+            HttpResponse response = getAccountingActivityUserActivitiesForHttpResponse(accessToken, xeroTenantId, dataMonth);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAccountingActivityUserActivities -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        return null;
     }
-    if (includeManualJournals != null) {
-      String key = "includeManualJournals";
-      Object value = includeManualJournals;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Get user activities
+    * For a specified organisation, provides a list of all the users registered, and a history of their accounting transactions. Also identifies the existence of an external accounting advisor and the level of interaction.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param dataMonth date, yyyy-MM                 The specified month must be complete (in the past); The current month cannot be specified since it is not complete.                If no parameter is provided, the month immediately previous to the current month will be used.                Any user activities occurring within the specified month will be returned.                Please be aware that there may be a delay of up to 3 days before a user activity is visible from this API.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getAccountingActivityUserActivitiesForHttpResponse(String accessToken, String xeroTenantId, String dataMonth) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAccountingActivityUserActivities");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (startDate != null) {
-      String key = "startDate";
-      Object value = startDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getAccountingActivityUserActivities");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (endDate != null) {
-      String key = "endDate";
-      Object value = endDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/UserActivities");
+        if (dataMonth != null) {
+            String key = "dataMonth";
+            Object value = dataMonth;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get revenue by contacts report The revenue by contact report provides a year to date profit and
-   * loss for customers and suppliers for a given organisation, including detailed contact
-   * information.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param contactIds Specifies the customer contacts to be included in the report. If no parameter
-   *     is provided, all customer contacts will be included
-   * @param includeManualJournals Specifies whether to include the manual journals in the report. If
-   *     no parameter is provided, manual journals will not be included.
-   * @param startDate Date yyyy-MM-dd Specifies the start date for the report. If no parameter is
-   *     provided, the date of 12 months before the end date will be used. It is recommended to
-   *     always specify both a start date and end date; While the initial range may be set to 12
-   *     months, this may need to be reduced for high volume organisations in order to improve
-   *     latency.
-   * @param endDate Date yyyy-MM-dd Specifies the end date for the report. If no parameter is
-   *     provided, the current date will be used. It is recommended to always specify both a start
-   *     date and end date; While the initial range may be set to 12 months, this may need to be
-   *     reduced for high volume organisations in order to improve latency.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return IncomeByContactResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public IncomeByContactResponse getFinancialStatementContactsRevenue(
-      String accessToken,
-      String xeroTenantId,
-      List<UUID> contactIds,
-      Boolean includeManualJournals,
-      String startDate,
-      String endDate)
-      throws IOException {
-    try {
-      TypeReference<IncomeByContactResponse> typeRef =
-          new TypeReference<IncomeByContactResponse>() {};
-      HttpResponse response =
-          getFinancialStatementContactsRevenueForHttpResponse(
-              accessToken, xeroTenantId, contactIds, includeManualJournals, startDate, endDate);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFinancialStatementContactsRevenue -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get revenue by contacts report The revenue by contact report provides a year to date profit and
-   * loss for customers and suppliers for a given organisation, including detailed contact
-   * information.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param contactIds Specifies the customer contacts to be included in the report. If no parameter
-   *     is provided, all customer contacts will be included
-   * @param includeManualJournals Specifies whether to include the manual journals in the report. If
-   *     no parameter is provided, manual journals will not be included.
-   * @param startDate Date yyyy-MM-dd Specifies the start date for the report. If no parameter is
-   *     provided, the date of 12 months before the end date will be used. It is recommended to
-   *     always specify both a start date and end date; While the initial range may be set to 12
-   *     months, this may need to be reduced for high volume organisations in order to improve
-   *     latency.
-   * @param endDate Date yyyy-MM-dd Specifies the end date for the report. If no parameter is
-   *     provided, the current date will be used. It is recommended to always specify both a start
-   *     date and end date; While the initial range may be set to 12 months, this may need to be
-   *     reduced for high volume organisations in order to improve latency.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFinancialStatementContactsRevenueForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      List<UUID> contactIds,
-      Boolean includeManualJournals,
-      String startDate,
-      String endDate)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " getFinancialStatementContactsRevenue");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " getFinancialStatementContactsRevenue");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/contacts/revenue");
-    if (contactIds != null) {
-      String key = "contactIds";
-      Object value = contactIds;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
-    if (includeManualJournals != null) {
-      String key = "includeManualJournals";
-      Object value = includeManualJournals;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    
+    /**
+    * Get Bank Statement Accounting
+    * For lenders that prefer using bank statement data as the source of truth.  We provide a data point that will allow access to customer bank statements, plus for reconciled bank transactions the matching accounting, invoice and billing data as well.  As customers reconcile bank statements to invoices and bills, this transaction detail will provide valuable insight for lender&#39;s assessment measures. 
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param bankAccountID string, GUID    Bank account Id
+    * @param fromDate date, yyyy-MM-dd     Specifies the start date of the query period.   The maximum range of the query period is 12 months. If the specified query period is more than 12 months the request will be rejected.
+    * @param toDate date, yyyy-MM-dd     Specifies the end date of the query period.   If the end date is a future date, the request will be rejected.
+    * @param summaryOnly boolean, true/false    The default value is true if no parameter is provided.    In summary mode, the response will exclude the computation-heavy LineItems fields from bank transaction, invoice, credit note, prepayment and overpayment data, making the API calls quicker and more efficient.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  BankStatementAccountingResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public BankStatementAccountingResponse  getBankStatementAccounting(String accessToken, String xeroTenantId, UUID bankAccountID, String fromDate, String toDate, Boolean summaryOnly) throws IOException {
+        try {
+            TypeReference<BankStatementAccountingResponse> typeRef = new TypeReference<BankStatementAccountingResponse>() {};
+            HttpResponse response = getBankStatementAccountingForHttpResponse(accessToken, xeroTenantId, bankAccountID, fromDate, toDate, summaryOnly);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankStatementAccounting -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        return null;
     }
-    if (startDate != null) {
-      String key = "startDate";
-      Object value = startDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Get Bank Statement Accounting
+    * For lenders that prefer using bank statement data as the source of truth.  We provide a data point that will allow access to customer bank statements, plus for reconciled bank transactions the matching accounting, invoice and billing data as well.  As customers reconcile bank statements to invoices and bills, this transaction detail will provide valuable insight for lender&#39;s assessment measures. 
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param bankAccountID string, GUID    Bank account Id
+    * @param fromDate date, yyyy-MM-dd     Specifies the start date of the query period.   The maximum range of the query period is 12 months. If the specified query period is more than 12 months the request will be rejected.
+    * @param toDate date, yyyy-MM-dd     Specifies the end date of the query period.   If the end date is a future date, the request will be rejected.
+    * @param summaryOnly boolean, true/false    The default value is true if no parameter is provided.    In summary mode, the response will exclude the computation-heavy LineItems fields from bank transaction, invoice, credit note, prepayment and overpayment data, making the API calls quicker and more efficient.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getBankStatementAccountingForHttpResponse(String accessToken, String xeroTenantId, UUID bankAccountID, String fromDate, String toDate, Boolean summaryOnly) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getBankStatementAccounting");
+        }// verify the required parameter 'bankAccountID' is set
+        if (bankAccountID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'bankAccountID' when calling getBankStatementAccounting");
+        }// verify the required parameter 'fromDate' is set
+        if (fromDate == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fromDate' when calling getBankStatementAccounting");
+        }// verify the required parameter 'toDate' is set
+        if (toDate == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'toDate' when calling getBankStatementAccounting");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (endDate != null) {
-      String key = "endDate";
-      Object value = endDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getBankStatementAccounting");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get Profit &amp; Loss report The profit and loss statement is a standard financial report
-   * providing detailed year to date income and expense detail for an organisation.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param startDate Date e.g. yyyy-MM-dd Specifies the start date for profit and loss report If no
-   *     parameter is provided, the date of 12 months before the end date will be used.
-   * @param endDate Date e.g. yyyy-MM-dd Specifies the end date for profit and loss report If no
-   *     parameter is provided, the current date will be used.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return ProfitAndLossResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public ProfitAndLossResponse getFinancialStatementProfitAndLoss(
-      String accessToken, String xeroTenantId, String startDate, String endDate)
-      throws IOException {
-    try {
-      TypeReference<ProfitAndLossResponse> typeRef = new TypeReference<ProfitAndLossResponse>() {};
-      HttpResponse response =
-          getFinancialStatementProfitAndLossForHttpResponse(
-              accessToken, xeroTenantId, startDate, endDate);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFinancialStatementProfitAndLoss -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get Profit &amp; Loss report The profit and loss statement is a standard financial report
-   * providing detailed year to date income and expense detail for an organisation.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param startDate Date e.g. yyyy-MM-dd Specifies the start date for profit and loss report If no
-   *     parameter is provided, the date of 12 months before the end date will be used.
-   * @param endDate Date e.g. yyyy-MM-dd Specifies the end date for profit and loss report If no
-   *     parameter is provided, the current date will be used.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFinancialStatementProfitAndLossForHttpResponse(
-      String accessToken, String xeroTenantId, String startDate, String endDate)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " getFinancialStatementProfitAndLoss");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " getFinancialStatementProfitAndLoss");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/ProfitAndLoss");
-    if (startDate != null) {
-      String key = "startDate";
-      Object value = startDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankStatementsPlus/statements");
+        if (bankAccountID != null) {
+            String key = "BankAccountID";
+            Object value = bankAccountID;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (fromDate != null) {
+            String key = "FromDate";
+            Object value = fromDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (toDate != null) {
+            String key = "ToDate";
+            Object value = toDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (summaryOnly != null) {
+            String key = "SummaryOnly";
+            Object value = summaryOnly;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (endDate != null) {
-      String key = "endDate";
-      Object value = endDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Get Trial Balance report The trial balance provides a detailed list of all accounts of an
-   * organisation at a point in time, with revenue and expense items being year to date.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param endDate Date e.g. yyyy-MM-dd Specifies the end date for trial balance report If no
-   *     parameter is provided, the current date will be used.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return TrialBalanceResponse
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public TrialBalanceResponse getFinancialStatementTrialBalance(
-      String accessToken, String xeroTenantId, String endDate) throws IOException {
-    try {
-      TypeReference<TrialBalanceResponse> typeRef = new TypeReference<TrialBalanceResponse>() {};
-      HttpResponse response =
-          getFinancialStatementTrialBalanceForHttpResponse(accessToken, xeroTenantId, endDate);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFinancialStatementTrialBalance -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Get Trial Balance report The trial balance provides a detailed list of all accounts of an
-   * organisation at a point in time, with revenue and expense items being year to date.
-   *
-   * <p><b>200</b> - Success
-   *
-   * <p><b>400</b> - Bad Request
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param endDate Date e.g. yyyy-MM-dd Specifies the end date for trial balance report If no
-   *     parameter is provided, the current date will be used.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFinancialStatementTrialBalanceForHttpResponse(
-      String accessToken, String xeroTenantId, String endDate) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling"
-              + " getFinancialStatementTrialBalance");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling"
-              + " getFinancialStatementTrialBalance");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/TrialBalance");
-    if (endDate != null) {
-      String key = "endDate";
-      Object value = endDate;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+    
+    /**
+    * Get cash validation
+    * Summarizes the total cash position for each account for an org
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param balanceDate date, yyyy-MM-dd     If no parameter is provided, the current date will be used.    The ‘balance date’ will return transactions based on the accounting date entered by the user.  Transactions before the balanceDate will be included.  The user has discretion as to which accounting period the transaction relates to.    The ‘balance date’  will control the latest maximum date of transactions included in the aggregate numbers.  Balance date does not affect the CurrentStatement object, as this will always return the most recent statement before asAtSystemDate (if specified)
+    * @param asAtSystemDate date, yyyy-MM-dd     If no parameter is provided, the current date will be used.    The ‘as at’ date will return transactions based on the  creation date.  It reflects the date the transactions were entered into Xero, not the accounting date.  The ‘as at’ date can not be overridden by the user.  This can be used to estimate a ‘historical frequency of reconciliation’.    The ‘as at’ date will affect the current statement in the response, as any candidate statements created after this date will be filtered out.  Thus the current statement returned will be the most recent statement prior to the specified ‘as at’ date.  Be aware that neither the begin date, nor the balance date, will affect the current statement.    Note;  information is only presented when system architecture allows, meaning historical cash validation information will be an estimate. In addition, delete events are not aware of the ‘as at’ functionality in this endpoint, meaning that transactions deleted at the time the API is accessed will be considered to always have been deleted.
+    * @param beginDate date, yyyy-MM-dd     If no parameter is provided, the aggregate results will be drawn from the user’s total history.    The ‘begin date’ will return transactions based on the accounting date entered by the user. Transactions after the beginDate will be included.  The user has discretion as to which accounting period the transaction relates to.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return List&lt;CashValidationResponse&gt; 
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public List<CashValidationResponse>  getCashValidation(String accessToken, String xeroTenantId, String balanceDate, String asAtSystemDate, String beginDate) throws IOException {
+        try {
+            TypeReference<List<CashValidationResponse>> typeRef = new TypeReference<List<CashValidationResponse>>() {};
+            HttpResponse response = getCashValidationForHttpResponse(accessToken, xeroTenantId, balanceDate, asAtSystemDate, beginDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getCashValidation -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        return null;
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * convert intput to byte array
-   *
-   * @param is InputStream the server status code returned
-   * @return byteArrayInputStream a ByteArrayInputStream
-   * @throws IOException for failed or interrupted I/O operations
-   */
-  public ByteArrayInputStream convertInputToByteArray(InputStream is) throws IOException {
-    byte[] bytes = IOUtils.toByteArray(is);
-    try {
-      // Process the input stream..
-      ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-      return byteArrayInputStream;
-    } finally {
-      is.close();
+    /**
+    * Get cash validation
+    * Summarizes the total cash position for each account for an org
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - BadRequest
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param balanceDate date, yyyy-MM-dd     If no parameter is provided, the current date will be used.    The ‘balance date’ will return transactions based on the accounting date entered by the user.  Transactions before the balanceDate will be included.  The user has discretion as to which accounting period the transaction relates to.    The ‘balance date’  will control the latest maximum date of transactions included in the aggregate numbers.  Balance date does not affect the CurrentStatement object, as this will always return the most recent statement before asAtSystemDate (if specified)
+    * @param asAtSystemDate date, yyyy-MM-dd     If no parameter is provided, the current date will be used.    The ‘as at’ date will return transactions based on the  creation date.  It reflects the date the transactions were entered into Xero, not the accounting date.  The ‘as at’ date can not be overridden by the user.  This can be used to estimate a ‘historical frequency of reconciliation’.    The ‘as at’ date will affect the current statement in the response, as any candidate statements created after this date will be filtered out.  Thus the current statement returned will be the most recent statement prior to the specified ‘as at’ date.  Be aware that neither the begin date, nor the balance date, will affect the current statement.    Note;  information is only presented when system architecture allows, meaning historical cash validation information will be an estimate. In addition, delete events are not aware of the ‘as at’ functionality in this endpoint, meaning that transactions deleted at the time the API is accessed will be considered to always have been deleted.
+    * @param beginDate date, yyyy-MM-dd     If no parameter is provided, the aggregate results will be drawn from the user’s total history.    The ‘begin date’ will return transactions based on the accounting date entered by the user. Transactions after the beginDate will be included.  The user has discretion as to which accounting period the transaction relates to.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getCashValidationForHttpResponse(String accessToken, String xeroTenantId, String balanceDate, String asAtSystemDate, String beginDate) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getCashValidation");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getCashValidation");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CashValidation");
+        if (balanceDate != null) {
+            String key = "balanceDate";
+            Object value = balanceDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (asAtSystemDate != null) {
+            String key = "asAtSystemDate";
+            Object value = asAtSystemDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (beginDate != null) {
+            String key = "beginDate";
+            Object value = beginDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
-  }
+
+    
+    /**
+    * Get Balance Sheet report
+    * The balance sheet report is a standard financial report which describes the financial position of an organisation at a point in time.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * <p><b>503</b> - Server Error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param balanceDate Specifies the date for balance sheet report.    Format yyyy-MM-dd. If no parameter is provided, the current date will be used.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  BalanceSheetResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public BalanceSheetResponse  getFinancialStatementBalanceSheet(String accessToken, String xeroTenantId, String balanceDate) throws IOException {
+        try {
+            TypeReference<BalanceSheetResponse> typeRef = new TypeReference<BalanceSheetResponse>() {};
+            HttpResponse response = getFinancialStatementBalanceSheetForHttpResponse(accessToken, xeroTenantId, balanceDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFinancialStatementBalanceSheet -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Get Balance Sheet report
+    * The balance sheet report is a standard financial report which describes the financial position of an organisation at a point in time.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * <p><b>503</b> - Server Error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param balanceDate Specifies the date for balance sheet report.    Format yyyy-MM-dd. If no parameter is provided, the current date will be used.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFinancialStatementBalanceSheetForHttpResponse(String accessToken, String xeroTenantId, String balanceDate) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFinancialStatementBalanceSheet");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFinancialStatementBalanceSheet");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/BalanceSheet");
+        if (balanceDate != null) {
+            String key = "balanceDate";
+            Object value = balanceDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Get Cash flow report
+    * The statement of cash flows - direct method, provides the year to date changes in operating, financing and investing cash flow activities for an organisation. Cashflow statement is not available in US region at this stage.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * <p><b>503</b> - Server Error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param startDate Date e.g. yyyy-MM-dd    Specifies the start date for cash flow report.    If no parameter is provided, the date of 12 months before the end date will be used.
+    * @param endDate Date e.g. yyyy-MM-dd    Specifies the end date for cash flow report.    If no parameter is provided, the current date will be used.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  CashflowResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public CashflowResponse  getFinancialStatementCashflow(String accessToken, String xeroTenantId, String startDate, String endDate) throws IOException {
+        try {
+            TypeReference<CashflowResponse> typeRef = new TypeReference<CashflowResponse>() {};
+            HttpResponse response = getFinancialStatementCashflowForHttpResponse(accessToken, xeroTenantId, startDate, endDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFinancialStatementCashflow -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Get Cash flow report
+    * The statement of cash flows - direct method, provides the year to date changes in operating, financing and investing cash flow activities for an organisation. Cashflow statement is not available in US region at this stage.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * <p><b>503</b> - Server Error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param startDate Date e.g. yyyy-MM-dd    Specifies the start date for cash flow report.    If no parameter is provided, the date of 12 months before the end date will be used.
+    * @param endDate Date e.g. yyyy-MM-dd    Specifies the end date for cash flow report.    If no parameter is provided, the current date will be used.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFinancialStatementCashflowForHttpResponse(String accessToken, String xeroTenantId, String startDate, String endDate) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFinancialStatementCashflow");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFinancialStatementCashflow");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/Cashflow");
+        if (startDate != null) {
+            String key = "startDate";
+            Object value = startDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (endDate != null) {
+            String key = "endDate";
+            Object value = endDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Get expense by contacts report
+    * The expense by contact report provides a year to date profit and loss for customers and suppliers for a given organisation, including detailed contact information.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param contactIds Specifies the customer contacts to be included in the report.    If no parameter is provided, all customer contacts will be included
+    * @param includeManualJournals Specifies whether to include the manual journals in the report.                If no parameter is provided, manual journals will not be included.
+    * @param startDate Date yyyy-MM-dd    Specifies the start date for the report.                If no parameter is provided, the date of 12 months before the end date will be used.                It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.
+    * @param endDate Date yyyy-MM-dd    Specifies the end date for the report.    If no parameter is provided, the current date will be used.                It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  IncomeByContactResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public IncomeByContactResponse  getFinancialStatementContactsExpense(String accessToken, String xeroTenantId, List<UUID> contactIds, Boolean includeManualJournals, String startDate, String endDate) throws IOException {
+        try {
+            TypeReference<IncomeByContactResponse> typeRef = new TypeReference<IncomeByContactResponse>() {};
+            HttpResponse response = getFinancialStatementContactsExpenseForHttpResponse(accessToken, xeroTenantId, contactIds, includeManualJournals, startDate, endDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFinancialStatementContactsExpense -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Get expense by contacts report
+    * The expense by contact report provides a year to date profit and loss for customers and suppliers for a given organisation, including detailed contact information.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param contactIds Specifies the customer contacts to be included in the report.    If no parameter is provided, all customer contacts will be included
+    * @param includeManualJournals Specifies whether to include the manual journals in the report.                If no parameter is provided, manual journals will not be included.
+    * @param startDate Date yyyy-MM-dd    Specifies the start date for the report.                If no parameter is provided, the date of 12 months before the end date will be used.                It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.
+    * @param endDate Date yyyy-MM-dd    Specifies the end date for the report.    If no parameter is provided, the current date will be used.                It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFinancialStatementContactsExpenseForHttpResponse(String accessToken, String xeroTenantId, List<UUID> contactIds, Boolean includeManualJournals, String startDate, String endDate) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFinancialStatementContactsExpense");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFinancialStatementContactsExpense");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/contacts/expense");
+        if (contactIds != null) {
+            String key = "contactIds";
+            Object value = contactIds;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (includeManualJournals != null) {
+            String key = "includeManualJournals";
+            Object value = includeManualJournals;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (startDate != null) {
+            String key = "startDate";
+            Object value = startDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (endDate != null) {
+            String key = "endDate";
+            Object value = endDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Get revenue by contacts report
+    * The revenue by contact report provides a year to date profit and loss for customers and suppliers for a given organisation, including detailed contact information.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param contactIds Specifies the customer contacts to be included in the report.    If no parameter is provided, all customer contacts will be included
+    * @param includeManualJournals Specifies whether to include the manual journals in the report.                If no parameter is provided, manual journals will not be included.
+    * @param startDate Date yyyy-MM-dd    Specifies the start date for the report.                If no parameter is provided, the date of 12 months before the end date will be used.                It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.
+    * @param endDate Date yyyy-MM-dd    Specifies the end date for the report.    If no parameter is provided, the current date will be used.                It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  IncomeByContactResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public IncomeByContactResponse  getFinancialStatementContactsRevenue(String accessToken, String xeroTenantId, List<UUID> contactIds, Boolean includeManualJournals, String startDate, String endDate) throws IOException {
+        try {
+            TypeReference<IncomeByContactResponse> typeRef = new TypeReference<IncomeByContactResponse>() {};
+            HttpResponse response = getFinancialStatementContactsRevenueForHttpResponse(accessToken, xeroTenantId, contactIds, includeManualJournals, startDate, endDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFinancialStatementContactsRevenue -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Get revenue by contacts report
+    * The revenue by contact report provides a year to date profit and loss for customers and suppliers for a given organisation, including detailed contact information.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param contactIds Specifies the customer contacts to be included in the report.    If no parameter is provided, all customer contacts will be included
+    * @param includeManualJournals Specifies whether to include the manual journals in the report.                If no parameter is provided, manual journals will not be included.
+    * @param startDate Date yyyy-MM-dd    Specifies the start date for the report.                If no parameter is provided, the date of 12 months before the end date will be used.                It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.
+    * @param endDate Date yyyy-MM-dd    Specifies the end date for the report.    If no parameter is provided, the current date will be used.                It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFinancialStatementContactsRevenueForHttpResponse(String accessToken, String xeroTenantId, List<UUID> contactIds, Boolean includeManualJournals, String startDate, String endDate) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFinancialStatementContactsRevenue");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFinancialStatementContactsRevenue");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/contacts/revenue");
+        if (contactIds != null) {
+            String key = "contactIds";
+            Object value = contactIds;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (includeManualJournals != null) {
+            String key = "includeManualJournals";
+            Object value = includeManualJournals;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (startDate != null) {
+            String key = "startDate";
+            Object value = startDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (endDate != null) {
+            String key = "endDate";
+            Object value = endDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Get Profit &amp; Loss report
+    * The profit and loss statement is a standard financial report providing detailed year to date income and expense detail for an organisation.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param startDate Date e.g. yyyy-MM-dd    Specifies the start date for profit and loss report    If no parameter is provided, the date of 12 months before the end date will be used.
+    * @param endDate Date e.g. yyyy-MM-dd    Specifies the end date for profit and loss report     If no parameter is provided, the current date will be used.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  ProfitAndLossResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public ProfitAndLossResponse  getFinancialStatementProfitAndLoss(String accessToken, String xeroTenantId, String startDate, String endDate) throws IOException {
+        try {
+            TypeReference<ProfitAndLossResponse> typeRef = new TypeReference<ProfitAndLossResponse>() {};
+            HttpResponse response = getFinancialStatementProfitAndLossForHttpResponse(accessToken, xeroTenantId, startDate, endDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFinancialStatementProfitAndLoss -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Get Profit &amp; Loss report
+    * The profit and loss statement is a standard financial report providing detailed year to date income and expense detail for an organisation.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param startDate Date e.g. yyyy-MM-dd    Specifies the start date for profit and loss report    If no parameter is provided, the date of 12 months before the end date will be used.
+    * @param endDate Date e.g. yyyy-MM-dd    Specifies the end date for profit and loss report     If no parameter is provided, the current date will be used.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFinancialStatementProfitAndLossForHttpResponse(String accessToken, String xeroTenantId, String startDate, String endDate) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFinancialStatementProfitAndLoss");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFinancialStatementProfitAndLoss");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/ProfitAndLoss");
+        if (startDate != null) {
+            String key = "startDate";
+            Object value = startDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (endDate != null) {
+            String key = "endDate";
+            Object value = endDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Get Trial Balance report
+    * The trial balance provides a detailed list of all accounts of an organisation at a point in time, with revenue and expense items being year to date.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param endDate Date e.g. yyyy-MM-dd     Specifies the end date for trial balance report     If no parameter is provided, the current date will be used.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  TrialBalanceResponse
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public TrialBalanceResponse  getFinancialStatementTrialBalance(String accessToken, String xeroTenantId, String endDate) throws IOException {
+        try {
+            TypeReference<TrialBalanceResponse> typeRef = new TypeReference<TrialBalanceResponse>() {};
+            HttpResponse response = getFinancialStatementTrialBalanceForHttpResponse(accessToken, xeroTenantId, endDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFinancialStatementTrialBalance -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Get Trial Balance report
+    * The trial balance provides a detailed list of all accounts of an organisation at a point in time, with revenue and expense items being year to date.
+    * <p><b>200</b> - Success
+    * <p><b>400</b> - Bad Request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param endDate Date e.g. yyyy-MM-dd     Specifies the end date for trial balance report     If no parameter is provided, the current date will be used.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFinancialStatementTrialBalanceForHttpResponse(String accessToken, String xeroTenantId, String endDate) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFinancialStatementTrialBalance");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFinancialStatementTrialBalance");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/TrialBalance");
+        if (endDate != null) {
+            String key = "endDate";
+            Object value = endDate;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+
+    /** convert intput to byte array
+    * @param is InputStream the server status code returned
+    * @return byteArrayInputStream a ByteArrayInputStream 
+    * @throws IOException for failed or interrupted I/O operations
+    **/
+    public ByteArrayInputStream convertInputToByteArray(InputStream is) throws IOException {
+        byte[] bytes = IOUtils.toByteArray(is);
+        try {
+            // Process the input stream..
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+            return byteArrayInputStream;
+        } finally {
+            is.close();
+        }
+        
+    }
 }

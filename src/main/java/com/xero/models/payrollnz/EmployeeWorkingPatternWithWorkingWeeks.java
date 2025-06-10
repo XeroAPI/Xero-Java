@@ -9,18 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.WorkingWeek;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** EmployeeWorkingPatternWithWorkingWeeks */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeWorkingPatternWithWorkingWeeks
+ */
+
 public class EmployeeWorkingPatternWithWorkingWeeks {
   StringUtil util = new StringUtil();
 
@@ -33,83 +51,74 @@ public class EmployeeWorkingPatternWithWorkingWeeks {
   @JsonProperty("workingWeeks")
   private List<WorkingWeek> workingWeeks = new ArrayList<WorkingWeek>();
   /**
-   * The Xero identifier for for Employee working pattern
-   *
-   * @param payeeWorkingPatternID UUID
-   * @return EmployeeWorkingPatternWithWorkingWeeks
-   */
+  * The Xero identifier for for Employee working pattern
+  * @param payeeWorkingPatternID  UUID
+  * @return EmployeeWorkingPatternWithWorkingWeeks
+  **/
   public EmployeeWorkingPatternWithWorkingWeeks payeeWorkingPatternID(UUID payeeWorkingPatternID) {
     this.payeeWorkingPatternID = payeeWorkingPatternID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for for Employee working pattern
-   *
    * @return payeeWorkingPatternID
-   */
+  **/
   @ApiModelProperty(required = true, value = "The Xero identifier for for Employee working pattern")
-  /**
+  /** 
    * The Xero identifier for for Employee working pattern
-   *
    * @return payeeWorkingPatternID UUID
-   */
+  **/
   public UUID getPayeeWorkingPatternID() {
     return payeeWorkingPatternID;
   }
 
-  /**
-   * The Xero identifier for for Employee working pattern
-   *
-   * @param payeeWorkingPatternID UUID
-   */
+  /** 
+  * The Xero identifier for for Employee working pattern
+  * @param payeeWorkingPatternID  UUID
+  **/
+
   public void setPayeeWorkingPatternID(UUID payeeWorkingPatternID) {
     this.payeeWorkingPatternID = payeeWorkingPatternID;
   }
 
   /**
-   * The effective date of the corresponding salary and wages
-   *
-   * @param effectiveFrom LocalDate
-   * @return EmployeeWorkingPatternWithWorkingWeeks
-   */
+  * The effective date of the corresponding salary and wages
+  * @param effectiveFrom  LocalDate
+  * @return EmployeeWorkingPatternWithWorkingWeeks
+  **/
   public EmployeeWorkingPatternWithWorkingWeeks effectiveFrom(LocalDate effectiveFrom) {
     this.effectiveFrom = effectiveFrom;
     return this;
   }
 
-  /**
+   /**
    * The effective date of the corresponding salary and wages
-   *
    * @return effectiveFrom
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The effective date of the corresponding salary and wages")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The effective date of the corresponding salary and wages")
+  /** 
    * The effective date of the corresponding salary and wages
-   *
    * @return effectiveFrom LocalDate
-   */
+  **/
   public LocalDate getEffectiveFrom() {
     return effectiveFrom;
   }
 
-  /**
-   * The effective date of the corresponding salary and wages
-   *
-   * @param effectiveFrom LocalDate
-   */
+  /** 
+  * The effective date of the corresponding salary and wages
+  * @param effectiveFrom  LocalDate
+  **/
+
   public void setEffectiveFrom(LocalDate effectiveFrom) {
     this.effectiveFrom = effectiveFrom;
   }
 
   /**
-   * workingWeeks
-   *
-   * @param workingWeeks List&lt;WorkingWeek&gt;
-   * @return EmployeeWorkingPatternWithWorkingWeeks
-   */
+  * workingWeeks
+  * @param workingWeeks  List&lt;WorkingWeek&gt;
+  * @return EmployeeWorkingPatternWithWorkingWeeks
+  **/
   public EmployeeWorkingPatternWithWorkingWeeks workingWeeks(List<WorkingWeek> workingWeeks) {
     this.workingWeeks = workingWeeks;
     return this;
@@ -117,10 +126,9 @@ public class EmployeeWorkingPatternWithWorkingWeeks {
 
   /**
    * workingWeeks
-   *
-   * @param workingWeeksItem WorkingWeek
+   * @param workingWeeksItem WorkingWeek 
    * @return EmployeeWorkingPatternWithWorkingWeeks
-   */
+  **/
   public EmployeeWorkingPatternWithWorkingWeeks addWorkingWeeksItem(WorkingWeek workingWeeksItem) {
     if (this.workingWeeks == null) {
       this.workingWeeks = new ArrayList<WorkingWeek>();
@@ -129,29 +137,28 @@ public class EmployeeWorkingPatternWithWorkingWeeks {
     return this;
   }
 
-  /**
+   /**
    * Get workingWeeks
-   *
    * @return workingWeeks
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * workingWeeks
-   *
    * @return workingWeeks List<WorkingWeek>
-   */
+  **/
   public List<WorkingWeek> getWorkingWeeks() {
     return workingWeeks;
   }
 
-  /**
-   * workingWeeks
-   *
-   * @param workingWeeks List&lt;WorkingWeek&gt;
-   */
+  /** 
+  * workingWeeks
+  * @param workingWeeks List&lt;WorkingWeek&gt; 
+  **/
+
   public void setWorkingWeeks(List<WorkingWeek> workingWeeks) {
     this.workingWeeks = workingWeeks;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -161,13 +168,10 @@ public class EmployeeWorkingPatternWithWorkingWeeks {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EmployeeWorkingPatternWithWorkingWeeks employeeWorkingPatternWithWorkingWeeks =
-        (EmployeeWorkingPatternWithWorkingWeeks) o;
-    return Objects.equals(
-            this.payeeWorkingPatternID,
-            employeeWorkingPatternWithWorkingWeeks.payeeWorkingPatternID)
-        && Objects.equals(this.effectiveFrom, employeeWorkingPatternWithWorkingWeeks.effectiveFrom)
-        && Objects.equals(this.workingWeeks, employeeWorkingPatternWithWorkingWeeks.workingWeeks);
+    EmployeeWorkingPatternWithWorkingWeeks employeeWorkingPatternWithWorkingWeeks = (EmployeeWorkingPatternWithWorkingWeeks) o;
+    return Objects.equals(this.payeeWorkingPatternID, employeeWorkingPatternWithWorkingWeeks.payeeWorkingPatternID) &&
+        Objects.equals(this.effectiveFrom, employeeWorkingPatternWithWorkingWeeks.effectiveFrom) &&
+        Objects.equals(this.workingWeeks, employeeWorkingPatternWithWorkingWeeks.workingWeeks);
   }
 
   @Override
@@ -175,13 +179,12 @@ public class EmployeeWorkingPatternWithWorkingWeeks {
     return Objects.hash(payeeWorkingPatternID, effectiveFrom, workingWeeks);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EmployeeWorkingPatternWithWorkingWeeks {\n");
-    sb.append("    payeeWorkingPatternID: ")
-        .append(toIndentedString(payeeWorkingPatternID))
-        .append("\n");
+    sb.append("    payeeWorkingPatternID: ").append(toIndentedString(payeeWorkingPatternID)).append("\n");
     sb.append("    effectiveFrom: ").append(toIndentedString(effectiveFrom)).append("\n");
     sb.append("    workingWeeks: ").append(toIndentedString(workingWeeks)).append("\n");
     sb.append("}");
@@ -189,7 +192,8 @@ public class EmployeeWorkingPatternWithWorkingWeeks {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -197,4 +201,6 @@ public class EmployeeWorkingPatternWithWorkingWeeks {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

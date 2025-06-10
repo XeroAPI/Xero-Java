@@ -9,53 +9,69 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.PayItem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** PayItems */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PayItems
+ */
+
 public class PayItems {
   StringUtil util = new StringUtil();
 
   @JsonProperty("PayItems")
   private PayItem payItems;
   /**
-   * payItems
-   *
-   * @param payItems PayItem
-   * @return PayItems
-   */
+  * payItems
+  * @param payItems  PayItem
+  * @return PayItems
+  **/
   public PayItems payItems(PayItem payItems) {
     this.payItems = payItems;
     return this;
   }
 
-  /**
+   /**
    * Get payItems
-   *
    * @return payItems
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * payItems
-   *
    * @return payItems PayItem
-   */
+  **/
   public PayItem getPayItems() {
     return payItems;
   }
 
-  /**
-   * payItems
-   *
-   * @param payItems PayItem
-   */
+  /** 
+  * payItems
+  * @param payItems  PayItem
+  **/
+
   public void setPayItems(PayItem payItems) {
     this.payItems = payItems;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -74,6 +90,7 @@ public class PayItems {
     return Objects.hash(payItems);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -84,7 +101,8 @@ public class PayItems {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -92,4 +110,6 @@ public class PayItems {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

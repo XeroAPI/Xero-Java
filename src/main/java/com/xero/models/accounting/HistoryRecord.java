@@ -9,16 +9,31 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.Objects;
-import org.threeten.bp.OffsetDateTime;
 
-/** HistoryRecord */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * HistoryRecord
+ */
+
 public class HistoryRecord {
   StringUtil util = new StringUtil();
 
@@ -34,141 +49,128 @@ public class HistoryRecord {
   @JsonProperty("DateUTC")
   private String dateUTC;
   /**
-   * details
-   *
-   * @param details String
-   * @return HistoryRecord
-   */
+  * details
+  * @param details  String
+  * @return HistoryRecord
+  **/
   public HistoryRecord details(String details) {
     this.details = details;
     return this;
   }
 
-  /**
+   /**
    * details
-   *
    * @return details
-   */
+  **/
   @ApiModelProperty(value = "details")
-  /**
+  /** 
    * details
-   *
    * @return details String
-   */
+  **/
   public String getDetails() {
     return details;
   }
 
-  /**
-   * details
-   *
-   * @param details String
-   */
+  /** 
+  * details
+  * @param details  String
+  **/
+
   public void setDetails(String details) {
     this.details = details;
   }
 
   /**
-   * Name of branding theme
-   *
-   * @param changes String
-   * @return HistoryRecord
-   */
+  * Name of branding theme
+  * @param changes  String
+  * @return HistoryRecord
+  **/
   public HistoryRecord changes(String changes) {
     this.changes = changes;
     return this;
   }
 
-  /**
+   /**
    * Name of branding theme
-   *
    * @return changes
-   */
+  **/
   @ApiModelProperty(value = "Name of branding theme")
-  /**
+  /** 
    * Name of branding theme
-   *
    * @return changes String
-   */
+  **/
   public String getChanges() {
     return changes;
   }
 
-  /**
-   * Name of branding theme
-   *
-   * @param changes String
-   */
+  /** 
+  * Name of branding theme
+  * @param changes  String
+  **/
+
   public void setChanges(String changes) {
     this.changes = changes;
   }
 
   /**
-   * has a value of 0
-   *
-   * @param user String
-   * @return HistoryRecord
-   */
+  * has a value of 0
+  * @param user  String
+  * @return HistoryRecord
+  **/
   public HistoryRecord user(String user) {
     this.user = user;
     return this;
   }
 
-  /**
+   /**
    * has a value of 0
-   *
    * @return user
-   */
+  **/
   @ApiModelProperty(value = "has a value of 0")
-  /**
+  /** 
    * has a value of 0
-   *
    * @return user String
-   */
+  **/
   public String getUser() {
     return user;
   }
 
-  /**
-   * has a value of 0
-   *
-   * @param user String
-   */
+  /** 
+  * has a value of 0
+  * @param user  String
+  **/
+
   public void setUser(String user) {
     this.user = user;
   }
 
-  /**
+   /**
    * UTC timestamp of creation date of branding theme
-   *
    * @return dateUTC
-   */
-  @ApiModelProperty(
-      example = "/Date(1573755038314)/",
-      value = "UTC timestamp of creation date of branding theme")
-  /**
+  **/
+  @ApiModelProperty(example = "/Date(1573755038314)/", value = "UTC timestamp of creation date of branding theme")
+  /** 
    * UTC timestamp of creation date of branding theme
-   *
    * @return dateUTC String
-   */
+  **/
   public String getDateUTC() {
     return dateUTC;
   }
-  /**
+  /** 
    * UTC timestamp of creation date of branding theme
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getDateUTCAsDate() {
     if (this.dateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.dateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -179,16 +181,17 @@ public class HistoryRecord {
       return false;
     }
     HistoryRecord historyRecord = (HistoryRecord) o;
-    return Objects.equals(this.details, historyRecord.details)
-        && Objects.equals(this.changes, historyRecord.changes)
-        && Objects.equals(this.user, historyRecord.user)
-        && Objects.equals(this.dateUTC, historyRecord.dateUTC);
+    return Objects.equals(this.details, historyRecord.details) &&
+        Objects.equals(this.changes, historyRecord.changes) &&
+        Objects.equals(this.user, historyRecord.user) &&
+        Objects.equals(this.dateUTC, historyRecord.dateUTC);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(details, changes, user, dateUTC);
   }
+
 
   @Override
   public String toString() {
@@ -203,7 +206,8 @@ public class HistoryRecord {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -211,4 +215,6 @@ public class HistoryRecord {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

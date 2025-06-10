@@ -9,17 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.BudgetBalance;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** BudgetLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BudgetLine
+ */
+
 public class BudgetLine {
   StringUtil util = new StringUtil();
 
@@ -32,81 +50,74 @@ public class BudgetLine {
   @JsonProperty("BudgetBalances")
   private List<BudgetBalance> budgetBalances = new ArrayList<BudgetBalance>();
   /**
-   * See Accounts
-   *
-   * @param accountID UUID
-   * @return BudgetLine
-   */
+  * See Accounts
+  * @param accountID  UUID
+  * @return BudgetLine
+  **/
   public BudgetLine accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
   }
 
-  /**
+   /**
    * See Accounts
-   *
    * @return accountID
-   */
+  **/
   @ApiModelProperty(value = "See Accounts")
-  /**
+  /** 
    * See Accounts
-   *
    * @return accountID UUID
-   */
+  **/
   public UUID getAccountID() {
     return accountID;
   }
 
-  /**
-   * See Accounts
-   *
-   * @param accountID UUID
-   */
+  /** 
+  * See Accounts
+  * @param accountID  UUID
+  **/
+
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
   /**
-   * See Accounts
-   *
-   * @param accountCode String
-   * @return BudgetLine
-   */
+  * See Accounts
+  * @param accountCode  String
+  * @return BudgetLine
+  **/
   public BudgetLine accountCode(String accountCode) {
     this.accountCode = accountCode;
     return this;
   }
 
-  /**
+   /**
    * See Accounts
-   *
    * @return accountCode
-   */
+  **/
   @ApiModelProperty(example = "90.0", value = "See Accounts")
-  /**
+  /** 
    * See Accounts
-   *
    * @return accountCode String
-   */
+  **/
   public String getAccountCode() {
     return accountCode;
   }
 
-  /**
-   * See Accounts
-   *
-   * @param accountCode String
-   */
+  /** 
+  * See Accounts
+  * @param accountCode  String
+  **/
+
   public void setAccountCode(String accountCode) {
     this.accountCode = accountCode;
   }
 
   /**
-   * budgetBalances
-   *
-   * @param budgetBalances List&lt;BudgetBalance&gt;
-   * @return BudgetLine
-   */
+  * budgetBalances
+  * @param budgetBalances  List&lt;BudgetBalance&gt;
+  * @return BudgetLine
+  **/
   public BudgetLine budgetBalances(List<BudgetBalance> budgetBalances) {
     this.budgetBalances = budgetBalances;
     return this;
@@ -114,10 +125,9 @@ public class BudgetLine {
 
   /**
    * budgetBalances
-   *
-   * @param budgetBalancesItem BudgetBalance
+   * @param budgetBalancesItem BudgetBalance 
    * @return BudgetLine
-   */
+  **/
   public BudgetLine addBudgetBalancesItem(BudgetBalance budgetBalancesItem) {
     if (this.budgetBalances == null) {
       this.budgetBalances = new ArrayList<BudgetBalance>();
@@ -126,29 +136,28 @@ public class BudgetLine {
     return this;
   }
 
-  /**
+   /**
    * Get budgetBalances
-   *
    * @return budgetBalances
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * budgetBalances
-   *
    * @return budgetBalances List<BudgetBalance>
-   */
+  **/
   public List<BudgetBalance> getBudgetBalances() {
     return budgetBalances;
   }
 
-  /**
-   * budgetBalances
-   *
-   * @param budgetBalances List&lt;BudgetBalance&gt;
-   */
+  /** 
+  * budgetBalances
+  * @param budgetBalances List&lt;BudgetBalance&gt; 
+  **/
+
   public void setBudgetBalances(List<BudgetBalance> budgetBalances) {
     this.budgetBalances = budgetBalances;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -159,15 +168,16 @@ public class BudgetLine {
       return false;
     }
     BudgetLine budgetLine = (BudgetLine) o;
-    return Objects.equals(this.accountID, budgetLine.accountID)
-        && Objects.equals(this.accountCode, budgetLine.accountCode)
-        && Objects.equals(this.budgetBalances, budgetLine.budgetBalances);
+    return Objects.equals(this.accountID, budgetLine.accountID) &&
+        Objects.equals(this.accountCode, budgetLine.accountCode) &&
+        Objects.equals(this.budgetBalances, budgetLine.budgetBalances);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accountID, accountCode, budgetBalances);
   }
+
 
   @Override
   public String toString() {
@@ -181,7 +191,8 @@ public class BudgetLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -189,4 +200,6 @@ public class BudgetLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

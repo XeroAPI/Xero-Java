@@ -9,17 +9,35 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.bankfeeds;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.bankfeeds.CountryCode;
+import com.xero.models.bankfeeds.CurrencyCode;
+import com.xero.models.bankfeeds.Error;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** FeedConnection */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * FeedConnection
+ */
+
 public class FeedConnection {
   StringUtil util = new StringUtil();
 
@@ -38,14 +56,17 @@ public class FeedConnection {
   @JsonProperty("accountId")
   private UUID accountId;
   /**
-   * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other
-   * than credit cards.
+   * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other than credit cards.
    */
   public enum AccountTypeEnum {
-    /** BANK */
+    /**
+     * BANK
+     */
     BANK("BANK"),
-
-    /** CREDITCARD */
+    
+    /**
+     * CREDITCARD
+     */
     CREDITCARD("CREDITCARD");
 
     private String value;
@@ -54,31 +75,25 @@ public class FeedConnection {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static AccountTypeEnum fromValue(String value) {
       for (AccountTypeEnum b : AccountTypeEnum.values()) {
@@ -90,6 +105,7 @@ public class FeedConnection {
     }
   }
 
+
   @JsonProperty("accountType")
   private AccountTypeEnum accountType;
 
@@ -98,12 +114,18 @@ public class FeedConnection {
 
   @JsonProperty("country")
   private CountryCode country;
-  /** the current status of the feed connection */
+  /**
+   * the current status of the feed connection
+   */
   public enum StatusEnum {
-    /** PENDING */
+    /**
+     * PENDING
+     */
     PENDING("PENDING"),
-
-    /** REJECTED */
+    
+    /**
+     * REJECTED
+     */
     REJECTED("REJECTED");
 
     private String value;
@@ -112,31 +134,25 @@ public class FeedConnection {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -148,409 +164,332 @@ public class FeedConnection {
     }
   }
 
+
   @JsonProperty("status")
   private StatusEnum status;
 
   @JsonProperty("error")
   private Error error;
   /**
-   * GUID used to identify the Account.
-   *
-   * @param id UUID
-   * @return FeedConnection
-   */
+  * GUID used to identify the Account.
+  * @param id  UUID
+  * @return FeedConnection
+  **/
   public FeedConnection id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
+   /**
    * GUID used to identify the Account.
-   *
    * @return id
-   */
-  @ApiModelProperty(
-      example = "00d3cf8d-95dc-4466-8dc0-47e6d1197e28",
-      value = "GUID used to identify the Account.")
-  /**
+  **/
+  @ApiModelProperty(example = "00d3cf8d-95dc-4466-8dc0-47e6d1197e28", value = "GUID used to identify the Account.")
+  /** 
    * GUID used to identify the Account.
-   *
    * @return id UUID
-   */
+  **/
   public UUID getId() {
     return id;
   }
 
-  /**
-   * GUID used to identify the Account.
-   *
-   * @param id UUID
-   */
+  /** 
+  * GUID used to identify the Account.
+  * @param id  UUID
+  **/
+
   public void setId(UUID id) {
     this.id = id;
   }
 
   /**
-   * This account identifier is generated by the financial institute (FI). This must be unique for
-   * your financial institute.
-   *
-   * @param accountToken String
-   * @return FeedConnection
-   */
+  * This account identifier is generated by the financial institute (FI). This must be unique for your financial institute.
+  * @param accountToken  String
+  * @return FeedConnection
+  **/
   public FeedConnection accountToken(String accountToken) {
     this.accountToken = accountToken;
     return this;
   }
 
-  /**
-   * This account identifier is generated by the financial institute (FI). This must be unique for
-   * your financial institute.
-   *
+   /**
+   * This account identifier is generated by the financial institute (FI). This must be unique for your financial institute.
    * @return accountToken
-   */
-  @ApiModelProperty(
-      example = "10000123",
-      value =
-          "This account identifier is generated by the financial institute (FI). This must be"
-              + " unique for your financial institute.")
-  /**
-   * This account identifier is generated by the financial institute (FI). This must be unique for
-   * your financial institute.
-   *
+  **/
+  @ApiModelProperty(example = "10000123", value = "This account identifier is generated by the financial institute (FI). This must be unique for your financial institute.")
+  /** 
+   * This account identifier is generated by the financial institute (FI). This must be unique for your financial institute.
    * @return accountToken String
-   */
+  **/
   public String getAccountToken() {
     return accountToken;
   }
 
-  /**
-   * This account identifier is generated by the financial institute (FI). This must be unique for
-   * your financial institute.
-   *
-   * @param accountToken String
-   */
+  /** 
+  * This account identifier is generated by the financial institute (FI). This must be unique for your financial institute.
+  * @param accountToken  String
+  **/
+
   public void setAccountToken(String accountToken) {
     this.accountToken = accountToken;
   }
 
   /**
-   * String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account Number
-   * is used to match the feed to a Xero Bank Account. The API will create a new Xero Bank Account
-   * if a match to an existing Xero Bank Account is not found. Only the last 4 digits must be
-   * supplied for Credit Card numbers. Must be included if AccountId is not specified.
-   *
-   * @param accountNumber String
-   * @return FeedConnection
-   */
+  * String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account Number is used to match the feed to a Xero Bank Account. The API will create a new Xero Bank Account if a match to an existing Xero Bank Account is not found. Only the last 4 digits must be supplied for Credit Card numbers. Must be included if AccountId is not specified.
+  * @param accountNumber  String
+  * @return FeedConnection
+  **/
   public FeedConnection accountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
     return this;
   }
 
-  /**
-   * String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account Number
-   * is used to match the feed to a Xero Bank Account. The API will create a new Xero Bank Account
-   * if a match to an existing Xero Bank Account is not found. Only the last 4 digits must be
-   * supplied for Credit Card numbers. Must be included if AccountId is not specified.
-   *
+   /**
+   * String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account Number is used to match the feed to a Xero Bank Account. The API will create a new Xero Bank Account if a match to an existing Xero Bank Account is not found. Only the last 4 digits must be supplied for Credit Card numbers. Must be included if AccountId is not specified.
    * @return accountNumber
-   */
-  @ApiModelProperty(
-      example = "3809087654321500",
-      value =
-          "String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The"
-              + " Account Number is used to match the feed to a Xero Bank Account. The API will"
-              + " create a new Xero Bank Account if a match to an existing Xero Bank Account is"
-              + " not found. Only the last 4 digits must be supplied for Credit Card numbers. Must"
-              + " be included if AccountId is not specified.")
-  /**
-   * String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account Number
-   * is used to match the feed to a Xero Bank Account. The API will create a new Xero Bank Account
-   * if a match to an existing Xero Bank Account is not found. Only the last 4 digits must be
-   * supplied for Credit Card numbers. Must be included if AccountId is not specified.
-   *
+  **/
+  @ApiModelProperty(example = "3809087654321500", value = "String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account Number is used to match the feed to a Xero Bank Account. The API will create a new Xero Bank Account if a match to an existing Xero Bank Account is not found. Only the last 4 digits must be supplied for Credit Card numbers. Must be included if AccountId is not specified.")
+  /** 
+   * String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account Number is used to match the feed to a Xero Bank Account. The API will create a new Xero Bank Account if a match to an existing Xero Bank Account is not found. Only the last 4 digits must be supplied for Credit Card numbers. Must be included if AccountId is not specified.
    * @return accountNumber String
-   */
+  **/
   public String getAccountNumber() {
     return accountNumber;
   }
 
-  /**
-   * String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account Number
-   * is used to match the feed to a Xero Bank Account. The API will create a new Xero Bank Account
-   * if a match to an existing Xero Bank Account is not found. Only the last 4 digits must be
-   * supplied for Credit Card numbers. Must be included if AccountId is not specified.
-   *
-   * @param accountNumber String
-   */
+  /** 
+  * String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account Number is used to match the feed to a Xero Bank Account. The API will create a new Xero Bank Account if a match to an existing Xero Bank Account is not found. Only the last 4 digits must be supplied for Credit Card numbers. Must be included if AccountId is not specified.
+  * @param accountNumber  String
+  **/
+
   public void setAccountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
   }
 
   /**
-   * The Account Name will be used for the creation of a new Xero Bank Account if a matching Xero
-   * Bank Account is not found.
-   *
-   * @param accountName String
-   * @return FeedConnection
-   */
+  * The Account Name will be used for the creation of a new Xero Bank Account if a matching Xero Bank Account is not found.
+  * @param accountName  String
+  * @return FeedConnection
+  **/
   public FeedConnection accountName(String accountName) {
     this.accountName = accountName;
     return this;
   }
 
-  /**
-   * The Account Name will be used for the creation of a new Xero Bank Account if a matching Xero
-   * Bank Account is not found.
-   *
+   /**
+   * The Account Name will be used for the creation of a new Xero Bank Account if a matching Xero Bank Account is not found.
    * @return accountName
-   */
-  @ApiModelProperty(
-      example = "Joe's Savings Account",
-      value =
-          "The Account Name will be used for the creation of a new Xero Bank Account if a matching"
-              + " Xero Bank Account is not found.")
-  /**
-   * The Account Name will be used for the creation of a new Xero Bank Account if a matching Xero
-   * Bank Account is not found.
-   *
+  **/
+  @ApiModelProperty(example = "Joe's Savings Account", value = "The Account Name will be used for the creation of a new Xero Bank Account if a matching Xero Bank Account is not found.")
+  /** 
+   * The Account Name will be used for the creation of a new Xero Bank Account if a matching Xero Bank Account is not found.
    * @return accountName String
-   */
+  **/
   public String getAccountName() {
     return accountName;
   }
 
-  /**
-   * The Account Name will be used for the creation of a new Xero Bank Account if a matching Xero
-   * Bank Account is not found.
-   *
-   * @param accountName String
-   */
+  /** 
+  * The Account Name will be used for the creation of a new Xero Bank Account if a matching Xero Bank Account is not found.
+  * @param accountName  String
+  **/
+
   public void setAccountName(String accountName) {
     this.accountName = accountName;
   }
 
   /**
-   * Xero identifier for a bank account in Xero. Must be included if AccountNumber is not specified.
-   *
-   * @param accountId UUID
-   * @return FeedConnection
-   */
+  * Xero identifier for a bank account in Xero. Must be included if AccountNumber is not specified.
+  * @param accountId  UUID
+  * @return FeedConnection
+  **/
   public FeedConnection accountId(UUID accountId) {
     this.accountId = accountId;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for a bank account in Xero. Must be included if AccountNumber is not specified.
-   *
    * @return accountId
-   */
-  @ApiModelProperty(
-      example = "079a88ea-276d-41fb-a1f1-366ef3e22921",
-      value =
-          "Xero identifier for a bank account in Xero. Must be included if AccountNumber is not"
-              + " specified.")
-  /**
+  **/
+  @ApiModelProperty(example = "079a88ea-276d-41fb-a1f1-366ef3e22921", value = "Xero identifier for a bank account in Xero. Must be included if AccountNumber is not specified.")
+  /** 
    * Xero identifier for a bank account in Xero. Must be included if AccountNumber is not specified.
-   *
    * @return accountId UUID
-   */
+  **/
   public UUID getAccountId() {
     return accountId;
   }
 
-  /**
-   * Xero identifier for a bank account in Xero. Must be included if AccountNumber is not specified.
-   *
-   * @param accountId UUID
-   */
+  /** 
+  * Xero identifier for a bank account in Xero. Must be included if AccountNumber is not specified.
+  * @param accountId  UUID
+  **/
+
   public void setAccountId(UUID accountId) {
     this.accountId = accountId;
   }
 
   /**
-   * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other
-   * than credit cards.
-   *
-   * @param accountType AccountTypeEnum
-   * @return FeedConnection
-   */
+  * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other than credit cards.
+  * @param accountType  AccountTypeEnum
+  * @return FeedConnection
+  **/
   public FeedConnection accountType(AccountTypeEnum accountType) {
     this.accountType = accountType;
     return this;
   }
 
-  /**
-   * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other
-   * than credit cards.
-   *
+   /**
+   * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other than credit cards.
    * @return accountType
-   */
-  @ApiModelProperty(
-      example = "BANK",
-      value =
-          "High level bank account type - BANK CREDITCARD BANK encompasses all bank account types"
-              + " other than credit cards.")
-  /**
-   * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other
-   * than credit cards.
-   *
+  **/
+  @ApiModelProperty(example = "BANK", value = "High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other than credit cards.")
+  /** 
+   * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other than credit cards.
    * @return accountType AccountTypeEnum
-   */
+  **/
   public AccountTypeEnum getAccountType() {
     return accountType;
   }
 
-  /**
-   * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other
-   * than credit cards.
-   *
-   * @param accountType AccountTypeEnum
-   */
+  /** 
+  * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other than credit cards.
+  * @param accountType  AccountTypeEnum
+  **/
+
   public void setAccountType(AccountTypeEnum accountType) {
     this.accountType = accountType;
   }
 
   /**
-   * currency
-   *
-   * @param currency CurrencyCode
-   * @return FeedConnection
-   */
+  * currency
+  * @param currency  CurrencyCode
+  * @return FeedConnection
+  **/
   public FeedConnection currency(CurrencyCode currency) {
     this.currency = currency;
     return this;
   }
 
-  /**
+   /**
    * Get currency
-   *
    * @return currency
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * currency
-   *
    * @return currency CurrencyCode
-   */
+  **/
   public CurrencyCode getCurrency() {
     return currency;
   }
 
-  /**
-   * currency
-   *
-   * @param currency CurrencyCode
-   */
+  /** 
+  * currency
+  * @param currency  CurrencyCode
+  **/
+
   public void setCurrency(CurrencyCode currency) {
     this.currency = currency;
   }
 
   /**
-   * country
-   *
-   * @param country CountryCode
-   * @return FeedConnection
-   */
+  * country
+  * @param country  CountryCode
+  * @return FeedConnection
+  **/
   public FeedConnection country(CountryCode country) {
     this.country = country;
     return this;
   }
 
-  /**
+   /**
    * Get country
-   *
    * @return country
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * country
-   *
    * @return country CountryCode
-   */
+  **/
   public CountryCode getCountry() {
     return country;
   }
 
-  /**
-   * country
-   *
-   * @param country CountryCode
-   */
+  /** 
+  * country
+  * @param country  CountryCode
+  **/
+
   public void setCountry(CountryCode country) {
     this.country = country;
   }
 
   /**
-   * the current status of the feed connection
-   *
-   * @param status StatusEnum
-   * @return FeedConnection
-   */
+  * the current status of the feed connection
+  * @param status  StatusEnum
+  * @return FeedConnection
+  **/
   public FeedConnection status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * the current status of the feed connection
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(example = "REJECTED", value = "the current status of the feed connection")
-  /**
+  /** 
    * the current status of the feed connection
-   *
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * the current status of the feed connection
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * the current status of the feed connection
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
   /**
-   * error
-   *
-   * @param error Error
-   * @return FeedConnection
-   */
+  * error
+  * @param error  Error
+  * @return FeedConnection
+  **/
   public FeedConnection error(Error error) {
     this.error = error;
     return this;
   }
 
-  /**
+   /**
    * Get error
-   *
    * @return error
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * error
-   *
    * @return error Error
-   */
+  **/
   public Error getError() {
     return error;
   }
 
-  /**
-   * error
-   *
-   * @param error Error
-   */
+  /** 
+  * error
+  * @param error  Error
+  **/
+
   public void setError(Error error) {
     this.error = error;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -561,32 +500,23 @@ public class FeedConnection {
       return false;
     }
     FeedConnection feedConnection = (FeedConnection) o;
-    return Objects.equals(this.id, feedConnection.id)
-        && Objects.equals(this.accountToken, feedConnection.accountToken)
-        && Objects.equals(this.accountNumber, feedConnection.accountNumber)
-        && Objects.equals(this.accountName, feedConnection.accountName)
-        && Objects.equals(this.accountId, feedConnection.accountId)
-        && Objects.equals(this.accountType, feedConnection.accountType)
-        && Objects.equals(this.currency, feedConnection.currency)
-        && Objects.equals(this.country, feedConnection.country)
-        && Objects.equals(this.status, feedConnection.status)
-        && Objects.equals(this.error, feedConnection.error);
+    return Objects.equals(this.id, feedConnection.id) &&
+        Objects.equals(this.accountToken, feedConnection.accountToken) &&
+        Objects.equals(this.accountNumber, feedConnection.accountNumber) &&
+        Objects.equals(this.accountName, feedConnection.accountName) &&
+        Objects.equals(this.accountId, feedConnection.accountId) &&
+        Objects.equals(this.accountType, feedConnection.accountType) &&
+        Objects.equals(this.currency, feedConnection.currency) &&
+        Objects.equals(this.country, feedConnection.country) &&
+        Objects.equals(this.status, feedConnection.status) &&
+        Objects.equals(this.error, feedConnection.error);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        id,
-        accountToken,
-        accountNumber,
-        accountName,
-        accountId,
-        accountType,
-        currency,
-        country,
-        status,
-        error);
+    return Objects.hash(id, accountToken, accountNumber, accountName, accountId, accountType, currency, country, status, error);
   }
+
 
   @Override
   public String toString() {
@@ -607,7 +537,8 @@ public class FeedConnection {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -615,4 +546,6 @@ public class FeedConnection {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

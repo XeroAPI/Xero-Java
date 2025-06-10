@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.Payslip;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Payslips */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Payslips
+ */
+
 public class Payslips {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Payslips")
   private List<Payslip> payslips = new ArrayList<Payslip>();
   /**
-   * payslips
-   *
-   * @param payslips List&lt;Payslip&gt;
-   * @return Payslips
-   */
+  * payslips
+  * @param payslips  List&lt;Payslip&gt;
+  * @return Payslips
+  **/
   public Payslips payslips(List<Payslip> payslips) {
     this.payslips = payslips;
     return this;
@@ -37,10 +54,9 @@ public class Payslips {
 
   /**
    * payslips
-   *
-   * @param payslipsItem Payslip
+   * @param payslipsItem Payslip 
    * @return Payslips
-   */
+  **/
   public Payslips addPayslipsItem(Payslip payslipsItem) {
     if (this.payslips == null) {
       this.payslips = new ArrayList<Payslip>();
@@ -49,29 +65,28 @@ public class Payslips {
     return this;
   }
 
-  /**
+   /**
    * Get payslips
-   *
    * @return payslips
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * payslips
-   *
    * @return payslips List<Payslip>
-   */
+  **/
   public List<Payslip> getPayslips() {
     return payslips;
   }
 
-  /**
-   * payslips
-   *
-   * @param payslips List&lt;Payslip&gt;
-   */
+  /** 
+  * payslips
+  * @param payslips List&lt;Payslip&gt; 
+  **/
+
   public void setPayslips(List<Payslip> payslips) {
     this.payslips = payslips;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class Payslips {
     return Objects.hash(payslips);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class Payslips {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class Payslips {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

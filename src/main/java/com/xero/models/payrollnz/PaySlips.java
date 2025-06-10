@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.PaySlip;
+import com.xero.models.payrollnz.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** PaySlips */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PaySlips
+ */
+
 public class PaySlips {
   StringUtil util = new StringUtil();
 
@@ -31,81 +51,74 @@ public class PaySlips {
   @JsonProperty("paySlips")
   private List<PaySlip> paySlips = new ArrayList<PaySlip>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return PaySlips
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return PaySlips
+  **/
   public PaySlips pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return PaySlips
-   */
+  * problem
+  * @param problem  Problem
+  * @return PaySlips
+  **/
   public PaySlips problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * paySlips
-   *
-   * @param paySlips List&lt;PaySlip&gt;
-   * @return PaySlips
-   */
+  * paySlips
+  * @param paySlips  List&lt;PaySlip&gt;
+  * @return PaySlips
+  **/
   public PaySlips paySlips(List<PaySlip> paySlips) {
     this.paySlips = paySlips;
     return this;
@@ -113,10 +126,9 @@ public class PaySlips {
 
   /**
    * paySlips
-   *
-   * @param paySlipsItem PaySlip
+   * @param paySlipsItem PaySlip 
    * @return PaySlips
-   */
+  **/
   public PaySlips addPaySlipsItem(PaySlip paySlipsItem) {
     if (this.paySlips == null) {
       this.paySlips = new ArrayList<PaySlip>();
@@ -125,29 +137,28 @@ public class PaySlips {
     return this;
   }
 
-  /**
+   /**
    * Get paySlips
-   *
    * @return paySlips
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * paySlips
-   *
    * @return paySlips List<PaySlip>
-   */
+  **/
   public List<PaySlip> getPaySlips() {
     return paySlips;
   }
 
-  /**
-   * paySlips
-   *
-   * @param paySlips List&lt;PaySlip&gt;
-   */
+  /** 
+  * paySlips
+  * @param paySlips List&lt;PaySlip&gt; 
+  **/
+
   public void setPaySlips(List<PaySlip> paySlips) {
     this.paySlips = paySlips;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,15 +169,16 @@ public class PaySlips {
       return false;
     }
     PaySlips paySlips = (PaySlips) o;
-    return Objects.equals(this.pagination, paySlips.pagination)
-        && Objects.equals(this.problem, paySlips.problem)
-        && Objects.equals(this.paySlips, paySlips.paySlips);
+    return Objects.equals(this.pagination, paySlips.pagination) &&
+        Objects.equals(this.problem, paySlips.problem) &&
+        Objects.equals(this.paySlips, paySlips.paySlips);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, paySlips);
   }
+
 
   @Override
   public String toString() {
@@ -180,7 +192,8 @@ public class PaySlips {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,4 +201,6 @@ public class PaySlips {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

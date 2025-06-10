@@ -9,2116 +9,1733 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-
+ 
 package com.xero.api.client;
 
+import com.xero.api.ApiClient;
+
+import com.xero.models.file.Association;
+import java.io.File;
+import com.xero.models.file.FileObject;
+import com.xero.models.file.Files;
+import com.xero.models.file.Folder;
+import java.util.UUID;
+import com.xero.api.XeroApiException;
+import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
+
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.FileContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.http.HttpMediaType;
 import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpHeaders;
+import com.google.api.client.http.HttpMediaType;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.MultipartContent;
+import com.google.api.client.http.FileContent;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.util.Maps;
-import com.xero.api.ApiClient;
-import com.xero.api.XeroApiExceptionHandler;
-import com.xero.models.file.Association;
-import com.xero.models.file.FileObject;
-import com.xero.models.file.Files;
-import com.xero.models.file.Folder;
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+
 import jakarta.ws.rs.core.UriBuilder;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.List;
+
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
-/** FilesApi has methods for interacting with all endpoints in the API set */
+
+/** FilesApi has methods for interacting with all endpoints in the API set  */
 public class FilesApi {
-  private ApiClient apiClient;
-  private static FilesApi instance = null;
-  private String userAgent = "Default";
-  private String version = "10.2.0";
-  static final Logger logger = LoggerFactory.getLogger(FilesApi.class);
+    private ApiClient apiClient;
+    private static FilesApi instance = null;
+    private String userAgent = "Default";
+    private String version = "10.2.0";
+    final static Logger logger = LoggerFactory.getLogger(FilesApi.class);
 
-  /** FilesApi */
-  public FilesApi() {
-    this(new ApiClient());
-  }
-
-  /**
-   * FilesApi getInstance
-   *
-   * @param apiClient ApiClient pass into the new instance of this class
-   * @return instance of this class
-   */
-  public static FilesApi getInstance(ApiClient apiClient) {
-    if (instance == null) {
-      instance = new FilesApi(apiClient);
+    /** FilesApi  */
+    public FilesApi() {
+        this(new ApiClient());
     }
-    return instance;
-  }
 
-  /**
-   * FilesApi
-   *
-   * @param apiClient ApiClient pass into the new instance of this class
-   */
-  public FilesApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * get ApiClient
-   *
-   * @return apiClient the current ApiClient
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
-
-  /**
-   * set ApiClient
-   *
-   * @param apiClient ApiClient pass into the new instance of this class
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * set user agent
-   *
-   * @param userAgent string to override the user agent
-   */
-  public void setUserAgent(String userAgent) {
-    this.userAgent = userAgent;
-  }
-
-  /**
-   * get user agent
-   *
-   * @return String of user agent
-   */
-  public String getUserAgent() {
-    return this.userAgent + " [Xero-Java-" + this.version + "]";
-  }
-
-  /**
-   * Creates a new file association By passing in the appropriate options, you can create a new
-   * folder
-   *
-   * <p><b>201</b> - A successful request
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param association The association parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Association
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Association createFileAssociation(
-      String accessToken,
-      String xeroTenantId,
-      UUID fileId,
-      Association association,
-      String idempotencyKey)
-      throws IOException {
-    try {
-      TypeReference<Association> typeRef = new TypeReference<Association>() {};
-      HttpResponse response =
-          createFileAssociationForHttpResponse(
-              accessToken, xeroTenantId, fileId, association, idempotencyKey);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createFileAssociation -------------------");
-        logger.debug(e.toString());
+    /** FilesApi getInstance
+    * @param apiClient ApiClient pass into the new instance of this class 
+    * @return instance of this class
+    */
+    public static FilesApi getInstance(ApiClient apiClient) {
+      if (instance == null) {
+        instance = new FilesApi(apiClient);
       }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates a new file association By passing in the appropriate options, you can create a new
-   * folder
-   *
-   * <p><b>201</b> - A successful request
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param association The association parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse createFileAssociationForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID fileId,
-      Association association,
-      String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling createFileAssociation");
-    } // verify the required parameter 'fileId' is set
-    if (fileId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileId' when calling createFileAssociation");
-    } // verify the required parameter 'association' is set
-    if (association == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'association' when calling createFileAssociation");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling createFileAssociation");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FileId", fileId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}/Associations");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
+      return instance;
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(association);
-
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Creates a new folder By passing in the appropriate properties, you can create a new folder
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param folder The folder parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Folder
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Folder createFolder(
-      String accessToken, String xeroTenantId, Folder folder, String idempotencyKey)
-      throws IOException {
-    try {
-      TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-      HttpResponse response =
-          createFolderForHttpResponse(accessToken, xeroTenantId, folder, idempotencyKey);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createFolder -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates a new folder By passing in the appropriate properties, you can create a new folder
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param folder The folder parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse createFolderForHttpResponse(
-      String accessToken, String xeroTenantId, Folder folder, String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling createFolder");
-    } // verify the required parameter 'folder' is set
-    if (folder == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'folder' when calling createFolder");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling createFolder");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders");
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
+    /** FilesApi
+    * @param apiClient ApiClient pass into the new instance of this class 
+    */
+    public FilesApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(folder);
-
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Deletes a specific file Delete a specific file
-   *
-   * <p><b>204</b> - Successful deletion - return response 204 no content
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public void deleteFile(String accessToken, String xeroTenantId, UUID fileId) throws IOException {
-    try {
-      deleteFileForHttpResponse(accessToken, xeroTenantId, fileId);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : deleteFile -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-  }
-
-  /**
-   * Deletes a specific file Delete a specific file
-   *
-   * <p><b>204</b> - Successful deletion - return response 204 no content
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse deleteFileForHttpResponse(
-      String accessToken, String xeroTenantId, UUID fileId) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling deleteFile");
-    } // verify the required parameter 'fileId' is set
-    if (fileId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileId' when calling deleteFile");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling deleteFile");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FileId", fileId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("DELETE " + genericUrl.toString());
+    /** get ApiClient
+    * @return apiClient the current ApiClient  
+    */
+    public ApiClient getApiClient() {
+        return apiClient;
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.DELETE, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Deletes an existing file association By passing in the appropriate options, you can create a
-   * new folder
-   *
-   * <p><b>204</b> - Successful deletion - return response 204 no content
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param objectId Object id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public void deleteFileAssociation(
-      String accessToken, String xeroTenantId, UUID fileId, UUID objectId) throws IOException {
-    try {
-      deleteFileAssociationForHttpResponse(accessToken, xeroTenantId, fileId, objectId);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : deleteFileAssociation -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-  }
-
-  /**
-   * Deletes an existing file association By passing in the appropriate options, you can create a
-   * new folder
-   *
-   * <p><b>204</b> - Successful deletion - return response 204 no content
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param objectId Object id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse deleteFileAssociationForHttpResponse(
-      String accessToken, String xeroTenantId, UUID fileId, UUID objectId) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling deleteFileAssociation");
-    } // verify the required parameter 'fileId' is set
-    if (fileId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileId' when calling deleteFileAssociation");
-    } // verify the required parameter 'objectId' is set
-    if (objectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'objectId' when calling deleteFileAssociation");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling deleteFileAssociation");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FileId", fileId);
-    uriVariables.put("ObjectId", objectId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}/Associations/{ObjectId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("DELETE " + genericUrl.toString());
+    /** set ApiClient
+    * @param apiClient ApiClient pass into the new instance of this class 
+    */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.DELETE, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Deletes a folder By passing in the appropriate ID, you can delete a folder
-   *
-   * <p><b>204</b> - Successful deletion - return response 204 no content
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param folderId Folder id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public void deleteFolder(String accessToken, String xeroTenantId, UUID folderId)
-      throws IOException {
-    try {
-      deleteFolderForHttpResponse(accessToken, xeroTenantId, folderId);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : deleteFolder -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
+    /** set user agent
+    * @param userAgent string to override the user agent
+    */
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
     }
-  }
-
-  /**
-   * Deletes a folder By passing in the appropriate ID, you can delete a folder
-   *
-   * <p><b>204</b> - Successful deletion - return response 204 no content
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param folderId Folder id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse deleteFolderForHttpResponse(
-      String accessToken, String xeroTenantId, UUID folderId) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling deleteFolder");
-    } // verify the required parameter 'folderId' is set
-    if (folderId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'folderId' when calling deleteFolder");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling deleteFolder");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FolderId", folderId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders/{FolderId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("DELETE " + genericUrl.toString());
+    
+    /** get user agent
+    * @return String of user agent
+    */
+    public String getUserAgent() {
+        return this.userAgent +  " [Xero-Java-" + this.version + "]";
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.DELETE, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves an association object using a unique object ID By passing in the appropriate options,
-   * you can retrieve an association
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param objectId Object id for single object
-   * @param pagesize pass an optional page size value
-   * @param page number of records to skip for pagination
-   * @param sort values to sort by
-   * @param direction direction to sort by
-   * @param accessToken Authorization token for user set in header of each request
-   * @return List&lt;Association&gt;
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public List<Association> getAssociationsByObject(
-      String accessToken,
-      String xeroTenantId,
-      UUID objectId,
-      Integer pagesize,
-      Integer page,
-      String sort,
-      String direction)
-      throws IOException {
-    try {
-      TypeReference<List<Association>> typeRef = new TypeReference<List<Association>>() {};
-      HttpResponse response =
-          getAssociationsByObjectForHttpResponse(
-              accessToken, xeroTenantId, objectId, pagesize, page, sort, direction);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getAssociationsByObject -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves an association object using a unique object ID By passing in the appropriate options,
-   * you can retrieve an association
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param objectId Object id for single object
-   * @param pagesize pass an optional page size value
-   * @param page number of records to skip for pagination
-   * @param sort values to sort by
-   * @param direction direction to sort by
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getAssociationsByObjectForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID objectId,
-      Integer pagesize,
-      Integer page,
-      String sort,
-      String direction)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getAssociationsByObject");
-    } // verify the required parameter 'objectId' is set
-    if (objectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'objectId' when calling getAssociationsByObject");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getAssociationsByObject");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("ObjectId", objectId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Associations/{ObjectId}");
-    if (pagesize != null) {
-      String key = "pagesize";
-      Object value = pagesize;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+    
+    /**
+    * Creates a new file association
+    * By passing in the appropriate options, you can create a new folder
+    * <p><b>201</b> - A successful request
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param association The association parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Association
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Association  createFileAssociation(String accessToken, String xeroTenantId, UUID fileId, Association association, String idempotencyKey) throws IOException {
+        try {
+            TypeReference<Association> typeRef = new TypeReference<Association>() {};
+            HttpResponse response = createFileAssociationForHttpResponse(accessToken, xeroTenantId, fileId, association, idempotencyKey);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createFileAssociation -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        return null;
     }
-    if (page != null) {
-      String key = "page";
-      Object value = page;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Creates a new file association
+    * By passing in the appropriate options, you can create a new folder
+    * <p><b>201</b> - A successful request
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param association The association parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse createFileAssociationForHttpResponse(String accessToken, String xeroTenantId, UUID fileId, Association association, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createFileAssociation");
+        }// verify the required parameter 'fileId' is set
+        if (fileId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileId' when calling createFileAssociation");
+        }// verify the required parameter 'association' is set
+        if (association == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'association' when calling createFileAssociation");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (sort != null) {
-      String key = "sort";
-      Object value = sort;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createFileAssociation");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (direction != null) {
-      String key = "direction";
-      Object value = direction;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FileId", fileId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}/Associations");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(association);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves a count of associations for a list of objects. By passing in the appropriate options,
-   * you can retrieve the association count for objects
-   *
-   * <p><b>200</b> - A dictionary of the object Ids and associations count
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param objectIds A comma-separated list of object ids
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Object
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Object getAssociationsCount(String accessToken, String xeroTenantId, List<UUID> objectIds)
-      throws IOException {
-    try {
-      TypeReference<Object> typeRef = new TypeReference<Object>() {};
-      HttpResponse response =
-          getAssociationsCountForHttpResponse(accessToken, xeroTenantId, objectIds);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getAssociationsCount -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves a count of associations for a list of objects. By passing in the appropriate options,
-   * you can retrieve the association count for objects
-   *
-   * <p><b>200</b> - A dictionary of the object Ids and associations count
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param objectIds A comma-separated list of object ids
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getAssociationsCountForHttpResponse(
-      String accessToken, String xeroTenantId, List<UUID> objectIds) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getAssociationsCount");
-    } // verify the required parameter 'objectIds' is set
-    if (objectIds == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'objectIds' when calling getAssociationsCount");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getAssociationsCount");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Associations/Count");
-    if (objectIds != null) {
-      String key = "ObjectIds";
-      Object value = objectIds;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+    
+    /**
+    * Creates a new folder
+    * By passing in the appropriate properties, you can create a new folder
+    * <p><b>200</b> - search results matching criteria
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param folder The folder parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Folder
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Folder  createFolder(String accessToken, String xeroTenantId, Folder folder, String idempotencyKey) throws IOException {
+        try {
+            TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
+            HttpResponse response = createFolderForHttpResponse(accessToken, xeroTenantId, folder, idempotencyKey);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createFolder -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        return null;
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves a file by a unique file ID
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return FileObject
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public FileObject getFile(String accessToken, String xeroTenantId, UUID fileId)
-      throws IOException {
-    try {
-      TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
-      HttpResponse response = getFileForHttpResponse(accessToken, xeroTenantId, fileId);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFile -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves a file by a unique file ID
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFileForHttpResponse(String accessToken, String xeroTenantId, UUID fileId)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getFile");
-    } // verify the required parameter 'fileId' is set
-    if (fileId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileId' when calling getFile");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getFile");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FileId", fileId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves a specific file associations By passing in the appropriate options,
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return List&lt;Association&gt;
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public List<Association> getFileAssociations(String accessToken, String xeroTenantId, UUID fileId)
-      throws IOException {
-    try {
-      TypeReference<List<Association>> typeRef = new TypeReference<List<Association>>() {};
-      HttpResponse response = getFileAssociationsForHttpResponse(accessToken, xeroTenantId, fileId);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFileAssociations -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves a specific file associations By passing in the appropriate options,
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFileAssociationsForHttpResponse(
-      String accessToken, String xeroTenantId, UUID fileId) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getFileAssociations");
-    } // verify the required parameter 'fileId' is set
-    if (fileId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileId' when calling getFileAssociations");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getFileAssociations");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FileId", fileId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}/Associations");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves the content of a specific file By passing in the appropriate options, retrieve data
-   * for specific file
-   *
-   * <p><b>200</b> - returns the byte array of the specific file based on id
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return ByteArrayInputStream
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public ByteArrayInputStream getFileContent(String accessToken, String xeroTenantId, UUID fileId)
-      throws IOException {
-    try {
-      TypeReference<File> typeRef = new TypeReference<File>() {};
-      HttpResponse response = getFileContentForHttpResponse(accessToken, xeroTenantId, fileId);
-      InputStream is = response.getContent();
-      return convertInputToByteArray(is);
-
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFileContent -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves the content of a specific file By passing in the appropriate options, retrieve data
-   * for specific file
-   *
-   * <p><b>200</b> - returns the byte array of the specific file based on id
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFileContentForHttpResponse(
-      String accessToken, String xeroTenantId, UUID fileId) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getFileContent");
-    } // verify the required parameter 'fileId' is set
-    if (fileId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileId' when calling getFileContent");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getFileContent");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/octet-stream");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FileId", fileId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}/Content");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves files
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param pagesize pass an optional page size value
-   * @param page number of records to skip for pagination
-   * @param sort values to sort by
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Files
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Files getFiles(
-      String accessToken, String xeroTenantId, Integer pagesize, Integer page, String sort)
-      throws IOException {
-    try {
-      TypeReference<Files> typeRef = new TypeReference<Files>() {};
-      HttpResponse response =
-          getFilesForHttpResponse(accessToken, xeroTenantId, pagesize, page, sort);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFiles -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves files
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param pagesize pass an optional page size value
-   * @param page number of records to skip for pagination
-   * @param sort values to sort by
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFilesForHttpResponse(
-      String accessToken, String xeroTenantId, Integer pagesize, Integer page, String sort)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getFiles");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getFiles");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files");
-    if (pagesize != null) {
-      String key = "pagesize";
-      Object value = pagesize;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+    /**
+    * Creates a new folder
+    * By passing in the appropriate properties, you can create a new folder
+    * <p><b>200</b> - search results matching criteria
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param folder The folder parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse createFolderForHttpResponse(String accessToken, String xeroTenantId, Folder folder, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createFolder");
+        }// verify the required parameter 'folder' is set
+        if (folder == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'folder' when calling createFolder");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (page != null) {
-      String key = "page";
-      Object value = page;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createFolder");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (sort != null) {
-      String key = "sort";
-      Object value = sort;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders");
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves specific folder by using a unique folder ID By passing in the appropriate ID, you can
-   * search for specific folder
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param folderId Folder id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Folder
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Folder getFolder(String accessToken, String xeroTenantId, UUID folderId)
-      throws IOException {
-    try {
-      TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-      HttpResponse response = getFolderForHttpResponse(accessToken, xeroTenantId, folderId);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFolder -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves specific folder by using a unique folder ID By passing in the appropriate ID, you can
-   * search for specific folder
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param folderId Folder id for single object
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFolderForHttpResponse(
-      String accessToken, String xeroTenantId, UUID folderId) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getFolder");
-    } // verify the required parameter 'folderId' is set
-    if (folderId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'folderId' when calling getFolder");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getFolder");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FolderId", folderId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders/{FolderId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(folder);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves folders By passing in the appropriate options, you can search for available folders
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param sort values to sort by
-   * @param accessToken Authorization token for user set in header of each request
-   * @return List&lt;Folder&gt;
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public List<Folder> getFolders(String accessToken, String xeroTenantId, String sort)
-      throws IOException {
-    try {
-      TypeReference<List<Folder>> typeRef = new TypeReference<List<Folder>>() {};
-      HttpResponse response = getFoldersForHttpResponse(accessToken, xeroTenantId, sort);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getFolders -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves folders By passing in the appropriate options, you can search for available folders
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param sort values to sort by
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getFoldersForHttpResponse(
-      String accessToken, String xeroTenantId, String sort) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getFolders");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getFolders");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders");
-    if (sort != null) {
-      String key = "sort";
-      Object value = sort;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+    
+    /**
+    * Deletes a specific file
+    * Delete a specific file
+    * <p><b>204</b> - Successful deletion - return response 204 no content
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public void deleteFile(String accessToken, String xeroTenantId, UUID fileId) throws IOException {
+        try {
+            deleteFileForHttpResponse(accessToken, xeroTenantId, fileId);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteFile -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
+    /**
+    * Deletes a specific file
+    * Delete a specific file
+    * <p><b>204</b> - Successful deletion - return response 204 no content
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse deleteFileForHttpResponse(String accessToken, String xeroTenantId, UUID fileId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling deleteFile");
+        }// verify the required parameter 'fileId' is set
+        if (fileId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileId' when calling deleteFile");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling deleteFile");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept(""); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FileId", fileId);
 
-  /**
-   * Retrieves inbox folder Search for the user inbox
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Folder
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Folder getInbox(String accessToken, String xeroTenantId) throws IOException {
-    try {
-      TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-      HttpResponse response = getInboxForHttpResponse(accessToken, xeroTenantId);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getInbox -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves inbox folder Search for the user inbox
-   *
-   * <p><b>200</b> - search results matching criteria
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getInboxForHttpResponse(String accessToken, String xeroTenantId)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getInbox");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getInbox");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Inbox");
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Update a file Updates file properties of a single file
-   *
-   * <p><b>200</b> - A successful request
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param fileObject The fileObject parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return FileObject
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public FileObject updateFile(
-      String accessToken,
-      String xeroTenantId,
-      UUID fileId,
-      FileObject fileObject,
-      String idempotencyKey)
-      throws IOException {
-    try {
-      TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
-      HttpResponse response =
-          updateFileForHttpResponse(accessToken, xeroTenantId, fileId, fileObject, idempotencyKey);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateFile -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Update a file Updates file properties of a single file
-   *
-   * <p><b>200</b> - A successful request
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param fileId File id for single object
-   * @param fileObject The fileObject parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse updateFileForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID fileId,
-      FileObject fileObject,
-      String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling updateFile");
-    } // verify the required parameter 'fileId' is set
-    if (fileId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileId' when calling updateFile");
-    } // verify the required parameter 'fileObject' is set
-    if (fileObject == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'fileObject' when calling updateFile");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling updateFile");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FileId", fileId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
+    
+    /**
+    * Deletes an existing file association
+    * By passing in the appropriate options, you can create a new folder
+    * <p><b>204</b> - Successful deletion - return response 204 no content
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param objectId Object id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public void deleteFileAssociation(String accessToken, String xeroTenantId, UUID fileId, UUID objectId) throws IOException {
+        try {
+            deleteFileAssociationForHttpResponse(accessToken, xeroTenantId, fileId, objectId);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteFileAssociation -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(fileObject);
+    /**
+    * Deletes an existing file association
+    * By passing in the appropriate options, you can create a new folder
+    * <p><b>204</b> - Successful deletion - return response 204 no content
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param objectId Object id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse deleteFileAssociationForHttpResponse(String accessToken, String xeroTenantId, UUID fileId, UUID objectId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling deleteFileAssociation");
+        }// verify the required parameter 'fileId' is set
+        if (fileId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileId' when calling deleteFileAssociation");
+        }// verify the required parameter 'objectId' is set
+        if (objectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'objectId' when calling deleteFileAssociation");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling deleteFileAssociation");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept(""); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FileId", fileId);
+        uriVariables.put("ObjectId", objectId);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Updates an existing folder By passing in the appropriate ID and properties, you can update a
-   * folder
-   *
-   * <p><b>200</b> - return the updated object
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param folderId Folder id for single object
-   * @param folder The folder parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Folder
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Folder updateFolder(
-      String accessToken, String xeroTenantId, UUID folderId, Folder folder, String idempotencyKey)
-      throws IOException {
-    try {
-      TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-      HttpResponse response =
-          updateFolderForHttpResponse(accessToken, xeroTenantId, folderId, folder, idempotencyKey);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateFolder -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Updates an existing folder By passing in the appropriate ID and properties, you can update a
-   * folder
-   *
-   * <p><b>200</b> - return the updated object
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param folderId Folder id for single object
-   * @param folder The folder parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse updateFolderForHttpResponse(
-      String accessToken, String xeroTenantId, UUID folderId, Folder folder, String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling updateFolder");
-    } // verify the required parameter 'folderId' is set
-    if (folderId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'folderId' when calling updateFolder");
-    } // verify the required parameter 'folder' is set
-    if (folder == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'folder' when calling updateFolder");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling updateFolder");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FolderId", folderId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders/{FolderId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}/Associations/{ObjectId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(folder);
-
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Uploads a File to the inbox
-   *
-   * <p><b>201</b> - A successful request
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param body The body parameter
-   * @param name exact name of the file you are uploading
-   * @param filename The filename parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The mimeType parameter
-   * @param accessToken Authorization token for user set in header of each request
-   * @return FileObject
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public FileObject uploadFile(
-      String accessToken,
-      String xeroTenantId,
-      File body,
-      String name,
-      String filename,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
-      HttpResponse response =
-          uploadFileForHttpResponse(
-              accessToken, xeroTenantId, body, name, filename, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : uploadFile -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Uploads a File to the inbox
-   *
-   * <p><b>201</b> - A successful request
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param body The body parameter
-   * @param name exact name of the file you are uploading
-   * @param filename The filename parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The mimeType parameter
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse uploadFileForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      File body,
-      String name,
-      String filename,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling uploadFile");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling uploadFile");
-    } // verify the required parameter 'name' is set
-    if (name == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'name' when calling uploadFile");
-    } // verify the required parameter 'filename' is set
-    if (filename == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'filename' when calling uploadFile");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling uploadFile");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files");
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
+    
+    /**
+    * Deletes a folder
+    * By passing in the appropriate ID, you can delete a folder
+    * <p><b>204</b> - Successful deletion - return response 204 no content
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param folderId Folder id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public void deleteFolder(String accessToken, String xeroTenantId, UUID folderId) throws IOException {
+        try {
+            deleteFolderForHttpResponse(accessToken, xeroTenantId, folderId);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteFolder -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
     }
 
-    Map<String, String> parameters = Maps.newHashMap();
-    parameters.put("name", name);
-    parameters.put("filename", filename);
+    /**
+    * Deletes a folder
+    * By passing in the appropriate ID, you can delete a folder
+    * <p><b>204</b> - Successful deletion - return response 204 no content
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param folderId Folder id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse deleteFolderForHttpResponse(String accessToken, String xeroTenantId, UUID folderId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling deleteFolder");
+        }// verify the required parameter 'folderId' is set
+        if (folderId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'folderId' when calling deleteFolder");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling deleteFolder");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept(""); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FolderId", folderId);
 
-    // Add parameters
-    MultipartContent content =
-        new MultipartContent()
-            .setMediaType(
-                new HttpMediaType("multipart/form-data")
-                    .setParameter("boundary", "__END_OF_PART__"));
-
-    for (String key : parameters.keySet()) {
-      MultipartContent.Part part =
-          new MultipartContent.Part(new ByteArrayContent(null, parameters.get(key).getBytes()));
-      part.setHeaders(
-          new HttpHeaders()
-              .set("Content-Disposition", String.format("form-data; name=\"%s\"", key)));
-      content.addPart(part);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders/{FolderId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    FileContent fileContent = new FileContent(mimeType, body);
-    MultipartContent.Part part = new MultipartContent.Part(fileContent);
-    part.setHeaders(
-        new HttpHeaders()
-            .set(
-                "Content-Disposition",
-                String.format("form-data; name=\"content\"; filename=\"%s\"", filename)));
-    content.addPart(part);
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Uploads a File to a specific folder
-   *
-   * <p><b>201</b> - A successful request
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param folderId pass required folder id to save file to specific folder
-   * @param body The body parameter
-   * @param name exact name of the file you are uploading
-   * @param filename The filename parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The mimeType parameter
-   * @param accessToken Authorization token for user set in header of each request
-   * @return FileObject
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public FileObject uploadFileToFolder(
-      String accessToken,
-      String xeroTenantId,
-      UUID folderId,
-      File body,
-      String name,
-      String filename,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    try {
-      TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
-      HttpResponse response =
-          uploadFileToFolderForHttpResponse(
-              accessToken, xeroTenantId, folderId, body, name, filename, idempotencyKey, mimeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : uploadFileToFolder -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Uploads a File to a specific folder
-   *
-   * <p><b>201</b> - A successful request
-   *
-   * <p><b>400</b> - invalid input, object invalid
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param folderId pass required folder id to save file to specific folder
-   * @param body The body parameter
-   * @param name exact name of the file you are uploading
-   * @param filename The filename parameter
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param mimeType The mimeType parameter
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse uploadFileToFolderForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID folderId,
-      File body,
-      String name,
-      String filename,
-      String idempotencyKey,
-      String mimeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling uploadFileToFolder");
-    } // verify the required parameter 'folderId' is set
-    if (folderId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'folderId' when calling uploadFileToFolder");
-    } // verify the required parameter 'body' is set
-    if (body == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'body' when calling uploadFileToFolder");
-    } // verify the required parameter 'name' is set
-    if (name == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'name' when calling uploadFileToFolder");
-    } // verify the required parameter 'filename' is set
-    if (filename == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'filename' when calling uploadFileToFolder");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling uploadFileToFolder");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("xero-tenant-id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("FolderId", folderId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FolderId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
+    
+    /**
+    * Retrieves an association object using a unique object ID
+    * By passing in the appropriate options, you can retrieve an association
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param objectId Object id for single object
+    * @param pagesize pass an optional page size value
+    * @param page number of records to skip for pagination
+    * @param sort values to sort by
+    * @param direction direction to sort by
+    * @param accessToken Authorization token for user set in header of each request
+    * @return List&lt;Association&gt; 
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public List<Association>  getAssociationsByObject(String accessToken, String xeroTenantId, UUID objectId, Integer pagesize, Integer page, String sort, String direction) throws IOException {
+        try {
+            TypeReference<List<Association>> typeRef = new TypeReference<List<Association>>() {};
+            HttpResponse response = getAssociationsByObjectForHttpResponse(accessToken, xeroTenantId, objectId, pagesize, page, sort, direction);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAssociationsByObject -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
-    Map<String, String> parameters = Maps.newHashMap();
-    parameters.put("name", name);
-    parameters.put("filename", filename);
+    /**
+    * Retrieves an association object using a unique object ID
+    * By passing in the appropriate options, you can retrieve an association
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param objectId Object id for single object
+    * @param pagesize pass an optional page size value
+    * @param page number of records to skip for pagination
+    * @param sort values to sort by
+    * @param direction direction to sort by
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getAssociationsByObjectForHttpResponse(String accessToken, String xeroTenantId, UUID objectId, Integer pagesize, Integer page, String sort, String direction) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAssociationsByObject");
+        }// verify the required parameter 'objectId' is set
+        if (objectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'objectId' when calling getAssociationsByObject");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getAssociationsByObject");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("ObjectId", objectId);
 
-    // Add parameters
-    MultipartContent content =
-        new MultipartContent()
-            .setMediaType(
-                new HttpMediaType("multipart/form-data")
-                    .setParameter("boundary", "__END_OF_PART__"));
-
-    for (String key : parameters.keySet()) {
-      MultipartContent.Part part =
-          new MultipartContent.Part(new ByteArrayContent(null, parameters.get(key).getBytes()));
-      part.setHeaders(
-          new HttpHeaders()
-              .set("Content-Disposition", String.format("form-data; name=\"%s\"", key)));
-      content.addPart(part);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Associations/{ObjectId}");
+        if (pagesize != null) {
+            String key = "pagesize";
+            Object value = pagesize;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (page != null) {
+            String key = "page";
+            Object value = page;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (sort != null) {
+            String key = "sort";
+            Object value = sort;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (direction != null) {
+            String key = "direction";
+            Object value = direction;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    FileContent fileContent = new FileContent(mimeType, body);
-    MultipartContent.Part part = new MultipartContent.Part(fileContent);
-    part.setHeaders(
-        new HttpHeaders()
-            .set(
-                "Content-Disposition",
-                String.format("form-data; name=\"content\"; filename=\"%s\"", filename)));
-    content.addPart(part);
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * convert intput to byte array
-   *
-   * @param is InputStream the server status code returned
-   * @return byteArrayInputStream a ByteArrayInputStream
-   * @throws IOException for failed or interrupted I/O operations
-   */
-  public ByteArrayInputStream convertInputToByteArray(InputStream is) throws IOException {
-    byte[] bytes = IOUtils.toByteArray(is);
-    try {
-      // Process the input stream..
-      ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-      return byteArrayInputStream;
-    } finally {
-      is.close();
+    
+    /**
+    * Retrieves a count of associations for a list of objects.
+    * By passing in the appropriate options, you can retrieve the association count for objects
+    * <p><b>200</b> - A dictionary of the object Ids and associations count
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param objectIds A comma-separated list of object ids
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Object
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Object  getAssociationsCount(String accessToken, String xeroTenantId, List<UUID> objectIds) throws IOException {
+        try {
+            TypeReference<Object> typeRef = new TypeReference<Object>() {};
+            HttpResponse response = getAssociationsCountForHttpResponse(accessToken, xeroTenantId, objectIds);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAssociationsCount -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
-  }
+
+    /**
+    * Retrieves a count of associations for a list of objects.
+    * By passing in the appropriate options, you can retrieve the association count for objects
+    * <p><b>200</b> - A dictionary of the object Ids and associations count
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param objectIds A comma-separated list of object ids
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getAssociationsCountForHttpResponse(String accessToken, String xeroTenantId, List<UUID> objectIds) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAssociationsCount");
+        }// verify the required parameter 'objectIds' is set
+        if (objectIds == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'objectIds' when calling getAssociationsCount");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getAssociationsCount");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Associations/Count");
+        if (objectIds != null) {
+            String key = "ObjectIds";
+            Object value = objectIds;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Retrieves a file by a unique file ID
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  FileObject
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public FileObject  getFile(String accessToken, String xeroTenantId, UUID fileId) throws IOException {
+        try {
+            TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
+            HttpResponse response = getFileForHttpResponse(accessToken, xeroTenantId, fileId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFile -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Retrieves a file by a unique file ID
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFileForHttpResponse(String accessToken, String xeroTenantId, UUID fileId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFile");
+        }// verify the required parameter 'fileId' is set
+        if (fileId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileId' when calling getFile");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFile");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FileId", fileId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Retrieves a specific file associations
+    * By passing in the appropriate options,  
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return List&lt;Association&gt; 
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public List<Association>  getFileAssociations(String accessToken, String xeroTenantId, UUID fileId) throws IOException {
+        try {
+            TypeReference<List<Association>> typeRef = new TypeReference<List<Association>>() {};
+            HttpResponse response = getFileAssociationsForHttpResponse(accessToken, xeroTenantId, fileId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFileAssociations -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Retrieves a specific file associations
+    * By passing in the appropriate options,  
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFileAssociationsForHttpResponse(String accessToken, String xeroTenantId, UUID fileId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFileAssociations");
+        }// verify the required parameter 'fileId' is set
+        if (fileId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileId' when calling getFileAssociations");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFileAssociations");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FileId", fileId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}/Associations");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Retrieves the content of a specific file
+    * By passing in the appropriate options, retrieve data for specific file
+    * <p><b>200</b> - returns the byte array of the specific file based on id
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return ByteArrayInputStream
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public ByteArrayInputStream  getFileContent(String accessToken, String xeroTenantId, UUID fileId) throws IOException {
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getFileContentForHttpResponse(accessToken, xeroTenantId, fileId);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
+
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFileContent -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Retrieves the content of a specific file
+    * By passing in the appropriate options, retrieve data for specific file
+    * <p><b>200</b> - returns the byte array of the specific file based on id
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFileContentForHttpResponse(String accessToken, String xeroTenantId, UUID fileId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFileContent");
+        }// verify the required parameter 'fileId' is set
+        if (fileId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileId' when calling getFileContent");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFileContent");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FileId", fileId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}/Content");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Retrieves files
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param pagesize pass an optional page size value
+    * @param page number of records to skip for pagination
+    * @param sort values to sort by
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Files
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Files  getFiles(String accessToken, String xeroTenantId, Integer pagesize, Integer page, String sort) throws IOException {
+        try {
+            TypeReference<Files> typeRef = new TypeReference<Files>() {};
+            HttpResponse response = getFilesForHttpResponse(accessToken, xeroTenantId, pagesize, page, sort);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFiles -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Retrieves files
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param pagesize pass an optional page size value
+    * @param page number of records to skip for pagination
+    * @param sort values to sort by
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFilesForHttpResponse(String accessToken, String xeroTenantId, Integer pagesize, Integer page, String sort) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFiles");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFiles");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files");
+        if (pagesize != null) {
+            String key = "pagesize";
+            Object value = pagesize;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (page != null) {
+            String key = "page";
+            Object value = page;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (sort != null) {
+            String key = "sort";
+            Object value = sort;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Retrieves specific folder by using a unique folder ID
+    * By passing in the appropriate ID, you can search for specific folder
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param folderId Folder id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Folder
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Folder  getFolder(String accessToken, String xeroTenantId, UUID folderId) throws IOException {
+        try {
+            TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
+            HttpResponse response = getFolderForHttpResponse(accessToken, xeroTenantId, folderId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFolder -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Retrieves specific folder by using a unique folder ID
+    * By passing in the appropriate ID, you can search for specific folder
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param folderId Folder id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFolderForHttpResponse(String accessToken, String xeroTenantId, UUID folderId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFolder");
+        }// verify the required parameter 'folderId' is set
+        if (folderId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'folderId' when calling getFolder");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFolder");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FolderId", folderId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders/{FolderId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Retrieves folders
+    * By passing in the appropriate options, you can search for available folders
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param sort values to sort by
+    * @param accessToken Authorization token for user set in header of each request
+    * @return List&lt;Folder&gt; 
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public List<Folder>  getFolders(String accessToken, String xeroTenantId, String sort) throws IOException {
+        try {
+            TypeReference<List<Folder>> typeRef = new TypeReference<List<Folder>>() {};
+            HttpResponse response = getFoldersForHttpResponse(accessToken, xeroTenantId, sort);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFolders -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Retrieves folders
+    * By passing in the appropriate options, you can search for available folders
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param sort values to sort by
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getFoldersForHttpResponse(String accessToken, String xeroTenantId, String sort) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFolders");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFolders");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders");
+        if (sort != null) {
+            String key = "sort";
+            Object value = sort;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Retrieves inbox folder
+    * Search for the user inbox
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Folder
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Folder  getInbox(String accessToken, String xeroTenantId) throws IOException {
+        try {
+            TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
+            HttpResponse response = getInboxForHttpResponse(accessToken, xeroTenantId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getInbox -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Retrieves inbox folder
+    * Search for the user inbox
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getInboxForHttpResponse(String accessToken, String xeroTenantId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getInbox");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getInbox");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Inbox");
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Update a file
+    * Updates file properties of a single file
+    * <p><b>200</b> - A successful request
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param fileObject The fileObject parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  FileObject
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public FileObject  updateFile(String accessToken, String xeroTenantId, UUID fileId, FileObject fileObject, String idempotencyKey) throws IOException {
+        try {
+            TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
+            HttpResponse response = updateFileForHttpResponse(accessToken, xeroTenantId, fileId, fileObject, idempotencyKey);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateFile -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Update a file
+    * Updates file properties of a single file
+    * <p><b>200</b> - A successful request
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param fileId File id for single object
+    * @param fileObject The fileObject parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse updateFileForHttpResponse(String accessToken, String xeroTenantId, UUID fileId, FileObject fileObject, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateFile");
+        }// verify the required parameter 'fileId' is set
+        if (fileId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileId' when calling updateFile");
+        }// verify the required parameter 'fileObject' is set
+        if (fileObject == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileObject' when calling updateFile");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateFile");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FileId", fileId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FileId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(fileObject);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Updates an existing folder
+    * By passing in the appropriate ID and properties, you can update a folder
+    * <p><b>200</b> - return the updated object
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param folderId Folder id for single object
+    * @param folder The folder parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Folder
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Folder  updateFolder(String accessToken, String xeroTenantId, UUID folderId, Folder folder, String idempotencyKey) throws IOException {
+        try {
+            TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
+            HttpResponse response = updateFolderForHttpResponse(accessToken, xeroTenantId, folderId, folder, idempotencyKey);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateFolder -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Updates an existing folder
+    * By passing in the appropriate ID and properties, you can update a folder
+    * <p><b>200</b> - return the updated object
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param folderId Folder id for single object
+    * @param folder The folder parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse updateFolderForHttpResponse(String accessToken, String xeroTenantId, UUID folderId, Folder folder, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateFolder");
+        }// verify the required parameter 'folderId' is set
+        if (folderId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'folderId' when calling updateFolder");
+        }// verify the required parameter 'folder' is set
+        if (folder == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'folder' when calling updateFolder");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateFolder");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FolderId", folderId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders/{FolderId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(folder);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Uploads a File to the inbox
+    * <p><b>201</b> - A successful request
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param body The body parameter
+    * @param name exact name of the file you are uploading
+    * @param filename The filename parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param mimeType The mimeType parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  FileObject
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public FileObject  uploadFile(String accessToken, String xeroTenantId, File body, String name, String filename, String idempotencyKey, String mimeType) throws IOException {
+        try {
+            TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
+            HttpResponse response = uploadFileForHttpResponse(accessToken, xeroTenantId, body, name, filename, idempotencyKey, mimeType);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : uploadFile -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Uploads a File to the inbox
+    * <p><b>201</b> - A successful request
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param body The body parameter
+    * @param name exact name of the file you are uploading
+    * @param filename The filename parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param mimeType The mimeType parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse uploadFileForHttpResponse(String accessToken, String xeroTenantId, File body, String name, String filename, String idempotencyKey, String mimeType) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling uploadFile");
+        }// verify the required parameter 'body' is set
+        if (body == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'body' when calling uploadFile");
+        }// verify the required parameter 'name' is set
+        if (name == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'name' when calling uploadFile");
+        }// verify the required parameter 'filename' is set
+        if (filename == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'filename' when calling uploadFile");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling uploadFile");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files");
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
+        
+        Map<String, String> parameters = Maps.newHashMap();
+        parameters.put("name", name);
+        parameters.put("filename", filename);
+        
+        // Add parameters
+        MultipartContent content = new MultipartContent().setMediaType(
+	             new HttpMediaType("multipart/form-data")
+	                     .setParameter("boundary", "__END_OF_PART__"));
+	     
+	    for (String key : parameters.keySet()) {
+	         MultipartContent.Part part = new MultipartContent.Part(
+	                 new ByteArrayContent(null, parameters.get(key).getBytes()));
+	         part.setHeaders(new HttpHeaders().set(
+	                 "Content-Disposition", String.format("form-data; name=\"%s\"", key)));
+	         content.addPart(part);
+	    }
+	
+	    FileContent fileContent = new FileContent(
+	    		 mimeType, body);
+	    MultipartContent.Part part = new MultipartContent.Part(fileContent);
+	    part.setHeaders(new HttpHeaders().set(
+	             "Content-Disposition", 
+	             String.format("form-data; name=\"content\"; filename=\"%s\"", filename)));
+	    content.addPart(part);
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Uploads a File to a specific folder
+    * <p><b>201</b> - A successful request
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param folderId pass required folder id to save file to specific folder
+    * @param body The body parameter
+    * @param name exact name of the file you are uploading
+    * @param filename The filename parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param mimeType The mimeType parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  FileObject
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public FileObject  uploadFileToFolder(String accessToken, String xeroTenantId, UUID folderId, File body, String name, String filename, String idempotencyKey, String mimeType) throws IOException {
+        try {
+            TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
+            HttpResponse response = uploadFileToFolderForHttpResponse(accessToken, xeroTenantId, folderId, body, name, filename, idempotencyKey, mimeType);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : uploadFileToFolder -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Uploads a File to a specific folder
+    * <p><b>201</b> - A successful request
+    * <p><b>400</b> - invalid input, object invalid
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param folderId pass required folder id to save file to specific folder
+    * @param body The body parameter
+    * @param name exact name of the file you are uploading
+    * @param filename The filename parameter
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param mimeType The mimeType parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse uploadFileToFolderForHttpResponse(String accessToken, String xeroTenantId, UUID folderId, File body, String name, String filename, String idempotencyKey, String mimeType) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling uploadFileToFolder");
+        }// verify the required parameter 'folderId' is set
+        if (folderId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'folderId' when calling uploadFileToFolder");
+        }// verify the required parameter 'body' is set
+        if (body == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'body' when calling uploadFileToFolder");
+        }// verify the required parameter 'name' is set
+        if (name == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'name' when calling uploadFileToFolder");
+        }// verify the required parameter 'filename' is set
+        if (filename == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'filename' when calling uploadFileToFolder");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling uploadFileToFolder");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("FolderId", folderId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files/{FolderId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
+        
+        Map<String, String> parameters = Maps.newHashMap();
+        parameters.put("name", name);
+        parameters.put("filename", filename);
+        
+        // Add parameters
+        MultipartContent content = new MultipartContent().setMediaType(
+	             new HttpMediaType("multipart/form-data")
+	                     .setParameter("boundary", "__END_OF_PART__"));
+	     
+	    for (String key : parameters.keySet()) {
+	         MultipartContent.Part part = new MultipartContent.Part(
+	                 new ByteArrayContent(null, parameters.get(key).getBytes()));
+	         part.setHeaders(new HttpHeaders().set(
+	                 "Content-Disposition", String.format("form-data; name=\"%s\"", key)));
+	         content.addPart(part);
+	    }
+	
+	    FileContent fileContent = new FileContent(
+	    		 mimeType, body);
+	    MultipartContent.Part part = new MultipartContent.Part(fileContent);
+	    part.setHeaders(new HttpHeaders().set(
+	             "Content-Disposition", 
+	             String.format("form-data; name=\"content\"; filename=\"%s\"", filename)));
+	    content.addPart(part);
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+
+    /** convert intput to byte array
+    * @param is InputStream the server status code returned
+    * @return byteArrayInputStream a ByteArrayInputStream 
+    * @throws IOException for failed or interrupted I/O operations
+    **/
+    public ByteArrayInputStream convertInputToByteArray(InputStream is) throws IOException {
+        byte[] bytes = IOUtils.toByteArray(is);
+        try {
+            // Process the input stream..
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+            return byteArrayInputStream;
+        } finally {
+            is.close();
+        }
+        
+    }
 }

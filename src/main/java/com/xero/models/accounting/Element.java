@@ -9,17 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Element */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Element
+ */
+
 public class Element {
   StringUtil util = new StringUtil();
 
@@ -47,11 +65,10 @@ public class Element {
   @JsonProperty("PurchaseOrderID")
   private UUID purchaseOrderID;
   /**
-   * Array of Validation Error message
-   *
-   * @param validationErrors List&lt;ValidationError&gt;
-   * @return Element
-   */
+  * Array of Validation Error message
+  * @param validationErrors  List&lt;ValidationError&gt;
+  * @return Element
+  **/
   public Element validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
@@ -59,10 +76,9 @@ public class Element {
 
   /**
    * Array of Validation Error message
-   *
-   * @param validationErrorsItem ValidationError
+   * @param validationErrorsItem ValidationError 
    * @return Element
-   */
+  **/
   public Element addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -71,274 +87,252 @@ public class Element {
     return this;
   }
 
-  /**
+   /**
    * Array of Validation Error message
-   *
    * @return validationErrors
-   */
+  **/
   @ApiModelProperty(value = "Array of Validation Error message")
-  /**
+  /** 
    * Array of Validation Error message
-   *
    * @return validationErrors List<ValidationError>
-   */
+  **/
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
-  /**
-   * Array of Validation Error message
-   *
-   * @param validationErrors List&lt;ValidationError&gt;
-   */
+  /** 
+  * Array of Validation Error message
+  * @param validationErrors List&lt;ValidationError&gt; 
+  **/
+
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
 
   /**
-   * Unique ID for batch payment object with validation error
-   *
-   * @param batchPaymentID UUID
-   * @return Element
-   */
+  * Unique ID for batch payment object with validation error
+  * @param batchPaymentID  UUID
+  * @return Element
+  **/
   public Element batchPaymentID(UUID batchPaymentID) {
     this.batchPaymentID = batchPaymentID;
     return this;
   }
 
-  /**
+   /**
    * Unique ID for batch payment object with validation error
-   *
    * @return batchPaymentID
-   */
+  **/
   @ApiModelProperty(value = "Unique ID for batch payment object with validation error")
-  /**
+  /** 
    * Unique ID for batch payment object with validation error
-   *
    * @return batchPaymentID UUID
-   */
+  **/
   public UUID getBatchPaymentID() {
     return batchPaymentID;
   }
 
-  /**
-   * Unique ID for batch payment object with validation error
-   *
-   * @param batchPaymentID UUID
-   */
+  /** 
+  * Unique ID for batch payment object with validation error
+  * @param batchPaymentID  UUID
+  **/
+
   public void setBatchPaymentID(UUID batchPaymentID) {
     this.batchPaymentID = batchPaymentID;
   }
 
   /**
-   * bankTransactionID
-   *
-   * @param bankTransactionID UUID
-   * @return Element
-   */
+  * bankTransactionID
+  * @param bankTransactionID  UUID
+  * @return Element
+  **/
   public Element bankTransactionID(UUID bankTransactionID) {
     this.bankTransactionID = bankTransactionID;
     return this;
   }
 
-  /**
+   /**
    * Get bankTransactionID
-   *
    * @return bankTransactionID
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * bankTransactionID
-   *
    * @return bankTransactionID UUID
-   */
+  **/
   public UUID getBankTransactionID() {
     return bankTransactionID;
   }
 
-  /**
-   * bankTransactionID
-   *
-   * @param bankTransactionID UUID
-   */
+  /** 
+  * bankTransactionID
+  * @param bankTransactionID  UUID
+  **/
+
   public void setBankTransactionID(UUID bankTransactionID) {
     this.bankTransactionID = bankTransactionID;
   }
 
   /**
-   * creditNoteID
-   *
-   * @param creditNoteID UUID
-   * @return Element
-   */
+  * creditNoteID
+  * @param creditNoteID  UUID
+  * @return Element
+  **/
   public Element creditNoteID(UUID creditNoteID) {
     this.creditNoteID = creditNoteID;
     return this;
   }
 
-  /**
+   /**
    * Get creditNoteID
-   *
    * @return creditNoteID
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * creditNoteID
-   *
    * @return creditNoteID UUID
-   */
+  **/
   public UUID getCreditNoteID() {
     return creditNoteID;
   }
 
-  /**
-   * creditNoteID
-   *
-   * @param creditNoteID UUID
-   */
+  /** 
+  * creditNoteID
+  * @param creditNoteID  UUID
+  **/
+
   public void setCreditNoteID(UUID creditNoteID) {
     this.creditNoteID = creditNoteID;
   }
 
   /**
-   * contactID
-   *
-   * @param contactID UUID
-   * @return Element
-   */
+  * contactID
+  * @param contactID  UUID
+  * @return Element
+  **/
   public Element contactID(UUID contactID) {
     this.contactID = contactID;
     return this;
   }
 
-  /**
+   /**
    * Get contactID
-   *
    * @return contactID
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * contactID
-   *
    * @return contactID UUID
-   */
+  **/
   public UUID getContactID() {
     return contactID;
   }
 
-  /**
-   * contactID
-   *
-   * @param contactID UUID
-   */
+  /** 
+  * contactID
+  * @param contactID  UUID
+  **/
+
   public void setContactID(UUID contactID) {
     this.contactID = contactID;
   }
 
   /**
-   * invoiceID
-   *
-   * @param invoiceID UUID
-   * @return Element
-   */
+  * invoiceID
+  * @param invoiceID  UUID
+  * @return Element
+  **/
   public Element invoiceID(UUID invoiceID) {
     this.invoiceID = invoiceID;
     return this;
   }
 
-  /**
+   /**
    * Get invoiceID
-   *
    * @return invoiceID
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * invoiceID
-   *
    * @return invoiceID UUID
-   */
+  **/
   public UUID getInvoiceID() {
     return invoiceID;
   }
 
-  /**
-   * invoiceID
-   *
-   * @param invoiceID UUID
-   */
+  /** 
+  * invoiceID
+  * @param invoiceID  UUID
+  **/
+
   public void setInvoiceID(UUID invoiceID) {
     this.invoiceID = invoiceID;
   }
 
   /**
-   * itemID
-   *
-   * @param itemID UUID
-   * @return Element
-   */
+  * itemID
+  * @param itemID  UUID
+  * @return Element
+  **/
   public Element itemID(UUID itemID) {
     this.itemID = itemID;
     return this;
   }
 
-  /**
+   /**
    * Get itemID
-   *
    * @return itemID
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * itemID
-   *
    * @return itemID UUID
-   */
+  **/
   public UUID getItemID() {
     return itemID;
   }
 
-  /**
-   * itemID
-   *
-   * @param itemID UUID
-   */
+  /** 
+  * itemID
+  * @param itemID  UUID
+  **/
+
   public void setItemID(UUID itemID) {
     this.itemID = itemID;
   }
 
   /**
-   * purchaseOrderID
-   *
-   * @param purchaseOrderID UUID
-   * @return Element
-   */
+  * purchaseOrderID
+  * @param purchaseOrderID  UUID
+  * @return Element
+  **/
   public Element purchaseOrderID(UUID purchaseOrderID) {
     this.purchaseOrderID = purchaseOrderID;
     return this;
   }
 
-  /**
+   /**
    * Get purchaseOrderID
-   *
    * @return purchaseOrderID
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * purchaseOrderID
-   *
    * @return purchaseOrderID UUID
-   */
+  **/
   public UUID getPurchaseOrderID() {
     return purchaseOrderID;
   }
 
-  /**
-   * purchaseOrderID
-   *
-   * @param purchaseOrderID UUID
-   */
+  /** 
+  * purchaseOrderID
+  * @param purchaseOrderID  UUID
+  **/
+
   public void setPurchaseOrderID(UUID purchaseOrderID) {
     this.purchaseOrderID = purchaseOrderID;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -349,28 +343,21 @@ public class Element {
       return false;
     }
     Element element = (Element) o;
-    return Objects.equals(this.validationErrors, element.validationErrors)
-        && Objects.equals(this.batchPaymentID, element.batchPaymentID)
-        && Objects.equals(this.bankTransactionID, element.bankTransactionID)
-        && Objects.equals(this.creditNoteID, element.creditNoteID)
-        && Objects.equals(this.contactID, element.contactID)
-        && Objects.equals(this.invoiceID, element.invoiceID)
-        && Objects.equals(this.itemID, element.itemID)
-        && Objects.equals(this.purchaseOrderID, element.purchaseOrderID);
+    return Objects.equals(this.validationErrors, element.validationErrors) &&
+        Objects.equals(this.batchPaymentID, element.batchPaymentID) &&
+        Objects.equals(this.bankTransactionID, element.bankTransactionID) &&
+        Objects.equals(this.creditNoteID, element.creditNoteID) &&
+        Objects.equals(this.contactID, element.contactID) &&
+        Objects.equals(this.invoiceID, element.invoiceID) &&
+        Objects.equals(this.itemID, element.itemID) &&
+        Objects.equals(this.purchaseOrderID, element.purchaseOrderID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        validationErrors,
-        batchPaymentID,
-        bankTransactionID,
-        creditNoteID,
-        contactID,
-        invoiceID,
-        itemID,
-        purchaseOrderID);
+    return Objects.hash(validationErrors, batchPaymentID, bankTransactionID, creditNoteID, contactID, invoiceID, itemID, purchaseOrderID);
   }
+
 
   @Override
   public String toString() {
@@ -389,7 +376,8 @@ public class Element {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -397,4 +385,6 @@ public class Element {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

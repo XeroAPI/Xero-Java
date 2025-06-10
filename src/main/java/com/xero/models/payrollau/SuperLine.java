@@ -9,15 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.SuperannuationCalculationType;
+import com.xero.models.payrollau.SuperannuationContributionType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** SuperLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * SuperLine
+ */
+
 public class SuperLine {
   StringUtil util = new StringUtil();
 
@@ -45,286 +64,261 @@ public class SuperLine {
   @JsonProperty("Amount")
   private Double amount;
   /**
-   * Xero super membership ID
-   *
-   * @param superMembershipID UUID
-   * @return SuperLine
-   */
+  * Xero super membership ID
+  * @param superMembershipID  UUID
+  * @return SuperLine
+  **/
   public SuperLine superMembershipID(UUID superMembershipID) {
     this.superMembershipID = superMembershipID;
     return this;
   }
 
-  /**
+   /**
    * Xero super membership ID
-   *
    * @return superMembershipID
-   */
-  @ApiModelProperty(
-      example = "4333d5cd-53a5-4c31-98e5-a8b4e5676b0b",
-      value = "Xero super membership ID")
-  /**
+  **/
+  @ApiModelProperty(example = "4333d5cd-53a5-4c31-98e5-a8b4e5676b0b", value = "Xero super membership ID")
+  /** 
    * Xero super membership ID
-   *
    * @return superMembershipID UUID
-   */
+  **/
   public UUID getSuperMembershipID() {
     return superMembershipID;
   }
 
-  /**
-   * Xero super membership ID
-   *
-   * @param superMembershipID UUID
-   */
+  /** 
+  * Xero super membership ID
+  * @param superMembershipID  UUID
+  **/
+
   public void setSuperMembershipID(UUID superMembershipID) {
     this.superMembershipID = superMembershipID;
   }
 
   /**
-   * contributionType
-   *
-   * @param contributionType SuperannuationContributionType
-   * @return SuperLine
-   */
+  * contributionType
+  * @param contributionType  SuperannuationContributionType
+  * @return SuperLine
+  **/
   public SuperLine contributionType(SuperannuationContributionType contributionType) {
     this.contributionType = contributionType;
     return this;
   }
 
-  /**
+   /**
    * Get contributionType
-   *
    * @return contributionType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * contributionType
-   *
    * @return contributionType SuperannuationContributionType
-   */
+  **/
   public SuperannuationContributionType getContributionType() {
     return contributionType;
   }
 
-  /**
-   * contributionType
-   *
-   * @param contributionType SuperannuationContributionType
-   */
+  /** 
+  * contributionType
+  * @param contributionType  SuperannuationContributionType
+  **/
+
   public void setContributionType(SuperannuationContributionType contributionType) {
     this.contributionType = contributionType;
   }
 
   /**
-   * calculationType
-   *
-   * @param calculationType SuperannuationCalculationType
-   * @return SuperLine
-   */
+  * calculationType
+  * @param calculationType  SuperannuationCalculationType
+  * @return SuperLine
+  **/
   public SuperLine calculationType(SuperannuationCalculationType calculationType) {
     this.calculationType = calculationType;
     return this;
   }
 
-  /**
+   /**
    * Get calculationType
-   *
    * @return calculationType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * calculationType
-   *
    * @return calculationType SuperannuationCalculationType
-   */
+  **/
   public SuperannuationCalculationType getCalculationType() {
     return calculationType;
   }
 
-  /**
-   * calculationType
-   *
-   * @param calculationType SuperannuationCalculationType
-   */
+  /** 
+  * calculationType
+  * @param calculationType  SuperannuationCalculationType
+  **/
+
   public void setCalculationType(SuperannuationCalculationType calculationType) {
     this.calculationType = calculationType;
   }
 
   /**
-   * amount of minimum earnings
-   *
-   * @param minimumMonthlyEarnings Double
-   * @return SuperLine
-   */
+  * amount of minimum earnings
+  * @param minimumMonthlyEarnings  Double
+  * @return SuperLine
+  **/
   public SuperLine minimumMonthlyEarnings(Double minimumMonthlyEarnings) {
     this.minimumMonthlyEarnings = minimumMonthlyEarnings;
     return this;
   }
 
-  /**
+   /**
    * amount of minimum earnings
-   *
    * @return minimumMonthlyEarnings
-   */
+  **/
   @ApiModelProperty(example = "450.0", value = "amount of minimum earnings")
-  /**
+  /** 
    * amount of minimum earnings
-   *
    * @return minimumMonthlyEarnings Double
-   */
+  **/
   public Double getMinimumMonthlyEarnings() {
     return minimumMonthlyEarnings;
   }
 
-  /**
-   * amount of minimum earnings
-   *
-   * @param minimumMonthlyEarnings Double
-   */
+  /** 
+  * amount of minimum earnings
+  * @param minimumMonthlyEarnings  Double
+  **/
+
   public void setMinimumMonthlyEarnings(Double minimumMonthlyEarnings) {
     this.minimumMonthlyEarnings = minimumMonthlyEarnings;
   }
 
   /**
-   * expense account code
-   *
-   * @param expenseAccountCode String
-   * @return SuperLine
-   */
+  * expense account code
+  * @param expenseAccountCode  String
+  * @return SuperLine
+  **/
   public SuperLine expenseAccountCode(String expenseAccountCode) {
     this.expenseAccountCode = expenseAccountCode;
     return this;
   }
 
-  /**
+   /**
    * expense account code
-   *
    * @return expenseAccountCode
-   */
+  **/
   @ApiModelProperty(example = "478", value = "expense account code")
-  /**
+  /** 
    * expense account code
-   *
    * @return expenseAccountCode String
-   */
+  **/
   public String getExpenseAccountCode() {
     return expenseAccountCode;
   }
 
-  /**
-   * expense account code
-   *
-   * @param expenseAccountCode String
-   */
+  /** 
+  * expense account code
+  * @param expenseAccountCode  String
+  **/
+
   public void setExpenseAccountCode(String expenseAccountCode) {
     this.expenseAccountCode = expenseAccountCode;
   }
 
   /**
-   * liabilty account code
-   *
-   * @param liabilityAccountCode String
-   * @return SuperLine
-   */
+  * liabilty account code
+  * @param liabilityAccountCode  String
+  * @return SuperLine
+  **/
   public SuperLine liabilityAccountCode(String liabilityAccountCode) {
     this.liabilityAccountCode = liabilityAccountCode;
     return this;
   }
 
-  /**
+   /**
    * liabilty account code
-   *
    * @return liabilityAccountCode
-   */
+  **/
   @ApiModelProperty(example = "826", value = "liabilty account code")
-  /**
+  /** 
    * liabilty account code
-   *
    * @return liabilityAccountCode String
-   */
+  **/
   public String getLiabilityAccountCode() {
     return liabilityAccountCode;
   }
 
-  /**
-   * liabilty account code
-   *
-   * @param liabilityAccountCode String
-   */
+  /** 
+  * liabilty account code
+  * @param liabilityAccountCode  String
+  **/
+
   public void setLiabilityAccountCode(String liabilityAccountCode) {
     this.liabilityAccountCode = liabilityAccountCode;
   }
 
   /**
-   * percentage for super line
-   *
-   * @param percentage Double
-   * @return SuperLine
-   */
+  * percentage for super line
+  * @param percentage  Double
+  * @return SuperLine
+  **/
   public SuperLine percentage(Double percentage) {
     this.percentage = percentage;
     return this;
   }
 
-  /**
+   /**
    * percentage for super line
-   *
    * @return percentage
-   */
+  **/
   @ApiModelProperty(example = "9.0", value = "percentage for super line")
-  /**
+  /** 
    * percentage for super line
-   *
    * @return percentage Double
-   */
+  **/
   public Double getPercentage() {
     return percentage;
   }
 
-  /**
-   * percentage for super line
-   *
-   * @param percentage Double
-   */
+  /** 
+  * percentage for super line
+  * @param percentage  Double
+  **/
+
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
 
   /**
-   * Super membership amount
-   *
-   * @param amount Double
-   * @return SuperLine
-   */
+  * Super membership amount
+  * @param amount  Double
+  * @return SuperLine
+  **/
   public SuperLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * Super membership amount
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(example = "10.0", value = "Super membership amount")
-  /**
+  /** 
    * Super membership amount
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * Super membership amount
-   *
-   * @param amount Double
-   */
+  /** 
+  * Super membership amount
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -335,28 +329,21 @@ public class SuperLine {
       return false;
     }
     SuperLine superLine = (SuperLine) o;
-    return Objects.equals(this.superMembershipID, superLine.superMembershipID)
-        && Objects.equals(this.contributionType, superLine.contributionType)
-        && Objects.equals(this.calculationType, superLine.calculationType)
-        && Objects.equals(this.minimumMonthlyEarnings, superLine.minimumMonthlyEarnings)
-        && Objects.equals(this.expenseAccountCode, superLine.expenseAccountCode)
-        && Objects.equals(this.liabilityAccountCode, superLine.liabilityAccountCode)
-        && Objects.equals(this.percentage, superLine.percentage)
-        && Objects.equals(this.amount, superLine.amount);
+    return Objects.equals(this.superMembershipID, superLine.superMembershipID) &&
+        Objects.equals(this.contributionType, superLine.contributionType) &&
+        Objects.equals(this.calculationType, superLine.calculationType) &&
+        Objects.equals(this.minimumMonthlyEarnings, superLine.minimumMonthlyEarnings) &&
+        Objects.equals(this.expenseAccountCode, superLine.expenseAccountCode) &&
+        Objects.equals(this.liabilityAccountCode, superLine.liabilityAccountCode) &&
+        Objects.equals(this.percentage, superLine.percentage) &&
+        Objects.equals(this.amount, superLine.amount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        superMembershipID,
-        contributionType,
-        calculationType,
-        minimumMonthlyEarnings,
-        expenseAccountCode,
-        liabilityAccountCode,
-        percentage,
-        amount);
+    return Objects.hash(superMembershipID, contributionType, calculationType, minimumMonthlyEarnings, expenseAccountCode, liabilityAccountCode, percentage, amount);
   }
+
 
   @Override
   public String toString() {
@@ -365,13 +352,9 @@ public class SuperLine {
     sb.append("    superMembershipID: ").append(toIndentedString(superMembershipID)).append("\n");
     sb.append("    contributionType: ").append(toIndentedString(contributionType)).append("\n");
     sb.append("    calculationType: ").append(toIndentedString(calculationType)).append("\n");
-    sb.append("    minimumMonthlyEarnings: ")
-        .append(toIndentedString(minimumMonthlyEarnings))
-        .append("\n");
+    sb.append("    minimumMonthlyEarnings: ").append(toIndentedString(minimumMonthlyEarnings)).append("\n");
     sb.append("    expenseAccountCode: ").append(toIndentedString(expenseAccountCode)).append("\n");
-    sb.append("    liabilityAccountCode: ")
-        .append(toIndentedString(liabilityAccountCode))
-        .append("\n");
+    sb.append("    liabilityAccountCode: ").append(toIndentedString(liabilityAccountCode)).append("\n");
     sb.append("    percentage: ").append(toIndentedString(percentage)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("}");
@@ -379,7 +362,8 @@ public class SuperLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -387,4 +371,6 @@ public class SuperLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

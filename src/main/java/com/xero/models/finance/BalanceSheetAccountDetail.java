@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** BalanceSheetAccountDetail */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BalanceSheetAccountDetail
+ */
+
 public class BalanceSheetAccountDetail {
   StringUtil util = new StringUtil();
 
@@ -36,179 +53,165 @@ public class BalanceSheetAccountDetail {
   @JsonProperty("total")
   private Double total;
   /**
-   * Accounting code
-   *
-   * @param code String
-   * @return BalanceSheetAccountDetail
-   */
+  * Accounting code
+  * @param code  String
+  * @return BalanceSheetAccountDetail
+  **/
   public BalanceSheetAccountDetail code(String code) {
     this.code = code;
     return this;
   }
 
-  /**
+   /**
    * Accounting code
-   *
    * @return code
-   */
+  **/
   @ApiModelProperty(value = "Accounting code")
-  /**
+  /** 
    * Accounting code
-   *
    * @return code String
-   */
+  **/
   public String getCode() {
     return code;
   }
 
-  /**
-   * Accounting code
-   *
-   * @param code String
-   */
+  /** 
+  * Accounting code
+  * @param code  String
+  **/
+
   public void setCode(String code) {
     this.code = code;
   }
 
   /**
-   * ID of the account
-   *
-   * @param accountID UUID
-   * @return BalanceSheetAccountDetail
-   */
+  * ID of the account
+  * @param accountID  UUID
+  * @return BalanceSheetAccountDetail
+  **/
   public BalanceSheetAccountDetail accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
   }
 
-  /**
+   /**
    * ID of the account
-   *
    * @return accountID
-   */
+  **/
   @ApiModelProperty(value = "ID of the account")
-  /**
+  /** 
    * ID of the account
-   *
    * @return accountID UUID
-   */
+  **/
   public UUID getAccountID() {
     return accountID;
   }
 
-  /**
-   * ID of the account
-   *
-   * @param accountID UUID
-   */
+  /** 
+  * ID of the account
+  * @param accountID  UUID
+  **/
+
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
   /**
-   * Account name
-   *
-   * @param name String
-   * @return BalanceSheetAccountDetail
-   */
+  * Account name
+  * @param name  String
+  * @return BalanceSheetAccountDetail
+  **/
   public BalanceSheetAccountDetail name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Account name
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "Account name")
-  /**
+  /** 
    * Account name
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Account name
-   *
-   * @param name String
-   */
+  /** 
+  * Account name
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Reporting code
-   *
-   * @param reportingCode String
-   * @return BalanceSheetAccountDetail
-   */
+  * Reporting code
+  * @param reportingCode  String
+  * @return BalanceSheetAccountDetail
+  **/
   public BalanceSheetAccountDetail reportingCode(String reportingCode) {
     this.reportingCode = reportingCode;
     return this;
   }
 
-  /**
+   /**
    * Reporting code
-   *
    * @return reportingCode
-   */
+  **/
   @ApiModelProperty(value = "Reporting code")
-  /**
+  /** 
    * Reporting code
-   *
    * @return reportingCode String
-   */
+  **/
   public String getReportingCode() {
     return reportingCode;
   }
 
-  /**
-   * Reporting code
-   *
-   * @param reportingCode String
-   */
+  /** 
+  * Reporting code
+  * @param reportingCode  String
+  **/
+
   public void setReportingCode(String reportingCode) {
     this.reportingCode = reportingCode;
   }
 
   /**
-   * Total movement on this account
-   *
-   * @param total Double
-   * @return BalanceSheetAccountDetail
-   */
+  * Total movement on this account
+  * @param total  Double
+  * @return BalanceSheetAccountDetail
+  **/
   public BalanceSheetAccountDetail total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total movement on this account
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total movement on this account")
-  /**
+  /** 
    * Total movement on this account
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total movement on this account
-   *
-   * @param total Double
-   */
+  /** 
+  * Total movement on this account
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -219,17 +222,18 @@ public class BalanceSheetAccountDetail {
       return false;
     }
     BalanceSheetAccountDetail balanceSheetAccountDetail = (BalanceSheetAccountDetail) o;
-    return Objects.equals(this.code, balanceSheetAccountDetail.code)
-        && Objects.equals(this.accountID, balanceSheetAccountDetail.accountID)
-        && Objects.equals(this.name, balanceSheetAccountDetail.name)
-        && Objects.equals(this.reportingCode, balanceSheetAccountDetail.reportingCode)
-        && Objects.equals(this.total, balanceSheetAccountDetail.total);
+    return Objects.equals(this.code, balanceSheetAccountDetail.code) &&
+        Objects.equals(this.accountID, balanceSheetAccountDetail.accountID) &&
+        Objects.equals(this.name, balanceSheetAccountDetail.name) &&
+        Objects.equals(this.reportingCode, balanceSheetAccountDetail.reportingCode) &&
+        Objects.equals(this.total, balanceSheetAccountDetail.total);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(code, accountID, name, reportingCode, total);
   }
+
 
   @Override
   public String toString() {
@@ -245,7 +249,8 @@ public class BalanceSheetAccountDetail {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -253,4 +258,6 @@ public class BalanceSheetAccountDetail {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

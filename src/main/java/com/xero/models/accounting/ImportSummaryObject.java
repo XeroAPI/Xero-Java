@@ -9,53 +9,69 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.ImportSummary;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** ImportSummaryObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ImportSummaryObject
+ */
+
 public class ImportSummaryObject {
   StringUtil util = new StringUtil();
 
   @JsonProperty("ImportSummary")
   private ImportSummary importSummary;
   /**
-   * importSummary
-   *
-   * @param importSummary ImportSummary
-   * @return ImportSummaryObject
-   */
+  * importSummary
+  * @param importSummary  ImportSummary
+  * @return ImportSummaryObject
+  **/
   public ImportSummaryObject importSummary(ImportSummary importSummary) {
     this.importSummary = importSummary;
     return this;
   }
 
-  /**
+   /**
    * Get importSummary
-   *
    * @return importSummary
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * importSummary
-   *
    * @return importSummary ImportSummary
-   */
+  **/
   public ImportSummary getImportSummary() {
     return importSummary;
   }
 
-  /**
-   * importSummary
-   *
-   * @param importSummary ImportSummary
-   */
+  /** 
+  * importSummary
+  * @param importSummary  ImportSummary
+  **/
+
   public void setImportSummary(ImportSummary importSummary) {
     this.importSummary = importSummary;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -74,6 +90,7 @@ public class ImportSummaryObject {
     return Objects.hash(importSummary);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -84,7 +101,8 @@ public class ImportSummaryObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -92,4 +110,6 @@ public class ImportSummaryObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

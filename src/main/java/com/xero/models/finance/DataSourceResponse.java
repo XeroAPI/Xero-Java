@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** DataSourceResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * DataSourceResponse
+ */
+
 public class DataSourceResponse {
   StringUtil util = new StringUtil();
 
@@ -56,566 +73,389 @@ public class DataSourceResponse {
   @JsonProperty("other")
   private Double other;
   /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data.
-   *
-   * @param directBankFeed Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.   This gives an indication on the certainty of correctness of the data.
+  * @param directBankFeed  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse directBankFeed(Double directBankFeed) {
     this.directBankFeed = directBankFeed;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.   This gives an indication on the certainty of correctness of the data.
    * @return directBankFeed
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was a direct"
-              + " bank feed in to Xero via an API integration.   This could be from a bank or"
-              + " aggregator.   This gives an indication on the certainty of correctness of the"
-              + " data.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.   This gives an indication on the certainty of correctness of the data.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.   This gives an indication on the certainty of correctness of the data.
    * @return directBankFeed Double
-   */
+  **/
   public Double getDirectBankFeed() {
     return directBankFeed;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data.
-   *
-   * @param directBankFeed Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.   This gives an indication on the certainty of correctness of the data.
+  * @param directBankFeed  Double
+  **/
+
   public void setDirectBankFeed(Double directBankFeed) {
     this.directBankFeed = directBankFeed;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data.
-   *
-   * @param fileUpload Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data.
+  * @param fileUpload  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse fileUpload(Double fileUpload) {
     this.fileUpload = fileUpload;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data.
    * @return fileUpload
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was a file"
-              + " manually uploaded in to Xero.   This gives an indication on the certainty of"
-              + " correctness of the data.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data.
    * @return fileUpload Double
-   */
+  **/
   public Double getFileUpload() {
     return fileUpload;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data.
-   *
-   * @param fileUpload Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data.
+  * @param fileUpload  Double
+  **/
+
   public void setFileUpload(Double fileUpload) {
     this.fileUpload = fileUpload;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data.
-   *
-   * @param manual Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data.
+  * @param manual  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse manual(Double manual) {
     this.manual = manual;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data.
    * @return manual
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was manually"
-              + " input in to Xero.   This gives an indication on the certainty of correctness of"
-              + " the data.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data.
    * @return manual Double
-   */
+  **/
   public Double getManual() {
     return manual;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data.
-   *
-   * @param manual Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data.
+  * @param manual  Double
+  **/
+
   public void setManual(Double manual) {
     this.manual = manual;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data. Only positive transactions are
-   * included.
-   *
-   * @param directBankFeedPos Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.  This gives an indication on the certainty of correctness of the data.  Only positive transactions are included.
+  * @param directBankFeedPos  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse directBankFeedPos(Double directBankFeedPos) {
     this.directBankFeedPos = directBankFeedPos;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data. Only positive transactions are
-   * included.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.  This gives an indication on the certainty of correctness of the data.  Only positive transactions are included.
    * @return directBankFeedPos
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was a direct"
-              + " bank feed in to Xero via an API integration.   This could be from a bank or"
-              + " aggregator.  This gives an indication on the certainty of correctness of the"
-              + " data.  Only positive transactions are included.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data. Only positive transactions are
-   * included.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.  This gives an indication on the certainty of correctness of the data.  Only positive transactions are included.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.  This gives an indication on the certainty of correctness of the data.  Only positive transactions are included.
    * @return directBankFeedPos Double
-   */
+  **/
   public Double getDirectBankFeedPos() {
     return directBankFeedPos;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data. Only positive transactions are
-   * included.
-   *
-   * @param directBankFeedPos Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.  This gives an indication on the certainty of correctness of the data.  Only positive transactions are included.
+  * @param directBankFeedPos  Double
+  **/
+
   public void setDirectBankFeedPos(Double directBankFeedPos) {
     this.directBankFeedPos = directBankFeedPos;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data. Only
-   * positive transactions are included.
-   *
-   * @param fileUploadPos Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data. Only positive transactions are included.
+  * @param fileUploadPos  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse fileUploadPos(Double fileUploadPos) {
     this.fileUploadPos = fileUploadPos;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data. Only
-   * positive transactions are included.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data. Only positive transactions are included.
    * @return fileUploadPos
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was a file"
-              + " manually uploaded in to Xero.   This gives an indication on the certainty of"
-              + " correctness of the data. Only positive transactions are included.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data. Only
-   * positive transactions are included.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data. Only positive transactions are included.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data. Only positive transactions are included.
    * @return fileUploadPos Double
-   */
+  **/
   public Double getFileUploadPos() {
     return fileUploadPos;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data. Only
-   * positive transactions are included.
-   *
-   * @param fileUploadPos Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data. Only positive transactions are included.
+  * @param fileUploadPos  Double
+  **/
+
   public void setFileUploadPos(Double fileUploadPos) {
     this.fileUploadPos = fileUploadPos;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data. Only positive
-   * transactions are included.
-   *
-   * @param manualPos Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data. Only positive transactions are included.
+  * @param manualPos  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse manualPos(Double manualPos) {
     this.manualPos = manualPos;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data. Only positive
-   * transactions are included.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data. Only positive transactions are included.
    * @return manualPos
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was manually"
-              + " input in to Xero.   This gives an indication on the certainty of correctness of"
-              + " the data. Only positive transactions are included.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data. Only positive
-   * transactions are included.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data. Only positive transactions are included.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data. Only positive transactions are included.
    * @return manualPos Double
-   */
+  **/
   public Double getManualPos() {
     return manualPos;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data. Only positive
-   * transactions are included.
-   *
-   * @param manualPos Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data. Only positive transactions are included.
+  * @param manualPos  Double
+  **/
+
   public void setManualPos(Double manualPos) {
     this.manualPos = manualPos;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data. Only negative transactions are
-   * included.
-   *
-   * @param directBankFeedNeg Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
+  * @param directBankFeedNeg  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse directBankFeedNeg(Double directBankFeedNeg) {
     this.directBankFeedNeg = directBankFeedNeg;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data. Only negative transactions are
-   * included.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
    * @return directBankFeedNeg
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was a direct"
-              + " bank feed in to Xero via an API integration.   This could be from a bank or"
-              + " aggregator.   This gives an indication on the certainty of correctness of the"
-              + " data.  Only negative transactions are included.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data. Only negative transactions are
-   * included.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
    * @return directBankFeedNeg Double
-   */
+  **/
   public Double getDirectBankFeedNeg() {
     return directBankFeedNeg;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
-   * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
-   * indication on the certainty of correctness of the data. Only negative transactions are
-   * included.
-   *
-   * @param directBankFeedNeg Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was a direct bank feed in to Xero via an API integration.   This could be from a bank or aggregator.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
+  * @param directBankFeedNeg  Double
+  **/
+
   public void setDirectBankFeedNeg(Double directBankFeedNeg) {
     this.directBankFeedNeg = directBankFeedNeg;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data. Only
-   * negative transactions are included.
-   *
-   * @param fileUploadNeg Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
+  * @param fileUploadNeg  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse fileUploadNeg(Double fileUploadNeg) {
     this.fileUploadNeg = fileUploadNeg;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data. Only
-   * negative transactions are included.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
    * @return fileUploadNeg
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was a file"
-              + " manually uploaded in to Xero.   This gives an indication on the certainty of"
-              + " correctness of the data.  Only negative transactions are included.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data. Only
-   * negative transactions are included.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
    * @return fileUploadNeg Double
-   */
+  **/
   public Double getFileUploadNeg() {
     return fileUploadNeg;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was a file manually
-   * uploaded in to Xero. This gives an indication on the certainty of correctness of the data. Only
-   * negative transactions are included.
-   *
-   * @param fileUploadNeg Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was a file manually uploaded in to Xero.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
+  * @param fileUploadNeg  Double
+  **/
+
   public void setFileUploadNeg(Double fileUploadNeg) {
     this.fileUploadNeg = fileUploadNeg;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data. Only negative
-   * transactions are included.
-   *
-   * @param manualNeg Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
+  * @param manualNeg  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse manualNeg(Double manualNeg) {
     this.manualNeg = manualNeg;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data. Only negative
-   * transactions are included.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
    * @return manualNeg
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was manually"
-              + " input in to Xero.   This gives an indication on the certainty of correctness of"
-              + " the data.  Only negative transactions are included.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data. Only negative
-   * transactions are included.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
    * @return manualNeg Double
-   */
+  **/
   public Double getManualNeg() {
     return manualNeg;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was manually input in to
-   * Xero. This gives an indication on the certainty of correctness of the data. Only negative
-   * transactions are included.
-   *
-   * @param manualNeg Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was manually input in to Xero.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
+  * @param manualNeg  Double
+  **/
+
   public void setManualNeg(Double manualNeg) {
     this.manualNeg = manualNeg;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data. Only positive transactions are
-   * included.
-   *
-   * @param otherPos Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.  Only positive transactions are included.
+  * @param otherPos  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse otherPos(Double otherPos) {
     this.otherPos = otherPos;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data. Only positive transactions are
-   * included.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.  Only positive transactions are included.
    * @return otherPos
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was unknown.  "
-              + " This gives an indication on the certainty of correctness of the data.  Only"
-              + " positive transactions are included.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data. Only positive transactions are
-   * included.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.  Only positive transactions are included.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.  Only positive transactions are included.
    * @return otherPos Double
-   */
+  **/
   public Double getOtherPos() {
     return otherPos;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data. Only positive transactions are
-   * included.
-   *
-   * @param otherPos Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.  Only positive transactions are included.
+  * @param otherPos  Double
+  **/
+
   public void setOtherPos(Double otherPos) {
     this.otherPos = otherPos;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data. Only negative transactions are
-   * included.
-   *
-   * @param otherNeg Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
+  * @param otherNeg  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse otherNeg(Double otherNeg) {
     this.otherNeg = otherNeg;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data. Only negative transactions are
-   * included.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
    * @return otherNeg
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was unknown.  "
-              + " This gives an indication on the certainty of correctness of the data.  Only"
-              + " negative transactions are included.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data. Only negative transactions are
-   * included.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
    * @return otherNeg Double
-   */
+  **/
   public Double getOtherNeg() {
     return otherNeg;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data. Only negative transactions are
-   * included.
-   *
-   * @param otherNeg Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.  Only negative transactions are included.
+  * @param otherNeg  Double
+  **/
+
   public void setOtherNeg(Double otherNeg) {
     this.otherNeg = otherNeg;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data.
-   *
-   * @param other Double
-   * @return DataSourceResponse
-   */
+  * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.
+  * @param other  Double
+  * @return DataSourceResponse
+  **/
   public DataSourceResponse other(Double other) {
     this.other = other;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data.
-   *
+   /**
+   * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.
    * @return other
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where the source of the data was unknown.  "
-              + " This gives an indication on the certainty of correctness of the data.")
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.")
+  /** 
+   * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.
    * @return other Double
-   */
+  **/
   public Double getOther() {
     return other;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the source of the data was unknown. This gives
-   * an indication on the certainty of correctness of the data.
-   *
-   * @param other Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the source of the data was unknown.   This gives an indication on the certainty of correctness of the data.
+  * @param other  Double
+  **/
+
   public void setOther(Double other) {
     this.other = other;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -626,36 +466,25 @@ public class DataSourceResponse {
       return false;
     }
     DataSourceResponse dataSourceResponse = (DataSourceResponse) o;
-    return Objects.equals(this.directBankFeed, dataSourceResponse.directBankFeed)
-        && Objects.equals(this.fileUpload, dataSourceResponse.fileUpload)
-        && Objects.equals(this.manual, dataSourceResponse.manual)
-        && Objects.equals(this.directBankFeedPos, dataSourceResponse.directBankFeedPos)
-        && Objects.equals(this.fileUploadPos, dataSourceResponse.fileUploadPos)
-        && Objects.equals(this.manualPos, dataSourceResponse.manualPos)
-        && Objects.equals(this.directBankFeedNeg, dataSourceResponse.directBankFeedNeg)
-        && Objects.equals(this.fileUploadNeg, dataSourceResponse.fileUploadNeg)
-        && Objects.equals(this.manualNeg, dataSourceResponse.manualNeg)
-        && Objects.equals(this.otherPos, dataSourceResponse.otherPos)
-        && Objects.equals(this.otherNeg, dataSourceResponse.otherNeg)
-        && Objects.equals(this.other, dataSourceResponse.other);
+    return Objects.equals(this.directBankFeed, dataSourceResponse.directBankFeed) &&
+        Objects.equals(this.fileUpload, dataSourceResponse.fileUpload) &&
+        Objects.equals(this.manual, dataSourceResponse.manual) &&
+        Objects.equals(this.directBankFeedPos, dataSourceResponse.directBankFeedPos) &&
+        Objects.equals(this.fileUploadPos, dataSourceResponse.fileUploadPos) &&
+        Objects.equals(this.manualPos, dataSourceResponse.manualPos) &&
+        Objects.equals(this.directBankFeedNeg, dataSourceResponse.directBankFeedNeg) &&
+        Objects.equals(this.fileUploadNeg, dataSourceResponse.fileUploadNeg) &&
+        Objects.equals(this.manualNeg, dataSourceResponse.manualNeg) &&
+        Objects.equals(this.otherPos, dataSourceResponse.otherPos) &&
+        Objects.equals(this.otherNeg, dataSourceResponse.otherNeg) &&
+        Objects.equals(this.other, dataSourceResponse.other);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        directBankFeed,
-        fileUpload,
-        manual,
-        directBankFeedPos,
-        fileUploadPos,
-        manualPos,
-        directBankFeedNeg,
-        fileUploadNeg,
-        manualNeg,
-        otherPos,
-        otherNeg,
-        other);
+    return Objects.hash(directBankFeed, fileUpload, manual, directBankFeedPos, fileUploadPos, manualPos, directBankFeedNeg, fileUploadNeg, manualNeg, otherPos, otherNeg, other);
   }
+
 
   @Override
   public String toString() {
@@ -678,7 +507,8 @@ public class DataSourceResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -686,4 +516,6 @@ public class DataSourceResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

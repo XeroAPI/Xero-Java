@@ -9,18 +9,35 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.appstore;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.appstore.Price;
+import com.xero.models.appstore.Product;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** SubscriptionItem */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * SubscriptionItem
+ */
+
 public class SubscriptionItem {
   StringUtil util = new StringUtil();
 
@@ -42,17 +59,22 @@ public class SubscriptionItem {
   @JsonProperty("startDate")
   private LocalDateTime startDate;
   /**
-   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
-   * PENDING_ACTIVATION.
+   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. 
    */
   public enum StatusEnum {
-    /** ACTIVE */
+    /**
+     * ACTIVE
+     */
     ACTIVE("ACTIVE"),
-
-    /** CANCELED */
+    
+    /**
+     * CANCELED
+     */
     CANCELED("CANCELED"),
-
-    /** PENDING_ACTIVATION */
+    
+    /**
+     * PENDING_ACTIVATION
+     */
     PENDING_ACTIVATION("PENDING_ACTIVATION");
 
     private String value;
@@ -61,31 +83,25 @@ public class SubscriptionItem {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -97,313 +113,268 @@ public class SubscriptionItem {
     }
   }
 
+
   @JsonProperty("status")
   private StatusEnum status;
 
   @JsonProperty("testMode")
   private Boolean testMode;
   /**
-   * Date when the subscription to this product will end
-   *
-   * @param endDate LocalDateTime
-   * @return SubscriptionItem
-   */
+  * Date when the subscription to this product will end
+  * @param endDate LocalDateTime
+  * @return SubscriptionItem
+  **/
   public SubscriptionItem endDate(LocalDateTime endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * Date when the subscription to this product will end
-   *
    * @return endDate
-   */
+  **/
   @ApiModelProperty(value = "Date when the subscription to this product will end")
-  /**
+  /** 
    * Date when the subscription to this product will end
-   *
    * @return endDate LocalDateTime
-   */
+  **/
   public LocalDateTime getEndDate() {
     return endDate;
   }
 
-  /**
-   * Date when the subscription to this product will end
-   *
-   * @param endDate LocalDateTime
-   */
+  /** 
+  * Date when the subscription to this product will end
+  * @param endDate LocalDateTime
+  **/
+
   public void setEndDate(LocalDateTime endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * The unique identifier of the subscription item.
-   *
-   * @param id UUID
-   * @return SubscriptionItem
-   */
+  * The unique identifier of the subscription item.
+  * @param id  UUID
+  * @return SubscriptionItem
+  **/
   public SubscriptionItem id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier of the subscription item.
-   *
    * @return id
-   */
+  **/
   @ApiModelProperty(required = true, value = "The unique identifier of the subscription item.")
-  /**
+  /** 
    * The unique identifier of the subscription item.
-   *
    * @return id UUID
-   */
+  **/
   public UUID getId() {
     return id;
   }
 
-  /**
-   * The unique identifier of the subscription item.
-   *
-   * @param id UUID
-   */
+  /** 
+  * The unique identifier of the subscription item.
+  * @param id  UUID
+  **/
+
   public void setId(UUID id) {
     this.id = id;
   }
 
   /**
-   * price
-   *
-   * @param price Price
-   * @return SubscriptionItem
-   */
+  * price
+  * @param price  Price
+  * @return SubscriptionItem
+  **/
   public SubscriptionItem price(Price price) {
     this.price = price;
     return this;
   }
 
-  /**
+   /**
    * Get price
-   *
    * @return price
-   */
+  **/
   @ApiModelProperty(required = true, value = "")
-  /**
+  /** 
    * price
-   *
    * @return price Price
-   */
+  **/
   public Price getPrice() {
     return price;
   }
 
-  /**
-   * price
-   *
-   * @param price Price
-   */
+  /** 
+  * price
+  * @param price  Price
+  **/
+
   public void setPrice(Price price) {
     this.price = price;
   }
 
   /**
-   * product
-   *
-   * @param product Product
-   * @return SubscriptionItem
-   */
+  * product
+  * @param product  Product
+  * @return SubscriptionItem
+  **/
   public SubscriptionItem product(Product product) {
     this.product = product;
     return this;
   }
 
-  /**
+   /**
    * Get product
-   *
    * @return product
-   */
+  **/
   @ApiModelProperty(required = true, value = "")
-  /**
+  /** 
    * product
-   *
    * @return product Product
-   */
+  **/
   public Product getProduct() {
     return product;
   }
 
-  /**
-   * product
-   *
-   * @param product Product
-   */
+  /** 
+  * product
+  * @param product  Product
+  **/
+
   public void setProduct(Product product) {
     this.product = product;
   }
 
   /**
-   * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a
-   * positive integer. For metered products, it is always null.
-   *
-   * @param quantity Integer
-   * @return SubscriptionItem
-   */
+  * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a positive integer. For metered products, it is always null.
+  * @param quantity  Integer
+  * @return SubscriptionItem
+  **/
   public SubscriptionItem quantity(Integer quantity) {
     this.quantity = quantity;
     return this;
   }
 
-  /**
-   * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a
-   * positive integer. For metered products, it is always null.
-   *
+   /**
+   * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a positive integer. For metered products, it is always null.
    * @return quantity
-   */
-  @ApiModelProperty(
-      value =
-          "The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a"
-              + " positive integer. For metered products, it is always null.")
-  /**
-   * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a
-   * positive integer. For metered products, it is always null.
-   *
+  **/
+  @ApiModelProperty(value = "The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a positive integer. For metered products, it is always null.")
+  /** 
+   * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a positive integer. For metered products, it is always null.
    * @return quantity Integer
-   */
+  **/
   public Integer getQuantity() {
     return quantity;
   }
 
-  /**
-   * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a
-   * positive integer. For metered products, it is always null.
-   *
-   * @param quantity Integer
-   */
+  /** 
+  * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a positive integer. For metered products, it is always null.
+  * @param quantity  Integer
+  **/
+
   public void setQuantity(Integer quantity) {
     this.quantity = quantity;
   }
 
   /**
-   * Date the subscription started, or will start. Note: this could be in the future for downgrades
-   * or reduced number of seats that haven&#39;t taken effect yet.
-   *
-   * @param startDate LocalDateTime
-   * @return SubscriptionItem
-   */
+  * Date the subscription started, or will start. Note: this could be in the future for downgrades or reduced number of seats that haven&#39;t taken effect yet. 
+  * @param startDate LocalDateTime
+  * @return SubscriptionItem
+  **/
   public SubscriptionItem startDate(LocalDateTime startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
-   * Date the subscription started, or will start. Note: this could be in the future for downgrades
-   * or reduced number of seats that haven&#39;t taken effect yet.
-   *
+   /**
+   * Date the subscription started, or will start. Note: this could be in the future for downgrades or reduced number of seats that haven&#39;t taken effect yet. 
    * @return startDate
-   */
-  @ApiModelProperty(
-      required = true,
-      value =
-          "Date the subscription started, or will start. Note: this could be in the future for"
-              + " downgrades or reduced number of seats that haven't taken effect yet. ")
-  /**
-   * Date the subscription started, or will start. Note: this could be in the future for downgrades
-   * or reduced number of seats that haven&#39;t taken effect yet.
-   *
+  **/
+  @ApiModelProperty(required = true, value = "Date the subscription started, or will start. Note: this could be in the future for downgrades or reduced number of seats that haven't taken effect yet. ")
+  /** 
+   * Date the subscription started, or will start. Note: this could be in the future for downgrades or reduced number of seats that haven&#39;t taken effect yet. 
    * @return startDate LocalDateTime
-   */
+  **/
   public LocalDateTime getStartDate() {
     return startDate;
   }
 
-  /**
-   * Date the subscription started, or will start. Note: this could be in the future for downgrades
-   * or reduced number of seats that haven&#39;t taken effect yet.
-   *
-   * @param startDate LocalDateTime
-   */
+  /** 
+  * Date the subscription started, or will start. Note: this could be in the future for downgrades or reduced number of seats that haven&#39;t taken effect yet. 
+  * @param startDate LocalDateTime
+  **/
+
   public void setStartDate(LocalDateTime startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
-   * PENDING_ACTIVATION.
-   *
-   * @param status StatusEnum
-   * @return SubscriptionItem
-   */
+  * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. 
+  * @param status  StatusEnum
+  * @return SubscriptionItem
+  **/
   public SubscriptionItem status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
-   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
-   * PENDING_ACTIVATION.
-   *
+   /**
+   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. 
    * @return status
-   */
-  @ApiModelProperty(
-      required = true,
-      value =
-          "Status of the subscription item. Available statuses are ACTIVE, CANCELED, and"
-              + " PENDING_ACTIVATION. ")
-  /**
-   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
-   * PENDING_ACTIVATION.
-   *
+  **/
+  @ApiModelProperty(required = true, value = "Status of the subscription item. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. ")
+  /** 
+   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. 
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
-   * PENDING_ACTIVATION.
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. 
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
   /**
-   * If the subscription is a test subscription
-   *
-   * @param testMode Boolean
-   * @return SubscriptionItem
-   */
+  * If the subscription is a test subscription
+  * @param testMode  Boolean
+  * @return SubscriptionItem
+  **/
   public SubscriptionItem testMode(Boolean testMode) {
     this.testMode = testMode;
     return this;
   }
 
-  /**
+   /**
    * If the subscription is a test subscription
-   *
    * @return testMode
-   */
+  **/
   @ApiModelProperty(value = "If the subscription is a test subscription")
-  /**
+  /** 
    * If the subscription is a test subscription
-   *
    * @return testMode Boolean
-   */
+  **/
   public Boolean getTestMode() {
     return testMode;
   }
 
-  /**
-   * If the subscription is a test subscription
-   *
-   * @param testMode Boolean
-   */
+  /** 
+  * If the subscription is a test subscription
+  * @param testMode  Boolean
+  **/
+
   public void setTestMode(Boolean testMode) {
     this.testMode = testMode;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -414,20 +385,21 @@ public class SubscriptionItem {
       return false;
     }
     SubscriptionItem subscriptionItem = (SubscriptionItem) o;
-    return Objects.equals(this.endDate, subscriptionItem.endDate)
-        && Objects.equals(this.id, subscriptionItem.id)
-        && Objects.equals(this.price, subscriptionItem.price)
-        && Objects.equals(this.product, subscriptionItem.product)
-        && Objects.equals(this.quantity, subscriptionItem.quantity)
-        && Objects.equals(this.startDate, subscriptionItem.startDate)
-        && Objects.equals(this.status, subscriptionItem.status)
-        && Objects.equals(this.testMode, subscriptionItem.testMode);
+    return Objects.equals(this.endDate, subscriptionItem.endDate) &&
+        Objects.equals(this.id, subscriptionItem.id) &&
+        Objects.equals(this.price, subscriptionItem.price) &&
+        Objects.equals(this.product, subscriptionItem.product) &&
+        Objects.equals(this.quantity, subscriptionItem.quantity) &&
+        Objects.equals(this.startDate, subscriptionItem.startDate) &&
+        Objects.equals(this.status, subscriptionItem.status) &&
+        Objects.equals(this.testMode, subscriptionItem.testMode);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(endDate, id, price, product, quantity, startDate, status, testMode);
   }
+
 
   @Override
   public String toString() {
@@ -446,7 +418,8 @@ public class SubscriptionItem {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -454,4 +427,6 @@ public class SubscriptionItem {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

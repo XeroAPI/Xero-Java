@@ -9,19 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.appstore;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.appstore;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.appstore.SubscriptionItem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Plan */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Plan
+ */
+
 public class Plan {
   StringUtil util = new StringUtil();
 
@@ -30,15 +46,23 @@ public class Plan {
 
   @JsonProperty("name")
   private String name;
-  /** Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. */
+  /**
+   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. 
+   */
   public enum StatusEnum {
-    /** ACTIVE */
+    /**
+     * ACTIVE
+     */
     ACTIVE("ACTIVE"),
-
-    /** CANCELED */
+    
+    /**
+     * CANCELED
+     */
     CANCELED("CANCELED"),
-
-    /** PENDING_ACTIVATION */
+    
+    /**
+     * PENDING_ACTIVATION
+     */
     PENDING_ACTIVATION("PENDING_ACTIVATION");
 
     private String value;
@@ -47,31 +71,25 @@ public class Plan {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -83,175 +101,150 @@ public class Plan {
     }
   }
 
+
   @JsonProperty("status")
   private StatusEnum status;
 
   @JsonProperty("subscriptionItems")
   private List<SubscriptionItem> subscriptionItems = new ArrayList<SubscriptionItem>();
   /**
-   * The unique identifier of the plan
-   *
-   * @param id UUID
-   * @return Plan
-   */
+  * The unique identifier of the plan
+  * @param id  UUID
+  * @return Plan
+  **/
   public Plan id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier of the plan
-   *
    * @return id
-   */
+  **/
   @ApiModelProperty(required = true, value = "The unique identifier of the plan")
-  /**
+  /** 
    * The unique identifier of the plan
-   *
    * @return id UUID
-   */
+  **/
   public UUID getId() {
     return id;
   }
 
-  /**
-   * The unique identifier of the plan
-   *
-   * @param id UUID
-   */
+  /** 
+  * The unique identifier of the plan
+  * @param id  UUID
+  **/
+
   public void setId(UUID id) {
     this.id = id;
   }
 
   /**
-   * The name of the plan. It is used in the invoice line item description.
-   *
-   * @param name String
-   * @return Plan
-   */
+  * The name of the plan. It is used in the invoice line item description. 
+  * @param name  String
+  * @return Plan
+  **/
   public Plan name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
-   * The name of the plan. It is used in the invoice line item description.
-   *
+   /**
+   * The name of the plan. It is used in the invoice line item description. 
    * @return name
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The name of the plan. It is used in the invoice line item description. ")
-  /**
-   * The name of the plan. It is used in the invoice line item description.
-   *
+  **/
+  @ApiModelProperty(required = true, value = "The name of the plan. It is used in the invoice line item description. ")
+  /** 
+   * The name of the plan. It is used in the invoice line item description. 
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * The name of the plan. It is used in the invoice line item description.
-   *
-   * @param name String
-   */
+  /** 
+  * The name of the plan. It is used in the invoice line item description. 
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION.
-   *
-   * @param status StatusEnum
-   * @return Plan
-   */
+  * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. 
+  * @param status  StatusEnum
+  * @return Plan
+  **/
   public Plan status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
-  /**
-   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION.
-   *
+   /**
+   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. 
    * @return status
-   */
-  @ApiModelProperty(
-      required = true,
-      value =
-          "Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. ")
-  /**
-   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION.
-   *
+  **/
+  @ApiModelProperty(required = true, value = "Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. ")
+  /** 
+   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. 
    * @return status StatusEnum
-   */
+  **/
   public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION.
-   *
-   * @param status StatusEnum
-   */
+  /** 
+  * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. 
+  * @param status  StatusEnum
+  **/
+
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
   /**
-   * List of the subscription items belonging to the plan. It does not include cancelled
-   * subscription items.
-   *
-   * @param subscriptionItems List&lt;SubscriptionItem&gt;
-   * @return Plan
-   */
+  * List of the subscription items belonging to the plan. It does not include cancelled subscription items. 
+  * @param subscriptionItems  List&lt;SubscriptionItem&gt;
+  * @return Plan
+  **/
   public Plan subscriptionItems(List<SubscriptionItem> subscriptionItems) {
     this.subscriptionItems = subscriptionItems;
     return this;
   }
 
   /**
-   * List of the subscription items belonging to the plan. It does not include cancelled
-   * subscription items.
-   *
-   * @param subscriptionItemsItem SubscriptionItem
+   * List of the subscription items belonging to the plan. It does not include cancelled subscription items. 
+   * @param subscriptionItemsItem SubscriptionItem 
    * @return Plan
-   */
+  **/
   public Plan addSubscriptionItemsItem(SubscriptionItem subscriptionItemsItem) {
     this.subscriptionItems.add(subscriptionItemsItem);
     return this;
   }
 
-  /**
-   * List of the subscription items belonging to the plan. It does not include cancelled
-   * subscription items.
-   *
+   /**
+   * List of the subscription items belonging to the plan. It does not include cancelled subscription items. 
    * @return subscriptionItems
-   */
-  @ApiModelProperty(
-      required = true,
-      value =
-          "List of the subscription items belonging to the plan. It does not include cancelled"
-              + " subscription items. ")
-  /**
-   * List of the subscription items belonging to the plan. It does not include cancelled
-   * subscription items.
-   *
+  **/
+  @ApiModelProperty(required = true, value = "List of the subscription items belonging to the plan. It does not include cancelled subscription items. ")
+  /** 
+   * List of the subscription items belonging to the plan. It does not include cancelled subscription items. 
    * @return subscriptionItems List<SubscriptionItem>
-   */
+  **/
   public List<SubscriptionItem> getSubscriptionItems() {
     return subscriptionItems;
   }
 
-  /**
-   * List of the subscription items belonging to the plan. It does not include cancelled
-   * subscription items.
-   *
-   * @param subscriptionItems List&lt;SubscriptionItem&gt;
-   */
+  /** 
+  * List of the subscription items belonging to the plan. It does not include cancelled subscription items. 
+  * @param subscriptionItems List&lt;SubscriptionItem&gt; 
+  **/
+
   public void setSubscriptionItems(List<SubscriptionItem> subscriptionItems) {
     this.subscriptionItems = subscriptionItems;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -262,16 +255,17 @@ public class Plan {
       return false;
     }
     Plan plan = (Plan) o;
-    return Objects.equals(this.id, plan.id)
-        && Objects.equals(this.name, plan.name)
-        && Objects.equals(this.status, plan.status)
-        && Objects.equals(this.subscriptionItems, plan.subscriptionItems);
+    return Objects.equals(this.id, plan.id) &&
+        Objects.equals(this.name, plan.name) &&
+        Objects.equals(this.status, plan.status) &&
+        Objects.equals(this.subscriptionItems, plan.subscriptionItems);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(id, name, status, subscriptionItems);
   }
+
 
   @Override
   public String toString() {
@@ -286,7 +280,8 @@ public class Plan {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -294,4 +289,6 @@ public class Plan {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

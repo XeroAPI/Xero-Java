@@ -9,16 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.PnlAccountType;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** PnlAccountClass */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PnlAccountClass
+ */
+
 public class PnlAccountClass {
   StringUtil util = new StringUtil();
 
@@ -28,61 +46,52 @@ public class PnlAccountClass {
   @JsonProperty("accountTypes")
   private List<PnlAccountType> accountTypes = new ArrayList<PnlAccountType>();
   /**
-   * Total revenue/expense value
-   *
-   * @param total Double
-   * @return PnlAccountClass
-   */
+  * Total revenue/expense value
+  * @param total  Double
+  * @return PnlAccountClass
+  **/
   public PnlAccountClass total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total revenue/expense value
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total revenue/expense value")
-  /**
+  /** 
    * Total revenue/expense value
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total revenue/expense value
-   *
-   * @param total Double
-   */
+  /** 
+  * Total revenue/expense value
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
 
   /**
-   * Contains trading income and other income for revenue section / operating expenses and direct
-   * cost for expense section if the data is available for each section. Refer to the account type
-   * element below
-   *
-   * @param accountTypes List&lt;PnlAccountType&gt;
-   * @return PnlAccountClass
-   */
+  * Contains trading income and other income for revenue section / operating expenses and direct cost for expense section if the data is available for each section. Refer to the account type element below
+  * @param accountTypes  List&lt;PnlAccountType&gt;
+  * @return PnlAccountClass
+  **/
   public PnlAccountClass accountTypes(List<PnlAccountType> accountTypes) {
     this.accountTypes = accountTypes;
     return this;
   }
 
   /**
-   * Contains trading income and other income for revenue section / operating expenses and direct
-   * cost for expense section if the data is available for each section. Refer to the account type
-   * element below
-   *
-   * @param accountTypesItem PnlAccountType
+   * Contains trading income and other income for revenue section / operating expenses and direct cost for expense section if the data is available for each section. Refer to the account type element below
+   * @param accountTypesItem PnlAccountType 
    * @return PnlAccountClass
-   */
+  **/
   public PnlAccountClass addAccountTypesItem(PnlAccountType accountTypesItem) {
     if (this.accountTypes == null) {
       this.accountTypes = new ArrayList<PnlAccountType>();
@@ -91,39 +100,28 @@ public class PnlAccountClass {
     return this;
   }
 
-  /**
-   * Contains trading income and other income for revenue section / operating expenses and direct
-   * cost for expense section if the data is available for each section. Refer to the account type
-   * element below
-   *
+   /**
+   * Contains trading income and other income for revenue section / operating expenses and direct cost for expense section if the data is available for each section. Refer to the account type element below
    * @return accountTypes
-   */
-  @ApiModelProperty(
-      value =
-          "Contains trading income and other income for revenue section / operating expenses and"
-              + " direct cost for expense section if the data is available for each section. Refer"
-              + " to the account type element below")
-  /**
-   * Contains trading income and other income for revenue section / operating expenses and direct
-   * cost for expense section if the data is available for each section. Refer to the account type
-   * element below
-   *
+  **/
+  @ApiModelProperty(value = "Contains trading income and other income for revenue section / operating expenses and direct cost for expense section if the data is available for each section. Refer to the account type element below")
+  /** 
+   * Contains trading income and other income for revenue section / operating expenses and direct cost for expense section if the data is available for each section. Refer to the account type element below
    * @return accountTypes List<PnlAccountType>
-   */
+  **/
   public List<PnlAccountType> getAccountTypes() {
     return accountTypes;
   }
 
-  /**
-   * Contains trading income and other income for revenue section / operating expenses and direct
-   * cost for expense section if the data is available for each section. Refer to the account type
-   * element below
-   *
-   * @param accountTypes List&lt;PnlAccountType&gt;
-   */
+  /** 
+  * Contains trading income and other income for revenue section / operating expenses and direct cost for expense section if the data is available for each section. Refer to the account type element below
+  * @param accountTypes List&lt;PnlAccountType&gt; 
+  **/
+
   public void setAccountTypes(List<PnlAccountType> accountTypes) {
     this.accountTypes = accountTypes;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -134,14 +132,15 @@ public class PnlAccountClass {
       return false;
     }
     PnlAccountClass pnlAccountClass = (PnlAccountClass) o;
-    return Objects.equals(this.total, pnlAccountClass.total)
-        && Objects.equals(this.accountTypes, pnlAccountClass.accountTypes);
+    return Objects.equals(this.total, pnlAccountClass.total) &&
+        Objects.equals(this.accountTypes, pnlAccountClass.accountTypes);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(total, accountTypes);
   }
+
 
   @Override
   public String toString() {
@@ -154,7 +153,8 @@ public class PnlAccountClass {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -162,4 +162,6 @@ public class PnlAccountClass {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

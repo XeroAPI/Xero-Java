@@ -9,16 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Journal;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Journals */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Journals
+ */
+
 public class Journals {
   StringUtil util = new StringUtil();
 
@@ -28,11 +47,10 @@ public class Journals {
   @JsonProperty("Journals")
   private List<Journal> journals = new ArrayList<Journal>();
   /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   * @return Journals
-   */
+  * Displays array of warning messages from the API
+  * @param warnings  List&lt;ValidationError&gt;
+  * @return Journals
+  **/
   public Journals warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
@@ -40,10 +58,9 @@ public class Journals {
 
   /**
    * Displays array of warning messages from the API
-   *
-   * @param warningsItem ValidationError
+   * @param warningsItem ValidationError 
    * @return Journals
-   */
+  **/
   public Journals addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -52,36 +69,33 @@ public class Journals {
     return this;
   }
 
-  /**
+   /**
    * Displays array of warning messages from the API
-   *
    * @return warnings
-   */
+  **/
   @ApiModelProperty(value = "Displays array of warning messages from the API")
-  /**
+  /** 
    * Displays array of warning messages from the API
-   *
    * @return warnings List<ValidationError>
-   */
+  **/
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
-  /**
-   * Displays array of warning messages from the API
-   *
-   * @param warnings List&lt;ValidationError&gt;
-   */
+  /** 
+  * Displays array of warning messages from the API
+  * @param warnings List&lt;ValidationError&gt; 
+  **/
+
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
   /**
-   * journals
-   *
-   * @param journals List&lt;Journal&gt;
-   * @return Journals
-   */
+  * journals
+  * @param journals  List&lt;Journal&gt;
+  * @return Journals
+  **/
   public Journals journals(List<Journal> journals) {
     this.journals = journals;
     return this;
@@ -89,10 +103,9 @@ public class Journals {
 
   /**
    * journals
-   *
-   * @param journalsItem Journal
+   * @param journalsItem Journal 
    * @return Journals
-   */
+  **/
   public Journals addJournalsItem(Journal journalsItem) {
     if (this.journals == null) {
       this.journals = new ArrayList<Journal>();
@@ -101,29 +114,28 @@ public class Journals {
     return this;
   }
 
-  /**
+   /**
    * Get journals
-   *
    * @return journals
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * journals
-   *
    * @return journals List<Journal>
-   */
+  **/
   public List<Journal> getJournals() {
     return journals;
   }
 
-  /**
-   * journals
-   *
-   * @param journals List&lt;Journal&gt;
-   */
+  /** 
+  * journals
+  * @param journals List&lt;Journal&gt; 
+  **/
+
   public void setJournals(List<Journal> journals) {
     this.journals = journals;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -134,14 +146,15 @@ public class Journals {
       return false;
     }
     Journals journals = (Journals) o;
-    return Objects.equals(this.warnings, journals.warnings)
-        && Objects.equals(this.journals, journals.journals);
+    return Objects.equals(this.warnings, journals.warnings) &&
+        Objects.equals(this.journals, journals.journals);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(warnings, journals);
   }
+
 
   @Override
   public String toString() {
@@ -154,7 +167,8 @@ public class Journals {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -162,4 +176,6 @@ public class Journals {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

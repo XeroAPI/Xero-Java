@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** TaxLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TaxLine
+ */
+
 public class TaxLine {
   StringUtil util = new StringUtil();
 
@@ -39,217 +56,197 @@ public class TaxLine {
   @JsonProperty("manualAdjustment")
   private Boolean manualAdjustment;
   /**
-   * Xero identifier for payroll tax line
-   *
-   * @param taxLineID UUID
-   * @return TaxLine
-   */
+  * Xero identifier for payroll tax line
+  * @param taxLineID  UUID
+  * @return TaxLine
+  **/
   public TaxLine taxLineID(UUID taxLineID) {
     this.taxLineID = taxLineID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for payroll tax line
-   *
    * @return taxLineID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for payroll tax line")
-  /**
+  /** 
    * Xero identifier for payroll tax line
-   *
    * @return taxLineID UUID
-   */
+  **/
   public UUID getTaxLineID() {
     return taxLineID;
   }
 
-  /**
-   * Xero identifier for payroll tax line
-   *
-   * @param taxLineID UUID
-   */
+  /** 
+  * Xero identifier for payroll tax line
+  * @param taxLineID  UUID
+  **/
+
   public void setTaxLineID(UUID taxLineID) {
     this.taxLineID = taxLineID;
   }
 
   /**
-   * Tax line description
-   *
-   * @param description String
-   * @return TaxLine
-   */
+  * Tax line description
+  * @param description  String
+  * @return TaxLine
+  **/
   public TaxLine description(String description) {
     this.description = description;
     return this;
   }
 
-  /**
+   /**
    * Tax line description
-   *
    * @return description
-   */
+  **/
   @ApiModelProperty(value = "Tax line description")
-  /**
+  /** 
    * Tax line description
-   *
    * @return description String
-   */
+  **/
   public String getDescription() {
     return description;
   }
 
-  /**
-   * Tax line description
-   *
-   * @param description String
-   */
+  /** 
+  * Tax line description
+  * @param description  String
+  **/
+
   public void setDescription(String description) {
     this.description = description;
   }
 
   /**
-   * Identifies if the amount is paid for by the employee or employer. True if employer pays the tax
-   *
-   * @param isEmployerTax Boolean
-   * @return TaxLine
-   */
+  * Identifies if the amount is paid for by the employee or employer. True if employer pays the tax
+  * @param isEmployerTax  Boolean
+  * @return TaxLine
+  **/
   public TaxLine isEmployerTax(Boolean isEmployerTax) {
     this.isEmployerTax = isEmployerTax;
     return this;
   }
 
-  /**
+   /**
    * Identifies if the amount is paid for by the employee or employer. True if employer pays the tax
-   *
    * @return isEmployerTax
-   */
-  @ApiModelProperty(
-      value =
-          "Identifies if the amount is paid for by the employee or employer. True if employer pays"
-              + " the tax")
-  /**
+  **/
+  @ApiModelProperty(value = "Identifies if the amount is paid for by the employee or employer. True if employer pays the tax")
+  /** 
    * Identifies if the amount is paid for by the employee or employer. True if employer pays the tax
-   *
    * @return isEmployerTax Boolean
-   */
+  **/
   public Boolean getIsEmployerTax() {
     return isEmployerTax;
   }
 
-  /**
-   * Identifies if the amount is paid for by the employee or employer. True if employer pays the tax
-   *
-   * @param isEmployerTax Boolean
-   */
+  /** 
+  * Identifies if the amount is paid for by the employee or employer. True if employer pays the tax
+  * @param isEmployerTax  Boolean
+  **/
+
   public void setIsEmployerTax(Boolean isEmployerTax) {
     this.isEmployerTax = isEmployerTax;
   }
 
   /**
-   * The amount of the tax line
-   *
-   * @param amount Double
-   * @return TaxLine
-   */
+  * The amount of the tax line
+  * @param amount  Double
+  * @return TaxLine
+  **/
   public TaxLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * The amount of the tax line
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "The amount of the tax line")
-  /**
+  /** 
    * The amount of the tax line
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * The amount of the tax line
-   *
-   * @param amount Double
-   */
+  /** 
+  * The amount of the tax line
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * Tax type ID
-   *
-   * @param globalTaxTypeID String
-   * @return TaxLine
-   */
+  * Tax type ID
+  * @param globalTaxTypeID  String
+  * @return TaxLine
+  **/
   public TaxLine globalTaxTypeID(String globalTaxTypeID) {
     this.globalTaxTypeID = globalTaxTypeID;
     return this;
   }
 
-  /**
+   /**
    * Tax type ID
-   *
    * @return globalTaxTypeID
-   */
+  **/
   @ApiModelProperty(value = "Tax type ID")
-  /**
+  /** 
    * Tax type ID
-   *
    * @return globalTaxTypeID String
-   */
+  **/
   public String getGlobalTaxTypeID() {
     return globalTaxTypeID;
   }
 
-  /**
-   * Tax type ID
-   *
-   * @param globalTaxTypeID String
-   */
+  /** 
+  * Tax type ID
+  * @param globalTaxTypeID  String
+  **/
+
   public void setGlobalTaxTypeID(String globalTaxTypeID) {
     this.globalTaxTypeID = globalTaxTypeID;
   }
 
   /**
-   * Identifies if the tax line is a manual adjustment
-   *
-   * @param manualAdjustment Boolean
-   * @return TaxLine
-   */
+  * Identifies if the tax line is a manual adjustment
+  * @param manualAdjustment  Boolean
+  * @return TaxLine
+  **/
   public TaxLine manualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
     return this;
   }
 
-  /**
+   /**
    * Identifies if the tax line is a manual adjustment
-   *
    * @return manualAdjustment
-   */
+  **/
   @ApiModelProperty(value = "Identifies if the tax line is a manual adjustment")
-  /**
+  /** 
    * Identifies if the tax line is a manual adjustment
-   *
    * @return manualAdjustment Boolean
-   */
+  **/
   public Boolean getManualAdjustment() {
     return manualAdjustment;
   }
 
-  /**
-   * Identifies if the tax line is a manual adjustment
-   *
-   * @param manualAdjustment Boolean
-   */
+  /** 
+  * Identifies if the tax line is a manual adjustment
+  * @param manualAdjustment  Boolean
+  **/
+
   public void setManualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -260,19 +257,19 @@ public class TaxLine {
       return false;
     }
     TaxLine taxLine = (TaxLine) o;
-    return Objects.equals(this.taxLineID, taxLine.taxLineID)
-        && Objects.equals(this.description, taxLine.description)
-        && Objects.equals(this.isEmployerTax, taxLine.isEmployerTax)
-        && Objects.equals(this.amount, taxLine.amount)
-        && Objects.equals(this.globalTaxTypeID, taxLine.globalTaxTypeID)
-        && Objects.equals(this.manualAdjustment, taxLine.manualAdjustment);
+    return Objects.equals(this.taxLineID, taxLine.taxLineID) &&
+        Objects.equals(this.description, taxLine.description) &&
+        Objects.equals(this.isEmployerTax, taxLine.isEmployerTax) &&
+        Objects.equals(this.amount, taxLine.amount) &&
+        Objects.equals(this.globalTaxTypeID, taxLine.globalTaxTypeID) &&
+        Objects.equals(this.manualAdjustment, taxLine.manualAdjustment);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        taxLineID, description, isEmployerTax, amount, globalTaxTypeID, manualAdjustment);
+    return Objects.hash(taxLineID, description, isEmployerTax, amount, globalTaxTypeID, manualAdjustment);
   }
+
 
   @Override
   public String toString() {
@@ -289,7 +286,8 @@ public class TaxLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -297,4 +295,6 @@ public class TaxLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

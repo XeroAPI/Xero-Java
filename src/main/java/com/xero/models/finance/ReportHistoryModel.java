@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** ReportHistoryModel */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ReportHistoryModel
+ */
+
 public class ReportHistoryModel {
   StringUtil util = new StringUtil();
 
@@ -30,109 +47,101 @@ public class ReportHistoryModel {
   @JsonProperty("publishedDateUtc")
   private OffsetDateTime publishedDateUtc;
   /**
-   * Report code or report title
-   *
-   * @param reportName String
-   * @return ReportHistoryModel
-   */
+  * Report code or report title
+  * @param reportName  String
+  * @return ReportHistoryModel
+  **/
   public ReportHistoryModel reportName(String reportName) {
     this.reportName = reportName;
     return this;
   }
 
-  /**
+   /**
    * Report code or report title
-   *
    * @return reportName
-   */
+  **/
   @ApiModelProperty(value = "Report code or report title")
-  /**
+  /** 
    * Report code or report title
-   *
    * @return reportName String
-   */
+  **/
   public String getReportName() {
     return reportName;
   }
 
-  /**
-   * Report code or report title
-   *
-   * @param reportName String
-   */
+  /** 
+  * Report code or report title
+  * @param reportName  String
+  **/
+
   public void setReportName(String reportName) {
     this.reportName = reportName;
   }
 
   /**
-   * The date or date range of the report
-   *
-   * @param reportDateText String
-   * @return ReportHistoryModel
-   */
+  * The date or date range of the report
+  * @param reportDateText  String
+  * @return ReportHistoryModel
+  **/
   public ReportHistoryModel reportDateText(String reportDateText) {
     this.reportDateText = reportDateText;
     return this;
   }
 
-  /**
+   /**
    * The date or date range of the report
-   *
    * @return reportDateText
-   */
+  **/
   @ApiModelProperty(value = "The date or date range of the report")
-  /**
+  /** 
    * The date or date range of the report
-   *
    * @return reportDateText String
-   */
+  **/
   public String getReportDateText() {
     return reportDateText;
   }
 
-  /**
-   * The date or date range of the report
-   *
-   * @param reportDateText String
-   */
+  /** 
+  * The date or date range of the report
+  * @param reportDateText  String
+  **/
+
   public void setReportDateText(String reportDateText) {
     this.reportDateText = reportDateText;
   }
 
   /**
-   * The system date time that the report was published
-   *
-   * @param publishedDateUtc OffsetDateTime
-   * @return ReportHistoryModel
-   */
+  * The system date time that the report was published
+  * @param publishedDateUtc  OffsetDateTime
+  * @return ReportHistoryModel
+  **/
   public ReportHistoryModel publishedDateUtc(OffsetDateTime publishedDateUtc) {
     this.publishedDateUtc = publishedDateUtc;
     return this;
   }
 
-  /**
+   /**
    * The system date time that the report was published
-   *
    * @return publishedDateUtc
-   */
+  **/
   @ApiModelProperty(value = "The system date time that the report was published")
-  /**
+  /** 
    * The system date time that the report was published
-   *
    * @return publishedDateUtc OffsetDateTime
-   */
+  **/
   public OffsetDateTime getPublishedDateUtc() {
     return publishedDateUtc;
   }
 
-  /**
-   * The system date time that the report was published
-   *
-   * @param publishedDateUtc OffsetDateTime
-   */
+  /** 
+  * The system date time that the report was published
+  * @param publishedDateUtc  OffsetDateTime
+  **/
+
   public void setPublishedDateUtc(OffsetDateTime publishedDateUtc) {
     this.publishedDateUtc = publishedDateUtc;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -143,15 +152,16 @@ public class ReportHistoryModel {
       return false;
     }
     ReportHistoryModel reportHistoryModel = (ReportHistoryModel) o;
-    return Objects.equals(this.reportName, reportHistoryModel.reportName)
-        && Objects.equals(this.reportDateText, reportHistoryModel.reportDateText)
-        && Objects.equals(this.publishedDateUtc, reportHistoryModel.publishedDateUtc);
+    return Objects.equals(this.reportName, reportHistoryModel.reportName) &&
+        Objects.equals(this.reportDateText, reportHistoryModel.reportDateText) &&
+        Objects.equals(this.publishedDateUtc, reportHistoryModel.publishedDateUtc);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(reportName, reportDateText, publishedDateUtc);
   }
+
 
   @Override
   public String toString() {
@@ -165,7 +175,8 @@ public class ReportHistoryModel {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -173,4 +184,6 @@ public class ReportHistoryModel {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

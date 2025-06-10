@@ -9,14 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.State;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** HomeAddress */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * HomeAddress
+ */
+
 public class HomeAddress {
   StringUtil util = new StringUtil();
 
@@ -38,217 +56,197 @@ public class HomeAddress {
   @JsonProperty("Country")
   private String country;
   /**
-   * Address line 1 for employee home address
-   *
-   * @param addressLine1 String
-   * @return HomeAddress
-   */
+  * Address line 1 for employee home address
+  * @param addressLine1  String
+  * @return HomeAddress
+  **/
   public HomeAddress addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;
   }
 
-  /**
+   /**
    * Address line 1 for employee home address
-   *
    * @return addressLine1
-   */
-  @ApiModelProperty(
-      example = "123 Main St",
-      required = true,
-      value = "Address line 1 for employee home address")
-  /**
+  **/
+  @ApiModelProperty(example = "123 Main St", required = true, value = "Address line 1 for employee home address")
+  /** 
    * Address line 1 for employee home address
-   *
    * @return addressLine1 String
-   */
+  **/
   public String getAddressLine1() {
     return addressLine1;
   }
 
-  /**
-   * Address line 1 for employee home address
-   *
-   * @param addressLine1 String
-   */
+  /** 
+  * Address line 1 for employee home address
+  * @param addressLine1  String
+  **/
+
   public void setAddressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
   }
 
   /**
-   * Address line 2 for employee home address
-   *
-   * @param addressLine2 String
-   * @return HomeAddress
-   */
+  * Address line 2 for employee home address
+  * @param addressLine2  String
+  * @return HomeAddress
+  **/
   public HomeAddress addressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
     return this;
   }
 
-  /**
+   /**
    * Address line 2 for employee home address
-   *
    * @return addressLine2
-   */
+  **/
   @ApiModelProperty(example = "Apt 4", value = "Address line 2 for employee home address")
-  /**
+  /** 
    * Address line 2 for employee home address
-   *
    * @return addressLine2 String
-   */
+  **/
   public String getAddressLine2() {
     return addressLine2;
   }
 
-  /**
-   * Address line 2 for employee home address
-   *
-   * @param addressLine2 String
-   */
+  /** 
+  * Address line 2 for employee home address
+  * @param addressLine2  String
+  **/
+
   public void setAddressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
   }
 
   /**
-   * Suburb for employee home address
-   *
-   * @param city String
-   * @return HomeAddress
-   */
+  * Suburb for employee home address
+  * @param city  String
+  * @return HomeAddress
+  **/
   public HomeAddress city(String city) {
     this.city = city;
     return this;
   }
 
-  /**
+   /**
    * Suburb for employee home address
-   *
    * @return city
-   */
+  **/
   @ApiModelProperty(example = "St. Kilda", value = "Suburb for employee home address")
-  /**
+  /** 
    * Suburb for employee home address
-   *
    * @return city String
-   */
+  **/
   public String getCity() {
     return city;
   }
 
-  /**
-   * Suburb for employee home address
-   *
-   * @param city String
-   */
+  /** 
+  * Suburb for employee home address
+  * @param city  String
+  **/
+
   public void setCity(String city) {
     this.city = city;
   }
 
   /**
-   * region
-   *
-   * @param region State
-   * @return HomeAddress
-   */
+  * region
+  * @param region  State
+  * @return HomeAddress
+  **/
   public HomeAddress region(State region) {
     this.region = region;
     return this;
   }
 
-  /**
+   /**
    * Get region
-   *
    * @return region
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * region
-   *
    * @return region State
-   */
+  **/
   public State getRegion() {
     return region;
   }
 
-  /**
-   * region
-   *
-   * @param region State
-   */
+  /** 
+  * region
+  * @param region  State
+  **/
+
   public void setRegion(State region) {
     this.region = region;
   }
 
   /**
-   * PostCode for employee home address
-   *
-   * @param postalCode String
-   * @return HomeAddress
-   */
+  * PostCode for employee home address
+  * @param postalCode  String
+  * @return HomeAddress
+  **/
   public HomeAddress postalCode(String postalCode) {
     this.postalCode = postalCode;
     return this;
   }
 
-  /**
+   /**
    * PostCode for employee home address
-   *
    * @return postalCode
-   */
+  **/
   @ApiModelProperty(example = "3182", value = "PostCode for employee home address")
-  /**
+  /** 
    * PostCode for employee home address
-   *
    * @return postalCode String
-   */
+  **/
   public String getPostalCode() {
     return postalCode;
   }
 
-  /**
-   * PostCode for employee home address
-   *
-   * @param postalCode String
-   */
+  /** 
+  * PostCode for employee home address
+  * @param postalCode  String
+  **/
+
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
   }
 
   /**
-   * Country of HomeAddress
-   *
-   * @param country String
-   * @return HomeAddress
-   */
+  * Country of HomeAddress
+  * @param country  String
+  * @return HomeAddress
+  **/
   public HomeAddress country(String country) {
     this.country = country;
     return this;
   }
 
-  /**
+   /**
    * Country of HomeAddress
-   *
    * @return country
-   */
+  **/
   @ApiModelProperty(example = "AUSTRALIA", value = "Country of HomeAddress")
-  /**
+  /** 
    * Country of HomeAddress
-   *
    * @return country String
-   */
+  **/
   public String getCountry() {
     return country;
   }
 
-  /**
-   * Country of HomeAddress
-   *
-   * @param country String
-   */
+  /** 
+  * Country of HomeAddress
+  * @param country  String
+  **/
+
   public void setCountry(String country) {
     this.country = country;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -259,18 +257,19 @@ public class HomeAddress {
       return false;
     }
     HomeAddress homeAddress = (HomeAddress) o;
-    return Objects.equals(this.addressLine1, homeAddress.addressLine1)
-        && Objects.equals(this.addressLine2, homeAddress.addressLine2)
-        && Objects.equals(this.city, homeAddress.city)
-        && Objects.equals(this.region, homeAddress.region)
-        && Objects.equals(this.postalCode, homeAddress.postalCode)
-        && Objects.equals(this.country, homeAddress.country);
+    return Objects.equals(this.addressLine1, homeAddress.addressLine1) &&
+        Objects.equals(this.addressLine2, homeAddress.addressLine2) &&
+        Objects.equals(this.city, homeAddress.city) &&
+        Objects.equals(this.region, homeAddress.region) &&
+        Objects.equals(this.postalCode, homeAddress.postalCode) &&
+        Objects.equals(this.country, homeAddress.country);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(addressLine1, addressLine2, city, region, postalCode, country);
   }
+
 
   @Override
   public String toString() {
@@ -287,7 +286,8 @@ public class HomeAddress {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -295,4 +295,6 @@ public class HomeAddress {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

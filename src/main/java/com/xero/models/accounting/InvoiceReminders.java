@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.InvoiceReminder;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** InvoiceReminders */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * InvoiceReminders
+ */
+
 public class InvoiceReminders {
   StringUtil util = new StringUtil();
 
   @JsonProperty("InvoiceReminders")
   private List<InvoiceReminder> invoiceReminders = new ArrayList<InvoiceReminder>();
   /**
-   * invoiceReminders
-   *
-   * @param invoiceReminders List&lt;InvoiceReminder&gt;
-   * @return InvoiceReminders
-   */
+  * invoiceReminders
+  * @param invoiceReminders  List&lt;InvoiceReminder&gt;
+  * @return InvoiceReminders
+  **/
   public InvoiceReminders invoiceReminders(List<InvoiceReminder> invoiceReminders) {
     this.invoiceReminders = invoiceReminders;
     return this;
@@ -37,10 +54,9 @@ public class InvoiceReminders {
 
   /**
    * invoiceReminders
-   *
-   * @param invoiceRemindersItem InvoiceReminder
+   * @param invoiceRemindersItem InvoiceReminder 
    * @return InvoiceReminders
-   */
+  **/
   public InvoiceReminders addInvoiceRemindersItem(InvoiceReminder invoiceRemindersItem) {
     if (this.invoiceReminders == null) {
       this.invoiceReminders = new ArrayList<InvoiceReminder>();
@@ -49,29 +65,28 @@ public class InvoiceReminders {
     return this;
   }
 
-  /**
+   /**
    * Get invoiceReminders
-   *
    * @return invoiceReminders
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * invoiceReminders
-   *
    * @return invoiceReminders List<InvoiceReminder>
-   */
+  **/
   public List<InvoiceReminder> getInvoiceReminders() {
     return invoiceReminders;
   }
 
-  /**
-   * invoiceReminders
-   *
-   * @param invoiceReminders List&lt;InvoiceReminder&gt;
-   */
+  /** 
+  * invoiceReminders
+  * @param invoiceReminders List&lt;InvoiceReminder&gt; 
+  **/
+
   public void setInvoiceReminders(List<InvoiceReminder> invoiceReminders) {
     this.invoiceReminders = invoiceReminders;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class InvoiceReminders {
     return Objects.hash(invoiceReminders);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class InvoiceReminders {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class InvoiceReminders {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

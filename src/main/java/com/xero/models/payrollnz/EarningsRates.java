@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.EarningsRate;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** EarningsRates */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EarningsRates
+ */
+
 public class EarningsRates {
   StringUtil util = new StringUtil();
 
@@ -31,81 +51,74 @@ public class EarningsRates {
   @JsonProperty("earningsRates")
   private List<EarningsRate> earningsRates = new ArrayList<EarningsRate>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return EarningsRates
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return EarningsRates
+  **/
   public EarningsRates pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return EarningsRates
-   */
+  * problem
+  * @param problem  Problem
+  * @return EarningsRates
+  **/
   public EarningsRates problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * earningsRates
-   *
-   * @param earningsRates List&lt;EarningsRate&gt;
-   * @return EarningsRates
-   */
+  * earningsRates
+  * @param earningsRates  List&lt;EarningsRate&gt;
+  * @return EarningsRates
+  **/
   public EarningsRates earningsRates(List<EarningsRate> earningsRates) {
     this.earningsRates = earningsRates;
     return this;
@@ -113,10 +126,9 @@ public class EarningsRates {
 
   /**
    * earningsRates
-   *
-   * @param earningsRatesItem EarningsRate
+   * @param earningsRatesItem EarningsRate 
    * @return EarningsRates
-   */
+  **/
   public EarningsRates addEarningsRatesItem(EarningsRate earningsRatesItem) {
     if (this.earningsRates == null) {
       this.earningsRates = new ArrayList<EarningsRate>();
@@ -125,29 +137,28 @@ public class EarningsRates {
     return this;
   }
 
-  /**
+   /**
    * Get earningsRates
-   *
    * @return earningsRates
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * earningsRates
-   *
    * @return earningsRates List<EarningsRate>
-   */
+  **/
   public List<EarningsRate> getEarningsRates() {
     return earningsRates;
   }
 
-  /**
-   * earningsRates
-   *
-   * @param earningsRates List&lt;EarningsRate&gt;
-   */
+  /** 
+  * earningsRates
+  * @param earningsRates List&lt;EarningsRate&gt; 
+  **/
+
   public void setEarningsRates(List<EarningsRate> earningsRates) {
     this.earningsRates = earningsRates;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,15 +169,16 @@ public class EarningsRates {
       return false;
     }
     EarningsRates earningsRates = (EarningsRates) o;
-    return Objects.equals(this.pagination, earningsRates.pagination)
-        && Objects.equals(this.problem, earningsRates.problem)
-        && Objects.equals(this.earningsRates, earningsRates.earningsRates);
+    return Objects.equals(this.pagination, earningsRates.pagination) &&
+        Objects.equals(this.problem, earningsRates.problem) &&
+        Objects.equals(this.earningsRates, earningsRates.earningsRates);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, earningsRates);
   }
+
 
   @Override
   public String toString() {
@@ -180,7 +192,8 @@ public class EarningsRates {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,4 +201,6 @@ public class EarningsRates {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

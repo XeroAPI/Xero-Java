@@ -9,24 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.accounting.JournalLine;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
+import java.io.IOException;
+
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.ZoneId;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** Journal */
+/**
+ * Journal
+ */
+
 public class Journal {
   StringUtil util = new StringUtil();
 
@@ -47,81 +58,133 @@ public class Journal {
 
   @JsonProperty("SourceID")
   private UUID sourceID;
-  /** The journal source type. The type of transaction that created the journal */
+  /**
+   * The journal source type. The type of transaction that created the journal
+   */
   public enum SourceTypeEnum {
-    /** ACCREC */
+    /**
+     * ACCREC
+     */
     ACCREC("ACCREC"),
-
-    /** ACCPAY */
+    
+    /**
+     * ACCPAY
+     */
     ACCPAY("ACCPAY"),
-
-    /** ACCRECCREDIT */
+    
+    /**
+     * ACCRECCREDIT
+     */
     ACCRECCREDIT("ACCRECCREDIT"),
-
-    /** ACCPAYCREDIT */
+    
+    /**
+     * ACCPAYCREDIT
+     */
     ACCPAYCREDIT("ACCPAYCREDIT"),
-
-    /** ACCRECPAYMENT */
+    
+    /**
+     * ACCRECPAYMENT
+     */
     ACCRECPAYMENT("ACCRECPAYMENT"),
-
-    /** ACCPAYPAYMENT */
+    
+    /**
+     * ACCPAYPAYMENT
+     */
     ACCPAYPAYMENT("ACCPAYPAYMENT"),
-
-    /** ARCREDITPAYMENT */
+    
+    /**
+     * ARCREDITPAYMENT
+     */
     ARCREDITPAYMENT("ARCREDITPAYMENT"),
-
-    /** APCREDITPAYMENT */
+    
+    /**
+     * APCREDITPAYMENT
+     */
     APCREDITPAYMENT("APCREDITPAYMENT"),
-
-    /** CASHREC */
+    
+    /**
+     * CASHREC
+     */
     CASHREC("CASHREC"),
-
-    /** CASHPAID */
+    
+    /**
+     * CASHPAID
+     */
     CASHPAID("CASHPAID"),
-
-    /** TRANSFER */
+    
+    /**
+     * TRANSFER
+     */
     TRANSFER("TRANSFER"),
-
-    /** ARPREPAYMENT */
+    
+    /**
+     * ARPREPAYMENT
+     */
     ARPREPAYMENT("ARPREPAYMENT"),
-
-    /** APPREPAYMENT */
+    
+    /**
+     * APPREPAYMENT
+     */
     APPREPAYMENT("APPREPAYMENT"),
-
-    /** AROVERPAYMENT */
+    
+    /**
+     * AROVERPAYMENT
+     */
     AROVERPAYMENT("AROVERPAYMENT"),
-
-    /** APOVERPAYMENT */
+    
+    /**
+     * APOVERPAYMENT
+     */
     APOVERPAYMENT("APOVERPAYMENT"),
-
-    /** EXPCLAIM */
+    
+    /**
+     * EXPCLAIM
+     */
     EXPCLAIM("EXPCLAIM"),
-
-    /** EXPPAYMENT */
+    
+    /**
+     * EXPPAYMENT
+     */
     EXPPAYMENT("EXPPAYMENT"),
-
-    /** MANJOURNAL */
+    
+    /**
+     * MANJOURNAL
+     */
     MANJOURNAL("MANJOURNAL"),
-
-    /** PAYSLIP */
+    
+    /**
+     * PAYSLIP
+     */
     PAYSLIP("PAYSLIP"),
-
-    /** WAGEPAYABLE */
+    
+    /**
+     * WAGEPAYABLE
+     */
     WAGEPAYABLE("WAGEPAYABLE"),
-
-    /** INTEGRATEDPAYROLLPE */
+    
+    /**
+     * INTEGRATEDPAYROLLPE
+     */
     INTEGRATEDPAYROLLPE("INTEGRATEDPAYROLLPE"),
-
-    /** INTEGRATEDPAYROLLPT */
+    
+    /**
+     * INTEGRATEDPAYROLLPT
+     */
     INTEGRATEDPAYROLLPT("INTEGRATEDPAYROLLPT"),
-
-    /** EXTERNALSPENDMONEY */
+    
+    /**
+     * EXTERNALSPENDMONEY
+     */
     EXTERNALSPENDMONEY("EXTERNALSPENDMONEY"),
-
-    /** INTEGRATEDPAYROLLPTPAYMENT */
+    
+    /**
+     * INTEGRATEDPAYROLLPTPAYMENT
+     */
     INTEGRATEDPAYROLLPTPAYMENT("INTEGRATEDPAYROLLPTPAYMENT"),
-
-    /** INTEGRATEDPAYROLLCN */
+    
+    /**
+     * INTEGRATEDPAYROLLCN
+     */
     INTEGRATEDPAYROLLCN("INTEGRATEDPAYROLLCN");
 
     private String value;
@@ -130,31 +193,25 @@ public class Journal {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static SourceTypeEnum fromValue(String value) {
       for (SourceTypeEnum b : SourceTypeEnum.values()) {
@@ -166,286 +223,262 @@ public class Journal {
     }
   }
 
+
   @JsonProperty("SourceType")
   private SourceTypeEnum sourceType;
 
   @JsonProperty("JournalLines")
   private List<JournalLine> journalLines = new ArrayList<JournalLine>();
   /**
-   * Xero identifier
-   *
-   * @param journalID UUID
-   * @return Journal
-   */
+  * Xero identifier
+  * @param journalID  UUID
+  * @return Journal
+  **/
   public Journal journalID(UUID journalID) {
     this.journalID = journalID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier
-   *
    * @return journalID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier")
-  /**
+  /** 
    * Xero identifier
-   *
    * @return journalID UUID
-   */
+  **/
   public UUID getJournalID() {
     return journalID;
   }
 
-  /**
-   * Xero identifier
-   *
-   * @param journalID UUID
-   */
+  /** 
+  * Xero identifier
+  * @param journalID  UUID
+  **/
+
   public void setJournalID(UUID journalID) {
     this.journalID = journalID;
   }
 
   /**
-   * Date the journal was posted
-   *
-   * @param journalDate String
-   * @return Journal
-   */
+  * Date the journal was posted
+  * @param journalDate  String
+  * @return Journal
+  **/
   public Journal journalDate(String journalDate) {
     this.journalDate = journalDate;
     return this;
   }
 
-  /**
+   /**
    * Date the journal was posted
-   *
    * @return journalDate
-   */
+  **/
   @ApiModelProperty(value = "Date the journal was posted")
-  /**
+  /** 
    * Date the journal was posted
-   *
    * @return journalDate String
-   */
+  **/
   public String getJournalDate() {
     return journalDate;
   }
-  /**
+  /** 
    * Date the journal was posted
-   *
    * @return LocalDate
-   */
+  **/
   public LocalDate getJournalDateAsDate() {
     if (this.journalDate != null) {
       try {
         return util.convertStringToDate(this.journalDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
-  /**
-   * Date the journal was posted
-   *
-   * @param journalDate String
-   */
+  /** 
+  * Date the journal was posted
+  * @param journalDate  String
+  **/
+
   public void setJournalDate(String journalDate) {
     this.journalDate = journalDate;
   }
 
-  /**
-   * Date the journal was posted
-   *
-   * @param journalDate LocalDateTime
-   */
+  /** 
+  * Date the journal was posted
+  * @param journalDate LocalDateTime
+  **/
   public void setJournalDate(LocalDate journalDate) {
-    // CONVERT LocalDate args into MS DateFromat String
-    Instant instant = journalDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
+    //CONVERT LocalDate args into MS DateFromat String
+    Instant instant =  journalDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
     long timeInMillis = instant.toEpochMilli();
 
     this.journalDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
   /**
-   * Xero generated journal number
-   *
-   * @param journalNumber Integer
-   * @return Journal
-   */
+  * Xero generated journal number
+  * @param journalNumber  Integer
+  * @return Journal
+  **/
   public Journal journalNumber(Integer journalNumber) {
     this.journalNumber = journalNumber;
     return this;
   }
 
-  /**
+   /**
    * Xero generated journal number
-   *
    * @return journalNumber
-   */
+  **/
   @ApiModelProperty(value = "Xero generated journal number")
-  /**
+  /** 
    * Xero generated journal number
-   *
    * @return journalNumber Integer
-   */
+  **/
   public Integer getJournalNumber() {
     return journalNumber;
   }
 
-  /**
-   * Xero generated journal number
-   *
-   * @param journalNumber Integer
-   */
+  /** 
+  * Xero generated journal number
+  * @param journalNumber  Integer
+  **/
+
   public void setJournalNumber(Integer journalNumber) {
     this.journalNumber = journalNumber;
   }
 
-  /**
+   /**
    * Created date UTC format
-   *
    * @return createdDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Created date UTC format")
-  /**
+  /** 
    * Created date UTC format
-   *
    * @return createdDateUTC String
-   */
+  **/
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
-  /**
+  /** 
    * Created date UTC format
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getCreatedDateUTCAsDate() {
     if (this.createdDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.createdDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   /**
-   * reference field for additional indetifying information
-   *
-   * @param reference String
-   * @return Journal
-   */
+  * reference field for additional indetifying information
+  * @param reference  String
+  * @return Journal
+  **/
   public Journal reference(String reference) {
     this.reference = reference;
     return this;
   }
 
-  /**
+   /**
    * reference field for additional indetifying information
-   *
    * @return reference
-   */
+  **/
   @ApiModelProperty(value = "reference field for additional indetifying information")
-  /**
+  /** 
    * reference field for additional indetifying information
-   *
    * @return reference String
-   */
+  **/
   public String getReference() {
     return reference;
   }
 
-  /**
-   * reference field for additional indetifying information
-   *
-   * @param reference String
-   */
+  /** 
+  * reference field for additional indetifying information
+  * @param reference  String
+  **/
+
   public void setReference(String reference) {
     this.reference = reference;
   }
 
   /**
-   * The identifier for the source transaction (e.g. InvoiceID)
-   *
-   * @param sourceID UUID
-   * @return Journal
-   */
+  * The identifier for the source transaction (e.g. InvoiceID)
+  * @param sourceID  UUID
+  * @return Journal
+  **/
   public Journal sourceID(UUID sourceID) {
     this.sourceID = sourceID;
     return this;
   }
 
-  /**
+   /**
    * The identifier for the source transaction (e.g. InvoiceID)
-   *
    * @return sourceID
-   */
+  **/
   @ApiModelProperty(value = "The identifier for the source transaction (e.g. InvoiceID)")
-  /**
+  /** 
    * The identifier for the source transaction (e.g. InvoiceID)
-   *
    * @return sourceID UUID
-   */
+  **/
   public UUID getSourceID() {
     return sourceID;
   }
 
-  /**
-   * The identifier for the source transaction (e.g. InvoiceID)
-   *
-   * @param sourceID UUID
-   */
+  /** 
+  * The identifier for the source transaction (e.g. InvoiceID)
+  * @param sourceID  UUID
+  **/
+
   public void setSourceID(UUID sourceID) {
     this.sourceID = sourceID;
   }
 
   /**
-   * The journal source type. The type of transaction that created the journal
-   *
-   * @param sourceType SourceTypeEnum
-   * @return Journal
-   */
+  * The journal source type. The type of transaction that created the journal
+  * @param sourceType  SourceTypeEnum
+  * @return Journal
+  **/
   public Journal sourceType(SourceTypeEnum sourceType) {
     this.sourceType = sourceType;
     return this;
   }
 
-  /**
+   /**
    * The journal source type. The type of transaction that created the journal
-   *
    * @return sourceType
-   */
-  @ApiModelProperty(
-      value = "The journal source type. The type of transaction that created the journal")
-  /**
+  **/
+  @ApiModelProperty(value = "The journal source type. The type of transaction that created the journal")
+  /** 
    * The journal source type. The type of transaction that created the journal
-   *
    * @return sourceType SourceTypeEnum
-   */
+  **/
   public SourceTypeEnum getSourceType() {
     return sourceType;
   }
 
-  /**
-   * The journal source type. The type of transaction that created the journal
-   *
-   * @param sourceType SourceTypeEnum
-   */
+  /** 
+  * The journal source type. The type of transaction that created the journal
+  * @param sourceType  SourceTypeEnum
+  **/
+
   public void setSourceType(SourceTypeEnum sourceType) {
     this.sourceType = sourceType;
   }
 
   /**
-   * See JournalLines
-   *
-   * @param journalLines List&lt;JournalLine&gt;
-   * @return Journal
-   */
+  * See JournalLines
+  * @param journalLines  List&lt;JournalLine&gt;
+  * @return Journal
+  **/
   public Journal journalLines(List<JournalLine> journalLines) {
     this.journalLines = journalLines;
     return this;
@@ -453,10 +486,9 @@ public class Journal {
 
   /**
    * See JournalLines
-   *
-   * @param journalLinesItem JournalLine
+   * @param journalLinesItem JournalLine 
    * @return Journal
-   */
+  **/
   public Journal addJournalLinesItem(JournalLine journalLinesItem) {
     if (this.journalLines == null) {
       this.journalLines = new ArrayList<JournalLine>();
@@ -465,29 +497,28 @@ public class Journal {
     return this;
   }
 
-  /**
+   /**
    * See JournalLines
-   *
    * @return journalLines
-   */
+  **/
   @ApiModelProperty(value = "See JournalLines")
-  /**
+  /** 
    * See JournalLines
-   *
    * @return journalLines List<JournalLine>
-   */
+  **/
   public List<JournalLine> getJournalLines() {
     return journalLines;
   }
 
-  /**
-   * See JournalLines
-   *
-   * @param journalLines List&lt;JournalLine&gt;
-   */
+  /** 
+  * See JournalLines
+  * @param journalLines List&lt;JournalLine&gt; 
+  **/
+
   public void setJournalLines(List<JournalLine> journalLines) {
     this.journalLines = journalLines;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -498,28 +529,21 @@ public class Journal {
       return false;
     }
     Journal journal = (Journal) o;
-    return Objects.equals(this.journalID, journal.journalID)
-        && Objects.equals(this.journalDate, journal.journalDate)
-        && Objects.equals(this.journalNumber, journal.journalNumber)
-        && Objects.equals(this.createdDateUTC, journal.createdDateUTC)
-        && Objects.equals(this.reference, journal.reference)
-        && Objects.equals(this.sourceID, journal.sourceID)
-        && Objects.equals(this.sourceType, journal.sourceType)
-        && Objects.equals(this.journalLines, journal.journalLines);
+    return Objects.equals(this.journalID, journal.journalID) &&
+        Objects.equals(this.journalDate, journal.journalDate) &&
+        Objects.equals(this.journalNumber, journal.journalNumber) &&
+        Objects.equals(this.createdDateUTC, journal.createdDateUTC) &&
+        Objects.equals(this.reference, journal.reference) &&
+        Objects.equals(this.sourceID, journal.sourceID) &&
+        Objects.equals(this.sourceType, journal.sourceType) &&
+        Objects.equals(this.journalLines, journal.journalLines);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        journalID,
-        journalDate,
-        journalNumber,
-        createdDateUTC,
-        reference,
-        sourceID,
-        sourceType,
-        journalLines);
+    return Objects.hash(journalID, journalDate, journalNumber, createdDateUTC, reference, sourceID, sourceType, journalLines);
   }
+
 
   @Override
   public String toString() {
@@ -538,7 +562,8 @@ public class Journal {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -546,4 +571,6 @@ public class Journal {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

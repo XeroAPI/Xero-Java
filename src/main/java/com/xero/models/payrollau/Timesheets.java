@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
 
+package com.xero.models.payrollau;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.Timesheet;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Timesheets */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Timesheets
+ */
+
 public class Timesheets {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Timesheets")
   private List<Timesheet> timesheets = new ArrayList<Timesheet>();
   /**
-   * timesheets
-   *
-   * @param timesheets List&lt;Timesheet&gt;
-   * @return Timesheets
-   */
+  * timesheets
+  * @param timesheets  List&lt;Timesheet&gt;
+  * @return Timesheets
+  **/
   public Timesheets timesheets(List<Timesheet> timesheets) {
     this.timesheets = timesheets;
     return this;
@@ -37,10 +54,9 @@ public class Timesheets {
 
   /**
    * timesheets
-   *
-   * @param timesheetsItem Timesheet
+   * @param timesheetsItem Timesheet 
    * @return Timesheets
-   */
+  **/
   public Timesheets addTimesheetsItem(Timesheet timesheetsItem) {
     if (this.timesheets == null) {
       this.timesheets = new ArrayList<Timesheet>();
@@ -49,29 +65,28 @@ public class Timesheets {
     return this;
   }
 
-  /**
+   /**
    * Get timesheets
-   *
    * @return timesheets
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * timesheets
-   *
    * @return timesheets List<Timesheet>
-   */
+  **/
   public List<Timesheet> getTimesheets() {
     return timesheets;
   }
 
-  /**
-   * timesheets
-   *
-   * @param timesheets List&lt;Timesheet&gt;
-   */
+  /** 
+  * timesheets
+  * @param timesheets List&lt;Timesheet&gt; 
+  **/
+
   public void setTimesheets(List<Timesheet> timesheets) {
     this.timesheets = timesheets;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class Timesheets {
     return Objects.hash(timesheets);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class Timesheets {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class Timesheets {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** CashflowAccount */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * CashflowAccount
+ */
+
 public class CashflowAccount {
   StringUtil util = new StringUtil();
 
@@ -42,273 +59,229 @@ public class CashflowAccount {
   @JsonProperty("total")
   private Double total;
   /**
-   * ID of the account
-   *
-   * @param accountId UUID
-   * @return CashflowAccount
-   */
+  * ID of the account
+  * @param accountId  UUID
+  * @return CashflowAccount
+  **/
   public CashflowAccount accountId(UUID accountId) {
     this.accountId = accountId;
     return this;
   }
 
-  /**
+   /**
    * ID of the account
-   *
    * @return accountId
-   */
+  **/
   @ApiModelProperty(value = "ID of the account")
-  /**
+  /** 
    * ID of the account
-   *
    * @return accountId UUID
-   */
+  **/
   public UUID getAccountId() {
     return accountId;
   }
 
-  /**
-   * ID of the account
-   *
-   * @param accountId UUID
-   */
+  /** 
+  * ID of the account
+  * @param accountId  UUID
+  **/
+
   public void setAccountId(UUID accountId) {
     this.accountId = accountId;
   }
 
   /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
-   * @param accountType String
-   * @return CashflowAccount
-   */
+  * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
+  * @param accountType  String
+  * @return CashflowAccount
+  **/
   public CashflowAccount accountType(String accountType) {
     this.accountType = accountType;
     return this;
   }
 
-  /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
+   /**
+   * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
    * @return accountType
-   */
-  @ApiModelProperty(
-      value =
-          "The type of the account. See <a"
-              + " href='https://developer.xero.com/documentation/api/types#AccountTypes'>Account"
-              + " Types</a>")
-  /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
+  **/
+  @ApiModelProperty(value = "The type of the account. See <a href='https://developer.xero.com/documentation/api/types#AccountTypes'>Account Types</a>")
+  /** 
+   * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
    * @return accountType String
-   */
+  **/
   public String getAccountType() {
     return accountType;
   }
 
-  /**
-   * The type of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
-   * Types&lt;/a&gt;
-   *
-   * @param accountType String
-   */
+  /** 
+  * The type of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account Types&lt;/a&gt;
+  * @param accountType  String
+  **/
+
   public void setAccountType(String accountType) {
     this.accountType = accountType;
   }
 
   /**
-   * The class of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountClassTypes&#39;&gt;Account
-   * Class Types&lt;/a&gt;
-   *
-   * @param accountClass String
-   * @return CashflowAccount
-   */
+  * The class of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountClassTypes&#39;&gt;Account Class Types&lt;/a&gt;
+  * @param accountClass  String
+  * @return CashflowAccount
+  **/
   public CashflowAccount accountClass(String accountClass) {
     this.accountClass = accountClass;
     return this;
   }
 
-  /**
-   * The class of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountClassTypes&#39;&gt;Account
-   * Class Types&lt;/a&gt;
-   *
+   /**
+   * The class of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountClassTypes&#39;&gt;Account Class Types&lt;/a&gt;
    * @return accountClass
-   */
-  @ApiModelProperty(
-      value =
-          "The class of the account. See <a"
-              + " href='https://developer.xero.com/documentation/api/types#AccountClassTypes'>Account"
-              + " Class Types</a>")
-  /**
-   * The class of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountClassTypes&#39;&gt;Account
-   * Class Types&lt;/a&gt;
-   *
+  **/
+  @ApiModelProperty(value = "The class of the account. See <a href='https://developer.xero.com/documentation/api/types#AccountClassTypes'>Account Class Types</a>")
+  /** 
+   * The class of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountClassTypes&#39;&gt;Account Class Types&lt;/a&gt;
    * @return accountClass String
-   */
+  **/
   public String getAccountClass() {
     return accountClass;
   }
 
-  /**
-   * The class of the account. See &lt;a
-   * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountClassTypes&#39;&gt;Account
-   * Class Types&lt;/a&gt;
-   *
-   * @param accountClass String
-   */
+  /** 
+  * The class of the account. See &lt;a href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountClassTypes&#39;&gt;Account Class Types&lt;/a&gt;
+  * @param accountClass  String
+  **/
+
   public void setAccountClass(String accountClass) {
     this.accountClass = accountClass;
   }
 
   /**
-   * Account code
-   *
-   * @param code String
-   * @return CashflowAccount
-   */
+  * Account code
+  * @param code  String
+  * @return CashflowAccount
+  **/
   public CashflowAccount code(String code) {
     this.code = code;
     return this;
   }
 
-  /**
+   /**
    * Account code
-   *
    * @return code
-   */
+  **/
   @ApiModelProperty(value = "Account code")
-  /**
+  /** 
    * Account code
-   *
    * @return code String
-   */
+  **/
   public String getCode() {
     return code;
   }
 
-  /**
-   * Account code
-   *
-   * @param code String
-   */
+  /** 
+  * Account code
+  * @param code  String
+  **/
+
   public void setCode(String code) {
     this.code = code;
   }
 
   /**
-   * Account name
-   *
-   * @param name String
-   * @return CashflowAccount
-   */
+  * Account name
+  * @param name  String
+  * @return CashflowAccount
+  **/
   public CashflowAccount name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Account name
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "Account name")
-  /**
+  /** 
    * Account name
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Account name
-   *
-   * @param name String
-   */
+  /** 
+  * Account name
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Reporting code used for cash flow classification
-   *
-   * @param reportingCode String
-   * @return CashflowAccount
-   */
+  * Reporting code used for cash flow classification
+  * @param reportingCode  String
+  * @return CashflowAccount
+  **/
   public CashflowAccount reportingCode(String reportingCode) {
     this.reportingCode = reportingCode;
     return this;
   }
 
-  /**
+   /**
    * Reporting code used for cash flow classification
-   *
    * @return reportingCode
-   */
+  **/
   @ApiModelProperty(value = "Reporting code used for cash flow classification")
-  /**
+  /** 
    * Reporting code used for cash flow classification
-   *
    * @return reportingCode String
-   */
+  **/
   public String getReportingCode() {
     return reportingCode;
   }
 
-  /**
-   * Reporting code used for cash flow classification
-   *
-   * @param reportingCode String
-   */
+  /** 
+  * Reporting code used for cash flow classification
+  * @param reportingCode  String
+  **/
+
   public void setReportingCode(String reportingCode) {
     this.reportingCode = reportingCode;
   }
 
   /**
-   * Total amount for the account
-   *
-   * @param total Double
-   * @return CashflowAccount
-   */
+  * Total amount for the account
+  * @param total  Double
+  * @return CashflowAccount
+  **/
   public CashflowAccount total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total amount for the account
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total amount for the account")
-  /**
+  /** 
    * Total amount for the account
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total amount for the account
-   *
-   * @param total Double
-   */
+  /** 
+  * Total amount for the account
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -319,19 +292,20 @@ public class CashflowAccount {
       return false;
     }
     CashflowAccount cashflowAccount = (CashflowAccount) o;
-    return Objects.equals(this.accountId, cashflowAccount.accountId)
-        && Objects.equals(this.accountType, cashflowAccount.accountType)
-        && Objects.equals(this.accountClass, cashflowAccount.accountClass)
-        && Objects.equals(this.code, cashflowAccount.code)
-        && Objects.equals(this.name, cashflowAccount.name)
-        && Objects.equals(this.reportingCode, cashflowAccount.reportingCode)
-        && Objects.equals(this.total, cashflowAccount.total);
+    return Objects.equals(this.accountId, cashflowAccount.accountId) &&
+        Objects.equals(this.accountType, cashflowAccount.accountType) &&
+        Objects.equals(this.accountClass, cashflowAccount.accountClass) &&
+        Objects.equals(this.code, cashflowAccount.code) &&
+        Objects.equals(this.name, cashflowAccount.name) &&
+        Objects.equals(this.reportingCode, cashflowAccount.reportingCode) &&
+        Objects.equals(this.total, cashflowAccount.total);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accountId, accountType, accountClass, code, name, reportingCode, total);
   }
+
 
   @Override
   public String toString() {
@@ -349,7 +323,8 @@ public class CashflowAccount {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -357,4 +332,6 @@ public class CashflowAccount {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

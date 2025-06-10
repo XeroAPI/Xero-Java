@@ -9,24 +9,32 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.bankfeeds;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.bankfeeds;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
+import java.io.IOException;
+
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * On error, the API consumer will receive an HTTP response with a HTTP Status Code of 4xx or 5xx
- * and a Content-Type of application/problem+json.
+ * On error, the API consumer will receive an HTTP response with a HTTP Status Code of 4xx or 5xx and a Content-Type of application/problem+json.
  */
-@ApiModel(
-    description =
-        "On error, the API consumer will receive an HTTP response with a HTTP Status Code of 4xx"
-            + " or 5xx and a Content-Type of application/problem+json.")
+@ApiModel(description = "On error, the API consumer will receive an HTTP response with a HTTP Status Code of 4xx or 5xx and a Content-Type of application/problem+json.")
+
 public class Error {
   StringUtil util = new StringUtil();
 
@@ -38,71 +46,113 @@ public class Error {
 
   @JsonProperty("detail")
   private String detail;
-  /** Identifies the type of error. */
+  /**
+   * Identifies the type of error.
+   */
   public enum TypeEnum {
-    /** INVALID_REQUEST */
+    /**
+     * INVALID_REQUEST
+     */
     INVALID_REQUEST("invalid-request"),
-
-    /** INVALID_APPLICATION */
+    
+    /**
+     * INVALID_APPLICATION
+     */
     INVALID_APPLICATION("invalid-application"),
-
-    /** INVALID_FEED_CONNECTION */
+    
+    /**
+     * INVALID_FEED_CONNECTION
+     */
     INVALID_FEED_CONNECTION("invalid-feed-connection"),
-
-    /** DUPLICATE_STATEMENT */
+    
+    /**
+     * DUPLICATE_STATEMENT
+     */
     DUPLICATE_STATEMENT("duplicate-statement"),
-
-    /** INVALID_END_BALANCE */
+    
+    /**
+     * INVALID_END_BALANCE
+     */
     INVALID_END_BALANCE("invalid-end-balance"),
-
-    /** INVALID_START_AND_END_DATE */
+    
+    /**
+     * INVALID_START_AND_END_DATE
+     */
     INVALID_START_AND_END_DATE("invalid-start-and-end-date"),
-
-    /** INVALID_START_DATE */
+    
+    /**
+     * INVALID_START_DATE
+     */
     INVALID_START_DATE("invalid-start-date"),
-
-    /** INTERNAL_ERROR */
+    
+    /**
+     * INTERNAL_ERROR
+     */
     INTERNAL_ERROR("internal-error"),
-
-    /** FEED_ALREADY_CONNECTED_IN_CURRENT_ORGANISATION */
-    FEED_ALREADY_CONNECTED_IN_CURRENT_ORGANISATION(
-        "feed-already-connected-in-current-organisation"),
-
-    /** INVALID_END_DATE */
+    
+    /**
+     * FEED_ALREADY_CONNECTED_IN_CURRENT_ORGANISATION
+     */
+    FEED_ALREADY_CONNECTED_IN_CURRENT_ORGANISATION("feed-already-connected-in-current-organisation"),
+    
+    /**
+     * INVALID_END_DATE
+     */
     INVALID_END_DATE("invalid-end-date"),
-
-    /** STATEMENT_NOT_FOUND */
+    
+    /**
+     * STATEMENT_NOT_FOUND
+     */
     STATEMENT_NOT_FOUND("statement-not-found"),
-
-    /** FEED_CONNECTED_IN_DIFFERENT_ORGANISATION */
+    
+    /**
+     * FEED_CONNECTED_IN_DIFFERENT_ORGANISATION
+     */
     FEED_CONNECTED_IN_DIFFERENT_ORGANISATION("feed-connected-in-different-organisation"),
-
-    /** FEED_ALREADY_CONNECTED_IN_DIFFERENT_ORGANISATION */
-    FEED_ALREADY_CONNECTED_IN_DIFFERENT_ORGANISATION(
-        "feed-already-connected-in-different-organisation"),
-
-    /** BANK_FEED_NOT_FOUND */
+    
+    /**
+     * FEED_ALREADY_CONNECTED_IN_DIFFERENT_ORGANISATION
+     */
+    FEED_ALREADY_CONNECTED_IN_DIFFERENT_ORGANISATION("feed-already-connected-in-different-organisation"),
+    
+    /**
+     * BANK_FEED_NOT_FOUND
+     */
     BANK_FEED_NOT_FOUND("bank-feed-not-found"),
-
-    /** INVALID_COUNTRY_SPECIFIED */
+    
+    /**
+     * INVALID_COUNTRY_SPECIFIED
+     */
     INVALID_COUNTRY_SPECIFIED("invalid-country-specified"),
-
-    /** INVALID_ORGANISATION_BANK_FEEDS */
+    
+    /**
+     * INVALID_ORGANISATION_BANK_FEEDS
+     */
     INVALID_ORGANISATION_BANK_FEEDS("invalid-organisation-bank-feeds"),
-
-    /** INVALID_ORGANISATION_MULTI_CURRENCY */
+    
+    /**
+     * INVALID_ORGANISATION_MULTI_CURRENCY
+     */
     INVALID_ORGANISATION_MULTI_CURRENCY("invalid-organisation-multi-currency"),
-
-    /** INVALID_FEED_CONNECTION_FOR_ORGANISATION */
+    
+    /**
+     * INVALID_FEED_CONNECTION_FOR_ORGANISATION
+     */
     INVALID_FEED_CONNECTION_FOR_ORGANISATION("invalid-feed-connection-for-organisation"),
-
-    /** INVALID_USER_ROLE */
+    
+    /**
+     * INVALID_USER_ROLE
+     */
     INVALID_USER_ROLE("invalid-user-role"),
-
-    /** ACCOUNT_NOT_VALID */
+    
+    /**
+     * ACCOUNT_NOT_VALID
+     */
     ACCOUNT_NOT_VALID("account-not-valid"),
-
-    /** FEED_NOT_FOUND_OR_ALREADY_DELETED */
+    
+    /**
+     * FEED_NOT_FOUND_OR_ALREADY_DELETED
+     */
     FEED_NOT_FOUND_OR_ALREADY_DELETED("feed-not-found-or-already-deleted");
 
     private String value;
@@ -111,31 +161,25 @@ public class Error {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -147,151 +191,137 @@ public class Error {
     }
   }
 
+
   @JsonProperty("type")
   private TypeEnum type;
   /**
-   * Human readable high level error description.
-   *
-   * @param title String
-   * @return Error
-   */
+  * Human readable high level error description.
+  * @param title  String
+  * @return Error
+  **/
   public Error title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
+   /**
    * Human readable high level error description.
-   *
    * @return title
-   */
-  @ApiModelProperty(
-      example = "Invalid Application",
-      value = "Human readable high level error description.")
-  /**
+  **/
+  @ApiModelProperty(example = "Invalid Application", value = "Human readable high level error description.")
+  /** 
    * Human readable high level error description.
-   *
    * @return title String
-   */
+  **/
   public String getTitle() {
     return title;
   }
 
-  /**
-   * Human readable high level error description.
-   *
-   * @param title String
-   */
+  /** 
+  * Human readable high level error description.
+  * @param title  String
+  **/
+
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
-   * The numeric HTTP Status Code, e.g. 404
-   *
-   * @param status Integer
-   * @return Error
-   */
+  * The numeric HTTP Status Code, e.g. 404
+  * @param status  Integer
+  * @return Error
+  **/
   public Error status(Integer status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * The numeric HTTP Status Code, e.g. 404
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(example = "403", value = "The numeric HTTP Status Code, e.g. 404")
-  /**
+  /** 
    * The numeric HTTP Status Code, e.g. 404
-   *
    * @return status Integer
-   */
+  **/
   public Integer getStatus() {
     return status;
   }
 
-  /**
-   * The numeric HTTP Status Code, e.g. 404
-   *
-   * @param status Integer
-   */
+  /** 
+  * The numeric HTTP Status Code, e.g. 404
+  * @param status  Integer
+  **/
+
   public void setStatus(Integer status) {
     this.status = status;
   }
 
   /**
-   * Human readable detailed error description.
-   *
-   * @param detail String
-   * @return Error
-   */
+  * Human readable detailed error description.
+  * @param detail  String
+  * @return Error
+  **/
   public Error detail(String detail) {
     this.detail = detail;
     return this;
   }
 
-  /**
+   /**
    * Human readable detailed error description.
-   *
    * @return detail
-   */
-  @ApiModelProperty(
-      example = "The application has not been configured to use these API endpoints.",
-      value = "Human readable detailed error description.")
-  /**
+  **/
+  @ApiModelProperty(example = "The application has not been configured to use these API endpoints.", value = "Human readable detailed error description.")
+  /** 
    * Human readable detailed error description.
-   *
    * @return detail String
-   */
+  **/
   public String getDetail() {
     return detail;
   }
 
-  /**
-   * Human readable detailed error description.
-   *
-   * @param detail String
-   */
+  /** 
+  * Human readable detailed error description.
+  * @param detail  String
+  **/
+
   public void setDetail(String detail) {
     this.detail = detail;
   }
 
   /**
-   * Identifies the type of error.
-   *
-   * @param type TypeEnum
-   * @return Error
-   */
+  * Identifies the type of error.
+  * @param type  TypeEnum
+  * @return Error
+  **/
   public Error type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * Identifies the type of error.
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(example = "invalid-application", value = "Identifies the type of error.")
-  /**
+  /** 
    * Identifies the type of error.
-   *
    * @return type TypeEnum
-   */
+  **/
   public TypeEnum getType() {
     return type;
   }
 
-  /**
-   * Identifies the type of error.
-   *
-   * @param type TypeEnum
-   */
+  /** 
+  * Identifies the type of error.
+  * @param type  TypeEnum
+  **/
+
   public void setType(TypeEnum type) {
     this.type = type;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -302,16 +332,17 @@ public class Error {
       return false;
     }
     Error error = (Error) o;
-    return Objects.equals(this.title, error.title)
-        && Objects.equals(this.status, error.status)
-        && Objects.equals(this.detail, error.detail)
-        && Objects.equals(this.type, error.type);
+    return Objects.equals(this.title, error.title) &&
+        Objects.equals(this.status, error.status) &&
+        Objects.equals(this.detail, error.detail) &&
+        Objects.equals(this.type, error.type);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(title, status, detail, type);
   }
+
 
   @Override
   public String toString() {
@@ -326,7 +357,8 @@ public class Error {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -334,4 +366,6 @@ public class Error {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

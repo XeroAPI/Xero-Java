@@ -9,23 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-
+ 
 package com.xero.api.client;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.http.HttpMethods;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpResponseException;
-import com.google.api.client.http.HttpTransport;
 import com.xero.api.ApiClient;
-import com.xero.api.XeroApiExceptionHandler;
+
 import com.xero.models.project.ChargeType;
+import com.xero.models.project.Error;
+import org.threeten.bp.OffsetDateTime;
 import com.xero.models.project.Project;
 import com.xero.models.project.ProjectCreateOrUpdate;
 import com.xero.models.project.ProjectPatch;
@@ -37,2335 +28,1866 @@ import com.xero.models.project.Tasks;
 import com.xero.models.project.TimeEntries;
 import com.xero.models.project.TimeEntry;
 import com.xero.models.project.TimeEntryCreateOrUpdate;
+import java.util.UUID;
+import com.xero.api.XeroApiException;
+import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.api.client.http.ByteArrayContent;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpContent;
+import com.google.api.client.http.HttpMethods;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpHeaders;
+import com.google.api.client.http.HttpMediaType;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpResponseException;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.MultipartContent;
+import com.google.api.client.http.FileContent;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.util.Maps;
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+
 import jakarta.ws.rs.core.UriBuilder;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.List;
+
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
-import org.threeten.bp.OffsetDateTime;
+import org.slf4j.Logger;
 
-/** ProjectApi has methods for interacting with all endpoints in the API set */
+
+/** ProjectApi has methods for interacting with all endpoints in the API set  */
 public class ProjectApi {
-  private ApiClient apiClient;
-  private static ProjectApi instance = null;
-  private String userAgent = "Default";
-  private String version = "10.2.0";
-  static final Logger logger = LoggerFactory.getLogger(ProjectApi.class);
+    private ApiClient apiClient;
+    private static ProjectApi instance = null;
+    private String userAgent = "Default";
+    private String version = "10.2.0";
+    final static Logger logger = LoggerFactory.getLogger(ProjectApi.class);
 
-  /** ProjectApi */
-  public ProjectApi() {
-    this(new ApiClient());
-  }
-
-  /**
-   * ProjectApi getInstance
-   *
-   * @param apiClient ApiClient pass into the new instance of this class
-   * @return instance of this class
-   */
-  public static ProjectApi getInstance(ApiClient apiClient) {
-    if (instance == null) {
-      instance = new ProjectApi(apiClient);
+    /** ProjectApi  */
+    public ProjectApi() {
+        this(new ApiClient());
     }
-    return instance;
-  }
 
-  /**
-   * ProjectApi
-   *
-   * @param apiClient ApiClient pass into the new instance of this class
-   */
-  public ProjectApi(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * get ApiClient
-   *
-   * @return apiClient the current ApiClient
-   */
-  public ApiClient getApiClient() {
-    return apiClient;
-  }
-
-  /**
-   * set ApiClient
-   *
-   * @param apiClient ApiClient pass into the new instance of this class
-   */
-  public void setApiClient(ApiClient apiClient) {
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * set user agent
-   *
-   * @param userAgent string to override the user agent
-   */
-  public void setUserAgent(String userAgent) {
-    this.userAgent = userAgent;
-  }
-
-  /**
-   * get user agent
-   *
-   * @return String of user agent
-   */
-  public String getUserAgent() {
-    return this.userAgent + " [Xero-Java-" + this.version + "]";
-  }
-
-  /**
-   * Create one or more new projects
-   *
-   * <p><b>201</b> - OK/success, returns the new project object
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectCreateOrUpdate Create a new project with ProjectCreateOrUpdate object
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Project
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Project createProject(
-      String accessToken,
-      String xeroTenantId,
-      ProjectCreateOrUpdate projectCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    try {
-      TypeReference<Project> typeRef = new TypeReference<Project>() {};
-      HttpResponse response =
-          createProjectForHttpResponse(
-              accessToken, xeroTenantId, projectCreateOrUpdate, idempotencyKey);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createProject -------------------");
-        logger.debug(e.toString());
+    /** ProjectApi getInstance
+    * @param apiClient ApiClient pass into the new instance of this class 
+    * @return instance of this class
+    */
+    public static ProjectApi getInstance(ApiClient apiClient) {
+      if (instance == null) {
+        instance = new ProjectApi(apiClient);
       }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Create one or more new projects
-   *
-   * <p><b>201</b> - OK/success, returns the new project object
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectCreateOrUpdate Create a new project with ProjectCreateOrUpdate object
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse createProjectForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      ProjectCreateOrUpdate projectCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling createProject");
-    } // verify the required parameter 'projectCreateOrUpdate' is set
-    if (projectCreateOrUpdate == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectCreateOrUpdate' when calling createProject");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling createProject");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects");
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
+      return instance;
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(projectCreateOrUpdate);
-
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Allows you to create a task Allows you to create a specific task
-   *
-   * <p><b>201</b> - OK/success, returns the new task object
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can create a task on a specified projectId
-   * @param taskCreateOrUpdate The task object you are creating
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Task
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Task createTask(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      TaskCreateOrUpdate taskCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    try {
-      TypeReference<Task> typeRef = new TypeReference<Task>() {};
-      HttpResponse response =
-          createTaskForHttpResponse(
-              accessToken, xeroTenantId, projectId, taskCreateOrUpdate, idempotencyKey);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createTask -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Allows you to create a task Allows you to create a specific task
-   *
-   * <p><b>201</b> - OK/success, returns the new task object
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can create a task on a specified projectId
-   * @param taskCreateOrUpdate The task object you are creating
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse createTaskForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      TaskCreateOrUpdate taskCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling createTask");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling createTask");
-    } // verify the required parameter 'taskCreateOrUpdate' is set
-    if (taskCreateOrUpdate == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'taskCreateOrUpdate' when calling createTask");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling createTask");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Tasks");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
+    /** ProjectApi
+    * @param apiClient ApiClient pass into the new instance of this class 
+    */
+    public ProjectApi(ApiClient apiClient) {
+        this.apiClient = apiClient;
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(taskCreateOrUpdate);
-
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Creates a time entry for a specific project Allows you to create a specific task
-   *
-   * <p><b>200</b> - OK/success, returns the newly created time entry
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param timeEntryCreateOrUpdate The time entry object you are creating
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return TimeEntry
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public TimeEntry createTimeEntry(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      TimeEntryCreateOrUpdate timeEntryCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    try {
-      TypeReference<TimeEntry> typeRef = new TypeReference<TimeEntry>() {};
-      HttpResponse response =
-          createTimeEntryForHttpResponse(
-              accessToken, xeroTenantId, projectId, timeEntryCreateOrUpdate, idempotencyKey);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createTimeEntry -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Creates a time entry for a specific project Allows you to create a specific task
-   *
-   * <p><b>200</b> - OK/success, returns the newly created time entry
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param timeEntryCreateOrUpdate The time entry object you are creating
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse createTimeEntryForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      TimeEntryCreateOrUpdate timeEntryCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling createTimeEntry");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling createTimeEntry");
-    } // verify the required parameter 'timeEntryCreateOrUpdate' is set
-    if (timeEntryCreateOrUpdate == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'timeEntryCreateOrUpdate' when calling createTimeEntry");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling createTimeEntry");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Time");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("POST " + genericUrl.toString());
+    /** get ApiClient
+    * @return apiClient the current ApiClient  
+    */
+    public ApiClient getApiClient() {
+        return apiClient;
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(timeEntryCreateOrUpdate);
-
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.POST, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Allows you to delete a task Allows you to delete a specific task
-   *
-   * <p><b>204</b> - Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param taskId You can specify an individual task by appending the id to the endpoint
-   * @param accessToken Authorization token for user set in header of each request
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public void deleteTask(String accessToken, String xeroTenantId, UUID projectId, UUID taskId)
-      throws IOException {
-    try {
-      deleteTaskForHttpResponse(accessToken, xeroTenantId, projectId, taskId);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : deleteTask -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-  }
-
-  /**
-   * Allows you to delete a task Allows you to delete a specific task
-   *
-   * <p><b>204</b> - Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param taskId You can specify an individual task by appending the id to the endpoint
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse deleteTaskForHttpResponse(
-      String accessToken, String xeroTenantId, UUID projectId, UUID taskId) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling deleteTask");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling deleteTask");
-    } // verify the required parameter 'taskId' is set
-    if (taskId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'taskId' when calling deleteTask");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling deleteTask");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-    uriVariables.put("taskId", taskId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Tasks/{taskId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("DELETE " + genericUrl.toString());
+    /** set ApiClient
+    * @param apiClient ApiClient pass into the new instance of this class 
+    */
+    public void setApiClient(ApiClient apiClient) {
+        this.apiClient = apiClient;
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.DELETE, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Deletes a time entry for a specific project Allows you to delete a specific time entry
-   *
-   * <p><b>204</b> - Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param timeEntryId You can specify an individual task by appending the id to the endpoint
-   * @param accessToken Authorization token for user set in header of each request
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public void deleteTimeEntry(
-      String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId)
-      throws IOException {
-    try {
-      deleteTimeEntryForHttpResponse(accessToken, xeroTenantId, projectId, timeEntryId);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : deleteTimeEntry -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
+    /** set user agent
+    * @param userAgent string to override the user agent
+    */
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
     }
-  }
-
-  /**
-   * Deletes a time entry for a specific project Allows you to delete a specific time entry
-   *
-   * <p><b>204</b> - Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param timeEntryId You can specify an individual task by appending the id to the endpoint
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse deleteTimeEntryForHttpResponse(
-      String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling deleteTimeEntry");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling deleteTimeEntry");
-    } // verify the required parameter 'timeEntryId' is set
-    if (timeEntryId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'timeEntryId' when calling deleteTimeEntry");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling deleteTimeEntry");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-    uriVariables.put("timeEntryId", timeEntryId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Time/{timeEntryId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("DELETE " + genericUrl.toString());
+    
+    /** get user agent
+    * @return String of user agent
+    */
+    public String getUserAgent() {
+        return this.userAgent +  " [Xero-Java-" + this.version + "]";
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.DELETE, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves a single project Allows you to retrieve a specific project using the projectId
-   *
-   * <p><b>200</b> - OK/success, returns the specified project object
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Project
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Project getProject(String accessToken, String xeroTenantId, UUID projectId)
-      throws IOException {
-    try {
-      TypeReference<Project> typeRef = new TypeReference<Project>() {};
-      HttpResponse response = getProjectForHttpResponse(accessToken, xeroTenantId, projectId);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getProject -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves a single project Allows you to retrieve a specific project using the projectId
-   *
-   * <p><b>200</b> - OK/success, returns the specified project object
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getProjectForHttpResponse(
-      String accessToken, String xeroTenantId, UUID projectId) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getProject");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling getProject");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getProject");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves a list of all project users Allows you to retrieve the users on a projects.
-   *
-   * <p><b>200</b> - OK/success, returns a list of project users
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param page set to 1 by default. The requested number of the page in paged response - Must be a
-   *     number greater than 0.
-   * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in
-   *     a paged response - Must be a number between 1 and 500.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return ProjectUsers
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public ProjectUsers getProjectUsers(
-      String accessToken, String xeroTenantId, Integer page, Integer pageSize) throws IOException {
-    try {
-      TypeReference<ProjectUsers> typeRef = new TypeReference<ProjectUsers>() {};
-      HttpResponse response =
-          getProjectUsersForHttpResponse(accessToken, xeroTenantId, page, pageSize);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getProjectUsers -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves a list of all project users Allows you to retrieve the users on a projects.
-   *
-   * <p><b>200</b> - OK/success, returns a list of project users
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param page set to 1 by default. The requested number of the page in paged response - Must be a
-   *     number greater than 0.
-   * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in
-   *     a paged response - Must be a number between 1 and 500.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getProjectUsersForHttpResponse(
-      String accessToken, String xeroTenantId, Integer page, Integer pageSize) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getProjectUsers");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getProjectUsers");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ProjectsUsers");
-    if (page != null) {
-      String key = "page";
-      Object value = page;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+    
+    /**
+    * Create one or more new projects
+    * <p><b>201</b> - OK/success, returns the new project object
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectCreateOrUpdate Create a new project with ProjectCreateOrUpdate object
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Project
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Project  createProject(String accessToken, String xeroTenantId, ProjectCreateOrUpdate projectCreateOrUpdate, String idempotencyKey) throws IOException {
+        try {
+            TypeReference<Project> typeRef = new TypeReference<Project>() {};
+            HttpResponse response = createProjectForHttpResponse(accessToken, xeroTenantId, projectCreateOrUpdate, idempotencyKey);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createProject -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        return null;
     }
-    if (pageSize != null) {
-      String key = "pageSize";
-      Object value = pageSize;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Create one or more new projects
+    * <p><b>201</b> - OK/success, returns the new project object
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectCreateOrUpdate Create a new project with ProjectCreateOrUpdate object
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse createProjectForHttpResponse(String accessToken, String xeroTenantId, ProjectCreateOrUpdate projectCreateOrUpdate, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createProject");
+        }// verify the required parameter 'projectCreateOrUpdate' is set
+        if (projectCreateOrUpdate == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectCreateOrUpdate' when calling createProject");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves all projects Allows you to retrieve, create and update projects.
-   *
-   * <p><b>200</b> - OK/success, returns a list of project objects
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectIds Search for all projects that match a comma separated list of projectIds
-   * @param contactID Filter for projects for a specific contact
-   * @param states Filter for projects in a particular state (INPROGRESS or CLOSED)
-   * @param page set to 1 by default. The requested number of the page in paged response - Must be a
-   *     number greater than 0.
-   * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in
-   *     a paged response - Must be a number between 1 and 500.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Projects
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Projects getProjects(
-      String accessToken,
-      String xeroTenantId,
-      List<UUID> projectIds,
-      UUID contactID,
-      String states,
-      Integer page,
-      Integer pageSize)
-      throws IOException {
-    try {
-      TypeReference<Projects> typeRef = new TypeReference<Projects>() {};
-      HttpResponse response =
-          getProjectsForHttpResponse(
-              accessToken, xeroTenantId, projectIds, contactID, states, page, pageSize);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getProjects -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves all projects Allows you to retrieve, create and update projects.
-   *
-   * <p><b>200</b> - OK/success, returns a list of project objects
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectIds Search for all projects that match a comma separated list of projectIds
-   * @param contactID Filter for projects for a specific contact
-   * @param states Filter for projects in a particular state (INPROGRESS or CLOSED)
-   * @param page set to 1 by default. The requested number of the page in paged response - Must be a
-   *     number greater than 0.
-   * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in
-   *     a paged response - Must be a number between 1 and 500.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getProjectsForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      List<UUID> projectIds,
-      UUID contactID,
-      String states,
-      Integer page,
-      Integer pageSize)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getProjects");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getProjects");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects");
-    if (projectIds != null) {
-      String key = "projectIds";
-      Object value = projectIds;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createProject");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (contactID != null) {
-      String key = "contactID";
-      Object value = contactID;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects");
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(projectCreateOrUpdate);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
-    if (states != null) {
-      String key = "states";
-      Object value = states;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    
+    /**
+    * Allows you to create a task
+    * Allows you to create a specific task
+    * <p><b>201</b> - OK/success, returns the new task object
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can create a task on a specified projectId
+    * @param taskCreateOrUpdate The task object you are creating
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Task
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Task  createTask(String accessToken, String xeroTenantId, UUID projectId, TaskCreateOrUpdate taskCreateOrUpdate, String idempotencyKey) throws IOException {
+        try {
+            TypeReference<Task> typeRef = new TypeReference<Task>() {};
+            HttpResponse response = createTaskForHttpResponse(accessToken, xeroTenantId, projectId, taskCreateOrUpdate, idempotencyKey);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createTask -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        return null;
     }
-    if (page != null) {
-      String key = "page";
-      Object value = page;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Allows you to create a task
+    * Allows you to create a specific task
+    * <p><b>201</b> - OK/success, returns the new task object
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can create a task on a specified projectId
+    * @param taskCreateOrUpdate The task object you are creating
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse createTaskForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, TaskCreateOrUpdate taskCreateOrUpdate, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createTask");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling createTask");
+        }// verify the required parameter 'taskCreateOrUpdate' is set
+        if (taskCreateOrUpdate == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'taskCreateOrUpdate' when calling createTask");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (pageSize != null) {
-      String key = "pageSize";
-      Object value = pageSize;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createTask");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.build().toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves a single project task Allows you to retrieve a specific project
-   *
-   * <p><b>200</b> - OK/success, returns the specified task object
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param taskId You can specify an individual task by appending the taskId to the endpoint, i.e.
-   *     GET https://.../tasks/{taskID}
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Task
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Task getTask(String accessToken, String xeroTenantId, UUID projectId, UUID taskId)
-      throws IOException {
-    try {
-      TypeReference<Task> typeRef = new TypeReference<Task>() {};
-      HttpResponse response = getTaskForHttpResponse(accessToken, xeroTenantId, projectId, taskId);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getTask -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves a single project task Allows you to retrieve a specific project
-   *
-   * <p><b>200</b> - OK/success, returns the specified task object
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param taskId You can specify an individual task by appending the taskId to the endpoint, i.e.
-   *     GET https://.../tasks/{taskID}
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getTaskForHttpResponse(
-      String accessToken, String xeroTenantId, UUID projectId, UUID taskId) throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getTask");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling getTask");
-    } // verify the required parameter 'taskId' is set
-    if (taskId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'taskId' when calling getTask");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getTask");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-    uriVariables.put("taskId", taskId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Tasks/{taskId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
-
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves all project tasks Allows you to retrieve a specific project
-   *
-   * <p><b>200</b> - OK/success, returns a list of task objects
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param page Set to 1 by default. The requested number of the page in paged response - Must be a
-   *     number greater than 0.
-   * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in
-   *     a paged response - Must be a number between 1 and 500.
-   * @param taskIds Search for all tasks that match a comma separated list of taskIds, i.e. GET
-   *     https://.../tasks?taskIds&#x3D;{taskID},{taskID}
-   * @param chargeType The chargeType parameter
-   * @param accessToken Authorization token for user set in header of each request
-   * @return Tasks
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public Tasks getTasks(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      Integer page,
-      Integer pageSize,
-      String taskIds,
-      ChargeType chargeType)
-      throws IOException {
-    try {
-      TypeReference<Tasks> typeRef = new TypeReference<Tasks>() {};
-      HttpResponse response =
-          getTasksForHttpResponse(
-              accessToken, xeroTenantId, projectId, page, pageSize, taskIds, chargeType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getTasks -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves all project tasks Allows you to retrieve a specific project
-   *
-   * <p><b>200</b> - OK/success, returns a list of task objects
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param page Set to 1 by default. The requested number of the page in paged response - Must be a
-   *     number greater than 0.
-   * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in
-   *     a paged response - Must be a number between 1 and 500.
-   * @param taskIds Search for all tasks that match a comma separated list of taskIds, i.e. GET
-   *     https://.../tasks?taskIds&#x3D;{taskID},{taskID}
-   * @param chargeType The chargeType parameter
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getTasksForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      Integer page,
-      Integer pageSize,
-      String taskIds,
-      ChargeType chargeType)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getTasks");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling getTasks");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getTasks");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Tasks");
-    if (page != null) {
-      String key = "page";
-      Object value = page;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Tasks");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(taskCreateOrUpdate);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
-    if (pageSize != null) {
-      String key = "pageSize";
-      Object value = pageSize;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    
+    /**
+    * Creates a time entry for a specific project
+    * Allows you to create a specific task
+    * <p><b>200</b> - OK/success, returns the newly created time entry
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param timeEntryCreateOrUpdate The time entry object you are creating
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  TimeEntry
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public TimeEntry  createTimeEntry(String accessToken, String xeroTenantId, UUID projectId, TimeEntryCreateOrUpdate timeEntryCreateOrUpdate, String idempotencyKey) throws IOException {
+        try {
+            TypeReference<TimeEntry> typeRef = new TypeReference<TimeEntry>() {};
+            HttpResponse response = createTimeEntryForHttpResponse(accessToken, xeroTenantId, projectId, timeEntryCreateOrUpdate, idempotencyKey);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createTimeEntry -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        return null;
     }
-    if (taskIds != null) {
-      String key = "taskIds";
-      Object value = taskIds;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Creates a time entry for a specific project
+    * Allows you to create a specific task
+    * <p><b>200</b> - OK/success, returns the newly created time entry
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param timeEntryCreateOrUpdate The time entry object you are creating
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse createTimeEntryForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, TimeEntryCreateOrUpdate timeEntryCreateOrUpdate, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createTimeEntry");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling createTimeEntry");
+        }// verify the required parameter 'timeEntryCreateOrUpdate' is set
+        if (timeEntryCreateOrUpdate == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'timeEntryCreateOrUpdate' when calling createTimeEntry");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (chargeType != null) {
-      String key = "chargeType";
-      Object value = chargeType;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createTimeEntry");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
-    }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Retrieves all time entries associated with a specific project Allows you to retrieve the time
-   * entries associated with a specific project
-   *
-   * <p><b>200</b> - OK/success, returns a list of time entry objects
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId Identifier of the project, that the task (which the time entry is logged
-   *     against) belongs to.
-   * @param userId The xero user identifier of the person who logged time.
-   * @param taskId Identifier of the task that time entry is logged against.
-   * @param invoiceId Finds all time entries for this invoice.
-   * @param contactId Finds all time entries for this contact identifier.
-   * @param page Set to 1 by default. The requested number of the page in paged response - Must be a
-   *     number greater than 0.
-   * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in
-   *     a paged response - Must be a number between 1 and 500.
-   * @param states Comma-separated list of states to find. Will find all time entries that are in
-   *     the status of whatever is specified.
-   * @param isChargeable Finds all time entries which relate to tasks with the charge type
-   *     &#x60;TIME&#x60; or &#x60;FIXED&#x60;.
-   * @param dateAfterUtc ISO 8601 UTC date. Finds all time entries on or after this date filtered on
-   *     the &#x60;dateUtc&#x60; field.
-   * @param dateBeforeUtc ISO 8601 UTC date. Finds all time entries on or before this date filtered
-   *     on the &#x60;dateUtc&#x60; field.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return TimeEntries
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public TimeEntries getTimeEntries(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      UUID userId,
-      UUID taskId,
-      UUID invoiceId,
-      UUID contactId,
-      Integer page,
-      Integer pageSize,
-      List<String> states,
-      Boolean isChargeable,
-      OffsetDateTime dateAfterUtc,
-      OffsetDateTime dateBeforeUtc)
-      throws IOException {
-    try {
-      TypeReference<TimeEntries> typeRef = new TypeReference<TimeEntries>() {};
-      HttpResponse response =
-          getTimeEntriesForHttpResponse(
-              accessToken,
-              xeroTenantId,
-              projectId,
-              userId,
-              taskId,
-              invoiceId,
-              contactId,
-              page,
-              pageSize,
-              states,
-              isChargeable,
-              dateAfterUtc,
-              dateBeforeUtc);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getTimeEntries -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves all time entries associated with a specific project Allows you to retrieve the time
-   * entries associated with a specific project
-   *
-   * <p><b>200</b> - OK/success, returns a list of time entry objects
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId Identifier of the project, that the task (which the time entry is logged
-   *     against) belongs to.
-   * @param userId The xero user identifier of the person who logged time.
-   * @param taskId Identifier of the task that time entry is logged against.
-   * @param invoiceId Finds all time entries for this invoice.
-   * @param contactId Finds all time entries for this contact identifier.
-   * @param page Set to 1 by default. The requested number of the page in paged response - Must be a
-   *     number greater than 0.
-   * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in
-   *     a paged response - Must be a number between 1 and 500.
-   * @param states Comma-separated list of states to find. Will find all time entries that are in
-   *     the status of whatever is specified.
-   * @param isChargeable Finds all time entries which relate to tasks with the charge type
-   *     &#x60;TIME&#x60; or &#x60;FIXED&#x60;.
-   * @param dateAfterUtc ISO 8601 UTC date. Finds all time entries on or after this date filtered on
-   *     the &#x60;dateUtc&#x60; field.
-   * @param dateBeforeUtc ISO 8601 UTC date. Finds all time entries on or before this date filtered
-   *     on the &#x60;dateUtc&#x60; field.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getTimeEntriesForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      UUID userId,
-      UUID taskId,
-      UUID invoiceId,
-      UUID contactId,
-      Integer page,
-      Integer pageSize,
-      List<String> states,
-      Boolean isChargeable,
-      OffsetDateTime dateAfterUtc,
-      OffsetDateTime dateBeforeUtc)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getTimeEntries");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling getTimeEntries");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getTimeEntries");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Time");
-    if (userId != null) {
-      String key = "userId";
-      Object value = userId;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Time");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(timeEntryCreateOrUpdate);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
-    if (taskId != null) {
-      String key = "taskId";
-      Object value = taskId;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    
+    /**
+    * Allows you to delete a task
+    * Allows you to delete a specific task
+    * <p><b>204</b> - Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param taskId You can specify an individual task by appending the id to the endpoint
+    * @param accessToken Authorization token for user set in header of each request
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public void deleteTask(String accessToken, String xeroTenantId, UUID projectId, UUID taskId) throws IOException {
+        try {
+            deleteTaskForHttpResponse(accessToken, xeroTenantId, projectId, taskId);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteTask -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        
     }
-    if (invoiceId != null) {
-      String key = "invoiceId";
-      Object value = invoiceId;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Allows you to delete a task
+    * Allows you to delete a specific task
+    * <p><b>204</b> - Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param taskId You can specify an individual task by appending the id to the endpoint
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse deleteTaskForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, UUID taskId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling deleteTask");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling deleteTask");
+        }// verify the required parameter 'taskId' is set
+        if (taskId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'taskId' when calling deleteTask");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (contactId != null) {
-      String key = "contactId";
-      Object value = contactId;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling deleteTask");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (page != null) {
-      String key = "page";
-      Object value = page;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+        uriVariables.put("taskId", taskId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Tasks/{taskId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
-    if (pageSize != null) {
-      String key = "pageSize";
-      Object value = pageSize;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    
+    /**
+    * Deletes a time entry for a specific project
+    * Allows you to delete a specific time entry
+    * <p><b>204</b> - Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param timeEntryId You can specify an individual task by appending the id to the endpoint
+    * @param accessToken Authorization token for user set in header of each request
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public void deleteTimeEntry(String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId) throws IOException {
+        try {
+            deleteTimeEntryForHttpResponse(accessToken, xeroTenantId, projectId, timeEntryId);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteTimeEntry -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        
     }
-    if (states != null) {
-      String key = "states";
-      Object value = states;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    /**
+    * Deletes a time entry for a specific project
+    * Allows you to delete a specific time entry
+    * <p><b>204</b> - Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param timeEntryId You can specify an individual task by appending the id to the endpoint
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse deleteTimeEntryForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling deleteTimeEntry");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling deleteTimeEntry");
+        }// verify the required parameter 'timeEntryId' is set
+        if (timeEntryId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'timeEntryId' when calling deleteTimeEntry");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (isChargeable != null) {
-      String key = "isChargeable";
-      Object value = isChargeable;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling deleteTimeEntry");
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (dateAfterUtc != null) {
-      String key = "dateAfterUtc";
-      Object value = dateAfterUtc;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+        uriVariables.put("timeEntryId", timeEntryId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Time/{timeEntryId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
-    if (dateBeforeUtc != null) {
-      String key = "dateBeforeUtc";
-      Object value = dateBeforeUtc;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+
+    
+    /**
+    * Retrieves a single project
+    * Allows you to retrieve a specific project using the projectId
+    * <p><b>200</b> - OK/success, returns the specified project object
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Project
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Project  getProject(String accessToken, String xeroTenantId, UUID projectId) throws IOException {
+        try {
+            TypeReference<Project> typeRef = new TypeReference<Project>() {};
+            HttpResponse response = getProjectForHttpResponse(accessToken, xeroTenantId, projectId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getProject -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
         }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        return null;
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
+    /**
+    * Retrieves a single project
+    * Allows you to retrieve a specific project using the projectId
+    * <p><b>200</b> - OK/success, returns the specified project object
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getProjectForHttpResponse(String accessToken, String xeroTenantId, UUID projectId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getProject");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling getProject");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getProject");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
 
-  /**
-   * Retrieves a single time entry for a specific project Allows you to get a single time entry in a
-   * project
-   *
-   * <p><b>200</b> - OK/success, returns the specified time entry
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param timeEntryId You can specify an individual time entry by appending the id to the endpoint
-   * @param accessToken Authorization token for user set in header of each request
-   * @return TimeEntry
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public TimeEntry getTimeEntry(
-      String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId)
-      throws IOException {
-    try {
-      TypeReference<TimeEntry> typeRef = new TypeReference<TimeEntry>() {};
-      HttpResponse response =
-          getTimeEntryForHttpResponse(accessToken, xeroTenantId, projectId, timeEntryId);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : getTimeEntry -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
-  }
-
-  /**
-   * Retrieves a single time entry for a specific project Allows you to get a single time entry in a
-   * project
-   *
-   * <p><b>200</b> - OK/success, returns the specified time entry
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param timeEntryId You can specify an individual time entry by appending the id to the endpoint
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse getTimeEntryForHttpResponse(
-      String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getTimeEntry");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling getTimeEntry");
-    } // verify the required parameter 'timeEntryId' is set
-    if (timeEntryId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'timeEntryId' when calling getTimeEntry");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getTimeEntry");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-    uriVariables.put("timeEntryId", timeEntryId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Time/{timeEntryId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("GET " + genericUrl.toString());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    HttpContent content = null;
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.GET, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * creates a project for the specified contact Allows you to update a specific projects.
-   *
-   * <p><b>204</b> - Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param projectPatch Update the status of an existing Project
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public void patchProject(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      ProjectPatch projectPatch,
-      String idempotencyKey)
-      throws IOException {
-    try {
-      patchProjectForHttpResponse(
-          accessToken, xeroTenantId, projectId, projectPatch, idempotencyKey);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : patchProject -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-  }
-
-  /**
-   * creates a project for the specified contact Allows you to update a specific projects.
-   *
-   * <p><b>204</b> - Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param projectPatch Update the status of an existing Project
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse patchProjectForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      ProjectPatch projectPatch,
-      String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling patchProject");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling patchProject");
-    } // verify the required parameter 'projectPatch' is set
-    if (projectPatch == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectPatch' when calling patchProject");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling patchProject");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PATCH " + genericUrl.toString());
+    
+    /**
+    * Retrieves a list of all project users
+    * Allows you to retrieve the users on a projects.
+    * <p><b>200</b> - OK/success, returns a list of project users
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param page set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
+    * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  ProjectUsers
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public ProjectUsers  getProjectUsers(String accessToken, String xeroTenantId, Integer page, Integer pageSize) throws IOException {
+        try {
+            TypeReference<ProjectUsers> typeRef = new TypeReference<ProjectUsers>() {};
+            HttpResponse response = getProjectUsersForHttpResponse(accessToken, xeroTenantId, page, pageSize);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getProjectUsers -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(projectPatch);
-
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PATCH, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Updates a specific project Allows you to update a specific projects.
-   *
-   * <p><b>204</b> - Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param projectCreateOrUpdate Request of type ProjectCreateOrUpdate
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public void updateProject(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      ProjectCreateOrUpdate projectCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    try {
-      updateProjectForHttpResponse(
-          accessToken, xeroTenantId, projectId, projectCreateOrUpdate, idempotencyKey);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateProject -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-  }
-
-  /**
-   * Updates a specific project Allows you to update a specific projects.
-   *
-   * <p><b>204</b> - Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param projectCreateOrUpdate Request of type ProjectCreateOrUpdate
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse updateProjectForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      ProjectCreateOrUpdate projectCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling updateProject");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling updateProject");
-    } // verify the required parameter 'projectCreateOrUpdate' is set
-    if (projectCreateOrUpdate == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectCreateOrUpdate' when calling updateProject");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling updateProject");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-
-    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
+    /**
+    * Retrieves a list of all project users
+    * Allows you to retrieve the users on a projects.
+    * <p><b>200</b> - OK/success, returns a list of project users
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param page set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
+    * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getProjectUsersForHttpResponse(String accessToken, String xeroTenantId, Integer page, Integer pageSize) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getProjectUsers");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getProjectUsers");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ProjectsUsers");
+        if (page != null) {
+            String key = "page";
+            Object value = page;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (pageSize != null) {
+            String key = "pageSize";
+            Object value = pageSize;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(projectCreateOrUpdate);
-
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Allows you to update a task Allows you to update a specific task
-   *
-   * <p><b>204</b> - OK/Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param taskId You can specify an individual task by appending the id to the endpoint
-   * @param taskCreateOrUpdate The task object you are updating
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public void updateTask(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      UUID taskId,
-      TaskCreateOrUpdate taskCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    try {
-      updateTaskForHttpResponse(
-          accessToken, xeroTenantId, projectId, taskId, taskCreateOrUpdate, idempotencyKey);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateTask -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-  }
-
-  /**
-   * Allows you to update a task Allows you to update a specific task
-   *
-   * <p><b>204</b> - OK/Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param taskId You can specify an individual task by appending the id to the endpoint
-   * @param taskCreateOrUpdate The task object you are updating
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse updateTaskForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      UUID taskId,
-      TaskCreateOrUpdate taskCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling updateTask");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling updateTask");
-    } // verify the required parameter 'taskId' is set
-    if (taskId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'taskId' when calling updateTask");
-    } // verify the required parameter 'taskCreateOrUpdate' is set
-    if (taskCreateOrUpdate == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'taskCreateOrUpdate' when calling updateTask");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling updateTask");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-    uriVariables.put("taskId", taskId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Tasks/{taskId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
+    
+    /**
+    * Retrieves all projects
+    * Allows you to retrieve, create and update projects.
+    * <p><b>200</b> - OK/success, returns a list of project objects
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectIds Search for all projects that match a comma separated list of projectIds
+    * @param contactID Filter for projects for a specific contact
+    * @param states Filter for projects in a particular state (INPROGRESS or CLOSED)
+    * @param page set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
+    * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Projects
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Projects  getProjects(String accessToken, String xeroTenantId, List<UUID> projectIds, UUID contactID, String states, Integer page, Integer pageSize) throws IOException {
+        try {
+            TypeReference<Projects> typeRef = new TypeReference<Projects>() {};
+            HttpResponse response = getProjectsForHttpResponse(accessToken, xeroTenantId, projectIds, contactID, states, page, pageSize);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getProjects -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(taskCreateOrUpdate);
-
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * Updates a time entry for a specific project Allows you to update time entry in a project
-   *
-   * <p><b>204</b> - Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param timeEntryId You can specify an individual time entry by appending the id to the endpoint
-   * @param timeEntryCreateOrUpdate The time entry object you are updating
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @throws IOException if an error occurs while attempting to invoke the API *
-   */
-  public void updateTimeEntry(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      UUID timeEntryId,
-      TimeEntryCreateOrUpdate timeEntryCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    try {
-      updateTimeEntryForHttpResponse(
-          accessToken,
-          xeroTenantId,
-          projectId,
-          timeEntryId,
-          timeEntryCreateOrUpdate,
-          idempotencyKey);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : updateTimeEntry -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      handler.execute(e);
-    } catch (IOException ioe) {
-      throw ioe;
+    /**
+    * Retrieves all projects
+    * Allows you to retrieve, create and update projects.
+    * <p><b>200</b> - OK/success, returns a list of project objects
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectIds Search for all projects that match a comma separated list of projectIds
+    * @param contactID Filter for projects for a specific contact
+    * @param states Filter for projects in a particular state (INPROGRESS or CLOSED)
+    * @param page set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
+    * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getProjectsForHttpResponse(String accessToken, String xeroTenantId, List<UUID> projectIds, UUID contactID, String states, Integer page, Integer pageSize) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getProjects");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getProjects");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects");
+        if (projectIds != null) {
+            String key = "projectIds";
+            Object value = projectIds;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (contactID != null) {
+            String key = "contactID";
+            Object value = contactID;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (states != null) {
+            String key = "states";
+            Object value = states;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (page != null) {
+            String key = "page";
+            Object value = page;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (pageSize != null) {
+            String key = "pageSize";
+            Object value = pageSize;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
-  }
 
-  /**
-   * Updates a time entry for a specific project Allows you to update time entry in a project
-   *
-   * <p><b>204</b> - Success - return response 204 no content
-   *
-   * <p><b>400</b> - A failed request due to validation error
-   *
-   * @param xeroTenantId Xero identifier for Tenant
-   * @param projectId You can specify an individual project by appending the projectId to the
-   *     endpoint
-   * @param timeEntryId You can specify an individual time entry by appending the id to the endpoint
-   * @param timeEntryCreateOrUpdate The time entry object you are updating
-   * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate
-   *     processing. 128 character max.
-   * @param accessToken Authorization token for user set in header of each request
-   * @return HttpResponse
-   * @throws IOException if an error occurs while attempting to invoke the API
-   */
-  public HttpResponse updateTimeEntryForHttpResponse(
-      String accessToken,
-      String xeroTenantId,
-      UUID projectId,
-      UUID timeEntryId,
-      TimeEntryCreateOrUpdate timeEntryCreateOrUpdate,
-      String idempotencyKey)
-      throws IOException {
-    // verify the required parameter 'xeroTenantId' is set
-    if (xeroTenantId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling updateTimeEntry");
-    } // verify the required parameter 'projectId' is set
-    if (projectId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'projectId' when calling updateTimeEntry");
-    } // verify the required parameter 'timeEntryId' is set
-    if (timeEntryId == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'timeEntryId' when calling updateTimeEntry");
-    } // verify the required parameter 'timeEntryCreateOrUpdate' is set
-    if (timeEntryCreateOrUpdate == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'timeEntryCreateOrUpdate' when calling updateTimeEntry");
-    }
-    if (accessToken == null) {
-      throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling updateTimeEntry");
-    }
-    HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
-    headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/json");
-    headers.setUserAgent(this.getUserAgent());
-    // create a map of path variables
-    final Map<String, Object> uriVariables = new HashMap<String, Object>();
-    uriVariables.put("projectId", projectId);
-    uriVariables.put("timeEntryId", timeEntryId);
-
-    UriBuilder uriBuilder =
-        UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Time/{timeEntryId}");
-    String url = uriBuilder.buildFromMap(uriVariables).toString();
-    GenericUrl genericUrl = new GenericUrl(url);
-    if (logger.isDebugEnabled()) {
-      logger.debug("PUT " + genericUrl.toString());
+    
+    /**
+    * Retrieves a single project task
+    * Allows you to retrieve a specific project
+    * <p><b>200</b> - OK/success, returns the specified task object
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param taskId You can specify an individual task by appending the taskId to the endpoint, i.e. GET https://.../tasks/{taskID}
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Task
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Task  getTask(String accessToken, String xeroTenantId, UUID projectId, UUID taskId) throws IOException {
+        try {
+            TypeReference<Task> typeRef = new TypeReference<Task>() {};
+            HttpResponse response = getTaskForHttpResponse(accessToken, xeroTenantId, projectId, taskId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getTask -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
-    HttpContent content = null;
-    content = apiClient.new JacksonJsonHttpContent(timeEntryCreateOrUpdate);
+    /**
+    * Retrieves a single project task
+    * Allows you to retrieve a specific project
+    * <p><b>200</b> - OK/success, returns the specified task object
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param taskId You can specify an individual task by appending the taskId to the endpoint, i.e. GET https://.../tasks/{taskID}
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getTaskForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, UUID taskId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getTask");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling getTask");
+        }// verify the required parameter 'taskId' is set
+        if (taskId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'taskId' when calling getTask");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getTask");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+        uriVariables.put("taskId", taskId);
 
-    Credential credential =
-        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-    HttpTransport transport = apiClient.getHttpTransport();
-    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-    return requestFactory
-        .buildRequest(HttpMethods.PUT, genericUrl, content)
-        .setHeaders(headers)
-        .setConnectTimeout(apiClient.getConnectionTimeout())
-        .setReadTimeout(apiClient.getReadTimeout())
-        .execute();
-  }
-
-  /**
-   * convert intput to byte array
-   *
-   * @param is InputStream the server status code returned
-   * @return byteArrayInputStream a ByteArrayInputStream
-   * @throws IOException for failed or interrupted I/O operations
-   */
-  public ByteArrayInputStream convertInputToByteArray(InputStream is) throws IOException {
-    byte[] bytes = IOUtils.toByteArray(is);
-    try {
-      // Process the input stream..
-      ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-      return byteArrayInputStream;
-    } finally {
-      is.close();
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Tasks/{taskId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
-  }
+
+    
+    /**
+    * Retrieves all project tasks
+    * Allows you to retrieve a specific project
+    * <p><b>200</b> - OK/success, returns a list of task objects
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
+    * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
+    * @param taskIds Search for all tasks that match a comma separated list of taskIds, i.e. GET https://.../tasks?taskIds&#x3D;{taskID},{taskID}
+    * @param chargeType The chargeType parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  Tasks
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public Tasks  getTasks(String accessToken, String xeroTenantId, UUID projectId, Integer page, Integer pageSize, String taskIds, ChargeType chargeType) throws IOException {
+        try {
+            TypeReference<Tasks> typeRef = new TypeReference<Tasks>() {};
+            HttpResponse response = getTasksForHttpResponse(accessToken, xeroTenantId, projectId, page, pageSize, taskIds, chargeType);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getTasks -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Retrieves all project tasks
+    * Allows you to retrieve a specific project
+    * <p><b>200</b> - OK/success, returns a list of task objects
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
+    * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
+    * @param taskIds Search for all tasks that match a comma separated list of taskIds, i.e. GET https://.../tasks?taskIds&#x3D;{taskID},{taskID}
+    * @param chargeType The chargeType parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getTasksForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, Integer page, Integer pageSize, String taskIds, ChargeType chargeType) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getTasks");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling getTasks");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getTasks");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Tasks");
+        if (page != null) {
+            String key = "page";
+            Object value = page;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (pageSize != null) {
+            String key = "pageSize";
+            Object value = pageSize;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (taskIds != null) {
+            String key = "taskIds";
+            Object value = taskIds;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (chargeType != null) {
+            String key = "chargeType";
+            Object value = chargeType;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Retrieves all time entries associated with a specific project
+    * Allows you to retrieve the time entries associated with a specific project
+    * <p><b>200</b> - OK/success, returns a list of time entry objects
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId Identifier of the project, that the task (which the time entry is logged against) belongs to.
+    * @param userId The xero user identifier of the person who logged time.
+    * @param taskId Identifier of the task that time entry is logged against.
+    * @param invoiceId Finds all time entries for this invoice.
+    * @param contactId Finds all time entries for this contact identifier.
+    * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
+    * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
+    * @param states Comma-separated list of states to find. Will find all time entries that are in the status of whatever is specified.
+    * @param isChargeable Finds all time entries which relate to tasks with the charge type &#x60;TIME&#x60; or &#x60;FIXED&#x60;.
+    * @param dateAfterUtc ISO 8601 UTC date. Finds all time entries on or after this date filtered on the &#x60;dateUtc&#x60; field.
+    * @param dateBeforeUtc ISO 8601 UTC date. Finds all time entries on or before this date filtered on the &#x60;dateUtc&#x60; field.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  TimeEntries
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public TimeEntries  getTimeEntries(String accessToken, String xeroTenantId, UUID projectId, UUID userId, UUID taskId, UUID invoiceId, UUID contactId, Integer page, Integer pageSize, List<String> states, Boolean isChargeable, OffsetDateTime dateAfterUtc, OffsetDateTime dateBeforeUtc) throws IOException {
+        try {
+            TypeReference<TimeEntries> typeRef = new TypeReference<TimeEntries>() {};
+            HttpResponse response = getTimeEntriesForHttpResponse(accessToken, xeroTenantId, projectId, userId, taskId, invoiceId, contactId, page, pageSize, states, isChargeable, dateAfterUtc, dateBeforeUtc);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getTimeEntries -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Retrieves all time entries associated with a specific project
+    * Allows you to retrieve the time entries associated with a specific project
+    * <p><b>200</b> - OK/success, returns a list of time entry objects
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId Identifier of the project, that the task (which the time entry is logged against) belongs to.
+    * @param userId The xero user identifier of the person who logged time.
+    * @param taskId Identifier of the task that time entry is logged against.
+    * @param invoiceId Finds all time entries for this invoice.
+    * @param contactId Finds all time entries for this contact identifier.
+    * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
+    * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
+    * @param states Comma-separated list of states to find. Will find all time entries that are in the status of whatever is specified.
+    * @param isChargeable Finds all time entries which relate to tasks with the charge type &#x60;TIME&#x60; or &#x60;FIXED&#x60;.
+    * @param dateAfterUtc ISO 8601 UTC date. Finds all time entries on or after this date filtered on the &#x60;dateUtc&#x60; field.
+    * @param dateBeforeUtc ISO 8601 UTC date. Finds all time entries on or before this date filtered on the &#x60;dateUtc&#x60; field.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getTimeEntriesForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, UUID userId, UUID taskId, UUID invoiceId, UUID contactId, Integer page, Integer pageSize, List<String> states, Boolean isChargeable, OffsetDateTime dateAfterUtc, OffsetDateTime dateBeforeUtc) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getTimeEntries");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling getTimeEntries");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getTimeEntries");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Time");
+        if (userId != null) {
+            String key = "userId";
+            Object value = userId;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (taskId != null) {
+            String key = "taskId";
+            Object value = taskId;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (invoiceId != null) {
+            String key = "invoiceId";
+            Object value = invoiceId;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (contactId != null) {
+            String key = "contactId";
+            Object value = contactId;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (page != null) {
+            String key = "page";
+            Object value = page;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (pageSize != null) {
+            String key = "pageSize";
+            Object value = pageSize;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (states != null) {
+            String key = "states";
+            Object value = states;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (isChargeable != null) {
+            String key = "isChargeable";
+            Object value = isChargeable;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (dateAfterUtc != null) {
+            String key = "dateAfterUtc";
+            Object value = dateAfterUtc;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (dateBeforeUtc != null) {
+            String key = "dateBeforeUtc";
+            Object value = dateBeforeUtc;
+            if (value instanceof Collection) {
+                List valueList = new ArrayList<>((Collection) value);
+                if(!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+                    List<String> list=new ArrayList<String>();
+                    for(int i = 0; i < valueList.size(); i++)
+                    {
+                        list.add(valueList.get(i).toString());
+                    }
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+                }
+                else{
+                    uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+                }
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Retrieves a single time entry for a specific project
+    * Allows you to get a single time entry in a project
+    * <p><b>200</b> - OK/success, returns the specified time entry
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param timeEntryId You can specify an individual time entry by appending the id to the endpoint
+    * @param accessToken Authorization token for user set in header of each request
+    * @return  TimeEntry
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public TimeEntry  getTimeEntry(String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId) throws IOException {
+        try {
+            TypeReference<TimeEntry> typeRef = new TypeReference<TimeEntry>() {};
+            HttpResponse response = getTimeEntryForHttpResponse(accessToken, xeroTenantId, projectId, timeEntryId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getTimeEntry -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    /**
+    * Retrieves a single time entry for a specific project
+    * Allows you to get a single time entry in a project
+    * <p><b>200</b> - OK/success, returns the specified time entry
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param timeEntryId You can specify an individual time entry by appending the id to the endpoint
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse getTimeEntryForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getTimeEntry");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling getTimeEntry");
+        }// verify the required parameter 'timeEntryId' is set
+        if (timeEntryId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'timeEntryId' when calling getTimeEntry");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getTimeEntry");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+        uriVariables.put("timeEntryId", timeEntryId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Time/{timeEntryId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * creates a project for the specified contact
+    * Allows you to update a specific projects.
+    * <p><b>204</b> - Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param projectPatch Update the status of an existing Project
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public void patchProject(String accessToken, String xeroTenantId, UUID projectId, ProjectPatch projectPatch, String idempotencyKey) throws IOException {
+        try {
+            patchProjectForHttpResponse(accessToken, xeroTenantId, projectId, projectPatch, idempotencyKey);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : patchProject -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
+    }
+
+    /**
+    * creates a project for the specified contact
+    * Allows you to update a specific projects.
+    * <p><b>204</b> - Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param projectPatch Update the status of an existing Project
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse patchProjectForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, ProjectPatch projectPatch, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling patchProject");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling patchProject");
+        }// verify the required parameter 'projectPatch' is set
+        if (projectPatch == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectPatch' when calling patchProject");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling patchProject");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("PATCH " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(projectPatch);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.PATCH, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Updates a specific project
+    * Allows you to update a specific projects.
+    * <p><b>204</b> - Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param projectCreateOrUpdate Request of type ProjectCreateOrUpdate
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public void updateProject(String accessToken, String xeroTenantId, UUID projectId, ProjectCreateOrUpdate projectCreateOrUpdate, String idempotencyKey) throws IOException {
+        try {
+            updateProjectForHttpResponse(accessToken, xeroTenantId, projectId, projectCreateOrUpdate, idempotencyKey);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateProject -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
+    }
+
+    /**
+    * Updates a specific project
+    * Allows you to update a specific projects.
+    * <p><b>204</b> - Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param projectCreateOrUpdate Request of type ProjectCreateOrUpdate
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse updateProjectForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, ProjectCreateOrUpdate projectCreateOrUpdate, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateProject");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling updateProject");
+        }// verify the required parameter 'projectCreateOrUpdate' is set
+        if (projectCreateOrUpdate == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectCreateOrUpdate' when calling updateProject");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateProject");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(projectCreateOrUpdate);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Allows you to update a task
+    * Allows you to update a specific task
+    * <p><b>204</b> - OK/Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param taskId You can specify an individual task by appending the id to the endpoint
+    * @param taskCreateOrUpdate The task object you are updating
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public void updateTask(String accessToken, String xeroTenantId, UUID projectId, UUID taskId, TaskCreateOrUpdate taskCreateOrUpdate, String idempotencyKey) throws IOException {
+        try {
+            updateTaskForHttpResponse(accessToken, xeroTenantId, projectId, taskId, taskCreateOrUpdate, idempotencyKey);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateTask -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
+    }
+
+    /**
+    * Allows you to update a task
+    * Allows you to update a specific task
+    * <p><b>204</b> - OK/Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param taskId You can specify an individual task by appending the id to the endpoint
+    * @param taskCreateOrUpdate The task object you are updating
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse updateTaskForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, UUID taskId, TaskCreateOrUpdate taskCreateOrUpdate, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateTask");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling updateTask");
+        }// verify the required parameter 'taskId' is set
+        if (taskId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'taskId' when calling updateTask");
+        }// verify the required parameter 'taskCreateOrUpdate' is set
+        if (taskCreateOrUpdate == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'taskCreateOrUpdate' when calling updateTask");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateTask");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+        uriVariables.put("taskId", taskId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Tasks/{taskId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(taskCreateOrUpdate);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+    
+    /**
+    * Updates a time entry for a specific project
+    * Allows you to update time entry in a project
+    * <p><b>204</b> - Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param timeEntryId You can specify an individual time entry by appending the id to the endpoint
+    * @param timeEntryCreateOrUpdate The time entry object you are updating
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @throws IOException if an error occurs while attempting to invoke the API    **/
+    public void updateTimeEntry(String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId, TimeEntryCreateOrUpdate timeEntryCreateOrUpdate, String idempotencyKey) throws IOException {
+        try {
+            updateTimeEntryForHttpResponse(accessToken, xeroTenantId, projectId, timeEntryId, timeEntryCreateOrUpdate, idempotencyKey);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateTimeEntry -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
+    }
+
+    /**
+    * Updates a time entry for a specific project
+    * Allows you to update time entry in a project
+    * <p><b>204</b> - Success - return response 204 no content
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param timeEntryId You can specify an individual time entry by appending the id to the endpoint
+    * @param timeEntryCreateOrUpdate The time entry object you are updating
+    * @param idempotencyKey This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HttpResponse
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HttpResponse updateTimeEntryForHttpResponse(String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId, TimeEntryCreateOrUpdate timeEntryCreateOrUpdate, String idempotencyKey) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateTimeEntry");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling updateTimeEntry");
+        }// verify the required parameter 'timeEntryId' is set
+        if (timeEntryId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'timeEntryId' when calling updateTimeEntry");
+        }// verify the required parameter 'timeEntryCreateOrUpdate' is set
+        if (timeEntryCreateOrUpdate == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'timeEntryCreateOrUpdate' when calling updateTimeEntry");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateTimeEntry");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("Idempotency-Key", idempotencyKey);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+        uriVariables.put("timeEntryId", timeEntryId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects/{projectId}/Time/{timeEntryId}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(timeEntryCreateOrUpdate);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+
+    /** convert intput to byte array
+    * @param is InputStream the server status code returned
+    * @return byteArrayInputStream a ByteArrayInputStream 
+    * @throws IOException for failed or interrupted I/O operations
+    **/
+    public ByteArrayInputStream convertInputToByteArray(InputStream is) throws IOException {
+        byte[] bytes = IOUtils.toByteArray(is);
+        try {
+            // Process the input stream..
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+            return byteArrayInputStream;
+        } finally {
+            is.close();
+        }
+        
+    }
 }

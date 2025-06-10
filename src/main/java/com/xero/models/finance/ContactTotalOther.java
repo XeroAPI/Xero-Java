@@ -9,14 +9,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** ContactTotalOther */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ContactTotalOther
+ */
+
 public class ContactTotalOther {
   StringUtil util = new StringUtil();
 
@@ -32,151 +49,133 @@ public class ContactTotalOther {
   @JsonProperty("transactionCount")
   private Integer transactionCount;
   /**
-   * Total outstanding invoice value for the contact within the period where the invoices are more
-   * than 90 days old
-   *
-   * @param totalOutstandingAged Double
-   * @return ContactTotalOther
-   */
+  * Total outstanding invoice value for the contact within the period where the invoices are more than 90 days old
+  * @param totalOutstandingAged  Double
+  * @return ContactTotalOther
+  **/
   public ContactTotalOther totalOutstandingAged(Double totalOutstandingAged) {
     this.totalOutstandingAged = totalOutstandingAged;
     return this;
   }
 
-  /**
-   * Total outstanding invoice value for the contact within the period where the invoices are more
-   * than 90 days old
-   *
+   /**
+   * Total outstanding invoice value for the contact within the period where the invoices are more than 90 days old
    * @return totalOutstandingAged
-   */
-  @ApiModelProperty(
-      value =
-          "Total outstanding invoice value for the contact within the period where the invoices"
-              + " are more than 90 days old")
-  /**
-   * Total outstanding invoice value for the contact within the period where the invoices are more
-   * than 90 days old
-   *
+  **/
+  @ApiModelProperty(value = "Total outstanding invoice value for the contact within the period where the invoices are more than 90 days old")
+  /** 
+   * Total outstanding invoice value for the contact within the period where the invoices are more than 90 days old
    * @return totalOutstandingAged Double
-   */
+  **/
   public Double getTotalOutstandingAged() {
     return totalOutstandingAged;
   }
 
-  /**
-   * Total outstanding invoice value for the contact within the period where the invoices are more
-   * than 90 days old
-   *
-   * @param totalOutstandingAged Double
-   */
+  /** 
+  * Total outstanding invoice value for the contact within the period where the invoices are more than 90 days old
+  * @param totalOutstandingAged  Double
+  **/
+
   public void setTotalOutstandingAged(Double totalOutstandingAged) {
     this.totalOutstandingAged = totalOutstandingAged;
   }
 
   /**
-   * Total voided value for the contact.
-   *
-   * @param totalVoided Double
-   * @return ContactTotalOther
-   */
+  * Total voided value for the contact.
+  * @param totalVoided  Double
+  * @return ContactTotalOther
+  **/
   public ContactTotalOther totalVoided(Double totalVoided) {
     this.totalVoided = totalVoided;
     return this;
   }
 
-  /**
+   /**
    * Total voided value for the contact.
-   *
    * @return totalVoided
-   */
+  **/
   @ApiModelProperty(value = "Total voided value for the contact.")
-  /**
+  /** 
    * Total voided value for the contact.
-   *
    * @return totalVoided Double
-   */
+  **/
   public Double getTotalVoided() {
     return totalVoided;
   }
 
-  /**
-   * Total voided value for the contact.
-   *
-   * @param totalVoided Double
-   */
+  /** 
+  * Total voided value for the contact.
+  * @param totalVoided  Double
+  **/
+
   public void setTotalVoided(Double totalVoided) {
     this.totalVoided = totalVoided;
   }
 
   /**
-   * Total credited value for the contact.
-   *
-   * @param totalCredited Double
-   * @return ContactTotalOther
-   */
+  * Total credited value for the contact.
+  * @param totalCredited  Double
+  * @return ContactTotalOther
+  **/
   public ContactTotalOther totalCredited(Double totalCredited) {
     this.totalCredited = totalCredited;
     return this;
   }
 
-  /**
+   /**
    * Total credited value for the contact.
-   *
    * @return totalCredited
-   */
+  **/
   @ApiModelProperty(value = "Total credited value for the contact.")
-  /**
+  /** 
    * Total credited value for the contact.
-   *
    * @return totalCredited Double
-   */
+  **/
   public Double getTotalCredited() {
     return totalCredited;
   }
 
-  /**
-   * Total credited value for the contact.
-   *
-   * @param totalCredited Double
-   */
+  /** 
+  * Total credited value for the contact.
+  * @param totalCredited  Double
+  **/
+
   public void setTotalCredited(Double totalCredited) {
     this.totalCredited = totalCredited;
   }
 
   /**
-   * Number of transactions for the contact.
-   *
-   * @param transactionCount Integer
-   * @return ContactTotalOther
-   */
+  * Number of transactions for the contact.
+  * @param transactionCount  Integer
+  * @return ContactTotalOther
+  **/
   public ContactTotalOther transactionCount(Integer transactionCount) {
     this.transactionCount = transactionCount;
     return this;
   }
 
-  /**
+   /**
    * Number of transactions for the contact.
-   *
    * @return transactionCount
-   */
+  **/
   @ApiModelProperty(value = "Number of transactions for the contact.")
-  /**
+  /** 
    * Number of transactions for the contact.
-   *
    * @return transactionCount Integer
-   */
+  **/
   public Integer getTransactionCount() {
     return transactionCount;
   }
 
-  /**
-   * Number of transactions for the contact.
-   *
-   * @param transactionCount Integer
-   */
+  /** 
+  * Number of transactions for the contact.
+  * @param transactionCount  Integer
+  **/
+
   public void setTransactionCount(Integer transactionCount) {
     this.transactionCount = transactionCount;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -187,10 +186,10 @@ public class ContactTotalOther {
       return false;
     }
     ContactTotalOther contactTotalOther = (ContactTotalOther) o;
-    return Objects.equals(this.totalOutstandingAged, contactTotalOther.totalOutstandingAged)
-        && Objects.equals(this.totalVoided, contactTotalOther.totalVoided)
-        && Objects.equals(this.totalCredited, contactTotalOther.totalCredited)
-        && Objects.equals(this.transactionCount, contactTotalOther.transactionCount);
+    return Objects.equals(this.totalOutstandingAged, contactTotalOther.totalOutstandingAged) &&
+        Objects.equals(this.totalVoided, contactTotalOther.totalVoided) &&
+        Objects.equals(this.totalCredited, contactTotalOther.totalCredited) &&
+        Objects.equals(this.transactionCount, contactTotalOther.transactionCount);
   }
 
   @Override
@@ -198,13 +197,12 @@ public class ContactTotalOther {
     return Objects.hash(totalOutstandingAged, totalVoided, totalCredited, transactionCount);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ContactTotalOther {\n");
-    sb.append("    totalOutstandingAged: ")
-        .append(toIndentedString(totalOutstandingAged))
-        .append("\n");
+    sb.append("    totalOutstandingAged: ").append(toIndentedString(totalOutstandingAged)).append("\n");
     sb.append("    totalVoided: ").append(toIndentedString(totalVoided)).append("\n");
     sb.append("    totalCredited: ").append(toIndentedString(totalCredited)).append("\n");
     sb.append("    transactionCount: ").append(toIndentedString(transactionCount)).append("\n");
@@ -213,7 +211,8 @@ public class ContactTotalOther {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -221,4 +220,6 @@ public class ContactTotalOther {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

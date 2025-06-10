@@ -9,19 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** User */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * User
+ */
+
 public class User {
   StringUtil util = new StringUtil();
 
@@ -43,29 +56,42 @@ public class User {
   @JsonProperty("IsSubscriber")
   private Boolean isSubscriber;
   /**
-   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
-   * FINANCIALADVISER, etc)
+   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)
    */
   public enum OrganisationRoleEnum {
-    /** READONLY */
+    /**
+     * READONLY
+     */
     READONLY("READONLY"),
-
-    /** INVOICEONLY */
+    
+    /**
+     * INVOICEONLY
+     */
     INVOICEONLY("INVOICEONLY"),
-
-    /** STANDARD */
+    
+    /**
+     * STANDARD
+     */
     STANDARD("STANDARD"),
-
-    /** FINANCIALADVISER */
+    
+    /**
+     * FINANCIALADVISER
+     */
     FINANCIALADVISER("FINANCIALADVISER"),
-
-    /** MANAGEDCLIENT */
+    
+    /**
+     * MANAGEDCLIENT
+     */
     MANAGEDCLIENT("MANAGEDCLIENT"),
-
-    /** CASHBOOKCLIENT */
+    
+    /**
+     * CASHBOOKCLIENT
+     */
     CASHBOOKCLIENT("CASHBOOKCLIENT"),
-
-    /** UNKNOWN */
+    
+    /**
+     * UNKNOWN
+     */
     UNKNOWN("UNKNOWN");
 
     private String value;
@@ -74,31 +100,25 @@ public class User {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static OrganisationRoleEnum fromValue(String value) {
       for (OrganisationRoleEnum b : OrganisationRoleEnum.values()) {
@@ -110,254 +130,228 @@ public class User {
     }
   }
 
+
   @JsonProperty("OrganisationRole")
   private OrganisationRoleEnum organisationRole;
   /**
-   * Xero identifier
-   *
-   * @param userID UUID
-   * @return User
-   */
+  * Xero identifier
+  * @param userID  UUID
+  * @return User
+  **/
   public User userID(UUID userID) {
     this.userID = userID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier
-   *
    * @return userID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier")
-  /**
+  /** 
    * Xero identifier
-   *
    * @return userID UUID
-   */
+  **/
   public UUID getUserID() {
     return userID;
   }
 
-  /**
-   * Xero identifier
-   *
-   * @param userID UUID
-   */
+  /** 
+  * Xero identifier
+  * @param userID  UUID
+  **/
+
   public void setUserID(UUID userID) {
     this.userID = userID;
   }
 
   /**
-   * Email address of user
-   *
-   * @param emailAddress String
-   * @return User
-   */
+  * Email address of user
+  * @param emailAddress  String
+  * @return User
+  **/
   public User emailAddress(String emailAddress) {
     this.emailAddress = emailAddress;
     return this;
   }
 
-  /**
+   /**
    * Email address of user
-   *
    * @return emailAddress
-   */
+  **/
   @ApiModelProperty(value = "Email address of user")
-  /**
+  /** 
    * Email address of user
-   *
    * @return emailAddress String
-   */
+  **/
   public String getEmailAddress() {
     return emailAddress;
   }
 
-  /**
-   * Email address of user
-   *
-   * @param emailAddress String
-   */
+  /** 
+  * Email address of user
+  * @param emailAddress  String
+  **/
+
   public void setEmailAddress(String emailAddress) {
     this.emailAddress = emailAddress;
   }
 
   /**
-   * First name of user
-   *
-   * @param firstName String
-   * @return User
-   */
+  * First name of user
+  * @param firstName  String
+  * @return User
+  **/
   public User firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
 
-  /**
+   /**
    * First name of user
-   *
    * @return firstName
-   */
+  **/
   @ApiModelProperty(value = "First name of user")
-  /**
+  /** 
    * First name of user
-   *
    * @return firstName String
-   */
+  **/
   public String getFirstName() {
     return firstName;
   }
 
-  /**
-   * First name of user
-   *
-   * @param firstName String
-   */
+  /** 
+  * First name of user
+  * @param firstName  String
+  **/
+
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
   /**
-   * Last name of user
-   *
-   * @param lastName String
-   * @return User
-   */
+  * Last name of user
+  * @param lastName  String
+  * @return User
+  **/
   public User lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
 
-  /**
+   /**
    * Last name of user
-   *
    * @return lastName
-   */
+  **/
   @ApiModelProperty(value = "Last name of user")
-  /**
+  /** 
    * Last name of user
-   *
    * @return lastName String
-   */
+  **/
   public String getLastName() {
     return lastName;
   }
 
-  /**
-   * Last name of user
-   *
-   * @param lastName String
-   */
+  /** 
+  * Last name of user
+  * @param lastName  String
+  **/
+
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
-  /**
+   /**
    * Timestamp of last change to user
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Timestamp of last change to user")
-  /**
+  /** 
    * Timestamp of last change to user
-   *
    * @return updatedDateUTC String
-   */
+  **/
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-  /**
+  /** 
    * Timestamp of last change to user
-   *
    * @return OffsetDateTime
-   */
+  **/
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   /**
-   * Boolean to indicate if user is the subscriber
-   *
-   * @param isSubscriber Boolean
-   * @return User
-   */
+  * Boolean to indicate if user is the subscriber
+  * @param isSubscriber  Boolean
+  * @return User
+  **/
   public User isSubscriber(Boolean isSubscriber) {
     this.isSubscriber = isSubscriber;
     return this;
   }
 
-  /**
+   /**
    * Boolean to indicate if user is the subscriber
-   *
    * @return isSubscriber
-   */
+  **/
   @ApiModelProperty(value = "Boolean to indicate if user is the subscriber")
-  /**
+  /** 
    * Boolean to indicate if user is the subscriber
-   *
    * @return isSubscriber Boolean
-   */
+  **/
   public Boolean getIsSubscriber() {
     return isSubscriber;
   }
 
-  /**
-   * Boolean to indicate if user is the subscriber
-   *
-   * @param isSubscriber Boolean
-   */
+  /** 
+  * Boolean to indicate if user is the subscriber
+  * @param isSubscriber  Boolean
+  **/
+
   public void setIsSubscriber(Boolean isSubscriber) {
     this.isSubscriber = isSubscriber;
   }
 
   /**
-   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
-   * FINANCIALADVISER, etc)
-   *
-   * @param organisationRole OrganisationRoleEnum
-   * @return User
-   */
+  * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)
+  * @param organisationRole  OrganisationRoleEnum
+  * @return User
+  **/
   public User organisationRole(OrganisationRoleEnum organisationRole) {
     this.organisationRole = organisationRole;
     return this;
   }
 
-  /**
-   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
-   * FINANCIALADVISER, etc)
-   *
+   /**
+   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)
    * @return organisationRole
-   */
-  @ApiModelProperty(
-      value =
-          "User role that defines permissions in Xero and via API (READONLY, INVOICEONLY,"
-              + " STANDARD, FINANCIALADVISER, etc)")
-  /**
-   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
-   * FINANCIALADVISER, etc)
-   *
+  **/
+  @ApiModelProperty(value = "User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)")
+  /** 
+   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)
    * @return organisationRole OrganisationRoleEnum
-   */
+  **/
   public OrganisationRoleEnum getOrganisationRole() {
     return organisationRole;
   }
 
-  /**
-   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
-   * FINANCIALADVISER, etc)
-   *
-   * @param organisationRole OrganisationRoleEnum
-   */
+  /** 
+  * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)
+  * @param organisationRole  OrganisationRoleEnum
+  **/
+
   public void setOrganisationRole(OrganisationRoleEnum organisationRole) {
     this.organisationRole = organisationRole;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -368,20 +362,20 @@ public class User {
       return false;
     }
     User user = (User) o;
-    return Objects.equals(this.userID, user.userID)
-        && Objects.equals(this.emailAddress, user.emailAddress)
-        && Objects.equals(this.firstName, user.firstName)
-        && Objects.equals(this.lastName, user.lastName)
-        && Objects.equals(this.updatedDateUTC, user.updatedDateUTC)
-        && Objects.equals(this.isSubscriber, user.isSubscriber)
-        && Objects.equals(this.organisationRole, user.organisationRole);
+    return Objects.equals(this.userID, user.userID) &&
+        Objects.equals(this.emailAddress, user.emailAddress) &&
+        Objects.equals(this.firstName, user.firstName) &&
+        Objects.equals(this.lastName, user.lastName) &&
+        Objects.equals(this.updatedDateUTC, user.updatedDateUTC) &&
+        Objects.equals(this.isSubscriber, user.isSubscriber) &&
+        Objects.equals(this.organisationRole, user.organisationRole);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        userID, emailAddress, firstName, lastName, updatedDateUTC, isSubscriber, organisationRole);
+    return Objects.hash(userID, emailAddress, firstName, lastName, updatedDateUTC, isSubscriber, organisationRole);
   }
+
 
   @Override
   public String toString() {
@@ -399,7 +393,8 @@ public class User {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -407,4 +402,6 @@ public class User {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

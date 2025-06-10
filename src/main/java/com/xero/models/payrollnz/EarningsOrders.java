@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.EarningsOrder;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** EarningsOrders */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EarningsOrders
+ */
+
 public class EarningsOrders {
   StringUtil util = new StringUtil();
 
@@ -31,81 +51,74 @@ public class EarningsOrders {
   @JsonProperty("statutoryDeductions")
   private List<EarningsOrder> statutoryDeductions = new ArrayList<EarningsOrder>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return EarningsOrders
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return EarningsOrders
+  **/
   public EarningsOrders pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return EarningsOrders
-   */
+  * problem
+  * @param problem  Problem
+  * @return EarningsOrders
+  **/
   public EarningsOrders problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * statutoryDeductions
-   *
-   * @param statutoryDeductions List&lt;EarningsOrder&gt;
-   * @return EarningsOrders
-   */
+  * statutoryDeductions
+  * @param statutoryDeductions  List&lt;EarningsOrder&gt;
+  * @return EarningsOrders
+  **/
   public EarningsOrders statutoryDeductions(List<EarningsOrder> statutoryDeductions) {
     this.statutoryDeductions = statutoryDeductions;
     return this;
@@ -113,10 +126,9 @@ public class EarningsOrders {
 
   /**
    * statutoryDeductions
-   *
-   * @param statutoryDeductionsItem EarningsOrder
+   * @param statutoryDeductionsItem EarningsOrder 
    * @return EarningsOrders
-   */
+  **/
   public EarningsOrders addStatutoryDeductionsItem(EarningsOrder statutoryDeductionsItem) {
     if (this.statutoryDeductions == null) {
       this.statutoryDeductions = new ArrayList<EarningsOrder>();
@@ -125,29 +137,28 @@ public class EarningsOrders {
     return this;
   }
 
-  /**
+   /**
    * Get statutoryDeductions
-   *
    * @return statutoryDeductions
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * statutoryDeductions
-   *
    * @return statutoryDeductions List<EarningsOrder>
-   */
+  **/
   public List<EarningsOrder> getStatutoryDeductions() {
     return statutoryDeductions;
   }
 
-  /**
-   * statutoryDeductions
-   *
-   * @param statutoryDeductions List&lt;EarningsOrder&gt;
-   */
+  /** 
+  * statutoryDeductions
+  * @param statutoryDeductions List&lt;EarningsOrder&gt; 
+  **/
+
   public void setStatutoryDeductions(List<EarningsOrder> statutoryDeductions) {
     this.statutoryDeductions = statutoryDeductions;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,9 +169,9 @@ public class EarningsOrders {
       return false;
     }
     EarningsOrders earningsOrders = (EarningsOrders) o;
-    return Objects.equals(this.pagination, earningsOrders.pagination)
-        && Objects.equals(this.problem, earningsOrders.problem)
-        && Objects.equals(this.statutoryDeductions, earningsOrders.statutoryDeductions);
+    return Objects.equals(this.pagination, earningsOrders.pagination) &&
+        Objects.equals(this.problem, earningsOrders.problem) &&
+        Objects.equals(this.statutoryDeductions, earningsOrders.statutoryDeductions);
   }
 
   @Override
@@ -168,21 +179,21 @@ public class EarningsOrders {
     return Objects.hash(pagination, problem, statutoryDeductions);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EarningsOrders {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    problem: ").append(toIndentedString(problem)).append("\n");
-    sb.append("    statutoryDeductions: ")
-        .append(toIndentedString(statutoryDeductions))
-        .append("\n");
+    sb.append("    statutoryDeductions: ").append(toIndentedString(statutoryDeductions)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -190,4 +201,6 @@ public class EarningsOrders {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

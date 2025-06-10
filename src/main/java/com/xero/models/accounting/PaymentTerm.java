@@ -9,14 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Bill;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** PaymentTerm */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PaymentTerm
+ */
+
 public class PaymentTerm {
   StringUtil util = new StringUtil();
 
@@ -26,74 +44,69 @@ public class PaymentTerm {
   @JsonProperty("Sales")
   private Bill sales;
   /**
-   * bills
-   *
-   * @param bills Bill
-   * @return PaymentTerm
-   */
+  * bills
+  * @param bills  Bill
+  * @return PaymentTerm
+  **/
   public PaymentTerm bills(Bill bills) {
     this.bills = bills;
     return this;
   }
 
-  /**
+   /**
    * Get bills
-   *
    * @return bills
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * bills
-   *
    * @return bills Bill
-   */
+  **/
   public Bill getBills() {
     return bills;
   }
 
-  /**
-   * bills
-   *
-   * @param bills Bill
-   */
+  /** 
+  * bills
+  * @param bills  Bill
+  **/
+
   public void setBills(Bill bills) {
     this.bills = bills;
   }
 
   /**
-   * sales
-   *
-   * @param sales Bill
-   * @return PaymentTerm
-   */
+  * sales
+  * @param sales  Bill
+  * @return PaymentTerm
+  **/
   public PaymentTerm sales(Bill sales) {
     this.sales = sales;
     return this;
   }
 
-  /**
+   /**
    * Get sales
-   *
    * @return sales
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * sales
-   *
    * @return sales Bill
-   */
+  **/
   public Bill getSales() {
     return sales;
   }
 
-  /**
-   * sales
-   *
-   * @param sales Bill
-   */
+  /** 
+  * sales
+  * @param sales  Bill
+  **/
+
   public void setSales(Bill sales) {
     this.sales = sales;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -104,14 +117,15 @@ public class PaymentTerm {
       return false;
     }
     PaymentTerm paymentTerm = (PaymentTerm) o;
-    return Objects.equals(this.bills, paymentTerm.bills)
-        && Objects.equals(this.sales, paymentTerm.sales);
+    return Objects.equals(this.bills, paymentTerm.bills) &&
+        Objects.equals(this.sales, paymentTerm.sales);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(bills, sales);
   }
+
 
   @Override
   public String toString() {
@@ -124,7 +138,8 @@ public class PaymentTerm {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -132,4 +147,6 @@ public class PaymentTerm {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+
