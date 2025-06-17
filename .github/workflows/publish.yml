@@ -25,42 +25,42 @@ jobs:
                 repository: XeroAPI/Xero-Java
                 path: Xero-Java
 
-            # - name: Set up JDK environment
-            #   uses: actions/setup-java@v4
-            #   with: 
-            #     distribution: 'temurin'
-            #     java-version: '11'
-            #     cache: maven
-            #     server-id: ossrh
-            #     server-username: MAVEN_USERNAME
-            #     server-password: MAVEN_PASSWORD
-            #     gpg-passphrase: GPG_PASSPHRASE
+            - name: Set up JDK environment
+              uses: actions/setup-java@v4
+              with: 
+                distribution: 'temurin'
+                java-version: '11'
+                cache: maven
+                server-id: ossrh
+                server-username: MAVEN_USERNAME
+                server-password: MAVEN_PASSWORD
+                gpg-passphrase: GPG_PASSPHRASE
 
-            # - name: Fetch Latest release number
-            #   id: get_latest_release_number
-            #   run: |
-            #       latest_version=$(gh release view --json tagName --jq '.tagName')
-            #       echo "Latest release version is - $latest_version"
-            #       echo "::set-output name=release_tag::$latest_version"
-            #   working-directory: Xero-Java
-            #   env:
-            #      GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            - name: Fetch Latest release number
+              id: get_latest_release_number
+              run: |
+                  latest_version=$(gh release view --json tagName --jq '.tagName')
+                  echo "Latest release version is - $latest_version"
+                  echo "::set-output name=release_tag::$latest_version"
+              working-directory: Xero-Java
+              env:
+                 GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-            # - name: Import GPG Key
-            #   run: |
-            #     echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
-            #   env: 
-            #     GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
+            - name: Import GPG Key
+              run: |
+                echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+              env: 
+                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
 
-            # - name: Publish to Maven
-            #   run: |
-            #     export GPG_TTY=$(tty)
-            #     mvn clean deploy -DskipTests=true
-            #   env:
-            #     MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-            #     MAVEN_PASSWORD: ${{ secrets.MAVEN_TOKEN }}
-            #     GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-            #   working-directory: Xero-Java
+            - name: Publish to Maven
+              run: |
+                export GPG_TTY=$(tty)
+                mvn clean deploy -DskipTests=true
+              env:
+                MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+                MAVEN_PASSWORD: ${{ secrets.MAVEN_TOKEN }}
+                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+              working-directory: Xero-Java
 
     notify-slack-on-success:
       runs-on: ubuntu-latest
@@ -157,7 +157,7 @@ jobs:
                   "status": "${{needs.publish.result}}",
                   "deployer": "xero-codegen-bot",
                   "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
-                  "environment": "test",
+                  "environment": "prod",
                   "sdk_type": "java",
                   "cab_key": "${{ github.event.inputs.cab_id }}"
                   }
