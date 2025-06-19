@@ -2746,10 +2746,11 @@ public class FilesApiExample {
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         Integer pagesize = 50;
         Integer page = 2;
-        String sort = 'CreatedDateUTC DESC';
+        String sort = 'CreatedDateUTC';
+        String direction = 'ASC';
 
         try {
-            Files result = apiInstance.getFiles(accessToken, xeroTenantId, pagesize, page, sort);
+            Files result = apiInstance.getFiles(accessToken, xeroTenantId, pagesize, page, sort, direction);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#getFiles");
@@ -2863,6 +2864,26 @@ number of records to skip for pagination
 
                     <div class="inner description marked">
 values to sort by
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">direction</td>
+<td>
+
+
+    <div id="d2e199_getFiles_direction">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+sort direction
                     </div>
             </div>
         </div>

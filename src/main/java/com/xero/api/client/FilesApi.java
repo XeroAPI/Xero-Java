@@ -1169,17 +1169,23 @@ public class FilesApi {
    * @param pagesize pass an optional page size value
    * @param page number of records to skip for pagination
    * @param sort values to sort by
+   * @param direction sort direction
    * @param accessToken Authorization token for user set in header of each request
    * @return Files
    * @throws IOException if an error occurs while attempting to invoke the API *
    */
   public Files getFiles(
-      String accessToken, String xeroTenantId, Integer pagesize, Integer page, String sort)
+      String accessToken,
+      String xeroTenantId,
+      Integer pagesize,
+      Integer page,
+      String sort,
+      String direction)
       throws IOException {
     try {
       TypeReference<Files> typeRef = new TypeReference<Files>() {};
       HttpResponse response =
-          getFilesForHttpResponse(accessToken, xeroTenantId, pagesize, page, sort);
+          getFilesForHttpResponse(accessToken, xeroTenantId, pagesize, page, sort, direction);
       return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
     } catch (HttpResponseException e) {
       if (logger.isDebugEnabled()) {
@@ -1206,12 +1212,18 @@ public class FilesApi {
    * @param pagesize pass an optional page size value
    * @param page number of records to skip for pagination
    * @param sort values to sort by
+   * @param direction sort direction
    * @param accessToken Authorization token for user set in header of each request
    * @return HttpResponse
    * @throws IOException if an error occurs while attempting to invoke the API
    */
   public HttpResponse getFilesForHttpResponse(
-      String accessToken, String xeroTenantId, Integer pagesize, Integer page, String sort)
+      String accessToken,
+      String xeroTenantId,
+      Integer pagesize,
+      Integer page,
+      String sort,
+      String direction)
       throws IOException {
     // verify the required parameter 'xeroTenantId' is set
     if (xeroTenantId == null) {
@@ -1270,6 +1282,26 @@ public class FilesApi {
     if (sort != null) {
       String key = "sort";
       Object value = sort;
+      if (value instanceof Collection) {
+        List valueList = new ArrayList<>((Collection) value);
+        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
+          List<String> list = new ArrayList<String>();
+          for (int i = 0; i < valueList.size(); i++) {
+            list.add(valueList.get(i).toString());
+          }
+          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
+        } else {
+          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
+        }
+      } else if (value instanceof Object[]) {
+        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+      } else {
+        uriBuilder = uriBuilder.queryParam(key, value);
+      }
+    }
+    if (direction != null) {
+      String key = "direction";
+      Object value = direction;
       if (value instanceof Collection) {
         List valueList = new ArrayList<>((Collection) value);
         if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
