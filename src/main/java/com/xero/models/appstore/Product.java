@@ -34,7 +34,8 @@ public class Product {
   /**
    * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
    * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
-   * METERED: Customers are charged per use of this product
+   * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a
+   * fixed amount for each billing period with an optional add-on feature
    */
   public enum TypeEnum {
     /** FIXED */
@@ -44,7 +45,10 @@ public class Product {
     PER_SEAT("PER_SEAT"),
 
     /** METERED */
-    METERED("METERED");
+    METERED("METERED"),
+
+    /** SIMPLE */
+    SIMPLE("SIMPLE");
 
     private String value;
 
@@ -206,7 +210,8 @@ public class Product {
   /**
    * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
    * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
-   * METERED: Customers are charged per use of this product
+   * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a
+   * fixed amount for each billing period with an optional add-on feature
    *
    * @param type TypeEnum
    * @return Product
@@ -219,7 +224,8 @@ public class Product {
   /**
    * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
    * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
-   * METERED: Customers are charged per use of this product
+   * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a
+   * fixed amount for each billing period with an optional add-on feature
    *
    * @return type
    */
@@ -227,11 +233,14 @@ public class Product {
       value =
           "The pricing model of the product: * FIXED: Customers are charged a fixed amount for"
               + " each billing period * PER_SEAT: Customers are charged based on the number of"
-              + " units they purchase * METERED: Customers are charged per use of this product ")
+              + " units they purchase * METERED: Customers are charged per use of this product *"
+              + " SIMPLE: Customers are charged on a fixed amount for each billing period with an"
+              + " optional add-on feature ")
   /**
    * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
    * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
-   * METERED: Customers are charged per use of this product
+   * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a
+   * fixed amount for each billing period with an optional add-on feature
    *
    * @return type TypeEnum
    */
@@ -242,7 +251,8 @@ public class Product {
   /**
    * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
    * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
-   * METERED: Customers are charged per use of this product
+   * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a
+   * fixed amount for each billing period with an optional add-on feature
    *
    * @param type TypeEnum
    */
