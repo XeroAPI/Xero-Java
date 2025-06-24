@@ -9,14 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.EarningsRate;
+import com.xero.models.payrolluk.Pagination;
+import com.xero.models.payrolluk.Problem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** EarningsRateObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EarningsRateObject
+ */
+
 public class EarningsRateObject {
   StringUtil util = new StringUtil();
 
@@ -29,109 +49,101 @@ public class EarningsRateObject {
   @JsonProperty("earningsRate")
   private EarningsRate earningsRate;
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return EarningsRateObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return EarningsRateObject
+  **/
   public EarningsRateObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return EarningsRateObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return EarningsRateObject
+  **/
   public EarningsRateObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * earningsRate
-   *
-   * @param earningsRate EarningsRate
-   * @return EarningsRateObject
-   */
+  * earningsRate
+  * @param earningsRate  EarningsRate
+  * @return EarningsRateObject
+  **/
   public EarningsRateObject earningsRate(EarningsRate earningsRate) {
     this.earningsRate = earningsRate;
     return this;
   }
 
-  /**
+   /**
    * Get earningsRate
-   *
    * @return earningsRate
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * earningsRate
-   *
    * @return earningsRate EarningsRate
-   */
+  **/
   public EarningsRate getEarningsRate() {
     return earningsRate;
   }
 
-  /**
-   * earningsRate
-   *
-   * @param earningsRate EarningsRate
-   */
+  /** 
+  * earningsRate
+  * @param earningsRate  EarningsRate
+  **/
+
   public void setEarningsRate(EarningsRate earningsRate) {
     this.earningsRate = earningsRate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +154,16 @@ public class EarningsRateObject {
       return false;
     }
     EarningsRateObject earningsRateObject = (EarningsRateObject) o;
-    return Objects.equals(this.pagination, earningsRateObject.pagination)
-        && Objects.equals(this.problem, earningsRateObject.problem)
-        && Objects.equals(this.earningsRate, earningsRateObject.earningsRate);
+    return Objects.equals(this.pagination, earningsRateObject.pagination) &&
+        Objects.equals(this.problem, earningsRateObject.problem) &&
+        Objects.equals(this.earningsRate, earningsRateObject.earningsRate);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, earningsRate);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +177,8 @@ public class EarningsRateObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +186,6 @@ public class EarningsRateObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

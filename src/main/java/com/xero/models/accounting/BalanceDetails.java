@@ -9,16 +9,32 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
+import java.io.IOException;
 
-/** An array to specify multiple currency balances of an account */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * An array to specify multiple currency balances of an account
+ */
 @ApiModel(description = "An array to specify multiple currency balances of an account")
+
 public class BalanceDetails {
   StringUtil util = new StringUtil();
 
@@ -31,118 +47,101 @@ public class BalanceDetails {
   @JsonProperty("CurrencyRate")
   private Double currencyRate;
   /**
-   * The opening balances of the account. Debits are positive, credits are negative values
-   *
-   * @param balance Double
-   * @return BalanceDetails
-   */
+  * The opening balances of the account. Debits are positive, credits are negative values
+  * @param balance  Double
+  * @return BalanceDetails
+  **/
   public BalanceDetails balance(Double balance) {
     this.balance = balance;
     return this;
   }
 
-  /**
+   /**
    * The opening balances of the account. Debits are positive, credits are negative values
-   *
    * @return balance
-   */
-  @ApiModelProperty(
-      value =
-          "The opening balances of the account. Debits are positive, credits are negative values")
-  /**
+  **/
+  @ApiModelProperty(value = "The opening balances of the account. Debits are positive, credits are negative values")
+  /** 
    * The opening balances of the account. Debits are positive, credits are negative values
-   *
    * @return balance Double
-   */
+  **/
   public Double getBalance() {
     return balance;
   }
 
-  /**
-   * The opening balances of the account. Debits are positive, credits are negative values
-   *
-   * @param balance Double
-   */
+  /** 
+  * The opening balances of the account. Debits are positive, credits are negative values
+  * @param balance  Double
+  **/
+
   public void setBalance(Double balance) {
     this.balance = balance;
   }
 
   /**
-   * The currency of the balance (Not required for base currency)
-   *
-   * @param currencyCode String
-   * @return BalanceDetails
-   */
+  * The currency of the balance (Not required for base currency)
+  * @param currencyCode  String
+  * @return BalanceDetails
+  **/
   public BalanceDetails currencyCode(String currencyCode) {
     this.currencyCode = currencyCode;
     return this;
   }
 
-  /**
+   /**
    * The currency of the balance (Not required for base currency)
-   *
    * @return currencyCode
-   */
+  **/
   @ApiModelProperty(value = "The currency of the balance (Not required for base currency)")
-  /**
+  /** 
    * The currency of the balance (Not required for base currency)
-   *
    * @return currencyCode String
-   */
+  **/
   public String getCurrencyCode() {
     return currencyCode;
   }
 
-  /**
-   * The currency of the balance (Not required for base currency)
-   *
-   * @param currencyCode String
-   */
+  /** 
+  * The currency of the balance (Not required for base currency)
+  * @param currencyCode  String
+  **/
+
   public void setCurrencyCode(String currencyCode) {
     this.currencyCode = currencyCode;
   }
 
   /**
-   * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE
-   * rate for the day is applied
-   *
-   * @param currencyRate Double
-   * @return BalanceDetails
-   */
+  * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE rate for the day is applied
+  * @param currencyRate  Double
+  * @return BalanceDetails
+  **/
   public BalanceDetails currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
   }
 
-  /**
-   * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE
-   * rate for the day is applied
-   *
+   /**
+   * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE rate for the day is applied
    * @return currencyRate
-   */
-  @ApiModelProperty(
-      value =
-          "(Optional) Exchange rate to base currency when money is spent or received. If not"
-              + " specified, XE rate for the day is applied")
-  /**
-   * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE
-   * rate for the day is applied
-   *
+  **/
+  @ApiModelProperty(value = "(Optional) Exchange rate to base currency when money is spent or received. If not specified, XE rate for the day is applied")
+  /** 
+   * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE rate for the day is applied
    * @return currencyRate Double
-   */
+  **/
   public Double getCurrencyRate() {
     return currencyRate;
   }
 
-  /**
-   * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE
-   * rate for the day is applied
-   *
-   * @param currencyRate Double
-   */
+  /** 
+  * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE rate for the day is applied
+  * @param currencyRate  Double
+  **/
+
   public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -153,15 +152,16 @@ public class BalanceDetails {
       return false;
     }
     BalanceDetails balanceDetails = (BalanceDetails) o;
-    return Objects.equals(this.balance, balanceDetails.balance)
-        && Objects.equals(this.currencyCode, balanceDetails.currencyCode)
-        && Objects.equals(this.currencyRate, balanceDetails.currencyRate);
+    return Objects.equals(this.balance, balanceDetails.balance) &&
+        Objects.equals(this.currencyCode, balanceDetails.currencyCode) &&
+        Objects.equals(this.currencyRate, balanceDetails.currencyRate);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(balance, currencyCode, currencyRate);
   }
+
 
   @Override
   public String toString() {
@@ -175,7 +175,8 @@ public class BalanceDetails {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -183,4 +184,6 @@ public class BalanceDetails {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

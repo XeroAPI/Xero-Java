@@ -9,16 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.CashflowAccount;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** CashflowType */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * CashflowType
+ */
+
 public class CashflowType {
   StringUtil util = new StringUtil();
 
@@ -31,81 +49,74 @@ public class CashflowType {
   @JsonProperty("accounts")
   private List<CashflowAccount> accounts = new ArrayList<CashflowAccount>();
   /**
-   * Name of the activity
-   *
-   * @param name String
-   * @return CashflowType
-   */
+  * Name of the activity
+  * @param name  String
+  * @return CashflowType
+  **/
   public CashflowType name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the activity
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "Name of the activity")
-  /**
+  /** 
    * Name of the activity
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of the activity
-   *
-   * @param name String
-   */
+  /** 
+  * Name of the activity
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Total value of the activity
-   *
-   * @param total Double
-   * @return CashflowType
-   */
+  * Total value of the activity
+  * @param total  Double
+  * @return CashflowType
+  **/
   public CashflowType total(Double total) {
     this.total = total;
     return this;
   }
 
-  /**
+   /**
    * Total value of the activity
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total value of the activity")
-  /**
+  /** 
    * Total value of the activity
-   *
    * @return total Double
-   */
+  **/
   public Double getTotal() {
     return total;
   }
 
-  /**
-   * Total value of the activity
-   *
-   * @param total Double
-   */
+  /** 
+  * Total value of the activity
+  * @param total  Double
+  **/
+
   public void setTotal(Double total) {
     this.total = total;
   }
 
   /**
-   * List of the accounts in this activity
-   *
-   * @param accounts List&lt;CashflowAccount&gt;
-   * @return CashflowType
-   */
+  * List of the accounts in this activity
+  * @param accounts  List&lt;CashflowAccount&gt;
+  * @return CashflowType
+  **/
   public CashflowType accounts(List<CashflowAccount> accounts) {
     this.accounts = accounts;
     return this;
@@ -113,10 +124,9 @@ public class CashflowType {
 
   /**
    * List of the accounts in this activity
-   *
-   * @param accountsItem CashflowAccount
+   * @param accountsItem CashflowAccount 
    * @return CashflowType
-   */
+  **/
   public CashflowType addAccountsItem(CashflowAccount accountsItem) {
     if (this.accounts == null) {
       this.accounts = new ArrayList<CashflowAccount>();
@@ -125,29 +135,28 @@ public class CashflowType {
     return this;
   }
 
-  /**
+   /**
    * List of the accounts in this activity
-   *
    * @return accounts
-   */
+  **/
   @ApiModelProperty(value = "List of the accounts in this activity")
-  /**
+  /** 
    * List of the accounts in this activity
-   *
    * @return accounts List<CashflowAccount>
-   */
+  **/
   public List<CashflowAccount> getAccounts() {
     return accounts;
   }
 
-  /**
-   * List of the accounts in this activity
-   *
-   * @param accounts List&lt;CashflowAccount&gt;
-   */
+  /** 
+  * List of the accounts in this activity
+  * @param accounts List&lt;CashflowAccount&gt; 
+  **/
+
   public void setAccounts(List<CashflowAccount> accounts) {
     this.accounts = accounts;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,15 +167,16 @@ public class CashflowType {
       return false;
     }
     CashflowType cashflowType = (CashflowType) o;
-    return Objects.equals(this.name, cashflowType.name)
-        && Objects.equals(this.total, cashflowType.total)
-        && Objects.equals(this.accounts, cashflowType.accounts);
+    return Objects.equals(this.name, cashflowType.name) &&
+        Objects.equals(this.total, cashflowType.total) &&
+        Objects.equals(this.accounts, cashflowType.accounts);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, total, accounts);
   }
+
 
   @Override
   public String toString() {
@@ -180,7 +190,8 @@ public class CashflowType {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,4 +199,6 @@ public class CashflowType {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

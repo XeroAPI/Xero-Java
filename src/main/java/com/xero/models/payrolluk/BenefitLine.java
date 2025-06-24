@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** BenefitLine */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BenefitLine
+ */
+
 public class BenefitLine {
   StringUtil util = new StringUtil();
 
@@ -36,179 +53,165 @@ public class BenefitLine {
   @JsonProperty("percentage")
   private Double percentage;
   /**
-   * Xero identifier for payroll benefit type
-   *
-   * @param benefitTypeID UUID
-   * @return BenefitLine
-   */
+  * Xero identifier for payroll benefit type
+  * @param benefitTypeID  UUID
+  * @return BenefitLine
+  **/
   public BenefitLine benefitTypeID(UUID benefitTypeID) {
     this.benefitTypeID = benefitTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for payroll benefit type
-   *
    * @return benefitTypeID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for payroll benefit type")
-  /**
+  /** 
    * Xero identifier for payroll benefit type
-   *
    * @return benefitTypeID UUID
-   */
+  **/
   public UUID getBenefitTypeID() {
     return benefitTypeID;
   }
 
-  /**
-   * Xero identifier for payroll benefit type
-   *
-   * @param benefitTypeID UUID
-   */
+  /** 
+  * Xero identifier for payroll benefit type
+  * @param benefitTypeID  UUID
+  **/
+
   public void setBenefitTypeID(UUID benefitTypeID) {
     this.benefitTypeID = benefitTypeID;
   }
 
   /**
-   * Benefit display name
-   *
-   * @param displayName String
-   * @return BenefitLine
-   */
+  * Benefit display name
+  * @param displayName  String
+  * @return BenefitLine
+  **/
   public BenefitLine displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
 
-  /**
+   /**
    * Benefit display name
-   *
    * @return displayName
-   */
+  **/
   @ApiModelProperty(value = "Benefit display name")
-  /**
+  /** 
    * Benefit display name
-   *
    * @return displayName String
-   */
+  **/
   public String getDisplayName() {
     return displayName;
   }
 
-  /**
-   * Benefit display name
-   *
-   * @param displayName String
-   */
+  /** 
+  * Benefit display name
+  * @param displayName  String
+  **/
+
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
   }
 
   /**
-   * The amount of the benefit line.
-   *
-   * @param amount Double
-   * @return BenefitLine
-   */
+  * The amount of the benefit line.
+  * @param amount  Double
+  * @return BenefitLine
+  **/
   public BenefitLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-  /**
+   /**
    * The amount of the benefit line.
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "The amount of the benefit line.")
-  /**
+  /** 
    * The amount of the benefit line.
-   *
    * @return amount Double
-   */
+  **/
   public Double getAmount() {
     return amount;
   }
 
-  /**
-   * The amount of the benefit line.
-   *
-   * @param amount Double
-   */
+  /** 
+  * The amount of the benefit line.
+  * @param amount  Double
+  **/
+
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
-   * Benefit fixed amount
-   *
-   * @param fixedAmount Double
-   * @return BenefitLine
-   */
+  * Benefit fixed amount
+  * @param fixedAmount  Double
+  * @return BenefitLine
+  **/
   public BenefitLine fixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
     return this;
   }
 
-  /**
+   /**
    * Benefit fixed amount
-   *
    * @return fixedAmount
-   */
+  **/
   @ApiModelProperty(value = "Benefit fixed amount")
-  /**
+  /** 
    * Benefit fixed amount
-   *
    * @return fixedAmount Double
-   */
+  **/
   public Double getFixedAmount() {
     return fixedAmount;
   }
 
-  /**
-   * Benefit fixed amount
-   *
-   * @param fixedAmount Double
-   */
+  /** 
+  * Benefit fixed amount
+  * @param fixedAmount  Double
+  **/
+
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
 
   /**
-   * Benefit rate percentage
-   *
-   * @param percentage Double
-   * @return BenefitLine
-   */
+  * Benefit rate percentage
+  * @param percentage  Double
+  * @return BenefitLine
+  **/
   public BenefitLine percentage(Double percentage) {
     this.percentage = percentage;
     return this;
   }
 
-  /**
+   /**
    * Benefit rate percentage
-   *
    * @return percentage
-   */
+  **/
   @ApiModelProperty(value = "Benefit rate percentage")
-  /**
+  /** 
    * Benefit rate percentage
-   *
    * @return percentage Double
-   */
+  **/
   public Double getPercentage() {
     return percentage;
   }
 
-  /**
-   * Benefit rate percentage
-   *
-   * @param percentage Double
-   */
+  /** 
+  * Benefit rate percentage
+  * @param percentage  Double
+  **/
+
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -219,17 +222,18 @@ public class BenefitLine {
       return false;
     }
     BenefitLine benefitLine = (BenefitLine) o;
-    return Objects.equals(this.benefitTypeID, benefitLine.benefitTypeID)
-        && Objects.equals(this.displayName, benefitLine.displayName)
-        && Objects.equals(this.amount, benefitLine.amount)
-        && Objects.equals(this.fixedAmount, benefitLine.fixedAmount)
-        && Objects.equals(this.percentage, benefitLine.percentage);
+    return Objects.equals(this.benefitTypeID, benefitLine.benefitTypeID) &&
+        Objects.equals(this.displayName, benefitLine.displayName) &&
+        Objects.equals(this.amount, benefitLine.amount) &&
+        Objects.equals(this.fixedAmount, benefitLine.fixedAmount) &&
+        Objects.equals(this.percentage, benefitLine.percentage);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(benefitTypeID, displayName, amount, fixedAmount, percentage);
   }
+
 
   @Override
   public String toString() {
@@ -245,7 +249,8 @@ public class BenefitLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -253,4 +258,6 @@ public class BenefitLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

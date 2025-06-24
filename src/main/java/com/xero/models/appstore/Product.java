@@ -9,17 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.appstore;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** Product */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Product
+ */
+
 public class Product {
   StringUtil util = new StringUtil();
 
@@ -32,22 +47,27 @@ public class Product {
   @JsonProperty("seatUnit")
   private String seatUnit;
   /**
-   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
-   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
-   * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a
-   * fixed amount for each billing period with an optional add-on feature
+   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each billing period * PER_SEAT: Customers are charged based on the number of units they purchase * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a fixed amount for each billing period with an optional add-on feature 
    */
   public enum TypeEnum {
-    /** FIXED */
+    /**
+     * FIXED
+     */
     FIXED("FIXED"),
-
-    /** PER_SEAT */
+    
+    /**
+     * PER_SEAT
+     */
     PER_SEAT("PER_SEAT"),
-
-    /** METERED */
+    
+    /**
+     * METERED
+     */
     METERED("METERED"),
-
-    /** SIMPLE */
+    
+    /**
+     * SIMPLE
+     */
     SIMPLE("SIMPLE");
 
     private String value;
@@ -56,31 +76,25 @@ public class Product {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -92,213 +106,172 @@ public class Product {
     }
   }
 
+
   @JsonProperty("type")
   private TypeEnum type;
 
   @JsonProperty("usageUnit")
   private String usageUnit;
   /**
-   * The unique identifier for the product
-   *
-   * @param id UUID
-   * @return Product
-   */
+  * The unique identifier for the product
+  * @param id  UUID
+  * @return Product
+  **/
   public Product id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
+   /**
    * The unique identifier for the product
-   *
    * @return id
-   */
+  **/
   @ApiModelProperty(value = "The unique identifier for the product")
-  /**
+  /** 
    * The unique identifier for the product
-   *
    * @return id UUID
-   */
+  **/
   public UUID getId() {
     return id;
   }
 
-  /**
-   * The unique identifier for the product
-   *
-   * @param id UUID
-   */
+  /** 
+  * The unique identifier for the product
+  * @param id  UUID
+  **/
+
   public void setId(UUID id) {
     this.id = id;
   }
 
   /**
-   * The name of the product
-   *
-   * @param name String
-   * @return Product
-   */
+  * The name of the product
+  * @param name  String
+  * @return Product
+  **/
   public Product name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * The name of the product
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "The name of the product")
-  /**
+  /** 
    * The name of the product
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * The name of the product
-   *
-   * @param name String
-   */
+  /** 
+  * The name of the product
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;,
-   * \&quot;SMS\&quot;, etc
-   *
-   * @param seatUnit String
-   * @return Product
-   */
+  * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;, \&quot;SMS\&quot;, etc
+  * @param seatUnit  String
+  * @return Product
+  **/
   public Product seatUnit(String seatUnit) {
     this.seatUnit = seatUnit;
     return this;
   }
 
-  /**
-   * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;,
-   * \&quot;SMS\&quot;, etc
-   *
+   /**
+   * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;, \&quot;SMS\&quot;, etc
    * @return seatUnit
-   */
-  @ApiModelProperty(
-      value = "The unit of the per seat product. e.g. \"user\", \"organisation\", \"SMS\", etc")
-  /**
-   * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;,
-   * \&quot;SMS\&quot;, etc
-   *
+  **/
+  @ApiModelProperty(value = "The unit of the per seat product. e.g. \"user\", \"organisation\", \"SMS\", etc")
+  /** 
+   * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;, \&quot;SMS\&quot;, etc
    * @return seatUnit String
-   */
+  **/
   public String getSeatUnit() {
     return seatUnit;
   }
 
-  /**
-   * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;,
-   * \&quot;SMS\&quot;, etc
-   *
-   * @param seatUnit String
-   */
+  /** 
+  * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;, \&quot;SMS\&quot;, etc
+  * @param seatUnit  String
+  **/
+
   public void setSeatUnit(String seatUnit) {
     this.seatUnit = seatUnit;
   }
 
   /**
-   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
-   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
-   * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a
-   * fixed amount for each billing period with an optional add-on feature
-   *
-   * @param type TypeEnum
-   * @return Product
-   */
+  * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each billing period * PER_SEAT: Customers are charged based on the number of units they purchase * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a fixed amount for each billing period with an optional add-on feature 
+  * @param type  TypeEnum
+  * @return Product
+  **/
   public Product type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
-  /**
-   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
-   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
-   * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a
-   * fixed amount for each billing period with an optional add-on feature
-   *
+   /**
+   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each billing period * PER_SEAT: Customers are charged based on the number of units they purchase * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a fixed amount for each billing period with an optional add-on feature 
    * @return type
-   */
-  @ApiModelProperty(
-      value =
-          "The pricing model of the product: * FIXED: Customers are charged a fixed amount for"
-              + " each billing period * PER_SEAT: Customers are charged based on the number of"
-              + " units they purchase * METERED: Customers are charged per use of this product *"
-              + " SIMPLE: Customers are charged on a fixed amount for each billing period with an"
-              + " optional add-on feature ")
-  /**
-   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
-   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
-   * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a
-   * fixed amount for each billing period with an optional add-on feature
-   *
+  **/
+  @ApiModelProperty(value = "The pricing model of the product: * FIXED: Customers are charged a fixed amount for each billing period * PER_SEAT: Customers are charged based on the number of units they purchase * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a fixed amount for each billing period with an optional add-on feature ")
+  /** 
+   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each billing period * PER_SEAT: Customers are charged based on the number of units they purchase * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a fixed amount for each billing period with an optional add-on feature 
    * @return type TypeEnum
-   */
+  **/
   public TypeEnum getType() {
     return type;
   }
 
-  /**
-   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
-   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
-   * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a
-   * fixed amount for each billing period with an optional add-on feature
-   *
-   * @param type TypeEnum
-   */
+  /** 
+  * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each billing period * PER_SEAT: Customers are charged based on the number of units they purchase * METERED: Customers are charged per use of this product * SIMPLE: Customers are charged on a fixed amount for each billing period with an optional add-on feature 
+  * @param type  TypeEnum
+  **/
+
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
   /**
-   * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;,
-   * \&quot;SMS\&quot;, etc
-   *
-   * @param usageUnit String
-   * @return Product
-   */
+  * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;, \&quot;SMS\&quot;, etc
+  * @param usageUnit  String
+  * @return Product
+  **/
   public Product usageUnit(String usageUnit) {
     this.usageUnit = usageUnit;
     return this;
   }
 
-  /**
-   * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;,
-   * \&quot;SMS\&quot;, etc
-   *
+   /**
+   * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;, \&quot;SMS\&quot;, etc
    * @return usageUnit
-   */
-  @ApiModelProperty(
-      value = "The unit of the usage product. e.g. \"user\", \"minutes\", \"SMS\", etc")
-  /**
-   * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;,
-   * \&quot;SMS\&quot;, etc
-   *
+  **/
+  @ApiModelProperty(value = "The unit of the usage product. e.g. \"user\", \"minutes\", \"SMS\", etc")
+  /** 
+   * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;, \&quot;SMS\&quot;, etc
    * @return usageUnit String
-   */
+  **/
   public String getUsageUnit() {
     return usageUnit;
   }
 
-  /**
-   * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;,
-   * \&quot;SMS\&quot;, etc
-   *
-   * @param usageUnit String
-   */
+  /** 
+  * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;, \&quot;SMS\&quot;, etc
+  * @param usageUnit  String
+  **/
+
   public void setUsageUnit(String usageUnit) {
     this.usageUnit = usageUnit;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -309,17 +282,18 @@ public class Product {
       return false;
     }
     Product product = (Product) o;
-    return Objects.equals(this.id, product.id)
-        && Objects.equals(this.name, product.name)
-        && Objects.equals(this.seatUnit, product.seatUnit)
-        && Objects.equals(this.type, product.type)
-        && Objects.equals(this.usageUnit, product.usageUnit);
+    return Objects.equals(this.id, product.id) &&
+        Objects.equals(this.name, product.name) &&
+        Objects.equals(this.seatUnit, product.seatUnit) &&
+        Objects.equals(this.type, product.type) &&
+        Objects.equals(this.usageUnit, product.usageUnit);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(id, name, seatUnit, type, usageUnit);
   }
+
 
   @Override
   public String toString() {
@@ -335,7 +309,8 @@ public class Product {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -343,4 +318,6 @@ public class Product {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

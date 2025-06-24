@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** BatchPaymentDelete */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * BatchPaymentDelete
+ */
+
 public class BatchPaymentDelete {
   StringUtil util = new StringUtil();
 
@@ -27,76 +44,69 @@ public class BatchPaymentDelete {
   @JsonProperty("Status")
   private String status = "DELETED";
   /**
-   * The Xero generated unique identifier for the bank transaction (read-only)
-   *
-   * @param batchPaymentID UUID
-   * @return BatchPaymentDelete
-   */
+  * The Xero generated unique identifier for the bank transaction (read-only)
+  * @param batchPaymentID  UUID
+  * @return BatchPaymentDelete
+  **/
   public BatchPaymentDelete batchPaymentID(UUID batchPaymentID) {
     this.batchPaymentID = batchPaymentID;
     return this;
   }
 
-  /**
+   /**
    * The Xero generated unique identifier for the bank transaction (read-only)
-   *
    * @return batchPaymentID
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "The Xero generated unique identifier for the bank transaction (read-only)")
-  /**
+  **/
+  @ApiModelProperty(required = true, value = "The Xero generated unique identifier for the bank transaction (read-only)")
+  /** 
    * The Xero generated unique identifier for the bank transaction (read-only)
-   *
    * @return batchPaymentID UUID
-   */
+  **/
   public UUID getBatchPaymentID() {
     return batchPaymentID;
   }
 
-  /**
-   * The Xero generated unique identifier for the bank transaction (read-only)
-   *
-   * @param batchPaymentID UUID
-   */
+  /** 
+  * The Xero generated unique identifier for the bank transaction (read-only)
+  * @param batchPaymentID  UUID
+  **/
+
   public void setBatchPaymentID(UUID batchPaymentID) {
     this.batchPaymentID = batchPaymentID;
   }
 
   /**
-   * The status of the batch payment.
-   *
-   * @param status String
-   * @return BatchPaymentDelete
-   */
+  * The status of the batch payment.
+  * @param status  String
+  * @return BatchPaymentDelete
+  **/
   public BatchPaymentDelete status(String status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * The status of the batch payment.
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(required = true, value = "The status of the batch payment.")
-  /**
+  /** 
    * The status of the batch payment.
-   *
    * @return status String
-   */
+  **/
   public String getStatus() {
     return status;
   }
 
-  /**
-   * The status of the batch payment.
-   *
-   * @param status String
-   */
+  /** 
+  * The status of the batch payment.
+  * @param status  String
+  **/
+
   public void setStatus(String status) {
     this.status = status;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -107,14 +117,15 @@ public class BatchPaymentDelete {
       return false;
     }
     BatchPaymentDelete batchPaymentDelete = (BatchPaymentDelete) o;
-    return Objects.equals(this.batchPaymentID, batchPaymentDelete.batchPaymentID)
-        && Objects.equals(this.status, batchPaymentDelete.status);
+    return Objects.equals(this.batchPaymentID, batchPaymentDelete.batchPaymentID) &&
+        Objects.equals(this.status, batchPaymentDelete.status);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(batchPaymentID, status);
   }
+
 
   @Override
   public String toString() {
@@ -127,7 +138,8 @@ public class BatchPaymentDelete {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -135,4 +147,6 @@ public class BatchPaymentDelete {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

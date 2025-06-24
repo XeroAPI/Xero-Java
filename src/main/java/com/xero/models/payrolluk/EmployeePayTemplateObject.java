@@ -9,14 +9,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.EmployeePayTemplate;
+import com.xero.models.payrolluk.Pagination;
+import com.xero.models.payrolluk.Problem;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** EmployeePayTemplateObject */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeePayTemplateObject
+ */
+
 public class EmployeePayTemplateObject {
   StringUtil util = new StringUtil();
 
@@ -29,109 +49,101 @@ public class EmployeePayTemplateObject {
   @JsonProperty("payTemplate")
   private EmployeePayTemplate payTemplate;
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return EmployeePayTemplateObject
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return EmployeePayTemplateObject
+  **/
   public EmployeePayTemplateObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return EmployeePayTemplateObject
-   */
+  * problem
+  * @param problem  Problem
+  * @return EmployeePayTemplateObject
+  **/
   public EmployeePayTemplateObject problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * payTemplate
-   *
-   * @param payTemplate EmployeePayTemplate
-   * @return EmployeePayTemplateObject
-   */
+  * payTemplate
+  * @param payTemplate  EmployeePayTemplate
+  * @return EmployeePayTemplateObject
+  **/
   public EmployeePayTemplateObject payTemplate(EmployeePayTemplate payTemplate) {
     this.payTemplate = payTemplate;
     return this;
   }
 
-  /**
+   /**
    * Get payTemplate
-   *
    * @return payTemplate
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * payTemplate
-   *
    * @return payTemplate EmployeePayTemplate
-   */
+  **/
   public EmployeePayTemplate getPayTemplate() {
     return payTemplate;
   }
 
-  /**
-   * payTemplate
-   *
-   * @param payTemplate EmployeePayTemplate
-   */
+  /** 
+  * payTemplate
+  * @param payTemplate  EmployeePayTemplate
+  **/
+
   public void setPayTemplate(EmployeePayTemplate payTemplate) {
     this.payTemplate = payTemplate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,15 +154,16 @@ public class EmployeePayTemplateObject {
       return false;
     }
     EmployeePayTemplateObject employeePayTemplateObject = (EmployeePayTemplateObject) o;
-    return Objects.equals(this.pagination, employeePayTemplateObject.pagination)
-        && Objects.equals(this.problem, employeePayTemplateObject.problem)
-        && Objects.equals(this.payTemplate, employeePayTemplateObject.payTemplate);
+    return Objects.equals(this.pagination, employeePayTemplateObject.pagination) &&
+        Objects.equals(this.problem, employeePayTemplateObject.problem) &&
+        Objects.equals(this.payTemplate, employeePayTemplateObject.payTemplate);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, payTemplate);
   }
+
 
   @Override
   public String toString() {
@@ -164,7 +177,8 @@ public class EmployeePayTemplateObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -172,4 +186,6 @@ public class EmployeePayTemplateObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

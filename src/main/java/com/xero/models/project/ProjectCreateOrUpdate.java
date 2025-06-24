@@ -9,16 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.project;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.project;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** ProjectCreateOrUpdate */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ProjectCreateOrUpdate
+ */
+
 public class ProjectCreateOrUpdate {
   StringUtil util = new StringUtil();
 
@@ -34,148 +51,133 @@ public class ProjectCreateOrUpdate {
   @JsonProperty("deadlineUtc")
   private OffsetDateTime deadlineUtc;
   /**
-   * Identifier of the contact this project was created for.
-   *
-   * @param contactId UUID
-   * @return ProjectCreateOrUpdate
-   */
+  * Identifier of the contact this project was created for.
+  * @param contactId  UUID
+  * @return ProjectCreateOrUpdate
+  **/
   public ProjectCreateOrUpdate contactId(UUID contactId) {
     this.contactId = contactId;
     return this;
   }
 
-  /**
+   /**
    * Identifier of the contact this project was created for.
-   *
    * @return contactId
-   */
-  @ApiModelProperty(
-      example = "01234567-89ab-cdef-0123-456789abcdef",
-      value = "Identifier of the contact this project was created for.")
-  /**
+  **/
+  @ApiModelProperty(example = "01234567-89ab-cdef-0123-456789abcdef", value = "Identifier of the contact this project was created for.")
+  /** 
    * Identifier of the contact this project was created for.
-   *
    * @return contactId UUID
-   */
+  **/
   public UUID getContactId() {
     return contactId;
   }
 
-  /**
-   * Identifier of the contact this project was created for.
-   *
-   * @param contactId UUID
-   */
+  /** 
+  * Identifier of the contact this project was created for.
+  * @param contactId  UUID
+  **/
+
   public void setContactId(UUID contactId) {
     this.contactId = contactId;
   }
 
   /**
-   * Name of the project.
-   *
-   * @param name String
-   * @return ProjectCreateOrUpdate
-   */
+  * Name of the project.
+  * @param name  String
+  * @return ProjectCreateOrUpdate
+  **/
   public ProjectCreateOrUpdate name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the project.
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(example = "New Kitchen", required = true, value = "Name of the project.")
-  /**
+  /** 
    * Name of the project.
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * Name of the project.
-   *
-   * @param name String
-   */
+  /** 
+  * Name of the project.
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * estimateAmount
-   *
-   * @param estimateAmount Double
-   * @return ProjectCreateOrUpdate
-   */
+  * estimateAmount
+  * @param estimateAmount  Double
+  * @return ProjectCreateOrUpdate
+  **/
   public ProjectCreateOrUpdate estimateAmount(Double estimateAmount) {
     this.estimateAmount = estimateAmount;
     return this;
   }
 
-  /**
+   /**
    * Get estimateAmount
-   *
    * @return estimateAmount
-   */
+  **/
   @ApiModelProperty(example = "1.0", value = "")
-  /**
+  /** 
    * estimateAmount
-   *
    * @return estimateAmount Double
-   */
+  **/
   public Double getEstimateAmount() {
     return estimateAmount;
   }
 
-  /**
-   * estimateAmount
-   *
-   * @param estimateAmount Double
-   */
+  /** 
+  * estimateAmount
+  * @param estimateAmount  Double
+  **/
+
   public void setEstimateAmount(Double estimateAmount) {
     this.estimateAmount = estimateAmount;
   }
 
   /**
-   * Deadline for the project. UTC Date Time in ISO-8601 format.
-   *
-   * @param deadlineUtc OffsetDateTime
-   * @return ProjectCreateOrUpdate
-   */
+  * Deadline for the project. UTC Date Time in ISO-8601 format.
+  * @param deadlineUtc  OffsetDateTime
+  * @return ProjectCreateOrUpdate
+  **/
   public ProjectCreateOrUpdate deadlineUtc(OffsetDateTime deadlineUtc) {
     this.deadlineUtc = deadlineUtc;
     return this;
   }
 
-  /**
+   /**
    * Deadline for the project. UTC Date Time in ISO-8601 format.
-   *
    * @return deadlineUtc
-   */
-  @ApiModelProperty(
-      example = "2019-12-10T12:59:59Z",
-      value = "Deadline for the project. UTC Date Time in ISO-8601 format.")
-  /**
+  **/
+  @ApiModelProperty(example = "2019-12-10T12:59:59Z", value = "Deadline for the project. UTC Date Time in ISO-8601 format.")
+  /** 
    * Deadline for the project. UTC Date Time in ISO-8601 format.
-   *
    * @return deadlineUtc OffsetDateTime
-   */
+  **/
   public OffsetDateTime getDeadlineUtc() {
     return deadlineUtc;
   }
 
-  /**
-   * Deadline for the project. UTC Date Time in ISO-8601 format.
-   *
-   * @param deadlineUtc OffsetDateTime
-   */
+  /** 
+  * Deadline for the project. UTC Date Time in ISO-8601 format.
+  * @param deadlineUtc  OffsetDateTime
+  **/
+
   public void setDeadlineUtc(OffsetDateTime deadlineUtc) {
     this.deadlineUtc = deadlineUtc;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -186,16 +188,17 @@ public class ProjectCreateOrUpdate {
       return false;
     }
     ProjectCreateOrUpdate projectCreateOrUpdate = (ProjectCreateOrUpdate) o;
-    return Objects.equals(this.contactId, projectCreateOrUpdate.contactId)
-        && Objects.equals(this.name, projectCreateOrUpdate.name)
-        && Objects.equals(this.estimateAmount, projectCreateOrUpdate.estimateAmount)
-        && Objects.equals(this.deadlineUtc, projectCreateOrUpdate.deadlineUtc);
+    return Objects.equals(this.contactId, projectCreateOrUpdate.contactId) &&
+        Objects.equals(this.name, projectCreateOrUpdate.name) &&
+        Objects.equals(this.estimateAmount, projectCreateOrUpdate.estimateAmount) &&
+        Objects.equals(this.deadlineUtc, projectCreateOrUpdate.deadlineUtc);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(contactId, name, estimateAmount, deadlineUtc);
   }
+
 
   @Override
   public String toString() {
@@ -210,7 +213,8 @@ public class ProjectCreateOrUpdate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -218,4 +222,6 @@ public class ProjectCreateOrUpdate {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

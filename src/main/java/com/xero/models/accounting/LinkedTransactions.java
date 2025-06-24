@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.LinkedTransaction;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** LinkedTransactions */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LinkedTransactions
+ */
+
 public class LinkedTransactions {
   StringUtil util = new StringUtil();
 
   @JsonProperty("LinkedTransactions")
   private List<LinkedTransaction> linkedTransactions = new ArrayList<LinkedTransaction>();
   /**
-   * linkedTransactions
-   *
-   * @param linkedTransactions List&lt;LinkedTransaction&gt;
-   * @return LinkedTransactions
-   */
+  * linkedTransactions
+  * @param linkedTransactions  List&lt;LinkedTransaction&gt;
+  * @return LinkedTransactions
+  **/
   public LinkedTransactions linkedTransactions(List<LinkedTransaction> linkedTransactions) {
     this.linkedTransactions = linkedTransactions;
     return this;
@@ -37,10 +54,9 @@ public class LinkedTransactions {
 
   /**
    * linkedTransactions
-   *
-   * @param linkedTransactionsItem LinkedTransaction
+   * @param linkedTransactionsItem LinkedTransaction 
    * @return LinkedTransactions
-   */
+  **/
   public LinkedTransactions addLinkedTransactionsItem(LinkedTransaction linkedTransactionsItem) {
     if (this.linkedTransactions == null) {
       this.linkedTransactions = new ArrayList<LinkedTransaction>();
@@ -49,29 +65,28 @@ public class LinkedTransactions {
     return this;
   }
 
-  /**
+   /**
    * Get linkedTransactions
-   *
    * @return linkedTransactions
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * linkedTransactions
-   *
    * @return linkedTransactions List<LinkedTransaction>
-   */
+  **/
   public List<LinkedTransaction> getLinkedTransactions() {
     return linkedTransactions;
   }
 
-  /**
-   * linkedTransactions
-   *
-   * @param linkedTransactions List&lt;LinkedTransaction&gt;
-   */
+  /** 
+  * linkedTransactions
+  * @param linkedTransactions List&lt;LinkedTransaction&gt; 
+  **/
+
   public void setLinkedTransactions(List<LinkedTransaction> linkedTransactions) {
     this.linkedTransactions = linkedTransactions;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class LinkedTransactions {
     return Objects.hash(linkedTransactions);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class LinkedTransactions {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class LinkedTransactions {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

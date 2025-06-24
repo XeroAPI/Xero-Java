@@ -9,18 +9,37 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrolluk;
 
+package com.xero.models.payrolluk;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.NICategory;
+import com.xero.models.payrolluk.NICategoryLetter;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** Employment */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Employment
+ */
+
 public class Employment {
   StringUtil util = new StringUtil();
 
@@ -39,151 +58,138 @@ public class Employment {
   @JsonProperty("niCategories")
   private List<NICategory> niCategories = new ArrayList<NICategory>();
   /**
-   * Xero unique identifier for the payroll calendar of the employee
-   *
-   * @param payrollCalendarID UUID
-   * @return Employment
-   */
+  * Xero unique identifier for the payroll calendar of the employee
+  * @param payrollCalendarID  UUID
+  * @return Employment
+  **/
   public Employment payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for the payroll calendar of the employee
-   *
    * @return payrollCalendarID
-   */
+  **/
   @ApiModelProperty(value = "Xero unique identifier for the payroll calendar of the employee")
-  /**
+  /** 
    * Xero unique identifier for the payroll calendar of the employee
-   *
    * @return payrollCalendarID UUID
-   */
+  **/
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
-  /**
-   * Xero unique identifier for the payroll calendar of the employee
-   *
-   * @param payrollCalendarID UUID
-   */
+  /** 
+  * Xero unique identifier for the payroll calendar of the employee
+  * @param payrollCalendarID  UUID
+  **/
+
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
   /**
-   * Start date of the employment (YYYY-MM-DD)
-   *
-   * @param startDate LocalDate
-   * @return Employment
-   */
+  * Start date of the employment (YYYY-MM-DD)
+  * @param startDate  LocalDate
+  * @return Employment
+  **/
   public Employment startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * Start date of the employment (YYYY-MM-DD)
-   *
    * @return startDate
-   */
+  **/
   @ApiModelProperty(value = "Start date of the employment (YYYY-MM-DD)")
-  /**
+  /** 
    * Start date of the employment (YYYY-MM-DD)
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * Start date of the employment (YYYY-MM-DD)
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * Start date of the employment (YYYY-MM-DD)
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * The employment number of the employee
-   *
-   * @param employeeNumber String
-   * @return Employment
-   */
+  * The employment number of the employee
+  * @param employeeNumber  String
+  * @return Employment
+  **/
   public Employment employeeNumber(String employeeNumber) {
     this.employeeNumber = employeeNumber;
     return this;
   }
 
-  /**
+   /**
    * The employment number of the employee
-   *
    * @return employeeNumber
-   */
+  **/
   @ApiModelProperty(example = "7", value = "The employment number of the employee")
-  /**
+  /** 
    * The employment number of the employee
-   *
    * @return employeeNumber String
-   */
+  **/
   public String getEmployeeNumber() {
     return employeeNumber;
   }
 
-  /**
-   * The employment number of the employee
-   *
-   * @param employeeNumber String
-   */
+  /** 
+  * The employment number of the employee
+  * @param employeeNumber  String
+  **/
+
   public void setEmployeeNumber(String employeeNumber) {
     this.employeeNumber = employeeNumber;
   }
 
   /**
-   * niCategory
-   *
-   * @param niCategory NICategoryLetter
-   * @return Employment
-   */
+  * niCategory
+  * @param niCategory  NICategoryLetter
+  * @return Employment
+  **/
   public Employment niCategory(NICategoryLetter niCategory) {
     this.niCategory = niCategory;
     return this;
   }
 
-  /**
+   /**
    * Get niCategory
-   *
    * @return niCategory
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * niCategory
-   *
    * @return niCategory NICategoryLetter
-   */
+  **/
   public NICategoryLetter getNiCategory() {
     return niCategory;
   }
 
-  /**
-   * niCategory
-   *
-   * @param niCategory NICategoryLetter
-   */
+  /** 
+  * niCategory
+  * @param niCategory  NICategoryLetter
+  **/
+
   public void setNiCategory(NICategoryLetter niCategory) {
     this.niCategory = niCategory;
   }
 
   /**
-   * The employee&#39;s NI categories
-   *
-   * @param niCategories List&lt;NICategory&gt;
-   * @return Employment
-   */
+  * The employee&#39;s NI categories
+  * @param niCategories  List&lt;NICategory&gt;
+  * @return Employment
+  **/
   public Employment niCategories(List<NICategory> niCategories) {
     this.niCategories = niCategories;
     return this;
@@ -191,10 +197,9 @@ public class Employment {
 
   /**
    * The employee&#39;s NI categories
-   *
-   * @param niCategoriesItem NICategory
+   * @param niCategoriesItem NICategory 
    * @return Employment
-   */
+  **/
   public Employment addNiCategoriesItem(NICategory niCategoriesItem) {
     if (this.niCategories == null) {
       this.niCategories = new ArrayList<NICategory>();
@@ -203,29 +208,28 @@ public class Employment {
     return this;
   }
 
-  /**
+   /**
    * The employee&#39;s NI categories
-   *
    * @return niCategories
-   */
+  **/
   @ApiModelProperty(value = "The employee's NI categories")
-  /**
+  /** 
    * The employee&#39;s NI categories
-   *
    * @return niCategories List<NICategory>
-   */
+  **/
   public List<NICategory> getNiCategories() {
     return niCategories;
   }
 
-  /**
-   * The employee&#39;s NI categories
-   *
-   * @param niCategories List&lt;NICategory&gt;
-   */
+  /** 
+  * The employee&#39;s NI categories
+  * @param niCategories List&lt;NICategory&gt; 
+  **/
+
   public void setNiCategories(List<NICategory> niCategories) {
     this.niCategories = niCategories;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -236,17 +240,18 @@ public class Employment {
       return false;
     }
     Employment employment = (Employment) o;
-    return Objects.equals(this.payrollCalendarID, employment.payrollCalendarID)
-        && Objects.equals(this.startDate, employment.startDate)
-        && Objects.equals(this.employeeNumber, employment.employeeNumber)
-        && Objects.equals(this.niCategory, employment.niCategory)
-        && Objects.equals(this.niCategories, employment.niCategories);
+    return Objects.equals(this.payrollCalendarID, employment.payrollCalendarID) &&
+        Objects.equals(this.startDate, employment.startDate) &&
+        Objects.equals(this.employeeNumber, employment.employeeNumber) &&
+        Objects.equals(this.niCategory, employment.niCategory) &&
+        Objects.equals(this.niCategories, employment.niCategories);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(payrollCalendarID, startDate, employeeNumber, niCategory, niCategories);
   }
+
 
   @Override
   public String toString() {
@@ -262,7 +267,8 @@ public class Employment {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -270,4 +276,6 @@ public class Employment {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

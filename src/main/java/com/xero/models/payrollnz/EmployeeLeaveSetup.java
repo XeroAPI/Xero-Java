@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** EmployeeLeaveSetup */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeLeaveSetup
+ */
+
 public class EmployeeLeaveSetup {
   StringUtil util = new StringUtil();
 
@@ -57,489 +74,389 @@ public class EmployeeLeaveSetup {
   @JsonProperty("AnnualLeaveAnniversaryDate")
   private LocalDate annualLeaveAnniversaryDate;
   /**
-   * Identifier if holiday pay will be included in each payslip
-   *
-   * @param includeHolidayPay Boolean
-   * @return EmployeeLeaveSetup
-   */
+  * Identifier if holiday pay will be included in each payslip
+  * @param includeHolidayPay  Boolean
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup includeHolidayPay(Boolean includeHolidayPay) {
     this.includeHolidayPay = includeHolidayPay;
     return this;
   }
 
-  /**
+   /**
    * Identifier if holiday pay will be included in each payslip
-   *
    * @return includeHolidayPay
-   */
-  @ApiModelProperty(
-      example = "false",
-      value = "Identifier if holiday pay will be included in each payslip")
-  /**
+  **/
+  @ApiModelProperty(example = "false", value = "Identifier if holiday pay will be included in each payslip")
+  /** 
    * Identifier if holiday pay will be included in each payslip
-   *
    * @return includeHolidayPay Boolean
-   */
+  **/
   public Boolean getIncludeHolidayPay() {
     return includeHolidayPay;
   }
 
-  /**
-   * Identifier if holiday pay will be included in each payslip
-   *
-   * @param includeHolidayPay Boolean
-   */
+  /** 
+  * Identifier if holiday pay will be included in each payslip
+  * @param includeHolidayPay  Boolean
+  **/
+
   public void setIncludeHolidayPay(Boolean includeHolidayPay) {
     this.includeHolidayPay = includeHolidayPay;
   }
 
   /**
-   * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last
-   * work anniversary.
-   *
-   * @param holidayPayOpeningBalance Double
-   * @return EmployeeLeaveSetup
-   */
+  * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last work anniversary.
+  * @param holidayPayOpeningBalance  Double
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup holidayPayOpeningBalance(Double holidayPayOpeningBalance) {
     this.holidayPayOpeningBalance = holidayPayOpeningBalance;
     return this;
   }
 
-  /**
-   * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last
-   * work anniversary.
-   *
+   /**
+   * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last work anniversary.
    * @return holidayPayOpeningBalance
-   */
-  @ApiModelProperty(
-      example = "10.5",
-      value =
-          "Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their"
-              + " last work anniversary.")
-  /**
-   * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last
-   * work anniversary.
-   *
+  **/
+  @ApiModelProperty(example = "10.5", value = "Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last work anniversary.")
+  /** 
+   * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last work anniversary.
    * @return holidayPayOpeningBalance Double
-   */
+  **/
   public Double getHolidayPayOpeningBalance() {
     return holidayPayOpeningBalance;
   }
 
-  /**
-   * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last
-   * work anniversary.
-   *
-   * @param holidayPayOpeningBalance Double
-   */
+  /** 
+  * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last work anniversary.
+  * @param holidayPayOpeningBalance  Double
+  **/
+
   public void setHolidayPayOpeningBalance(Double holidayPayOpeningBalance) {
     this.holidayPayOpeningBalance = holidayPayOpeningBalance;
   }
 
   /**
-   * Initial annual leave balance. The balance at their last anniversary, less any leave taken since
-   * then and excluding accrued annual leave.
-   *
-   * @param annualLeaveOpeningBalance Double
-   * @return EmployeeLeaveSetup
-   */
+  * Initial annual leave balance. The balance at their last anniversary, less any leave taken since then and excluding accrued annual leave.
+  * @param annualLeaveOpeningBalance  Double
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup annualLeaveOpeningBalance(Double annualLeaveOpeningBalance) {
     this.annualLeaveOpeningBalance = annualLeaveOpeningBalance;
     return this;
   }
 
-  /**
-   * Initial annual leave balance. The balance at their last anniversary, less any leave taken since
-   * then and excluding accrued annual leave.
-   *
+   /**
+   * Initial annual leave balance. The balance at their last anniversary, less any leave taken since then and excluding accrued annual leave.
    * @return annualLeaveOpeningBalance
-   */
-  @ApiModelProperty(
-      example = "25.89",
-      value =
-          "Initial annual leave balance. The balance at their last anniversary, less any leave"
-              + " taken since then and excluding accrued annual leave.")
-  /**
-   * Initial annual leave balance. The balance at their last anniversary, less any leave taken since
-   * then and excluding accrued annual leave.
-   *
+  **/
+  @ApiModelProperty(example = "25.89", value = "Initial annual leave balance. The balance at their last anniversary, less any leave taken since then and excluding accrued annual leave.")
+  /** 
+   * Initial annual leave balance. The balance at their last anniversary, less any leave taken since then and excluding accrued annual leave.
    * @return annualLeaveOpeningBalance Double
-   */
+  **/
   public Double getAnnualLeaveOpeningBalance() {
     return annualLeaveOpeningBalance;
   }
 
-  /**
-   * Initial annual leave balance. The balance at their last anniversary, less any leave taken since
-   * then and excluding accrued annual leave.
-   *
-   * @param annualLeaveOpeningBalance Double
-   */
+  /** 
+  * Initial annual leave balance. The balance at their last anniversary, less any leave taken since then and excluding accrued annual leave.
+  * @param annualLeaveOpeningBalance  Double
+  **/
+
   public void setAnnualLeaveOpeningBalance(Double annualLeaveOpeningBalance) {
     this.annualLeaveOpeningBalance = annualLeaveOpeningBalance;
   }
 
   /**
-   * The dollar value of annual leave opening balance if negative.
-   *
-   * @param negativeAnnualLeaveBalancePaidAmount Double
-   * @return EmployeeLeaveSetup
-   */
-  public EmployeeLeaveSetup negativeAnnualLeaveBalancePaidAmount(
-      Double negativeAnnualLeaveBalancePaidAmount) {
+  * The dollar value of annual leave opening balance if negative.
+  * @param negativeAnnualLeaveBalancePaidAmount  Double
+  * @return EmployeeLeaveSetup
+  **/
+  public EmployeeLeaveSetup negativeAnnualLeaveBalancePaidAmount(Double negativeAnnualLeaveBalancePaidAmount) {
     this.negativeAnnualLeaveBalancePaidAmount = negativeAnnualLeaveBalancePaidAmount;
     return this;
   }
 
-  /**
+   /**
    * The dollar value of annual leave opening balance if negative.
-   *
    * @return negativeAnnualLeaveBalancePaidAmount
-   */
-  @ApiModelProperty(
-      example = "10.0",
-      value = "The dollar value of annual leave opening balance if negative.")
-  /**
+  **/
+  @ApiModelProperty(example = "10.0", value = "The dollar value of annual leave opening balance if negative.")
+  /** 
    * The dollar value of annual leave opening balance if negative.
-   *
    * @return negativeAnnualLeaveBalancePaidAmount Double
-   */
+  **/
   public Double getNegativeAnnualLeaveBalancePaidAmount() {
     return negativeAnnualLeaveBalancePaidAmount;
   }
 
-  /**
-   * The dollar value of annual leave opening balance if negative.
-   *
-   * @param negativeAnnualLeaveBalancePaidAmount Double
-   */
+  /** 
+  * The dollar value of annual leave opening balance if negative.
+  * @param negativeAnnualLeaveBalancePaidAmount  Double
+  **/
+
   public void setNegativeAnnualLeaveBalancePaidAmount(Double negativeAnnualLeaveBalancePaidAmount) {
     this.negativeAnnualLeaveBalancePaidAmount = negativeAnnualLeaveBalancePaidAmount;
   }
 
   /**
-   * Deprecated use SickLeaveToAccrueAnnually
-   *
-   * @param sickLeaveHoursToAccrueAnnually Double
-   * @return EmployeeLeaveSetup
-   */
+  * Deprecated use SickLeaveToAccrueAnnually
+  * @param sickLeaveHoursToAccrueAnnually  Double
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup sickLeaveHoursToAccrueAnnually(Double sickLeaveHoursToAccrueAnnually) {
     this.sickLeaveHoursToAccrueAnnually = sickLeaveHoursToAccrueAnnually;
     return this;
   }
 
-  /**
+   /**
    * Deprecated use SickLeaveToAccrueAnnually
-   *
    * @return sickLeaveHoursToAccrueAnnually
-   */
+  **/
   @ApiModelProperty(example = "100.5", value = "Deprecated use SickLeaveToAccrueAnnually")
-  /**
+  /** 
    * Deprecated use SickLeaveToAccrueAnnually
-   *
    * @return sickLeaveHoursToAccrueAnnually Double
-   */
+  **/
   public Double getSickLeaveHoursToAccrueAnnually() {
     return sickLeaveHoursToAccrueAnnually;
   }
 
-  /**
-   * Deprecated use SickLeaveToAccrueAnnually
-   *
-   * @param sickLeaveHoursToAccrueAnnually Double
-   */
+  /** 
+  * Deprecated use SickLeaveToAccrueAnnually
+  * @param sickLeaveHoursToAccrueAnnually  Double
+  **/
+
   public void setSickLeaveHoursToAccrueAnnually(Double sickLeaveHoursToAccrueAnnually) {
     this.sickLeaveHoursToAccrueAnnually = sickLeaveHoursToAccrueAnnually;
   }
 
   /**
-   * Deprecated use SickLeaveMaximumToAccrue
-   *
-   * @param sickLeaveMaximumHoursToAccrue Double
-   * @return EmployeeLeaveSetup
-   */
+  * Deprecated use SickLeaveMaximumToAccrue
+  * @param sickLeaveMaximumHoursToAccrue  Double
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup sickLeaveMaximumHoursToAccrue(Double sickLeaveMaximumHoursToAccrue) {
     this.sickLeaveMaximumHoursToAccrue = sickLeaveMaximumHoursToAccrue;
     return this;
   }
 
-  /**
+   /**
    * Deprecated use SickLeaveMaximumToAccrue
-   *
    * @return sickLeaveMaximumHoursToAccrue
-   */
+  **/
   @ApiModelProperty(example = "200.5", value = "Deprecated use SickLeaveMaximumToAccrue")
-  /**
+  /** 
    * Deprecated use SickLeaveMaximumToAccrue
-   *
    * @return sickLeaveMaximumHoursToAccrue Double
-   */
+  **/
   public Double getSickLeaveMaximumHoursToAccrue() {
     return sickLeaveMaximumHoursToAccrue;
   }
 
-  /**
-   * Deprecated use SickLeaveMaximumToAccrue
-   *
-   * @param sickLeaveMaximumHoursToAccrue Double
-   */
+  /** 
+  * Deprecated use SickLeaveMaximumToAccrue
+  * @param sickLeaveMaximumHoursToAccrue  Double
+  **/
+
   public void setSickLeaveMaximumHoursToAccrue(Double sickLeaveMaximumHoursToAccrue) {
     this.sickLeaveMaximumHoursToAccrue = sickLeaveMaximumHoursToAccrue;
   }
 
   /**
-   * Number of units accrued annually for sick leave. The type of units is determined by the
-   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
-   *
-   * @param sickLeaveToAccrueAnnually Double
-   * @return EmployeeLeaveSetup
-   */
+  * Number of units accrued annually for sick leave. The type of units is determined by the property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+  * @param sickLeaveToAccrueAnnually  Double
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup sickLeaveToAccrueAnnually(Double sickLeaveToAccrueAnnually) {
     this.sickLeaveToAccrueAnnually = sickLeaveToAccrueAnnually;
     return this;
   }
 
-  /**
-   * Number of units accrued annually for sick leave. The type of units is determined by the
-   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
-   *
+   /**
+   * Number of units accrued annually for sick leave. The type of units is determined by the property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
    * @return sickLeaveToAccrueAnnually
-   */
-  @ApiModelProperty(
-      example = "100.5",
-      value =
-          "Number of units accrued annually for sick leave. The type of units is determined by the"
-              + " property \"TypeOfUnitsToAccrue\" on the \"Sick Leave\" leave type")
-  /**
-   * Number of units accrued annually for sick leave. The type of units is determined by the
-   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
-   *
+  **/
+  @ApiModelProperty(example = "100.5", value = "Number of units accrued annually for sick leave. The type of units is determined by the property \"TypeOfUnitsToAccrue\" on the \"Sick Leave\" leave type")
+  /** 
+   * Number of units accrued annually for sick leave. The type of units is determined by the property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
    * @return sickLeaveToAccrueAnnually Double
-   */
+  **/
   public Double getSickLeaveToAccrueAnnually() {
     return sickLeaveToAccrueAnnually;
   }
 
-  /**
-   * Number of units accrued annually for sick leave. The type of units is determined by the
-   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
-   *
-   * @param sickLeaveToAccrueAnnually Double
-   */
+  /** 
+  * Number of units accrued annually for sick leave. The type of units is determined by the property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+  * @param sickLeaveToAccrueAnnually  Double
+  **/
+
   public void setSickLeaveToAccrueAnnually(Double sickLeaveToAccrueAnnually) {
     this.sickLeaveToAccrueAnnually = sickLeaveToAccrueAnnually;
   }
 
   /**
-   * Maximum number of units accrued annually for sick leave. The type of units is determined by the
-   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
-   *
-   * @param sickLeaveMaximumToAccrue Double
-   * @return EmployeeLeaveSetup
-   */
+  * Maximum number of units accrued annually for sick leave. The type of units is determined by the property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+  * @param sickLeaveMaximumToAccrue  Double
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup sickLeaveMaximumToAccrue(Double sickLeaveMaximumToAccrue) {
     this.sickLeaveMaximumToAccrue = sickLeaveMaximumToAccrue;
     return this;
   }
 
-  /**
-   * Maximum number of units accrued annually for sick leave. The type of units is determined by the
-   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
-   *
+   /**
+   * Maximum number of units accrued annually for sick leave. The type of units is determined by the property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
    * @return sickLeaveMaximumToAccrue
-   */
-  @ApiModelProperty(
-      example = "200.5",
-      value =
-          "Maximum number of units accrued annually for sick leave. The type of units is"
-              + " determined by the property \"TypeOfUnitsToAccrue\" on the \"Sick Leave\" leave"
-              + " type")
-  /**
-   * Maximum number of units accrued annually for sick leave. The type of units is determined by the
-   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
-   *
+  **/
+  @ApiModelProperty(example = "200.5", value = "Maximum number of units accrued annually for sick leave. The type of units is determined by the property \"TypeOfUnitsToAccrue\" on the \"Sick Leave\" leave type")
+  /** 
+   * Maximum number of units accrued annually for sick leave. The type of units is determined by the property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
    * @return sickLeaveMaximumToAccrue Double
-   */
+  **/
   public Double getSickLeaveMaximumToAccrue() {
     return sickLeaveMaximumToAccrue;
   }
 
-  /**
-   * Maximum number of units accrued annually for sick leave. The type of units is determined by the
-   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
-   *
-   * @param sickLeaveMaximumToAccrue Double
-   */
+  /** 
+  * Maximum number of units accrued annually for sick leave. The type of units is determined by the property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+  * @param sickLeaveMaximumToAccrue  Double
+  **/
+
   public void setSickLeaveMaximumToAccrue(Double sickLeaveMaximumToAccrue) {
     this.sickLeaveMaximumToAccrue = sickLeaveMaximumToAccrue;
   }
 
   /**
-   * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in
-   * advance
-   *
-   * @param sickLeaveOpeningBalance Double
-   * @return EmployeeLeaveSetup
-   */
+  * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in advance
+  * @param sickLeaveOpeningBalance  Double
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup sickLeaveOpeningBalance(Double sickLeaveOpeningBalance) {
     this.sickLeaveOpeningBalance = sickLeaveOpeningBalance;
     return this;
   }
 
-  /**
-   * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in
-   * advance
-   *
+   /**
+   * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in advance
    * @return sickLeaveOpeningBalance
-   */
-  @ApiModelProperty(
-      example = "10.5",
-      value =
-          "Initial sick leave balance. This will be positive unless they've taken sick leave in"
-              + " advance")
-  /**
-   * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in
-   * advance
-   *
+  **/
+  @ApiModelProperty(example = "10.5", value = "Initial sick leave balance. This will be positive unless they've taken sick leave in advance")
+  /** 
+   * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in advance
    * @return sickLeaveOpeningBalance Double
-   */
+  **/
   public Double getSickLeaveOpeningBalance() {
     return sickLeaveOpeningBalance;
   }
 
-  /**
-   * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in
-   * advance
-   *
-   * @param sickLeaveOpeningBalance Double
-   */
+  /** 
+  * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in advance
+  * @param sickLeaveOpeningBalance  Double
+  **/
+
   public void setSickLeaveOpeningBalance(Double sickLeaveOpeningBalance) {
     this.sickLeaveOpeningBalance = sickLeaveOpeningBalance;
   }
 
   /**
-   * Set Schedule of Accrual Type for Sick Leave
-   *
-   * @param sickLeaveScheduleOfAccrual String
-   * @return EmployeeLeaveSetup
-   */
+  * Set Schedule of Accrual Type for Sick Leave
+  * @param sickLeaveScheduleOfAccrual  String
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup sickLeaveScheduleOfAccrual(String sickLeaveScheduleOfAccrual) {
     this.sickLeaveScheduleOfAccrual = sickLeaveScheduleOfAccrual;
     return this;
   }
 
-  /**
+   /**
    * Set Schedule of Accrual Type for Sick Leave
-   *
    * @return sickLeaveScheduleOfAccrual
-   */
-  @ApiModelProperty(
-      example = "OnAnniversaryDate",
-      value = "Set Schedule of Accrual Type for Sick Leave")
-  /**
+  **/
+  @ApiModelProperty(example = "OnAnniversaryDate", value = "Set Schedule of Accrual Type for Sick Leave")
+  /** 
    * Set Schedule of Accrual Type for Sick Leave
-   *
    * @return sickLeaveScheduleOfAccrual String
-   */
+  **/
   public String getSickLeaveScheduleOfAccrual() {
     return sickLeaveScheduleOfAccrual;
   }
 
-  /**
-   * Set Schedule of Accrual Type for Sick Leave
-   *
-   * @param sickLeaveScheduleOfAccrual String
-   */
+  /** 
+  * Set Schedule of Accrual Type for Sick Leave
+  * @param sickLeaveScheduleOfAccrual  String
+  **/
+
   public void setSickLeaveScheduleOfAccrual(String sickLeaveScheduleOfAccrual) {
     this.sickLeaveScheduleOfAccrual = sickLeaveScheduleOfAccrual;
   }
 
   /**
-   * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
-   * entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
-   *
-   * @param sickLeaveAnniversaryDate LocalDate
-   * @return EmployeeLeaveSetup
-   */
+  * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
+  * @param sickLeaveAnniversaryDate  LocalDate
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup sickLeaveAnniversaryDate(LocalDate sickLeaveAnniversaryDate) {
     this.sickLeaveAnniversaryDate = sickLeaveAnniversaryDate;
     return this;
   }
 
-  /**
-   * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
-   * entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
-   *
+   /**
+   * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
    * @return sickLeaveAnniversaryDate
-   */
-  @ApiModelProperty(
-      example = "Sun Jan 19 00:00:00 UTC 2020",
-      value =
-          "If Sick Leave Schedule of Accrual is \"OnAnniversaryDate\", this is the date when"
-              + " entitled to Sick Leave. When null the Employee's start date is used as the"
-              + " anniversary date")
-  /**
-   * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
-   * entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
-   *
+  **/
+  @ApiModelProperty(example = "Sun Jan 19 00:00:00 UTC 2020", value = "If Sick Leave Schedule of Accrual is \"OnAnniversaryDate\", this is the date when entitled to Sick Leave. When null the Employee's start date is used as the anniversary date")
+  /** 
+   * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
    * @return sickLeaveAnniversaryDate LocalDate
-   */
+  **/
   public LocalDate getSickLeaveAnniversaryDate() {
     return sickLeaveAnniversaryDate;
   }
 
-  /**
-   * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
-   * entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
-   *
-   * @param sickLeaveAnniversaryDate LocalDate
-   */
+  /** 
+  * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
+  * @param sickLeaveAnniversaryDate  LocalDate
+  **/
+
   public void setSickLeaveAnniversaryDate(LocalDate sickLeaveAnniversaryDate) {
     this.sickLeaveAnniversaryDate = sickLeaveAnniversaryDate;
   }
 
   /**
-   * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date
-   * is used as the anniversary date
-   *
-   * @param annualLeaveAnniversaryDate LocalDate
-   * @return EmployeeLeaveSetup
-   */
+  * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date is used as the anniversary date
+  * @param annualLeaveAnniversaryDate  LocalDate
+  * @return EmployeeLeaveSetup
+  **/
   public EmployeeLeaveSetup annualLeaveAnniversaryDate(LocalDate annualLeaveAnniversaryDate) {
     this.annualLeaveAnniversaryDate = annualLeaveAnniversaryDate;
     return this;
   }
 
-  /**
-   * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date
-   * is used as the anniversary date
-   *
+   /**
+   * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date is used as the anniversary date
    * @return annualLeaveAnniversaryDate
-   */
-  @ApiModelProperty(
-      example = "Sun Jan 19 00:00:00 UTC 2020",
-      value =
-          "The first date the employee will accrue Annual Leave. When null the Employee's start"
-              + " date is used as the anniversary date")
-  /**
-   * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date
-   * is used as the anniversary date
-   *
+  **/
+  @ApiModelProperty(example = "Sun Jan 19 00:00:00 UTC 2020", value = "The first date the employee will accrue Annual Leave. When null the Employee's start date is used as the anniversary date")
+  /** 
+   * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date is used as the anniversary date
    * @return annualLeaveAnniversaryDate LocalDate
-   */
+  **/
   public LocalDate getAnnualLeaveAnniversaryDate() {
     return annualLeaveAnniversaryDate;
   }
 
-  /**
-   * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date
-   * is used as the anniversary date
-   *
-   * @param annualLeaveAnniversaryDate LocalDate
-   */
+  /** 
+  * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date is used as the anniversary date
+  * @param annualLeaveAnniversaryDate  LocalDate
+  **/
+
   public void setAnnualLeaveAnniversaryDate(LocalDate annualLeaveAnniversaryDate) {
     this.annualLeaveAnniversaryDate = annualLeaveAnniversaryDate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -550,92 +467,49 @@ public class EmployeeLeaveSetup {
       return false;
     }
     EmployeeLeaveSetup employeeLeaveSetup = (EmployeeLeaveSetup) o;
-    return Objects.equals(this.includeHolidayPay, employeeLeaveSetup.includeHolidayPay)
-        && Objects.equals(
-            this.holidayPayOpeningBalance, employeeLeaveSetup.holidayPayOpeningBalance)
-        && Objects.equals(
-            this.annualLeaveOpeningBalance, employeeLeaveSetup.annualLeaveOpeningBalance)
-        && Objects.equals(
-            this.negativeAnnualLeaveBalancePaidAmount,
-            employeeLeaveSetup.negativeAnnualLeaveBalancePaidAmount)
-        && Objects.equals(
-            this.sickLeaveHoursToAccrueAnnually, employeeLeaveSetup.sickLeaveHoursToAccrueAnnually)
-        && Objects.equals(
-            this.sickLeaveMaximumHoursToAccrue, employeeLeaveSetup.sickLeaveMaximumHoursToAccrue)
-        && Objects.equals(
-            this.sickLeaveToAccrueAnnually, employeeLeaveSetup.sickLeaveToAccrueAnnually)
-        && Objects.equals(
-            this.sickLeaveMaximumToAccrue, employeeLeaveSetup.sickLeaveMaximumToAccrue)
-        && Objects.equals(this.sickLeaveOpeningBalance, employeeLeaveSetup.sickLeaveOpeningBalance)
-        && Objects.equals(
-            this.sickLeaveScheduleOfAccrual, employeeLeaveSetup.sickLeaveScheduleOfAccrual)
-        && Objects.equals(
-            this.sickLeaveAnniversaryDate, employeeLeaveSetup.sickLeaveAnniversaryDate)
-        && Objects.equals(
-            this.annualLeaveAnniversaryDate, employeeLeaveSetup.annualLeaveAnniversaryDate);
+    return Objects.equals(this.includeHolidayPay, employeeLeaveSetup.includeHolidayPay) &&
+        Objects.equals(this.holidayPayOpeningBalance, employeeLeaveSetup.holidayPayOpeningBalance) &&
+        Objects.equals(this.annualLeaveOpeningBalance, employeeLeaveSetup.annualLeaveOpeningBalance) &&
+        Objects.equals(this.negativeAnnualLeaveBalancePaidAmount, employeeLeaveSetup.negativeAnnualLeaveBalancePaidAmount) &&
+        Objects.equals(this.sickLeaveHoursToAccrueAnnually, employeeLeaveSetup.sickLeaveHoursToAccrueAnnually) &&
+        Objects.equals(this.sickLeaveMaximumHoursToAccrue, employeeLeaveSetup.sickLeaveMaximumHoursToAccrue) &&
+        Objects.equals(this.sickLeaveToAccrueAnnually, employeeLeaveSetup.sickLeaveToAccrueAnnually) &&
+        Objects.equals(this.sickLeaveMaximumToAccrue, employeeLeaveSetup.sickLeaveMaximumToAccrue) &&
+        Objects.equals(this.sickLeaveOpeningBalance, employeeLeaveSetup.sickLeaveOpeningBalance) &&
+        Objects.equals(this.sickLeaveScheduleOfAccrual, employeeLeaveSetup.sickLeaveScheduleOfAccrual) &&
+        Objects.equals(this.sickLeaveAnniversaryDate, employeeLeaveSetup.sickLeaveAnniversaryDate) &&
+        Objects.equals(this.annualLeaveAnniversaryDate, employeeLeaveSetup.annualLeaveAnniversaryDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        includeHolidayPay,
-        holidayPayOpeningBalance,
-        annualLeaveOpeningBalance,
-        negativeAnnualLeaveBalancePaidAmount,
-        sickLeaveHoursToAccrueAnnually,
-        sickLeaveMaximumHoursToAccrue,
-        sickLeaveToAccrueAnnually,
-        sickLeaveMaximumToAccrue,
-        sickLeaveOpeningBalance,
-        sickLeaveScheduleOfAccrual,
-        sickLeaveAnniversaryDate,
-        annualLeaveAnniversaryDate);
+    return Objects.hash(includeHolidayPay, holidayPayOpeningBalance, annualLeaveOpeningBalance, negativeAnnualLeaveBalancePaidAmount, sickLeaveHoursToAccrueAnnually, sickLeaveMaximumHoursToAccrue, sickLeaveToAccrueAnnually, sickLeaveMaximumToAccrue, sickLeaveOpeningBalance, sickLeaveScheduleOfAccrual, sickLeaveAnniversaryDate, annualLeaveAnniversaryDate);
   }
+
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EmployeeLeaveSetup {\n");
     sb.append("    includeHolidayPay: ").append(toIndentedString(includeHolidayPay)).append("\n");
-    sb.append("    holidayPayOpeningBalance: ")
-        .append(toIndentedString(holidayPayOpeningBalance))
-        .append("\n");
-    sb.append("    annualLeaveOpeningBalance: ")
-        .append(toIndentedString(annualLeaveOpeningBalance))
-        .append("\n");
-    sb.append("    negativeAnnualLeaveBalancePaidAmount: ")
-        .append(toIndentedString(negativeAnnualLeaveBalancePaidAmount))
-        .append("\n");
-    sb.append("    sickLeaveHoursToAccrueAnnually: ")
-        .append(toIndentedString(sickLeaveHoursToAccrueAnnually))
-        .append("\n");
-    sb.append("    sickLeaveMaximumHoursToAccrue: ")
-        .append(toIndentedString(sickLeaveMaximumHoursToAccrue))
-        .append("\n");
-    sb.append("    sickLeaveToAccrueAnnually: ")
-        .append(toIndentedString(sickLeaveToAccrueAnnually))
-        .append("\n");
-    sb.append("    sickLeaveMaximumToAccrue: ")
-        .append(toIndentedString(sickLeaveMaximumToAccrue))
-        .append("\n");
-    sb.append("    sickLeaveOpeningBalance: ")
-        .append(toIndentedString(sickLeaveOpeningBalance))
-        .append("\n");
-    sb.append("    sickLeaveScheduleOfAccrual: ")
-        .append(toIndentedString(sickLeaveScheduleOfAccrual))
-        .append("\n");
-    sb.append("    sickLeaveAnniversaryDate: ")
-        .append(toIndentedString(sickLeaveAnniversaryDate))
-        .append("\n");
-    sb.append("    annualLeaveAnniversaryDate: ")
-        .append(toIndentedString(annualLeaveAnniversaryDate))
-        .append("\n");
+    sb.append("    holidayPayOpeningBalance: ").append(toIndentedString(holidayPayOpeningBalance)).append("\n");
+    sb.append("    annualLeaveOpeningBalance: ").append(toIndentedString(annualLeaveOpeningBalance)).append("\n");
+    sb.append("    negativeAnnualLeaveBalancePaidAmount: ").append(toIndentedString(negativeAnnualLeaveBalancePaidAmount)).append("\n");
+    sb.append("    sickLeaveHoursToAccrueAnnually: ").append(toIndentedString(sickLeaveHoursToAccrueAnnually)).append("\n");
+    sb.append("    sickLeaveMaximumHoursToAccrue: ").append(toIndentedString(sickLeaveMaximumHoursToAccrue)).append("\n");
+    sb.append("    sickLeaveToAccrueAnnually: ").append(toIndentedString(sickLeaveToAccrueAnnually)).append("\n");
+    sb.append("    sickLeaveMaximumToAccrue: ").append(toIndentedString(sickLeaveMaximumToAccrue)).append("\n");
+    sb.append("    sickLeaveOpeningBalance: ").append(toIndentedString(sickLeaveOpeningBalance)).append("\n");
+    sb.append("    sickLeaveScheduleOfAccrual: ").append(toIndentedString(sickLeaveScheduleOfAccrual)).append("\n");
+    sb.append("    sickLeaveAnniversaryDate: ").append(toIndentedString(sickLeaveAnniversaryDate)).append("\n");
+    sb.append("    annualLeaveAnniversaryDate: ").append(toIndentedString(annualLeaveAnniversaryDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -643,4 +517,6 @@ public class EmployeeLeaveSetup {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

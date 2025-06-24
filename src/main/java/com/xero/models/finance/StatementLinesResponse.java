@@ -9,15 +9,33 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.DataSourceResponse;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** StatementLinesResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * StatementLinesResponse
+ */
+
 public class StatementLinesResponse {
   StringUtil util = new StringUtil();
 
@@ -72,709 +90,549 @@ public class StatementLinesResponse {
   @JsonProperty("totalAmountNeg")
   private Double totalAmountNeg;
   /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and
-   * the amount is positive.
-   *
-   * @param unreconciledAmountPos Double
-   * @return StatementLinesResponse
-   */
+  * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and the amount is positive.
+  * @param unreconciledAmountPos  Double
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse unreconciledAmountPos(Double unreconciledAmountPos) {
     this.unreconciledAmountPos = unreconciledAmountPos;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and
-   * the amount is positive.
-   *
+   /**
+   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and the amount is positive.
    * @return unreconciledAmountPos
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where both the reconciled flag is set to"
-              + " FALSE, and the amount is positive.")
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and
-   * the amount is positive.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and the amount is positive.")
+  /** 
+   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and the amount is positive.
    * @return unreconciledAmountPos Double
-   */
+  **/
   public Double getUnreconciledAmountPos() {
     return unreconciledAmountPos;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and
-   * the amount is positive.
-   *
-   * @param unreconciledAmountPos Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and the amount is positive.
+  * @param unreconciledAmountPos  Double
+  **/
+
   public void setUnreconciledAmountPos(Double unreconciledAmountPos) {
     this.unreconciledAmountPos = unreconciledAmountPos;
   }
 
   /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and
-   * the amount is negative.
-   *
-   * @param unreconciledAmountNeg Double
-   * @return StatementLinesResponse
-   */
+  * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and the amount is negative.
+  * @param unreconciledAmountNeg  Double
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse unreconciledAmountNeg(Double unreconciledAmountNeg) {
     this.unreconciledAmountNeg = unreconciledAmountNeg;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and
-   * the amount is negative.
-   *
+   /**
+   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and the amount is negative.
    * @return unreconciledAmountNeg
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where both the reconciled flag is set to"
-              + " FALSE, and the amount is negative.")
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and
-   * the amount is negative.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and the amount is negative.")
+  /** 
+   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and the amount is negative.
    * @return unreconciledAmountNeg Double
-   */
+  **/
   public Double getUnreconciledAmountNeg() {
     return unreconciledAmountNeg;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and
-   * the amount is negative.
-   *
-   * @param unreconciledAmountNeg Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and the amount is negative.
+  * @param unreconciledAmountNeg  Double
+  **/
+
   public void setUnreconciledAmountNeg(Double unreconciledAmountNeg) {
     this.unreconciledAmountNeg = unreconciledAmountNeg;
   }
 
   /**
-   * Count of all statement lines where the reconciled flag is set to FALSE.
-   *
-   * @param unreconciledLines Integer
-   * @return StatementLinesResponse
-   */
+  * Count of all statement lines where the reconciled flag is set to FALSE.
+  * @param unreconciledLines  Integer
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse unreconciledLines(Integer unreconciledLines) {
     this.unreconciledLines = unreconciledLines;
     return this;
   }
 
-  /**
+   /**
    * Count of all statement lines where the reconciled flag is set to FALSE.
-   *
    * @return unreconciledLines
-   */
-  @ApiModelProperty(
-      value = "Count of all statement lines where the reconciled flag is set to FALSE.")
-  /**
+  **/
+  @ApiModelProperty(value = "Count of all statement lines where the reconciled flag is set to FALSE.")
+  /** 
    * Count of all statement lines where the reconciled flag is set to FALSE.
-   *
    * @return unreconciledLines Integer
-   */
+  **/
   public Integer getUnreconciledLines() {
     return unreconciledLines;
   }
 
-  /**
-   * Count of all statement lines where the reconciled flag is set to FALSE.
-   *
-   * @param unreconciledLines Integer
-   */
+  /** 
+  * Count of all statement lines where the reconciled flag is set to FALSE.
+  * @param unreconciledLines  Integer
+  **/
+
   public void setUnreconciledLines(Integer unreconciledLines) {
     this.unreconciledLines = unreconciledLines;
   }
 
   /**
-   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the
-   * sum of transaction amount - in for those statement lines in which the reconciled flag is set to
-   * FALSE, and the amount is positive. Provides an indication of the age of unreconciled
-   * transactions.
-   *
-   * @param avgDaysUnreconciledPos Double
-   * @return StatementLinesResponse
-   */
+  * Sum-product of age of statement line in days multiplied by transaction amount, divided by the sum of transaction amount - in for those statement lines in which the reconciled flag is set to FALSE, and the amount is positive. Provides an indication of the age of unreconciled transactions.
+  * @param avgDaysUnreconciledPos  Double
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse avgDaysUnreconciledPos(Double avgDaysUnreconciledPos) {
     this.avgDaysUnreconciledPos = avgDaysUnreconciledPos;
     return this;
   }
 
-  /**
-   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the
-   * sum of transaction amount - in for those statement lines in which the reconciled flag is set to
-   * FALSE, and the amount is positive. Provides an indication of the age of unreconciled
-   * transactions.
-   *
+   /**
+   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the sum of transaction amount - in for those statement lines in which the reconciled flag is set to FALSE, and the amount is positive. Provides an indication of the age of unreconciled transactions.
    * @return avgDaysUnreconciledPos
-   */
-  @ApiModelProperty(
-      value =
-          "Sum-product of age of statement line in days multiplied by transaction amount, divided"
-              + " by the sum of transaction amount - in for those statement lines in which the"
-              + " reconciled flag is set to FALSE, and the amount is positive. Provides an"
-              + " indication of the age of unreconciled transactions.")
-  /**
-   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the
-   * sum of transaction amount - in for those statement lines in which the reconciled flag is set to
-   * FALSE, and the amount is positive. Provides an indication of the age of unreconciled
-   * transactions.
-   *
+  **/
+  @ApiModelProperty(value = "Sum-product of age of statement line in days multiplied by transaction amount, divided by the sum of transaction amount - in for those statement lines in which the reconciled flag is set to FALSE, and the amount is positive. Provides an indication of the age of unreconciled transactions.")
+  /** 
+   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the sum of transaction amount - in for those statement lines in which the reconciled flag is set to FALSE, and the amount is positive. Provides an indication of the age of unreconciled transactions.
    * @return avgDaysUnreconciledPos Double
-   */
+  **/
   public Double getAvgDaysUnreconciledPos() {
     return avgDaysUnreconciledPos;
   }
 
-  /**
-   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the
-   * sum of transaction amount - in for those statement lines in which the reconciled flag is set to
-   * FALSE, and the amount is positive. Provides an indication of the age of unreconciled
-   * transactions.
-   *
-   * @param avgDaysUnreconciledPos Double
-   */
+  /** 
+  * Sum-product of age of statement line in days multiplied by transaction amount, divided by the sum of transaction amount - in for those statement lines in which the reconciled flag is set to FALSE, and the amount is positive. Provides an indication of the age of unreconciled transactions.
+  * @param avgDaysUnreconciledPos  Double
+  **/
+
   public void setAvgDaysUnreconciledPos(Double avgDaysUnreconciledPos) {
     this.avgDaysUnreconciledPos = avgDaysUnreconciledPos;
   }
 
   /**
-   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the
-   * sum of transaction amount - in for those statement lines in which the reconciled flag is set to
-   * FALSE, and the amount is negative. Provides an indication of the age of unreconciled
-   * transactions.
-   *
-   * @param avgDaysUnreconciledNeg Double
-   * @return StatementLinesResponse
-   */
+  * Sum-product of age of statement line in days multiplied by transaction amount, divided by the sum of transaction amount - in for those statement lines in which the reconciled flag is set to FALSE, and the amount is negative. Provides an indication of the age of unreconciled transactions.
+  * @param avgDaysUnreconciledNeg  Double
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse avgDaysUnreconciledNeg(Double avgDaysUnreconciledNeg) {
     this.avgDaysUnreconciledNeg = avgDaysUnreconciledNeg;
     return this;
   }
 
-  /**
-   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the
-   * sum of transaction amount - in for those statement lines in which the reconciled flag is set to
-   * FALSE, and the amount is negative. Provides an indication of the age of unreconciled
-   * transactions.
-   *
+   /**
+   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the sum of transaction amount - in for those statement lines in which the reconciled flag is set to FALSE, and the amount is negative. Provides an indication of the age of unreconciled transactions.
    * @return avgDaysUnreconciledNeg
-   */
-  @ApiModelProperty(
-      value =
-          "Sum-product of age of statement line in days multiplied by transaction amount, divided"
-              + " by the sum of transaction amount - in for those statement lines in which the"
-              + " reconciled flag is set to FALSE, and the amount is negative. Provides an"
-              + " indication of the age of unreconciled transactions.")
-  /**
-   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the
-   * sum of transaction amount - in for those statement lines in which the reconciled flag is set to
-   * FALSE, and the amount is negative. Provides an indication of the age of unreconciled
-   * transactions.
-   *
+  **/
+  @ApiModelProperty(value = "Sum-product of age of statement line in days multiplied by transaction amount, divided by the sum of transaction amount - in for those statement lines in which the reconciled flag is set to FALSE, and the amount is negative. Provides an indication of the age of unreconciled transactions.")
+  /** 
+   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the sum of transaction amount - in for those statement lines in which the reconciled flag is set to FALSE, and the amount is negative. Provides an indication of the age of unreconciled transactions.
    * @return avgDaysUnreconciledNeg Double
-   */
+  **/
   public Double getAvgDaysUnreconciledNeg() {
     return avgDaysUnreconciledNeg;
   }
 
-  /**
-   * Sum-product of age of statement line in days multiplied by transaction amount, divided by the
-   * sum of transaction amount - in for those statement lines in which the reconciled flag is set to
-   * FALSE, and the amount is negative. Provides an indication of the age of unreconciled
-   * transactions.
-   *
-   * @param avgDaysUnreconciledNeg Double
-   */
+  /** 
+  * Sum-product of age of statement line in days multiplied by transaction amount, divided by the sum of transaction amount - in for those statement lines in which the reconciled flag is set to FALSE, and the amount is negative. Provides an indication of the age of unreconciled transactions.
+  * @param avgDaysUnreconciledNeg  Double
+  **/
+
   public void setAvgDaysUnreconciledNeg(Double avgDaysUnreconciledNeg) {
     this.avgDaysUnreconciledNeg = avgDaysUnreconciledNeg;
   }
 
   /**
-   * UTC Date which is the earliest transaction date of a statement line for which the reconciled
-   * flag is set to FALSE. This date is represented in ISO 8601 format.
-   *
-   * @param earliestUnreconciledTransaction LocalDate
-   * @return StatementLinesResponse
-   */
-  public StatementLinesResponse earliestUnreconciledTransaction(
-      LocalDate earliestUnreconciledTransaction) {
+  * UTC Date which is the earliest transaction date of a statement line for which the reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.
+  * @param earliestUnreconciledTransaction  LocalDate
+  * @return StatementLinesResponse
+  **/
+  public StatementLinesResponse earliestUnreconciledTransaction(LocalDate earliestUnreconciledTransaction) {
     this.earliestUnreconciledTransaction = earliestUnreconciledTransaction;
     return this;
   }
 
-  /**
-   * UTC Date which is the earliest transaction date of a statement line for which the reconciled
-   * flag is set to FALSE. This date is represented in ISO 8601 format.
-   *
+   /**
+   * UTC Date which is the earliest transaction date of a statement line for which the reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.
    * @return earliestUnreconciledTransaction
-   */
-  @ApiModelProperty(
-      value =
-          "UTC Date which is the earliest transaction date of a statement line for which the"
-              + " reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.")
-  /**
-   * UTC Date which is the earliest transaction date of a statement line for which the reconciled
-   * flag is set to FALSE. This date is represented in ISO 8601 format.
-   *
+  **/
+  @ApiModelProperty(value = "UTC Date which is the earliest transaction date of a statement line for which the reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.")
+  /** 
+   * UTC Date which is the earliest transaction date of a statement line for which the reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.
    * @return earliestUnreconciledTransaction LocalDate
-   */
+  **/
   public LocalDate getEarliestUnreconciledTransaction() {
     return earliestUnreconciledTransaction;
   }
 
-  /**
-   * UTC Date which is the earliest transaction date of a statement line for which the reconciled
-   * flag is set to FALSE. This date is represented in ISO 8601 format.
-   *
-   * @param earliestUnreconciledTransaction LocalDate
-   */
+  /** 
+  * UTC Date which is the earliest transaction date of a statement line for which the reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.
+  * @param earliestUnreconciledTransaction  LocalDate
+  **/
+
   public void setEarliestUnreconciledTransaction(LocalDate earliestUnreconciledTransaction) {
     this.earliestUnreconciledTransaction = earliestUnreconciledTransaction;
   }
 
   /**
-   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag
-   * is set to FALSE. This date is represented in ISO 8601 format.
-   *
-   * @param latestUnreconciledTransaction LocalDate
-   * @return StatementLinesResponse
-   */
-  public StatementLinesResponse latestUnreconciledTransaction(
-      LocalDate latestUnreconciledTransaction) {
+  * UTC Date which is the latest transaction date of a statement line for which the reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.
+  * @param latestUnreconciledTransaction  LocalDate
+  * @return StatementLinesResponse
+  **/
+  public StatementLinesResponse latestUnreconciledTransaction(LocalDate latestUnreconciledTransaction) {
     this.latestUnreconciledTransaction = latestUnreconciledTransaction;
     return this;
   }
 
-  /**
-   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag
-   * is set to FALSE. This date is represented in ISO 8601 format.
-   *
+   /**
+   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.
    * @return latestUnreconciledTransaction
-   */
-  @ApiModelProperty(
-      value =
-          "UTC Date which is the latest transaction date of a statement line for which the"
-              + " reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.")
-  /**
-   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag
-   * is set to FALSE. This date is represented in ISO 8601 format.
-   *
+  **/
+  @ApiModelProperty(value = "UTC Date which is the latest transaction date of a statement line for which the reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.")
+  /** 
+   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.
    * @return latestUnreconciledTransaction LocalDate
-   */
+  **/
   public LocalDate getLatestUnreconciledTransaction() {
     return latestUnreconciledTransaction;
   }
 
-  /**
-   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag
-   * is set to FALSE. This date is represented in ISO 8601 format.
-   *
-   * @param latestUnreconciledTransaction LocalDate
-   */
+  /** 
+  * UTC Date which is the latest transaction date of a statement line for which the reconciled flag is set to FALSE.  This date is represented in ISO 8601 format.
+  * @param latestUnreconciledTransaction  LocalDate
+  **/
+
   public void setLatestUnreconciledTransaction(LocalDate latestUnreconciledTransaction) {
     this.latestUnreconciledTransaction = latestUnreconciledTransaction;
   }
 
   /**
-   * Sum of the amounts of all deleted statement lines. Transactions may be deleted due to
-   * duplication or otherwise.
-   *
-   * @param deletedAmount Double
-   * @return StatementLinesResponse
-   */
+  * Sum of the amounts of all deleted statement lines.  Transactions may be deleted due to duplication or otherwise.
+  * @param deletedAmount  Double
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse deletedAmount(Double deletedAmount) {
     this.deletedAmount = deletedAmount;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all deleted statement lines. Transactions may be deleted due to
-   * duplication or otherwise.
-   *
+   /**
+   * Sum of the amounts of all deleted statement lines.  Transactions may be deleted due to duplication or otherwise.
    * @return deletedAmount
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all deleted statement lines.  Transactions may be deleted due to"
-              + " duplication or otherwise.")
-  /**
-   * Sum of the amounts of all deleted statement lines. Transactions may be deleted due to
-   * duplication or otherwise.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all deleted statement lines.  Transactions may be deleted due to duplication or otherwise.")
+  /** 
+   * Sum of the amounts of all deleted statement lines.  Transactions may be deleted due to duplication or otherwise.
    * @return deletedAmount Double
-   */
+  **/
   public Double getDeletedAmount() {
     return deletedAmount;
   }
 
-  /**
-   * Sum of the amounts of all deleted statement lines. Transactions may be deleted due to
-   * duplication or otherwise.
-   *
-   * @param deletedAmount Double
-   */
+  /** 
+  * Sum of the amounts of all deleted statement lines.  Transactions may be deleted due to duplication or otherwise.
+  * @param deletedAmount  Double
+  **/
+
   public void setDeletedAmount(Double deletedAmount) {
     this.deletedAmount = deletedAmount;
   }
 
   /**
-   * Sum of the amounts of all statement lines. This is used as a metric of comparison to the
-   * unreconciled figures above.
-   *
-   * @param totalAmount Double
-   * @return StatementLinesResponse
-   */
+  * Sum of the amounts of all statement lines.  This is used as a metric of comparison to the unreconciled figures above.
+  * @param totalAmount  Double
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse totalAmount(Double totalAmount) {
     this.totalAmount = totalAmount;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines. This is used as a metric of comparison to the
-   * unreconciled figures above.
-   *
+   /**
+   * Sum of the amounts of all statement lines.  This is used as a metric of comparison to the unreconciled figures above.
    * @return totalAmount
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines.  This is used as a metric of comparison to"
-              + " the unreconciled figures above.")
-  /**
-   * Sum of the amounts of all statement lines. This is used as a metric of comparison to the
-   * unreconciled figures above.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines.  This is used as a metric of comparison to the unreconciled figures above.")
+  /** 
+   * Sum of the amounts of all statement lines.  This is used as a metric of comparison to the unreconciled figures above.
    * @return totalAmount Double
-   */
+  **/
   public Double getTotalAmount() {
     return totalAmount;
   }
 
-  /**
-   * Sum of the amounts of all statement lines. This is used as a metric of comparison to the
-   * unreconciled figures above.
-   *
-   * @param totalAmount Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines.  This is used as a metric of comparison to the unreconciled figures above.
+  * @param totalAmount  Double
+  **/
+
   public void setTotalAmount(Double totalAmount) {
     this.totalAmount = totalAmount;
   }
 
   /**
-   * dataSource
-   *
-   * @param dataSource DataSourceResponse
-   * @return StatementLinesResponse
-   */
+  * dataSource
+  * @param dataSource  DataSourceResponse
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse dataSource(DataSourceResponse dataSource) {
     this.dataSource = dataSource;
     return this;
   }
 
-  /**
+   /**
    * Get dataSource
-   *
    * @return dataSource
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * dataSource
-   *
    * @return dataSource DataSourceResponse
-   */
+  **/
   public DataSourceResponse getDataSource() {
     return dataSource;
   }
 
-  /**
-   * dataSource
-   *
-   * @param dataSource DataSourceResponse
-   */
+  /** 
+  * dataSource
+  * @param dataSource  DataSourceResponse
+  **/
+
   public void setDataSource(DataSourceResponse dataSource) {
     this.dataSource = dataSource;
   }
 
   /**
-   * UTC Date which is the earliest transaction date of a statement line for which the reconciled
-   * flag is set to TRUE. This date is represented in ISO 8601 format.
-   *
-   * @param earliestReconciledTransaction LocalDate
-   * @return StatementLinesResponse
-   */
-  public StatementLinesResponse earliestReconciledTransaction(
-      LocalDate earliestReconciledTransaction) {
+  * UTC Date which is the earliest transaction date of a statement line for which the reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.
+  * @param earliestReconciledTransaction  LocalDate
+  * @return StatementLinesResponse
+  **/
+  public StatementLinesResponse earliestReconciledTransaction(LocalDate earliestReconciledTransaction) {
     this.earliestReconciledTransaction = earliestReconciledTransaction;
     return this;
   }
 
-  /**
-   * UTC Date which is the earliest transaction date of a statement line for which the reconciled
-   * flag is set to TRUE. This date is represented in ISO 8601 format.
-   *
+   /**
+   * UTC Date which is the earliest transaction date of a statement line for which the reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.
    * @return earliestReconciledTransaction
-   */
-  @ApiModelProperty(
-      value =
-          "UTC Date which is the earliest transaction date of a statement line for which the"
-              + " reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.")
-  /**
-   * UTC Date which is the earliest transaction date of a statement line for which the reconciled
-   * flag is set to TRUE. This date is represented in ISO 8601 format.
-   *
+  **/
+  @ApiModelProperty(value = "UTC Date which is the earliest transaction date of a statement line for which the reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.")
+  /** 
+   * UTC Date which is the earliest transaction date of a statement line for which the reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.
    * @return earliestReconciledTransaction LocalDate
-   */
+  **/
   public LocalDate getEarliestReconciledTransaction() {
     return earliestReconciledTransaction;
   }
 
-  /**
-   * UTC Date which is the earliest transaction date of a statement line for which the reconciled
-   * flag is set to TRUE. This date is represented in ISO 8601 format.
-   *
-   * @param earliestReconciledTransaction LocalDate
-   */
+  /** 
+  * UTC Date which is the earliest transaction date of a statement line for which the reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.
+  * @param earliestReconciledTransaction  LocalDate
+  **/
+
   public void setEarliestReconciledTransaction(LocalDate earliestReconciledTransaction) {
     this.earliestReconciledTransaction = earliestReconciledTransaction;
   }
 
   /**
-   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag
-   * is set to TRUE. This date is represented in ISO 8601 format.
-   *
-   * @param latestReconciledTransaction LocalDate
-   * @return StatementLinesResponse
-   */
+  * UTC Date which is the latest transaction date of a statement line for which the reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.
+  * @param latestReconciledTransaction  LocalDate
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse latestReconciledTransaction(LocalDate latestReconciledTransaction) {
     this.latestReconciledTransaction = latestReconciledTransaction;
     return this;
   }
 
-  /**
-   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag
-   * is set to TRUE. This date is represented in ISO 8601 format.
-   *
+   /**
+   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.
    * @return latestReconciledTransaction
-   */
-  @ApiModelProperty(
-      value =
-          "UTC Date which is the latest transaction date of a statement line for which the"
-              + " reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.")
-  /**
-   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag
-   * is set to TRUE. This date is represented in ISO 8601 format.
-   *
+  **/
+  @ApiModelProperty(value = "UTC Date which is the latest transaction date of a statement line for which the reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.")
+  /** 
+   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.
    * @return latestReconciledTransaction LocalDate
-   */
+  **/
   public LocalDate getLatestReconciledTransaction() {
     return latestReconciledTransaction;
   }
 
-  /**
-   * UTC Date which is the latest transaction date of a statement line for which the reconciled flag
-   * is set to TRUE. This date is represented in ISO 8601 format.
-   *
-   * @param latestReconciledTransaction LocalDate
-   */
+  /** 
+  * UTC Date which is the latest transaction date of a statement line for which the reconciled flag is set to TRUE.  This date is represented in ISO 8601 format.
+  * @param latestReconciledTransaction  LocalDate
+  **/
+
   public void setLatestReconciledTransaction(LocalDate latestReconciledTransaction) {
     this.latestReconciledTransaction = latestReconciledTransaction;
   }
 
   /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and
-   * the amount is positive.
-   *
-   * @param reconciledAmountPos Double
-   * @return StatementLinesResponse
-   */
+  * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and the amount is positive.
+  * @param reconciledAmountPos  Double
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse reconciledAmountPos(Double reconciledAmountPos) {
     this.reconciledAmountPos = reconciledAmountPos;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and
-   * the amount is positive.
-   *
+   /**
+   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and the amount is positive.
    * @return reconciledAmountPos
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where both the reconciled flag is set to"
-              + " TRUE, and the amount is positive.")
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and
-   * the amount is positive.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and the amount is positive.")
+  /** 
+   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and the amount is positive.
    * @return reconciledAmountPos Double
-   */
+  **/
   public Double getReconciledAmountPos() {
     return reconciledAmountPos;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and
-   * the amount is positive.
-   *
-   * @param reconciledAmountPos Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and the amount is positive.
+  * @param reconciledAmountPos  Double
+  **/
+
   public void setReconciledAmountPos(Double reconciledAmountPos) {
     this.reconciledAmountPos = reconciledAmountPos;
   }
 
   /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and
-   * the amount is negative.
-   *
-   * @param reconciledAmountNeg Double
-   * @return StatementLinesResponse
-   */
+  * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and the amount is negative.
+  * @param reconciledAmountNeg  Double
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse reconciledAmountNeg(Double reconciledAmountNeg) {
     this.reconciledAmountNeg = reconciledAmountNeg;
     return this;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and
-   * the amount is negative.
-   *
+   /**
+   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and the amount is negative.
    * @return reconciledAmountNeg
-   */
-  @ApiModelProperty(
-      value =
-          "Sum of the amounts of all statement lines where both the reconciled flag is set to"
-              + " TRUE, and the amount is negative.")
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and
-   * the amount is negative.
-   *
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and the amount is negative.")
+  /** 
+   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and the amount is negative.
    * @return reconciledAmountNeg Double
-   */
+  **/
   public Double getReconciledAmountNeg() {
     return reconciledAmountNeg;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and
-   * the amount is negative.
-   *
-   * @param reconciledAmountNeg Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and the amount is negative.
+  * @param reconciledAmountNeg  Double
+  **/
+
   public void setReconciledAmountNeg(Double reconciledAmountNeg) {
     this.reconciledAmountNeg = reconciledAmountNeg;
   }
 
   /**
-   * Count of all statement lines where the reconciled flag is set to TRUE
-   *
-   * @param reconciledLines Integer
-   * @return StatementLinesResponse
-   */
+  * Count of all statement lines where the reconciled flag is set to TRUE
+  * @param reconciledLines  Integer
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse reconciledLines(Integer reconciledLines) {
     this.reconciledLines = reconciledLines;
     return this;
   }
 
-  /**
+   /**
    * Count of all statement lines where the reconciled flag is set to TRUE
-   *
    * @return reconciledLines
-   */
+  **/
   @ApiModelProperty(value = "Count of all statement lines where the reconciled flag is set to TRUE")
-  /**
+  /** 
    * Count of all statement lines where the reconciled flag is set to TRUE
-   *
    * @return reconciledLines Integer
-   */
+  **/
   public Integer getReconciledLines() {
     return reconciledLines;
   }
 
-  /**
-   * Count of all statement lines where the reconciled flag is set to TRUE
-   *
-   * @param reconciledLines Integer
-   */
+  /** 
+  * Count of all statement lines where the reconciled flag is set to TRUE
+  * @param reconciledLines  Integer
+  **/
+
   public void setReconciledLines(Integer reconciledLines) {
     this.reconciledLines = reconciledLines;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the amount is positive
-   *
-   * @param totalAmountPos Double
-   * @return StatementLinesResponse
-   */
+  * Sum of the amounts of all statement lines where the amount is positive
+  * @param totalAmountPos  Double
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse totalAmountPos(Double totalAmountPos) {
     this.totalAmountPos = totalAmountPos;
     return this;
   }
 
-  /**
+   /**
    * Sum of the amounts of all statement lines where the amount is positive
-   *
    * @return totalAmountPos
-   */
-  @ApiModelProperty(
-      value = "Sum of the amounts of all statement lines where the amount is positive")
-  /**
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the amount is positive")
+  /** 
    * Sum of the amounts of all statement lines where the amount is positive
-   *
    * @return totalAmountPos Double
-   */
+  **/
   public Double getTotalAmountPos() {
     return totalAmountPos;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the amount is positive
-   *
-   * @param totalAmountPos Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the amount is positive
+  * @param totalAmountPos  Double
+  **/
+
   public void setTotalAmountPos(Double totalAmountPos) {
     this.totalAmountPos = totalAmountPos;
   }
 
   /**
-   * Sum of the amounts of all statement lines where the amount is negative.
-   *
-   * @param totalAmountNeg Double
-   * @return StatementLinesResponse
-   */
+  * Sum of the amounts of all statement lines where the amount is negative.
+  * @param totalAmountNeg  Double
+  * @return StatementLinesResponse
+  **/
   public StatementLinesResponse totalAmountNeg(Double totalAmountNeg) {
     this.totalAmountNeg = totalAmountNeg;
     return this;
   }
 
-  /**
+   /**
    * Sum of the amounts of all statement lines where the amount is negative.
-   *
    * @return totalAmountNeg
-   */
-  @ApiModelProperty(
-      value = "Sum of the amounts of all statement lines where the amount is negative.")
-  /**
+  **/
+  @ApiModelProperty(value = "Sum of the amounts of all statement lines where the amount is negative.")
+  /** 
    * Sum of the amounts of all statement lines where the amount is negative.
-   *
    * @return totalAmountNeg Double
-   */
+  **/
   public Double getTotalAmountNeg() {
     return totalAmountNeg;
   }
 
-  /**
-   * Sum of the amounts of all statement lines where the amount is negative.
-   *
-   * @param totalAmountNeg Double
-   */
+  /** 
+  * Sum of the amounts of all statement lines where the amount is negative.
+  * @param totalAmountNeg  Double
+  **/
+
   public void setTotalAmountNeg(Double totalAmountNeg) {
     this.totalAmountNeg = totalAmountNeg;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -785,94 +643,49 @@ public class StatementLinesResponse {
       return false;
     }
     StatementLinesResponse statementLinesResponse = (StatementLinesResponse) o;
-    return Objects.equals(this.unreconciledAmountPos, statementLinesResponse.unreconciledAmountPos)
-        && Objects.equals(this.unreconciledAmountNeg, statementLinesResponse.unreconciledAmountNeg)
-        && Objects.equals(this.unreconciledLines, statementLinesResponse.unreconciledLines)
-        && Objects.equals(
-            this.avgDaysUnreconciledPos, statementLinesResponse.avgDaysUnreconciledPos)
-        && Objects.equals(
-            this.avgDaysUnreconciledNeg, statementLinesResponse.avgDaysUnreconciledNeg)
-        && Objects.equals(
-            this.earliestUnreconciledTransaction,
-            statementLinesResponse.earliestUnreconciledTransaction)
-        && Objects.equals(
-            this.latestUnreconciledTransaction,
-            statementLinesResponse.latestUnreconciledTransaction)
-        && Objects.equals(this.deletedAmount, statementLinesResponse.deletedAmount)
-        && Objects.equals(this.totalAmount, statementLinesResponse.totalAmount)
-        && Objects.equals(this.dataSource, statementLinesResponse.dataSource)
-        && Objects.equals(
-            this.earliestReconciledTransaction,
-            statementLinesResponse.earliestReconciledTransaction)
-        && Objects.equals(
-            this.latestReconciledTransaction, statementLinesResponse.latestReconciledTransaction)
-        && Objects.equals(this.reconciledAmountPos, statementLinesResponse.reconciledAmountPos)
-        && Objects.equals(this.reconciledAmountNeg, statementLinesResponse.reconciledAmountNeg)
-        && Objects.equals(this.reconciledLines, statementLinesResponse.reconciledLines)
-        && Objects.equals(this.totalAmountPos, statementLinesResponse.totalAmountPos)
-        && Objects.equals(this.totalAmountNeg, statementLinesResponse.totalAmountNeg);
+    return Objects.equals(this.unreconciledAmountPos, statementLinesResponse.unreconciledAmountPos) &&
+        Objects.equals(this.unreconciledAmountNeg, statementLinesResponse.unreconciledAmountNeg) &&
+        Objects.equals(this.unreconciledLines, statementLinesResponse.unreconciledLines) &&
+        Objects.equals(this.avgDaysUnreconciledPos, statementLinesResponse.avgDaysUnreconciledPos) &&
+        Objects.equals(this.avgDaysUnreconciledNeg, statementLinesResponse.avgDaysUnreconciledNeg) &&
+        Objects.equals(this.earliestUnreconciledTransaction, statementLinesResponse.earliestUnreconciledTransaction) &&
+        Objects.equals(this.latestUnreconciledTransaction, statementLinesResponse.latestUnreconciledTransaction) &&
+        Objects.equals(this.deletedAmount, statementLinesResponse.deletedAmount) &&
+        Objects.equals(this.totalAmount, statementLinesResponse.totalAmount) &&
+        Objects.equals(this.dataSource, statementLinesResponse.dataSource) &&
+        Objects.equals(this.earliestReconciledTransaction, statementLinesResponse.earliestReconciledTransaction) &&
+        Objects.equals(this.latestReconciledTransaction, statementLinesResponse.latestReconciledTransaction) &&
+        Objects.equals(this.reconciledAmountPos, statementLinesResponse.reconciledAmountPos) &&
+        Objects.equals(this.reconciledAmountNeg, statementLinesResponse.reconciledAmountNeg) &&
+        Objects.equals(this.reconciledLines, statementLinesResponse.reconciledLines) &&
+        Objects.equals(this.totalAmountPos, statementLinesResponse.totalAmountPos) &&
+        Objects.equals(this.totalAmountNeg, statementLinesResponse.totalAmountNeg);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        unreconciledAmountPos,
-        unreconciledAmountNeg,
-        unreconciledLines,
-        avgDaysUnreconciledPos,
-        avgDaysUnreconciledNeg,
-        earliestUnreconciledTransaction,
-        latestUnreconciledTransaction,
-        deletedAmount,
-        totalAmount,
-        dataSource,
-        earliestReconciledTransaction,
-        latestReconciledTransaction,
-        reconciledAmountPos,
-        reconciledAmountNeg,
-        reconciledLines,
-        totalAmountPos,
-        totalAmountNeg);
+    return Objects.hash(unreconciledAmountPos, unreconciledAmountNeg, unreconciledLines, avgDaysUnreconciledPos, avgDaysUnreconciledNeg, earliestUnreconciledTransaction, latestUnreconciledTransaction, deletedAmount, totalAmount, dataSource, earliestReconciledTransaction, latestReconciledTransaction, reconciledAmountPos, reconciledAmountNeg, reconciledLines, totalAmountPos, totalAmountNeg);
   }
+
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class StatementLinesResponse {\n");
-    sb.append("    unreconciledAmountPos: ")
-        .append(toIndentedString(unreconciledAmountPos))
-        .append("\n");
-    sb.append("    unreconciledAmountNeg: ")
-        .append(toIndentedString(unreconciledAmountNeg))
-        .append("\n");
+    sb.append("    unreconciledAmountPos: ").append(toIndentedString(unreconciledAmountPos)).append("\n");
+    sb.append("    unreconciledAmountNeg: ").append(toIndentedString(unreconciledAmountNeg)).append("\n");
     sb.append("    unreconciledLines: ").append(toIndentedString(unreconciledLines)).append("\n");
-    sb.append("    avgDaysUnreconciledPos: ")
-        .append(toIndentedString(avgDaysUnreconciledPos))
-        .append("\n");
-    sb.append("    avgDaysUnreconciledNeg: ")
-        .append(toIndentedString(avgDaysUnreconciledNeg))
-        .append("\n");
-    sb.append("    earliestUnreconciledTransaction: ")
-        .append(toIndentedString(earliestUnreconciledTransaction))
-        .append("\n");
-    sb.append("    latestUnreconciledTransaction: ")
-        .append(toIndentedString(latestUnreconciledTransaction))
-        .append("\n");
+    sb.append("    avgDaysUnreconciledPos: ").append(toIndentedString(avgDaysUnreconciledPos)).append("\n");
+    sb.append("    avgDaysUnreconciledNeg: ").append(toIndentedString(avgDaysUnreconciledNeg)).append("\n");
+    sb.append("    earliestUnreconciledTransaction: ").append(toIndentedString(earliestUnreconciledTransaction)).append("\n");
+    sb.append("    latestUnreconciledTransaction: ").append(toIndentedString(latestUnreconciledTransaction)).append("\n");
     sb.append("    deletedAmount: ").append(toIndentedString(deletedAmount)).append("\n");
     sb.append("    totalAmount: ").append(toIndentedString(totalAmount)).append("\n");
     sb.append("    dataSource: ").append(toIndentedString(dataSource)).append("\n");
-    sb.append("    earliestReconciledTransaction: ")
-        .append(toIndentedString(earliestReconciledTransaction))
-        .append("\n");
-    sb.append("    latestReconciledTransaction: ")
-        .append(toIndentedString(latestReconciledTransaction))
-        .append("\n");
-    sb.append("    reconciledAmountPos: ")
-        .append(toIndentedString(reconciledAmountPos))
-        .append("\n");
-    sb.append("    reconciledAmountNeg: ")
-        .append(toIndentedString(reconciledAmountNeg))
-        .append("\n");
+    sb.append("    earliestReconciledTransaction: ").append(toIndentedString(earliestReconciledTransaction)).append("\n");
+    sb.append("    latestReconciledTransaction: ").append(toIndentedString(latestReconciledTransaction)).append("\n");
+    sb.append("    reconciledAmountPos: ").append(toIndentedString(reconciledAmountPos)).append("\n");
+    sb.append("    reconciledAmountNeg: ").append(toIndentedString(reconciledAmountNeg)).append("\n");
     sb.append("    reconciledLines: ").append(toIndentedString(reconciledLines)).append("\n");
     sb.append("    totalAmountPos: ").append(toIndentedString(totalAmountPos)).append("\n");
     sb.append("    totalAmountNeg: ").append(toIndentedString(totalAmountNeg)).append("\n");
@@ -881,7 +694,8 @@ public class StatementLinesResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -889,4 +703,6 @@ public class StatementLinesResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,18 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.InvalidField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** The object returned for a bad request */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * The object returned for a bad request
+ */
 @ApiModel(description = "The object returned for a bad request")
+
 public class Problem {
   StringUtil util = new StringUtil();
 
@@ -42,186 +59,170 @@ public class Problem {
   @JsonProperty("invalidFields")
   private List<InvalidField> invalidFields = new ArrayList<InvalidField>();
   /**
-   * The type of error format
-   *
-   * @param type String
-   * @return Problem
-   */
+  * The type of error format
+  * @param type  String
+  * @return Problem
+  **/
   public Problem type(String type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * The type of error format
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(example = "application/problem+json", value = "The type of error format")
-  /**
+  /** 
    * The type of error format
-   *
    * @return type String
-   */
+  **/
   public String getType() {
     return type;
   }
 
-  /**
-   * The type of error format
-   *
-   * @param type String
-   */
+  /** 
+  * The type of error format
+  * @param type  String
+  **/
+
   public void setType(String type) {
     this.type = type;
   }
 
   /**
-   * The type of the error
-   *
-   * @param title String
-   * @return Problem
-   */
+  * The type of the error
+  * @param title  String
+  * @return Problem
+  **/
   public Problem title(String title) {
     this.title = title;
     return this;
   }
 
-  /**
+   /**
    * The type of the error
-   *
    * @return title
-   */
+  **/
   @ApiModelProperty(example = "BadRequest", value = "The type of the error")
-  /**
+  /** 
    * The type of the error
-   *
    * @return title String
-   */
+  **/
   public String getTitle() {
     return title;
   }
 
-  /**
-   * The type of the error
-   *
-   * @param title String
-   */
+  /** 
+  * The type of the error
+  * @param title  String
+  **/
+
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
-   * The error status code
-   *
-   * @param status String
-   * @return Problem
-   */
+  * The error status code
+  * @param status  String
+  * @return Problem
+  **/
   public Problem status(String status) {
     this.status = status;
     return this;
   }
 
-  /**
+   /**
    * The error status code
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(example = "400", value = "The error status code")
-  /**
+  /** 
    * The error status code
-   *
    * @return status String
-   */
+  **/
   public String getStatus() {
     return status;
   }
 
-  /**
-   * The error status code
-   *
-   * @param status String
-   */
+  /** 
+  * The error status code
+  * @param status  String
+  **/
+
   public void setStatus(String status) {
     this.status = status;
   }
 
   /**
-   * A description of the error
-   *
-   * @param detail String
-   * @return Problem
-   */
+  * A description of the error
+  * @param detail  String
+  * @return Problem
+  **/
   public Problem detail(String detail) {
     this.detail = detail;
     return this;
   }
 
-  /**
+   /**
    * A description of the error
-   *
    * @return detail
-   */
+  **/
   @ApiModelProperty(example = "Validation error occurred.", value = "A description of the error")
-  /**
+  /** 
    * A description of the error
-   *
    * @return detail String
-   */
+  **/
   public String getDetail() {
     return detail;
   }
 
-  /**
-   * A description of the error
-   *
-   * @param detail String
-   */
+  /** 
+  * A description of the error
+  * @param detail  String
+  **/
+
   public void setDetail(String detail) {
     this.detail = detail;
   }
 
   /**
-   * instance
-   *
-   * @param instance String
-   * @return Problem
-   */
+  * instance
+  * @param instance  String
+  * @return Problem
+  **/
   public Problem instance(String instance) {
     this.instance = instance;
     return this;
   }
 
-  /**
+   /**
    * Get instance
-   *
    * @return instance
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * instance
-   *
    * @return instance String
-   */
+  **/
   public String getInstance() {
     return instance;
   }
 
-  /**
-   * instance
-   *
-   * @param instance String
-   */
+  /** 
+  * instance
+  * @param instance  String
+  **/
+
   public void setInstance(String instance) {
     this.instance = instance;
   }
 
   /**
-   * invalidFields
-   *
-   * @param invalidFields List&lt;InvalidField&gt;
-   * @return Problem
-   */
+  * invalidFields
+  * @param invalidFields  List&lt;InvalidField&gt;
+  * @return Problem
+  **/
   public Problem invalidFields(List<InvalidField> invalidFields) {
     this.invalidFields = invalidFields;
     return this;
@@ -229,10 +230,9 @@ public class Problem {
 
   /**
    * invalidFields
-   *
-   * @param invalidFieldsItem InvalidField
+   * @param invalidFieldsItem InvalidField 
    * @return Problem
-   */
+  **/
   public Problem addInvalidFieldsItem(InvalidField invalidFieldsItem) {
     if (this.invalidFields == null) {
       this.invalidFields = new ArrayList<InvalidField>();
@@ -241,29 +241,28 @@ public class Problem {
     return this;
   }
 
-  /**
+   /**
    * Get invalidFields
-   *
    * @return invalidFields
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * invalidFields
-   *
    * @return invalidFields List<InvalidField>
-   */
+  **/
   public List<InvalidField> getInvalidFields() {
     return invalidFields;
   }
 
-  /**
-   * invalidFields
-   *
-   * @param invalidFields List&lt;InvalidField&gt;
-   */
+  /** 
+  * invalidFields
+  * @param invalidFields List&lt;InvalidField&gt; 
+  **/
+
   public void setInvalidFields(List<InvalidField> invalidFields) {
     this.invalidFields = invalidFields;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -274,18 +273,19 @@ public class Problem {
       return false;
     }
     Problem problem = (Problem) o;
-    return Objects.equals(this.type, problem.type)
-        && Objects.equals(this.title, problem.title)
-        && Objects.equals(this.status, problem.status)
-        && Objects.equals(this.detail, problem.detail)
-        && Objects.equals(this.instance, problem.instance)
-        && Objects.equals(this.invalidFields, problem.invalidFields);
+    return Objects.equals(this.type, problem.type) &&
+        Objects.equals(this.title, problem.title) &&
+        Objects.equals(this.status, problem.status) &&
+        Objects.equals(this.detail, problem.detail) &&
+        Objects.equals(this.instance, problem.instance) &&
+        Objects.equals(this.invalidFields, problem.invalidFields);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(type, title, status, detail, instance, invalidFields);
   }
+
 
   @Override
   public String toString() {
@@ -302,7 +302,8 @@ public class Problem {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -310,4 +311,6 @@ public class Problem {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,34 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.ReportAttribute;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** ReportCell */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * ReportCell
+ */
+
 public class ReportCell {
   StringUtil util = new StringUtil();
 
@@ -28,46 +46,42 @@ public class ReportCell {
   @JsonProperty("Attributes")
   private List<ReportAttribute> attributes = new ArrayList<ReportAttribute>();
   /**
-   * value
-   *
-   * @param value String
-   * @return ReportCell
-   */
+  * value
+  * @param value  String
+  * @return ReportCell
+  **/
   public ReportCell value(String value) {
     this.value = value;
     return this;
   }
 
-  /**
+   /**
    * Get value
-   *
    * @return value
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * value
-   *
    * @return value String
-   */
+  **/
   public String getValue() {
     return value;
   }
 
-  /**
-   * value
-   *
-   * @param value String
-   */
+  /** 
+  * value
+  * @param value  String
+  **/
+
   public void setValue(String value) {
     this.value = value;
   }
 
   /**
-   * attributes
-   *
-   * @param attributes List&lt;ReportAttribute&gt;
-   * @return ReportCell
-   */
+  * attributes
+  * @param attributes  List&lt;ReportAttribute&gt;
+  * @return ReportCell
+  **/
   public ReportCell attributes(List<ReportAttribute> attributes) {
     this.attributes = attributes;
     return this;
@@ -75,10 +89,9 @@ public class ReportCell {
 
   /**
    * attributes
-   *
-   * @param attributesItem ReportAttribute
+   * @param attributesItem ReportAttribute 
    * @return ReportCell
-   */
+  **/
   public ReportCell addAttributesItem(ReportAttribute attributesItem) {
     if (this.attributes == null) {
       this.attributes = new ArrayList<ReportAttribute>();
@@ -87,29 +100,28 @@ public class ReportCell {
     return this;
   }
 
-  /**
+   /**
    * Get attributes
-   *
    * @return attributes
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * attributes
-   *
    * @return attributes List<ReportAttribute>
-   */
+  **/
   public List<ReportAttribute> getAttributes() {
     return attributes;
   }
 
-  /**
-   * attributes
-   *
-   * @param attributes List&lt;ReportAttribute&gt;
-   */
+  /** 
+  * attributes
+  * @param attributes List&lt;ReportAttribute&gt; 
+  **/
+
   public void setAttributes(List<ReportAttribute> attributes) {
     this.attributes = attributes;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -120,14 +132,15 @@ public class ReportCell {
       return false;
     }
     ReportCell reportCell = (ReportCell) o;
-    return Objects.equals(this.value, reportCell.value)
-        && Objects.equals(this.attributes, reportCell.attributes);
+    return Objects.equals(this.value, reportCell.value) &&
+        Objects.equals(this.attributes, reportCell.attributes);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(value, attributes);
   }
+
 
   @Override
   public String toString() {
@@ -140,7 +153,8 @@ public class ReportCell {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -148,4 +162,6 @@ public class ReportCell {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

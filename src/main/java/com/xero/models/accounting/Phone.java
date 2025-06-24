@@ -9,33 +9,60 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** Phone */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Phone
+ */
+
 public class Phone {
   StringUtil util = new StringUtil();
-  /** Gets or Sets phoneType */
+  /**
+   * Gets or Sets phoneType
+   */
   public enum PhoneTypeEnum {
-    /** DEFAULT */
+    /**
+     * DEFAULT
+     */
     DEFAULT("DEFAULT"),
-
-    /** DDI */
+    
+    /**
+     * DDI
+     */
     DDI("DDI"),
-
-    /** MOBILE */
+    
+    /**
+     * MOBILE
+     */
     MOBILE("MOBILE"),
-
-    /** FAX */
+    
+    /**
+     * FAX
+     */
     FAX("FAX"),
-
-    /** OFFICE */
+    
+    /**
+     * OFFICE
+     */
     OFFICE("OFFICE");
 
     private String value;
@@ -44,31 +71,25 @@ public class Phone {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static PhoneTypeEnum fromValue(String value) {
       for (PhoneTypeEnum b : PhoneTypeEnum.values()) {
@@ -79,6 +100,7 @@ public class Phone {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("PhoneType")
   private PhoneTypeEnum phoneType;
@@ -92,144 +114,133 @@ public class Phone {
   @JsonProperty("PhoneCountryCode")
   private String phoneCountryCode;
   /**
-   * phoneType
-   *
-   * @param phoneType PhoneTypeEnum
-   * @return Phone
-   */
+  * phoneType
+  * @param phoneType  PhoneTypeEnum
+  * @return Phone
+  **/
   public Phone phoneType(PhoneTypeEnum phoneType) {
     this.phoneType = phoneType;
     return this;
   }
 
-  /**
+   /**
    * Get phoneType
-   *
    * @return phoneType
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * phoneType
-   *
    * @return phoneType PhoneTypeEnum
-   */
+  **/
   public PhoneTypeEnum getPhoneType() {
     return phoneType;
   }
 
-  /**
-   * phoneType
-   *
-   * @param phoneType PhoneTypeEnum
-   */
+  /** 
+  * phoneType
+  * @param phoneType  PhoneTypeEnum
+  **/
+
   public void setPhoneType(PhoneTypeEnum phoneType) {
     this.phoneType = phoneType;
   }
 
   /**
-   * max length &#x3D; 50
-   *
-   * @param phoneNumber String
-   * @return Phone
-   */
+  * max length &#x3D; 50
+  * @param phoneNumber  String
+  * @return Phone
+  **/
   public Phone phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
   }
 
-  /**
+   /**
    * max length &#x3D; 50
-   *
    * @return phoneNumber
-   */
+  **/
   @ApiModelProperty(value = "max length = 50")
-  /**
+  /** 
    * max length &#x3D; 50
-   *
    * @return phoneNumber String
-   */
+  **/
   public String getPhoneNumber() {
     return phoneNumber;
   }
 
-  /**
-   * max length &#x3D; 50
-   *
-   * @param phoneNumber String
-   */
+  /** 
+  * max length &#x3D; 50
+  * @param phoneNumber  String
+  **/
+
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
 
   /**
-   * max length &#x3D; 10
-   *
-   * @param phoneAreaCode String
-   * @return Phone
-   */
+  * max length &#x3D; 10
+  * @param phoneAreaCode  String
+  * @return Phone
+  **/
   public Phone phoneAreaCode(String phoneAreaCode) {
     this.phoneAreaCode = phoneAreaCode;
     return this;
   }
 
-  /**
+   /**
    * max length &#x3D; 10
-   *
    * @return phoneAreaCode
-   */
+  **/
   @ApiModelProperty(value = "max length = 10")
-  /**
+  /** 
    * max length &#x3D; 10
-   *
    * @return phoneAreaCode String
-   */
+  **/
   public String getPhoneAreaCode() {
     return phoneAreaCode;
   }
 
-  /**
-   * max length &#x3D; 10
-   *
-   * @param phoneAreaCode String
-   */
+  /** 
+  * max length &#x3D; 10
+  * @param phoneAreaCode  String
+  **/
+
   public void setPhoneAreaCode(String phoneAreaCode) {
     this.phoneAreaCode = phoneAreaCode;
   }
 
   /**
-   * max length &#x3D; 20
-   *
-   * @param phoneCountryCode String
-   * @return Phone
-   */
+  * max length &#x3D; 20
+  * @param phoneCountryCode  String
+  * @return Phone
+  **/
   public Phone phoneCountryCode(String phoneCountryCode) {
     this.phoneCountryCode = phoneCountryCode;
     return this;
   }
 
-  /**
+   /**
    * max length &#x3D; 20
-   *
    * @return phoneCountryCode
-   */
+  **/
   @ApiModelProperty(value = "max length = 20")
-  /**
+  /** 
    * max length &#x3D; 20
-   *
    * @return phoneCountryCode String
-   */
+  **/
   public String getPhoneCountryCode() {
     return phoneCountryCode;
   }
 
-  /**
-   * max length &#x3D; 20
-   *
-   * @param phoneCountryCode String
-   */
+  /** 
+  * max length &#x3D; 20
+  * @param phoneCountryCode  String
+  **/
+
   public void setPhoneCountryCode(String phoneCountryCode) {
     this.phoneCountryCode = phoneCountryCode;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -240,16 +251,17 @@ public class Phone {
       return false;
     }
     Phone phone = (Phone) o;
-    return Objects.equals(this.phoneType, phone.phoneType)
-        && Objects.equals(this.phoneNumber, phone.phoneNumber)
-        && Objects.equals(this.phoneAreaCode, phone.phoneAreaCode)
-        && Objects.equals(this.phoneCountryCode, phone.phoneCountryCode);
+    return Objects.equals(this.phoneType, phone.phoneType) &&
+        Objects.equals(this.phoneNumber, phone.phoneNumber) &&
+        Objects.equals(this.phoneAreaCode, phone.phoneAreaCode) &&
+        Objects.equals(this.phoneCountryCode, phone.phoneCountryCode);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(phoneType, phoneNumber, phoneAreaCode, phoneCountryCode);
   }
+
 
   @Override
   public String toString() {
@@ -264,7 +276,8 @@ public class Phone {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -272,4 +285,6 @@ public class Phone {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,16 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.payrollnz;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** Employment */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Employment
+ */
+
 public class Employment {
   StringUtil util = new StringUtil();
 
@@ -37,184 +54,165 @@ public class Employment {
   @JsonProperty("fixedTermEndDate")
   private LocalDate fixedTermEndDate;
   /**
-   * Xero unique identifier for the payroll calendar of the employee
-   *
-   * @param payrollCalendarID UUID
-   * @return Employment
-   */
+  * Xero unique identifier for the payroll calendar of the employee
+  * @param payrollCalendarID  UUID
+  * @return Employment
+  **/
   public Employment payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for the payroll calendar of the employee
-   *
    * @return payrollCalendarID
-   */
+  **/
   @ApiModelProperty(value = "Xero unique identifier for the payroll calendar of the employee")
-  /**
+  /** 
    * Xero unique identifier for the payroll calendar of the employee
-   *
    * @return payrollCalendarID UUID
-   */
+  **/
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
-  /**
-   * Xero unique identifier for the payroll calendar of the employee
-   *
-   * @param payrollCalendarID UUID
-   */
+  /** 
+  * Xero unique identifier for the payroll calendar of the employee
+  * @param payrollCalendarID  UUID
+  **/
+
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
   /**
-   * Xero unique identifier for the payrun calendar for the employee (Deprecated in version 1.1.6)
-   *
-   * @param payRunCalendarID UUID
-   * @return Employment
-   */
+  * Xero unique identifier for the payrun calendar for the employee (Deprecated in version 1.1.6)
+  * @param payRunCalendarID  UUID
+  * @return Employment
+  **/
   public Employment payRunCalendarID(UUID payRunCalendarID) {
     this.payRunCalendarID = payRunCalendarID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for the payrun calendar for the employee (Deprecated in version 1.1.6)
-   *
    * @return payRunCalendarID
-   */
-  @ApiModelProperty(
-      value =
-          "Xero unique identifier for the payrun calendar for the employee (Deprecated in version"
-              + " 1.1.6)")
-  /**
+  **/
+  @ApiModelProperty(value = "Xero unique identifier for the payrun calendar for the employee (Deprecated in version 1.1.6)")
+  /** 
    * Xero unique identifier for the payrun calendar for the employee (Deprecated in version 1.1.6)
-   *
    * @return payRunCalendarID UUID
-   */
+  **/
   public UUID getPayRunCalendarID() {
     return payRunCalendarID;
   }
 
-  /**
-   * Xero unique identifier for the payrun calendar for the employee (Deprecated in version 1.1.6)
-   *
-   * @param payRunCalendarID UUID
-   */
+  /** 
+  * Xero unique identifier for the payrun calendar for the employee (Deprecated in version 1.1.6)
+  * @param payRunCalendarID  UUID
+  **/
+
   public void setPayRunCalendarID(UUID payRunCalendarID) {
     this.payRunCalendarID = payRunCalendarID;
   }
 
   /**
-   * Start date of the employment (YYYY-MM-DD)
-   *
-   * @param startDate LocalDate
-   * @return Employment
-   */
+  * Start date of the employment (YYYY-MM-DD)
+  * @param startDate  LocalDate
+  * @return Employment
+  **/
   public Employment startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * Start date of the employment (YYYY-MM-DD)
-   *
    * @return startDate
-   */
+  **/
   @ApiModelProperty(value = "Start date of the employment (YYYY-MM-DD)")
-  /**
+  /** 
    * Start date of the employment (YYYY-MM-DD)
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * Start date of the employment (YYYY-MM-DD)
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * Start date of the employment (YYYY-MM-DD)
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * Engagement type of the employee
-   *
-   * @param engagementType String
-   * @return Employment
-   */
+  * Engagement type of the employee
+  * @param engagementType  String
+  * @return Employment
+  **/
   public Employment engagementType(String engagementType) {
     this.engagementType = engagementType;
     return this;
   }
 
-  /**
+   /**
    * Engagement type of the employee
-   *
    * @return engagementType
-   */
+  **/
   @ApiModelProperty(example = "Permanent", value = "Engagement type of the employee")
-  /**
+  /** 
    * Engagement type of the employee
-   *
    * @return engagementType String
-   */
+  **/
   public String getEngagementType() {
     return engagementType;
   }
 
-  /**
-   * Engagement type of the employee
-   *
-   * @param engagementType String
-   */
+  /** 
+  * Engagement type of the employee
+  * @param engagementType  String
+  **/
+
   public void setEngagementType(String engagementType) {
     this.engagementType = engagementType;
   }
 
   /**
-   * End date for an employee with a fixed-term engagement type
-   *
-   * @param fixedTermEndDate LocalDate
-   * @return Employment
-   */
+  * End date for an employee with a fixed-term engagement type
+  * @param fixedTermEndDate  LocalDate
+  * @return Employment
+  **/
   public Employment fixedTermEndDate(LocalDate fixedTermEndDate) {
     this.fixedTermEndDate = fixedTermEndDate;
     return this;
   }
 
-  /**
+   /**
    * End date for an employee with a fixed-term engagement type
-   *
    * @return fixedTermEndDate
-   */
-  @ApiModelProperty(
-      example = "Sun Jan 19 00:00:00 UTC 2020",
-      value = "End date for an employee with a fixed-term engagement type")
-  /**
+  **/
+  @ApiModelProperty(example = "Sun Jan 19 00:00:00 UTC 2020", value = "End date for an employee with a fixed-term engagement type")
+  /** 
    * End date for an employee with a fixed-term engagement type
-   *
    * @return fixedTermEndDate LocalDate
-   */
+  **/
   public LocalDate getFixedTermEndDate() {
     return fixedTermEndDate;
   }
 
-  /**
-   * End date for an employee with a fixed-term engagement type
-   *
-   * @param fixedTermEndDate LocalDate
-   */
+  /** 
+  * End date for an employee with a fixed-term engagement type
+  * @param fixedTermEndDate  LocalDate
+  **/
+
   public void setFixedTermEndDate(LocalDate fixedTermEndDate) {
     this.fixedTermEndDate = fixedTermEndDate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -225,18 +223,18 @@ public class Employment {
       return false;
     }
     Employment employment = (Employment) o;
-    return Objects.equals(this.payrollCalendarID, employment.payrollCalendarID)
-        && Objects.equals(this.payRunCalendarID, employment.payRunCalendarID)
-        && Objects.equals(this.startDate, employment.startDate)
-        && Objects.equals(this.engagementType, employment.engagementType)
-        && Objects.equals(this.fixedTermEndDate, employment.fixedTermEndDate);
+    return Objects.equals(this.payrollCalendarID, employment.payrollCalendarID) &&
+        Objects.equals(this.payRunCalendarID, employment.payRunCalendarID) &&
+        Objects.equals(this.startDate, employment.startDate) &&
+        Objects.equals(this.engagementType, employment.engagementType) &&
+        Objects.equals(this.fixedTermEndDate, employment.fixedTermEndDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        payrollCalendarID, payRunCalendarID, startDate, engagementType, fixedTermEndDate);
+    return Objects.hash(payrollCalendarID, payRunCalendarID, startDate, engagementType, fixedTermEndDate);
   }
+
 
   @Override
   public String toString() {
@@ -252,7 +250,8 @@ public class Employment {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -260,4 +259,6 @@ public class Employment {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

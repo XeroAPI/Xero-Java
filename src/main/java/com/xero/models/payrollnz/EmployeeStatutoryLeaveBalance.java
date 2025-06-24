@@ -9,33 +9,60 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollnz;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
-/** EmployeeStatutoryLeaveBalance */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeStatutoryLeaveBalance
+ */
+
 public class EmployeeStatutoryLeaveBalance {
   StringUtil util = new StringUtil();
-  /** The type of statutory leave */
+  /**
+   * The type of statutory leave
+   */
   public enum LeaveTypeEnum {
-    /** SICK */
+    /**
+     * SICK
+     */
     SICK("Sick"),
-
-    /** ADOPTION */
+    
+    /**
+     * ADOPTION
+     */
     ADOPTION("Adoption"),
-
-    /** MATERNITY */
+    
+    /**
+     * MATERNITY
+     */
     MATERNITY("Maternity"),
-
-    /** PATERNITY */
+    
+    /**
+     * PATERNITY
+     */
     PATERNITY("Paternity"),
-
-    /** SHAREDPARENTAL */
+    
+    /**
+     * SHAREDPARENTAL
+     */
     SHAREDPARENTAL("Sharedparental");
 
     private String value;
@@ -44,31 +71,25 @@ public class EmployeeStatutoryLeaveBalance {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static LeaveTypeEnum fromValue(String value) {
       for (LeaveTypeEnum b : LeaveTypeEnum.values()) {
@@ -80,14 +101,19 @@ public class EmployeeStatutoryLeaveBalance {
     }
   }
 
+
   @JsonProperty("leaveType")
   private LeaveTypeEnum leaveType;
 
   @JsonProperty("balanceRemaining")
   private Double balanceRemaining;
-  /** The units will be \&quot;Hours\&quot; */
+  /**
+   * The units will be \&quot;Hours\&quot;
+   */
   public enum UnitsEnum {
-    /** HOURS */
+    /**
+     * HOURS
+     */
     HOURS("Hours");
 
     private String value;
@@ -96,31 +122,25 @@ public class EmployeeStatutoryLeaveBalance {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static UnitsEnum fromValue(String value) {
       for (UnitsEnum b : UnitsEnum.values()) {
@@ -132,113 +152,105 @@ public class EmployeeStatutoryLeaveBalance {
     }
   }
 
+
   @JsonProperty("units")
   private UnitsEnum units;
   /**
-   * The type of statutory leave
-   *
-   * @param leaveType LeaveTypeEnum
-   * @return EmployeeStatutoryLeaveBalance
-   */
+  * The type of statutory leave
+  * @param leaveType  LeaveTypeEnum
+  * @return EmployeeStatutoryLeaveBalance
+  **/
   public EmployeeStatutoryLeaveBalance leaveType(LeaveTypeEnum leaveType) {
     this.leaveType = leaveType;
     return this;
   }
 
-  /**
+   /**
    * The type of statutory leave
-   *
    * @return leaveType
-   */
+  **/
   @ApiModelProperty(value = "The type of statutory leave")
-  /**
+  /** 
    * The type of statutory leave
-   *
    * @return leaveType LeaveTypeEnum
-   */
+  **/
   public LeaveTypeEnum getLeaveType() {
     return leaveType;
   }
 
-  /**
-   * The type of statutory leave
-   *
-   * @param leaveType LeaveTypeEnum
-   */
+  /** 
+  * The type of statutory leave
+  * @param leaveType  LeaveTypeEnum
+  **/
+
   public void setLeaveType(LeaveTypeEnum leaveType) {
     this.leaveType = leaveType;
   }
 
   /**
-   * The balance remaining for the corresponding leave type as of specified date.
-   *
-   * @param balanceRemaining Double
-   * @return EmployeeStatutoryLeaveBalance
-   */
+  * The balance remaining for the corresponding leave type as of specified date.
+  * @param balanceRemaining  Double
+  * @return EmployeeStatutoryLeaveBalance
+  **/
   public EmployeeStatutoryLeaveBalance balanceRemaining(Double balanceRemaining) {
     this.balanceRemaining = balanceRemaining;
     return this;
   }
 
-  /**
+   /**
    * The balance remaining for the corresponding leave type as of specified date.
-   *
    * @return balanceRemaining
-   */
-  @ApiModelProperty(
-      value = "The balance remaining for the corresponding leave type as of specified date.")
-  /**
+  **/
+  @ApiModelProperty(value = "The balance remaining for the corresponding leave type as of specified date.")
+  /** 
    * The balance remaining for the corresponding leave type as of specified date.
-   *
    * @return balanceRemaining Double
-   */
+  **/
   public Double getBalanceRemaining() {
     return balanceRemaining;
   }
 
-  /**
-   * The balance remaining for the corresponding leave type as of specified date.
-   *
-   * @param balanceRemaining Double
-   */
+  /** 
+  * The balance remaining for the corresponding leave type as of specified date.
+  * @param balanceRemaining  Double
+  **/
+
   public void setBalanceRemaining(Double balanceRemaining) {
     this.balanceRemaining = balanceRemaining;
   }
 
   /**
-   * The units will be \&quot;Hours\&quot;
-   *
-   * @param units UnitsEnum
-   * @return EmployeeStatutoryLeaveBalance
-   */
+  * The units will be \&quot;Hours\&quot;
+  * @param units  UnitsEnum
+  * @return EmployeeStatutoryLeaveBalance
+  **/
   public EmployeeStatutoryLeaveBalance units(UnitsEnum units) {
     this.units = units;
     return this;
   }
 
-  /**
+   /**
    * The units will be \&quot;Hours\&quot;
-   *
    * @return units
-   */
+  **/
   @ApiModelProperty(value = "The units will be \"Hours\"")
-  /**
+  /** 
    * The units will be \&quot;Hours\&quot;
-   *
    * @return units UnitsEnum
-   */
+  **/
   public UnitsEnum getUnits() {
     return units;
   }
 
-  /**
-   * The units will be \&quot;Hours\&quot;
-   *
-   * @param units UnitsEnum
-   */
+  /** 
+  * The units will be \&quot;Hours\&quot;
+  * @param units  UnitsEnum
+  **/
+
   public void setUnits(UnitsEnum units) {
     this.units = units;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -249,15 +261,16 @@ public class EmployeeStatutoryLeaveBalance {
       return false;
     }
     EmployeeStatutoryLeaveBalance employeeStatutoryLeaveBalance = (EmployeeStatutoryLeaveBalance) o;
-    return Objects.equals(this.leaveType, employeeStatutoryLeaveBalance.leaveType)
-        && Objects.equals(this.balanceRemaining, employeeStatutoryLeaveBalance.balanceRemaining)
-        && Objects.equals(this.units, employeeStatutoryLeaveBalance.units);
+    return Objects.equals(this.leaveType, employeeStatutoryLeaveBalance.leaveType) &&
+        Objects.equals(this.balanceRemaining, employeeStatutoryLeaveBalance.balanceRemaining) &&
+        Objects.equals(this.units, employeeStatutoryLeaveBalance.units);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(leaveType, balanceRemaining, units);
   }
+
 
   @Override
   public String toString() {
@@ -271,7 +284,8 @@ public class EmployeeStatutoryLeaveBalance {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -279,4 +293,6 @@ public class EmployeeStatutoryLeaveBalance {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,20 +9,47 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.api.StringUtil;
+import com.xero.models.payrollnz.DeductionLine;
+import com.xero.models.payrollnz.EarningsLine;
+import com.xero.models.payrollnz.GrossEarningsHistory;
+import com.xero.models.payrollnz.LeaveAccrualLine;
+import com.xero.models.payrollnz.LeaveEarningsLine;
+import com.xero.models.payrollnz.PaymentLine;
+import com.xero.models.payrollnz.ReimbursementLine;
+import com.xero.models.payrollnz.StatutoryDeductionLine;
+import com.xero.models.payrollnz.SuperannuationLine;
+import com.xero.models.payrollnz.TaxLine;
+import com.xero.models.payrollnz.TaxSettings;
+import com.xero.models.payrollnz.TimesheetEarningsLine;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** PaySlip */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * PaySlip
+ */
+
 public class PaySlip {
   StringUtil util = new StringUtil();
 
@@ -73,15 +100,23 @@ public class PaySlip {
 
   @JsonProperty("bacsHash")
   private String bacsHash;
-  /** The payment method code */
+  /**
+   * The payment method code
+   */
   public enum PaymentMethodEnum {
-    /** CHEQUE */
+    /**
+     * CHEQUE
+     */
     CHEQUE("Cheque"),
-
-    /** ELECTRONICALLY */
+    
+    /**
+     * ELECTRONICALLY
+     */
     ELECTRONICALLY("Electronically"),
-
-    /** MANUAL */
+    
+    /**
+     * MANUAL
+     */
     MANUAL("Manual");
 
     private String value;
@@ -90,31 +125,25 @@ public class PaySlip {
       this.value = value;
     }
 
-    /**
-     * getValue
-     *
-     * @return String value
-     */
+   /** getValue
+   * @return String value
+   */
     @JsonValue
     public String getValue() {
       return value;
     }
 
-    /**
-     * toString
-     *
-     * @return String value
-     */
-    @Override
+   /** toString
+   * @return String value
+   */
+   @Override
     public String toString() {
       return String.valueOf(value);
     }
 
-    /**
-     * fromValue
-     *
-     * @param value String
-     */
+   /** fromValue
+   * @param value String 
+   */
     @JsonCreator
     public static PaymentMethodEnum fromValue(String value) {
       for (PaymentMethodEnum b : PaymentMethodEnum.values()) {
@@ -126,6 +155,7 @@ public class PaySlip {
     }
   }
 
+
   @JsonProperty("paymentMethod")
   private PaymentMethodEnum paymentMethod;
 
@@ -136,8 +166,7 @@ public class PaySlip {
   private List<LeaveEarningsLine> leaveEarningsLines = new ArrayList<LeaveEarningsLine>();
 
   @JsonProperty("timesheetEarningsLines")
-  private List<TimesheetEarningsLine> timesheetEarningsLines =
-      new ArrayList<TimesheetEarningsLine>();
+  private List<TimesheetEarningsLine> timesheetEarningsLines = new ArrayList<TimesheetEarningsLine>();
 
   @JsonProperty("deductionLines")
   private List<DeductionLine> deductionLines = new ArrayList<DeductionLine>();
@@ -161,8 +190,7 @@ public class PaySlip {
   private List<TaxLine> employerTaxLines = new ArrayList<TaxLine>();
 
   @JsonProperty("statutoryDeductionLines")
-  private List<StatutoryDeductionLine> statutoryDeductionLines =
-      new ArrayList<StatutoryDeductionLine>();
+  private List<StatutoryDeductionLine> statutoryDeductionLines = new ArrayList<StatutoryDeductionLine>();
 
   @JsonProperty("taxSettings")
   private TaxSettings taxSettings;
@@ -170,623 +198,554 @@ public class PaySlip {
   @JsonProperty("grossEarningsHistory")
   private GrossEarningsHistory grossEarningsHistory;
   /**
-   * The Xero identifier for a PaySlip
-   *
-   * @param paySlipID UUID
-   * @return PaySlip
-   */
+  * The Xero identifier for a PaySlip
+  * @param paySlipID  UUID
+  * @return PaySlip
+  **/
   public PaySlip paySlipID(UUID paySlipID) {
     this.paySlipID = paySlipID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for a PaySlip
-   *
    * @return paySlipID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for a PaySlip")
-  /**
+  /** 
    * The Xero identifier for a PaySlip
-   *
    * @return paySlipID UUID
-   */
+  **/
   public UUID getPaySlipID() {
     return paySlipID;
   }
 
-  /**
-   * The Xero identifier for a PaySlip
-   *
-   * @param paySlipID UUID
-   */
+  /** 
+  * The Xero identifier for a PaySlip
+  * @param paySlipID  UUID
+  **/
+
   public void setPaySlipID(UUID paySlipID) {
     this.paySlipID = paySlipID;
   }
 
   /**
-   * The Xero identifier for payroll employee
-   *
-   * @param employeeID UUID
-   * @return PaySlip
-   */
+  * The Xero identifier for payroll employee
+  * @param employeeID  UUID
+  * @return PaySlip
+  **/
   public PaySlip employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for payroll employee
-   *
    * @return employeeID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for payroll employee")
-  /**
+  /** 
    * The Xero identifier for payroll employee
-   *
    * @return employeeID UUID
-   */
+  **/
   public UUID getEmployeeID() {
     return employeeID;
   }
 
-  /**
-   * The Xero identifier for payroll employee
-   *
-   * @param employeeID UUID
-   */
+  /** 
+  * The Xero identifier for payroll employee
+  * @param employeeID  UUID
+  **/
+
   public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
   /**
-   * The Xero identifier for the associated payrun
-   *
-   * @param payRunID UUID
-   * @return PaySlip
-   */
+  * The Xero identifier for the associated payrun
+  * @param payRunID  UUID
+  * @return PaySlip
+  **/
   public PaySlip payRunID(UUID payRunID) {
     this.payRunID = payRunID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for the associated payrun
-   *
    * @return payRunID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for the associated payrun")
-  /**
+  /** 
    * The Xero identifier for the associated payrun
-   *
    * @return payRunID UUID
-   */
+  **/
   public UUID getPayRunID() {
     return payRunID;
   }
 
-  /**
-   * The Xero identifier for the associated payrun
-   *
-   * @param payRunID UUID
-   */
+  /** 
+  * The Xero identifier for the associated payrun
+  * @param payRunID  UUID
+  **/
+
   public void setPayRunID(UUID payRunID) {
     this.payRunID = payRunID;
   }
 
   /**
-   * The date payslip was last updated
-   *
-   * @param lastEdited LocalDateTime
-   * @return PaySlip
-   */
+  * The date payslip was last updated
+  * @param lastEdited LocalDateTime
+  * @return PaySlip
+  **/
   public PaySlip lastEdited(LocalDateTime lastEdited) {
     this.lastEdited = lastEdited;
     return this;
   }
 
-  /**
+   /**
    * The date payslip was last updated
-   *
    * @return lastEdited
-   */
+  **/
   @ApiModelProperty(value = "The date payslip was last updated")
-  /**
+  /** 
    * The date payslip was last updated
-   *
    * @return lastEdited LocalDateTime
-   */
+  **/
   public LocalDateTime getLastEdited() {
     return lastEdited;
   }
 
-  /**
-   * The date payslip was last updated
-   *
-   * @param lastEdited LocalDateTime
-   */
+  /** 
+  * The date payslip was last updated
+  * @param lastEdited LocalDateTime
+  **/
+
   public void setLastEdited(LocalDateTime lastEdited) {
     this.lastEdited = lastEdited;
   }
 
   /**
-   * Employee first name
-   *
-   * @param firstName String
-   * @return PaySlip
-   */
+  * Employee first name
+  * @param firstName  String
+  * @return PaySlip
+  **/
   public PaySlip firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
 
-  /**
+   /**
    * Employee first name
-   *
    * @return firstName
-   */
+  **/
   @ApiModelProperty(value = "Employee first name")
-  /**
+  /** 
    * Employee first name
-   *
    * @return firstName String
-   */
+  **/
   public String getFirstName() {
     return firstName;
   }
 
-  /**
-   * Employee first name
-   *
-   * @param firstName String
-   */
+  /** 
+  * Employee first name
+  * @param firstName  String
+  **/
+
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
   /**
-   * Employee last name
-   *
-   * @param lastName String
-   * @return PaySlip
-   */
+  * Employee last name
+  * @param lastName  String
+  * @return PaySlip
+  **/
   public PaySlip lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
 
-  /**
+   /**
    * Employee last name
-   *
    * @return lastName
-   */
+  **/
   @ApiModelProperty(value = "Employee last name")
-  /**
+  /** 
    * Employee last name
-   *
    * @return lastName String
-   */
+  **/
   public String getLastName() {
     return lastName;
   }
 
-  /**
-   * Employee last name
-   *
-   * @param lastName String
-   */
+  /** 
+  * Employee last name
+  * @param lastName  String
+  **/
+
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
   /**
-   * Total earnings before any deductions. Same as gross earnings for NZ.
-   *
-   * @param totalEarnings Double
-   * @return PaySlip
-   */
+  * Total earnings before any deductions. Same as gross earnings for NZ.
+  * @param totalEarnings  Double
+  * @return PaySlip
+  **/
   public PaySlip totalEarnings(Double totalEarnings) {
     this.totalEarnings = totalEarnings;
     return this;
   }
 
-  /**
+   /**
    * Total earnings before any deductions. Same as gross earnings for NZ.
-   *
    * @return totalEarnings
-   */
+  **/
   @ApiModelProperty(value = "Total earnings before any deductions. Same as gross earnings for NZ.")
-  /**
+  /** 
    * Total earnings before any deductions. Same as gross earnings for NZ.
-   *
    * @return totalEarnings Double
-   */
+  **/
   public Double getTotalEarnings() {
     return totalEarnings;
   }
 
-  /**
-   * Total earnings before any deductions. Same as gross earnings for NZ.
-   *
-   * @param totalEarnings Double
-   */
+  /** 
+  * Total earnings before any deductions. Same as gross earnings for NZ.
+  * @param totalEarnings  Double
+  **/
+
   public void setTotalEarnings(Double totalEarnings) {
     this.totalEarnings = totalEarnings;
   }
 
   /**
-   * Total earnings before any deductions. Same as total earnings for NZ.
-   *
-   * @param grossEarnings Double
-   * @return PaySlip
-   */
+  * Total earnings before any deductions. Same as total earnings for NZ.
+  * @param grossEarnings  Double
+  * @return PaySlip
+  **/
   public PaySlip grossEarnings(Double grossEarnings) {
     this.grossEarnings = grossEarnings;
     return this;
   }
 
-  /**
+   /**
    * Total earnings before any deductions. Same as total earnings for NZ.
-   *
    * @return grossEarnings
-   */
+  **/
   @ApiModelProperty(value = "Total earnings before any deductions. Same as total earnings for NZ.")
-  /**
+  /** 
    * Total earnings before any deductions. Same as total earnings for NZ.
-   *
    * @return grossEarnings Double
-   */
+  **/
   public Double getGrossEarnings() {
     return grossEarnings;
   }
 
-  /**
-   * Total earnings before any deductions. Same as total earnings for NZ.
-   *
-   * @param grossEarnings Double
-   */
+  /** 
+  * Total earnings before any deductions. Same as total earnings for NZ.
+  * @param grossEarnings  Double
+  **/
+
   public void setGrossEarnings(Double grossEarnings) {
     this.grossEarnings = grossEarnings;
   }
 
   /**
-   * The employee net pay
-   *
-   * @param totalPay Double
-   * @return PaySlip
-   */
+  * The employee net pay
+  * @param totalPay  Double
+  * @return PaySlip
+  **/
   public PaySlip totalPay(Double totalPay) {
     this.totalPay = totalPay;
     return this;
   }
 
-  /**
+   /**
    * The employee net pay
-   *
    * @return totalPay
-   */
+  **/
   @ApiModelProperty(value = "The employee net pay")
-  /**
+  /** 
    * The employee net pay
-   *
    * @return totalPay Double
-   */
+  **/
   public Double getTotalPay() {
     return totalPay;
   }
 
-  /**
-   * The employee net pay
-   *
-   * @param totalPay Double
-   */
+  /** 
+  * The employee net pay
+  * @param totalPay  Double
+  **/
+
   public void setTotalPay(Double totalPay) {
     this.totalPay = totalPay;
   }
 
   /**
-   * The employer&#39;s tax obligation
-   *
-   * @param totalEmployerTaxes Double
-   * @return PaySlip
-   */
+  * The employer&#39;s tax obligation
+  * @param totalEmployerTaxes  Double
+  * @return PaySlip
+  **/
   public PaySlip totalEmployerTaxes(Double totalEmployerTaxes) {
     this.totalEmployerTaxes = totalEmployerTaxes;
     return this;
   }
 
-  /**
+   /**
    * The employer&#39;s tax obligation
-   *
    * @return totalEmployerTaxes
-   */
+  **/
   @ApiModelProperty(value = "The employer's tax obligation")
-  /**
+  /** 
    * The employer&#39;s tax obligation
-   *
    * @return totalEmployerTaxes Double
-   */
+  **/
   public Double getTotalEmployerTaxes() {
     return totalEmployerTaxes;
   }
 
-  /**
-   * The employer&#39;s tax obligation
-   *
-   * @param totalEmployerTaxes Double
-   */
+  /** 
+  * The employer&#39;s tax obligation
+  * @param totalEmployerTaxes  Double
+  **/
+
   public void setTotalEmployerTaxes(Double totalEmployerTaxes) {
     this.totalEmployerTaxes = totalEmployerTaxes;
   }
 
   /**
-   * The part of an employee&#39;s earnings that is deducted for tax purposes
-   *
-   * @param totalEmployeeTaxes Double
-   * @return PaySlip
-   */
+  * The part of an employee&#39;s earnings that is deducted for tax purposes
+  * @param totalEmployeeTaxes  Double
+  * @return PaySlip
+  **/
   public PaySlip totalEmployeeTaxes(Double totalEmployeeTaxes) {
     this.totalEmployeeTaxes = totalEmployeeTaxes;
     return this;
   }
 
-  /**
+   /**
    * The part of an employee&#39;s earnings that is deducted for tax purposes
-   *
    * @return totalEmployeeTaxes
-   */
+  **/
   @ApiModelProperty(value = "The part of an employee's earnings that is deducted for tax purposes")
-  /**
+  /** 
    * The part of an employee&#39;s earnings that is deducted for tax purposes
-   *
    * @return totalEmployeeTaxes Double
-   */
+  **/
   public Double getTotalEmployeeTaxes() {
     return totalEmployeeTaxes;
   }
 
-  /**
-   * The part of an employee&#39;s earnings that is deducted for tax purposes
-   *
-   * @param totalEmployeeTaxes Double
-   */
+  /** 
+  * The part of an employee&#39;s earnings that is deducted for tax purposes
+  * @param totalEmployeeTaxes  Double
+  **/
+
   public void setTotalEmployeeTaxes(Double totalEmployeeTaxes) {
     this.totalEmployeeTaxes = totalEmployeeTaxes;
   }
 
   /**
-   * Total amount subtracted from an employee&#39;s earnings to reach total pay
-   *
-   * @param totalDeductions Double
-   * @return PaySlip
-   */
+  * Total amount subtracted from an employee&#39;s earnings to reach total pay
+  * @param totalDeductions  Double
+  * @return PaySlip
+  **/
   public PaySlip totalDeductions(Double totalDeductions) {
     this.totalDeductions = totalDeductions;
     return this;
   }
 
-  /**
+   /**
    * Total amount subtracted from an employee&#39;s earnings to reach total pay
-   *
    * @return totalDeductions
-   */
-  @ApiModelProperty(
-      value = "Total amount subtracted from an employee's earnings to reach total pay")
-  /**
+  **/
+  @ApiModelProperty(value = "Total amount subtracted from an employee's earnings to reach total pay")
+  /** 
    * Total amount subtracted from an employee&#39;s earnings to reach total pay
-   *
    * @return totalDeductions Double
-   */
+  **/
   public Double getTotalDeductions() {
     return totalDeductions;
   }
 
-  /**
-   * Total amount subtracted from an employee&#39;s earnings to reach total pay
-   *
-   * @param totalDeductions Double
-   */
+  /** 
+  * Total amount subtracted from an employee&#39;s earnings to reach total pay
+  * @param totalDeductions  Double
+  **/
+
   public void setTotalDeductions(Double totalDeductions) {
     this.totalDeductions = totalDeductions;
   }
 
   /**
-   * Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket
-   * expenses when the person incurs those expenses through employment
-   *
-   * @param totalReimbursements Double
-   * @return PaySlip
-   */
+  * Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket expenses when the person incurs those expenses through employment
+  * @param totalReimbursements  Double
+  * @return PaySlip
+  **/
   public PaySlip totalReimbursements(Double totalReimbursements) {
     this.totalReimbursements = totalReimbursements;
     return this;
   }
 
-  /**
-   * Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket
-   * expenses when the person incurs those expenses through employment
-   *
+   /**
+   * Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket expenses when the person incurs those expenses through employment
    * @return totalReimbursements
-   */
-  @ApiModelProperty(
-      value =
-          "Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket"
-              + " expenses when the person incurs those expenses through employment")
-  /**
-   * Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket
-   * expenses when the person incurs those expenses through employment
-   *
+  **/
+  @ApiModelProperty(value = "Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket expenses when the person incurs those expenses through employment")
+  /** 
+   * Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket expenses when the person incurs those expenses through employment
    * @return totalReimbursements Double
-   */
+  **/
   public Double getTotalReimbursements() {
     return totalReimbursements;
   }
 
-  /**
-   * Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket
-   * expenses when the person incurs those expenses through employment
-   *
-   * @param totalReimbursements Double
-   */
+  /** 
+  * Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket expenses when the person incurs those expenses through employment
+  * @param totalReimbursements  Double
+  **/
+
   public void setTotalReimbursements(Double totalReimbursements) {
     this.totalReimbursements = totalReimbursements;
   }
 
   /**
-   * Total amounts required by law to subtract from the employee&#39;s earnings
-   *
-   * @param totalStatutoryDeductions Double
-   * @return PaySlip
-   */
+  * Total amounts required by law to subtract from the employee&#39;s earnings
+  * @param totalStatutoryDeductions  Double
+  * @return PaySlip
+  **/
   public PaySlip totalStatutoryDeductions(Double totalStatutoryDeductions) {
     this.totalStatutoryDeductions = totalStatutoryDeductions;
     return this;
   }
 
-  /**
+   /**
    * Total amounts required by law to subtract from the employee&#39;s earnings
-   *
    * @return totalStatutoryDeductions
-   */
-  @ApiModelProperty(
-      value = "Total amounts required by law to subtract from the employee's earnings")
-  /**
+  **/
+  @ApiModelProperty(value = "Total amounts required by law to subtract from the employee's earnings")
+  /** 
    * Total amounts required by law to subtract from the employee&#39;s earnings
-   *
    * @return totalStatutoryDeductions Double
-   */
+  **/
   public Double getTotalStatutoryDeductions() {
     return totalStatutoryDeductions;
   }
 
-  /**
-   * Total amounts required by law to subtract from the employee&#39;s earnings
-   *
-   * @param totalStatutoryDeductions Double
-   */
+  /** 
+  * Total amounts required by law to subtract from the employee&#39;s earnings
+  * @param totalStatutoryDeductions  Double
+  **/
+
   public void setTotalStatutoryDeductions(Double totalStatutoryDeductions) {
     this.totalStatutoryDeductions = totalStatutoryDeductions;
   }
 
   /**
-   * Benefits (also called fringe benefits, perquisites or perks) are various non-earnings
-   * compensations provided to employees in addition to their normal earnings or salaries
-   *
-   * @param totalSuperannuation Double
-   * @return PaySlip
-   */
+  * Benefits (also called fringe benefits, perquisites or perks) are various non-earnings compensations provided to employees in addition to their normal earnings or salaries
+  * @param totalSuperannuation  Double
+  * @return PaySlip
+  **/
   public PaySlip totalSuperannuation(Double totalSuperannuation) {
     this.totalSuperannuation = totalSuperannuation;
     return this;
   }
 
-  /**
-   * Benefits (also called fringe benefits, perquisites or perks) are various non-earnings
-   * compensations provided to employees in addition to their normal earnings or salaries
-   *
+   /**
+   * Benefits (also called fringe benefits, perquisites or perks) are various non-earnings compensations provided to employees in addition to their normal earnings or salaries
    * @return totalSuperannuation
-   */
-  @ApiModelProperty(
-      value =
-          "Benefits (also called fringe benefits, perquisites or perks) are various non-earnings"
-              + " compensations provided to employees in addition to their normal earnings or"
-              + " salaries")
-  /**
-   * Benefits (also called fringe benefits, perquisites or perks) are various non-earnings
-   * compensations provided to employees in addition to their normal earnings or salaries
-   *
+  **/
+  @ApiModelProperty(value = "Benefits (also called fringe benefits, perquisites or perks) are various non-earnings compensations provided to employees in addition to their normal earnings or salaries")
+  /** 
+   * Benefits (also called fringe benefits, perquisites or perks) are various non-earnings compensations provided to employees in addition to their normal earnings or salaries
    * @return totalSuperannuation Double
-   */
+  **/
   public Double getTotalSuperannuation() {
     return totalSuperannuation;
   }
 
-  /**
-   * Benefits (also called fringe benefits, perquisites or perks) are various non-earnings
-   * compensations provided to employees in addition to their normal earnings or salaries
-   *
-   * @param totalSuperannuation Double
-   */
+  /** 
+  * Benefits (also called fringe benefits, perquisites or perks) are various non-earnings compensations provided to employees in addition to their normal earnings or salaries
+  * @param totalSuperannuation  Double
+  **/
+
   public void setTotalSuperannuation(Double totalSuperannuation) {
     this.totalSuperannuation = totalSuperannuation;
   }
 
   /**
-   * BACS Service User Number
-   *
-   * @param bacsHash String
-   * @return PaySlip
-   */
+  * BACS Service User Number
+  * @param bacsHash  String
+  * @return PaySlip
+  **/
   public PaySlip bacsHash(String bacsHash) {
     this.bacsHash = bacsHash;
     return this;
   }
 
-  /**
+   /**
    * BACS Service User Number
-   *
    * @return bacsHash
-   */
+  **/
   @ApiModelProperty(value = "BACS Service User Number")
-  /**
+  /** 
    * BACS Service User Number
-   *
    * @return bacsHash String
-   */
+  **/
   public String getBacsHash() {
     return bacsHash;
   }
 
-  /**
-   * BACS Service User Number
-   *
-   * @param bacsHash String
-   */
+  /** 
+  * BACS Service User Number
+  * @param bacsHash  String
+  **/
+
   public void setBacsHash(String bacsHash) {
     this.bacsHash = bacsHash;
   }
 
   /**
-   * The payment method code
-   *
-   * @param paymentMethod PaymentMethodEnum
-   * @return PaySlip
-   */
+  * The payment method code
+  * @param paymentMethod  PaymentMethodEnum
+  * @return PaySlip
+  **/
   public PaySlip paymentMethod(PaymentMethodEnum paymentMethod) {
     this.paymentMethod = paymentMethod;
     return this;
   }
 
-  /**
+   /**
    * The payment method code
-   *
    * @return paymentMethod
-   */
+  **/
   @ApiModelProperty(value = "The payment method code")
-  /**
+  /** 
    * The payment method code
-   *
    * @return paymentMethod PaymentMethodEnum
-   */
+  **/
   public PaymentMethodEnum getPaymentMethod() {
     return paymentMethod;
   }
 
-  /**
-   * The payment method code
-   *
-   * @param paymentMethod PaymentMethodEnum
-   */
+  /** 
+  * The payment method code
+  * @param paymentMethod  PaymentMethodEnum
+  **/
+
   public void setPaymentMethod(PaymentMethodEnum paymentMethod) {
     this.paymentMethod = paymentMethod;
   }
 
   /**
-   * earningsLines
-   *
-   * @param earningsLines List&lt;EarningsLine&gt;
-   * @return PaySlip
-   */
+  * earningsLines
+  * @param earningsLines  List&lt;EarningsLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip earningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
     return this;
@@ -794,10 +753,9 @@ public class PaySlip {
 
   /**
    * earningsLines
-   *
-   * @param earningsLinesItem EarningsLine
+   * @param earningsLinesItem EarningsLine 
    * @return PaySlip
-   */
+  **/
   public PaySlip addEarningsLinesItem(EarningsLine earningsLinesItem) {
     if (this.earningsLines == null) {
       this.earningsLines = new ArrayList<EarningsLine>();
@@ -806,36 +764,33 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get earningsLines
-   *
    * @return earningsLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * earningsLines
-   *
    * @return earningsLines List<EarningsLine>
-   */
+  **/
   public List<EarningsLine> getEarningsLines() {
     return earningsLines;
   }
 
-  /**
-   * earningsLines
-   *
-   * @param earningsLines List&lt;EarningsLine&gt;
-   */
+  /** 
+  * earningsLines
+  * @param earningsLines List&lt;EarningsLine&gt; 
+  **/
+
   public void setEarningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
   }
 
   /**
-   * leaveEarningsLines
-   *
-   * @param leaveEarningsLines List&lt;LeaveEarningsLine&gt;
-   * @return PaySlip
-   */
+  * leaveEarningsLines
+  * @param leaveEarningsLines  List&lt;LeaveEarningsLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip leaveEarningsLines(List<LeaveEarningsLine> leaveEarningsLines) {
     this.leaveEarningsLines = leaveEarningsLines;
     return this;
@@ -843,10 +798,9 @@ public class PaySlip {
 
   /**
    * leaveEarningsLines
-   *
-   * @param leaveEarningsLinesItem LeaveEarningsLine
+   * @param leaveEarningsLinesItem LeaveEarningsLine 
    * @return PaySlip
-   */
+  **/
   public PaySlip addLeaveEarningsLinesItem(LeaveEarningsLine leaveEarningsLinesItem) {
     if (this.leaveEarningsLines == null) {
       this.leaveEarningsLines = new ArrayList<LeaveEarningsLine>();
@@ -855,36 +809,33 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get leaveEarningsLines
-   *
    * @return leaveEarningsLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * leaveEarningsLines
-   *
    * @return leaveEarningsLines List<LeaveEarningsLine>
-   */
+  **/
   public List<LeaveEarningsLine> getLeaveEarningsLines() {
     return leaveEarningsLines;
   }
 
-  /**
-   * leaveEarningsLines
-   *
-   * @param leaveEarningsLines List&lt;LeaveEarningsLine&gt;
-   */
+  /** 
+  * leaveEarningsLines
+  * @param leaveEarningsLines List&lt;LeaveEarningsLine&gt; 
+  **/
+
   public void setLeaveEarningsLines(List<LeaveEarningsLine> leaveEarningsLines) {
     this.leaveEarningsLines = leaveEarningsLines;
   }
 
   /**
-   * timesheetEarningsLines
-   *
-   * @param timesheetEarningsLines List&lt;TimesheetEarningsLine&gt;
-   * @return PaySlip
-   */
+  * timesheetEarningsLines
+  * @param timesheetEarningsLines  List&lt;TimesheetEarningsLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip timesheetEarningsLines(List<TimesheetEarningsLine> timesheetEarningsLines) {
     this.timesheetEarningsLines = timesheetEarningsLines;
     return this;
@@ -892,10 +843,9 @@ public class PaySlip {
 
   /**
    * timesheetEarningsLines
-   *
-   * @param timesheetEarningsLinesItem TimesheetEarningsLine
+   * @param timesheetEarningsLinesItem TimesheetEarningsLine 
    * @return PaySlip
-   */
+  **/
   public PaySlip addTimesheetEarningsLinesItem(TimesheetEarningsLine timesheetEarningsLinesItem) {
     if (this.timesheetEarningsLines == null) {
       this.timesheetEarningsLines = new ArrayList<TimesheetEarningsLine>();
@@ -904,36 +854,33 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get timesheetEarningsLines
-   *
    * @return timesheetEarningsLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * timesheetEarningsLines
-   *
    * @return timesheetEarningsLines List<TimesheetEarningsLine>
-   */
+  **/
   public List<TimesheetEarningsLine> getTimesheetEarningsLines() {
     return timesheetEarningsLines;
   }
 
-  /**
-   * timesheetEarningsLines
-   *
-   * @param timesheetEarningsLines List&lt;TimesheetEarningsLine&gt;
-   */
+  /** 
+  * timesheetEarningsLines
+  * @param timesheetEarningsLines List&lt;TimesheetEarningsLine&gt; 
+  **/
+
   public void setTimesheetEarningsLines(List<TimesheetEarningsLine> timesheetEarningsLines) {
     this.timesheetEarningsLines = timesheetEarningsLines;
   }
 
   /**
-   * deductionLines
-   *
-   * @param deductionLines List&lt;DeductionLine&gt;
-   * @return PaySlip
-   */
+  * deductionLines
+  * @param deductionLines  List&lt;DeductionLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip deductionLines(List<DeductionLine> deductionLines) {
     this.deductionLines = deductionLines;
     return this;
@@ -941,10 +888,9 @@ public class PaySlip {
 
   /**
    * deductionLines
-   *
-   * @param deductionLinesItem DeductionLine
+   * @param deductionLinesItem DeductionLine 
    * @return PaySlip
-   */
+  **/
   public PaySlip addDeductionLinesItem(DeductionLine deductionLinesItem) {
     if (this.deductionLines == null) {
       this.deductionLines = new ArrayList<DeductionLine>();
@@ -953,36 +899,33 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get deductionLines
-   *
    * @return deductionLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * deductionLines
-   *
    * @return deductionLines List<DeductionLine>
-   */
+  **/
   public List<DeductionLine> getDeductionLines() {
     return deductionLines;
   }
 
-  /**
-   * deductionLines
-   *
-   * @param deductionLines List&lt;DeductionLine&gt;
-   */
+  /** 
+  * deductionLines
+  * @param deductionLines List&lt;DeductionLine&gt; 
+  **/
+
   public void setDeductionLines(List<DeductionLine> deductionLines) {
     this.deductionLines = deductionLines;
   }
 
   /**
-   * reimbursementLines
-   *
-   * @param reimbursementLines List&lt;ReimbursementLine&gt;
-   * @return PaySlip
-   */
+  * reimbursementLines
+  * @param reimbursementLines  List&lt;ReimbursementLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip reimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
     return this;
@@ -990,10 +933,9 @@ public class PaySlip {
 
   /**
    * reimbursementLines
-   *
-   * @param reimbursementLinesItem ReimbursementLine
+   * @param reimbursementLinesItem ReimbursementLine 
    * @return PaySlip
-   */
+  **/
   public PaySlip addReimbursementLinesItem(ReimbursementLine reimbursementLinesItem) {
     if (this.reimbursementLines == null) {
       this.reimbursementLines = new ArrayList<ReimbursementLine>();
@@ -1002,36 +944,33 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get reimbursementLines
-   *
    * @return reimbursementLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * reimbursementLines
-   *
    * @return reimbursementLines List<ReimbursementLine>
-   */
+  **/
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
   }
 
-  /**
-   * reimbursementLines
-   *
-   * @param reimbursementLines List&lt;ReimbursementLine&gt;
-   */
+  /** 
+  * reimbursementLines
+  * @param reimbursementLines List&lt;ReimbursementLine&gt; 
+  **/
+
   public void setReimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
   }
 
   /**
-   * leaveAccrualLines
-   *
-   * @param leaveAccrualLines List&lt;LeaveAccrualLine&gt;
-   * @return PaySlip
-   */
+  * leaveAccrualLines
+  * @param leaveAccrualLines  List&lt;LeaveAccrualLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip leaveAccrualLines(List<LeaveAccrualLine> leaveAccrualLines) {
     this.leaveAccrualLines = leaveAccrualLines;
     return this;
@@ -1039,10 +978,9 @@ public class PaySlip {
 
   /**
    * leaveAccrualLines
-   *
-   * @param leaveAccrualLinesItem LeaveAccrualLine
+   * @param leaveAccrualLinesItem LeaveAccrualLine 
    * @return PaySlip
-   */
+  **/
   public PaySlip addLeaveAccrualLinesItem(LeaveAccrualLine leaveAccrualLinesItem) {
     if (this.leaveAccrualLines == null) {
       this.leaveAccrualLines = new ArrayList<LeaveAccrualLine>();
@@ -1051,36 +989,33 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get leaveAccrualLines
-   *
    * @return leaveAccrualLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * leaveAccrualLines
-   *
    * @return leaveAccrualLines List<LeaveAccrualLine>
-   */
+  **/
   public List<LeaveAccrualLine> getLeaveAccrualLines() {
     return leaveAccrualLines;
   }
 
-  /**
-   * leaveAccrualLines
-   *
-   * @param leaveAccrualLines List&lt;LeaveAccrualLine&gt;
-   */
+  /** 
+  * leaveAccrualLines
+  * @param leaveAccrualLines List&lt;LeaveAccrualLine&gt; 
+  **/
+
   public void setLeaveAccrualLines(List<LeaveAccrualLine> leaveAccrualLines) {
     this.leaveAccrualLines = leaveAccrualLines;
   }
 
   /**
-   * superannuationLines
-   *
-   * @param superannuationLines List&lt;SuperannuationLine&gt;
-   * @return PaySlip
-   */
+  * superannuationLines
+  * @param superannuationLines  List&lt;SuperannuationLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip superannuationLines(List<SuperannuationLine> superannuationLines) {
     this.superannuationLines = superannuationLines;
     return this;
@@ -1088,10 +1023,9 @@ public class PaySlip {
 
   /**
    * superannuationLines
-   *
-   * @param superannuationLinesItem SuperannuationLine
+   * @param superannuationLinesItem SuperannuationLine 
    * @return PaySlip
-   */
+  **/
   public PaySlip addSuperannuationLinesItem(SuperannuationLine superannuationLinesItem) {
     if (this.superannuationLines == null) {
       this.superannuationLines = new ArrayList<SuperannuationLine>();
@@ -1100,36 +1034,33 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get superannuationLines
-   *
    * @return superannuationLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * superannuationLines
-   *
    * @return superannuationLines List<SuperannuationLine>
-   */
+  **/
   public List<SuperannuationLine> getSuperannuationLines() {
     return superannuationLines;
   }
 
-  /**
-   * superannuationLines
-   *
-   * @param superannuationLines List&lt;SuperannuationLine&gt;
-   */
+  /** 
+  * superannuationLines
+  * @param superannuationLines List&lt;SuperannuationLine&gt; 
+  **/
+
   public void setSuperannuationLines(List<SuperannuationLine> superannuationLines) {
     this.superannuationLines = superannuationLines;
   }
 
   /**
-   * paymentLines
-   *
-   * @param paymentLines List&lt;PaymentLine&gt;
-   * @return PaySlip
-   */
+  * paymentLines
+  * @param paymentLines  List&lt;PaymentLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip paymentLines(List<PaymentLine> paymentLines) {
     this.paymentLines = paymentLines;
     return this;
@@ -1137,10 +1068,9 @@ public class PaySlip {
 
   /**
    * paymentLines
-   *
-   * @param paymentLinesItem PaymentLine
+   * @param paymentLinesItem PaymentLine 
    * @return PaySlip
-   */
+  **/
   public PaySlip addPaymentLinesItem(PaymentLine paymentLinesItem) {
     if (this.paymentLines == null) {
       this.paymentLines = new ArrayList<PaymentLine>();
@@ -1149,36 +1079,33 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get paymentLines
-   *
    * @return paymentLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * paymentLines
-   *
    * @return paymentLines List<PaymentLine>
-   */
+  **/
   public List<PaymentLine> getPaymentLines() {
     return paymentLines;
   }
 
-  /**
-   * paymentLines
-   *
-   * @param paymentLines List&lt;PaymentLine&gt;
-   */
+  /** 
+  * paymentLines
+  * @param paymentLines List&lt;PaymentLine&gt; 
+  **/
+
   public void setPaymentLines(List<PaymentLine> paymentLines) {
     this.paymentLines = paymentLines;
   }
 
   /**
-   * employeeTaxLines
-   *
-   * @param employeeTaxLines List&lt;TaxLine&gt;
-   * @return PaySlip
-   */
+  * employeeTaxLines
+  * @param employeeTaxLines  List&lt;TaxLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip employeeTaxLines(List<TaxLine> employeeTaxLines) {
     this.employeeTaxLines = employeeTaxLines;
     return this;
@@ -1186,10 +1113,9 @@ public class PaySlip {
 
   /**
    * employeeTaxLines
-   *
-   * @param employeeTaxLinesItem TaxLine
+   * @param employeeTaxLinesItem TaxLine 
    * @return PaySlip
-   */
+  **/
   public PaySlip addEmployeeTaxLinesItem(TaxLine employeeTaxLinesItem) {
     if (this.employeeTaxLines == null) {
       this.employeeTaxLines = new ArrayList<TaxLine>();
@@ -1198,36 +1124,33 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get employeeTaxLines
-   *
    * @return employeeTaxLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * employeeTaxLines
-   *
    * @return employeeTaxLines List<TaxLine>
-   */
+  **/
   public List<TaxLine> getEmployeeTaxLines() {
     return employeeTaxLines;
   }
 
-  /**
-   * employeeTaxLines
-   *
-   * @param employeeTaxLines List&lt;TaxLine&gt;
-   */
+  /** 
+  * employeeTaxLines
+  * @param employeeTaxLines List&lt;TaxLine&gt; 
+  **/
+
   public void setEmployeeTaxLines(List<TaxLine> employeeTaxLines) {
     this.employeeTaxLines = employeeTaxLines;
   }
 
   /**
-   * employerTaxLines
-   *
-   * @param employerTaxLines List&lt;TaxLine&gt;
-   * @return PaySlip
-   */
+  * employerTaxLines
+  * @param employerTaxLines  List&lt;TaxLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip employerTaxLines(List<TaxLine> employerTaxLines) {
     this.employerTaxLines = employerTaxLines;
     return this;
@@ -1235,10 +1158,9 @@ public class PaySlip {
 
   /**
    * employerTaxLines
-   *
-   * @param employerTaxLinesItem TaxLine
+   * @param employerTaxLinesItem TaxLine 
    * @return PaySlip
-   */
+  **/
   public PaySlip addEmployerTaxLinesItem(TaxLine employerTaxLinesItem) {
     if (this.employerTaxLines == null) {
       this.employerTaxLines = new ArrayList<TaxLine>();
@@ -1247,36 +1169,33 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get employerTaxLines
-   *
    * @return employerTaxLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * employerTaxLines
-   *
    * @return employerTaxLines List<TaxLine>
-   */
+  **/
   public List<TaxLine> getEmployerTaxLines() {
     return employerTaxLines;
   }
 
-  /**
-   * employerTaxLines
-   *
-   * @param employerTaxLines List&lt;TaxLine&gt;
-   */
+  /** 
+  * employerTaxLines
+  * @param employerTaxLines List&lt;TaxLine&gt; 
+  **/
+
   public void setEmployerTaxLines(List<TaxLine> employerTaxLines) {
     this.employerTaxLines = employerTaxLines;
   }
 
   /**
-   * statutoryDeductionLines
-   *
-   * @param statutoryDeductionLines List&lt;StatutoryDeductionLine&gt;
-   * @return PaySlip
-   */
+  * statutoryDeductionLines
+  * @param statutoryDeductionLines  List&lt;StatutoryDeductionLine&gt;
+  * @return PaySlip
+  **/
   public PaySlip statutoryDeductionLines(List<StatutoryDeductionLine> statutoryDeductionLines) {
     this.statutoryDeductionLines = statutoryDeductionLines;
     return this;
@@ -1284,12 +1203,10 @@ public class PaySlip {
 
   /**
    * statutoryDeductionLines
-   *
-   * @param statutoryDeductionLinesItem StatutoryDeductionLine
+   * @param statutoryDeductionLinesItem StatutoryDeductionLine 
    * @return PaySlip
-   */
-  public PaySlip addStatutoryDeductionLinesItem(
-      StatutoryDeductionLine statutoryDeductionLinesItem) {
+  **/
+  public PaySlip addStatutoryDeductionLinesItem(StatutoryDeductionLine statutoryDeductionLinesItem) {
     if (this.statutoryDeductionLines == null) {
       this.statutoryDeductionLines = new ArrayList<StatutoryDeductionLine>();
     }
@@ -1297,99 +1214,92 @@ public class PaySlip {
     return this;
   }
 
-  /**
+   /**
    * Get statutoryDeductionLines
-   *
    * @return statutoryDeductionLines
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * statutoryDeductionLines
-   *
    * @return statutoryDeductionLines List<StatutoryDeductionLine>
-   */
+  **/
   public List<StatutoryDeductionLine> getStatutoryDeductionLines() {
     return statutoryDeductionLines;
   }
 
-  /**
-   * statutoryDeductionLines
-   *
-   * @param statutoryDeductionLines List&lt;StatutoryDeductionLine&gt;
-   */
+  /** 
+  * statutoryDeductionLines
+  * @param statutoryDeductionLines List&lt;StatutoryDeductionLine&gt; 
+  **/
+
   public void setStatutoryDeductionLines(List<StatutoryDeductionLine> statutoryDeductionLines) {
     this.statutoryDeductionLines = statutoryDeductionLines;
   }
 
   /**
-   * taxSettings
-   *
-   * @param taxSettings TaxSettings
-   * @return PaySlip
-   */
+  * taxSettings
+  * @param taxSettings  TaxSettings
+  * @return PaySlip
+  **/
   public PaySlip taxSettings(TaxSettings taxSettings) {
     this.taxSettings = taxSettings;
     return this;
   }
 
-  /**
+   /**
    * Get taxSettings
-   *
    * @return taxSettings
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * taxSettings
-   *
    * @return taxSettings TaxSettings
-   */
+  **/
   public TaxSettings getTaxSettings() {
     return taxSettings;
   }
 
-  /**
-   * taxSettings
-   *
-   * @param taxSettings TaxSettings
-   */
+  /** 
+  * taxSettings
+  * @param taxSettings  TaxSettings
+  **/
+
   public void setTaxSettings(TaxSettings taxSettings) {
     this.taxSettings = taxSettings;
   }
 
   /**
-   * grossEarningsHistory
-   *
-   * @param grossEarningsHistory GrossEarningsHistory
-   * @return PaySlip
-   */
+  * grossEarningsHistory
+  * @param grossEarningsHistory  GrossEarningsHistory
+  * @return PaySlip
+  **/
   public PaySlip grossEarningsHistory(GrossEarningsHistory grossEarningsHistory) {
     this.grossEarningsHistory = grossEarningsHistory;
     return this;
   }
 
-  /**
+   /**
    * Get grossEarningsHistory
-   *
    * @return grossEarningsHistory
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * grossEarningsHistory
-   *
    * @return grossEarningsHistory GrossEarningsHistory
-   */
+  **/
   public GrossEarningsHistory getGrossEarningsHistory() {
     return grossEarningsHistory;
   }
 
-  /**
-   * grossEarningsHistory
-   *
-   * @param grossEarningsHistory GrossEarningsHistory
-   */
+  /** 
+  * grossEarningsHistory
+  * @param grossEarningsHistory  GrossEarningsHistory
+  **/
+
   public void setGrossEarningsHistory(GrossEarningsHistory grossEarningsHistory) {
     this.grossEarningsHistory = grossEarningsHistory;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -1400,72 +1310,43 @@ public class PaySlip {
       return false;
     }
     PaySlip paySlip = (PaySlip) o;
-    return Objects.equals(this.paySlipID, paySlip.paySlipID)
-        && Objects.equals(this.employeeID, paySlip.employeeID)
-        && Objects.equals(this.payRunID, paySlip.payRunID)
-        && Objects.equals(this.lastEdited, paySlip.lastEdited)
-        && Objects.equals(this.firstName, paySlip.firstName)
-        && Objects.equals(this.lastName, paySlip.lastName)
-        && Objects.equals(this.totalEarnings, paySlip.totalEarnings)
-        && Objects.equals(this.grossEarnings, paySlip.grossEarnings)
-        && Objects.equals(this.totalPay, paySlip.totalPay)
-        && Objects.equals(this.totalEmployerTaxes, paySlip.totalEmployerTaxes)
-        && Objects.equals(this.totalEmployeeTaxes, paySlip.totalEmployeeTaxes)
-        && Objects.equals(this.totalDeductions, paySlip.totalDeductions)
-        && Objects.equals(this.totalReimbursements, paySlip.totalReimbursements)
-        && Objects.equals(this.totalStatutoryDeductions, paySlip.totalStatutoryDeductions)
-        && Objects.equals(this.totalSuperannuation, paySlip.totalSuperannuation)
-        && Objects.equals(this.bacsHash, paySlip.bacsHash)
-        && Objects.equals(this.paymentMethod, paySlip.paymentMethod)
-        && Objects.equals(this.earningsLines, paySlip.earningsLines)
-        && Objects.equals(this.leaveEarningsLines, paySlip.leaveEarningsLines)
-        && Objects.equals(this.timesheetEarningsLines, paySlip.timesheetEarningsLines)
-        && Objects.equals(this.deductionLines, paySlip.deductionLines)
-        && Objects.equals(this.reimbursementLines, paySlip.reimbursementLines)
-        && Objects.equals(this.leaveAccrualLines, paySlip.leaveAccrualLines)
-        && Objects.equals(this.superannuationLines, paySlip.superannuationLines)
-        && Objects.equals(this.paymentLines, paySlip.paymentLines)
-        && Objects.equals(this.employeeTaxLines, paySlip.employeeTaxLines)
-        && Objects.equals(this.employerTaxLines, paySlip.employerTaxLines)
-        && Objects.equals(this.statutoryDeductionLines, paySlip.statutoryDeductionLines)
-        && Objects.equals(this.taxSettings, paySlip.taxSettings)
-        && Objects.equals(this.grossEarningsHistory, paySlip.grossEarningsHistory);
+    return Objects.equals(this.paySlipID, paySlip.paySlipID) &&
+        Objects.equals(this.employeeID, paySlip.employeeID) &&
+        Objects.equals(this.payRunID, paySlip.payRunID) &&
+        Objects.equals(this.lastEdited, paySlip.lastEdited) &&
+        Objects.equals(this.firstName, paySlip.firstName) &&
+        Objects.equals(this.lastName, paySlip.lastName) &&
+        Objects.equals(this.totalEarnings, paySlip.totalEarnings) &&
+        Objects.equals(this.grossEarnings, paySlip.grossEarnings) &&
+        Objects.equals(this.totalPay, paySlip.totalPay) &&
+        Objects.equals(this.totalEmployerTaxes, paySlip.totalEmployerTaxes) &&
+        Objects.equals(this.totalEmployeeTaxes, paySlip.totalEmployeeTaxes) &&
+        Objects.equals(this.totalDeductions, paySlip.totalDeductions) &&
+        Objects.equals(this.totalReimbursements, paySlip.totalReimbursements) &&
+        Objects.equals(this.totalStatutoryDeductions, paySlip.totalStatutoryDeductions) &&
+        Objects.equals(this.totalSuperannuation, paySlip.totalSuperannuation) &&
+        Objects.equals(this.bacsHash, paySlip.bacsHash) &&
+        Objects.equals(this.paymentMethod, paySlip.paymentMethod) &&
+        Objects.equals(this.earningsLines, paySlip.earningsLines) &&
+        Objects.equals(this.leaveEarningsLines, paySlip.leaveEarningsLines) &&
+        Objects.equals(this.timesheetEarningsLines, paySlip.timesheetEarningsLines) &&
+        Objects.equals(this.deductionLines, paySlip.deductionLines) &&
+        Objects.equals(this.reimbursementLines, paySlip.reimbursementLines) &&
+        Objects.equals(this.leaveAccrualLines, paySlip.leaveAccrualLines) &&
+        Objects.equals(this.superannuationLines, paySlip.superannuationLines) &&
+        Objects.equals(this.paymentLines, paySlip.paymentLines) &&
+        Objects.equals(this.employeeTaxLines, paySlip.employeeTaxLines) &&
+        Objects.equals(this.employerTaxLines, paySlip.employerTaxLines) &&
+        Objects.equals(this.statutoryDeductionLines, paySlip.statutoryDeductionLines) &&
+        Objects.equals(this.taxSettings, paySlip.taxSettings) &&
+        Objects.equals(this.grossEarningsHistory, paySlip.grossEarningsHistory);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        paySlipID,
-        employeeID,
-        payRunID,
-        lastEdited,
-        firstName,
-        lastName,
-        totalEarnings,
-        grossEarnings,
-        totalPay,
-        totalEmployerTaxes,
-        totalEmployeeTaxes,
-        totalDeductions,
-        totalReimbursements,
-        totalStatutoryDeductions,
-        totalSuperannuation,
-        bacsHash,
-        paymentMethod,
-        earningsLines,
-        leaveEarningsLines,
-        timesheetEarningsLines,
-        deductionLines,
-        reimbursementLines,
-        leaveAccrualLines,
-        superannuationLines,
-        paymentLines,
-        employeeTaxLines,
-        employerTaxLines,
-        statutoryDeductionLines,
-        taxSettings,
-        grossEarningsHistory);
+    return Objects.hash(paySlipID, employeeID, payRunID, lastEdited, firstName, lastName, totalEarnings, grossEarnings, totalPay, totalEmployerTaxes, totalEmployeeTaxes, totalDeductions, totalReimbursements, totalStatutoryDeductions, totalSuperannuation, bacsHash, paymentMethod, earningsLines, leaveEarningsLines, timesheetEarningsLines, deductionLines, reimbursementLines, leaveAccrualLines, superannuationLines, paymentLines, employeeTaxLines, employerTaxLines, statutoryDeductionLines, taxSettings, grossEarningsHistory);
   }
+
 
   @Override
   public String toString() {
@@ -1483,44 +1364,31 @@ public class PaySlip {
     sb.append("    totalEmployerTaxes: ").append(toIndentedString(totalEmployerTaxes)).append("\n");
     sb.append("    totalEmployeeTaxes: ").append(toIndentedString(totalEmployeeTaxes)).append("\n");
     sb.append("    totalDeductions: ").append(toIndentedString(totalDeductions)).append("\n");
-    sb.append("    totalReimbursements: ")
-        .append(toIndentedString(totalReimbursements))
-        .append("\n");
-    sb.append("    totalStatutoryDeductions: ")
-        .append(toIndentedString(totalStatutoryDeductions))
-        .append("\n");
-    sb.append("    totalSuperannuation: ")
-        .append(toIndentedString(totalSuperannuation))
-        .append("\n");
+    sb.append("    totalReimbursements: ").append(toIndentedString(totalReimbursements)).append("\n");
+    sb.append("    totalStatutoryDeductions: ").append(toIndentedString(totalStatutoryDeductions)).append("\n");
+    sb.append("    totalSuperannuation: ").append(toIndentedString(totalSuperannuation)).append("\n");
     sb.append("    bacsHash: ").append(toIndentedString(bacsHash)).append("\n");
     sb.append("    paymentMethod: ").append(toIndentedString(paymentMethod)).append("\n");
     sb.append("    earningsLines: ").append(toIndentedString(earningsLines)).append("\n");
     sb.append("    leaveEarningsLines: ").append(toIndentedString(leaveEarningsLines)).append("\n");
-    sb.append("    timesheetEarningsLines: ")
-        .append(toIndentedString(timesheetEarningsLines))
-        .append("\n");
+    sb.append("    timesheetEarningsLines: ").append(toIndentedString(timesheetEarningsLines)).append("\n");
     sb.append("    deductionLines: ").append(toIndentedString(deductionLines)).append("\n");
     sb.append("    reimbursementLines: ").append(toIndentedString(reimbursementLines)).append("\n");
     sb.append("    leaveAccrualLines: ").append(toIndentedString(leaveAccrualLines)).append("\n");
-    sb.append("    superannuationLines: ")
-        .append(toIndentedString(superannuationLines))
-        .append("\n");
+    sb.append("    superannuationLines: ").append(toIndentedString(superannuationLines)).append("\n");
     sb.append("    paymentLines: ").append(toIndentedString(paymentLines)).append("\n");
     sb.append("    employeeTaxLines: ").append(toIndentedString(employeeTaxLines)).append("\n");
     sb.append("    employerTaxLines: ").append(toIndentedString(employerTaxLines)).append("\n");
-    sb.append("    statutoryDeductionLines: ")
-        .append(toIndentedString(statutoryDeductionLines))
-        .append("\n");
+    sb.append("    statutoryDeductionLines: ").append(toIndentedString(statutoryDeductionLines)).append("\n");
     sb.append("    taxSettings: ").append(toIndentedString(taxSettings)).append("\n");
-    sb.append("    grossEarningsHistory: ")
-        .append(toIndentedString(grossEarningsHistory))
-        .append("\n");
+    sb.append("    grossEarningsHistory: ").append(toIndentedString(grossEarningsHistory)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -1528,4 +1396,6 @@ public class PaySlip {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,17 +9,35 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
+package com.xero.models.finance;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.finance.TrialBalanceAccount;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.threeten.bp.LocalDate;
+import java.io.IOException;
 
-/** TrialBalanceResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * TrialBalanceResponse
+ */
+
 public class TrialBalanceResponse {
   StringUtil util = new StringUtil();
 
@@ -32,81 +50,74 @@ public class TrialBalanceResponse {
   @JsonProperty("accounts")
   private List<TrialBalanceAccount> accounts = new ArrayList<TrialBalanceAccount>();
   /**
-   * Start date of the report
-   *
-   * @param startDate LocalDate
-   * @return TrialBalanceResponse
-   */
+  * Start date of the report
+  * @param startDate  LocalDate
+  * @return TrialBalanceResponse
+  **/
   public TrialBalanceResponse startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
+   /**
    * Start date of the report
-   *
    * @return startDate
-   */
+  **/
   @ApiModelProperty(value = "Start date of the report")
-  /**
+  /** 
    * Start date of the report
-   *
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * Start date of the report
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * Start date of the report
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * End date of the report
-   *
-   * @param endDate LocalDate
-   * @return TrialBalanceResponse
-   */
+  * End date of the report
+  * @param endDate  LocalDate
+  * @return TrialBalanceResponse
+  **/
   public TrialBalanceResponse endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
+   /**
    * End date of the report
-   *
    * @return endDate
-   */
+  **/
   @ApiModelProperty(value = "End date of the report")
-  /**
+  /** 
    * End date of the report
-   *
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * End date of the report
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * End date of the report
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * Refer to the accounts section below
-   *
-   * @param accounts List&lt;TrialBalanceAccount&gt;
-   * @return TrialBalanceResponse
-   */
+  * Refer to the accounts section below
+  * @param accounts  List&lt;TrialBalanceAccount&gt;
+  * @return TrialBalanceResponse
+  **/
   public TrialBalanceResponse accounts(List<TrialBalanceAccount> accounts) {
     this.accounts = accounts;
     return this;
@@ -114,10 +125,9 @@ public class TrialBalanceResponse {
 
   /**
    * Refer to the accounts section below
-   *
-   * @param accountsItem TrialBalanceAccount
+   * @param accountsItem TrialBalanceAccount 
    * @return TrialBalanceResponse
-   */
+  **/
   public TrialBalanceResponse addAccountsItem(TrialBalanceAccount accountsItem) {
     if (this.accounts == null) {
       this.accounts = new ArrayList<TrialBalanceAccount>();
@@ -126,29 +136,28 @@ public class TrialBalanceResponse {
     return this;
   }
 
-  /**
+   /**
    * Refer to the accounts section below
-   *
    * @return accounts
-   */
+  **/
   @ApiModelProperty(value = "Refer to the accounts section below")
-  /**
+  /** 
    * Refer to the accounts section below
-   *
    * @return accounts List<TrialBalanceAccount>
-   */
+  **/
   public List<TrialBalanceAccount> getAccounts() {
     return accounts;
   }
 
-  /**
-   * Refer to the accounts section below
-   *
-   * @param accounts List&lt;TrialBalanceAccount&gt;
-   */
+  /** 
+  * Refer to the accounts section below
+  * @param accounts List&lt;TrialBalanceAccount&gt; 
+  **/
+
   public void setAccounts(List<TrialBalanceAccount> accounts) {
     this.accounts = accounts;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -159,15 +168,16 @@ public class TrialBalanceResponse {
       return false;
     }
     TrialBalanceResponse trialBalanceResponse = (TrialBalanceResponse) o;
-    return Objects.equals(this.startDate, trialBalanceResponse.startDate)
-        && Objects.equals(this.endDate, trialBalanceResponse.endDate)
-        && Objects.equals(this.accounts, trialBalanceResponse.accounts);
+    return Objects.equals(this.startDate, trialBalanceResponse.startDate) &&
+        Objects.equals(this.endDate, trialBalanceResponse.endDate) &&
+        Objects.equals(this.accounts, trialBalanceResponse.accounts);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(startDate, endDate, accounts);
   }
+
 
   @Override
   public String toString() {
@@ -181,7 +191,8 @@ public class TrialBalanceResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -189,4 +200,6 @@ public class TrialBalanceResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

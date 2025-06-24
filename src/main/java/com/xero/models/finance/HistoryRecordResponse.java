@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.finance;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** HistoryRecordResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * HistoryRecordResponse
+ */
+
 public class HistoryRecordResponse {
   StringUtil util = new StringUtil();
 
@@ -36,179 +53,165 @@ public class HistoryRecordResponse {
   @JsonProperty("details")
   private String details;
   /**
-   * The type of change recorded against the document
-   *
-   * @param changes String
-   * @return HistoryRecordResponse
-   */
+  * The type of change recorded against the document
+  * @param changes  String
+  * @return HistoryRecordResponse
+  **/
   public HistoryRecordResponse changes(String changes) {
     this.changes = changes;
     return this;
   }
 
-  /**
+   /**
    * The type of change recorded against the document
-   *
    * @return changes
-   */
+  **/
   @ApiModelProperty(value = "The type of change recorded against the document")
-  /**
+  /** 
    * The type of change recorded against the document
-   *
    * @return changes String
-   */
+  **/
   public String getChanges() {
     return changes;
   }
 
-  /**
-   * The type of change recorded against the document
-   *
-   * @param changes String
-   */
+  /** 
+  * The type of change recorded against the document
+  * @param changes  String
+  **/
+
   public void setChanges(String changes) {
     this.changes = changes;
   }
 
   /**
-   * UTC date that the history record was created
-   *
-   * @param dateUTCString String
-   * @return HistoryRecordResponse
-   */
+  * UTC date that the history record was created
+  * @param dateUTCString  String
+  * @return HistoryRecordResponse
+  **/
   public HistoryRecordResponse dateUTCString(String dateUTCString) {
     this.dateUTCString = dateUTCString;
     return this;
   }
 
-  /**
+   /**
    * UTC date that the history record was created
-   *
    * @return dateUTCString
-   */
+  **/
   @ApiModelProperty(value = "UTC date that the history record was created")
-  /**
+  /** 
    * UTC date that the history record was created
-   *
    * @return dateUTCString String
-   */
+  **/
   public String getDateUTCString() {
     return dateUTCString;
   }
 
-  /**
-   * UTC date that the history record was created
-   *
-   * @param dateUTCString String
-   */
+  /** 
+  * UTC date that the history record was created
+  * @param dateUTCString  String
+  **/
+
   public void setDateUTCString(String dateUTCString) {
     this.dateUTCString = dateUTCString;
   }
 
   /**
-   * UTC date that the history record was created
-   *
-   * @param dateUTC OffsetDateTime
-   * @return HistoryRecordResponse
-   */
+  * UTC date that the history record was created
+  * @param dateUTC  OffsetDateTime
+  * @return HistoryRecordResponse
+  **/
   public HistoryRecordResponse dateUTC(OffsetDateTime dateUTC) {
     this.dateUTC = dateUTC;
     return this;
   }
 
-  /**
+   /**
    * UTC date that the history record was created
-   *
    * @return dateUTC
-   */
+  **/
   @ApiModelProperty(value = "UTC date that the history record was created")
-  /**
+  /** 
    * UTC date that the history record was created
-   *
    * @return dateUTC OffsetDateTime
-   */
+  **/
   public OffsetDateTime getDateUTC() {
     return dateUTC;
   }
 
-  /**
-   * UTC date that the history record was created
-   *
-   * @param dateUTC OffsetDateTime
-   */
+  /** 
+  * UTC date that the history record was created
+  * @param dateUTC  OffsetDateTime
+  **/
+
   public void setDateUTC(OffsetDateTime dateUTC) {
     this.dateUTC = dateUTC;
   }
 
   /**
-   * The users first and last name
-   *
-   * @param user String
-   * @return HistoryRecordResponse
-   */
+  * The users first and last name
+  * @param user  String
+  * @return HistoryRecordResponse
+  **/
   public HistoryRecordResponse user(String user) {
     this.user = user;
     return this;
   }
 
-  /**
+   /**
    * The users first and last name
-   *
    * @return user
-   */
+  **/
   @ApiModelProperty(value = "The users first and last name")
-  /**
+  /** 
    * The users first and last name
-   *
    * @return user String
-   */
+  **/
   public String getUser() {
     return user;
   }
 
-  /**
-   * The users first and last name
-   *
-   * @param user String
-   */
+  /** 
+  * The users first and last name
+  * @param user  String
+  **/
+
   public void setUser(String user) {
     this.user = user;
   }
 
   /**
-   * Description of the change event or transaction
-   *
-   * @param details String
-   * @return HistoryRecordResponse
-   */
+  * Description of the change event or transaction
+  * @param details  String
+  * @return HistoryRecordResponse
+  **/
   public HistoryRecordResponse details(String details) {
     this.details = details;
     return this;
   }
 
-  /**
+   /**
    * Description of the change event or transaction
-   *
    * @return details
-   */
+  **/
   @ApiModelProperty(value = "Description of the change event or transaction")
-  /**
+  /** 
    * Description of the change event or transaction
-   *
    * @return details String
-   */
+  **/
   public String getDetails() {
     return details;
   }
 
-  /**
-   * Description of the change event or transaction
-   *
-   * @param details String
-   */
+  /** 
+  * Description of the change event or transaction
+  * @param details  String
+  **/
+
   public void setDetails(String details) {
     this.details = details;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -219,17 +222,18 @@ public class HistoryRecordResponse {
       return false;
     }
     HistoryRecordResponse historyRecordResponse = (HistoryRecordResponse) o;
-    return Objects.equals(this.changes, historyRecordResponse.changes)
-        && Objects.equals(this.dateUTCString, historyRecordResponse.dateUTCString)
-        && Objects.equals(this.dateUTC, historyRecordResponse.dateUTC)
-        && Objects.equals(this.user, historyRecordResponse.user)
-        && Objects.equals(this.details, historyRecordResponse.details);
+    return Objects.equals(this.changes, historyRecordResponse.changes) &&
+        Objects.equals(this.dateUTCString, historyRecordResponse.dateUTCString) &&
+        Objects.equals(this.dateUTC, historyRecordResponse.dateUTC) &&
+        Objects.equals(this.user, historyRecordResponse.user) &&
+        Objects.equals(this.details, historyRecordResponse.details);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(changes, dateUTCString, dateUTC, user, details);
   }
+
 
   @Override
   public String toString() {
@@ -245,7 +249,8 @@ public class HistoryRecordResponse {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -253,4 +258,6 @@ public class HistoryRecordResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -9,27 +9,44 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.accounting;
 
+package com.xero.models.accounting;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.User;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** Users */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * Users
+ */
+
 public class Users {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Users")
   private List<User> users = new ArrayList<User>();
   /**
-   * users
-   *
-   * @param users List&lt;User&gt;
-   * @return Users
-   */
+  * users
+  * @param users  List&lt;User&gt;
+  * @return Users
+  **/
   public Users users(List<User> users) {
     this.users = users;
     return this;
@@ -37,10 +54,9 @@ public class Users {
 
   /**
    * users
-   *
-   * @param usersItem User
+   * @param usersItem User 
    * @return Users
-   */
+  **/
   public Users addUsersItem(User usersItem) {
     if (this.users == null) {
       this.users = new ArrayList<User>();
@@ -49,29 +65,28 @@ public class Users {
     return this;
   }
 
-  /**
+   /**
    * Get users
-   *
    * @return users
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * users
-   *
    * @return users List<User>
-   */
+  **/
   public List<User> getUsers() {
     return users;
   }
 
-  /**
-   * users
-   *
-   * @param users List&lt;User&gt;
-   */
+  /** 
+  * users
+  * @param users List&lt;User&gt; 
+  **/
+
   public void setUsers(List<User> users) {
     this.users = users;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,6 +105,7 @@ public class Users {
     return Objects.hash(users);
   }
 
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -100,7 +116,8 @@ public class Users {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -108,4 +125,6 @@ public class Users {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

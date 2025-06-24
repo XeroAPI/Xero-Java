@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrolluk;
 
+package com.xero.models.payrolluk;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.LeavePeriod;
+import com.xero.models.payrolluk.Pagination;
+import com.xero.models.payrolluk.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** LeavePeriods */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * LeavePeriods
+ */
+
 public class LeavePeriods {
   StringUtil util = new StringUtil();
 
@@ -31,81 +51,74 @@ public class LeavePeriods {
   @JsonProperty("periods")
   private List<LeavePeriod> periods = new ArrayList<LeavePeriod>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return LeavePeriods
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return LeavePeriods
+  **/
   public LeavePeriods pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return LeavePeriods
-   */
+  * problem
+  * @param problem  Problem
+  * @return LeavePeriods
+  **/
   public LeavePeriods problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * periods
-   *
-   * @param periods List&lt;LeavePeriod&gt;
-   * @return LeavePeriods
-   */
+  * periods
+  * @param periods  List&lt;LeavePeriod&gt;
+  * @return LeavePeriods
+  **/
   public LeavePeriods periods(List<LeavePeriod> periods) {
     this.periods = periods;
     return this;
@@ -113,10 +126,9 @@ public class LeavePeriods {
 
   /**
    * periods
-   *
-   * @param periodsItem LeavePeriod
+   * @param periodsItem LeavePeriod 
    * @return LeavePeriods
-   */
+  **/
   public LeavePeriods addPeriodsItem(LeavePeriod periodsItem) {
     if (this.periods == null) {
       this.periods = new ArrayList<LeavePeriod>();
@@ -125,29 +137,28 @@ public class LeavePeriods {
     return this;
   }
 
-  /**
+   /**
    * Get periods
-   *
    * @return periods
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * periods
-   *
    * @return periods List<LeavePeriod>
-   */
+  **/
   public List<LeavePeriod> getPeriods() {
     return periods;
   }
 
-  /**
-   * periods
-   *
-   * @param periods List&lt;LeavePeriod&gt;
-   */
+  /** 
+  * periods
+  * @param periods List&lt;LeavePeriod&gt; 
+  **/
+
   public void setPeriods(List<LeavePeriod> periods) {
     this.periods = periods;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -158,15 +169,16 @@ public class LeavePeriods {
       return false;
     }
     LeavePeriods leavePeriods = (LeavePeriods) o;
-    return Objects.equals(this.pagination, leavePeriods.pagination)
-        && Objects.equals(this.problem, leavePeriods.problem)
-        && Objects.equals(this.periods, leavePeriods.periods);
+    return Objects.equals(this.pagination, leavePeriods.pagination) &&
+        Objects.equals(this.problem, leavePeriods.problem) &&
+        Objects.equals(this.periods, leavePeriods.periods);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, periods);
   }
+
 
   @Override
   public String toString() {
@@ -180,7 +192,8 @@ public class LeavePeriods {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,4 +201,6 @@ public class LeavePeriods {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

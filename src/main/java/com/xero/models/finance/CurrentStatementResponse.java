@@ -9,16 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.finance;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
+package com.xero.models.finance;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
-/** CurrentStatementResponse */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * CurrentStatementResponse
+ */
+
 public class CurrentStatementResponse {
   StringUtil util = new StringUtil();
 
@@ -40,268 +57,197 @@ public class CurrentStatementResponse {
   @JsonProperty("importSourceType")
   private String importSourceType;
   /**
-   * Looking at the most recent bank statement, this field indicates the first date which
-   * transactions on this statement pertain to. This date is represented in ISO 8601 format.
-   *
-   * @param startDate LocalDate
-   * @return CurrentStatementResponse
-   */
+  * Looking at the most recent bank statement, this field indicates the first date which transactions on this statement pertain to. This date is represented in ISO 8601 format.
+  * @param startDate  LocalDate
+  * @return CurrentStatementResponse
+  **/
   public CurrentStatementResponse startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates the first date which
-   * transactions on this statement pertain to. This date is represented in ISO 8601 format.
-   *
+   /**
+   * Looking at the most recent bank statement, this field indicates the first date which transactions on this statement pertain to. This date is represented in ISO 8601 format.
    * @return startDate
-   */
-  @ApiModelProperty(
-      value =
-          "Looking at the most recent bank statement, this field indicates the first date which"
-              + " transactions on this statement pertain to. This date is represented in ISO 8601"
-              + " format.")
-  /**
-   * Looking at the most recent bank statement, this field indicates the first date which
-   * transactions on this statement pertain to. This date is represented in ISO 8601 format.
-   *
+  **/
+  @ApiModelProperty(value = "Looking at the most recent bank statement, this field indicates the first date which transactions on this statement pertain to. This date is represented in ISO 8601 format.")
+  /** 
+   * Looking at the most recent bank statement, this field indicates the first date which transactions on this statement pertain to. This date is represented in ISO 8601 format.
    * @return startDate LocalDate
-   */
+  **/
   public LocalDate getStartDate() {
     return startDate;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates the first date which
-   * transactions on this statement pertain to. This date is represented in ISO 8601 format.
-   *
-   * @param startDate LocalDate
-   */
+  /** 
+  * Looking at the most recent bank statement, this field indicates the first date which transactions on this statement pertain to. This date is represented in ISO 8601 format.
+  * @param startDate  LocalDate
+  **/
+
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
   /**
-   * Looking at the most recent bank statement, this field indicates the last date which
-   * transactions on this statement pertain to. This date is represented in ISO 8601 format.
-   *
-   * @param endDate LocalDate
-   * @return CurrentStatementResponse
-   */
+  * Looking at the most recent bank statement, this field indicates the last date which transactions on this statement pertain to. This date is represented in ISO 8601 format.
+  * @param endDate  LocalDate
+  * @return CurrentStatementResponse
+  **/
   public CurrentStatementResponse endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates the last date which
-   * transactions on this statement pertain to. This date is represented in ISO 8601 format.
-   *
+   /**
+   * Looking at the most recent bank statement, this field indicates the last date which transactions on this statement pertain to. This date is represented in ISO 8601 format.
    * @return endDate
-   */
-  @ApiModelProperty(
-      value =
-          "Looking at the most recent bank statement, this field indicates the last date which"
-              + " transactions on this statement pertain to. This date is represented in ISO 8601"
-              + " format.")
-  /**
-   * Looking at the most recent bank statement, this field indicates the last date which
-   * transactions on this statement pertain to. This date is represented in ISO 8601 format.
-   *
+  **/
+  @ApiModelProperty(value = "Looking at the most recent bank statement, this field indicates the last date which transactions on this statement pertain to. This date is represented in ISO 8601 format.")
+  /** 
+   * Looking at the most recent bank statement, this field indicates the last date which transactions on this statement pertain to. This date is represented in ISO 8601 format.
    * @return endDate LocalDate
-   */
+  **/
   public LocalDate getEndDate() {
     return endDate;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates the last date which
-   * transactions on this statement pertain to. This date is represented in ISO 8601 format.
-   *
-   * @param endDate LocalDate
-   */
+  /** 
+  * Looking at the most recent bank statement, this field indicates the last date which transactions on this statement pertain to. This date is represented in ISO 8601 format.
+  * @param endDate  LocalDate
+  **/
+
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
   /**
-   * Looking at the most recent bank statement, this field indicates the balance before the
-   * transactions on the statement are applied (note, this is not always populated by the bank in
-   * every single instance (~10%)).
-   *
-   * @param startBalance Double
-   * @return CurrentStatementResponse
-   */
+  * Looking at the most recent bank statement, this field indicates the balance before the transactions on the statement are applied (note, this is not always populated by the bank in every single instance (~10%)).
+  * @param startBalance  Double
+  * @return CurrentStatementResponse
+  **/
   public CurrentStatementResponse startBalance(Double startBalance) {
     this.startBalance = startBalance;
     return this;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates the balance before the
-   * transactions on the statement are applied (note, this is not always populated by the bank in
-   * every single instance (~10%)).
-   *
+   /**
+   * Looking at the most recent bank statement, this field indicates the balance before the transactions on the statement are applied (note, this is not always populated by the bank in every single instance (~10%)).
    * @return startBalance
-   */
-  @ApiModelProperty(
-      value =
-          "Looking at the most recent bank statement, this field indicates the balance before the"
-              + " transactions on the statement are applied (note, this is not always populated by"
-              + " the bank in every single instance (~10%)).")
-  /**
-   * Looking at the most recent bank statement, this field indicates the balance before the
-   * transactions on the statement are applied (note, this is not always populated by the bank in
-   * every single instance (~10%)).
-   *
+  **/
+  @ApiModelProperty(value = "Looking at the most recent bank statement, this field indicates the balance before the transactions on the statement are applied (note, this is not always populated by the bank in every single instance (~10%)).")
+  /** 
+   * Looking at the most recent bank statement, this field indicates the balance before the transactions on the statement are applied (note, this is not always populated by the bank in every single instance (~10%)).
    * @return startBalance Double
-   */
+  **/
   public Double getStartBalance() {
     return startBalance;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates the balance before the
-   * transactions on the statement are applied (note, this is not always populated by the bank in
-   * every single instance (~10%)).
-   *
-   * @param startBalance Double
-   */
+  /** 
+  * Looking at the most recent bank statement, this field indicates the balance before the transactions on the statement are applied (note, this is not always populated by the bank in every single instance (~10%)).
+  * @param startBalance  Double
+  **/
+
   public void setStartBalance(Double startBalance) {
     this.startBalance = startBalance;
   }
 
   /**
-   * Looking at the most recent bank statement, this field indicates the balance after the
-   * transactions on the statement are applied (note, this is not always populated by the bank in
-   * every single instance (~10%)).
-   *
-   * @param endBalance Double
-   * @return CurrentStatementResponse
-   */
+  * Looking at the most recent bank statement, this field indicates the balance after the transactions on the statement are applied (note, this is not always populated by the bank in every single instance (~10%)).
+  * @param endBalance  Double
+  * @return CurrentStatementResponse
+  **/
   public CurrentStatementResponse endBalance(Double endBalance) {
     this.endBalance = endBalance;
     return this;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates the balance after the
-   * transactions on the statement are applied (note, this is not always populated by the bank in
-   * every single instance (~10%)).
-   *
+   /**
+   * Looking at the most recent bank statement, this field indicates the balance after the transactions on the statement are applied (note, this is not always populated by the bank in every single instance (~10%)).
    * @return endBalance
-   */
-  @ApiModelProperty(
-      value =
-          "Looking at the most recent bank statement, this field indicates the balance after the"
-              + " transactions on the statement are applied (note, this is not always populated by"
-              + " the bank in every single instance (~10%)).")
-  /**
-   * Looking at the most recent bank statement, this field indicates the balance after the
-   * transactions on the statement are applied (note, this is not always populated by the bank in
-   * every single instance (~10%)).
-   *
+  **/
+  @ApiModelProperty(value = "Looking at the most recent bank statement, this field indicates the balance after the transactions on the statement are applied (note, this is not always populated by the bank in every single instance (~10%)).")
+  /** 
+   * Looking at the most recent bank statement, this field indicates the balance after the transactions on the statement are applied (note, this is not always populated by the bank in every single instance (~10%)).
    * @return endBalance Double
-   */
+  **/
   public Double getEndBalance() {
     return endBalance;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates the balance after the
-   * transactions on the statement are applied (note, this is not always populated by the bank in
-   * every single instance (~10%)).
-   *
-   * @param endBalance Double
-   */
+  /** 
+  * Looking at the most recent bank statement, this field indicates the balance after the transactions on the statement are applied (note, this is not always populated by the bank in every single instance (~10%)).
+  * @param endBalance  Double
+  **/
+
   public void setEndBalance(Double endBalance) {
     this.endBalance = endBalance;
   }
 
   /**
-   * Looking at the most recent bank statement, this field indicates when the document was imported
-   * into Xero. This date is represented in ISO 8601 format.
-   *
-   * @param importedDateTimeUtc OffsetDateTime
-   * @return CurrentStatementResponse
-   */
+  * Looking at the most recent bank statement, this field indicates when the document was imported into Xero.  This date is represented in ISO 8601 format.
+  * @param importedDateTimeUtc  OffsetDateTime
+  * @return CurrentStatementResponse
+  **/
   public CurrentStatementResponse importedDateTimeUtc(OffsetDateTime importedDateTimeUtc) {
     this.importedDateTimeUtc = importedDateTimeUtc;
     return this;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates when the document was imported
-   * into Xero. This date is represented in ISO 8601 format.
-   *
+   /**
+   * Looking at the most recent bank statement, this field indicates when the document was imported into Xero.  This date is represented in ISO 8601 format.
    * @return importedDateTimeUtc
-   */
-  @ApiModelProperty(
-      value =
-          "Looking at the most recent bank statement, this field indicates when the document was"
-              + " imported into Xero.  This date is represented in ISO 8601 format.")
-  /**
-   * Looking at the most recent bank statement, this field indicates when the document was imported
-   * into Xero. This date is represented in ISO 8601 format.
-   *
+  **/
+  @ApiModelProperty(value = "Looking at the most recent bank statement, this field indicates when the document was imported into Xero.  This date is represented in ISO 8601 format.")
+  /** 
+   * Looking at the most recent bank statement, this field indicates when the document was imported into Xero.  This date is represented in ISO 8601 format.
    * @return importedDateTimeUtc OffsetDateTime
-   */
+  **/
   public OffsetDateTime getImportedDateTimeUtc() {
     return importedDateTimeUtc;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates when the document was imported
-   * into Xero. This date is represented in ISO 8601 format.
-   *
-   * @param importedDateTimeUtc OffsetDateTime
-   */
+  /** 
+  * Looking at the most recent bank statement, this field indicates when the document was imported into Xero.  This date is represented in ISO 8601 format.
+  * @param importedDateTimeUtc  OffsetDateTime
+  **/
+
   public void setImportedDateTimeUtc(OffsetDateTime importedDateTimeUtc) {
     this.importedDateTimeUtc = importedDateTimeUtc;
   }
 
   /**
-   * Looking at the most recent bank statement, this field indicates the source of the data (direct
-   * bank feed, file upload, or manual keying).
-   *
-   * @param importSourceType String
-   * @return CurrentStatementResponse
-   */
+  * Looking at the most recent bank statement, this field indicates the source of the data (direct bank feed, file upload, or manual keying).
+  * @param importSourceType  String
+  * @return CurrentStatementResponse
+  **/
   public CurrentStatementResponse importSourceType(String importSourceType) {
     this.importSourceType = importSourceType;
     return this;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates the source of the data (direct
-   * bank feed, file upload, or manual keying).
-   *
+   /**
+   * Looking at the most recent bank statement, this field indicates the source of the data (direct bank feed, file upload, or manual keying).
    * @return importSourceType
-   */
-  @ApiModelProperty(
-      value =
-          "Looking at the most recent bank statement, this field indicates the source of the data"
-              + " (direct bank feed, file upload, or manual keying).")
-  /**
-   * Looking at the most recent bank statement, this field indicates the source of the data (direct
-   * bank feed, file upload, or manual keying).
-   *
+  **/
+  @ApiModelProperty(value = "Looking at the most recent bank statement, this field indicates the source of the data (direct bank feed, file upload, or manual keying).")
+  /** 
+   * Looking at the most recent bank statement, this field indicates the source of the data (direct bank feed, file upload, or manual keying).
    * @return importSourceType String
-   */
+  **/
   public String getImportSourceType() {
     return importSourceType;
   }
 
-  /**
-   * Looking at the most recent bank statement, this field indicates the source of the data (direct
-   * bank feed, file upload, or manual keying).
-   *
-   * @param importSourceType String
-   */
+  /** 
+  * Looking at the most recent bank statement, this field indicates the source of the data (direct bank feed, file upload, or manual keying).
+  * @param importSourceType  String
+  **/
+
   public void setImportSourceType(String importSourceType) {
     this.importSourceType = importSourceType;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -312,19 +258,19 @@ public class CurrentStatementResponse {
       return false;
     }
     CurrentStatementResponse currentStatementResponse = (CurrentStatementResponse) o;
-    return Objects.equals(this.startDate, currentStatementResponse.startDate)
-        && Objects.equals(this.endDate, currentStatementResponse.endDate)
-        && Objects.equals(this.startBalance, currentStatementResponse.startBalance)
-        && Objects.equals(this.endBalance, currentStatementResponse.endBalance)
-        && Objects.equals(this.importedDateTimeUtc, currentStatementResponse.importedDateTimeUtc)
-        && Objects.equals(this.importSourceType, currentStatementResponse.importSourceType);
+    return Objects.equals(this.startDate, currentStatementResponse.startDate) &&
+        Objects.equals(this.endDate, currentStatementResponse.endDate) &&
+        Objects.equals(this.startBalance, currentStatementResponse.startBalance) &&
+        Objects.equals(this.endBalance, currentStatementResponse.endBalance) &&
+        Objects.equals(this.importedDateTimeUtc, currentStatementResponse.importedDateTimeUtc) &&
+        Objects.equals(this.importSourceType, currentStatementResponse.importSourceType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        startDate, endDate, startBalance, endBalance, importedDateTimeUtc, importSourceType);
+    return Objects.hash(startDate, endDate, startBalance, endBalance, importedDateTimeUtc, importSourceType);
   }
+
 
   @Override
   public String toString() {
@@ -334,16 +280,15 @@ public class CurrentStatementResponse {
     sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
     sb.append("    startBalance: ").append(toIndentedString(startBalance)).append("\n");
     sb.append("    endBalance: ").append(toIndentedString(endBalance)).append("\n");
-    sb.append("    importedDateTimeUtc: ")
-        .append(toIndentedString(importedDateTimeUtc))
-        .append("\n");
+    sb.append("    importedDateTimeUtc: ").append(toIndentedString(importedDateTimeUtc)).append("\n");
     sb.append("    importSourceType: ").append(toIndentedString(importSourceType)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -351,4 +296,6 @@ public class CurrentStatementResponse {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

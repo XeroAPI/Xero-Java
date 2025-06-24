@@ -9,16 +9,36 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollnz;
 
+package com.xero.models.payrollnz;
+import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollnz.EmployeeStatutoryLeaveSummary;
+import com.xero.models.payrollnz.Pagination;
+import com.xero.models.payrollnz.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
 
-/** EmployeeStatutoryLeavesSummaries */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EmployeeStatutoryLeavesSummaries
+ */
+
 public class EmployeeStatutoryLeavesSummaries {
   StringUtil util = new StringUtil();
 
@@ -29,98 +49,87 @@ public class EmployeeStatutoryLeavesSummaries {
   private Problem problem;
 
   @JsonProperty("statutoryLeaves")
-  private List<EmployeeStatutoryLeaveSummary> statutoryLeaves =
-      new ArrayList<EmployeeStatutoryLeaveSummary>();
+  private List<EmployeeStatutoryLeaveSummary> statutoryLeaves = new ArrayList<EmployeeStatutoryLeaveSummary>();
   /**
-   * pagination
-   *
-   * @param pagination Pagination
-   * @return EmployeeStatutoryLeavesSummaries
-   */
+  * pagination
+  * @param pagination  Pagination
+  * @return EmployeeStatutoryLeavesSummaries
+  **/
   public EmployeeStatutoryLeavesSummaries pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * pagination
-   *
    * @return pagination Pagination
-   */
+  **/
   public Pagination getPagination() {
     return pagination;
   }
 
-  /**
-   * pagination
-   *
-   * @param pagination Pagination
-   */
+  /** 
+  * pagination
+  * @param pagination  Pagination
+  **/
+
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
   /**
-   * problem
-   *
-   * @param problem Problem
-   * @return EmployeeStatutoryLeavesSummaries
-   */
+  * problem
+  * @param problem  Problem
+  * @return EmployeeStatutoryLeavesSummaries
+  **/
   public EmployeeStatutoryLeavesSummaries problem(Problem problem) {
     this.problem = problem;
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * problem
-   *
    * @return problem Problem
-   */
+  **/
   public Problem getProblem() {
     return problem;
   }
 
-  /**
-   * problem
-   *
-   * @param problem Problem
-   */
+  /** 
+  * problem
+  * @param problem  Problem
+  **/
+
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
   /**
-   * statutoryLeaves
-   *
-   * @param statutoryLeaves List&lt;EmployeeStatutoryLeaveSummary&gt;
-   * @return EmployeeStatutoryLeavesSummaries
-   */
-  public EmployeeStatutoryLeavesSummaries statutoryLeaves(
-      List<EmployeeStatutoryLeaveSummary> statutoryLeaves) {
+  * statutoryLeaves
+  * @param statutoryLeaves  List&lt;EmployeeStatutoryLeaveSummary&gt;
+  * @return EmployeeStatutoryLeavesSummaries
+  **/
+  public EmployeeStatutoryLeavesSummaries statutoryLeaves(List<EmployeeStatutoryLeaveSummary> statutoryLeaves) {
     this.statutoryLeaves = statutoryLeaves;
     return this;
   }
 
   /**
    * statutoryLeaves
-   *
-   * @param statutoryLeavesItem EmployeeStatutoryLeaveSummary
+   * @param statutoryLeavesItem EmployeeStatutoryLeaveSummary 
    * @return EmployeeStatutoryLeavesSummaries
-   */
-  public EmployeeStatutoryLeavesSummaries addStatutoryLeavesItem(
-      EmployeeStatutoryLeaveSummary statutoryLeavesItem) {
+  **/
+  public EmployeeStatutoryLeavesSummaries addStatutoryLeavesItem(EmployeeStatutoryLeaveSummary statutoryLeavesItem) {
     if (this.statutoryLeaves == null) {
       this.statutoryLeaves = new ArrayList<EmployeeStatutoryLeaveSummary>();
     }
@@ -128,29 +137,28 @@ public class EmployeeStatutoryLeavesSummaries {
     return this;
   }
 
-  /**
+   /**
    * Get statutoryLeaves
-   *
    * @return statutoryLeaves
-   */
+  **/
   @ApiModelProperty(value = "")
-  /**
+  /** 
    * statutoryLeaves
-   *
    * @return statutoryLeaves List<EmployeeStatutoryLeaveSummary>
-   */
+  **/
   public List<EmployeeStatutoryLeaveSummary> getStatutoryLeaves() {
     return statutoryLeaves;
   }
 
-  /**
-   * statutoryLeaves
-   *
-   * @param statutoryLeaves List&lt;EmployeeStatutoryLeaveSummary&gt;
-   */
+  /** 
+  * statutoryLeaves
+  * @param statutoryLeaves List&lt;EmployeeStatutoryLeaveSummary&gt; 
+  **/
+
   public void setStatutoryLeaves(List<EmployeeStatutoryLeaveSummary> statutoryLeaves) {
     this.statutoryLeaves = statutoryLeaves;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -160,17 +168,17 @@ public class EmployeeStatutoryLeavesSummaries {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    EmployeeStatutoryLeavesSummaries employeeStatutoryLeavesSummaries =
-        (EmployeeStatutoryLeavesSummaries) o;
-    return Objects.equals(this.pagination, employeeStatutoryLeavesSummaries.pagination)
-        && Objects.equals(this.problem, employeeStatutoryLeavesSummaries.problem)
-        && Objects.equals(this.statutoryLeaves, employeeStatutoryLeavesSummaries.statutoryLeaves);
+    EmployeeStatutoryLeavesSummaries employeeStatutoryLeavesSummaries = (EmployeeStatutoryLeavesSummaries) o;
+    return Objects.equals(this.pagination, employeeStatutoryLeavesSummaries.pagination) &&
+        Objects.equals(this.problem, employeeStatutoryLeavesSummaries.problem) &&
+        Objects.equals(this.statutoryLeaves, employeeStatutoryLeavesSummaries.statutoryLeaves);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, statutoryLeaves);
   }
+
 
   @Override
   public String toString() {
@@ -184,7 +192,8 @@ public class EmployeeStatutoryLeavesSummaries {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -192,4 +201,6 @@ public class EmployeeStatutoryLeavesSummaries {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

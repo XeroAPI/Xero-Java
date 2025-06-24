@@ -9,15 +9,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
-/** EarningsTemplate */
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+/**
+ * EarningsTemplate
+ */
+
 public class EarningsTemplate {
   StringUtil util = new StringUtil();
 
@@ -39,214 +56,197 @@ public class EarningsTemplate {
   @JsonProperty("name")
   private String name;
   /**
-   * The Xero identifier for the earnings template
-   *
-   * @param payTemplateEarningID UUID
-   * @return EarningsTemplate
-   */
+  * The Xero identifier for the earnings template
+  * @param payTemplateEarningID  UUID
+  * @return EarningsTemplate
+  **/
   public EarningsTemplate payTemplateEarningID(UUID payTemplateEarningID) {
     this.payTemplateEarningID = payTemplateEarningID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for the earnings template
-   *
    * @return payTemplateEarningID
-   */
+  **/
   @ApiModelProperty(value = "The Xero identifier for the earnings template")
-  /**
+  /** 
    * The Xero identifier for the earnings template
-   *
    * @return payTemplateEarningID UUID
-   */
+  **/
   public UUID getPayTemplateEarningID() {
     return payTemplateEarningID;
   }
 
-  /**
-   * The Xero identifier for the earnings template
-   *
-   * @param payTemplateEarningID UUID
-   */
+  /** 
+  * The Xero identifier for the earnings template
+  * @param payTemplateEarningID  UUID
+  **/
+
   public void setPayTemplateEarningID(UUID payTemplateEarningID) {
     this.payTemplateEarningID = payTemplateEarningID;
   }
 
   /**
-   * The rate per unit
-   *
-   * @param ratePerUnit Double
-   * @return EarningsTemplate
-   */
+  * The rate per unit
+  * @param ratePerUnit  Double
+  * @return EarningsTemplate
+  **/
   public EarningsTemplate ratePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
   }
 
-  /**
+   /**
    * The rate per unit
-   *
    * @return ratePerUnit
-   */
+  **/
   @ApiModelProperty(value = "The rate per unit")
-  /**
+  /** 
    * The rate per unit
-   *
    * @return ratePerUnit Double
-   */
+  **/
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
 
-  /**
-   * The rate per unit
-   *
-   * @param ratePerUnit Double
-   */
+  /** 
+  * The rate per unit
+  * @param ratePerUnit  Double
+  **/
+
   public void setRatePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
   }
 
   /**
-   * The rate per unit
-   *
-   * @param numberOfUnits Double
-   * @return EarningsTemplate
-   */
+  * The rate per unit
+  * @param numberOfUnits  Double
+  * @return EarningsTemplate
+  **/
   public EarningsTemplate numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
   }
 
-  /**
+   /**
    * The rate per unit
-   *
    * @return numberOfUnits
-   */
+  **/
   @ApiModelProperty(value = "The rate per unit")
-  /**
+  /** 
    * The rate per unit
-   *
    * @return numberOfUnits Double
-   */
+  **/
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
-  /**
-   * The rate per unit
-   *
-   * @param numberOfUnits Double
-   */
+  /** 
+  * The rate per unit
+  * @param numberOfUnits  Double
+  **/
+
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
   /**
-   * The fixed amount per period
-   *
-   * @param fixedAmount Double
-   * @return EarningsTemplate
-   */
+  * The fixed amount per period
+  * @param fixedAmount  Double
+  * @return EarningsTemplate
+  **/
   public EarningsTemplate fixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
     return this;
   }
 
-  /**
+   /**
    * The fixed amount per period
-   *
    * @return fixedAmount
-   */
+  **/
   @ApiModelProperty(value = "The fixed amount per period")
-  /**
+  /** 
    * The fixed amount per period
-   *
    * @return fixedAmount Double
-   */
+  **/
   public Double getFixedAmount() {
     return fixedAmount;
   }
 
-  /**
-   * The fixed amount per period
-   *
-   * @param fixedAmount Double
-   */
+  /** 
+  * The fixed amount per period
+  * @param fixedAmount  Double
+  **/
+
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
 
   /**
-   * The corresponding earnings rate identifier
-   *
-   * @param earningsRateID UUID
-   * @return EarningsTemplate
-   */
+  * The corresponding earnings rate identifier
+  * @param earningsRateID  UUID
+  * @return EarningsTemplate
+  **/
   public EarningsTemplate earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
   }
 
-  /**
+   /**
    * The corresponding earnings rate identifier
-   *
    * @return earningsRateID
-   */
+  **/
   @ApiModelProperty(value = "The corresponding earnings rate identifier")
-  /**
+  /** 
    * The corresponding earnings rate identifier
-   *
    * @return earningsRateID UUID
-   */
+  **/
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
-  /**
-   * The corresponding earnings rate identifier
-   *
-   * @param earningsRateID UUID
-   */
+  /** 
+  * The corresponding earnings rate identifier
+  * @param earningsRateID  UUID
+  **/
+
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
   /**
-   * The read-only name of the Earning Template.
-   *
-   * @param name String
-   * @return EarningsTemplate
-   */
+  * The read-only name of the Earning Template.
+  * @param name  String
+  * @return EarningsTemplate
+  **/
   public EarningsTemplate name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * The read-only name of the Earning Template.
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "The read-only name of the Earning Template.")
-  /**
+  /** 
    * The read-only name of the Earning Template.
-   *
    * @return name String
-   */
+  **/
   public String getName() {
     return name;
   }
 
-  /**
-   * The read-only name of the Earning Template.
-   *
-   * @param name String
-   */
+  /** 
+  * The read-only name of the Earning Template.
+  * @param name  String
+  **/
+
   public void setName(String name) {
     this.name = name;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -257,27 +257,25 @@ public class EarningsTemplate {
       return false;
     }
     EarningsTemplate earningsTemplate = (EarningsTemplate) o;
-    return Objects.equals(this.payTemplateEarningID, earningsTemplate.payTemplateEarningID)
-        && Objects.equals(this.ratePerUnit, earningsTemplate.ratePerUnit)
-        && Objects.equals(this.numberOfUnits, earningsTemplate.numberOfUnits)
-        && Objects.equals(this.fixedAmount, earningsTemplate.fixedAmount)
-        && Objects.equals(this.earningsRateID, earningsTemplate.earningsRateID)
-        && Objects.equals(this.name, earningsTemplate.name);
+    return Objects.equals(this.payTemplateEarningID, earningsTemplate.payTemplateEarningID) &&
+        Objects.equals(this.ratePerUnit, earningsTemplate.ratePerUnit) &&
+        Objects.equals(this.numberOfUnits, earningsTemplate.numberOfUnits) &&
+        Objects.equals(this.fixedAmount, earningsTemplate.fixedAmount) &&
+        Objects.equals(this.earningsRateID, earningsTemplate.earningsRateID) &&
+        Objects.equals(this.name, earningsTemplate.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        payTemplateEarningID, ratePerUnit, numberOfUnits, fixedAmount, earningsRateID, name);
+    return Objects.hash(payTemplateEarningID, ratePerUnit, numberOfUnits, fixedAmount, earningsRateID, name);
   }
+
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EarningsTemplate {\n");
-    sb.append("    payTemplateEarningID: ")
-        .append(toIndentedString(payTemplateEarningID))
-        .append("\n");
+    sb.append("    payTemplateEarningID: ").append(toIndentedString(payTemplateEarningID)).append("\n");
     sb.append("    ratePerUnit: ").append(toIndentedString(ratePerUnit)).append("\n");
     sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
     sb.append("    fixedAmount: ").append(toIndentedString(fixedAmount)).append("\n");
@@ -288,7 +286,8 @@ public class EarningsTemplate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -296,4 +295,6 @@ public class EarningsTemplate {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+
