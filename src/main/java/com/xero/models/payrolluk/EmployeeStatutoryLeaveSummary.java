@@ -44,7 +44,13 @@ public class EmployeeStatutoryLeaveSummary {
     PATERNITY("Paternity"),
 
     /** SHAREDPARENTAL */
-    SHAREDPARENTAL("Sharedparental");
+    SHAREDPARENTAL("Sharedparental"),
+
+    /** BEREAVEMENT */
+    BEREAVEMENT("Bereavement"),
+
+    /** NEONATALCARE */
+    NEONATALCARE("NeonatalCare");
 
     private String value;
 

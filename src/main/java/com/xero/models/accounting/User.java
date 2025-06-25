@@ -66,7 +66,10 @@ public class User {
     CASHBOOKCLIENT("CASHBOOKCLIENT"),
 
     /** UNKNOWN */
-    UNKNOWN("UNKNOWN");
+    UNKNOWN("UNKNOWN"),
+
+    /** REMOVED */
+    REMOVED("REMOVED");
 
     private String value;
 
