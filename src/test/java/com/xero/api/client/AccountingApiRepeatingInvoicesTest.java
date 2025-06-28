@@ -55,6 +55,7 @@ public class AccountingApiRepeatingInvoicesTest {
         defaultClient = null;
 	}
 
+    @Ignore("Enable when OpenAPI schema is changed to binary wherever octet/stream is used")
     @Test
     public void createRepeatingInvoiceAttachmentByFileNameTest() throws IOException {
         System.out.println("@Test - createRepeatingInvoiceAttachmentByFileName");

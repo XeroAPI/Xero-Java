@@ -195,6 +195,7 @@ public class AccountingApiContactsTest {
         //System.out.println(response.getContacts().get(0).toString());
     }
 
+    @Ignore("Enable when OpenAPI schema is changed to binary wherever octet/stream is used")
     @Test
     public void createContactAttachmentByFileNameTest() throws IOException {
         System.out.println("@Test - createContactAttachmentByFileNameTest");

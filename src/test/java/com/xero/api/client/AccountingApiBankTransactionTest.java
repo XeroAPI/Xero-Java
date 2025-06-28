@@ -124,6 +124,7 @@ public class AccountingApiBankTransactionTest {
 	}
 */
 
+    @Ignore("Enable when OpenAPI schema is changed to binary wherever octet/stream is used")
     @Test
     public void createBankTransactionAttachmentByFileNameTest() throws IOException {
     	System.out.println("@Test - createBankTransactionAttachmentByFileNameTest");
