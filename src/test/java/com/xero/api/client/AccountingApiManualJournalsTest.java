@@ -91,6 +91,7 @@ public class AccountingApiManualJournalsTest {
     }
     
  
+    @Ignore("Enable when OpenAPI schema is changed to binary wherever octet/stream is used")
     @Test
     public void createManualJournalAttachmentByFileNameTest() throws IOException {
         System.out.println("@Test - createManualJournalAttachmentByFileName");

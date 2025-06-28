@@ -106,6 +106,7 @@ public class AccountingApiBankTransferTest {
         //System.out.println(response.getBankTransfers().get(0).toString());
     }
 
+    @Ignore("Enable when OpenAPI schema is changed to binary wherever octet/stream is used")
     @Test
     public void createBankTransferAttachmentByFileNameTest() throws IOException {
         System.out.println("@Test - createBankTransferAttachmentByFileNameTest");

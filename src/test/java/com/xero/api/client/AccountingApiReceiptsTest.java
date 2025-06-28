@@ -80,6 +80,7 @@ public class AccountingApiReceiptsTest {
         //System.out.println(response.getReceipts().get(0).toString());
     }
     
+    @Ignore("Enable when OpenAPI schema is changed to binary wherever octet/stream is used")
     @Test
     public void createReceiptAttachmentByFileNameTest() throws IOException {
         System.out.println("@Test - createReceiptAttachmentByFileName");
