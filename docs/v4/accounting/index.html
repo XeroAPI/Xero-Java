@@ -7268,9 +7268,14 @@ public class AccountingApiExample {
         UUID accountID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createAccountAttachmentByFileName(accessToken, xeroTenantId, accountID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.createAccountAttachmentByFileName(accessToken, xeroTenantId, accountID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createAccountAttachmentByFileName");
@@ -7408,7 +7413,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -7425,7 +7430,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -7477,9 +7482,14 @@ public class AccountingApiExample {
         UUID bankTransactionID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createBankTransactionAttachmentByFileName(accessToken, xeroTenantId, bankTransactionID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.createBankTransactionAttachmentByFileName(accessToken, xeroTenantId, bankTransactionID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createBankTransactionAttachmentByFileName");
@@ -7617,7 +7627,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -7634,7 +7644,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -8327,9 +8337,14 @@ public class AccountingApiExample {
         UUID bankTransferID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createBankTransferAttachmentByFileName(accessToken, xeroTenantId, bankTransferID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.createBankTransferAttachmentByFileName(accessToken, xeroTenantId, bankTransferID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createBankTransferAttachmentByFileName");
@@ -8467,7 +8482,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -8484,7 +8499,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -9355,9 +9370,14 @@ public class AccountingApiExample {
         UUID contactID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createContactAttachmentByFileName(accessToken, xeroTenantId, contactID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.createContactAttachmentByFileName(accessToken, xeroTenantId, contactID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createContactAttachmentByFileName");
@@ -9495,7 +9515,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -9512,7 +9532,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -10603,9 +10623,14 @@ public class AccountingApiExample {
         String fileName = 'xero-dev.jpg';
         Boolean includeOnline = true;
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createCreditNoteAttachmentByFileName(accessToken, xeroTenantId, creditNoteID, fileName, body, includeOnline, idempotencyKey);
+            Attachments result = apiInstance.createCreditNoteAttachmentByFileName(accessToken, xeroTenantId, creditNoteID, fileName, body, includeOnline, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createCreditNoteAttachmentByFileName");
@@ -10743,7 +10768,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -10760,7 +10785,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -11995,9 +12020,14 @@ public class AccountingApiExample {
         String fileName = 'xero-dev.jpg';
         Boolean includeOnline = true;
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createInvoiceAttachmentByFileName(accessToken, xeroTenantId, invoiceID, fileName, body, includeOnline, idempotencyKey);
+            Attachments result = apiInstance.createInvoiceAttachmentByFileName(accessToken, xeroTenantId, invoiceID, fileName, body, includeOnline, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createInvoiceAttachmentByFileName");
@@ -12135,7 +12165,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -12152,7 +12182,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -13254,9 +13284,14 @@ public class AccountingApiExample {
         UUID manualJournalID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createManualJournalAttachmentByFileName(accessToken, xeroTenantId, manualJournalID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.createManualJournalAttachmentByFileName(accessToken, xeroTenantId, manualJournalID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createManualJournalAttachmentByFileName");
@@ -13394,7 +13429,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -13411,7 +13446,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -15480,9 +15515,14 @@ public class AccountingApiExample {
         UUID purchaseOrderID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createPurchaseOrderAttachmentByFileName(accessToken, xeroTenantId, purchaseOrderID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.createPurchaseOrderAttachmentByFileName(accessToken, xeroTenantId, purchaseOrderID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createPurchaseOrderAttachmentByFileName");
@@ -15620,7 +15660,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -15637,7 +15677,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -16096,9 +16136,14 @@ public class AccountingApiExample {
         UUID quoteID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createQuoteAttachmentByFileName(accessToken, xeroTenantId, quoteID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.createQuoteAttachmentByFileName(accessToken, xeroTenantId, quoteID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createQuoteAttachmentByFileName");
@@ -16236,7 +16281,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -16253,7 +16298,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -16934,9 +16979,14 @@ public class AccountingApiExample {
         UUID receiptID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createReceiptAttachmentByFileName(accessToken, xeroTenantId, receiptID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.createReceiptAttachmentByFileName(accessToken, xeroTenantId, receiptID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createReceiptAttachmentByFileName");
@@ -17074,7 +17124,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -17091,7 +17141,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -17338,9 +17388,14 @@ public class AccountingApiExample {
         UUID repeatingInvoiceID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.createRepeatingInvoiceAttachmentByFileName(accessToken, xeroTenantId, repeatingInvoiceID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.createRepeatingInvoiceAttachmentByFileName(accessToken, xeroTenantId, repeatingInvoiceID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createRepeatingInvoiceAttachmentByFileName");
@@ -17478,7 +17533,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -17495,7 +17550,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -31136,7 +31191,7 @@ public class AccountingApiExample {
         String contentType = 'image/jpg';
 
         try {
-            ByteArrayInputStream result = apiInstance.getManualJournalAttachmentById(accessToken, xeroTenantId, manualJournalID, attachmentID, contentType);
+            byte[] result = apiInstance.getManualJournalAttachmentById(accessToken, xeroTenantId, manualJournalID, attachmentID, contentType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getManualJournalAttachmentById");
@@ -41366,9 +41421,14 @@ public class AccountingApiExample {
         UUID accountID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updateAccountAttachmentByFileName(accessToken, xeroTenantId, accountID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updateAccountAttachmentByFileName(accessToken, xeroTenantId, accountID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateAccountAttachmentByFileName");
@@ -41506,7 +41566,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -41523,7 +41583,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -41882,9 +41942,14 @@ public class AccountingApiExample {
         UUID bankTransactionID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updateBankTransactionAttachmentByFileName(accessToken, xeroTenantId, bankTransactionID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updateBankTransactionAttachmentByFileName(accessToken, xeroTenantId, bankTransactionID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateBankTransactionAttachmentByFileName");
@@ -42022,7 +42087,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -42039,7 +42104,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -42091,9 +42156,14 @@ public class AccountingApiExample {
         UUID bankTransferID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updateBankTransferAttachmentByFileName(accessToken, xeroTenantId, bankTransferID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updateBankTransferAttachmentByFileName(accessToken, xeroTenantId, bankTransferID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateBankTransferAttachmentByFileName");
@@ -42231,7 +42301,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -42248,7 +42318,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -42497,9 +42567,14 @@ public class AccountingApiExample {
         UUID contactID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updateContactAttachmentByFileName(accessToken, xeroTenantId, contactID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updateContactAttachmentByFileName(accessToken, xeroTenantId, contactID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateContactAttachmentByFileName");
@@ -42637,7 +42712,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -42654,7 +42729,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -43155,9 +43230,14 @@ public class AccountingApiExample {
         UUID creditNoteID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updateCreditNoteAttachmentByFileName(accessToken, xeroTenantId, creditNoteID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updateCreditNoteAttachmentByFileName(accessToken, xeroTenantId, creditNoteID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateCreditNoteAttachmentByFileName");
@@ -43295,7 +43375,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -43312,7 +43392,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -43804,9 +43884,14 @@ public class AccountingApiExample {
         UUID invoiceID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updateInvoiceAttachmentByFileName(accessToken, xeroTenantId, invoiceID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updateInvoiceAttachmentByFileName(accessToken, xeroTenantId, invoiceID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateInvoiceAttachmentByFileName");
@@ -43944,7 +44029,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -43961,7 +44046,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -44646,9 +44731,14 @@ public class AccountingApiExample {
         UUID manualJournalID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updateManualJournalAttachmentByFileName(accessToken, xeroTenantId, manualJournalID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updateManualJournalAttachmentByFileName(accessToken, xeroTenantId, manualJournalID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateManualJournalAttachmentByFileName");
@@ -44786,7 +44876,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -44803,7 +44893,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -47240,9 +47330,14 @@ public class AccountingApiExample {
         UUID purchaseOrderID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updatePurchaseOrderAttachmentByFileName(accessToken, xeroTenantId, purchaseOrderID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updatePurchaseOrderAttachmentByFileName(accessToken, xeroTenantId, purchaseOrderID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updatePurchaseOrderAttachmentByFileName");
@@ -47380,7 +47475,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -47397,7 +47492,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -47653,9 +47748,14 @@ public class AccountingApiExample {
         UUID quoteID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updateQuoteAttachmentByFileName(accessToken, xeroTenantId, quoteID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updateQuoteAttachmentByFileName(accessToken, xeroTenantId, quoteID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateQuoteAttachmentByFileName");
@@ -47793,7 +47893,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -47810,7 +47910,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -48094,9 +48194,14 @@ public class AccountingApiExample {
         UUID receiptID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updateReceiptAttachmentByFileName(accessToken, xeroTenantId, receiptID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updateReceiptAttachmentByFileName(accessToken, xeroTenantId, receiptID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateReceiptAttachmentByFileName");
@@ -48234,7 +48339,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -48251,7 +48356,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
@@ -48533,9 +48638,14 @@ public class AccountingApiExample {
         UUID repeatingInvoiceID = '00000000-0000-0000-0000-000000000000';
         String fileName = 'xero-dev.jpg';
         String idempotencyKey = 'KEY_VALUE';
+        
+        File input = new File("/path/to/local/xero-dev.jpg");
+        java.nio.file.Path inputPath = input.toPath();
+        byte[] body = FileUtils.readFileToByteArray(input);
+        String mimeType = Files.probeContentType(inputPath);
 
         try {
-            Attachments result = apiInstance.updateRepeatingInvoiceAttachmentByFileName(accessToken, xeroTenantId, repeatingInvoiceID, fileName, body, idempotencyKey);
+            Attachments result = apiInstance.updateRepeatingInvoiceAttachmentByFileName(accessToken, xeroTenantId, repeatingInvoiceID, fileName, body, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateRepeatingInvoiceAttachmentByFileName");
@@ -48673,7 +48783,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     <div class="json-schema-view">
       <div class="primitive">
         <span class="type">
-        File
+        byte[]
         </span>
         <div class="inner description marked">
           Byte array of file in body of request
@@ -48690,7 +48800,7 @@ This allows you to safely retry requests without the risk of duplicate processin
     "application/octet-stream" : {
       "schema" : {
         "type" : "string",
-        "format" : "binary"
+        "format" : "byte"
       }
     }
   },
