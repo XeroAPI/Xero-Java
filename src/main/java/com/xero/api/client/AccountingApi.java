@@ -18884,10 +18884,10 @@ public class AccountingApi {
    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg,
    *     application/pdf
    * @param accessToken Authorization token for user set in header of each request
-   * @return byte[]
+   * @return ByteArrayInputStream
    * @throws IOException if an error occurs while attempting to invoke the API *
    */
-  public byte[] getManualJournalAttachmentById(
+  public ByteArrayInputStream getManualJournalAttachmentById(
       String accessToken,
       String xeroTenantId,
       UUID manualJournalID,
@@ -18895,11 +18895,13 @@ public class AccountingApi {
       String contentType)
       throws IOException {
     try {
-      TypeReference<byte[]> typeRef = new TypeReference<byte[]>() {};
+      TypeReference<File> typeRef = new TypeReference<File>() {};
       HttpResponse response =
           getManualJournalAttachmentByIdForHttpResponse(
               accessToken, xeroTenantId, manualJournalID, attachmentID, contentType);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+      InputStream is = response.getContent();
+      return convertInputToByteArray(is);
+
     } catch (HttpResponseException e) {
       if (logger.isDebugEnabled()) {
         logger.debug(

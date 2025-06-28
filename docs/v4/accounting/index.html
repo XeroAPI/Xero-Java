@@ -31191,7 +31191,7 @@ public class AccountingApiExample {
         String contentType = 'image/jpg';
 
         try {
-            byte[] result = apiInstance.getManualJournalAttachmentById(accessToken, xeroTenantId, manualJournalID, attachmentID, contentType);
+            ByteArrayInputStream result = apiInstance.getManualJournalAttachmentById(accessToken, xeroTenantId, manualJournalID, attachmentID, contentType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getManualJournalAttachmentById");
