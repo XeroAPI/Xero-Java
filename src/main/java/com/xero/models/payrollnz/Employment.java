@@ -52,7 +52,9 @@ public class Employment {
    *
    * @return payrollCalendarID
    */
-  @ApiModelProperty(value = "Xero unique identifier for the payroll calendar of the employee")
+  @ApiModelProperty(
+      required = true,
+      value = "Xero unique identifier for the payroll calendar of the employee")
   /**
    * Xero unique identifier for the payroll calendar of the employee
    *
@@ -125,7 +127,7 @@ public class Employment {
    *
    * @return startDate
    */
-  @ApiModelProperty(value = "Start date of the employment (YYYY-MM-DD)")
+  @ApiModelProperty(required = true, value = "Start date of the employment (YYYY-MM-DD)")
   /**
    * Start date of the employment (YYYY-MM-DD)
    *
@@ -160,7 +162,10 @@ public class Employment {
    *
    * @return engagementType
    */
-  @ApiModelProperty(example = "Permanent", value = "Engagement type of the employee")
+  @ApiModelProperty(
+      example = "Permanent",
+      required = true,
+      value = "Engagement type of the employee")
   /**
    * Engagement type of the employee
    *

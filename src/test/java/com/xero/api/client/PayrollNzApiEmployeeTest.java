@@ -1,44 +1,16 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
-
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.payrollnz.*;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
 import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
 
 public class PayrollNzApiEmployeeTest {
 
@@ -54,11 +26,8 @@ public class PayrollNzApiEmployeeTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        // Init projectApi client
-        // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://5d4d8dd7-b3b2-4151-87c6-31841929f349.mock.pstmn.io/payroll.xro/2.0",null,null,null,null);
-        payrollNzApi = PayrollNzApi.getInstance(defaultClient);   
-       
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("payrollnz.api.url"),null,null,null,null);
+        payrollNzApi = PayrollNzApi.getInstance(defaultClient); 
 	}
 
 	public void tearDown() {
@@ -94,6 +63,14 @@ public class PayrollNzApiEmployeeTest {
         System.out.println("@Test UK Payroll - createEmployeeTest");
         
          Employee employee = new Employee();
+         Address address = new Address();
+         address.setAddressLine1("101 Green St");
+         address.setCity("San Francisco");
+         address.setPostCode("4351");
+         employee.setAddress(address);
+         employee.setFirstName("Mike");
+         employee.setLastName("Johntzxzpxhmkgson");
+         employee.setDateOfBirth(LocalDate.now());
          EmployeeObject response = payrollNzApi.createEmployee(accessToken, xeroTenantId, employee, null);
         
          assertThat(response.getEmployee().getEmployeeID(), is(equalTo(UUID.fromString("658be485-3feb-402e-9e77-ac17623aad42"))));
@@ -141,6 +118,14 @@ public class PayrollNzApiEmployeeTest {
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         Employee employee = new Employee();
+        Address address = new Address();
+        address.setAddressLine1("101 Green St");
+        address.setCity("San Francisco");
+        address.setPostCode("4351");
+        employee.setAddress(address);
+        employee.setFirstName("Mike");
+        employee.setLastName("Johntzxzpxhmkgson");
+        employee.setDateOfBirth(LocalDate.now());
         EmployeeObject response = payrollNzApi.updateEmployee(accessToken, xeroTenantId, employeeId, employee, null);
         
          assertThat(response.getEmployee().getEmployeeID(), is(equalTo(UUID.fromString("68342973-c405-4b86-b5d3-d7b877c27995"))));

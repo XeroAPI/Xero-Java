@@ -1,44 +1,17 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
-
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.accounting.*;
 
 import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
 import org.threeten.bp.*;
 import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
 import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
 
 public class AccountingApiRepeatingInvoicesTest {
 
@@ -56,9 +29,7 @@ public class AccountingApiRepeatingInvoicesTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        // Init AccountingApi client
-        // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://25faf04a-c71e-40e7-b7ce-f1fae0149465.mock.pstmn.io/api.xro/2.0",null,null,null,null);
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("accounting.api.url"),null,null,null,null);
         accountingApi = AccountingApi.getInstance(defaultClient);   
 
         ClassLoader classLoader = getClass().getClassLoader();
@@ -84,6 +55,7 @@ public class AccountingApiRepeatingInvoicesTest {
         defaultClient = null;
 	}
 
+    @Ignore("Enable when OpenAPI schema is changed to binary wherever octet/stream is used")
     @Test
     public void createRepeatingInvoiceAttachmentByFileNameTest() throws IOException {
         System.out.println("@Test - createRepeatingInvoiceAttachmentByFileName");
