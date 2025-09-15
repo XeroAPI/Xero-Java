@@ -28,6 +28,7 @@ public class BankAccount {
 
   @JsonProperty("sortCode")
   private String sortCode;
+
   /**
    * Bank account name (max length &#x3D; 32)
    *

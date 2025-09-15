@@ -24,6 +24,7 @@ public class SuperFunds {
 
   @JsonProperty("SuperFunds")
   private List<SuperFund> superFunds = new ArrayList<SuperFund>();
+
   /**
    * superFunds
    *

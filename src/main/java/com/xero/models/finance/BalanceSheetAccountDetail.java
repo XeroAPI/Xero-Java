@@ -35,6 +35,7 @@ public class BalanceSheetAccountDetail {
 
   @JsonProperty("total")
   private Double total;
+
   /**
    * Accounting code
    *

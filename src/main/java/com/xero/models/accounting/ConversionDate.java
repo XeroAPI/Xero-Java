@@ -27,6 +27,7 @@ public class ConversionDate {
 
   @JsonProperty("Year")
   private Integer year;
+
   /**
    * The month the organisation starts using Xero. Value is an integer between 1 and 12
    *

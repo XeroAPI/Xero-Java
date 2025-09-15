@@ -30,6 +30,7 @@ public class CreditNotes {
 
   @JsonProperty("CreditNotes")
   private List<CreditNote> creditNotes = new ArrayList<CreditNote>();
+
   /**
    * pagination
    *

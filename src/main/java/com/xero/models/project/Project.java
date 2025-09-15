@@ -87,6 +87,7 @@ public class Project {
 
   @JsonProperty("status")
   private ProjectStatus status;
+
   /**
    * Identifier of the project.
    *

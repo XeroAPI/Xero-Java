@@ -24,6 +24,7 @@ public class LinkedTransactions {
 
   @JsonProperty("LinkedTransactions")
   private List<LinkedTransaction> linkedTransactions = new ArrayList<LinkedTransaction>();
+
   /**
    * linkedTransactions
    *

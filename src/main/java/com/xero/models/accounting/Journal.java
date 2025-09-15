@@ -47,6 +47,7 @@ public class Journal {
 
   @JsonProperty("SourceID")
   private UUID sourceID;
+
   /** The journal source type. The type of transaction that created the journal */
   public enum SourceTypeEnum {
     /** ACCREC */
@@ -171,6 +172,7 @@ public class Journal {
 
   @JsonProperty("JournalLines")
   private List<JournalLine> journalLines = new ArrayList<JournalLine>();
+
   /**
    * Xero identifier
    *
@@ -231,6 +233,7 @@ public class Journal {
   public String getJournalDate() {
     return journalDate;
   }
+
   /**
    * Date the journal was posted
    *
@@ -318,6 +321,7 @@ public class Journal {
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
+
   /**
    * Created date UTC format
    *

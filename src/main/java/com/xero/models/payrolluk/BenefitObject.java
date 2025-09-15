@@ -28,6 +28,7 @@ public class BenefitObject {
 
   @JsonProperty("benefit")
   private Benefit benefit;
+
   /**
    * pagination
    *

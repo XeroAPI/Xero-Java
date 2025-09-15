@@ -50,6 +50,7 @@ public class ReportWithRow {
 
   @JsonProperty("Fields")
   private List<ReportFields> fields = new ArrayList<ReportFields>();
+
   /**
    * ID of the Report
    *
@@ -345,6 +346,7 @@ public class ReportWithRow {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Updated Date
    *

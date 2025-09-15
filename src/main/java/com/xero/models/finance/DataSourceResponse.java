@@ -55,6 +55,7 @@ public class DataSourceResponse {
 
   @JsonProperty("other")
   private Double other;
+
   /**
    * Sum of the amounts of all statement lines where the source of the data was a direct bank feed
    * in to Xero via an API integration. This could be from a bank or aggregator. This gives an
@@ -77,8 +78,8 @@ public class DataSourceResponse {
    */
   @ApiModelProperty(
       value =
-          "Sum of the amounts of all statement lines where the source of the data was a direct"
-              + " bank feed in to Xero via an API integration.   This could be from a bank or"
+          "Sum of the amounts of all statement lines where the source of the data was a direct bank"
+              + " feed in to Xero via an API integration.   This could be from a bank or"
               + " aggregator.   This gives an indication on the certainty of correctness of the"
               + " data.")
   /**
@@ -213,8 +214,8 @@ public class DataSourceResponse {
    */
   @ApiModelProperty(
       value =
-          "Sum of the amounts of all statement lines where the source of the data was a direct"
-              + " bank feed in to Xero via an API integration.   This could be from a bank or"
+          "Sum of the amounts of all statement lines where the source of the data was a direct bank"
+              + " feed in to Xero via an API integration.   This could be from a bank or"
               + " aggregator.  This gives an indication on the certainty of correctness of the"
               + " data.  Only positive transactions are included.")
   /**
@@ -359,8 +360,8 @@ public class DataSourceResponse {
    */
   @ApiModelProperty(
       value =
-          "Sum of the amounts of all statement lines where the source of the data was a direct"
-              + " bank feed in to Xero via an API integration.   This could be from a bank or"
+          "Sum of the amounts of all statement lines where the source of the data was a direct bank"
+              + " feed in to Xero via an API integration.   This could be from a bank or"
               + " aggregator.   This gives an indication on the certainty of correctness of the"
               + " data.  Only negative transactions are included.")
   /**

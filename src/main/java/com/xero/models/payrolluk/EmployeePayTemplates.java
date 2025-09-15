@@ -30,6 +30,7 @@ public class EmployeePayTemplates {
 
   @JsonProperty("earningTemplates")
   private List<EarningsTemplate> earningTemplates = new ArrayList<EarningsTemplate>();
+
   /**
    * pagination
    *

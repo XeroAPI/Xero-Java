@@ -24,6 +24,7 @@ public class Action {
 
   @JsonProperty("Name")
   private String name;
+
   /** Status of the action for this organisation */
   public enum StatusEnum {
     /** ALLOWED */
@@ -76,6 +77,7 @@ public class Action {
 
   @JsonProperty("Status")
   private StatusEnum status;
+
   /**
    * Name of the actions for this organisation
    *

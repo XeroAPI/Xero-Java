@@ -40,6 +40,7 @@ public class ContactDetail {
 
   @JsonProperty("accountCodes")
   private List<String> accountCodes = new ArrayList<String>();
+
   /**
    * ID of the contact associated with the transactions. Transactions with no contact will be
    * grouped under the special ID: 86793108-198C-46D8-90A3-43C1D12686CE. Transactions that are
@@ -64,8 +65,8 @@ public class ContactDetail {
    */
   @ApiModelProperty(
       value =
-          "ID of the contact associated with the transactions.    Transactions with no contact"
-              + " will be grouped under the special ID: 86793108-198C-46D8-90A3-43C1D12686CE.   "
+          "ID of the contact associated with the transactions.    Transactions with no contact will"
+              + " be grouped under the special ID: 86793108-198C-46D8-90A3-43C1D12686CE.   "
               + " Transactions that are receive or spend bank transfers will be grouped under the"
               + " special ID: 207322B3-6A58-4BE7-80F1-430123914AD6")
   /**

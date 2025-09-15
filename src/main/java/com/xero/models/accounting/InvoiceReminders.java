@@ -24,6 +24,7 @@ public class InvoiceReminders {
 
   @JsonProperty("InvoiceReminders")
   private List<InvoiceReminder> invoiceReminders = new ArrayList<InvoiceReminder>();
+
   /**
    * invoiceReminders
    *

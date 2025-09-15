@@ -31,6 +31,7 @@ public class TaskCreateOrUpdate {
 
   @JsonProperty("estimateMinutes")
   private Integer estimateMinutes;
+
   /**
    * Name of the task. Max length 100 characters.
    *

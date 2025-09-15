@@ -28,6 +28,7 @@ public class EmployeeWorkingPatternWithWorkingWeeksRequest {
 
   @JsonProperty("workingWeeks")
   private List<WorkingWeek> workingWeeks = new ArrayList<WorkingWeek>();
+
   /**
    * The effective date of the corresponding salary and wages
    *

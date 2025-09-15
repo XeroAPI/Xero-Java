@@ -50,6 +50,7 @@ public class TimesheetEarningsLine {
 
   @JsonProperty("isSystemGenerated")
   private Boolean isSystemGenerated;
+
   /**
    * Xero identifier for payroll earnings line
    *

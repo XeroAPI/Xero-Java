@@ -24,6 +24,7 @@ public class BrandingThemes {
 
   @JsonProperty("BrandingThemes")
   private List<BrandingTheme> brandingThemes = new ArrayList<BrandingTheme>();
+
   /**
    * brandingThemes
    *

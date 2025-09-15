@@ -36,6 +36,7 @@ public class PayTemplate {
 
   @JsonProperty("LeaveLines")
   private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
+
   /**
    * earningsLines
    *

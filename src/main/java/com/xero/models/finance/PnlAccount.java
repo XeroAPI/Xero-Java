@@ -38,6 +38,7 @@ public class PnlAccount {
 
   @JsonProperty("total")
   private Double total;
+
   /**
    * ID of the account
    *

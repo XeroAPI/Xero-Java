@@ -32,6 +32,7 @@ public class LeaveEarningsLine {
 
   @JsonProperty("PayOutType")
   private PayOutType payOutType;
+
   /**
    * Xero identifier
    *

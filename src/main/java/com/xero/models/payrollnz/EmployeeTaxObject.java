@@ -28,6 +28,7 @@ public class EmployeeTaxObject {
 
   @JsonProperty("employeeTax")
   private EmployeeTax employeeTax;
+
   /**
    * pagination
    *

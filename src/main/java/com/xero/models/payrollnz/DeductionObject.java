@@ -28,6 +28,7 @@ public class DeductionObject {
 
   @JsonProperty("deduction")
   private Deduction deduction;
+
   /**
    * pagination
    *

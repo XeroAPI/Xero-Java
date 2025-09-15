@@ -46,6 +46,7 @@ public class PayRun {
 
   @JsonProperty("totalPay")
   private Double totalPay;
+
   /** Pay run status */
   public enum PayRunStatusEnum {
     /** DRAFT */
@@ -98,6 +99,7 @@ public class PayRun {
 
   @JsonProperty("payRunStatus")
   private PayRunStatusEnum payRunStatus;
+
   /** Pay run type */
   public enum PayRunTypeEnum {
     /** SCHEDULED */
@@ -153,6 +155,7 @@ public class PayRun {
 
   @JsonProperty("payRunType")
   private PayRunTypeEnum payRunType;
+
   /** Calendar type of the pay run */
   public enum CalendarTypeEnum {
     /** WEEKLY */
@@ -223,6 +226,7 @@ public class PayRun {
 
   @JsonProperty("paySlips")
   private List<Payslip> paySlips = new ArrayList<Payslip>();
+
   /**
    * Xero unique identifier for the pay run
    *

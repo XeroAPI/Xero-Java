@@ -26,6 +26,7 @@ public class LeaveAccrualLine {
 
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
+
   /**
    * Xero identifier for the Leave type
    *

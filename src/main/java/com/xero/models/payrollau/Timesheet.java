@@ -54,6 +54,7 @@ public class Timesheet {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * The Xero identifier for an employee
    *
@@ -120,6 +121,7 @@ public class Timesheet {
   public String getStartDate() {
     return startDate;
   }
+
   /**
    * Period start date (YYYY-MM-DD)
    *
@@ -186,6 +188,7 @@ public class Timesheet {
   public String getEndDate() {
     return endDate;
   }
+
   /**
    * Period end date (YYYY-MM-DD)
    *
@@ -394,6 +397,7 @@ public class Timesheet {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

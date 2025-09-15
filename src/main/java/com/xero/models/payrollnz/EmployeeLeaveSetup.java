@@ -56,6 +56,7 @@ public class EmployeeLeaveSetup {
 
   @JsonProperty("AnnualLeaveAnniversaryDate")
   private LocalDate annualLeaveAnniversaryDate;
+
   /**
    * Identifier if holiday pay will be included in each payslip
    *
@@ -351,9 +352,8 @@ public class EmployeeLeaveSetup {
   @ApiModelProperty(
       example = "200.5",
       value =
-          "Maximum number of units accrued annually for sick leave. The type of units is"
-              + " determined by the property \"TypeOfUnitsToAccrue\" on the \"Sick Leave\" leave"
-              + " type")
+          "Maximum number of units accrued annually for sick leave. The type of units is determined"
+              + " by the property \"TypeOfUnitsToAccrue\" on the \"Sick Leave\" leave type")
   /**
    * Maximum number of units accrued annually for sick leave. The type of units is determined by the
    * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type

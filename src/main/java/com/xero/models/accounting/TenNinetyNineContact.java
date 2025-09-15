@@ -94,6 +94,7 @@ public class TenNinetyNineContact {
 
   @JsonProperty("BusinessName")
   private String businessName;
+
   /** Contact federal tax classification */
   public enum FederalTaxClassificationEnum {
     /** SOLE_PROPRIETOR */
@@ -161,6 +162,7 @@ public class TenNinetyNineContact {
 
   @JsonProperty("FederalTaxClassification")
   private FederalTaxClassificationEnum federalTaxClassification;
+
   /**
    * Box 1 on 1099 Form
    *

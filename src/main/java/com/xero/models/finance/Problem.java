@@ -31,6 +31,7 @@ public class Problem {
 
   @JsonProperty("detail")
   private String detail;
+
   /**
    * type
    *

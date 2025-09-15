@@ -47,6 +47,7 @@ public class EarningsLine {
 
   @JsonProperty("FixedAmount")
   private Double fixedAmount;
+
   /**
    * Xero unique id for earnings rate
    *

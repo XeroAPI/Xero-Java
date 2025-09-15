@@ -34,6 +34,7 @@ public class CashAccountResponse {
 
   @JsonProperty("balanceCurrency")
   private String balanceCurrency;
+
   /**
    * Total value of transactions in the journals which are not reconciled to bank statement lines,
    * and have a positive (debit) value.

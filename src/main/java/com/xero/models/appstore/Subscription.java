@@ -43,6 +43,7 @@ public class Subscription {
 
   @JsonProperty("startDate")
   private LocalDateTime startDate;
+
   /** Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE. */
   public enum StatusEnum {
     /** ACTIVE */
@@ -101,6 +102,7 @@ public class Subscription {
 
   @JsonProperty("testMode")
   private Boolean testMode;
+
   /**
    * End of the current period that the subscription has been invoiced for.
    *

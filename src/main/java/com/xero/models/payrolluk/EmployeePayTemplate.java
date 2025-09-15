@@ -28,6 +28,7 @@ public class EmployeePayTemplate {
 
   @JsonProperty("earningTemplates")
   private List<EarningsTemplate> earningTemplates = new ArrayList<EarningsTemplate>();
+
   /**
    * Unique identifier for the employee
    *

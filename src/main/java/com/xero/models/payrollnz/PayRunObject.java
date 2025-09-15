@@ -28,6 +28,7 @@ public class PayRunObject {
 
   @JsonProperty("payRun")
   private PayRun payRun;
+
   /**
    * pagination
    *

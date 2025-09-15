@@ -31,6 +31,7 @@ public class TrialBalanceResponse {
 
   @JsonProperty("accounts")
   private List<TrialBalanceAccount> accounts = new ArrayList<TrialBalanceAccount>();
+
   /**
    * Start date of the report
    *

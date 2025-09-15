@@ -44,6 +44,7 @@ public class LeaveLine {
 
   @JsonProperty("FullTimeNumberOfUnitsPerPeriod")
   private Double fullTimeNumberOfUnitsPerPeriod;
+
   /**
    * Xero leave type identifier
    *

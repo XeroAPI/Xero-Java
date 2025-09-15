@@ -40,6 +40,7 @@ public class PaymentService {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * Xero identifier
    *
@@ -165,8 +166,8 @@ public class PaymentService {
    */
   @ApiModelProperty(
       value =
-          "The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set"
-              + " it will default to Pay by credit card")
+          "The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it"
+              + " will default to Pay by credit card")
   /**
    * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will
    * default to Pay by credit card

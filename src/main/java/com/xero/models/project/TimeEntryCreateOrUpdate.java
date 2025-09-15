@@ -36,6 +36,7 @@ public class TimeEntryCreateOrUpdate {
 
   @JsonProperty("description")
   private String description;
+
   /**
    * The xero user identifier of the person logging the time.
    *

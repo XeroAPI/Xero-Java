@@ -25,6 +25,7 @@ public class BankStatementResponse {
 
   @JsonProperty("currentStatement")
   private CurrentStatementResponse currentStatement;
+
   /**
    * statementLines
    *

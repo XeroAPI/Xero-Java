@@ -28,6 +28,7 @@ public class TotalDetail {
 
   @JsonProperty("totalCreditedUnApplied")
   private Double totalCreditedUnApplied;
+
   /**
    * Total paid invoice and cash value within the period.
    *

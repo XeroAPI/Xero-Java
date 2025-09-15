@@ -26,6 +26,7 @@ public class UsageRecordsList {
 
   @JsonProperty("usageRecords")
   private List<UsageRecord> usageRecords = new ArrayList<UsageRecord>();
+
   /**
    * A collection of usage records
    *

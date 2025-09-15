@@ -34,6 +34,7 @@ public class Reimbursement {
 
   @JsonProperty("currentRecord")
   private Boolean currentRecord;
+
   /** See Reimbursement Categories */
   public enum ReimbursementCategoryEnum {
     /** GST */
@@ -89,6 +90,7 @@ public class Reimbursement {
 
   @JsonProperty("reimbursementCategory")
   private ReimbursementCategoryEnum reimbursementCategory;
+
   /** See Calculation Types */
   public enum CalculationTypeEnum {
     /** UNKNOWN */
@@ -147,6 +149,7 @@ public class Reimbursement {
 
   @JsonProperty("standardAmount")
   private String standardAmount;
+
   /** Optional Type Of Units. Applicable when calculation type is Rate Per Unit */
   public enum StandardTypeOfUnitsEnum {
     /** HOURS */
@@ -202,6 +205,7 @@ public class Reimbursement {
 
   @JsonProperty("standardRatePerUnit")
   private Double standardRatePerUnit;
+
   /**
    * Xero unique identifier for a reimbursement
    *

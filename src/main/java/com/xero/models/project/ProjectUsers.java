@@ -27,6 +27,7 @@ public class ProjectUsers {
 
   @JsonProperty("items")
   private List<ProjectUser> items = new ArrayList<ProjectUser>();
+
   /**
    * pagination
    *

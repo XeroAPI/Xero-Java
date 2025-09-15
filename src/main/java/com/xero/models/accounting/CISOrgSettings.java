@@ -24,6 +24,7 @@ public class CISOrgSettings {
 
   @JsonProperty("CISSettings")
   private List<CISOrgSetting> ciSSettings = new ArrayList<CISOrgSetting>();
+
   /**
    * ciSSettings
    *

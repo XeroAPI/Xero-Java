@@ -29,6 +29,7 @@ public class EmployeeStatutoryLeaveSummary {
 
   @JsonProperty("employeeID")
   private UUID employeeID;
+
   /** The category of statutory leave */
   public enum TypeEnum {
     /** SICK */
@@ -99,6 +100,7 @@ public class EmployeeStatutoryLeaveSummary {
 
   @JsonProperty("isEntitled")
   private Boolean isEntitled;
+
   /** The status of the leave */
   public enum StatusEnum {
     /** PENDING */
@@ -154,6 +156,7 @@ public class EmployeeStatutoryLeaveSummary {
 
   @JsonProperty("status")
   private StatusEnum status;
+
   /**
    * The unique identifier (guid) of a statutory leave.
    *

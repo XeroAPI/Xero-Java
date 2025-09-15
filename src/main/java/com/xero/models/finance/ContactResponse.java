@@ -26,6 +26,7 @@ public class ContactResponse {
 
   @JsonProperty("contactName")
   private String contactName;
+
   /**
    * Xero Identifier of contact
    *

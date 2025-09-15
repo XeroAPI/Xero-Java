@@ -31,6 +31,7 @@ public class LeavePeriod {
 
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
+
   /** Period Status */
   public enum PeriodStatusEnum {
     /** APPROVED */
@@ -83,6 +84,7 @@ public class LeavePeriod {
 
   @JsonProperty("periodStatus")
   private PeriodStatusEnum periodStatus;
+
   /**
    * The Pay Period Start Date (YYYY-MM-DD)
    *

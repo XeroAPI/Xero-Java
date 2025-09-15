@@ -28,6 +28,7 @@ public class EmployeeLeaveTypeObject {
 
   @JsonProperty("leaveType")
   private EmployeeLeaveType leaveType;
+
   /**
    * pagination
    *

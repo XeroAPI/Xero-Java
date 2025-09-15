@@ -24,6 +24,7 @@ public class PayrollCalendars {
 
   @JsonProperty("PayrollCalendars")
   private List<PayrollCalendar> payrollCalendars = new ArrayList<PayrollCalendar>();
+
   /**
    * payrollCalendars
    *

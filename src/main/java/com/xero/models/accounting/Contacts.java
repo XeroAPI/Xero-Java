@@ -30,6 +30,7 @@ public class Contacts {
 
   @JsonProperty("Contacts")
   private List<Contact> contacts = new ArrayList<Contact>();
+
   /**
    * pagination
    *

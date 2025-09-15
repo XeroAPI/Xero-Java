@@ -31,6 +31,7 @@ public class Pagination {
 
   @JsonProperty("itemCount")
   private Integer itemCount;
+
   /**
    * Page number which specifies the set of records to retrieve. Example -
    * https://api.xero.com/bankfeeds.xro/1.0/Statements?page&#x3D;2 to get the second set of the
@@ -57,9 +58,9 @@ public class Pagination {
       example = "1",
       value =
           "Page number which specifies the set of records to retrieve. Example -"
-              + " https://api.xero.com/bankfeeds.xro/1.0/Statements?page=2 to get the second set"
-              + " of the records. When page value is not a number or a negative number, by"
-              + " default, the first set of records is returned.")
+              + " https://api.xero.com/bankfeeds.xro/1.0/Statements?page=2 to get the second set of"
+              + " the records. When page value is not a number or a negative number, by default,"
+              + " the first set of records is returned.")
   /**
    * Page number which specifies the set of records to retrieve. Example -
    * https://api.xero.com/bankfeeds.xro/1.0/Statements?page&#x3D;2 to get the second set of the

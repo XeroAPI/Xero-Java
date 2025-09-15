@@ -31,6 +31,7 @@ public class ContactTotalOther {
 
   @JsonProperty("transactionCount")
   private Integer transactionCount;
+
   /**
    * Total outstanding invoice value for the contact within the period where the invoices are more
    * than 90 days old
@@ -51,8 +52,8 @@ public class ContactTotalOther {
    */
   @ApiModelProperty(
       value =
-          "Total outstanding invoice value for the contact within the period where the invoices"
-              + " are more than 90 days old")
+          "Total outstanding invoice value for the contact within the period where the invoices are"
+              + " more than 90 days old")
   /**
    * Total outstanding invoice value for the contact within the period where the invoices are more
    * than 90 days old

@@ -29,6 +29,7 @@ import org.threeten.bp.ZoneId;
 /** Overpayment */
 public class Overpayment {
   StringUtil util = new StringUtil();
+
   /** See Overpayment Types */
   public enum TypeEnum {
     /** RECEIVE_OVERPAYMENT */
@@ -90,6 +91,7 @@ public class Overpayment {
 
   @JsonProperty("Date")
   private String date;
+
   /** See Overpayment Status Codes */
   public enum StatusEnum {
     /** AUTHORISED */
@@ -190,6 +192,7 @@ public class Overpayment {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
+
   /**
    * See Overpayment Types
    *
@@ -285,6 +288,7 @@ public class Overpayment {
   public String getDate() {
     return date;
   }
+
   /**
    * The date the overpayment is created YYYY-MM-DD
    *
@@ -563,6 +567,7 @@ public class Overpayment {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * UTC timestamp of last update to the overpayment
    *

@@ -28,6 +28,7 @@ public class PayRunCalendarObject {
 
   @JsonProperty("payRunCalendar")
   private PayRunCalendar payRunCalendar;
+
   /**
    * pagination
    *

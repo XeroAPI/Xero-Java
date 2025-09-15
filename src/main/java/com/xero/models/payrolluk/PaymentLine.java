@@ -35,6 +35,7 @@ public class PaymentLine {
 
   @JsonProperty("accountName")
   private String accountName;
+
   /**
    * Xero identifier for payroll payment line
    *

@@ -30,6 +30,7 @@ public class BalanceSheetAccountType {
 
   @JsonProperty("total")
   private Double total;
+
   /**
    * The type of the account. See &lt;a
    * href&#x3D;&#39;https://developer.xero.com/documentation/api/types#AccountTypes&#39;&gt;Account
@@ -112,8 +113,8 @@ public class BalanceSheetAccountType {
    */
   @ApiModelProperty(
       value =
-          "A list of all accounts of this type. Refer to the Account section below for each"
-              + " account element detail.")
+          "A list of all accounts of this type. Refer to the Account section below for each account"
+              + " element detail.")
   /**
    * A list of all accounts of this type. Refer to the Account section below for each account
    * element detail.

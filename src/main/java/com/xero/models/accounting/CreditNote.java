@@ -29,6 +29,7 @@ import org.threeten.bp.ZoneId;
 /** CreditNote */
 public class CreditNote {
   StringUtil util = new StringUtil();
+
   /** See Credit Note Types */
   public enum TypeEnum {
     /** ACCPAYCREDIT */
@@ -90,6 +91,7 @@ public class CreditNote {
 
   @JsonProperty("DueDate")
   private String dueDate;
+
   /** See Credit Note Status Codes */
   public enum StatusEnum {
     /** DRAFT */
@@ -232,6 +234,7 @@ public class CreditNote {
 
   @JsonProperty("InvoiceAddresses")
   private List<InvoiceAddress> invoiceAddresses = new ArrayList<InvoiceAddress>();
+
   /**
    * See Credit Note Types
    *
@@ -322,8 +325,8 @@ public class CreditNote {
    */
   @ApiModelProperty(
       value =
-          "The date the credit note is issued YYYY-MM-DD. If the Date element is not specified"
-              + " then it will default to the current date based on the timezone setting of the"
+          "The date the credit note is issued YYYY-MM-DD. If the Date element is not specified then"
+              + " it will default to the current date based on the timezone setting of the"
               + " organisation")
   /**
    * The date the credit note is issued YYYY-MM-DD. If the Date element is not specified then it
@@ -334,6 +337,7 @@ public class CreditNote {
   public String getDate() {
     return date;
   }
+
   /**
    * The date the credit note is issued YYYY-MM-DD. If the Date element is not specified then it
    * will default to the current date based on the timezone setting of the organisation
@@ -400,6 +404,7 @@ public class CreditNote {
   public String getDueDate() {
     return dueDate;
   }
+
   /**
    * Date invoice is due – YYYY-MM-DD
    *
@@ -708,6 +713,7 @@ public class CreditNote {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * UTC timestamp of last update to the credit note
    *
@@ -784,6 +790,7 @@ public class CreditNote {
   public String getFullyPaidOnDate() {
     return fullyPaidOnDate;
   }
+
   /**
    * Date when credit note was fully paid(UTC format)
    *

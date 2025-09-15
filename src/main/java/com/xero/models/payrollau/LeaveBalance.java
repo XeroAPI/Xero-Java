@@ -31,6 +31,7 @@ public class LeaveBalance {
 
   @JsonProperty("TypeOfUnits")
   private String typeOfUnits;
+
   /**
    * The name of the leave type
    *

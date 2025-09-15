@@ -25,6 +25,7 @@ public class InvalidField {
 
   @JsonProperty("reason")
   private String reason;
+
   /**
    * The name of the field that caused the error
    *

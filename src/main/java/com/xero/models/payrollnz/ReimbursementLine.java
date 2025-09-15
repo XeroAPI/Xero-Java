@@ -35,6 +35,7 @@ public class ReimbursementLine {
 
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
+
   /**
    * Xero identifier for payroll reimbursement
    *

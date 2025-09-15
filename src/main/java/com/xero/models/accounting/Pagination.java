@@ -31,6 +31,7 @@ public class Pagination {
 
   @JsonProperty("itemCount")
   private Integer itemCount;
+
   /**
    * page
    *

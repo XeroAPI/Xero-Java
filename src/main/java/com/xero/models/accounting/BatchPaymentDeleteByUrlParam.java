@@ -22,6 +22,7 @@ public class BatchPaymentDeleteByUrlParam {
 
   @JsonProperty("Status")
   private String status = "DELETED";
+
   /**
    * The status of the batch payment.
    *

@@ -37,6 +37,7 @@ public class BankAccount {
 
   @JsonProperty("Amount")
   private Double amount;
+
   /**
    * The text that will appear on your employee&#39;s bank statement when they receive payment
    *

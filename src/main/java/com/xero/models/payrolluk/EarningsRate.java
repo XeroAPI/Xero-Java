@@ -28,6 +28,7 @@ public class EarningsRate {
 
   @JsonProperty("name")
   private String name;
+
   /** Indicates how an employee will be paid when taking this type of earning */
   public enum EarningsTypeEnum {
     /** ALLOWANCE */
@@ -149,6 +150,7 @@ public class EarningsRate {
 
   @JsonProperty("earningsType")
   private EarningsTypeEnum earningsType;
+
   /** Indicates the type of the earning rate */
   public enum RateTypeEnum {
     /** RATEPERUNIT */
@@ -222,6 +224,7 @@ public class EarningsRate {
 
   @JsonProperty("fixedAmount")
   private Double fixedAmount;
+
   /**
    * Xero unique identifier for an earning rate
    *

@@ -30,6 +30,7 @@ public class PayRunCalendar {
 
   @JsonProperty("name")
   private String name;
+
   /** Type of the calendar */
   public enum CalendarTypeEnum {
     /** WEEKLY */
@@ -106,6 +107,7 @@ public class PayRunCalendar {
 
   @JsonProperty("updatedDateUTC")
   private LocalDateTime updatedDateUTC;
+
   /**
    * Xero unique identifier for the payroll calendar
    *

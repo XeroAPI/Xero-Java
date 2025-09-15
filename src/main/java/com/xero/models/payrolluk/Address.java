@@ -34,6 +34,7 @@ public class Address {
 
   @JsonProperty("countryName")
   private String countryName;
+
   /**
    * Address line 1 for employee home address
    *

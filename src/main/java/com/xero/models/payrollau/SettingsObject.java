@@ -22,6 +22,7 @@ public class SettingsObject {
 
   @JsonProperty("Settings")
   private Settings settings;
+
   /**
    * settings
    *

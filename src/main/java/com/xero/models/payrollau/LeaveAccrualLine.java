@@ -29,6 +29,7 @@ public class LeaveAccrualLine {
 
   @JsonProperty("AutoCalculate")
   private Boolean autoCalculate;
+
   /**
    * Xero identifier for the Leave type.
    *

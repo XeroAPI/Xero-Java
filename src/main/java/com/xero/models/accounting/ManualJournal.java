@@ -41,6 +41,7 @@ public class ManualJournal {
 
   @JsonProperty("LineAmountTypes")
   private LineAmountTypes lineAmountTypes;
+
   /** See Manual Journal Status Codes */
   public enum StatusEnum {
     /** DRAFT */
@@ -129,6 +130,7 @@ public class ManualJournal {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
+
   /**
    * Description of journal being posted
    *
@@ -238,6 +240,7 @@ public class ManualJournal {
   public String getDate() {
     return date;
   }
+
   /**
    * Date journal was posted – YYYY-MM-DD
    *
@@ -448,6 +451,7 @@ public class ManualJournal {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified date UTC format
    *

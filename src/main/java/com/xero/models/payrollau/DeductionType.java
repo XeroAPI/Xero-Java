@@ -45,6 +45,7 @@ public class DeductionType {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
   /** Gets or Sets deductionCategory */
   public enum DeductionCategoryEnum {
     /** NONE */
@@ -103,6 +104,7 @@ public class DeductionType {
 
   @JsonProperty("CurrentRecord")
   private Boolean currentRecord;
+
   /**
    * Name of the earnings rate (max length &#x3D; 100)
    *
@@ -345,6 +347,7 @@ public class DeductionType {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

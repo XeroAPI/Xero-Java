@@ -24,6 +24,7 @@ public class Currencies {
 
   @JsonProperty("Currencies")
   private List<Currency> currencies = new ArrayList<Currency>();
+
   /**
    * currencies
    *

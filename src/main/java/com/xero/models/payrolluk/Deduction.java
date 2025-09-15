@@ -28,6 +28,7 @@ public class Deduction {
 
   @JsonProperty("deductionName")
   private String deductionName;
+
   /** Deduction Category type */
   public enum DeductionCategoryEnum {
     /** CAPITALCONTRIBUTIONS */
@@ -119,6 +120,7 @@ public class Deduction {
 
   @JsonProperty("reducesTaxLiability")
   private Boolean reducesTaxLiability;
+
   /** determine the calculation type whether fixed amount or percentage of gross */
   public enum CalculationTypeEnum {
     /** FIXEDAMOUNT */
@@ -192,6 +194,7 @@ public class Deduction {
 
   @JsonProperty("isPension")
   private Boolean isPension;
+
   /**
    * The Xero identifier for Deduction
    *

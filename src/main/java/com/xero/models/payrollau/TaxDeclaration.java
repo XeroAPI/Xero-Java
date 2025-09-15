@@ -86,6 +86,7 @@ public class TaxDeclaration {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
   /**
    * Address line 1 for employee home address
    *
@@ -247,8 +248,8 @@ public class TaxDeclaration {
   @ApiModelProperty(
       example = "21006819692",
       value =
-          "11-digit Australian Business Number e.g 21006819692 or an empty string (\"\") to unset"
-              + " a previously set value. Only applicable, and mandatory if income type is"
+          "11-digit Australian Business Number e.g 21006819692 or an empty string (\"\") to unset a"
+              + " previously set value. Only applicable, and mandatory if income type is"
               + " NONEMPLOYEE.")
   /**
    * 11-digit Australian Business Number e.g 21006819692 or an empty string (\&quot;\&quot;) to
@@ -850,6 +851,7 @@ public class TaxDeclaration {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

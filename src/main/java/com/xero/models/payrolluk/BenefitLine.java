@@ -35,6 +35,7 @@ public class BenefitLine {
 
   @JsonProperty("percentage")
   private Double percentage;
+
   /**
    * Xero identifier for payroll benefit type
    *

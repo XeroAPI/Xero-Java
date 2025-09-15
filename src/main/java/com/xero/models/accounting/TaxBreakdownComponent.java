@@ -26,6 +26,7 @@ public class TaxBreakdownComponent {
 
   @JsonProperty("TaxComponentId")
   private UUID taxComponentId;
+
   /** The type of the jurisdiction */
   public enum TypeEnum {
     /** USCOUNTRY */
@@ -111,6 +112,7 @@ public class TaxBreakdownComponent {
 
   @JsonProperty("JurisdictionRegion")
   private String jurisdictionRegion;
+
   /**
    * The unique ID number of this component
    *

@@ -34,6 +34,7 @@ public class ResourceValidationErrorsElement {
 
   @JsonProperty("detail")
   private String detail;
+
   /**
    * The field name of the erroneous field
    *

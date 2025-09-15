@@ -45,6 +45,7 @@ public class LeaveType {
 
   @JsonProperty("isStatutoryLeave")
   private Boolean isStatutoryLeave;
+
   /**
    * Xero unique identifier for the leave
    *

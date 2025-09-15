@@ -62,6 +62,7 @@ public class BatchPayment {
 
   @JsonProperty("Payments")
   private List<Payment> payments = new ArrayList<Payment>();
+
   /** PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only) */
   public enum TypeEnum {
     /** PAYBATCH */
@@ -114,6 +115,7 @@ public class BatchPayment {
 
   @JsonProperty("Type")
   private TypeEnum type;
+
   /**
    * AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED. It is
    * not possible to delete batch payments via the API.
@@ -181,6 +183,7 @@ public class BatchPayment {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * account
    *
@@ -240,8 +243,8 @@ public class BatchPayment {
       value =
           "(NZ Only) Optional references for the batch payment transaction. It will also show with"
               + " the batch payment transaction in the bank reconciliation Find & Match screen."
-              + " Depending on your individual bank, the detail may also show on the bank"
-              + " statement you import into Xero.")
+              + " Depending on your individual bank, the detail may also show on the bank statement"
+              + " you import into Xero.")
   /**
    * (NZ Only) Optional references for the batch payment transaction. It will also show with the
    * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
@@ -288,8 +291,8 @@ public class BatchPayment {
       value =
           "(NZ Only) Optional references for the batch payment transaction. It will also show with"
               + " the batch payment transaction in the bank reconciliation Find & Match screen."
-              + " Depending on your individual bank, the detail may also show on the bank"
-              + " statement you import into Xero.")
+              + " Depending on your individual bank, the detail may also show on the bank statement"
+              + " you import into Xero.")
   /**
    * (NZ Only) Optional references for the batch payment transaction. It will also show with the
    * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
@@ -336,8 +339,8 @@ public class BatchPayment {
       value =
           "(NZ Only) Optional references for the batch payment transaction. It will also show with"
               + " the batch payment transaction in the bank reconciliation Find & Match screen."
-              + " Depending on your individual bank, the detail may also show on the bank"
-              + " statement you import into Xero.")
+              + " Depending on your individual bank, the detail may also show on the bank statement"
+              + " you import into Xero.")
   /**
    * (NZ Only) Optional references for the batch payment transaction. It will also show with the
    * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
@@ -524,6 +527,7 @@ public class BatchPayment {
   public String getDate() {
     return date;
   }
+
   /**
    * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
    *
@@ -582,8 +586,8 @@ public class BatchPayment {
    */
   @ApiModelProperty(
       value =
-          "The amount of the payment. Must be less than or equal to the outstanding amount owing"
-              + " on the invoice e.g. 200.00")
+          "The amount of the payment. Must be less than or equal to the outstanding amount owing on"
+              + " the invoice e.g. 200.00")
   /**
    * The amount of the payment. Must be less than or equal to the outstanding amount owing on the
    * invoice e.g. 200.00
@@ -720,6 +724,7 @@ public class BatchPayment {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * UTC timestamp of last update to the payment
    *

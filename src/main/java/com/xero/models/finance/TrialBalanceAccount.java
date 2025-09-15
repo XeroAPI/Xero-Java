@@ -50,6 +50,7 @@ public class TrialBalanceAccount {
 
   @JsonProperty("accountMovement")
   private TrialBalanceMovement accountMovement;
+
   /**
    * ID of the account
    *

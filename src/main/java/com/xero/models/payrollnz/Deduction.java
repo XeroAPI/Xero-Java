@@ -28,6 +28,7 @@ public class Deduction {
 
   @JsonProperty("deductionName")
   private String deductionName;
+
   /** Deduction Category type */
   public enum DeductionCategoryEnum {
     /** PAYROLLGIVING */
@@ -95,6 +96,7 @@ public class Deduction {
 
   @JsonProperty("standardAmount")
   private Double standardAmount;
+
   /**
    * The Xero identifier for Deduction
    *

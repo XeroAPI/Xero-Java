@@ -33,6 +33,7 @@ public class ReportRows {
 
   @JsonProperty("Rows")
   private List<ReportRow> rows = new ArrayList<ReportRow>();
+
   /**
    * rowType
    *

@@ -23,6 +23,7 @@ import java.util.Objects;
 /** PaymentMethod */
 public class PaymentMethod {
   StringUtil util = new StringUtil();
+
   /** The payment method code */
   public enum PaymentMethodEnum {
     /** CHEQUE */
@@ -81,6 +82,7 @@ public class PaymentMethod {
 
   @JsonProperty("bankAccounts")
   private List<BankAccount> bankAccounts = new ArrayList<BankAccount>();
+
   /**
    * The payment method code
    *

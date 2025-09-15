@@ -24,6 +24,7 @@ public class TaxRates {
 
   @JsonProperty("TaxRates")
   private List<TaxRate> taxRates = new ArrayList<TaxRate>();
+
   /**
    * taxRates
    *

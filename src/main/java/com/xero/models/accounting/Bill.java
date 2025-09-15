@@ -25,6 +25,7 @@ public class Bill {
 
   @JsonProperty("Type")
   private PaymentTermType type;
+
   /**
    * Day of Month (0-31)
    *

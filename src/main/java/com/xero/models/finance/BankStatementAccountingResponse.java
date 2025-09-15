@@ -34,6 +34,7 @@ public class BankStatementAccountingResponse {
 
   @JsonProperty("statements")
   private List<StatementResponse> statements = new ArrayList<StatementResponse>();
+
   /**
    * Xero Identifier of bank account
    *

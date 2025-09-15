@@ -27,6 +27,7 @@ public class Assets {
 
   @JsonProperty("items")
   private List<Asset> items = new ArrayList<Asset>();
+
   /**
    * pagination
    *

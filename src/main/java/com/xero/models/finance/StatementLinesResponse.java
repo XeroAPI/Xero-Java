@@ -71,6 +71,7 @@ public class StatementLinesResponse {
 
   @JsonProperty("totalAmountNeg")
   private Double totalAmountNeg;
+
   /**
    * Sum of the amounts of all statement lines where both the reconciled flag is set to FALSE, and
    * the amount is positive.
@@ -605,8 +606,8 @@ public class StatementLinesResponse {
    */
   @ApiModelProperty(
       value =
-          "Sum of the amounts of all statement lines where both the reconciled flag is set to"
-              + " TRUE, and the amount is positive.")
+          "Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE,"
+              + " and the amount is positive.")
   /**
    * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and
    * the amount is positive.
@@ -647,8 +648,8 @@ public class StatementLinesResponse {
    */
   @ApiModelProperty(
       value =
-          "Sum of the amounts of all statement lines where both the reconciled flag is set to"
-              + " TRUE, and the amount is negative.")
+          "Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE,"
+              + " and the amount is negative.")
   /**
    * Sum of the amounts of all statement lines where both the reconciled flag is set to TRUE, and
    * the amount is negative.

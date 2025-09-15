@@ -32,6 +32,7 @@ public class EmployeeOpeningBalance {
 
   @JsonProperty("grossEarnings")
   private Double grossEarnings;
+
   /**
    * The opening balance period end date.
    *

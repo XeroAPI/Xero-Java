@@ -28,6 +28,7 @@ public class TrackingCategories {
 
   @JsonProperty("trackingCategories")
   private TrackingCategory trackingCategories;
+
   /**
    * pagination
    *

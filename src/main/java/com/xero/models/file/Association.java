@@ -41,6 +41,7 @@ public class Association {
 
   @JsonProperty("ObjectType")
   private ObjectType objectType;
+
   /**
    * Boolean flag to determines whether the file is sent with the document it is attached to on
    * client facing communications. Note- The SendWithObject element is only returned when using

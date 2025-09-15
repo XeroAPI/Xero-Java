@@ -35,6 +35,7 @@ public class ProfitAndLossResponse {
 
   @JsonProperty("expense")
   private PnlAccountClass expense;
+
   /**
    * Start date of the report
    *

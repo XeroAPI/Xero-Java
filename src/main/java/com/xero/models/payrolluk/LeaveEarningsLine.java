@@ -38,6 +38,7 @@ public class LeaveEarningsLine {
 
   @JsonProperty("isLinkedToTimesheet")
   private Boolean isLinkedToTimesheet;
+
   /**
    * Xero identifier for payroll leave earnings rate
    *

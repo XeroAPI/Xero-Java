@@ -49,6 +49,7 @@ public class StatementLine {
 
   @JsonProperty("transactionType")
   private String transactionType;
+
   /**
    * The date that the transaction was processed or cleared as seen in internet banking ISO-8601
    * YYYY-MM-DD

@@ -27,6 +27,7 @@ public class PnlAccountClass {
 
   @JsonProperty("accountTypes")
   private List<PnlAccountType> accountTypes = new ArrayList<PnlAccountType>();
+
   /**
    * Total revenue/expense value
    *

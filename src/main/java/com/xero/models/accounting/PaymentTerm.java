@@ -25,6 +25,7 @@ public class PaymentTerm {
 
   @JsonProperty("Sales")
   private Bill sales;
+
   /**
    * bills
    *

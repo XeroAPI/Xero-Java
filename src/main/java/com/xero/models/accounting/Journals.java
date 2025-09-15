@@ -27,6 +27,7 @@ public class Journals {
 
   @JsonProperty("Journals")
   private List<Journal> journals = new ArrayList<Journal>();
+
   /**
    * Displays array of warning messages from the API
    *

@@ -43,6 +43,7 @@ public class EmployeeTax {
 
   @JsonProperty("esctRatePercentage")
   private Double esctRatePercentage;
+
   /**
    * Contribution Option which can be &#39;MakeContributions&#39; &#39;OptOut&#39;,
    * &#39;OnAContributionsHoliday&#39;, &#39;OnASavingsSuspension&#39;,
@@ -132,6 +133,7 @@ public class EmployeeTax {
 
   @JsonProperty("studentLoanAsAt")
   private LocalDate studentLoanAsAt;
+
   /**
    * The IRD Number.
    *
@@ -401,8 +403,8 @@ public class EmployeeTax {
       example = "MakeContributions",
       value =
           "Contribution Option which can be 'MakeContributions' 'OptOut',"
-              + " 'OnAContributionsHoliday', 'OnASavingsSuspension',"
-              + " 'NotCurrentlyAKiwiSaverMember' for employees without a KiwiSaver membership")
+              + " 'OnAContributionsHoliday', 'OnASavingsSuspension', 'NotCurrentlyAKiwiSaverMember'"
+              + " for employees without a KiwiSaver membership")
   /**
    * Contribution Option which can be &#39;MakeContributions&#39; &#39;OptOut&#39;,
    * &#39;OnAContributionsHoliday&#39;, &#39;OnASavingsSuspension&#39;,

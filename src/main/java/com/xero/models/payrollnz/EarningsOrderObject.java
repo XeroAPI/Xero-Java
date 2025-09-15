@@ -28,6 +28,7 @@ public class EarningsOrderObject {
 
   @JsonProperty("statutoryDeduction")
   private EarningsOrder statutoryDeduction;
+
   /**
    * pagination
    *

@@ -82,6 +82,7 @@ public class EarningsRate {
 
   @JsonProperty("AllowanceCategory")
   private AllowanceCategory allowanceCategory;
+
   /**
    * Name of the earnings rate (max length &#x3D; 100)
    *
@@ -212,8 +213,8 @@ public class EarningsRate {
   @ApiModelProperty(
       example = "false",
       value =
-          "Most payments are subject to tax, so you should only set this value if you are sure"
-              + " that a payment is exempt from PAYG withholding")
+          "Most payments are subject to tax, so you should only set this value if you are sure that"
+              + " a payment is exempt from PAYG withholding")
   /**
    * Most payments are subject to tax, so you should only set this value if you are sure that a
    * payment is exempt from PAYG withholding
@@ -715,6 +716,7 @@ public class EarningsRate {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

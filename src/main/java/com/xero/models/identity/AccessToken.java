@@ -34,6 +34,7 @@ public class AccessToken {
 
   @JsonProperty("refresh_token")
   private String refreshToken;
+
   /**
    * Xero unique identifier
    *

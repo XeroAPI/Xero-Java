@@ -32,6 +32,7 @@ public class ReimbursementLine {
 
   @JsonProperty("ExpenseAccount")
   private String expenseAccount;
+
   /**
    * Xero reimbursement type identifier
    *

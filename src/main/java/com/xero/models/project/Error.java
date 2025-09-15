@@ -25,6 +25,7 @@ public class Error {
 
   @JsonProperty("modelState")
   private Object modelState;
+
   /**
    * Exception message
    *

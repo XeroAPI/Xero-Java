@@ -35,6 +35,7 @@ public class StatutoryDeduction {
 
   @JsonProperty("currentRecord")
   private Boolean currentRecord;
+
   /**
    * The Xero identifier for earnings order
    *

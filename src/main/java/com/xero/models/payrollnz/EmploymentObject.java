@@ -28,6 +28,7 @@ public class EmploymentObject {
 
   @JsonProperty("employment")
   private Employment employment;
+
   /**
    * pagination
    *

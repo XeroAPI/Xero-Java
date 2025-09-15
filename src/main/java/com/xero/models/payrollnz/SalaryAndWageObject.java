@@ -28,6 +28,7 @@ public class SalaryAndWageObject {
 
   @JsonProperty("salaryAndWages")
   private SalaryAndWage salaryAndWages;
+
   /**
    * pagination
    *

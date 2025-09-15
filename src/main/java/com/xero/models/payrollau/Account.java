@@ -32,6 +32,7 @@ public class Account {
 
   @JsonProperty("Name")
   private String name;
+
   /**
    * Xero identifier for accounts
    *

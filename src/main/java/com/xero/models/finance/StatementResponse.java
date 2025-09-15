@@ -54,6 +54,7 @@ public class StatementResponse {
 
   @JsonProperty("statementLines")
   private List<StatementLineResponse> statementLines = new ArrayList<StatementLineResponse>();
+
   /**
    * Xero Identifier of statement
    *
@@ -367,11 +368,11 @@ public class StatementResponse {
    */
   @ApiModelProperty(
       value =
-          "Opening statement balance calculated in Xero (= bank account conversion balance plus"
-              + " sum of imported bank statement lines). Note: If indicative statement balance"
-              + " doesn't match imported statement balance for the same date, either the"
-              + " conversion (opening at inception) balance in Xero is wrong or there's an error"
-              + " in the bank statement lines in Xero. Ref:"
+          "Opening statement balance calculated in Xero (= bank account conversion balance plus sum"
+              + " of imported bank statement lines). Note: If indicative statement balance doesn't"
+              + " match imported statement balance for the same date, either the conversion"
+              + " (opening at inception) balance in Xero is wrong or there's an error in the bank"
+              + " statement lines in Xero. Ref:"
               + " https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion=true"
               + " ")
   /**
@@ -426,11 +427,11 @@ public class StatementResponse {
    */
   @ApiModelProperty(
       value =
-          "Closing statement balance calculated in Xero (= bank account conversion balance plus"
-              + " sum of imported bank statement lines). Note: If indicative statement balance"
-              + " doesn't match imported statement balance for the same date, either the"
-              + " conversion (opening at inception) balance in Xero is wrong or there's an error"
-              + " in the bank statement lines in Xero. Ref:"
+          "Closing statement balance calculated in Xero (= bank account conversion balance plus sum"
+              + " of imported bank statement lines). Note: If indicative statement balance doesn't"
+              + " match imported statement balance for the same date, either the conversion"
+              + " (opening at inception) balance in Xero is wrong or there's an error in the bank"
+              + " statement lines in Xero. Ref:"
               + " https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion=true"
               + "  ")
   /**

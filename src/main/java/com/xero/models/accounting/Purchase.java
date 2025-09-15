@@ -31,6 +31,7 @@ public class Purchase {
 
   @JsonProperty("TaxType")
   private String taxType;
+
   /**
    * Unit Price of the item. By default UnitPrice is rounded to two decimal places. You can use 4
    * decimal places by adding the unitdp&#x3D;4 querystring parameter to your request.

@@ -53,6 +53,7 @@ public class Employee {
 
   @JsonProperty("Email")
   private String email;
+
   /** The employee’s gender. See Employee Gender */
   public enum GenderEnum {
     /** N */
@@ -147,6 +148,7 @@ public class Employee {
 
   @JsonProperty("TerminationDate")
   private String terminationDate;
+
   /**
    * * &#x60;V&#x60; Voluntary cessation - An employee resignation, retirement, domestic or pressing
    * necessity or abandonment of employment * &#x60;I&#x60; Ill health - An employee resignation due
@@ -271,6 +273,7 @@ public class Employee {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * First name of employee
    *
@@ -369,6 +372,7 @@ public class Employee {
   public String getDateOfBirth() {
     return dateOfBirth;
   }
+
   /**
    * Date of birth of the employee (YYYY-MM-DD)
    *
@@ -469,6 +473,7 @@ public class Employee {
   public String getStartDate() {
     return startDate;
   }
+
   /**
    * Start date for an employee (YYYY-MM-DD)
    *
@@ -1073,6 +1078,7 @@ public class Employee {
   public String getTerminationDate() {
     return terminationDate;
   }
+
   /**
    * Employee Termination Date (YYYY-MM-DD)
    *
@@ -1157,21 +1163,20 @@ public class Employee {
       example = "F",
       value =
           "* `V` Voluntary cessation - An employee resignation, retirement, domestic or pressing"
-              + " necessity or abandonment of employment * `I` Ill health - An employee"
-              + " resignation due to medical condition that prevents the continuation of"
-              + " employment, such as for illness, ill-health, medical unfitness or total"
-              + " permanent disability * `D` Deceased - The death of an employee * `R` Redundancy"
-              + " - An employer-initiated termination of employment due to a genuine redundancy or"
-              + " approved early retirement scheme * `F` Dismissal - An employer-initiated"
-              + " termination of employment due to dismissal, inability to perform the required"
-              + " work, misconduct or inefficiency * `C` Contract cessation - The natural"
-              + " conclusion of a limited employment relationship due to contract/engagement"
-              + " duration or task completion, seasonal work completion, or to cease casuals that"
-              + " are no longer required * `T` Transfer - The administrative arrangements"
-              + " performed to transfer employees across payroll systems, move them temporarily to"
-              + " another employer (machinery of government for public servants), transfer of"
-              + " business, move them to outsourcing arrangements or other such technical"
-              + " activities. ")
+              + " necessity or abandonment of employment * `I` Ill health - An employee resignation"
+              + " due to medical condition that prevents the continuation of employment, such as"
+              + " for illness, ill-health, medical unfitness or total permanent disability * `D`"
+              + " Deceased - The death of an employee * `R` Redundancy - An employer-initiated"
+              + " termination of employment due to a genuine redundancy or approved early"
+              + " retirement scheme * `F` Dismissal - An employer-initiated termination of"
+              + " employment due to dismissal, inability to perform the required work, misconduct"
+              + " or inefficiency * `C` Contract cessation - The natural conclusion of a limited"
+              + " employment relationship due to contract/engagement duration or task completion,"
+              + " seasonal work completion, or to cease casuals that are no longer required * `T`"
+              + " Transfer - The administrative arrangements performed to transfer employees across"
+              + " payroll systems, move them temporarily to another employer (machinery of"
+              + " government for public servants), transfer of business, move them to outsourcing"
+              + " arrangements or other such technical activities. ")
   /**
    * * &#x60;V&#x60; Voluntary cessation - An employee resignation, retirement, domestic or pressing
    * necessity or abandonment of employment * &#x60;I&#x60; Ill health - An employee resignation due
@@ -1714,6 +1719,7 @@ public class Employee {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

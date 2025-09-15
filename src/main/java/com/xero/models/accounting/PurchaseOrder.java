@@ -56,6 +56,7 @@ public class PurchaseOrder {
 
   @JsonProperty("CurrencyCode")
   private CurrencyCode currencyCode;
+
   /** See Purchase Order Status Codes */
   public enum StatusEnum {
     /** DRAFT */
@@ -171,6 +172,7 @@ public class PurchaseOrder {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
+
   /**
    * contact
    *
@@ -287,6 +289,7 @@ public class PurchaseOrder {
   public String getDate() {
     return date;
   }
+
   /**
    * Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then it will
    * default to the current date based on the timezone setting of the organisation
@@ -353,6 +356,7 @@ public class PurchaseOrder {
   public String getDeliveryDate() {
     return deliveryDate;
   }
+
   /**
    * Date the goods are to be delivered – YYYY-MM-DD
    *
@@ -815,6 +819,7 @@ public class PurchaseOrder {
   public String getExpectedArrivalDate() {
     return expectedArrivalDate;
   }
+
   /**
    * The date the goods are expected to arrive.
    *
@@ -1021,6 +1026,7 @@ public class PurchaseOrder {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified date UTC format
    *

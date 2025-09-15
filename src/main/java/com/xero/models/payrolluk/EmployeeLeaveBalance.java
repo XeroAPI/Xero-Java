@@ -32,6 +32,7 @@ public class EmployeeLeaveBalance {
 
   @JsonProperty("typeOfUnits")
   private String typeOfUnits;
+
   /**
    * Name of the leave type.
    *

@@ -21,6 +21,7 @@ import java.util.Objects;
 /** ExternalLink */
 public class ExternalLink {
   StringUtil util = new StringUtil();
+
   /** See External link types */
   public enum LinkTypeEnum {
     /** FACEBOOK */
@@ -88,6 +89,7 @@ public class ExternalLink {
 
   @JsonProperty("Description")
   private String description;
+
   /**
    * See External link types
    *

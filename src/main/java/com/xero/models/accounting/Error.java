@@ -33,6 +33,7 @@ public class Error {
 
   @JsonProperty("Elements")
   private List<Element> elements = new ArrayList<Element>();
+
   /**
    * Exception number
    *

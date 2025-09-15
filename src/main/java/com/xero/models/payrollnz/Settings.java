@@ -28,6 +28,7 @@ public class Settings {
 
   @JsonProperty("settings")
   private Accounts settings;
+
   /**
    * pagination
    *

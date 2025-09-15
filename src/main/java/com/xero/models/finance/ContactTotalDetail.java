@@ -28,6 +28,7 @@ public class ContactTotalDetail {
 
   @JsonProperty("totalCreditedUnApplied")
   private Double totalCreditedUnApplied;
+
   /**
    * Total paid invoice and cash value for the contact within the period.
    *

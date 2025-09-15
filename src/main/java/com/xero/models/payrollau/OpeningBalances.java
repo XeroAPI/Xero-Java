@@ -50,6 +50,7 @@ public class OpeningBalances {
   @JsonProperty("PaidLeaveEarningsLines")
   private List<PaidLeaveEarningsLine> paidLeaveEarningsLines =
       new ArrayList<PaidLeaveEarningsLine>();
+
   /**
    * Opening Balance Date. (YYYY-MM-DD)
    *
@@ -77,6 +78,7 @@ public class OpeningBalances {
   public String getOpeningBalanceDate() {
     return openingBalanceDate;
   }
+
   /**
    * Opening Balance Date. (YYYY-MM-DD)
    *

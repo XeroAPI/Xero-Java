@@ -32,6 +32,7 @@ public class EndBalance {
 
   @JsonProperty("creditDebitIndicator")
   private CreditDebitIndicator creditDebitIndicator;
+
   /**
    * amount
    *

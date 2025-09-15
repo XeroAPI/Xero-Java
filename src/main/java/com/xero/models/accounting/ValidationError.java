@@ -22,6 +22,7 @@ public class ValidationError {
 
   @JsonProperty("Message")
   private String message;
+
   /**
    * Validation error message
    *

@@ -21,6 +21,7 @@ import java.util.Objects;
 /** Phone */
 public class Phone {
   StringUtil util = new StringUtil();
+
   /** Gets or Sets phoneType */
   public enum PhoneTypeEnum {
     /** DEFAULT */
@@ -91,6 +92,7 @@ public class Phone {
 
   @JsonProperty("PhoneCountryCode")
   private String phoneCountryCode;
+
   /**
    * phoneType
    *

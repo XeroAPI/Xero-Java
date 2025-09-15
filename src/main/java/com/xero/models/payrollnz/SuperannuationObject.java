@@ -28,6 +28,7 @@ public class SuperannuationObject {
 
   @JsonProperty("benefit")
   private Benefit benefit;
+
   /**
    * pagination
    *

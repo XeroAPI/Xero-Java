@@ -44,6 +44,7 @@ public class LinkedTransaction {
 
   @JsonProperty("LinkedTransactionID")
   private UUID linkedTransactionID;
+
   /**
    * Filter by the combination of ContactID and Status. Get all the linked transactions that have
    * been assigned to a particular customer and have a particular status e.g. GET
@@ -109,6 +110,7 @@ public class LinkedTransaction {
 
   @JsonProperty("Status")
   private StatusEnum status;
+
   /** This will always be BILLABLEEXPENSE. More types may be added in future. */
   public enum TypeEnum {
     /** BILLABLEEXPENSE */
@@ -161,6 +163,7 @@ public class LinkedTransaction {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
   /**
    * The Type of the source tranasction. This will be ACCPAY if the linked transaction was created
    * from an invoice and SPEND if it was created from a bank transaction.
@@ -219,6 +222,7 @@ public class LinkedTransaction {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * Filter by the SourceTransactionID. Get all the linked transactions created from a particular
    * ACCPAY invoice
@@ -319,8 +323,8 @@ public class LinkedTransaction {
   @ApiModelProperty(
       value =
           "Filter by the combination of ContactID and Status. Get all the linked transactions that"
-              + " have been assigned to a particular customer and have a particular status e.g."
-              + " GET /LinkedTransactions?ContactID=4bb34b03-3378-4bb2-a0ed-6345abf3224e&Status=APPROVED.")
+              + " have been assigned to a particular customer and have a particular status e.g. GET"
+              + " /LinkedTransactions?ContactID=4bb34b03-3378-4bb2-a0ed-6345abf3224e&Status=APPROVED.")
   /**
    * Filter by the combination of ContactID and Status. Get all the linked transactions that have
    * been assigned to a particular customer and have a particular status e.g. GET
@@ -492,8 +496,8 @@ public class LinkedTransaction {
   @ApiModelProperty(
       value =
           "Filter by the combination of ContactID and Status. Get all the linked transactions that"
-              + " have been assigned to a particular customer and have a particular status e.g."
-              + " GET /LinkedTransactions?ContactID=4bb34b03-3378-4bb2-a0ed-6345abf3224e&Status=APPROVED.")
+              + " have been assigned to a particular customer and have a particular status e.g. GET"
+              + " /LinkedTransactions?ContactID=4bb34b03-3378-4bb2-a0ed-6345abf3224e&Status=APPROVED.")
   /**
    * Filter by the combination of ContactID and Status. Get all the linked transactions that have
    * been assigned to a particular customer and have a particular status e.g. GET
@@ -568,6 +572,7 @@ public class LinkedTransaction {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * The last modified date in UTC format
    *

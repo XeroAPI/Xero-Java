@@ -24,6 +24,7 @@ import java.util.UUID;
 /** RepeatingInvoice */
 public class RepeatingInvoice {
   StringUtil util = new StringUtil();
+
   /** See Invoice Types */
   public enum TypeEnum {
     /** ACCPAY */
@@ -97,6 +98,7 @@ public class RepeatingInvoice {
 
   @JsonProperty("CurrencyCode")
   private CurrencyCode currencyCode;
+
   /** One of the following - DRAFT or AUTHORISED – See Invoice Status Codes */
   public enum StatusEnum {
     /** DRAFT */
@@ -185,6 +187,7 @@ public class RepeatingInvoice {
 
   @JsonProperty("IncludePDF")
   private Boolean includePDF = false;
+
   /**
    * See Invoice Types
    *

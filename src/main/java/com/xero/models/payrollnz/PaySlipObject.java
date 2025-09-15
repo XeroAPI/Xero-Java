@@ -28,6 +28,7 @@ public class PaySlipObject {
 
   @JsonProperty("paySlip")
   private PaySlip paySlip;
+
   /**
    * pagination
    *

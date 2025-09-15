@@ -48,6 +48,7 @@ public class ImportSummaryAccounts {
 
   @JsonProperty("NewOrUpdated")
   private Integer newOrUpdated;
+
   /**
    * The total number of accounts in the org
    *

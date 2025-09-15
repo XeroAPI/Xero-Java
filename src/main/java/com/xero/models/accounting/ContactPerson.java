@@ -31,6 +31,7 @@ public class ContactPerson {
 
   @JsonProperty("IncludeInEmails")
   private Boolean includeInEmails;
+
   /**
    * First name of person
    *

@@ -28,6 +28,7 @@ public class EmployeeWorkingPatternWithWorkingWeeksObject {
 
   @JsonProperty("payeeWorkingPattern")
   private EmployeeWorkingPatternWithWorkingWeeks payeeWorkingPattern;
+
   /**
    * pagination
    *

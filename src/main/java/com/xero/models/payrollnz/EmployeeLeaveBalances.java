@@ -30,6 +30,7 @@ public class EmployeeLeaveBalances {
 
   @JsonProperty("leaveBalances")
   private List<EmployeeLeaveBalance> leaveBalances = new ArrayList<EmployeeLeaveBalance>();
+
   /**
    * pagination
    *

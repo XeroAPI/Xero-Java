@@ -31,6 +31,7 @@ public class SuperFundProduct {
 
   @JsonProperty("ProductName")
   private String productName;
+
   /**
    * The ABN of the Regulated SuperFund
    *
@@ -122,8 +123,8 @@ public class SuperFundProduct {
   @ApiModelProperty(
       example = "NML0117AU",
       value =
-          "The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds"
-              + " will not have a SPIN value. The USI field should be used instead of SPIN")
+          "The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will"
+              + " not have a SPIN value. The USI field should be used instead of SPIN")
   /**
    * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not
    * have a SPIN value. The USI field should be used instead of SPIN

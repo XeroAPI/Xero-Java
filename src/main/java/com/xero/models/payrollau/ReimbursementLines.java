@@ -26,6 +26,7 @@ public class ReimbursementLines {
 
   @JsonProperty("ReimbursementLines")
   private List<ReimbursementLine> reimbursementLines = new ArrayList<ReimbursementLine>();
+
   /**
    * reimbursementLines
    *

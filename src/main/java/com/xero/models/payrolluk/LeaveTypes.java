@@ -30,6 +30,7 @@ public class LeaveTypes {
 
   @JsonProperty("leaveTypes")
   private List<LeaveType> leaveTypes = new ArrayList<LeaveType>();
+
   /**
    * pagination
    *

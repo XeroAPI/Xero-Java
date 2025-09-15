@@ -32,6 +32,7 @@ public class StatutoryDeductionLine {
 
   @JsonProperty("manualAdjustment")
   private Boolean manualAdjustment;
+
   /**
    * Xero identifier for payroll statutory deduction type
    *

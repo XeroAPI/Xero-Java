@@ -31,6 +31,7 @@ public class Statement {
 
   @JsonProperty("feedConnectionId")
   private UUID feedConnectionId;
+
   /** Current status of statements */
   public enum StatusEnum {
     /** PENDING */
@@ -107,6 +108,7 @@ public class Statement {
 
   @JsonProperty("statementLineCount")
   private Integer statementLineCount;
+
   /**
    * GUID used to identify the Statement.
    *

@@ -25,6 +25,7 @@ public class TrialBalanceEntry {
 
   @JsonProperty("entryType")
   private String entryType;
+
   /**
    * Net movement or net balance in the account
    *

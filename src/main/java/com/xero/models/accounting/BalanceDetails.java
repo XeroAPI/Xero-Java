@@ -30,6 +30,7 @@ public class BalanceDetails {
 
   @JsonProperty("CurrencyRate")
   private Double currencyRate;
+
   /**
    * The opening balances of the account. Debits are positive, credits are negative values
    *

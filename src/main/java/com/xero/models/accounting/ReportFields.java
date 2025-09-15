@@ -28,6 +28,7 @@ public class ReportFields {
 
   @JsonProperty("Value")
   private String value;
+
   /**
    * fieldID
    *

@@ -35,6 +35,7 @@ public class EarningsOrder {
 
   @JsonProperty("currentRecord")
   private Boolean currentRecord = true;
+
   /**
    * Xero unique identifier for an earning rate
    *

@@ -29,6 +29,7 @@ public class Employee {
 
   @JsonProperty("EmployeeID")
   private UUID employeeID;
+
   /** Current status of an employee – see contact status types */
   public enum StatusEnum {
     /** ACTIVE */
@@ -105,6 +106,7 @@ public class Employee {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * The Xero identifier for an employee e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
    *
@@ -295,6 +297,7 @@ public class Employee {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * updatedDateUTC
    *

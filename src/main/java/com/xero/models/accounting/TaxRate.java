@@ -32,6 +32,7 @@ public class TaxRate {
 
   @JsonProperty("TaxComponents")
   private List<TaxComponent> taxComponents = new ArrayList<TaxComponent>();
+
   /** See Status Codes */
   public enum StatusEnum {
     /** ACTIVE */
@@ -90,6 +91,7 @@ public class TaxRate {
 
   @JsonProperty("Status")
   private StatusEnum status;
+
   /** See ReportTaxTypes */
   public enum ReportTaxTypeEnum {
     /** AVALARA */
@@ -454,6 +456,7 @@ public class TaxRate {
 
   @JsonProperty("EffectiveRate")
   private Double effectiveRate;
+
   /**
    * Name of tax rate
    *

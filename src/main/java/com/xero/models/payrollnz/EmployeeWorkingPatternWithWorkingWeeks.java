@@ -32,6 +32,7 @@ public class EmployeeWorkingPatternWithWorkingWeeks {
 
   @JsonProperty("workingWeeks")
   private List<WorkingWeek> workingWeeks = new ArrayList<WorkingWeek>();
+
   /**
    * The Xero identifier for for Employee working pattern
    *

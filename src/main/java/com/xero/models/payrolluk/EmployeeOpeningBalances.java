@@ -37,6 +37,7 @@ public class EmployeeOpeningBalances {
 
   @JsonProperty("priorEmployeeNumber")
   private Double priorEmployeeNumber;
+
   /**
    * The total accumulated statutory adoption pay amount received by the employee for current fiscal
    * year to date
@@ -57,8 +58,8 @@ public class EmployeeOpeningBalances {
    */
   @ApiModelProperty(
       value =
-          "The total accumulated statutory adoption pay amount received by the employee for"
-              + " current fiscal year to date")
+          "The total accumulated statutory adoption pay amount received by the employee for current"
+              + " fiscal year to date")
   /**
    * The total accumulated statutory adoption pay amount received by the employee for current fiscal
    * year to date

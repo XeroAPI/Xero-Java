@@ -21,6 +21,7 @@ import java.util.Objects;
 /** AddressForOrganisation */
 public class AddressForOrganisation {
   StringUtil util = new StringUtil();
+
   /** define the type of address */
   public enum AddressTypeEnum {
     /** POBOX */
@@ -103,6 +104,7 @@ public class AddressForOrganisation {
 
   @JsonProperty("AttentionTo")
   private String attentionTo;
+
   /**
    * define the type of address
    *

@@ -28,6 +28,7 @@ public class Benefit {
 
   @JsonProperty("name")
   private String name;
+
   /** Superannuations Category type */
   public enum CategoryEnum {
     /** KIWISAVER */
@@ -89,6 +90,7 @@ public class Benefit {
 
   @JsonProperty("expenseAccountId")
   private UUID expenseAccountId;
+
   /** Calculation Type of the superannuation either FixedAmount or PercentageOfTaxableEarnings */
   public enum CalculationTypeNZEnum {
     /** FIXEDAMOUNT */
@@ -153,6 +155,7 @@ public class Benefit {
 
   @JsonProperty("currentRecord")
   private Boolean currentRecord;
+
   /**
    * The Xero identifier for superannuation
    *

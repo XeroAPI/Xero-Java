@@ -25,6 +25,7 @@ public class CISSetting {
 
   @JsonProperty("Rate")
   private Double rate;
+
   /**
    * Boolean that describes if the contact is a CIS Subcontractor
    *

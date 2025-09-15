@@ -24,6 +24,7 @@ public class LeaveApplications {
 
   @JsonProperty("LeaveApplications")
   private List<LeaveApplication> leaveApplications = new ArrayList<LeaveApplication>();
+
   /**
    * leaveApplications
    *

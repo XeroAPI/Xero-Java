@@ -60,6 +60,7 @@ public class AccountUsage {
 
   @JsonProperty("reportCodeUpdatedDateUtc")
   private OffsetDateTime reportCodeUpdatedDateUtc;
+
   /**
    * The month this usage item contains data for
    *

@@ -22,6 +22,7 @@ public class PayItems {
 
   @JsonProperty("PayItems")
   private PayItem payItems;
+
   /**
    * payItems
    *

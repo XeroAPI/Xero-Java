@@ -72,6 +72,7 @@ public class Item {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * User defined item code (max length &#x3D; 30)
    *
@@ -206,9 +207,9 @@ public class Item {
    */
   @ApiModelProperty(
       value =
-          "Boolean value, defaults to true. When IsSold is true the item will be available on"
-              + " sales transactions in the Xero UI. If IsSold is updated to false then"
-              + " Description and SalesDetails values will be nulled.")
+          "Boolean value, defaults to true. When IsSold is true the item will be available on sales"
+              + " transactions in the Xero UI. If IsSold is updated to false then Description and"
+              + " SalesDetails values will be nulled.")
   /**
    * Boolean value, defaults to true. When IsSold is true the item will be available on sales
    * transactions in the Xero UI. If IsSold is updated to false then Description and SalesDetails
@@ -545,6 +546,7 @@ public class Item {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified date in UTC format
    *

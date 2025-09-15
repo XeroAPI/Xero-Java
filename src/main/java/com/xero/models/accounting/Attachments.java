@@ -24,6 +24,7 @@ public class Attachments {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
+
   /**
    * attachments
    *

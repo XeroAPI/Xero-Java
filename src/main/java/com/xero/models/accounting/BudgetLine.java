@@ -31,6 +31,7 @@ public class BudgetLine {
 
   @JsonProperty("BudgetBalances")
   private List<BudgetBalance> budgetBalances = new ArrayList<BudgetBalance>();
+
   /**
    * See Accounts
    *

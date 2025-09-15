@@ -30,6 +30,7 @@ public class Payslips {
 
   @JsonProperty("paySlips")
   private List<Payslip> paySlips = new ArrayList<Payslip>();
+
   /**
    * pagination
    *

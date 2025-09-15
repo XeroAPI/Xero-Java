@@ -36,6 +36,7 @@ public class NICategory {
 
   @JsonProperty("workplacePostcode")
   private String workplacePostcode;
+
   /**
    * The start date of the NI category (YYYY-MM-DD)
    *

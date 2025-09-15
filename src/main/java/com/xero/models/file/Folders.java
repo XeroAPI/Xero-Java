@@ -24,6 +24,7 @@ public class Folders {
 
   @JsonProperty("Folders")
   private List<Folder> folders = new ArrayList<Folder>();
+
   /**
    * folders
    *

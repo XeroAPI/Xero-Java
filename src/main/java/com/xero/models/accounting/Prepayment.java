@@ -29,6 +29,7 @@ import org.threeten.bp.ZoneId;
 /** Prepayment */
 public class Prepayment {
   StringUtil util = new StringUtil();
+
   /** See Prepayment Types */
   public enum TypeEnum {
     /** RECEIVE_PREPAYMENT */
@@ -93,6 +94,7 @@ public class Prepayment {
 
   @JsonProperty("Date")
   private String date;
+
   /** See Prepayment Status Codes */
   public enum StatusEnum {
     /** AUTHORISED */
@@ -196,6 +198,7 @@ public class Prepayment {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
+
   /**
    * See Prepayment Types
    *
@@ -291,6 +294,7 @@ public class Prepayment {
   public String getDate() {
     return date;
   }
+
   /**
    * The date the prepayment is created YYYY-MM-DD
    *
@@ -584,6 +588,7 @@ public class Prepayment {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * UTC timestamp of last update to the prepayment
    *

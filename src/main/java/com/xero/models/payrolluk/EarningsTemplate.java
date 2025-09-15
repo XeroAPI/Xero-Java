@@ -38,6 +38,7 @@ public class EarningsTemplate {
 
   @JsonProperty("name")
   private String name;
+
   /**
    * The Xero identifier for the earnings template
    *

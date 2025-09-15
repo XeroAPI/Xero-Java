@@ -27,6 +27,7 @@ public class TimeEntries {
 
   @JsonProperty("items")
   private List<TimeEntry> items = new ArrayList<TimeEntry>();
+
   /**
    * pagination
    *

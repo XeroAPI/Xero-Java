@@ -35,6 +35,7 @@ public class HistoryRecordResponse {
 
   @JsonProperty("details")
   private String details;
+
   /**
    * The type of change recorded against the document
    *

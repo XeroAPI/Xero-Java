@@ -35,6 +35,7 @@ public class DeductionLine {
 
   @JsonProperty("percentage")
   private Double percentage;
+
   /**
    * Xero identifier for payroll deduction
    *

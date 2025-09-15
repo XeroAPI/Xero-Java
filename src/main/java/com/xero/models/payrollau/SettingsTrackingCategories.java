@@ -27,6 +27,7 @@ public class SettingsTrackingCategories {
 
   @JsonProperty("TimesheetCategories")
   private SettingsTrackingCategoriesTimesheetCategories timesheetCategories;
+
   /**
    * employeeGroups
    *

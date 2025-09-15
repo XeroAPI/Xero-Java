@@ -28,6 +28,7 @@ public class Benefit {
 
   @JsonProperty("name")
   private String name;
+
   /** Category type of the employer pension */
   public enum CategoryEnum {
     /** STAKEHOLDERPENSION */
@@ -92,6 +93,7 @@ public class Benefit {
 
   @JsonProperty("percentage")
   private Double percentage;
+
   /** Calculation Type of the employer pension (FixedAmount or PercentageOfGross). */
   public enum CalculationTypeEnum {
     /** FIXEDAMOUNT */
@@ -162,6 +164,7 @@ public class Benefit {
 
   @JsonProperty("showBalanceToEmployee")
   private Boolean showBalanceToEmployee;
+
   /**
    * unique identifier in Xero
    *

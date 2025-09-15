@@ -28,6 +28,7 @@ public class EmployeeOpeningBalancesObject {
 
   @JsonProperty("openingBalances")
   private EmployeeOpeningBalances openingBalances;
+
   /**
    * pagination
    *
