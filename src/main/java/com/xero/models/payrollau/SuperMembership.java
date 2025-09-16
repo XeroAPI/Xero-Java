@@ -29,6 +29,7 @@ public class SuperMembership {
 
   @JsonProperty("EmployeeNumber")
   private String employeeNumber;
+
   /**
    * Xero unique identifier for Super membership
    *

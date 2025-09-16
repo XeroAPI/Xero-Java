@@ -47,6 +47,7 @@ public class EarningsLine {
 
   @JsonProperty("isAverageDailyPayRate")
   private Boolean isAverageDailyPayRate;
+
   /**
    * Xero identifier for payroll earnings line
    *

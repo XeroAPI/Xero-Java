@@ -32,6 +32,7 @@ public class BalanceSheetResponse {
 
   @JsonProperty("equity")
   private BalanceSheetAccountGroup equity;
+
   /**
    * Balance date of the report
    *

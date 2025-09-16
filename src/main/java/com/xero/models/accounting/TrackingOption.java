@@ -28,6 +28,7 @@ public class TrackingOption {
 
   @JsonProperty("Name")
   private String name;
+
   /** The status of a tracking option */
   public enum StatusEnum {
     /** ACTIVE */
@@ -86,6 +87,7 @@ public class TrackingOption {
 
   @JsonProperty("TrackingCategoryID")
   private UUID trackingCategoryID;
+
   /**
    * The Xero identifier for a tracking option e.g. ae777a87-5ef3-4fa0-a4f0-d10e1f13073a
    *

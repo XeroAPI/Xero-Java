@@ -28,6 +28,7 @@ public class EmployeePayTemplates {
 
   @JsonProperty("payTemplate")
   private EmployeePayTemplate payTemplate;
+
   /**
    * pagination
    *

@@ -22,6 +22,7 @@ public class InvoiceReminder {
 
   @JsonProperty("Enabled")
   private Boolean enabled;
+
   /**
    * setting for on or off
    *

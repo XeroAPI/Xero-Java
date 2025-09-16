@@ -47,6 +47,7 @@ public class Employee {
 
   @JsonProperty("email")
   private String email;
+
   /** The employee’s gender */
   public enum GenderEnum {
     /** M */
@@ -129,6 +130,7 @@ public class Employee {
 
   @JsonProperty("isOffPayrollWorker")
   private Boolean isOffPayrollWorker;
+
   /**
    * Xero unique identifier for the employee
    *

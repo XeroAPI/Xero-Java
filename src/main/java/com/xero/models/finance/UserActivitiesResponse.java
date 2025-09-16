@@ -31,6 +31,7 @@ public class UserActivitiesResponse {
 
   @JsonProperty("users")
   private List<UserResponse> users = new ArrayList<UserResponse>();
+
   /**
    * The requested Organisation to which the data pertains
    *

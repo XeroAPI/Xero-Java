@@ -53,6 +53,7 @@ public class EmployeeTax {
 
   @JsonProperty("nicCalculationMethod")
   private String nicCalculationMethod;
+
   /**
    * The Starter type.
    *

@@ -33,6 +33,7 @@ public class BrandingTheme {
 
   @JsonProperty("LogoUrl")
   private String logoUrl;
+
   /** Always INVOICE */
   public enum TypeEnum {
     /** INVOICE */
@@ -88,6 +89,7 @@ public class BrandingTheme {
 
   @JsonProperty("CreatedDateUTC")
   private String createdDateUTC;
+
   /**
    * Xero identifier
    *
@@ -282,6 +284,7 @@ public class BrandingTheme {
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
+
   /**
    * UTC timestamp of creation date of branding theme
    *

@@ -70,6 +70,7 @@ public class EmployeeStatutorySickLeave {
 
   @JsonProperty("overlapsWithOtherLeave")
   private Boolean overlapsWithOtherLeave;
+
   /** Gets or Sets entitlementFailureReasons */
   public enum EntitlementFailureReasonsEnum {
     /** UNABLETOCALCULATEAWE */
@@ -135,6 +136,7 @@ public class EmployeeStatutorySickLeave {
   @JsonProperty("entitlementFailureReasons")
   private List<EntitlementFailureReasonsEnum> entitlementFailureReasons =
       new ArrayList<EntitlementFailureReasonsEnum>();
+
   /**
    * The unique identifier (guid) of a statutory leave
    *

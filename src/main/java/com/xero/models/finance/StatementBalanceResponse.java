@@ -25,6 +25,7 @@ public class StatementBalanceResponse {
 
   @JsonProperty("type")
   private String type;
+
   /**
    * Total closing balance of the account. This includes both reconciled and unreconciled bank
    * statement lines. The closing balance will always be represented as a positive number, with it’s

@@ -29,6 +29,7 @@ import org.threeten.bp.ZoneId;
 /** BankTransaction */
 public class BankTransaction {
   StringUtil util = new StringUtil();
+
   /** See Bank Transaction Types */
   public enum TypeEnum {
     /** RECEIVE */
@@ -126,6 +127,7 @@ public class BankTransaction {
 
   @JsonProperty("Url")
   private String url;
+
   /** See Bank Transaction Status Codes */
   public enum StatusEnum {
     /** AUTHORISED */
@@ -214,6 +216,7 @@ public class BankTransaction {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * See Bank Transaction Types
    *
@@ -425,6 +428,7 @@ public class BankTransaction {
   public String getDate() {
     return date;
   }
+
   /**
    * Date of transaction – YYYY-MM-DD
    *
@@ -558,8 +562,8 @@ public class BankTransaction {
    */
   @ApiModelProperty(
       value =
-          "Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used"
-              + " for bank transactions in non base currency. If this isn’t specified for non base"
+          "Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used for"
+              + " bank transactions in non base currency. If this isn’t specified for non base"
               + " currency accounts then either the user-defined rate (preference) or the XE.com"
               + " day rate will be used. Setting currency is only supported on overpayments.")
   /**
@@ -889,6 +893,7 @@ public class BankTransaction {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified date UTC format
    *

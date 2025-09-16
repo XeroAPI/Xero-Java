@@ -28,6 +28,7 @@ public class StatutoryDeductionObject {
 
   @JsonProperty("statutoryDeduction")
   private StatutoryDeduction statutoryDeduction;
+
   /**
    * pagination
    *

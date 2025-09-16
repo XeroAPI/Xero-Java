@@ -44,6 +44,7 @@ public class SuperLine {
 
   @JsonProperty("Amount")
   private Double amount;
+
   /**
    * Xero super membership ID
    *

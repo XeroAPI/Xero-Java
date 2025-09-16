@@ -24,6 +24,7 @@ public class PayRuns {
 
   @JsonProperty("PayRuns")
   private List<PayRun> payRuns = new ArrayList<PayRun>();
+
   /**
    * payRuns
    *

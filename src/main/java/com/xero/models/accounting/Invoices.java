@@ -30,6 +30,7 @@ public class Invoices {
 
   @JsonProperty("Invoices")
   private List<Invoice> invoices = new ArrayList<Invoice>();
+
   /**
    * pagination
    *

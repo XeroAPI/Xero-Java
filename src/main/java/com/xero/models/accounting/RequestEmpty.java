@@ -22,6 +22,7 @@ public class RequestEmpty {
 
   @JsonProperty("Status")
   private String status;
+
   /**
    * Need at least one field to create an empty JSON payload
    *

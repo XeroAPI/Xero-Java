@@ -32,6 +32,7 @@ public class ReportHistoryResponse {
 
   @JsonProperty("reports")
   private List<ReportHistoryModel> reports = new ArrayList<ReportHistoryModel>();
+
   /**
    * The requested Organisation to which the data pertains
    *

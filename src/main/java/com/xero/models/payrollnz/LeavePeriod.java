@@ -40,6 +40,7 @@ public class LeavePeriod {
 
   @JsonProperty("typeOfUnitsTaken")
   private String typeOfUnitsTaken;
+
   /** Status of leave */
   public enum PeriodStatusEnum {
     /** APPROVED */
@@ -95,6 +96,7 @@ public class LeavePeriod {
 
   @JsonProperty("periodStatus")
   private PeriodStatusEnum periodStatus;
+
   /**
    * The Pay Period Start Date (YYYY-MM-DD)
    *

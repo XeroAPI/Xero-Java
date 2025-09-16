@@ -29,6 +29,7 @@ public class Price {
 
   @JsonProperty("id")
   private UUID id;
+
   /**
    * The net (before tax) amount.
    *

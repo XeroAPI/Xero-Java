@@ -28,6 +28,7 @@ public class EarningsRateObject {
 
   @JsonProperty("earningsRate")
   private EarningsRate earningsRate;
+
   /**
    * pagination
    *

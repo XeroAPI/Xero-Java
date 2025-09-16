@@ -45,6 +45,7 @@ public class Setting {
 
   @JsonProperty("optInForTax")
   private Boolean optInForTax;
+
   /**
    * The prefix used for fixed asset numbers (“FA-” by default)
    *

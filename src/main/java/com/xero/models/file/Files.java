@@ -33,6 +33,7 @@ public class Files {
 
   @JsonProperty("Items")
   private List<FileObject> items = new ArrayList<FileObject>();
+
   /**
    * totalCount
    *

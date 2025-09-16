@@ -22,6 +22,7 @@ public class PaymentDelete {
 
   @JsonProperty("Status")
   private String status = "DELETED";
+
   /**
    * The status of the payment.
    *

@@ -25,6 +25,7 @@ public class ReportAttribute {
 
   @JsonProperty("Value")
   private String value;
+
   /**
    * id
    *

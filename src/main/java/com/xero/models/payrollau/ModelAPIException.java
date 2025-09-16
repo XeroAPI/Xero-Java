@@ -31,6 +31,7 @@ public class ModelAPIException {
 
   @JsonProperty("Message")
   private String message;
+
   /**
    * The error number
    *

@@ -31,6 +31,7 @@ public class TrialBalanceMovement {
 
   @JsonProperty("signedMovement")
   private Double signedMovement;
+
   /**
    * Debit amount
    *

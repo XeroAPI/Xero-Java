@@ -24,6 +24,7 @@ public class OnlineInvoices {
 
   @JsonProperty("OnlineInvoices")
   private List<OnlineInvoice> onlineInvoices = new ArrayList<OnlineInvoice>();
+
   /**
    * onlineInvoices
    *

@@ -46,6 +46,7 @@ public class Element {
 
   @JsonProperty("PurchaseOrderID")
   private UUID purchaseOrderID;
+
   /**
    * Array of Validation Error message
    *

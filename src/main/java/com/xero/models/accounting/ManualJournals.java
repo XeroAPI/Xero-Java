@@ -30,6 +30,7 @@ public class ManualJournals {
 
   @JsonProperty("ManualJournals")
   private List<ManualJournal> manualJournals = new ArrayList<ManualJournal>();
+
   /**
    * pagination
    *

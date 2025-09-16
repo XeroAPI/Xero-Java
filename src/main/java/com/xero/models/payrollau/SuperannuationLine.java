@@ -51,6 +51,7 @@ public class SuperannuationLine {
 
   @JsonProperty("Amount")
   private Double amount;
+
   /**
    * Xero identifier for payroll super fund membership ID.
    *
@@ -290,6 +291,7 @@ public class SuperannuationLine {
   public String getPaymentDateForThisPeriod() {
     return paymentDateForThisPeriod;
   }
+
   /**
    * Superannuation payment date for the current period (YYYY-MM-DD)
    *

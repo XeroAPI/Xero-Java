@@ -25,6 +25,7 @@ public class Currency {
 
   @JsonProperty("Description")
   private String description;
+
   /**
    * code
    *

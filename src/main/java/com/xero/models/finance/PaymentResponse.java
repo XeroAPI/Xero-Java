@@ -51,6 +51,7 @@ public class PaymentResponse {
 
   @JsonProperty("overpayment")
   private OverpaymentResponse overpayment;
+
   /**
    * Xero Identifier of payment
    *

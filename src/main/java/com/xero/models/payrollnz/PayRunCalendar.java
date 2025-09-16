@@ -43,6 +43,7 @@ public class PayRunCalendar {
 
   @JsonProperty("updatedDateUTC")
   private LocalDateTime updatedDateUTC;
+
   /**
    * Xero unique identifier for the payroll calendar
    *

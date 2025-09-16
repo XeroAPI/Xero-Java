@@ -38,6 +38,7 @@ public class TimesheetEarningsLine {
 
   @JsonProperty("isLinkedToTimesheet")
   private Boolean isLinkedToTimesheet;
+
   /**
    * Xero identifier for payroll timesheet earnings rate
    *

@@ -65,6 +65,7 @@ public class StatementLineResponse {
 
   @JsonProperty("bankTransactions")
   private List<BankTransactionResponse> bankTransactions = new ArrayList<BankTransactionResponse>();
+
   /**
    * Xero Identifier of statement line
    *

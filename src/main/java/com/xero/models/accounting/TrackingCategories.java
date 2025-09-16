@@ -24,6 +24,7 @@ public class TrackingCategories {
 
   @JsonProperty("TrackingCategories")
   private List<TrackingCategory> trackingCategories = new ArrayList<TrackingCategory>();
+
   /**
    * trackingCategories
    *

@@ -24,6 +24,7 @@ public class TaxSettings {
 
   @JsonProperty("periodUnits")
   private Double periodUnits;
+
   /** The type of period (\&quot;weeks\&quot; or \&quot;months\&quot;) */
   public enum PeriodTypeEnum {
     /** WEEKS */
@@ -88,6 +89,7 @@ public class TaxSettings {
 
   @JsonProperty("lumpSumAmount")
   private String lumpSumAmount;
+
   /**
    * The number of units for the period type
    *

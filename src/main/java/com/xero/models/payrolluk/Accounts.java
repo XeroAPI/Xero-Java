@@ -24,6 +24,7 @@ public class Accounts {
 
   @JsonProperty("accounts")
   private List<Account> accounts = new ArrayList<Account>();
+
   /**
    * accounts
    *

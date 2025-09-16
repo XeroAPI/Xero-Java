@@ -30,6 +30,7 @@ public class Prepayments {
 
   @JsonProperty("Prepayments")
   private List<Prepayment> prepayments = new ArrayList<Prepayment>();
+
   /**
    * pagination
    *

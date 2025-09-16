@@ -28,6 +28,7 @@ public class Report {
 
   @JsonProperty("ReportName")
   private String reportName;
+
   /** See Prepayment Types */
   public enum ReportTypeEnum {
     /** AGEDPAYABLESBYCONTACT */
@@ -89,6 +90,7 @@ public class Report {
 
   @JsonProperty("Contacts")
   private List<TenNinetyNineContact> contacts = new ArrayList<TenNinetyNineContact>();
+
   /**
    * See Prepayment Types
    *
@@ -243,6 +245,7 @@ public class Report {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Updated Date
    *

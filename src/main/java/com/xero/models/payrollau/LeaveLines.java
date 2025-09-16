@@ -26,6 +26,7 @@ public class LeaveLines {
 
   @JsonProperty("Employee")
   private List<LeaveLine> employee = new ArrayList<LeaveLine>();
+
   /**
    * employee
    *

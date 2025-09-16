@@ -24,6 +24,7 @@ public class Actions {
 
   @JsonProperty("Actions")
   private List<Action> actions = new ArrayList<Action>();
+
   /**
    * actions
    *

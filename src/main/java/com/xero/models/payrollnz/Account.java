@@ -25,6 +25,7 @@ public class Account {
 
   @JsonProperty("accountID")
   private UUID accountID;
+
   /** The assigned AccountType */
   public enum TypeEnum {
     /** PAYELIABILITY */
@@ -89,6 +90,7 @@ public class Account {
 
   @JsonProperty("name")
   private String name;
+
   /**
    * The Xero identifier for Settings.
    *

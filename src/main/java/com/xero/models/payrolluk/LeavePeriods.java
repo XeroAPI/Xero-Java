@@ -30,6 +30,7 @@ public class LeavePeriods {
 
   @JsonProperty("periods")
   private List<LeavePeriod> periods = new ArrayList<LeavePeriod>();
+
   /**
    * pagination
    *

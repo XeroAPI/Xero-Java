@@ -30,6 +30,7 @@ public class LockHistoryModel {
 
   @JsonProperty("updatedDateUtc")
   private OffsetDateTime updatedDateUtc;
+
   /**
    * Date the account hard lock was set
    *

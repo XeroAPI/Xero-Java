@@ -45,6 +45,7 @@ public class UsageRecord {
 
   @JsonProperty("productId")
   private String productId;
+
   /**
    * The quantity recorded
    *

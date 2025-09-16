@@ -40,6 +40,7 @@ public class WorkingWeek {
 
   @JsonProperty("sunday")
   private Double sunday;
+
   /**
    * The number of hours worked on a Monday
    *

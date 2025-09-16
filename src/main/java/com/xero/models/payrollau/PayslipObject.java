@@ -22,6 +22,7 @@ public class PayslipObject {
 
   @JsonProperty("Payslip")
   private Payslip payslip;
+
   /**
    * payslip
    *

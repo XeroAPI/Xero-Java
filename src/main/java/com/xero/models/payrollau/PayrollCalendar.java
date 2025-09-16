@@ -51,6 +51,7 @@ public class PayrollCalendar {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * Name of the Payroll Calendar
    *
@@ -153,6 +154,7 @@ public class PayrollCalendar {
   public String getStartDate() {
     return startDate;
   }
+
   /**
    * The start date of the upcoming pay period. The end date will be calculated based upon this
    * date, and the calendar type selected (YYYY-MM-DD)
@@ -221,6 +223,7 @@ public class PayrollCalendar {
   public String getPaymentDate() {
     return paymentDate;
   }
+
   /**
    * The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)
    *
@@ -308,6 +311,7 @@ public class PayrollCalendar {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *
@@ -349,6 +353,7 @@ public class PayrollCalendar {
   public String getReferenceDate() {
     return referenceDate;
   }
+
   /**
    * Reference Date (YYYY-MM-DD)
    *

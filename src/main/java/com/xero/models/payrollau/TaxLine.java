@@ -38,6 +38,7 @@ public class TaxLine {
 
   @JsonProperty("LiabilityAccount")
   private String liabilityAccount;
+
   /**
    * Xero identifier for payslip tax line ID.
    *

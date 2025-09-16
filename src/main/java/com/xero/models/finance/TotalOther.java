@@ -28,6 +28,7 @@ public class TotalOther {
 
   @JsonProperty("totalCredited")
   private Double totalCredited;
+
   /**
    * Total outstanding invoice value within the period where the invoices are more than 90 days old
    *

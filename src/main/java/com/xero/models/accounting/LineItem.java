@@ -70,6 +70,7 @@ public class LineItem {
 
   @JsonProperty("RepeatingInvoiceID")
   private UUID repeatingInvoiceID;
+
   /** The type of taxability */
   public enum TaxabilityEnum {
     /** TAXABLE */
@@ -137,6 +138,7 @@ public class LineItem {
 
   @JsonProperty("TaxBreakdown")
   private List<TaxBreakdownComponent> taxBreakdown = new ArrayList<TaxBreakdownComponent>();
+
   /**
    * LineItem unique ID
    *
@@ -452,8 +454,8 @@ public class LineItem {
   @ApiModelProperty(
       value =
           "The tax amount is auto calculated as a percentage of the line amount (see below) based"
-              + " on the tax rate. This value can be overriden if the calculated <TaxAmount> is"
-              + " not correct.")
+              + " on the tax rate. This value can be overriden if the calculated <TaxAmount> is not"
+              + " correct.")
   /**
    * The tax amount is auto calculated as a percentage of the line amount (see below) based on the
    * tax rate. This value can be overriden if the calculated &lt;TaxAmount&gt; is not correct.

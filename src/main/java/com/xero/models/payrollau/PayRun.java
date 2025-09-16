@@ -75,6 +75,7 @@ public class PayRun {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * Xero identifier for pay run
    *
@@ -177,6 +178,7 @@ public class PayRun {
   public String getPayRunPeriodStartDate() {
     return payRunPeriodStartDate;
   }
+
   /**
    * Period Start Date for the PayRun (YYYY-MM-DD)
    *
@@ -242,6 +244,7 @@ public class PayRun {
   public String getPayRunPeriodEndDate() {
     return payRunPeriodEndDate;
   }
+
   /**
    * Period End Date for the PayRun (YYYY-MM-DD)
    *
@@ -342,6 +345,7 @@ public class PayRun {
   public String getPaymentDate() {
     return paymentDate;
   }
+
   /**
    * Payment Date for the PayRun (YYYY-MM-DD)
    *
@@ -429,6 +433,7 @@ public class PayRun {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

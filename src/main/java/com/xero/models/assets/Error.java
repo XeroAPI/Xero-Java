@@ -38,6 +38,7 @@ public class Error {
 
   @JsonProperty("detail")
   private String detail;
+
   /**
    * Array of elements of resource validation errors
    *

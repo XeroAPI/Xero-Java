@@ -24,6 +24,7 @@ public class TrackingOptions {
 
   @JsonProperty("Options")
   private List<TrackingOption> options = new ArrayList<TrackingOption>();
+
   /**
    * options
    *

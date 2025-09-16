@@ -37,6 +37,7 @@ public class ReimbursementType {
 
   @JsonProperty("CurrentRecord")
   private Boolean currentRecord;
+
   /**
    * Name of the earnings rate (max length &#x3D; 100)
    *
@@ -156,6 +157,7 @@ public class ReimbursementType {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

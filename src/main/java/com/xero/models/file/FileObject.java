@@ -44,6 +44,7 @@ public class FileObject {
 
   @JsonProperty("FolderId")
   private UUID folderId;
+
   /**
    * File Name
    *

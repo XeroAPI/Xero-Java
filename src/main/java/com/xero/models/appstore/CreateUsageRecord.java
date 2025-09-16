@@ -28,6 +28,7 @@ public class CreateUsageRecord {
 
   @JsonProperty("timestamp")
   private LocalDateTime timestamp;
+
   /**
    * The initial quantity for the usage record. Must be a whole number that is greater than or equal
    * to 0

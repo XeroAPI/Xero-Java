@@ -30,6 +30,7 @@ public class ExpenseClaim {
 
   @JsonProperty("ExpenseClaimID")
   private UUID expenseClaimID;
+
   /** Current status of an expense claim – see status types */
   public enum StatusEnum {
     /** SUBMITTED */
@@ -121,6 +122,7 @@ public class ExpenseClaim {
 
   @JsonProperty("ReceiptID")
   private UUID receiptID;
+
   /**
    * Xero generated unique identifier for an expense claim
    *
@@ -338,6 +340,7 @@ public class ExpenseClaim {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified date UTC format
    *
@@ -413,6 +416,7 @@ public class ExpenseClaim {
   public String getPaymentDueDate() {
     return paymentDueDate;
   }
+
   /**
    * The date when the expense claim is due to be paid YYYY-MM-DD
    *
@@ -443,6 +447,7 @@ public class ExpenseClaim {
   public String getReportingDate() {
     return reportingDate;
   }
+
   /**
    * The date the expense claim will be reported in Xero YYYY-MM-DD
    *

@@ -35,6 +35,7 @@ public class BudgetBalance {
 
   @JsonProperty("Notes")
   private String notes;
+
   /**
    * Period the amount applies to (e.g. “2019-08”)
    *
@@ -60,6 +61,7 @@ public class BudgetBalance {
   public String getPeriod() {
     return period;
   }
+
   /**
    * Period the amount applies to (e.g. “2019-08”)
    *

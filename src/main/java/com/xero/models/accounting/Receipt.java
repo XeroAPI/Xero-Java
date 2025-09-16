@@ -59,6 +59,7 @@ public class Receipt {
 
   @JsonProperty("ReceiptID")
   private UUID receiptID;
+
   /** Current status of receipt – see status types */
   public enum StatusEnum {
     /** DRAFT */
@@ -141,6 +142,7 @@ public class Receipt {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
+
   /**
    * Date of receipt – YYYY-MM-DD
    *
@@ -166,6 +168,7 @@ public class Receipt {
   public String getDate() {
     return date;
   }
+
   /**
    * Date of receipt – YYYY-MM-DD
    *
@@ -598,6 +601,7 @@ public class Receipt {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified date UTC format
    *

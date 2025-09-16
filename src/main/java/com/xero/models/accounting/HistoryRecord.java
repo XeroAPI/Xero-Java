@@ -33,6 +33,7 @@ public class HistoryRecord {
 
   @JsonProperty("DateUTC")
   private String dateUTC;
+
   /**
    * details
    *
@@ -154,6 +155,7 @@ public class HistoryRecord {
   public String getDateUTC() {
     return dateUTC;
   }
+
   /**
    * UTC timestamp of creation date of branding theme
    *

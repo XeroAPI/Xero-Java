@@ -31,6 +31,7 @@ public class TaxComponent {
 
   @JsonProperty("IsNonRecoverable")
   private Boolean isNonRecoverable;
+
   /**
    * Name of Tax Component
    *

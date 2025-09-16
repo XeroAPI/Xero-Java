@@ -28,6 +28,7 @@ public class CISOrgSetting {
 
   @JsonProperty("Rate")
   private Double rate;
+
   /**
    * true or false - Boolean that describes if the organisation is a CIS Contractor
    *

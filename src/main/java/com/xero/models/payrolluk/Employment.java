@@ -38,6 +38,7 @@ public class Employment {
 
   @JsonProperty("niCategories")
   private List<NICategory> niCategories = new ArrayList<NICategory>();
+
   /**
    * Xero unique identifier for the payroll calendar of the employee
    *

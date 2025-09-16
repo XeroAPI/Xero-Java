@@ -74,6 +74,7 @@ public class Payment {
 
   @JsonProperty("IsReconciled")
   private Boolean isReconciled;
+
   /** The status of the payment. */
   public enum StatusEnum {
     /** AUTHORISED */
@@ -126,6 +127,7 @@ public class Payment {
 
   @JsonProperty("Status")
   private StatusEnum status;
+
   /** See Payment Types. */
   public enum PaymentTypeEnum {
     /** ACCRECPAYMENT */
@@ -229,6 +231,7 @@ public class Payment {
 
   @JsonProperty("Warnings")
   private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
   /**
    * invoice
    *
@@ -578,6 +581,7 @@ public class Payment {
   public String getDate() {
     return date;
   }
+
   /**
    * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
    *
@@ -678,8 +682,8 @@ public class Payment {
    */
   @ApiModelProperty(
       value =
-          "The amount of the payment. Must be less than or equal to the outstanding amount owing"
-              + " on the invoice e.g. 200.00")
+          "The amount of the payment. Must be less than or equal to the outstanding amount owing on"
+              + " the invoice e.g. 200.00")
   /**
    * The amount of the payment. Must be less than or equal to the outstanding amount owing on the
    * invoice e.g. 200.00
@@ -793,8 +797,8 @@ public class Payment {
   @ApiModelProperty(
       value =
           "An optional parameter for the payment. A boolean indicating whether you would like the"
-              + " payment to be created as reconciled when using PUT, or whether a payment has"
-              + " been reconciled when using GET")
+              + " payment to be created as reconciled when using PUT, or whether a payment has been"
+              + " reconciled when using GET")
   /**
    * An optional parameter for the payment. A boolean indicating whether you would like the payment
    * to be created as reconciled when using PUT, or whether a payment has been reconciled when using
@@ -883,6 +887,7 @@ public class Payment {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * UTC timestamp of last update to the payment
    *

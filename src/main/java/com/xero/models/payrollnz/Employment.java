@@ -36,6 +36,7 @@ public class Employment {
 
   @JsonProperty("fixedTermEndDate")
   private LocalDate fixedTermEndDate;
+
   /**
    * Xero unique identifier for the payroll calendar of the employee
    *

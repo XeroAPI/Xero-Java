@@ -30,6 +30,7 @@ public class ReportRow {
 
   @JsonProperty("Cells")
   private List<ReportCell> cells = new ArrayList<ReportCell>();
+
   /**
    * rowType
    *

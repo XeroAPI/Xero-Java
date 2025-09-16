@@ -60,6 +60,7 @@ public class LeaveApplication {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * The Xero identifier for Payroll Employee
    *
@@ -233,6 +234,7 @@ public class LeaveApplication {
   public String getStartDate() {
     return startDate;
   }
+
   /**
    * Start date of the leave (YYYY-MM-DD)
    *
@@ -298,6 +300,7 @@ public class LeaveApplication {
   public String getEndDate() {
     return endDate;
   }
+
   /**
    * End date of the leave (YYYY-MM-DD)
    *
@@ -469,6 +472,7 @@ public class LeaveApplication {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

@@ -41,6 +41,7 @@ public class Timesheet {
 
   @JsonProperty("endDate")
   private LocalDate endDate;
+
   /** Status of the timesheet */
   public enum StatusEnum {
     /** DRAFT */
@@ -108,6 +109,7 @@ public class Timesheet {
 
   @JsonProperty("timesheetLines")
   private List<TimesheetLine> timesheetLines = new ArrayList<TimesheetLine>();
+
   /**
    * The Xero identifier for a Timesheet
    *

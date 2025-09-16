@@ -63,6 +63,7 @@ public class SuperFund {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * Xero identifier for a super fund
    *
@@ -416,8 +417,8 @@ public class SuperFund {
       example = "4545445454",
       value =
           "The SPIN of the Regulated SuperFund. This field has been deprecated. It will only be"
-              + " present for legacy superfunds. New superfunds will not have a SPIN value. The"
-              + " USI field should be used instead of SPIN.")
+              + " present for legacy superfunds. New superfunds will not have a SPIN value. The USI"
+              + " field should be used instead of SPIN.")
   /**
    * The SPIN of the Regulated SuperFund. This field has been deprecated. It will only be present
    * for legacy superfunds. New superfunds will not have a SPIN value. The USI field should be used
@@ -489,6 +490,7 @@ public class SuperFund {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

@@ -31,6 +31,7 @@ public class Pagination {
 
   @JsonProperty("itemCount")
   private Integer itemCount;
+
   /**
    * Set to 1 by default. The requested number of the page in paged response - Must be a number
    * greater than 0.

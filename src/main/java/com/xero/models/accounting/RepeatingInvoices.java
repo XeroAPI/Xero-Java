@@ -24,6 +24,7 @@ public class RepeatingInvoices {
 
   @JsonProperty("RepeatingInvoices")
   private List<RepeatingInvoice> repeatingInvoices = new ArrayList<RepeatingInvoice>();
+
   /**
    * repeatingInvoices
    *

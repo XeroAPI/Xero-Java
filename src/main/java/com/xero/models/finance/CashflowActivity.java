@@ -30,6 +30,7 @@ public class CashflowActivity {
 
   @JsonProperty("cashflowTypes")
   private List<CashflowType> cashflowTypes = new ArrayList<CashflowType>();
+
   /**
    * Name of the cashflow activity type. It will be either Operating Activities, Investing
    * Activities or Financing Activities

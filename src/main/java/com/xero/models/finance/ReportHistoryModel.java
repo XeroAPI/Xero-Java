@@ -29,6 +29,7 @@ public class ReportHistoryModel {
 
   @JsonProperty("publishedDateUtc")
   private OffsetDateTime publishedDateUtc;
+
   /**
    * Report code or report title
    *

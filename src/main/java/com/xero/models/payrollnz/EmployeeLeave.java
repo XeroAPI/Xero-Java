@@ -45,6 +45,7 @@ public class EmployeeLeave {
 
   @JsonProperty("updatedDateUTC")
   private LocalDateTime updatedDateUTC;
+
   /**
    * The Xero identifier for LeaveType
    *

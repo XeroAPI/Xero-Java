@@ -28,6 +28,7 @@ public class Schedule {
 
   @JsonProperty("Period")
   private Integer period;
+
   /** One of the following - WEEKLY or MONTHLY */
   public enum UnitEnum {
     /** WEEKLY */
@@ -83,6 +84,7 @@ public class Schedule {
 
   @JsonProperty("DueDate")
   private Integer dueDate;
+
   /** the payment terms */
   public enum DueDateTypeEnum {
     /** DAYSAFTERBILLDATE */
@@ -156,6 +158,7 @@ public class Schedule {
 
   @JsonProperty("EndDate")
   private String endDate;
+
   /**
    * Integer used with the unit e.g. 1 (every 1 week), 2 (every 2 months)
    *
@@ -328,6 +331,7 @@ public class Schedule {
   public String getStartDate() {
     return startDate;
   }
+
   /**
    * Date the first invoice of the current version of the repeating schedule was generated (changes
    * when repeating invoice is edited)
@@ -394,6 +398,7 @@ public class Schedule {
   public String getNextScheduledDate() {
     return nextScheduledDate;
   }
+
   /**
    * The calendar date of the next invoice in the schedule to be generated
    *
@@ -457,6 +462,7 @@ public class Schedule {
   public String getEndDate() {
     return endDate;
   }
+
   /**
    * Invoice end date – only returned if the template has an end date set
    *

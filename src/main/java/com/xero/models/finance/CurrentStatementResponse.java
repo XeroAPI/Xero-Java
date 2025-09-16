@@ -39,6 +39,7 @@ public class CurrentStatementResponse {
 
   @JsonProperty("importSourceType")
   private String importSourceType;
+
   /**
    * Looking at the most recent bank statement, this field indicates the first date which
    * transactions on this statement pertain to. This date is represented in ISO 8601 format.

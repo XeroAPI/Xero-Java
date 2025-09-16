@@ -38,6 +38,7 @@ public class Attachment {
 
   @JsonProperty("IncludeOnline")
   private Boolean includeOnline;
+
   /**
    * Unique ID for the file
    *

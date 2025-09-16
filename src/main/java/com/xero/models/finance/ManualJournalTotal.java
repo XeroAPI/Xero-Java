@@ -22,6 +22,7 @@ public class ManualJournalTotal {
 
   @JsonProperty("total")
   private Double total;
+
   /**
    * Total value of manual journals.
    *

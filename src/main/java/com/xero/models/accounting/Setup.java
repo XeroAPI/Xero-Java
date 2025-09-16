@@ -30,6 +30,7 @@ public class Setup {
 
   @JsonProperty("Accounts")
   private List<Account> accounts = new ArrayList<Account>();
+
   /**
    * conversionDate
    *

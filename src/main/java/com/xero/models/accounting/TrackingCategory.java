@@ -36,6 +36,7 @@ public class TrackingCategory {
 
   @JsonProperty("Option")
   private String option;
+
   /** The status of a tracking category */
   public enum StatusEnum {
     /** ACTIVE */
@@ -94,6 +95,7 @@ public class TrackingCategory {
 
   @JsonProperty("Options")
   private List<TrackingOption> options = new ArrayList<TrackingOption>();
+
   /**
    * The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
    *

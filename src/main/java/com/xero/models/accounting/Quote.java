@@ -99,6 +99,7 @@ public class Quote {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * QuoteID GUID is automatically generated and is returned after create or GET.
    *
@@ -344,8 +345,8 @@ public class Quote {
    */
   @ApiModelProperty(
       value =
-          "Date quote was issued – YYYY-MM-DD. If the Date element is not specified it will"
-              + " default to the current date based on the timezone setting of the organisation")
+          "Date quote was issued – YYYY-MM-DD. If the Date element is not specified it will default"
+              + " to the current date based on the timezone setting of the organisation")
   /**
    * Date quote was issued – YYYY-MM-DD. If the Date element is not specified it will default to the
    * current date based on the timezone setting of the organisation
@@ -355,6 +356,7 @@ public class Quote {
   public String getDate() {
     return date;
   }
+
   /**
    * Date quote was issued – YYYY-MM-DD. If the Date element is not specified it will default to the
    * current date based on the timezone setting of the organisation
@@ -456,6 +458,7 @@ public class Quote {
   public String getExpiryDate() {
     return expiryDate;
   }
+
   /**
    * Date the quote expires – YYYY-MM-DD.
    *
@@ -818,6 +821,7 @@ public class Quote {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified date UTC format
    *

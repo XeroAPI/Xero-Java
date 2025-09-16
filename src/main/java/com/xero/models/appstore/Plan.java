@@ -30,6 +30,7 @@ public class Plan {
 
   @JsonProperty("name")
   private String name;
+
   /** Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. */
   public enum StatusEnum {
     /** ACTIVE */
@@ -88,6 +89,7 @@ public class Plan {
 
   @JsonProperty("subscriptionItems")
   private List<SubscriptionItem> subscriptionItems = new ArrayList<SubscriptionItem>();
+
   /**
    * The unique identifier of the plan
    *

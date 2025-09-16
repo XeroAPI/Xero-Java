@@ -26,6 +26,7 @@ public class EmployeeLeaveType {
 
   @JsonProperty("leaveTypeID")
   private UUID leaveTypeID;
+
   /** The schedule of accrual */
   public enum ScheduleOfAccrualEnum {
     /** BEGINNINGOFCALENDARYEAR */
@@ -99,6 +100,7 @@ public class EmployeeLeaveType {
 
   @JsonProperty("scheduleOfAccrualDate")
   private LocalDate scheduleOfAccrualDate;
+
   /**
    * The Xero identifier for leave type
    *
@@ -189,8 +191,8 @@ public class EmployeeLeaveType {
    */
   @ApiModelProperty(
       value =
-          "The number of hours accrued for the leave annually. This is 0 when the"
-              + " scheduleOfAccrual chosen is \"OnHourWorked\"")
+          "The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual"
+              + " chosen is \"OnHourWorked\"")
   /**
    * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
    * is \&quot;OnHourWorked\&quot;

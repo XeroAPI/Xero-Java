@@ -28,6 +28,7 @@ public class EmployeeStatutoryLeaveBalanceObject {
 
   @JsonProperty("leaveBalance")
   private EmployeeStatutoryLeaveBalance leaveBalance;
+
   /**
    * pagination
    *

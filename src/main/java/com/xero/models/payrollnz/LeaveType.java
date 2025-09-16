@@ -45,6 +45,7 @@ public class LeaveType {
 
   @JsonProperty("typeOfUnitsToAccrue")
   private String typeOfUnitsToAccrue;
+
   /**
    * Xero unique identifier for the leave type
    *

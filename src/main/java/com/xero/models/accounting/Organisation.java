@@ -44,6 +44,7 @@ public class Organisation {
 
   @JsonProperty("PaysTax")
   private Boolean paysTax;
+
   /** See Version Types */
   public enum VersionEnum {
     /** AU */
@@ -120,6 +121,7 @@ public class Organisation {
 
   @JsonProperty("Version")
   private VersionEnum version;
+
   /** Organisation Type */
   public enum OrganisationTypeEnum {
     /** ACCOUNTING_PRACTICE */
@@ -232,6 +234,7 @@ public class Organisation {
 
   @JsonProperty("FinancialYearEndMonth")
   private Integer financialYearEndMonth;
+
   /** The accounting basis used for tax returns. See Sales Tax Basis */
   public enum SalesTaxBasisEnum {
     /** PAYMENTS */
@@ -302,6 +305,7 @@ public class Organisation {
 
   @JsonProperty("SalesTaxBasis")
   private SalesTaxBasisEnum salesTaxBasis;
+
   /** The frequency with which tax returns are processed. See Sales Tax Period */
   public enum SalesTaxPeriodEnum {
     /** MONTHLY */
@@ -411,6 +415,7 @@ public class Organisation {
 
   @JsonProperty("Timezone")
   private TimeZone timezone;
+
   /** Organisation Entity Type */
   public enum OrganisationEntityTypeEnum {
     /** ACCOUNTING_PRACTICE */
@@ -499,6 +504,7 @@ public class Organisation {
 
   @JsonProperty("ShortCode")
   private String shortCode;
+
   /**
    * Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL,
    * PREMIUM)
@@ -611,6 +617,7 @@ public class Organisation {
 
   @JsonProperty("Class")
   private PropertyClassEnum propertyClass;
+
   /**
    * BUSINESS or PARTNER. Partner edition organisations are sold exclusively through accounting
    * partners and have restricted functionality (e.g. no access to invoicing)
@@ -681,6 +688,7 @@ public class Organisation {
 
   @JsonProperty("PaymentTerms")
   private PaymentTerm paymentTerms;
+
   /**
    * Unique Xero identifier
    *
@@ -1420,6 +1428,7 @@ public class Organisation {
   public String getPeriodLockDate() {
     return periodLockDate;
   }
+
   /**
    * Shown if set. See lock dates
    *
@@ -1483,6 +1492,7 @@ public class Organisation {
   public String getEndOfYearLockDate() {
     return endOfYearLockDate;
   }
+
   /**
    * Shown if set. See lock dates
    *
@@ -1537,6 +1547,7 @@ public class Organisation {
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
+
   /**
    * Timestamp when the organisation was created in Xero
    *
@@ -1914,8 +1925,8 @@ public class Organisation {
    */
   @ApiModelProperty(
       value =
-          "Organisation profile links for popular services such as Facebook,Twitter, GooglePlus"
-              + " and LinkedIn. You can also add link to your website here. Shown if Organisation"
+          "Organisation profile links for popular services such as Facebook,Twitter, GooglePlus and"
+              + " LinkedIn. You can also add link to your website here. Shown if Organisation"
               + " settings  is updated in Xero. See ExternalLinks below")
   /**
    * Organisation profile links for popular services such as Facebook,Twitter, GooglePlus and

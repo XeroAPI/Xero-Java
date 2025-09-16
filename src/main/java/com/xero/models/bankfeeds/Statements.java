@@ -27,6 +27,7 @@ public class Statements {
 
   @JsonProperty("items")
   private List<Statement> items = new ArrayList<Statement>();
+
   /**
    * pagination
    *

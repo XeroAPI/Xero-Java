@@ -35,6 +35,7 @@ public class User {
 
   @JsonProperty("FullName")
   private String fullName;
+
   /**
    * Xero identifier
    *

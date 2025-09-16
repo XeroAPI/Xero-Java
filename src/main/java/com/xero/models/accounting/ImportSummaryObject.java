@@ -22,6 +22,7 @@ public class ImportSummaryObject {
 
   @JsonProperty("ImportSummary")
   private ImportSummary importSummary;
+
   /**
    * importSummary
    *

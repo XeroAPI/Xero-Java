@@ -26,6 +26,7 @@ public class BatchPaymentDelete {
 
   @JsonProperty("Status")
   private String status = "DELETED";
+
   /**
    * The Xero generated unique identifier for the bank transaction (read-only)
    *

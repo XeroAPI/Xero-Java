@@ -41,6 +41,7 @@ public class Problem {
 
   @JsonProperty("invalidFields")
   private List<InvalidField> invalidFields = new ArrayList<InvalidField>();
+
   /**
    * The type of error format
    *

@@ -31,6 +31,7 @@ public class EmployeeStatutoryLeavesSummaries {
   @JsonProperty("statutoryLeaves")
   private List<EmployeeStatutoryLeaveSummary> statutoryLeaves =
       new ArrayList<EmployeeStatutoryLeaveSummary>();
+
   /**
    * pagination
    *

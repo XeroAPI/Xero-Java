@@ -34,6 +34,7 @@ public class CashflowResponse {
 
   @JsonProperty("cashflowActivities")
   private List<CashflowActivity> cashflowActivities = new ArrayList<CashflowActivity>();
+
   /**
    * Start date of the report
    *

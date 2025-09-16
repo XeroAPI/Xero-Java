@@ -36,6 +36,7 @@ public class CashValidationResponse {
 
   @JsonProperty("cashAccount")
   private CashAccountResponse cashAccount;
+
   /**
    * The Xero identifier for an account
    *

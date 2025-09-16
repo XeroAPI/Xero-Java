@@ -25,6 +25,7 @@ public class Amount {
 
   @JsonProperty("value")
   private Double value;
+
   /**
    * currency
    *

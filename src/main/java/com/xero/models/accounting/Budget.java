@@ -29,6 +29,7 @@ public class Budget {
 
   @JsonProperty("BudgetID")
   private UUID budgetID;
+
   /** Type of Budget. OVERALL or TRACKING */
   public enum TypeEnum {
     /** OVERALL */
@@ -93,6 +94,7 @@ public class Budget {
 
   @JsonProperty("Tracking")
   private List<TrackingCategory> tracking = new ArrayList<TrackingCategory>();
+
   /**
    * Xero identifier
    *
@@ -214,6 +216,7 @@ public class Budget {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * UTC timestamp of last update to budget
    *

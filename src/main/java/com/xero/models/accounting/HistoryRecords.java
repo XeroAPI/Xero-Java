@@ -24,6 +24,7 @@ public class HistoryRecords {
 
   @JsonProperty("HistoryRecords")
   private List<HistoryRecord> historyRecords = new ArrayList<HistoryRecord>();
+
   /**
    * historyRecords
    *

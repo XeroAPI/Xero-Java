@@ -33,6 +33,7 @@ public class Settings {
 
   @JsonProperty("EmployeesAreSTP2")
   private Boolean employeesAreSTP2;
+
   /**
    * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
    * WagesPayable.

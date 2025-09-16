@@ -22,6 +22,7 @@ public class ProjectPatch {
 
   @JsonProperty("status")
   private ProjectStatus status;
+
   /**
    * status
    *

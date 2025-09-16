@@ -34,6 +34,7 @@ public class PracticeResponse {
 
   @JsonProperty("staffCertified")
   private Boolean staffCertified;
+
   /**
    * Year of becoming a partner.
    *

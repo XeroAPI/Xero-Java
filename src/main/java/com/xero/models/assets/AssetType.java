@@ -41,6 +41,7 @@ public class AssetType {
 
   @JsonProperty("locks")
   private Integer locks;
+
   /**
    * Xero generated unique identifier for asset types
    *

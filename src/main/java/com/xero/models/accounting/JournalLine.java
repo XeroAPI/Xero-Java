@@ -58,6 +58,7 @@ public class JournalLine {
 
   @JsonProperty("TrackingCategories")
   private List<TrackingCategory> trackingCategories = new ArrayList<TrackingCategory>();
+
   /**
    * Xero identifier for Journal
    *
@@ -291,8 +292,8 @@ public class JournalLine {
   @ApiModelProperty(
       example = "4130.98",
       value =
-          "Net amount of journal line. This will be a positive value for a debit and negative for"
-              + " a credit")
+          "Net amount of journal line. This will be a positive value for a debit and negative for a"
+              + " credit")
   /**
    * Net amount of journal line. This will be a positive value for a debit and negative for a credit
    *

@@ -28,6 +28,7 @@ public class SettingsTrackingCategoriesTimesheetCategories {
 
   @JsonProperty("TrackingCategoryName")
   private String trackingCategoryName;
+
   /**
    * The identifier for the tracking category
    *

@@ -43,6 +43,7 @@ public class IncomeByContactResponse {
 
   @JsonProperty("manualJournals")
   private ManualJournalTotal manualJournals;
+
   /**
    * Start date of the report
    *

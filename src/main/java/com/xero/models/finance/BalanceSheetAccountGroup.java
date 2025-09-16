@@ -27,6 +27,7 @@ public class BalanceSheetAccountGroup {
 
   @JsonProperty("total")
   private Double total;
+
   /**
    * accountTypes
    *

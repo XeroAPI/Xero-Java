@@ -25,8 +25,8 @@ import java.util.Objects;
  */
 @ApiModel(
     description =
-        "On error, the API consumer will receive an HTTP response with a HTTP Status Code of 4xx"
-            + " or 5xx and a Content-Type of application/problem+json.")
+        "On error, the API consumer will receive an HTTP response with a HTTP Status Code of 4xx or"
+            + " 5xx and a Content-Type of application/problem+json.")
 public class Error {
   StringUtil util = new StringUtil();
 
@@ -38,6 +38,7 @@ public class Error {
 
   @JsonProperty("detail")
   private String detail;
+
   /** Identifies the type of error. */
   public enum TypeEnum {
     /** INVALID_REQUEST */
@@ -149,6 +150,7 @@ public class Error {
 
   @JsonProperty("type")
   private TypeEnum type;
+
   /**
    * Human readable high level error description.
    *

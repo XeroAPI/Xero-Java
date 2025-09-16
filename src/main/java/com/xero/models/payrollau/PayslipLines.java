@@ -45,6 +45,7 @@ public class PayslipLines {
 
   @JsonProperty("TaxLines")
   private List<TaxLine> taxLines = new ArrayList<TaxLine>();
+
   /**
    * earningsLines
    *

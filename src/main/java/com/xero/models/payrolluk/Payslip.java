@@ -73,6 +73,7 @@ public class Payslip {
 
   @JsonProperty("bacsHash")
   private String bacsHash;
+
   /** The payment method code */
   public enum PaymentMethodEnum {
     /** CHEQUE */
@@ -162,6 +163,7 @@ public class Payslip {
 
   @JsonProperty("courtOrderLines")
   private List<CourtOrderLine> courtOrderLines = new ArrayList<CourtOrderLine>();
+
   /**
    * The Xero identifier for a Payslip
    *

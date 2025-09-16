@@ -30,6 +30,7 @@ public class EarningsOrders {
 
   @JsonProperty("statutoryDeductions")
   private List<EarningsOrder> statutoryDeductions = new ArrayList<EarningsOrder>();
+
   /**
    * pagination
    *

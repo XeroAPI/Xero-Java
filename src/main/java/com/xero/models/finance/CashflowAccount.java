@@ -41,6 +41,7 @@ public class CashflowAccount {
 
   @JsonProperty("total")
   private Double total;
+
   /**
    * ID of the account
    *

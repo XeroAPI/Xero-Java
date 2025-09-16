@@ -24,6 +24,7 @@ public class UpdateUsageRecord {
 
   @JsonProperty("quantity")
   private Integer quantity;
+
   /**
    * The new quantity for the usage record. Must be a whole number that is greater than or equal to
    * 0

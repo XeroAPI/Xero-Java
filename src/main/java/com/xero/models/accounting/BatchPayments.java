@@ -24,6 +24,7 @@ public class BatchPayments {
 
   @JsonProperty("BatchPayments")
   private List<BatchPayment> batchPayments = new ArrayList<BatchPayment>();
+
   /**
    * batchPayments
    *

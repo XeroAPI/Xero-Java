@@ -36,6 +36,7 @@ public class TimesheetLine {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
   /**
    * The Xero identifier for an Earnings Rate
    *
@@ -179,6 +180,7 @@ public class TimesheetLine {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

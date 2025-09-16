@@ -33,6 +33,7 @@ public class Balances {
 
   @JsonProperty("AccountsPayable")
   private AccountsPayable accountsPayable;
+
   /**
    * accountsReceivable
    *

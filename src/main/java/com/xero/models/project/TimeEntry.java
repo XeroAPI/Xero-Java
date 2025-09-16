@@ -47,6 +47,7 @@ public class TimeEntry {
 
   @JsonProperty("description")
   private String description;
+
   /**
    * Status of the time entry. By default a time entry is created with status of &#x60;ACTIVE&#x60;.
    * A &#x60;LOCKED&#x60; state indicates that the time entry is currently changing state (for
@@ -107,6 +108,7 @@ public class TimeEntry {
 
   @JsonProperty("status")
   private StatusEnum status;
+
   /**
    * Identifier of the time entry.
    *
@@ -431,8 +433,8 @@ public class TimeEntry {
       value =
           "Status of the time entry. By default a time entry is created with status of `ACTIVE`. A"
               + " `LOCKED` state indicates that the time entry is currently changing state (for"
-              + " example being invoiced). Updates are not allowed when in this state. It will"
-              + " have a status of INVOICED once it is invoiced.")
+              + " example being invoiced). Updates are not allowed when in this state. It will have"
+              + " a status of INVOICED once it is invoiced.")
   /**
    * Status of the time entry. By default a time entry is created with status of &#x60;ACTIVE&#x60;.
    * A &#x60;LOCKED&#x60; state indicates that the time entry is currently changing state (for

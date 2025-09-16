@@ -28,6 +28,7 @@ public class EmployeeStatutorySickLeaveObject {
 
   @JsonProperty("statutorySickLeave")
   private EmployeeStatutorySickLeave statutorySickLeave;
+
   /**
    * pagination
    *

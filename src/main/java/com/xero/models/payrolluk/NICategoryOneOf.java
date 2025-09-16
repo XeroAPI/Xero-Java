@@ -21,6 +21,7 @@ import java.util.Objects;
 /** NICategoryOneOf */
 public class NICategoryOneOf {
   StringUtil util = new StringUtil();
+
   /** Gets or Sets niCategory */
   public enum NiCategoryEnum {
     /** F */
@@ -91,6 +92,7 @@ public class NICategoryOneOf {
 
   @JsonProperty("niCategory")
   private NiCategoryEnum niCategory;
+
   /**
    * niCategory
    *

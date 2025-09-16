@@ -32,6 +32,7 @@ public class LockHistoryResponse {
 
   @JsonProperty("lockDates")
   private List<LockHistoryModel> lockDates = new ArrayList<LockHistoryModel>();
+
   /**
    * The requested Organisation to which the data pertains
    *

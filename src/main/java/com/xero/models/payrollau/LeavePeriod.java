@@ -35,6 +35,7 @@ public class LeavePeriod {
 
   @JsonProperty("LeavePeriodStatus")
   private LeavePeriodStatus leavePeriodStatus;
+
   /**
    * The Number of Units for the leave
    *
@@ -97,6 +98,7 @@ public class LeavePeriod {
   public String getPayPeriodEndDate() {
     return payPeriodEndDate;
   }
+
   /**
    * The Pay Period End Date (YYYY-MM-DD)
    *
@@ -162,6 +164,7 @@ public class LeavePeriod {
   public String getPayPeriodStartDate() {
     return payPeriodStartDate;
   }
+
   /**
    * The Pay Period Start Date (YYYY-MM-DD)
    *

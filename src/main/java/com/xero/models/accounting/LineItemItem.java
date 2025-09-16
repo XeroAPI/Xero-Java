@@ -29,6 +29,7 @@ public class LineItemItem {
 
   @JsonProperty("ItemID")
   private UUID itemID;
+
   /**
    * User defined item code (max length &#x3D; 30)
    *

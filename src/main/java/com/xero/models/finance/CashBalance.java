@@ -28,6 +28,7 @@ public class CashBalance {
 
   @JsonProperty("netCashMovement")
   private Double netCashMovement;
+
   /**
    * Opening balance of cash and cash equivalents
    *

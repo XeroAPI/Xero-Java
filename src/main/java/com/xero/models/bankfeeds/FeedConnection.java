@@ -37,6 +37,7 @@ public class FeedConnection {
 
   @JsonProperty("accountId")
   private UUID accountId;
+
   /**
    * High level bank account type - BANK CREDITCARD BANK encompasses all bank account types other
    * than credit cards.
@@ -98,6 +99,7 @@ public class FeedConnection {
 
   @JsonProperty("country")
   private CountryCode country;
+
   /** the current status of the feed connection */
   public enum StatusEnum {
     /** PENDING */
@@ -153,6 +155,7 @@ public class FeedConnection {
 
   @JsonProperty("error")
   private Error error;
+
   /**
    * GUID used to identify the Account.
    *
@@ -258,11 +261,11 @@ public class FeedConnection {
   @ApiModelProperty(
       example = "3809087654321500",
       value =
-          "String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The"
-              + " Account Number is used to match the feed to a Xero Bank Account. The API will"
-              + " create a new Xero Bank Account if a match to an existing Xero Bank Account is"
-              + " not found. Only the last 4 digits must be supplied for Credit Card numbers. Must"
-              + " be included if AccountId is not specified.")
+          "String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account"
+              + " Number is used to match the feed to a Xero Bank Account. The API will create a"
+              + " new Xero Bank Account if a match to an existing Xero Bank Account is not found."
+              + " Only the last 4 digits must be supplied for Credit Card numbers. Must be included"
+              + " if AccountId is not specified.")
   /**
    * String(40) when AccountType is BANK String(4) when AccountType is CREDITCARD The Account Number
    * is used to match the feed to a Xero Bank Account. The API will create a new Xero Bank Account

@@ -28,6 +28,7 @@ public class SettingsTrackingCategoriesEmployeeGroups {
 
   @JsonProperty("TrackingCategoryName")
   private String trackingCategoryName;
+
   /**
    * The identifier for the tracking category
    *

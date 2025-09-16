@@ -26,6 +26,7 @@ public class TrackingCategory {
 
   @JsonProperty("timesheetTrackingCategoryID")
   private UUID timesheetTrackingCategoryID;
+
   /**
    * The Xero identifier for Employee groups tracking category.
    *

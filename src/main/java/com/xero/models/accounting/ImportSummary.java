@@ -27,6 +27,7 @@ public class ImportSummary {
 
   @JsonProperty("Organisation")
   private ImportSummaryOrganisation organisation;
+
   /**
    * accounts
    *

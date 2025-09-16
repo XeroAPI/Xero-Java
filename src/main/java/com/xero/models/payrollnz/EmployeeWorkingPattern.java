@@ -27,6 +27,7 @@ public class EmployeeWorkingPattern {
 
   @JsonProperty("effectiveFrom")
   private LocalDate effectiveFrom;
+
   /**
    * The Xero identifier for for Employee working pattern
    *

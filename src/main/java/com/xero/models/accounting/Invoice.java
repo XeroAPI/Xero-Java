@@ -29,6 +29,7 @@ import org.threeten.bp.ZoneId;
 /** Invoice */
 public class Invoice {
   StringUtil util = new StringUtil();
+
   /** See Invoice Types */
   public enum TypeEnum {
     /** ACCPAY */
@@ -132,6 +133,7 @@ public class Invoice {
 
   @JsonProperty("CurrencyRate")
   private Double currencyRate;
+
   /** See Invoice Status Codes */
   public enum StatusEnum {
     /** DRAFT */
@@ -280,6 +282,7 @@ public class Invoice {
 
   @JsonProperty("InvoiceAddresses")
   private List<InvoiceAddress> invoiceAddresses = new ArrayList<InvoiceAddress>();
+
   /**
    * See Invoice Types
    *
@@ -430,6 +433,7 @@ public class Invoice {
   public String getDate() {
     return date;
   }
+
   /**
    * Date invoice was issued – YYYY-MM-DD. If the Date element is not specified it will default to
    * the current date based on the timezone setting of the organisation
@@ -496,6 +500,7 @@ public class Invoice {
   public String getDueDate() {
     return dueDate;
   }
+
   /**
    * Date invoice is due – YYYY-MM-DD
    *
@@ -896,6 +901,7 @@ public class Invoice {
   public String getExpectedPaymentDate() {
     return expectedPaymentDate;
   }
+
   /**
    * Shown on sales invoices (Accounts Receivable) when this has been set
    *
@@ -959,6 +965,7 @@ public class Invoice {
   public String getPlannedPaymentDate() {
     return plannedPaymentDate;
   }
+
   /**
    * Shown on bills (Accounts Payable) when this has been set
    *
@@ -1284,6 +1291,7 @@ public class Invoice {
   public String getFullyPaidOnDate() {
     return fullyPaidOnDate;
   }
+
   /**
    * The date the invoice was fully paid. Only returned on fully paid invoices
    *
@@ -1330,6 +1338,7 @@ public class Invoice {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified date UTC format
    *

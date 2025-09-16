@@ -30,6 +30,7 @@ public class PurchaseOrders {
 
   @JsonProperty("PurchaseOrders")
   private List<PurchaseOrder> purchaseOrders = new ArrayList<PurchaseOrder>();
+
   /**
    * pagination
    *

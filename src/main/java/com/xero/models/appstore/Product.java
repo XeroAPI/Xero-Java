@@ -31,6 +31,7 @@ public class Product {
 
   @JsonProperty("seatUnit")
   private String seatUnit;
+
   /**
    * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
    * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
@@ -97,6 +98,7 @@ public class Product {
 
   @JsonProperty("usageUnit")
   private String usageUnit;
+
   /**
    * The unique identifier for the product
    *
@@ -231,11 +233,11 @@ public class Product {
    */
   @ApiModelProperty(
       value =
-          "The pricing model of the product: * FIXED: Customers are charged a fixed amount for"
-              + " each billing period * PER_SEAT: Customers are charged based on the number of"
-              + " units they purchase * METERED: Customers are charged per use of this product *"
-              + " SIMPLE: Customers are charged on a fixed amount for each billing period with an"
-              + " optional add-on feature ")
+          "The pricing model of the product: * FIXED: Customers are charged a fixed amount for each"
+              + " billing period * PER_SEAT: Customers are charged based on the number of units"
+              + " they purchase * METERED: Customers are charged per use of this product * SIMPLE:"
+              + " Customers are charged on a fixed amount for each billing period with an optional"
+              + " add-on feature ")
   /**
    * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
    * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *

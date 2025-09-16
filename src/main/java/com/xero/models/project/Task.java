@@ -64,6 +64,7 @@ public class Task {
 
   @JsonProperty("amountInvoiced")
   private Amount amountInvoiced;
+
   /**
    * Status of the task. When a task of ChargeType is &#x60;FIXED&#x60; and the rate amount is
    * invoiced the status will be set to &#x60;INVOICED&#x60; and can&#39;t be modified. A task with
@@ -125,6 +126,7 @@ public class Task {
 
   @JsonProperty("status")
   private StatusEnum status;
+
   /**
    * Identifier of the task.
    *
@@ -653,8 +655,8 @@ public class Task {
    */
   @ApiModelProperty(
       value =
-          "Status of the task. When a task of ChargeType is `FIXED` and the rate amount is"
-              + " invoiced the status will be set to `INVOICED` and can't be modified. A task with"
+          "Status of the task. When a task of ChargeType is `FIXED` and the rate amount is invoiced"
+              + " the status will be set to `INVOICED` and can't be modified. A task with"
               + " ChargeType of `TIME` or `NON_CHARGEABLE` cannot have a status of `INVOICED`. A"
               + " `LOCKED` state indicates that the task is currently changing state (for example"
               + " being invoiced) and can't be modified.")

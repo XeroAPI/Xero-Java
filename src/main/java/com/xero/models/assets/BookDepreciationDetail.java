@@ -41,6 +41,7 @@ public class BookDepreciationDetail {
 
   @JsonProperty("currentAccumDepreciationAmount")
   private Double currentAccumDepreciationAmount;
+
   /**
    * When an asset is disposed, this will be the sell price minus the purchase price if a profit was
    * made.

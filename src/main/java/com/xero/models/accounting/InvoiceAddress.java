@@ -21,6 +21,7 @@ import java.util.Objects;
 /** InvoiceAddress */
 public class InvoiceAddress {
   StringUtil util = new StringUtil();
+
   /** Indicates whether the address is defined as origin (FROM) or destination (TO) */
   public enum InvoiceAddressTypeEnum {
     /** FROM */
@@ -97,6 +98,7 @@ public class InvoiceAddress {
 
   @JsonProperty("Country")
   private String country;
+
   /**
    * Indicates whether the address is defined as origin (FROM) or destination (TO)
    *

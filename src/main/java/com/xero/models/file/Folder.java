@@ -35,6 +35,7 @@ public class Folder {
 
   @JsonProperty("Id")
   private UUID id;
+
   /**
    * The name of the folder
    *

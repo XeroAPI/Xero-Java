@@ -27,6 +27,7 @@ public class ReportCell {
 
   @JsonProperty("Attributes")
   private List<ReportAttribute> attributes = new ArrayList<ReportAttribute>();
+
   /**
    * value
    *

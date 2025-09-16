@@ -42,6 +42,7 @@ public class User {
 
   @JsonProperty("IsSubscriber")
   private Boolean isSubscriber;
+
   /**
    * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
    * FINANCIALADVISER, etc)
@@ -115,6 +116,7 @@ public class User {
 
   @JsonProperty("OrganisationRole")
   private OrganisationRoleEnum organisationRole;
+
   /**
    * Xero identifier
    *
@@ -269,6 +271,7 @@ public class User {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Timestamp of last change to user
    *
@@ -340,8 +343,8 @@ public class User {
    */
   @ApiModelProperty(
       value =
-          "User role that defines permissions in Xero and via API (READONLY, INVOICEONLY,"
-              + " STANDARD, FINANCIALADVISER, etc)")
+          "User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,"
+              + " FINANCIALADVISER, etc)")
   /**
    * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
    * FINANCIALADVISER, etc)

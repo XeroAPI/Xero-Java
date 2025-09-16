@@ -42,6 +42,7 @@ public class BankAccount {
 
   @JsonProperty("reference")
   private String reference;
+
   /** Calculation type for the transaction can be &#39;Fixed Amount&#39; or &#39;Balance&#39; */
   public enum CalculationTypeEnum {
     /** FIXEDAMOUNT */
@@ -94,6 +95,7 @@ public class BankAccount {
 
   @JsonProperty("calculationType")
   private CalculationTypeEnum calculationType;
+
   /**
    * Bank account name (max length &#x3D; 32)
    *

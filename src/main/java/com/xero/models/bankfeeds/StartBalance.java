@@ -27,6 +27,7 @@ public class StartBalance {
 
   @JsonProperty("creditDebitIndicator")
   private CreditDebitIndicator creditDebitIndicator;
+
   /**
    * decimal(19,4) unsigned Opening/closing balance amount.
    *

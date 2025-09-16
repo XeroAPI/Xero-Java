@@ -33,6 +33,7 @@ public class PayItem {
 
   @JsonProperty("ReimbursementTypes")
   private List<ReimbursementType> reimbursementTypes = new ArrayList<ReimbursementType>();
+
   /**
    * earningsRates
    *

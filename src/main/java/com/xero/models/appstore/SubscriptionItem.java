@@ -41,6 +41,7 @@ public class SubscriptionItem {
 
   @JsonProperty("startDate")
   private LocalDateTime startDate;
+
   /**
    * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
    * PENDING_ACTIVATION.
@@ -102,6 +103,7 @@ public class SubscriptionItem {
 
   @JsonProperty("testMode")
   private Boolean testMode;
+
   /**
    * Date when the subscription to this product will end
    *

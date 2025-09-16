@@ -26,6 +26,7 @@ public class CourtOrderLine {
 
   @JsonProperty("amount")
   private Double amount;
+
   /**
    * Xero identifier for payroll court order type
    *

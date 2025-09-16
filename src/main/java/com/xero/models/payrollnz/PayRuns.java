@@ -30,6 +30,7 @@ public class PayRuns {
 
   @JsonProperty("payRuns")
   private List<PayRun> payRuns = new ArrayList<PayRun>();
+
   /**
    * pagination
    *

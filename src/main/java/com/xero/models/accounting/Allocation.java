@@ -56,6 +56,7 @@ public class Allocation {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * Xero generated unique identifier
    *
@@ -291,6 +292,7 @@ public class Allocation {
   public String getDate() {
     return date;
   }
+
   /**
    * the date the allocation is applied YYYY-MM-DD.
    *

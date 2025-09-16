@@ -32,6 +32,7 @@ public class Reimbursement {
 
   @JsonProperty("currentRecord")
   private Boolean currentRecord;
+
   /**
    * Xero unique identifier for a reimbursement
    *

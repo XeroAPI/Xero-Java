@@ -38,6 +38,7 @@ public class TaxLine {
 
   @JsonProperty("manualAdjustment")
   private Boolean manualAdjustment;
+
   /**
    * Xero identifier for payroll tax line
    *

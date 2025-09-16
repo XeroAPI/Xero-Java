@@ -32,6 +32,7 @@ public class LineItemTracking {
 
   @JsonProperty("Option")
   private String option;
+
   /**
    * The Xero identifier for a tracking category
    *

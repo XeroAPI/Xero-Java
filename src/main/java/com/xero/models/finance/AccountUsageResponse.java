@@ -34,6 +34,7 @@ public class AccountUsageResponse {
 
   @JsonProperty("accountUsage")
   private List<AccountUsage> accountUsage = new ArrayList<AccountUsage>();
+
   /**
    * The requested Organisation to which the data pertains
    *

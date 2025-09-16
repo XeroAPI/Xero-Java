@@ -30,6 +30,7 @@ public class EmployeeOpeningBalancesObject {
 
   @JsonProperty("openingBalances")
   private List<EmployeeOpeningBalance> openingBalances = new ArrayList<EmployeeOpeningBalance>();
+
   /**
    * pagination
    *

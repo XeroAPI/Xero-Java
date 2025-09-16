@@ -42,6 +42,7 @@ public class Connection {
 
   @JsonProperty("updatedDateUtc")
   private LocalDateTime updatedDateUtc;
+
   /**
    * Xero identifier
    *

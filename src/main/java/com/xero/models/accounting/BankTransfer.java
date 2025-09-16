@@ -69,6 +69,7 @@ public class BankTransfer {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * fromBankAccount
    *
@@ -199,6 +200,7 @@ public class BankTransfer {
   public String getDate() {
     return date;
   }
+
   /**
    * The date of the Transfer YYYY-MM-DD
    *
@@ -440,6 +442,7 @@ public class BankTransfer {
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
+
   /**
    * UTC timestamp of creation date of bank transfer
    *

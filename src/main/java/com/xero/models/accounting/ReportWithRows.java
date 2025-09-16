@@ -24,6 +24,7 @@ public class ReportWithRows {
 
   @JsonProperty("Reports")
   private List<ReportWithRow> reports = new ArrayList<ReportWithRow>();
+
   /**
    * reports
    *

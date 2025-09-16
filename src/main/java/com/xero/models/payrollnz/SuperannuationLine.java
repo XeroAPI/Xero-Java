@@ -38,6 +38,7 @@ public class SuperannuationLine {
 
   @JsonProperty("manualAdjustment")
   private Boolean manualAdjustment;
+
   /**
    * Xero identifier for payroll superannuation type
    *

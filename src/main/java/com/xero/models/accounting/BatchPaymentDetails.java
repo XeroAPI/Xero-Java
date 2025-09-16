@@ -36,6 +36,7 @@ public class BatchPaymentDetails {
 
   @JsonProperty("Reference")
   private String reference;
+
   /**
    * Bank account number for use with Batch Payments
    *
@@ -187,8 +188,8 @@ public class BatchPaymentDetails {
       value =
           "(NZ Only) Optional references for the batch payment transaction. It will also show with"
               + " the batch payment transaction in the bank reconciliation Find & Match screen."
-              + " Depending on your individual bank, the detail may also show on the bank"
-              + " statement you import into Xero.")
+              + " Depending on your individual bank, the detail may also show on the bank statement"
+              + " you import into Xero.")
   /**
    * (NZ Only) Optional references for the batch payment transaction. It will also show with the
    * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
@@ -236,8 +237,8 @@ public class BatchPaymentDetails {
       value =
           "(NZ Only) Optional references for the batch payment transaction. It will also show with"
               + " the batch payment transaction in the bank reconciliation Find & Match screen."
-              + " Depending on your individual bank, the detail may also show on the bank"
-              + " statement you import into Xero.")
+              + " Depending on your individual bank, the detail may also show on the bank statement"
+              + " you import into Xero.")
   /**
    * (NZ Only) Optional references for the batch payment transaction. It will also show with the
    * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your

@@ -69,6 +69,7 @@ public class Asset {
 
   @JsonProperty("isDeleteEnabledForDate")
   private Boolean isDeleteEnabledForDate;
+
   /**
    * The Xero-generated Id for the asset
    *
@@ -555,9 +556,9 @@ public class Asset {
   @ApiModelProperty(
       example = "true",
       value =
-          "Boolean to indicate whether depreciation can be rolled back for this asset"
-              + " individually. This is true if it doesn't have 'legacy' journal entries and if"
-              + " there is no lock period that would prevent this asset from rolling back.")
+          "Boolean to indicate whether depreciation can be rolled back for this asset individually."
+              + " This is true if it doesn't have 'legacy' journal entries and if there is no lock"
+              + " period that would prevent this asset from rolling back.")
   /**
    * Boolean to indicate whether depreciation can be rolled back for this asset individually. This
    * is true if it doesn&#39;t have &#39;legacy&#39; journal entries and if there is no lock period

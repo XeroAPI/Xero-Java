@@ -24,6 +24,7 @@ public class Receipts {
 
   @JsonProperty("Receipts")
   private List<Receipt> receipts = new ArrayList<Receipt>();
+
   /**
    * receipts
    *

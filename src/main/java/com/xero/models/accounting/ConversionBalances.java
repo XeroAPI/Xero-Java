@@ -33,6 +33,7 @@ public class ConversionBalances {
 
   @JsonProperty("BalanceDetails")
   private List<BalanceDetails> balanceDetails = new ArrayList<BalanceDetails>();
+
   /**
    * The account code for a account
    *

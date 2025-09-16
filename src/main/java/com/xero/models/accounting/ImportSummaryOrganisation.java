@@ -22,6 +22,7 @@ public class ImportSummaryOrganisation {
 
   @JsonProperty("Present")
   private Boolean present;
+
   /**
    * present
    *

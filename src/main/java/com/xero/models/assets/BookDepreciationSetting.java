@@ -22,6 +22,7 @@ import java.util.UUID;
 /** BookDepreciationSetting */
 public class BookDepreciationSetting {
   StringUtil util = new StringUtil();
+
   /** The method of depreciation applied to this asset. See Depreciation Methods */
   public enum DepreciationMethodEnum {
     /** NODEPRECIATION */
@@ -86,6 +87,7 @@ public class BookDepreciationSetting {
 
   @JsonProperty("depreciationMethod")
   private DepreciationMethodEnum depreciationMethod;
+
   /** The method of averaging applied to this asset. See Averaging Methods */
   public enum AveragingMethodEnum {
     /** FULLMONTH */
@@ -144,6 +146,7 @@ public class BookDepreciationSetting {
 
   @JsonProperty("effectiveLifeYears")
   private Integer effectiveLifeYears;
+
   /** See Depreciation Calculation Methods */
   public enum DepreciationCalculationMethodEnum {
     /** RATE */
@@ -208,6 +211,7 @@ public class BookDepreciationSetting {
 
   @JsonProperty("bookEffectiveDateOfChangeId")
   private UUID bookEffectiveDateOfChangeId;
+
   /**
    * The method of depreciation applied to this asset. See Depreciation Methods
    *

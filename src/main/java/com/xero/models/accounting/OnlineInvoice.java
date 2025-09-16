@@ -22,6 +22,7 @@ public class OnlineInvoice {
 
   @JsonProperty("OnlineInvoiceUrl")
   private String onlineInvoiceUrl;
+
   /**
    * the URL to an online invoice
    *

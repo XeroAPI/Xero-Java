@@ -24,6 +24,7 @@ public class Quotes {
 
   @JsonProperty("Quotes")
   private List<Quote> quotes = new ArrayList<Quote>();
+
   /**
    * quotes
    *

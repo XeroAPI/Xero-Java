@@ -47,6 +47,7 @@ public class SalaryAndWage {
 
   @JsonProperty("annualSalary")
   private Double annualSalary;
+
   /** The current status of the corresponding salary and wages */
   public enum StatusEnum {
     /** ACTIVE */
@@ -102,6 +103,7 @@ public class SalaryAndWage {
 
   @JsonProperty("status")
   private StatusEnum status;
+
   /** The type of the payment of the corresponding salary and wages */
   public enum PaymentTypeEnum {
     /** SALARY */
@@ -154,6 +156,7 @@ public class SalaryAndWage {
 
   @JsonProperty("paymentType")
   private PaymentTypeEnum paymentType;
+
   /** The type of the Working Pattern of the corresponding salary and wages */
   public enum WorkPatternTypeEnum {
     /** DAYSANDHOURS */
@@ -206,6 +209,7 @@ public class SalaryAndWage {
 
   @JsonProperty("workPatternType")
   private WorkPatternTypeEnum workPatternType;
+
   /**
    * Xero unique identifier for a salary and wages record
    *

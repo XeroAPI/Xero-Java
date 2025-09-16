@@ -41,6 +41,7 @@ public class Account {
 
   @JsonProperty("BankAccountNumber")
   private String bankAccountNumber;
+
   /** Accounts with a status of ACTIVE can be updated to ARCHIVED. See Account Status Codes */
   public enum StatusEnum {
     /** ACTIVE */
@@ -99,6 +100,7 @@ public class Account {
 
   @JsonProperty("Description")
   private String description;
+
   /** For bank accounts only. See Bank Account types */
   public enum BankAccountTypeEnum {
     /** BANK */
@@ -172,6 +174,7 @@ public class Account {
 
   @JsonProperty("ShowInExpenseClaims")
   private Boolean showInExpenseClaims;
+
   /** See Account Class Types */
   public enum PropertyClassEnum {
     /** ASSET */
@@ -233,6 +236,7 @@ public class Account {
 
   @JsonProperty("Class")
   private PropertyClassEnum propertyClass;
+
   /**
    * If this is a system account then this element is returned. See System Account types. Note that
    * non-system accounts may have this element set as either “” or null.
@@ -363,6 +367,7 @@ public class Account {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   /**
    * Customer defined alpha numeric account code e.g 200 or SALES (max length &#x3D; 10)
    *
@@ -456,8 +461,8 @@ public class Account {
   @ApiModelProperty(
       example = "00000000-0000-0000-0000-000000000000",
       value =
-          "The Xero identifier for an account – specified as a string following  the endpoint name"
-              + "   e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+          "The Xero identifier for an account – specified as a string following  the endpoint name "
+              + "  e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9")
   /**
    * The Xero identifier for an account – specified as a string following the endpoint name e.g.
    * /297c2dc5-cc47-4afd-8ec8-74990b8761e9
@@ -919,6 +924,7 @@ public class Account {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified date UTC format
    *

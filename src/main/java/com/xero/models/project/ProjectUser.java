@@ -29,6 +29,7 @@ public class ProjectUser {
 
   @JsonProperty("email")
   private String email;
+
   /**
    * Identifier of the user of the project.
    *

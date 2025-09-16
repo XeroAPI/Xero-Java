@@ -36,6 +36,7 @@ public class TimesheetLine {
 
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
+
   /**
    * The Xero identifier for a Timesheet Line
    *

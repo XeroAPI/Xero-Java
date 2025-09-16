@@ -38,6 +38,7 @@ public class Contact {
 
   @JsonProperty("AccountNumber")
   private String accountNumber;
+
   /** Current status of a contact – see contact status types */
   public enum ContactStatusEnum {
     /** ACTIVE */
@@ -135,6 +136,7 @@ public class Contact {
 
   @JsonProperty("IsCustomer")
   private Boolean isCustomer;
+
   /**
    * The default sales line amount type for a contact. Only available when summaryOnly parameter or
    * paging is used, or when fetch by ContactId or ContactNumber.
@@ -193,6 +195,7 @@ public class Contact {
 
   @JsonProperty("SalesDefaultLineAmountType")
   private SalesDefaultLineAmountTypeEnum salesDefaultLineAmountType;
+
   /**
    * The default purchases line amount type for a contact Only available when summaryOnly parameter
    * or paging is used, or when fetch by ContactId or ContactNumber.
@@ -316,6 +319,7 @@ public class Contact {
 
   @JsonProperty("StatusAttributeString")
   private String statusAttributeString;
+
   /**
    * Xero identifier
    *
@@ -1551,6 +1555,7 @@ public class Contact {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * UTC timestamp of last update to contact
    *

@@ -27,6 +27,7 @@ public class ContactGroup {
 
   @JsonProperty("Name")
   private String name;
+
   /**
    * The Status of a contact group. To delete a contact group update the status to DELETED. Only
    * contact groups with a status of ACTIVE are returned on GETs.
@@ -88,6 +89,7 @@ public class ContactGroup {
 
   @JsonProperty("Contacts")
   private List<Contact> contacts = new ArrayList<Contact>();
+
   /**
    * The Name of the contact group. Required when creating a new contact group
    *

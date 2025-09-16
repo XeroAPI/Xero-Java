@@ -28,6 +28,7 @@ public class PaymentMethodObject {
 
   @JsonProperty("paymentMethod")
   private PaymentMethod paymentMethod;
+
   /**
    * pagination
    *

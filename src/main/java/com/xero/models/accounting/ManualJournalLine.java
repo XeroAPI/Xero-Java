@@ -46,6 +46,7 @@ public class ManualJournalLine {
 
   @JsonProperty("IsBlank")
   private Boolean isBlank;
+
   /**
    * total for line. Debits are positive, credits are negative value
    *

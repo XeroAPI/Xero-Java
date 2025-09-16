@@ -41,6 +41,7 @@ public class BankTransactionResponse {
 
   @JsonProperty("lineItems")
   private List<LineItemResponse> lineItems = new ArrayList<LineItemResponse>();
+
   /**
    * Xero Identifier of transaction
    *

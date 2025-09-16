@@ -59,6 +59,7 @@ public class UserResponse {
 
   @JsonProperty("historyRecords")
   private List<HistoryRecordResponse> historyRecords = new ArrayList<HistoryRecordResponse>();
+
   /**
    * The Xero identifier for the user
    *

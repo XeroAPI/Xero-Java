@@ -34,6 +34,7 @@ public class InvoiceResponse {
 
   @JsonProperty("lineItems")
   private List<LineItemResponse> lineItems = new ArrayList<LineItemResponse>();
+
   /**
    * Xero Identifier of invoice
    *

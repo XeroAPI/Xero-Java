@@ -35,6 +35,7 @@ public class PaidLeaveEarningsLine {
 
   @JsonProperty("ResetSTPCategorisation")
   private Boolean resetSTPCategorisation;
+
   /**
    * Xero leave type identifier
    *
@@ -129,9 +130,9 @@ public class PaidLeaveEarningsLine {
   @ApiModelProperty(
       example = "50.0",
       value =
-          "The amount of leave loading applied for the leave type that is subject to"
-              + " Superannuation Guarantee Contributions. *Only applicable for Leave Types with"
-              + " Annual Leave Categories")
+          "The amount of leave loading applied for the leave type that is subject to Superannuation"
+              + " Guarantee Contributions. *Only applicable for Leave Types with Annual Leave"
+              + " Categories")
   /**
    * The amount of leave loading applied for the leave type that is subject to Superannuation
    * Guarantee Contributions. *Only applicable for Leave Types with Annual Leave Categories

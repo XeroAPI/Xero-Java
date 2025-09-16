@@ -58,6 +58,7 @@ public class PayslipSummary {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
   /**
    * The Xero identifier for an employee
    *
@@ -461,6 +462,7 @@ public class PayslipSummary {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

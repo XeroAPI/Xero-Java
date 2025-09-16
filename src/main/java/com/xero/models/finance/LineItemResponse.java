@@ -32,6 +32,7 @@ public class LineItemResponse {
 
   @JsonProperty("accountType")
   private String accountType;
+
   /**
    * Xero Identifier of account
    *

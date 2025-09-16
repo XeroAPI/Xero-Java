@@ -35,6 +35,7 @@ public class DeductionLine {
 
   @JsonProperty("NumberOfUnits")
   private Double numberOfUnits;
+
   /**
    * Xero deduction type identifier
    *

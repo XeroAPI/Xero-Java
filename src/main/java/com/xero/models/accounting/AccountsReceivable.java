@@ -25,6 +25,7 @@ public class AccountsReceivable {
 
   @JsonProperty("Overdue")
   private Double overdue;
+
   /**
    * outstanding
    *

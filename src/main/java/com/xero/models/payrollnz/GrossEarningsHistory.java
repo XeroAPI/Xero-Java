@@ -25,6 +25,7 @@ public class GrossEarningsHistory {
 
   @JsonProperty("unpaidWeeks")
   private Integer unpaidWeeks;
+
   /**
    * Number of days the employee worked in the pay period (0 - 365)
    *

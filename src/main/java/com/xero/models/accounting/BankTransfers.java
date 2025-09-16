@@ -24,6 +24,7 @@ public class BankTransfers {
 
   @JsonProperty("BankTransfers")
   private List<BankTransfer> bankTransfers = new ArrayList<BankTransfer>();
+
   /**
    * bankTransfers
    *

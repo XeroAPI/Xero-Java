@@ -31,6 +31,7 @@ public class RefreshToken {
 
   @JsonProperty("client_secret")
   private String clientSecret;
+
   /**
    * Xero grant type
    *

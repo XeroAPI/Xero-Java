@@ -21,6 +21,7 @@ import java.util.Objects;
 /** EmployeeStatutoryLeaveBalance */
 public class EmployeeStatutoryLeaveBalance {
   StringUtil util = new StringUtil();
+
   /** The type of statutory leave */
   public enum LeaveTypeEnum {
     /** SICK */
@@ -91,6 +92,7 @@ public class EmployeeStatutoryLeaveBalance {
 
   @JsonProperty("balanceRemaining")
   private Double balanceRemaining;
+
   /** The units will be \&quot;Hours\&quot; */
   public enum UnitsEnum {
     /** HOURS */
@@ -140,6 +142,7 @@ public class EmployeeStatutoryLeaveBalance {
 
   @JsonProperty("units")
   private UnitsEnum units;
+
   /**
    * The type of statutory leave
    *

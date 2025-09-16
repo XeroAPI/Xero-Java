@@ -27,6 +27,7 @@ public class FeedConnections {
 
   @JsonProperty("items")
   private List<FeedConnection> items = new ArrayList<FeedConnection>();
+
   /**
    * pagination
    *

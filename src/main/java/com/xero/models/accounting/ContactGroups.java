@@ -24,6 +24,7 @@ public class ContactGroups {
 
   @JsonProperty("ContactGroups")
   private List<ContactGroup> contactGroups = new ArrayList<ContactGroup>();
+
   /**
    * contactGroups
    *

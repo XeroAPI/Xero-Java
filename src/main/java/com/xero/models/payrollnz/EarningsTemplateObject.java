@@ -28,6 +28,7 @@ public class EarningsTemplateObject {
 
   @JsonProperty("earningTemplate")
   private EarningsTemplate earningTemplate;
+
   /**
    * pagination
    *

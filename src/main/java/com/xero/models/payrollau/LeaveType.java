@@ -55,6 +55,7 @@ public class LeaveType {
 
   @JsonProperty("SGCExempt")
   private Boolean sgCExempt;
+
   /**
    * Name of the earnings rate (max length &#x3D; 100)
    *
@@ -262,6 +263,7 @@ public class LeaveType {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   /**
    * Last modified timestamp
    *

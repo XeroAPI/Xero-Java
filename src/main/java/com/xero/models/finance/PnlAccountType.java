@@ -30,6 +30,7 @@ public class PnlAccountType {
 
   @JsonProperty("accounts")
   private List<PnlAccount> accounts = new ArrayList<PnlAccount>();
+
   /**
    * Total movement on this account type
    *

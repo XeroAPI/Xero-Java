@@ -31,6 +31,7 @@ public class EmployeeWorkingPatternsObject {
   @JsonProperty("payeeWorkingPatterns")
   private List<EmployeeWorkingPattern> payeeWorkingPatterns =
       new ArrayList<EmployeeWorkingPattern>();
+
   /**
    * pagination
    *
