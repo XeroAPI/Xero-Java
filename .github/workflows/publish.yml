@@ -52,7 +52,7 @@ jobs:
               env: 
                 GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
 
-            - name: Publish to Maven
+            - name: Publish to OSSRH Staging API
               run: |
                 export GPG_TTY=$(tty)
                 mvn clean deploy -DskipTests=true
@@ -60,6 +60,18 @@ jobs:
                 MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
                 MAVEN_PASSWORD: ${{ secrets.MAVEN_TOKEN }}
                 GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+              working-directory: Xero-Java
+
+            # This needs to run from the same IP address that the mvn deploy ran on.
+            # Once this is complete you will need to log in to https://central.sonatype.com/publishing
+            # to finish the publish. We can supply publishing_type as 'automatic' instead to skip this step.
+            # See docs: https://central.sonatype.org/publish/publish-portal-ossrh-staging-api
+            - name: OSSRH Staging API publish
+              run: |
+                curl -i -X POST -u "$MAVEN_USERNAME:$MAVEN_PASSWORD" https://ossrh-staging-api.central.sonatype.com/manual/upload/defaultRepository/com.github.xeroapi?publishing_type=user_managed
+              env:
+                MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+                MAVEN_PASSWORD: ${{ secrets.MAVEN_TOKEN }}
               working-directory: Xero-Java
 
     notify-slack-on-success:
