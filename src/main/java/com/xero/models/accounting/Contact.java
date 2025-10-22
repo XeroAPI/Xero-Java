@@ -119,6 +119,68 @@ public class Contact {
   @JsonProperty("TaxNumber")
   private String taxNumber;
 
+  /**
+   * Identifier of the regional type of tax number, such as US, UK, or other regional tax
+   * identifiers
+   */
+  public enum TaxNumberTypeEnum {
+    /** SSN */
+    SSN("SSN"),
+
+    /** EIN */
+    EIN("EIN"),
+
+    /** ITIN */
+    ITIN("ITIN"),
+
+    /** ATIN */
+    ATIN("ATIN");
+
+    private String value;
+
+    TaxNumberTypeEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static TaxNumberTypeEnum fromValue(String value) {
+      for (TaxNumberTypeEnum b : TaxNumberTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("TaxNumberType")
+  private TaxNumberTypeEnum taxNumberType;
+
   @JsonProperty("AccountsReceivableTaxType")
   private String accountsReceivableTaxType;
 
@@ -827,6 +889,48 @@ public class Contact {
    */
   public void setTaxNumber(String taxNumber) {
     this.taxNumber = taxNumber;
+  }
+
+  /**
+   * Identifier of the regional type of tax number, such as US, UK, or other regional tax
+   * identifiers
+   *
+   * @param taxNumberType TaxNumberTypeEnum
+   * @return Contact
+   */
+  public Contact taxNumberType(TaxNumberTypeEnum taxNumberType) {
+    this.taxNumberType = taxNumberType;
+    return this;
+  }
+
+  /**
+   * Identifier of the regional type of tax number, such as US, UK, or other regional tax
+   * identifiers
+   *
+   * @return taxNumberType
+   */
+  @ApiModelProperty(
+      value =
+          "Identifier of the regional type of tax number, such as US, UK, or other regional tax"
+              + " identifiers")
+  /**
+   * Identifier of the regional type of tax number, such as US, UK, or other regional tax
+   * identifiers
+   *
+   * @return taxNumberType TaxNumberTypeEnum
+   */
+  public TaxNumberTypeEnum getTaxNumberType() {
+    return taxNumberType;
+  }
+
+  /**
+   * Identifier of the regional type of tax number, such as US, UK, or other regional tax
+   * identifiers
+   *
+   * @param taxNumberType TaxNumberTypeEnum
+   */
+  public void setTaxNumberType(TaxNumberTypeEnum taxNumberType) {
+    this.taxNumberType = taxNumberType;
   }
 
   /**
@@ -1985,6 +2089,7 @@ public class Contact {
         && Objects.equals(this.contactPersons, contact.contactPersons)
         && Objects.equals(this.bankAccountDetails, contact.bankAccountDetails)
         && Objects.equals(this.taxNumber, contact.taxNumber)
+        && Objects.equals(this.taxNumberType, contact.taxNumberType)
         && Objects.equals(this.accountsReceivableTaxType, contact.accountsReceivableTaxType)
         && Objects.equals(this.accountsPayableTaxType, contact.accountsPayableTaxType)
         && Objects.equals(this.addresses, contact.addresses)
@@ -2033,6 +2138,7 @@ public class Contact {
         contactPersons,
         bankAccountDetails,
         taxNumber,
+        taxNumberType,
         accountsReceivableTaxType,
         accountsPayableTaxType,
         addresses,
@@ -2081,6 +2187,7 @@ public class Contact {
     sb.append("    contactPersons: ").append(toIndentedString(contactPersons)).append("\n");
     sb.append("    bankAccountDetails: ").append(toIndentedString(bankAccountDetails)).append("\n");
     sb.append("    taxNumber: ").append(toIndentedString(taxNumber)).append("\n");
+    sb.append("    taxNumberType: ").append(toIndentedString(taxNumberType)).append("\n");
     sb.append("    accountsReceivableTaxType: ")
         .append(toIndentedString(accountsReceivableTaxType))
         .append("\n");
