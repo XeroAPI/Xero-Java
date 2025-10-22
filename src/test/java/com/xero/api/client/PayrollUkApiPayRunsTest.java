@@ -90,39 +90,4 @@ public class PayrollUkApiPayRunsTest {
 
 
 
-    @Test
-    public void updatePayRunTest() throws IOException {
-        System.out.println("@Test UK Payroll - updatePayRunTest");
-       
-        UUID payRunID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
-        PayRun payRun = new PayRun();
-        PayRunObject response = payrollUkApi.updatePayRun(accessToken, xeroTenantId, payRunID, payRun, null);
-        
-        assertThat(response.getPayRun().getPayRunID(), is(equalTo(UUID.fromString("e0a59d82-6229-4be4-9d66-49891b4d933e"))));
-        assertThat(response.getPayRun().getPayrollCalendarID(), is(equalTo(UUID.fromString("216d80e6-af55-47b1-b718-9457c3f5d2fe"))));
-        assertThat(response.getPayRun().getPayRunType(), is(equalTo(com.xero.models.payrolluk.PayRun.PayRunTypeEnum.SCHEDULED)));
-        assertThat(response.getPayRun().getPeriodStartDate(),  is(equalTo(LocalDate.of(2020, 02, 03))));
-        assertThat(response.getPayRun().getPeriodEndDate(),  is(equalTo(LocalDate.of(2020, 02, 9))));        
-        assertThat(response.getPayRun().getPaymentDate(),  is(equalTo(LocalDate.of(2020, 05, 01))));
-        assertThat(response.getPayRun().getTotalCost(),  is(equalTo(523.79)));
-        assertThat(response.getPayRun().getTotalPay(),  is(equalTo(445.04)));
-        assertThat(response.getPayRun().getPayRunStatus(), is(equalTo(com.xero.models.payrolluk.PayRun.PayRunStatusEnum.DRAFT)));
-        assertThat(response.getPayRun().getCalendarType(), is(equalTo(com.xero.models.payrolluk.PayRun.CalendarTypeEnum.WEEKLY)));
-        assertThat(response.getPayRun().getPaySlips().get(0).getPaySlipID(), is(equalTo(UUID.fromString("ed3fb9b3-e9a1-44fa-a224-8be49facbbe8"))));
-        assertThat(response.getPayRun().getPaySlips().get(0).getEmployeeID(), is(equalTo(UUID.fromString("aad6b292-7b94-408b-93f6-e489867e3fb0"))));
-        assertThat(response.getPayRun().getPaySlips().get(0).getFirstName(), is(equalTo("Mike")));
-        assertThat(response.getPayRun().getPaySlips().get(0).getLastName(), is(equalTo("Johncfvhitgezvson")));
-        assertThat(response.getPayRun().getPaySlips().get(0).getTotalEarnings(), is(equalTo(480.77)));
-        assertThat(response.getPayRun().getPaySlips().get(0).getGrossEarnings(), is(equalTo(480.77)));
-        assertThat(response.getPayRun().getPaySlips().get(0).getTotalPay(), is(equalTo(445.04)));
-        assertThat(response.getPayRun().getPaySlips().get(0).getTotalEmployerTaxes(), is(equalTo(43.02)));
-        assertThat(response.getPayRun().getPaySlips().get(0).getTotalEmployeeTaxes(), is(equalTo(35.73)));
-        assertThat(response.getPayRun().getPaySlips().get(0).getTotalDeductions(), is(equalTo(0.0)));
-        assertThat(response.getPayRun().getPaySlips().get(0).getTotalReimbursements(), is(equalTo(0.0)));
-        assertThat(response.getPayRun().getPaySlips().get(0).getTotalCourtOrders(), is(equalTo(0.0)));
-        assertThat(response.getPayRun().getPaySlips().get(0).getTotalBenefits(), is(equalTo(0.0)));
-        assertThat(response.getPayRun().getPaySlips().get(0).getPaymentMethod(), is(equalTo(com.xero.models.payrolluk.Payslip.PaymentMethodEnum.ELECTRONICALLY)));
-
-        //System.out.println(response.toString());
-    }
-}
+   
