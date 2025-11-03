@@ -14,6 +14,7 @@ package com.xero.models.assets;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 import java.util.Objects;
 import org.threeten.bp.LocalDate;
 
@@ -41,6 +42,21 @@ public class BookDepreciationDetail {
 
   @JsonProperty("currentAccumDepreciationAmount")
   private Double currentAccumDepreciationAmount;
+
+  @JsonProperty("businessUseCapitalGain")
+  private BigDecimal businessUseCapitalGain;
+
+  @JsonProperty("businessUseCurrentGainLoss")
+  private BigDecimal businessUseCurrentGainLoss;
+
+  @JsonProperty("privateUseCapitalGain")
+  private BigDecimal privateUseCapitalGain;
+
+  @JsonProperty("privateUseCurrentGainLoss")
+  private BigDecimal privateUseCurrentGainLoss;
+
+  @JsonProperty("initialDeductionPercentage")
+  private BigDecimal initialDeductionPercentage;
 
   /**
    * When an asset is disposed, this will be the sell price minus the purchase price if a profit was
@@ -314,6 +330,219 @@ public class BookDepreciationDetail {
     this.currentAccumDepreciationAmount = currentAccumDepreciationAmount;
   }
 
+  /**
+   * (New Zealand Orgs Only) The portion of capital gain realised from the disposal of a fixed asset
+   * that is attributable to its business use.
+   *
+   * @param businessUseCapitalGain BigDecimal
+   * @return BookDepreciationDetail
+   */
+  public BookDepreciationDetail businessUseCapitalGain(BigDecimal businessUseCapitalGain) {
+    this.businessUseCapitalGain = businessUseCapitalGain;
+    return this;
+  }
+
+  /**
+   * (New Zealand Orgs Only) The portion of capital gain realised from the disposal of a fixed asset
+   * that is attributable to its business use.
+   *
+   * @return businessUseCapitalGain
+   */
+  @ApiModelProperty(
+      value =
+          "(New Zealand Orgs Only) The portion of capital gain realised from the disposal of a"
+              + " fixed asset that is attributable to its business use.")
+  /**
+   * (New Zealand Orgs Only) The portion of capital gain realised from the disposal of a fixed asset
+   * that is attributable to its business use.
+   *
+   * @return businessUseCapitalGain BigDecimal
+   */
+  public BigDecimal getBusinessUseCapitalGain() {
+    return businessUseCapitalGain;
+  }
+
+  /**
+   * (New Zealand Orgs Only) The portion of capital gain realised from the disposal of a fixed asset
+   * that is attributable to its business use.
+   *
+   * @param businessUseCapitalGain BigDecimal
+   */
+  public void setBusinessUseCapitalGain(BigDecimal businessUseCapitalGain) {
+    this.businessUseCapitalGain = businessUseCapitalGain;
+  }
+
+  /**
+   * (New Zealand Orgs Only) Represents the gain or loss from the disposal of the business use
+   * portion of a fixed asset. This value records the financial result (profit or loss) related
+   * specifically to the asset’s business use.
+   *
+   * @param businessUseCurrentGainLoss BigDecimal
+   * @return BookDepreciationDetail
+   */
+  public BookDepreciationDetail businessUseCurrentGainLoss(BigDecimal businessUseCurrentGainLoss) {
+    this.businessUseCurrentGainLoss = businessUseCurrentGainLoss;
+    return this;
+  }
+
+  /**
+   * (New Zealand Orgs Only) Represents the gain or loss from the disposal of the business use
+   * portion of a fixed asset. This value records the financial result (profit or loss) related
+   * specifically to the asset’s business use.
+   *
+   * @return businessUseCurrentGainLoss
+   */
+  @ApiModelProperty(
+      value =
+          "(New Zealand Orgs Only) Represents the gain or loss from the disposal of the business"
+              + " use portion of a fixed asset. This value records the financial result (profit or"
+              + " loss) related specifically to the asset’s business use.")
+  /**
+   * (New Zealand Orgs Only) Represents the gain or loss from the disposal of the business use
+   * portion of a fixed asset. This value records the financial result (profit or loss) related
+   * specifically to the asset’s business use.
+   *
+   * @return businessUseCurrentGainLoss BigDecimal
+   */
+  public BigDecimal getBusinessUseCurrentGainLoss() {
+    return businessUseCurrentGainLoss;
+  }
+
+  /**
+   * (New Zealand Orgs Only) Represents the gain or loss from the disposal of the business use
+   * portion of a fixed asset. This value records the financial result (profit or loss) related
+   * specifically to the asset’s business use.
+   *
+   * @param businessUseCurrentGainLoss BigDecimal
+   */
+  public void setBusinessUseCurrentGainLoss(BigDecimal businessUseCurrentGainLoss) {
+    this.businessUseCurrentGainLoss = businessUseCurrentGainLoss;
+  }
+
+  /**
+   * (New Zealand Orgs Only) The portion of capital gain realised from the disposal of a fixed asset
+   * that is attributable to its private (non-business) use.
+   *
+   * @param privateUseCapitalGain BigDecimal
+   * @return BookDepreciationDetail
+   */
+  public BookDepreciationDetail privateUseCapitalGain(BigDecimal privateUseCapitalGain) {
+    this.privateUseCapitalGain = privateUseCapitalGain;
+    return this;
+  }
+
+  /**
+   * (New Zealand Orgs Only) The portion of capital gain realised from the disposal of a fixed asset
+   * that is attributable to its private (non-business) use.
+   *
+   * @return privateUseCapitalGain
+   */
+  @ApiModelProperty(
+      value =
+          "(New Zealand Orgs Only) The portion of capital gain realised from the disposal of a"
+              + " fixed asset that is attributable to its private (non-business) use.")
+  /**
+   * (New Zealand Orgs Only) The portion of capital gain realised from the disposal of a fixed asset
+   * that is attributable to its private (non-business) use.
+   *
+   * @return privateUseCapitalGain BigDecimal
+   */
+  public BigDecimal getPrivateUseCapitalGain() {
+    return privateUseCapitalGain;
+  }
+
+  /**
+   * (New Zealand Orgs Only) The portion of capital gain realised from the disposal of a fixed asset
+   * that is attributable to its private (non-business) use.
+   *
+   * @param privateUseCapitalGain BigDecimal
+   */
+  public void setPrivateUseCapitalGain(BigDecimal privateUseCapitalGain) {
+    this.privateUseCapitalGain = privateUseCapitalGain;
+  }
+
+  /**
+   * (New Zealand Orgs Only) Represents the gain or loss from the disposal of the private use
+   * portion of a fixed asset. This value records the financial result (profit or loss) related
+   * specifically to the asset’s private use.
+   *
+   * @param privateUseCurrentGainLoss BigDecimal
+   * @return BookDepreciationDetail
+   */
+  public BookDepreciationDetail privateUseCurrentGainLoss(BigDecimal privateUseCurrentGainLoss) {
+    this.privateUseCurrentGainLoss = privateUseCurrentGainLoss;
+    return this;
+  }
+
+  /**
+   * (New Zealand Orgs Only) Represents the gain or loss from the disposal of the private use
+   * portion of a fixed asset. This value records the financial result (profit or loss) related
+   * specifically to the asset’s private use.
+   *
+   * @return privateUseCurrentGainLoss
+   */
+  @ApiModelProperty(
+      value =
+          "(New Zealand Orgs Only) Represents the gain or loss from the disposal of the private use"
+              + " portion of a fixed asset. This value records the financial result (profit or"
+              + " loss) related specifically to the asset’s private use.")
+  /**
+   * (New Zealand Orgs Only) Represents the gain or loss from the disposal of the private use
+   * portion of a fixed asset. This value records the financial result (profit or loss) related
+   * specifically to the asset’s private use.
+   *
+   * @return privateUseCurrentGainLoss BigDecimal
+   */
+  public BigDecimal getPrivateUseCurrentGainLoss() {
+    return privateUseCurrentGainLoss;
+  }
+
+  /**
+   * (New Zealand Orgs Only) Represents the gain or loss from the disposal of the private use
+   * portion of a fixed asset. This value records the financial result (profit or loss) related
+   * specifically to the asset’s private use.
+   *
+   * @param privateUseCurrentGainLoss BigDecimal
+   */
+  public void setPrivateUseCurrentGainLoss(BigDecimal privateUseCurrentGainLoss) {
+    this.privateUseCurrentGainLoss = privateUseCurrentGainLoss;
+  }
+
+  /**
+   * (New Zealand Orgs Only) The Investment Boost deduction percentage.
+   *
+   * @param initialDeductionPercentage BigDecimal
+   * @return BookDepreciationDetail
+   */
+  public BookDepreciationDetail initialDeductionPercentage(BigDecimal initialDeductionPercentage) {
+    this.initialDeductionPercentage = initialDeductionPercentage;
+    return this;
+  }
+
+  /**
+   * (New Zealand Orgs Only) The Investment Boost deduction percentage.
+   *
+   * @return initialDeductionPercentage
+   */
+  @ApiModelProperty(value = "(New Zealand Orgs Only) The Investment Boost deduction percentage.")
+  /**
+   * (New Zealand Orgs Only) The Investment Boost deduction percentage.
+   *
+   * @return initialDeductionPercentage BigDecimal
+   */
+  public BigDecimal getInitialDeductionPercentage() {
+    return initialDeductionPercentage;
+  }
+
+  /**
+   * (New Zealand Orgs Only) The Investment Boost deduction percentage.
+   *
+   * @param initialDeductionPercentage BigDecimal
+   */
+  public void setInitialDeductionPercentage(BigDecimal initialDeductionPercentage) {
+    this.initialDeductionPercentage = initialDeductionPercentage;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -332,7 +561,16 @@ public class BookDepreciationDetail {
             this.priorAccumDepreciationAmount, bookDepreciationDetail.priorAccumDepreciationAmount)
         && Objects.equals(
             this.currentAccumDepreciationAmount,
-            bookDepreciationDetail.currentAccumDepreciationAmount);
+            bookDepreciationDetail.currentAccumDepreciationAmount)
+        && Objects.equals(
+            this.businessUseCapitalGain, bookDepreciationDetail.businessUseCapitalGain)
+        && Objects.equals(
+            this.businessUseCurrentGainLoss, bookDepreciationDetail.businessUseCurrentGainLoss)
+        && Objects.equals(this.privateUseCapitalGain, bookDepreciationDetail.privateUseCapitalGain)
+        && Objects.equals(
+            this.privateUseCurrentGainLoss, bookDepreciationDetail.privateUseCurrentGainLoss)
+        && Objects.equals(
+            this.initialDeductionPercentage, bookDepreciationDetail.initialDeductionPercentage);
   }
 
   @Override
@@ -344,7 +582,12 @@ public class BookDepreciationDetail {
         costLimit,
         residualValue,
         priorAccumDepreciationAmount,
-        currentAccumDepreciationAmount);
+        currentAccumDepreciationAmount,
+        businessUseCapitalGain,
+        businessUseCurrentGainLoss,
+        privateUseCapitalGain,
+        privateUseCurrentGainLoss,
+        initialDeductionPercentage);
   }
 
   @Override
@@ -363,6 +606,21 @@ public class BookDepreciationDetail {
         .append("\n");
     sb.append("    currentAccumDepreciationAmount: ")
         .append(toIndentedString(currentAccumDepreciationAmount))
+        .append("\n");
+    sb.append("    businessUseCapitalGain: ")
+        .append(toIndentedString(businessUseCapitalGain))
+        .append("\n");
+    sb.append("    businessUseCurrentGainLoss: ")
+        .append(toIndentedString(businessUseCurrentGainLoss))
+        .append("\n");
+    sb.append("    privateUseCapitalGain: ")
+        .append(toIndentedString(privateUseCapitalGain))
+        .append("\n");
+    sb.append("    privateUseCurrentGainLoss: ")
+        .append(toIndentedString(privateUseCurrentGainLoss))
+        .append("\n");
+    sb.append("    initialDeductionPercentage: ")
+        .append(toIndentedString(initialDeductionPercentage))
         .append("\n");
     sb.append("}");
     return sb.toString();
