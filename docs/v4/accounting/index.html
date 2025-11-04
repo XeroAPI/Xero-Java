@@ -2102,6 +2102,11 @@ ul.nav-tabs {
       "type" : "string",
       "description" : "Tax number of contact – this is also known as the ABN (Australia), GST Number (New Zealand), VAT Number (UK) or Tax ID Number (US and global) in the Xero UI depending on which regionalized version of Xero you are using (max length = 50)"
     },
+    "TaxNumberType" : {
+      "type" : "string",
+      "description" : "Identifier of the regional type of tax number, such as US, UK, or other regional tax identifiers",
+      "enum" : [ "SSN", "EIN", "ITIN", "ATIN" ]
+    },
     "AccountsReceivableTaxType" : {
       "type" : "string",
       "description" : "The tax type from TaxRates"
@@ -6335,7 +6340,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Accounting"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>12.1.0</li>
+              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>12.2.0</li>
               <li class="nav-header" data-group="Accounting"><a href="#api-Accounting">Methods</a></li>
               <li data-group="Accounting" data-name="createAccount" class="">
                 <a href="#api-Accounting-createAccount">createAccount</a>
@@ -24209,6 +24214,11 @@ public class AccountingApiExample {
                   <h2>Scopes</h2>
                   <table>
                     
+                    <tr>
+                      <td>accounting.budgets.read</td>
+                      <td>Grant read-only access to read budgets</td>
+                    </tr>
+                    
                   </table>
                   <h2>Parameters</h2>
                   <div class="methodsubtabletitle">Path parameters</div>
@@ -24384,6 +24394,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.budgets.read</td>
+                      <td>Grant read-only access to read budgets</td>
+                    </tr>
                     
                   </table>
                   <h2>Parameters</h2>
