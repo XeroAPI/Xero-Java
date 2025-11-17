@@ -131,6 +131,9 @@ public class Employee {
   @JsonProperty("isOffPayrollWorker")
   private Boolean isOffPayrollWorker;
 
+  @JsonProperty("contracts")
+  private List<Contracts> contracts = new ArrayList<Contracts>();
+
   /**
    * Xero unique identifier for the employee
    *
@@ -784,6 +787,55 @@ public class Employee {
     this.isOffPayrollWorker = isOffPayrollWorker;
   }
 
+  /**
+   * The employee&#39;s contracts
+   *
+   * @param contracts List&lt;Contracts&gt;
+   * @return Employee
+   */
+  public Employee contracts(List<Contracts> contracts) {
+    this.contracts = contracts;
+    return this;
+  }
+
+  /**
+   * The employee&#39;s contracts
+   *
+   * @param contractsItem Contracts
+   * @return Employee
+   */
+  public Employee addContractsItem(Contracts contractsItem) {
+    if (this.contracts == null) {
+      this.contracts = new ArrayList<Contracts>();
+    }
+    this.contracts.add(contractsItem);
+    return this;
+  }
+
+  /**
+   * The employee&#39;s contracts
+   *
+   * @return contracts
+   */
+  @ApiModelProperty(value = "The employee's contracts")
+  /**
+   * The employee&#39;s contracts
+   *
+   * @return contracts List<Contracts>
+   */
+  public List<Contracts> getContracts() {
+    return contracts;
+  }
+
+  /**
+   * The employee&#39;s contracts
+   *
+   * @param contracts List&lt;Contracts&gt;
+   */
+  public void setContracts(List<Contracts> contracts) {
+    this.contracts = contracts;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -810,7 +862,8 @@ public class Employee {
         && Objects.equals(this.niCategory, employee.niCategory)
         && Objects.equals(this.niCategories, employee.niCategories)
         && Objects.equals(this.nationalInsuranceNumber, employee.nationalInsuranceNumber)
-        && Objects.equals(this.isOffPayrollWorker, employee.isOffPayrollWorker);
+        && Objects.equals(this.isOffPayrollWorker, employee.isOffPayrollWorker)
+        && Objects.equals(this.contracts, employee.contracts);
   }
 
   @Override
@@ -833,7 +886,8 @@ public class Employee {
         niCategory,
         niCategories,
         nationalInsuranceNumber,
-        isOffPayrollWorker);
+        isOffPayrollWorker,
+        contracts);
   }
 
   @Override
@@ -860,6 +914,7 @@ public class Employee {
         .append(toIndentedString(nationalInsuranceNumber))
         .append("\n");
     sb.append("    isOffPayrollWorker: ").append(toIndentedString(isOffPayrollWorker)).append("\n");
+    sb.append("    contracts: ").append(toIndentedString(contracts)).append("\n");
     sb.append("}");
     return sb.toString();
   }
