@@ -39,6 +39,9 @@ public class Employment {
   @JsonProperty("niCategories")
   private List<NICategory> niCategories = new ArrayList<NICategory>();
 
+  @JsonProperty("contracts")
+  private List<Contracts> contracts = new ArrayList<Contracts>();
+
   /**
    * Xero unique identifier for the payroll calendar of the employee
    *
@@ -227,6 +230,55 @@ public class Employment {
     this.niCategories = niCategories;
   }
 
+  /**
+   * The employee&#39;s contracts
+   *
+   * @param contracts List&lt;Contracts&gt;
+   * @return Employment
+   */
+  public Employment contracts(List<Contracts> contracts) {
+    this.contracts = contracts;
+    return this;
+  }
+
+  /**
+   * The employee&#39;s contracts
+   *
+   * @param contractsItem Contracts
+   * @return Employment
+   */
+  public Employment addContractsItem(Contracts contractsItem) {
+    if (this.contracts == null) {
+      this.contracts = new ArrayList<Contracts>();
+    }
+    this.contracts.add(contractsItem);
+    return this;
+  }
+
+  /**
+   * The employee&#39;s contracts
+   *
+   * @return contracts
+   */
+  @ApiModelProperty(value = "The employee's contracts")
+  /**
+   * The employee&#39;s contracts
+   *
+   * @return contracts List<Contracts>
+   */
+  public List<Contracts> getContracts() {
+    return contracts;
+  }
+
+  /**
+   * The employee&#39;s contracts
+   *
+   * @param contracts List&lt;Contracts&gt;
+   */
+  public void setContracts(List<Contracts> contracts) {
+    this.contracts = contracts;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -240,12 +292,14 @@ public class Employment {
         && Objects.equals(this.startDate, employment.startDate)
         && Objects.equals(this.employeeNumber, employment.employeeNumber)
         && Objects.equals(this.niCategory, employment.niCategory)
-        && Objects.equals(this.niCategories, employment.niCategories);
+        && Objects.equals(this.niCategories, employment.niCategories)
+        && Objects.equals(this.contracts, employment.contracts);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(payrollCalendarID, startDate, employeeNumber, niCategory, niCategories);
+    return Objects.hash(
+        payrollCalendarID, startDate, employeeNumber, niCategory, niCategories, contracts);
   }
 
   @Override
@@ -257,6 +311,7 @@ public class Employment {
     sb.append("    employeeNumber: ").append(toIndentedString(employeeNumber)).append("\n");
     sb.append("    niCategory: ").append(toIndentedString(niCategory)).append("\n");
     sb.append("    niCategories: ").append(toIndentedString(niCategories)).append("\n");
+    sb.append("    contracts: ").append(toIndentedString(contracts)).append("\n");
     sb.append("}");
     return sb.toString();
   }
