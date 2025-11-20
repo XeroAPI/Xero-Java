@@ -46,7 +46,7 @@ public class PayrollNzApiEmployeeLeaveTypesTest {
         
         assertThat(response.getLeaveTypes().get(0).getLeaveTypeID(), is(equalTo(UUID.fromString("0441497f-5dc7-4cd3-a90d-f2e07e21b2a6"))));
         assertThat(response.getLeaveTypes().get(0).getScheduleOfAccrual(), is(equalTo(com.xero.models.payrollnz.EmployeeLeaveType.ScheduleOfAccrualEnum.PERCENTAGEOFGROSSEARNINGS)));
-        assertThat(response.getLeaveTypes().get(0).getHoursAccruedAnnually(), is(equalTo(0.0)));
+        assertThat(response.getLeaveTypes().get(0).getUnitsAccruedAnnually(), is(equalTo(0.0)));
         assertThat(response.getLeaveTypes().get(0).getMaximumToAccrue(), is(equalTo(0.0)));
         assertThat(response.getLeaveTypes().get(0).getOpeningBalance(), is(equalTo(0.0)));
         assertThat(response.getLeaveTypes().get(0).getPercentageOfGrossEarnings(), is(equalTo(8.0)));
@@ -65,7 +65,7 @@ public class PayrollNzApiEmployeeLeaveTypesTest {
         
         assertThat(response.getLeaveType().getLeaveTypeID(), is(equalTo(UUID.fromString("35da97ae-05b9-427f-9a98-69157ba42cec"))));
         assertThat(response.getLeaveType().getScheduleOfAccrual(), is(equalTo(com.xero.models.payrollnz.EmployeeLeaveType.ScheduleOfAccrualEnum.ANNUALLYAFTER6MONTHS)));
-        assertThat(response.getLeaveType().getHoursAccruedAnnually(), is(equalTo(10.0)));
+        assertThat(response.getLeaveType().getUnitsAccruedAnnually(), is(equalTo(0.0)));
         assertThat(response.getLeaveType().getMaximumToAccrue(), is(equalTo(80.0)));
         assertThat(response.getLeaveType().getOpeningBalance(), is(equalTo(100.0)));
         assertThat(response.getLeaveType().getPercentageOfGrossEarnings(), is(equalTo(0.0)));
