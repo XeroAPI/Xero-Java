@@ -45,7 +45,7 @@ public class PayrollNzApiEmployeeLeaveSetupTest {
         
         assertThat(response.getLeaveSetup().getHolidayPayOpeningBalance(), is(equalTo(10.0)));
         assertThat(response.getLeaveSetup().getAnnualLeaveOpeningBalance(), is(equalTo(100.0)));
-        assertThat(response.getLeaveSetup().getSickLeaveHoursToAccrueAnnually(), is(equalTo(20.0)));
+        assertThat(response.getLeaveSetup().getSickLeaveToAccrueAnnually(), is(equalTo(20.0)));
         assertThat(response.getLeaveSetup().getSickLeaveOpeningBalance(), is(equalTo(10.0)));
 
         //System.out.println(response.toString());
