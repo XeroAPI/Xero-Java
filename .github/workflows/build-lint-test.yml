@@ -2,6 +2,8 @@ name: Java Build, Lint and Test
 
 on:
     push:
+        branches:
+          - master
     pull_request:
         types: [opened, reopened, synchronize]
 
