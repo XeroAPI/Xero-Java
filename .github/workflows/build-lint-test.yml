@@ -15,8 +15,16 @@ jobs:
             - name: Checkout Xero-Java repo
               uses: actions/checkout@v4
               with:
-                repository: XeroAPI/Xero-Java
+                ref: ${{ github.event.pull_request.head.ref }}
                 path: Xero-Java
+
+            - name: Checkout start-prism.sh from master
+              uses: actions/checkout@v4
+              with:
+                ref: master
+                path: prism-script
+                sparse-checkout: src/test/java/com/xero/api/util/start-prism.sh
+                sparse-checkout-cone-mode: false
 
             - name: Set up JDK environment
               uses: actions/setup-java@v4
@@ -41,7 +49,7 @@ jobs:
   
             - name: Start PRISM Server
               run: ./start-prism.sh feature/prism-changes-mt-v2 & sleep 15
-              working-directory: Xero-Java/src/test/java/com/xero/api/util
+              working-directory: prism-script/src/test/java/com/xero/api/util
   
             - name: Build and test post generation
               run: |
@@ -49,8 +57,4 @@ jobs:
                 mvn clean verify
               env:
                 MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}  
-              working-directory: Xero-Java
-  
-            - name: Stop PRISM
-              run: pkill -f prism
               working-directory: Xero-Java
