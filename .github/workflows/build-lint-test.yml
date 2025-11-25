@@ -15,7 +15,6 @@ jobs:
             - name: Checkout Xero-Java repo
               uses: actions/checkout@v4
               with:
-                repository: XeroAPI/Xero-Java
                 path: Xero-Java
 
             - name: Set up JDK environment
@@ -24,12 +23,6 @@ jobs:
                 distribution: 'temurin'
                 java-version: '11'
                 cache: maven
-
-            - name: Import GPG Key
-              run: |
-                echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
-              env: 
-                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
 
             - name: Set up Node environment
               uses: actions/setup-node@v2
@@ -45,12 +38,5 @@ jobs:
   
             - name: Build and test post generation
               run: |
-                export GPG_TTY=$(tty)
-                mvn clean verify
-              env:
-                MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}  
-              working-directory: Xero-Java
-  
-            - name: Stop PRISM
-              run: pkill -f prism
+                mvn clean verify -Dgpg.skip
               working-directory: Xero-Java
