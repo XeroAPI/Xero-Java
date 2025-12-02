@@ -46,7 +46,7 @@ public class AppStoreApi {
   private ApiClient apiClient;
   private static AppStoreApi instance = null;
   private String userAgent = "Default";
-  private String version = "12.3.0";
+  private String version = "12.3.1";
   static final Logger logger = LoggerFactory.getLogger(AppStoreApi.class);
 
   /** AppStoreApi */
@@ -372,7 +372,6 @@ public class AppStoreApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
-    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -505,7 +504,6 @@ public class AppStoreApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
-    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
