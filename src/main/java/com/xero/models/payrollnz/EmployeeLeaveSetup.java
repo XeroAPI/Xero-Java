@@ -33,12 +33,6 @@ public class EmployeeLeaveSetup {
   @JsonProperty("negativeAnnualLeaveBalancePaidAmount")
   private Double negativeAnnualLeaveBalancePaidAmount;
 
-  @JsonProperty("sickLeaveHoursToAccrueAnnually")
-  private Double sickLeaveHoursToAccrueAnnually;
-
-  @JsonProperty("sickLeaveMaximumHoursToAccrue")
-  private Double sickLeaveMaximumHoursToAccrue;
-
   @JsonProperty("SickLeaveToAccrueAnnually")
   private Double sickLeaveToAccrueAnnually;
 
@@ -216,76 +210,6 @@ public class EmployeeLeaveSetup {
    */
   public void setNegativeAnnualLeaveBalancePaidAmount(Double negativeAnnualLeaveBalancePaidAmount) {
     this.negativeAnnualLeaveBalancePaidAmount = negativeAnnualLeaveBalancePaidAmount;
-  }
-
-  /**
-   * Deprecated use SickLeaveToAccrueAnnually
-   *
-   * @param sickLeaveHoursToAccrueAnnually Double
-   * @return EmployeeLeaveSetup
-   */
-  public EmployeeLeaveSetup sickLeaveHoursToAccrueAnnually(Double sickLeaveHoursToAccrueAnnually) {
-    this.sickLeaveHoursToAccrueAnnually = sickLeaveHoursToAccrueAnnually;
-    return this;
-  }
-
-  /**
-   * Deprecated use SickLeaveToAccrueAnnually
-   *
-   * @return sickLeaveHoursToAccrueAnnually
-   */
-  @ApiModelProperty(example = "100.5", value = "Deprecated use SickLeaveToAccrueAnnually")
-  /**
-   * Deprecated use SickLeaveToAccrueAnnually
-   *
-   * @return sickLeaveHoursToAccrueAnnually Double
-   */
-  public Double getSickLeaveHoursToAccrueAnnually() {
-    return sickLeaveHoursToAccrueAnnually;
-  }
-
-  /**
-   * Deprecated use SickLeaveToAccrueAnnually
-   *
-   * @param sickLeaveHoursToAccrueAnnually Double
-   */
-  public void setSickLeaveHoursToAccrueAnnually(Double sickLeaveHoursToAccrueAnnually) {
-    this.sickLeaveHoursToAccrueAnnually = sickLeaveHoursToAccrueAnnually;
-  }
-
-  /**
-   * Deprecated use SickLeaveMaximumToAccrue
-   *
-   * @param sickLeaveMaximumHoursToAccrue Double
-   * @return EmployeeLeaveSetup
-   */
-  public EmployeeLeaveSetup sickLeaveMaximumHoursToAccrue(Double sickLeaveMaximumHoursToAccrue) {
-    this.sickLeaveMaximumHoursToAccrue = sickLeaveMaximumHoursToAccrue;
-    return this;
-  }
-
-  /**
-   * Deprecated use SickLeaveMaximumToAccrue
-   *
-   * @return sickLeaveMaximumHoursToAccrue
-   */
-  @ApiModelProperty(example = "200.5", value = "Deprecated use SickLeaveMaximumToAccrue")
-  /**
-   * Deprecated use SickLeaveMaximumToAccrue
-   *
-   * @return sickLeaveMaximumHoursToAccrue Double
-   */
-  public Double getSickLeaveMaximumHoursToAccrue() {
-    return sickLeaveMaximumHoursToAccrue;
-  }
-
-  /**
-   * Deprecated use SickLeaveMaximumToAccrue
-   *
-   * @param sickLeaveMaximumHoursToAccrue Double
-   */
-  public void setSickLeaveMaximumHoursToAccrue(Double sickLeaveMaximumHoursToAccrue) {
-    this.sickLeaveMaximumHoursToAccrue = sickLeaveMaximumHoursToAccrue;
   }
 
   /**
@@ -559,10 +483,6 @@ public class EmployeeLeaveSetup {
             this.negativeAnnualLeaveBalancePaidAmount,
             employeeLeaveSetup.negativeAnnualLeaveBalancePaidAmount)
         && Objects.equals(
-            this.sickLeaveHoursToAccrueAnnually, employeeLeaveSetup.sickLeaveHoursToAccrueAnnually)
-        && Objects.equals(
-            this.sickLeaveMaximumHoursToAccrue, employeeLeaveSetup.sickLeaveMaximumHoursToAccrue)
-        && Objects.equals(
             this.sickLeaveToAccrueAnnually, employeeLeaveSetup.sickLeaveToAccrueAnnually)
         && Objects.equals(
             this.sickLeaveMaximumToAccrue, employeeLeaveSetup.sickLeaveMaximumToAccrue)
@@ -582,8 +502,6 @@ public class EmployeeLeaveSetup {
         holidayPayOpeningBalance,
         annualLeaveOpeningBalance,
         negativeAnnualLeaveBalancePaidAmount,
-        sickLeaveHoursToAccrueAnnually,
-        sickLeaveMaximumHoursToAccrue,
         sickLeaveToAccrueAnnually,
         sickLeaveMaximumToAccrue,
         sickLeaveOpeningBalance,
@@ -605,12 +523,6 @@ public class EmployeeLeaveSetup {
         .append("\n");
     sb.append("    negativeAnnualLeaveBalancePaidAmount: ")
         .append(toIndentedString(negativeAnnualLeaveBalancePaidAmount))
-        .append("\n");
-    sb.append("    sickLeaveHoursToAccrueAnnually: ")
-        .append(toIndentedString(sickLeaveHoursToAccrueAnnually))
-        .append("\n");
-    sb.append("    sickLeaveMaximumHoursToAccrue: ")
-        .append(toIndentedString(sickLeaveMaximumHoursToAccrue))
         .append("\n");
     sb.append("    sickLeaveToAccrueAnnually: ")
         .append(toIndentedString(sickLeaveToAccrueAnnually))
