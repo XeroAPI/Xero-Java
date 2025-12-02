@@ -54,7 +54,7 @@ public class FilesApi {
   private ApiClient apiClient;
   private static FilesApi instance = null;
   private String userAgent = "Default";
-  private String version = "12.3.0";
+  private String version = "12.3.1";
   static final Logger logger = LoggerFactory.getLogger(FilesApi.class);
 
   /** FilesApi */
@@ -211,7 +211,6 @@ public class FilesApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
-    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -314,7 +313,6 @@ public class FilesApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
-    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Folders");
     String url = uriBuilder.build().toString();
@@ -1692,7 +1690,6 @@ public class FilesApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
-    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1802,7 +1799,6 @@ public class FilesApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
-    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1931,7 +1927,6 @@ public class FilesApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
-    headers.setContentType("multipart/form-data");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Files");
     String url = uriBuilder.build().toString();
@@ -2089,7 +2084,6 @@ public class FilesApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
-    headers.setContentType("multipart/form-data");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
