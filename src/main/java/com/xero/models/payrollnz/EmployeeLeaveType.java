@@ -86,10 +86,7 @@ public class EmployeeLeaveType {
   @JsonProperty("scheduleOfAccrual")
   private ScheduleOfAccrualEnum scheduleOfAccrual;
 
-  @JsonProperty("hoursAccruedAnnually")
-  private Double hoursAccruedAnnually;
-
-  @JsonProperty("UnitsAccruedAnnually")
+  @JsonProperty("unitsAccruedAnnually")
   private Double unitsAccruedAnnually;
 
   @JsonProperty("typeOfUnitsToAccrue")
@@ -190,41 +187,6 @@ public class EmployeeLeaveType {
    */
   public void setScheduleOfAccrual(ScheduleOfAccrualEnum scheduleOfAccrual) {
     this.scheduleOfAccrual = scheduleOfAccrual;
-  }
-
-  /**
-   * Deprecated use UnitsAccruedAnnually
-   *
-   * @param hoursAccruedAnnually Double
-   * @return EmployeeLeaveType
-   */
-  public EmployeeLeaveType hoursAccruedAnnually(Double hoursAccruedAnnually) {
-    this.hoursAccruedAnnually = hoursAccruedAnnually;
-    return this;
-  }
-
-  /**
-   * Deprecated use UnitsAccruedAnnually
-   *
-   * @return hoursAccruedAnnually
-   */
-  @ApiModelProperty(value = "Deprecated use UnitsAccruedAnnually")
-  /**
-   * Deprecated use UnitsAccruedAnnually
-   *
-   * @return hoursAccruedAnnually Double
-   */
-  public Double getHoursAccruedAnnually() {
-    return hoursAccruedAnnually;
-  }
-
-  /**
-   * Deprecated use UnitsAccruedAnnually
-   *
-   * @param hoursAccruedAnnually Double
-   */
-  public void setHoursAccruedAnnually(Double hoursAccruedAnnually) {
-    this.hoursAccruedAnnually = hoursAccruedAnnually;
   }
 
   /**
@@ -411,8 +373,7 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The number of hours added to the leave balance for every hour worked by the employee. This is
-   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+   * not supported in Payroll NZ
    *
    * @param rateAccruedHourly Double
    * @return EmployeeLeaveType
@@ -423,18 +384,13 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The number of hours added to the leave balance for every hour worked by the employee. This is
-   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+   * not supported in Payroll NZ
    *
    * @return rateAccruedHourly
    */
-  @ApiModelProperty(
-      value =
-          "The number of hours added to the leave balance for every hour worked by the employee."
-              + " This is normally 0, unless the scheduleOfAccrual chosen is \"OnHourWorked\"")
+  @ApiModelProperty(value = "not supported in Payroll NZ")
   /**
-   * The number of hours added to the leave balance for every hour worked by the employee. This is
-   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+   * not supported in Payroll NZ
    *
    * @return rateAccruedHourly Double
    */
@@ -443,8 +399,7 @@ public class EmployeeLeaveType {
   }
 
   /**
-   * The number of hours added to the leave balance for every hour worked by the employee. This is
-   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+   * not supported in Payroll NZ
    *
    * @param rateAccruedHourly Double
    */
@@ -657,7 +612,6 @@ public class EmployeeLeaveType {
     EmployeeLeaveType employeeLeaveType = (EmployeeLeaveType) o;
     return Objects.equals(this.leaveTypeID, employeeLeaveType.leaveTypeID)
         && Objects.equals(this.scheduleOfAccrual, employeeLeaveType.scheduleOfAccrual)
-        && Objects.equals(this.hoursAccruedAnnually, employeeLeaveType.hoursAccruedAnnually)
         && Objects.equals(this.unitsAccruedAnnually, employeeLeaveType.unitsAccruedAnnually)
         && Objects.equals(this.typeOfUnitsToAccrue, employeeLeaveType.typeOfUnitsToAccrue)
         && Objects.equals(this.maximumToAccrue, employeeLeaveType.maximumToAccrue)
@@ -680,7 +634,6 @@ public class EmployeeLeaveType {
     return Objects.hash(
         leaveTypeID,
         scheduleOfAccrual,
-        hoursAccruedAnnually,
         unitsAccruedAnnually,
         typeOfUnitsToAccrue,
         maximumToAccrue,
@@ -700,9 +653,6 @@ public class EmployeeLeaveType {
     sb.append("class EmployeeLeaveType {\n");
     sb.append("    leaveTypeID: ").append(toIndentedString(leaveTypeID)).append("\n");
     sb.append("    scheduleOfAccrual: ").append(toIndentedString(scheduleOfAccrual)).append("\n");
-    sb.append("    hoursAccruedAnnually: ")
-        .append(toIndentedString(hoursAccruedAnnually))
-        .append("\n");
     sb.append("    unitsAccruedAnnually: ")
         .append(toIndentedString(unitsAccruedAnnually))
         .append("\n");

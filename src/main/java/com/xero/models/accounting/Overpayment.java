@@ -190,6 +190,9 @@ public class Overpayment {
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = false;
 
+  @JsonProperty("Reference")
+  private String reference;
+
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
 
@@ -882,6 +885,41 @@ public class Overpayment {
   }
 
   /**
+   * An optional description for Overpayment
+   *
+   * @param reference String
+   * @return Overpayment
+   */
+  public Overpayment reference(String reference) {
+    this.reference = reference;
+    return this;
+  }
+
+  /**
+   * An optional description for Overpayment
+   *
+   * @return reference
+   */
+  @ApiModelProperty(example = "Ref for payment", value = "An optional description for Overpayment")
+  /**
+   * An optional description for Overpayment
+   *
+   * @return reference String
+   */
+  public String getReference() {
+    return reference;
+  }
+
+  /**
+   * An optional description for Overpayment
+   *
+   * @param reference String
+   */
+  public void setReference(String reference) {
+    this.reference = reference;
+  }
+
+  /**
    * See Attachments
    *
    * @param attachments List&lt;Attachment&gt;
@@ -957,6 +995,7 @@ public class Overpayment {
         && Objects.equals(this.appliedAmount, overpayment.appliedAmount)
         && Objects.equals(this.payments, overpayment.payments)
         && Objects.equals(this.hasAttachments, overpayment.hasAttachments)
+        && Objects.equals(this.reference, overpayment.reference)
         && Objects.equals(this.attachments, overpayment.attachments);
   }
 
@@ -981,6 +1020,7 @@ public class Overpayment {
         appliedAmount,
         payments,
         hasAttachments,
+        reference,
         attachments);
   }
 
@@ -1006,6 +1046,7 @@ public class Overpayment {
     sb.append("    appliedAmount: ").append(toIndentedString(appliedAmount)).append("\n");
     sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
+    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("}");
     return sb.toString();
