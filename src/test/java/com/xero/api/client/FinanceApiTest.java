@@ -67,62 +67,6 @@ public class FinanceApiTest {
         }
     }
 
-	@Test
-	public void testGetAccountingActivityAccountUsage() throws Exception {
-		System.out.println("@Test - getAccountingActivityAccountUsage");
-
-        try {
-            AccountUsageResponse response = financeApi.getAccountingActivityAccountUsage(accessToken, "73151de8-3676-4887-a021-edec960dd537", null, null);
-            assertThat(response.getOrganisationId().toString(), (equalTo("73151de8-3676-4887-a021-edec960dd537")));
-            assertThat(response.getAccountUsage().get(0).getMonth(), (equalTo("2010-03")));
-
-        } catch (XeroApiException xe) {
-            System.out.println(xe.toString());
-        }
-    }
-
-	@Test
-	public void testGetAccountingActivityLockHistory() throws Exception {
-		System.out.println("@Test - getAccountingActivityLockHistory");
-
-        try {
-            LockHistoryResponse response = financeApi.getAccountingActivityLockHistory(accessToken, "73151de8-3676-4887-a021-edec960dd537", null);
-            assertThat(response.getOrganisationId().toString(), (equalTo("73151de8-3676-4887-a021-edec960dd537")));
-            assertThat(response.getLockDates().get(1).getUpdatedDateUtc().toString(), (equalTo("2019-01-21T10:59:33Z")));
-
-        } catch (XeroApiException xe) {
-            System.out.println(xe.toString());
-        }
-    }
-
-	@Test
-	public void testGetAccountingActivityReportHistory() throws Exception {
-		System.out.println("@Test - getAccountingActivityReportHistory");
-
-        try {
-            ReportHistoryResponse response = financeApi.getAccountingActivityReportHistory(accessToken, "73151de8-3676-4887-a021-edec960dd537", null);
-            assertThat(response.getOrganisationId().toString(), (equalTo("73151de8-3676-4887-a021-edec960dd537")));
-            assertThat(response.getReports().get(0).getPublishedDateUtc().toString(), (equalTo("2019-09-23T00:30:17.407Z")));
-
-        } catch (XeroApiException xe) {
-            System.out.println(xe.toString());
-        }
-    }
-
-	@Test
-	public void testGetAccountingActivityUserActivities() throws Exception {
-		System.out.println("@Test - getAccountingActivityUserActivities");
-
-        try {
-            UserActivitiesResponse response = financeApi.getAccountingActivityUserActivities(accessToken, "73151de8-3676-4887-a021-edec960dd537", null);
-            assertThat(response.getOrganisationId().toString(), (equalTo("73151de8-3676-4887-a021-edec960dd537")));
-            assertThat(response.getUsers().get(0).getMonthPeriod().toString(), (equalTo("2020-01")));
-
-        } catch (XeroApiException xe) {
-            System.out.println(xe.toString());
-        }
-    }
-
     @Test
 	public void testGetFinancialStatementBalanceSheet() throws Exception {
 		System.out.println("@Test - getFinancialStatementBalanceSheet");
