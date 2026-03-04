@@ -69,6 +69,20 @@ public class XeroApiExceptionHandler {
             throw new XeroMethodNotAllowedException(objectType, error, e);
         }
     }
+
+    /** Handle Validation Errors (400)
+    * @param statusCode Integer the server status code returned.
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Problem object with details specific to UK Payroll API
+    * @param e Exception object with details about the original exception
+    */
+    public void validationError(Integer statusCode, String objectType, com.xero.models.payrollauv2.Problem error, Exception e) {
+        if (statusCode == 400 ) {
+            throw new XeroBadRequestException(objectType, error, e);
+        } else if(statusCode == 405) {
+            throw new XeroMethodNotAllowedException(objectType, error, e);
+        }
+    }
     
     /** Handle Validation Errors (400)
     * @param statusCode Integer the server status code returned.

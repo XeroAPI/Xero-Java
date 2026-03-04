@@ -27,6 +27,7 @@ public class XeroBadRequestException extends XeroException {
     private List<FieldValidationErrorsElement> fieldValidationErrorsElements = new ArrayList<FieldValidationErrorsElement>();
     private com.xero.models.payrolluk.Problem payrollUkProblem = new com.xero.models.payrolluk.Problem();
     private com.xero.models.payrollnz.Problem payrollNzProblem = new com.xero.models.payrollnz.Problem();
+    private com.xero.models.payrollauv2.Problem payrollAuV2Problem = new com.xero.models.payrollauv2.Problem();
     private List<com.xero.models.payrollau.Employee> employeeItems = new ArrayList<com.xero.models.payrollau.Employee>();
     
     private List<com.xero.models.payrollau.LeaveApplication> leaveApplicationItems = new ArrayList<com.xero.models.payrollau.LeaveApplication>();
@@ -106,6 +107,18 @@ public class XeroBadRequestException extends XeroException {
         this.statusCode = 400;
         this.type = objectType;
         this.payrollNzProblem = problem;
+    }
+
+    /** XeroBadRequestException   
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param problem Problem object with details specific to AU Payroll V2 API
+    * @param e Exception object with details about the original exception
+    */
+    public XeroBadRequestException(String objectType, com.xero.models.payrollauv2.Problem problem, Exception e)  {
+        super(e);
+        this.statusCode = 400;
+        this.type = objectType;
+        this.payrollAuV2Problem = problem;
     }
 
     /** XeroBadRequestException   
@@ -481,6 +494,31 @@ public class XeroBadRequestException extends XeroException {
     */
     public void setPayrollNzProblem(com.xero.models.payrollnz.Problem problem) {
       this.payrollNzProblem = problem;
+    }
+
+    /** Init Payroll AU V2 Problem 
+    * @param problem the validation errors in AU Payroll V2
+    * @return XeroBadRequestException an instance the bad request exception  
+    */
+    public XeroBadRequestException payrollAuV2Problem(com.xero.models.payrollauv2.Problem problem) {
+      this.payrollAuV2Problem = problem;
+      return this;
+    }
+
+    /**
+     * Exception type
+     * @return com.xero.models.payrollauv2.Problem
+    **/
+    @ApiModelProperty(value = "AU Payroll V2 problem")
+    public com.xero.models.payrollauv2.Problem getPayrollAuV2Problem() {
+      return payrollAuV2Problem;
+    }
+
+    /** Set Payroll AU V2 Problem 
+    * @param problem the validation errors in AU Payroll V2
+    */
+    public void setPayrollAuV2Problem(com.xero.models.payrollauv2.Problem problem) {
+      this.payrollAuV2Problem = problem;
     }
 
     /** Init Payroll AU Employee items 
