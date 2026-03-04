@@ -36,6 +36,9 @@ public class LeaveLine {
   @JsonProperty("IncludeSuperannuationGuaranteeContribution")
   private Boolean includeSuperannuationGuaranteeContribution;
 
+  @JsonProperty("IsQualifyingEarnings")
+  private Boolean isQualifyingEarnings;
+
   @JsonProperty("NumberOfUnits")
   private Double numberOfUnits;
 
@@ -229,6 +232,54 @@ public class LeaveLine {
   }
 
   /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on
+   * superannuation settings
+   *
+   * @param isQualifyingEarnings Boolean
+   * @return LeaveLine
+   */
+  public LeaveLine isQualifyingEarnings(Boolean isQualifyingEarnings) {
+    this.isQualifyingEarnings = isQualifyingEarnings;
+    return this;
+  }
+
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on
+   * superannuation settings
+   *
+   * @return isQualifyingEarnings
+   */
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "Optional Boolean to determine if the earnings rate is considered as qualifying earnings"
+              + " for superannuation guarantee calculations. When not specified value is calculated"
+              + " based on superannuation settings")
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on
+   * superannuation settings
+   *
+   * @return isQualifyingEarnings Boolean
+   */
+  public Boolean getIsQualifyingEarnings() {
+    return isQualifyingEarnings;
+  }
+
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on
+   * superannuation settings
+   *
+   * @param isQualifyingEarnings Boolean
+   */
+  public void setIsQualifyingEarnings(Boolean isQualifyingEarnings) {
+    this.isQualifyingEarnings = isQualifyingEarnings;
+  }
+
+  /**
    * Number of units for leave line.
    *
    * @param numberOfUnits Double
@@ -353,6 +404,7 @@ public class LeaveLine {
         && Objects.equals(
             this.includeSuperannuationGuaranteeContribution,
             leaveLine.includeSuperannuationGuaranteeContribution)
+        && Objects.equals(this.isQualifyingEarnings, leaveLine.isQualifyingEarnings)
         && Objects.equals(this.numberOfUnits, leaveLine.numberOfUnits)
         && Objects.equals(this.annualNumberOfUnits, leaveLine.annualNumberOfUnits)
         && Objects.equals(
@@ -367,6 +419,7 @@ public class LeaveLine {
         entitlementFinalPayPayoutType,
         employmentTerminationPaymentType,
         includeSuperannuationGuaranteeContribution,
+        isQualifyingEarnings,
         numberOfUnits,
         annualNumberOfUnits,
         fullTimeNumberOfUnitsPerPeriod);
@@ -386,6 +439,9 @@ public class LeaveLine {
         .append("\n");
     sb.append("    includeSuperannuationGuaranteeContribution: ")
         .append(toIndentedString(includeSuperannuationGuaranteeContribution))
+        .append("\n");
+    sb.append("    isQualifyingEarnings: ")
+        .append(toIndentedString(isQualifyingEarnings))
         .append("\n");
     sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
     sb.append("    annualNumberOfUnits: ")
