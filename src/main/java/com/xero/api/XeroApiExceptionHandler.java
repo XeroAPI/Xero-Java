@@ -73,7 +73,7 @@ public class XeroApiExceptionHandler {
     /** Handle Validation Errors (400)
     * @param statusCode Integer the server status code returned.
     * @param objectType String object type being interacted with when the error was returned.
-    * @param error Problem object with details specific to UK Payroll API
+    * @param error Problem object with details specific to AU Payroll 2.0 API
     * @param e Exception object with details about the original exception
     */
     public void validationError(Integer statusCode, String objectType, com.xero.models.payrollauv2.Problem error, Exception e) {
