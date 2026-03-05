@@ -45,7 +45,7 @@ public class OpeningBalances {
   private List<ReimbursementLine> reimbursementLines = new ArrayList<ReimbursementLine>();
 
   @JsonProperty("LeaveLines")
-  private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
+  private List<OpeningBalanceLeaveLine> leaveLines = new ArrayList<OpeningBalanceLeaveLine>();
 
   @JsonProperty("PaidLeaveEarningsLines")
   private List<PaidLeaveEarningsLine> paidLeaveEarningsLines =
@@ -351,10 +351,10 @@ public class OpeningBalances {
   /**
    * leaveLines
    *
-   * @param leaveLines List&lt;LeaveLine&gt;
+   * @param leaveLines List&lt;OpeningBalanceLeaveLine&gt;
    * @return OpeningBalances
    */
-  public OpeningBalances leaveLines(List<LeaveLine> leaveLines) {
+  public OpeningBalances leaveLines(List<OpeningBalanceLeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
     return this;
   }
@@ -362,12 +362,12 @@ public class OpeningBalances {
   /**
    * leaveLines
    *
-   * @param leaveLinesItem LeaveLine
+   * @param leaveLinesItem OpeningBalanceLeaveLine
    * @return OpeningBalances
    */
-  public OpeningBalances addLeaveLinesItem(LeaveLine leaveLinesItem) {
+  public OpeningBalances addLeaveLinesItem(OpeningBalanceLeaveLine leaveLinesItem) {
     if (this.leaveLines == null) {
-      this.leaveLines = new ArrayList<LeaveLine>();
+      this.leaveLines = new ArrayList<OpeningBalanceLeaveLine>();
     }
     this.leaveLines.add(leaveLinesItem);
     return this;
@@ -382,18 +382,18 @@ public class OpeningBalances {
   /**
    * leaveLines
    *
-   * @return leaveLines List<LeaveLine>
+   * @return leaveLines List<OpeningBalanceLeaveLine>
    */
-  public List<LeaveLine> getLeaveLines() {
+  public List<OpeningBalanceLeaveLine> getLeaveLines() {
     return leaveLines;
   }
 
   /**
    * leaveLines
    *
-   * @param leaveLines List&lt;LeaveLine&gt;
+   * @param leaveLines List&lt;OpeningBalanceLeaveLine&gt;
    */
-  public void setLeaveLines(List<LeaveLine> leaveLines) {
+  public void setLeaveLines(List<OpeningBalanceLeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
   }
 

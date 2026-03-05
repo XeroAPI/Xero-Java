@@ -56,6 +56,9 @@ public class LeaveType {
   @JsonProperty("SGCExempt")
   private Boolean sgCExempt;
 
+  @JsonProperty("IsQualifyingEarnings")
+  private Boolean isQualifyingEarnings;
+
   /**
    * Name of the earnings rate (max length &#x3D; 100)
    *
@@ -465,6 +468,54 @@ public class LeaveType {
     this.sgCExempt = sgCExempt;
   }
 
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on earnings
+   * type and superannuation settings
+   *
+   * @param isQualifyingEarnings Boolean
+   * @return LeaveType
+   */
+  public LeaveType isQualifyingEarnings(Boolean isQualifyingEarnings) {
+    this.isQualifyingEarnings = isQualifyingEarnings;
+    return this;
+  }
+
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on earnings
+   * type and superannuation settings
+   *
+   * @return isQualifyingEarnings
+   */
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "Optional Boolean to determine if the earnings rate is considered as qualifying earnings"
+              + " for superannuation guarantee calculations. When not specified value is calculated"
+              + " based on earnings type and superannuation settings")
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on earnings
+   * type and superannuation settings
+   *
+   * @return isQualifyingEarnings Boolean
+   */
+  public Boolean getIsQualifyingEarnings() {
+    return isQualifyingEarnings;
+  }
+
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on earnings
+   * type and superannuation settings
+   *
+   * @param isQualifyingEarnings Boolean
+   */
+  public void setIsQualifyingEarnings(Boolean isQualifyingEarnings) {
+    this.isQualifyingEarnings = isQualifyingEarnings;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -484,7 +535,8 @@ public class LeaveType {
         && Objects.equals(this.showOnPayslip, leaveType.showOnPayslip)
         && Objects.equals(this.currentRecord, leaveType.currentRecord)
         && Objects.equals(this.leaveCategoryCode, leaveType.leaveCategoryCode)
-        && Objects.equals(this.sgCExempt, leaveType.sgCExempt);
+        && Objects.equals(this.sgCExempt, leaveType.sgCExempt)
+        && Objects.equals(this.isQualifyingEarnings, leaveType.isQualifyingEarnings);
   }
 
   @Override
@@ -500,7 +552,8 @@ public class LeaveType {
         showOnPayslip,
         currentRecord,
         leaveCategoryCode,
-        sgCExempt);
+        sgCExempt,
+        isQualifyingEarnings);
   }
 
   @Override
@@ -518,6 +571,9 @@ public class LeaveType {
     sb.append("    currentRecord: ").append(toIndentedString(currentRecord)).append("\n");
     sb.append("    leaveCategoryCode: ").append(toIndentedString(leaveCategoryCode)).append("\n");
     sb.append("    sgCExempt: ").append(toIndentedString(sgCExempt)).append("\n");
+    sb.append("    isQualifyingEarnings: ")
+        .append(toIndentedString(isQualifyingEarnings))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -27,6 +27,7 @@ public class XeroMethodNotAllowedException extends XeroException {
     private List<FieldValidationErrorsElement> fieldValidationErrorsElements = new ArrayList<FieldValidationErrorsElement>();
     private com.xero.models.payrolluk.Problem payrollUkProblem = new com.xero.models.payrolluk.Problem();
     private com.xero.models.payrollnz.Problem payrollNzProblem = new com.xero.models.payrollnz.Problem();
+    private com.xero.models.payrollauv2.Problem payrollAuV2Problem = new com.xero.models.payrollauv2.Problem();
     
     /** XeroMethodNotAllowedException
     * @param objectType String object type being interacted with when the error was returned.
@@ -82,7 +83,7 @@ public class XeroMethodNotAllowedException extends XeroException {
     
     /** XeroMethodNotAllowedException 
     * @param objectType String object type being interacted with when the error was returned.
-    * @param problem Problem object with details specific to UK Payroll API
+    * @param problem Problem object with details specific to NZ Payroll API
     * @param e Exception object with details about the original exception
     */
     public XeroMethodNotAllowedException(String objectType, com.xero.models.payrollnz.Problem problem,  Exception e) {
@@ -90,6 +91,18 @@ public class XeroMethodNotAllowedException extends XeroException {
         this.statusCode = 405;
         this.type = objectType;
         this.payrollNzProblem = problem;
+    }
+
+    /** XeroMethodNotAllowedException 
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param problem Problem object with details specific to AU Payroll V2 API
+    * @param e Exception object with details about the original exception
+    */
+    public XeroMethodNotAllowedException(String objectType, com.xero.models.payrollauv2.Problem problem, Exception e) {
+        super(e);
+        this.statusCode = 405;
+        this.type = objectType;
+        this.payrollAuV2Problem = problem;
     }
     
     /** XeroMethodNotAllowedException 
@@ -372,6 +385,31 @@ public class XeroMethodNotAllowedException extends XeroException {
     */
     public void setPayrollUkProblem(com.xero.models.payrolluk.Problem problem) {
       this.payrollUkProblem = problem;
+    }
+
+    /** XeroMethodNotAllowedException 
+    * @param problem the validation errors in AU Payroll V2
+    * @return XeroMethodNotAllowedException an instance the method not allowed exception  
+    */
+    public XeroMethodNotAllowedException payrollAuV2Problem(com.xero.models.payrollauv2.Problem problem) {
+      this.payrollAuV2Problem = problem;
+      return this;
+    }
+    
+     /**
+     * Exception type
+     * @return com.xero.models.payrollauv2.Problem
+    **/
+    @ApiModelProperty(value = "AU Payroll V2 problem")
+    public com.xero.models.payrollauv2.Problem getPayrollAuV2Problem() {
+      return payrollAuV2Problem;
+    }
+    
+    /** XeroMethodNotAllowedException 
+    * @param problem the validation errors in AU Payroll V2
+    */
+    public void setPayrollAuV2Problem(com.xero.models.payrollauv2.Problem problem) {
+      this.payrollAuV2Problem = problem;
     }
       
     @Override

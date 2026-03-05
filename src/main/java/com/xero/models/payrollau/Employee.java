@@ -259,9 +259,6 @@ public class Employee {
   @JsonProperty("LeaveBalances")
   private List<LeaveBalance> leaveBalances = new ArrayList<LeaveBalance>();
 
-  @JsonProperty("LeaveLines")
-  private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
-
   @JsonProperty("SuperMemberships")
   private List<SuperMembership> superMemberships = new ArrayList<SuperMembership>();
 
@@ -1573,55 +1570,6 @@ public class Employee {
   }
 
   /**
-   * leaveLines
-   *
-   * @param leaveLines List&lt;LeaveLine&gt;
-   * @return Employee
-   */
-  public Employee leaveLines(List<LeaveLine> leaveLines) {
-    this.leaveLines = leaveLines;
-    return this;
-  }
-
-  /**
-   * leaveLines
-   *
-   * @param leaveLinesItem LeaveLine
-   * @return Employee
-   */
-  public Employee addLeaveLinesItem(LeaveLine leaveLinesItem) {
-    if (this.leaveLines == null) {
-      this.leaveLines = new ArrayList<LeaveLine>();
-    }
-    this.leaveLines.add(leaveLinesItem);
-    return this;
-  }
-
-  /**
-   * Get leaveLines
-   *
-   * @return leaveLines
-   */
-  @ApiModelProperty(value = "")
-  /**
-   * leaveLines
-   *
-   * @return leaveLines List<LeaveLine>
-   */
-  public List<LeaveLine> getLeaveLines() {
-    return leaveLines;
-  }
-
-  /**
-   * leaveLines
-   *
-   * @param leaveLines List&lt;LeaveLine&gt;
-   */
-  public void setLeaveLines(List<LeaveLine> leaveLines) {
-    this.leaveLines = leaveLines;
-  }
-
-  /**
    * superMemberships
    *
    * @param superMemberships List&lt;SuperMembership&gt;
@@ -1826,7 +1774,6 @@ public class Employee {
         && Objects.equals(this.countryOfResidence, employee.countryOfResidence)
         && Objects.equals(this.isSTP2Qualified, employee.isSTP2Qualified)
         && Objects.equals(this.leaveBalances, employee.leaveBalances)
-        && Objects.equals(this.leaveLines, employee.leaveLines)
         && Objects.equals(this.superMemberships, employee.superMemberships)
         && Objects.equals(this.status, employee.status)
         && Objects.equals(this.updatedDateUTC, employee.updatedDateUTC)
@@ -1867,7 +1814,6 @@ public class Employee {
         countryOfResidence,
         isSTP2Qualified,
         leaveBalances,
-        leaveLines,
         superMemberships,
         status,
         updatedDateUTC,
@@ -1915,7 +1861,6 @@ public class Employee {
     sb.append("    countryOfResidence: ").append(toIndentedString(countryOfResidence)).append("\n");
     sb.append("    isSTP2Qualified: ").append(toIndentedString(isSTP2Qualified)).append("\n");
     sb.append("    leaveBalances: ").append(toIndentedString(leaveBalances)).append("\n");
-    sb.append("    leaveLines: ").append(toIndentedString(leaveLines)).append("\n");
     sb.append("    superMemberships: ").append(toIndentedString(superMemberships)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");

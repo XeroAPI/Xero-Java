@@ -87,6 +87,9 @@ public class TaxDeclaration {
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
+  @JsonProperty("IncludeLeaveLoadingInQualifyingEarnings")
+  private Boolean includeLeaveLoadingInQualifyingEarnings;
+
   /**
    * Address line 1 for employee home address
    *
@@ -868,6 +871,51 @@ public class TaxDeclaration {
     return null;
   }
 
+  /**
+   * Optional Boolean to determine if leave loading is considered as qualifying earnings for
+   * superannuation guarantee calculations
+   *
+   * @param includeLeaveLoadingInQualifyingEarnings Boolean
+   * @return TaxDeclaration
+   */
+  public TaxDeclaration includeLeaveLoadingInQualifyingEarnings(
+      Boolean includeLeaveLoadingInQualifyingEarnings) {
+    this.includeLeaveLoadingInQualifyingEarnings = includeLeaveLoadingInQualifyingEarnings;
+    return this;
+  }
+
+  /**
+   * Optional Boolean to determine if leave loading is considered as qualifying earnings for
+   * superannuation guarantee calculations
+   *
+   * @return includeLeaveLoadingInQualifyingEarnings
+   */
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "Optional Boolean to determine if leave loading is considered as qualifying earnings for"
+              + " superannuation guarantee calculations")
+  /**
+   * Optional Boolean to determine if leave loading is considered as qualifying earnings for
+   * superannuation guarantee calculations
+   *
+   * @return includeLeaveLoadingInQualifyingEarnings Boolean
+   */
+  public Boolean getIncludeLeaveLoadingInQualifyingEarnings() {
+    return includeLeaveLoadingInQualifyingEarnings;
+  }
+
+  /**
+   * Optional Boolean to determine if leave loading is considered as qualifying earnings for
+   * superannuation guarantee calculations
+   *
+   * @param includeLeaveLoadingInQualifyingEarnings Boolean
+   */
+  public void setIncludeLeaveLoadingInQualifyingEarnings(
+      Boolean includeLeaveLoadingInQualifyingEarnings) {
+    this.includeLeaveLoadingInQualifyingEarnings = includeLeaveLoadingInQualifyingEarnings;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -903,7 +951,10 @@ public class TaxDeclaration {
             taxDeclaration.approvedWithholdingVariationPercentage)
         && Objects.equals(this.hasStudentStartupLoan, taxDeclaration.hasStudentStartupLoan)
         && Objects.equals(this.hasLoanOrStudentDebt, taxDeclaration.hasLoanOrStudentDebt)
-        && Objects.equals(this.updatedDateUTC, taxDeclaration.updatedDateUTC);
+        && Objects.equals(this.updatedDateUTC, taxDeclaration.updatedDateUTC)
+        && Objects.equals(
+            this.includeLeaveLoadingInQualifyingEarnings,
+            taxDeclaration.includeLeaveLoadingInQualifyingEarnings);
   }
 
   @Override
@@ -929,7 +980,8 @@ public class TaxDeclaration {
         approvedWithholdingVariationPercentage,
         hasStudentStartupLoan,
         hasLoanOrStudentDebt,
-        updatedDateUTC);
+        updatedDateUTC,
+        includeLeaveLoadingInQualifyingEarnings);
   }
 
   @Override
@@ -977,6 +1029,9 @@ public class TaxDeclaration {
         .append(toIndentedString(hasLoanOrStudentDebt))
         .append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    includeLeaveLoadingInQualifyingEarnings: ")
+        .append(toIndentedString(includeLeaveLoadingInQualifyingEarnings))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }

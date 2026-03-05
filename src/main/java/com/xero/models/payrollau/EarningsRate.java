@@ -41,6 +41,9 @@ public class EarningsRate {
   @JsonProperty("IsReportableAsW1")
   private Boolean isReportableAsW1;
 
+  @JsonProperty("IsQualifyingEarnings")
+  private Boolean isQualifyingEarnings;
+
   @JsonProperty("AllowanceContributesToAnnualLeaveRate")
   private Boolean allowanceContributesToAnnualLeaveRate;
 
@@ -307,6 +310,54 @@ public class EarningsRate {
    */
   public void setIsReportableAsW1(Boolean isReportableAsW1) {
     this.isReportableAsW1 = isReportableAsW1;
+  }
+
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on earnings
+   * type and superannuation settings
+   *
+   * @param isQualifyingEarnings Boolean
+   * @return EarningsRate
+   */
+  public EarningsRate isQualifyingEarnings(Boolean isQualifyingEarnings) {
+    this.isQualifyingEarnings = isQualifyingEarnings;
+    return this;
+  }
+
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on earnings
+   * type and superannuation settings
+   *
+   * @return isQualifyingEarnings
+   */
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "Optional Boolean to determine if the earnings rate is considered as qualifying earnings"
+              + " for superannuation guarantee calculations. When not specified value is calculated"
+              + " based on earnings type and superannuation settings")
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on earnings
+   * type and superannuation settings
+   *
+   * @return isQualifyingEarnings Boolean
+   */
+  public Boolean getIsQualifyingEarnings() {
+    return isQualifyingEarnings;
+  }
+
+  /**
+   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
+   * superannuation guarantee calculations. When not specified value is calculated based on earnings
+   * type and superannuation settings
+   *
+   * @param isQualifyingEarnings Boolean
+   */
+  public void setIsQualifyingEarnings(Boolean isQualifyingEarnings) {
+    this.isQualifyingEarnings = isQualifyingEarnings;
   }
 
   /**
@@ -853,6 +904,7 @@ public class EarningsRate {
         && Objects.equals(this.isExemptFromTax, earningsRate.isExemptFromTax)
         && Objects.equals(this.isExemptFromSuper, earningsRate.isExemptFromSuper)
         && Objects.equals(this.isReportableAsW1, earningsRate.isReportableAsW1)
+        && Objects.equals(this.isQualifyingEarnings, earningsRate.isQualifyingEarnings)
         && Objects.equals(
             this.allowanceContributesToAnnualLeaveRate,
             earningsRate.allowanceContributesToAnnualLeaveRate)
@@ -883,6 +935,7 @@ public class EarningsRate {
         isExemptFromTax,
         isExemptFromSuper,
         isReportableAsW1,
+        isQualifyingEarnings,
         allowanceContributesToAnnualLeaveRate,
         allowanceContributesToOvertimeRate,
         earningsType,
@@ -909,6 +962,9 @@ public class EarningsRate {
     sb.append("    isExemptFromTax: ").append(toIndentedString(isExemptFromTax)).append("\n");
     sb.append("    isExemptFromSuper: ").append(toIndentedString(isExemptFromSuper)).append("\n");
     sb.append("    isReportableAsW1: ").append(toIndentedString(isReportableAsW1)).append("\n");
+    sb.append("    isQualifyingEarnings: ")
+        .append(toIndentedString(isQualifyingEarnings))
+        .append("\n");
     sb.append("    allowanceContributesToAnnualLeaveRate: ")
         .append(toIndentedString(allowanceContributesToAnnualLeaveRate))
         .append("\n");
