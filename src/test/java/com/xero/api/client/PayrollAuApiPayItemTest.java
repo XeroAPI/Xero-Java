@@ -44,9 +44,9 @@ public class PayrollAuApiPayItemTest {
         assertThat(response.getPayItems().getEarningsRates().get(0).getName(), is(equalTo("Ordinary Hours")));
         assertThat(response.getPayItems().getEarningsRates().get(0).getAccountCode(), is(equalTo("477")));
         assertThat(response.getPayItems().getEarningsRates().get(0).getTypeOfUnits()  , is(equalTo("Hours")));
-        assertThat(response.getPayItems().getEarningsRates().get(0).getIsExemptFromTax() , is(equalTo(true)));
-        assertThat(response.getPayItems().getEarningsRates().get(0).getIsExemptFromSuper() , is(equalTo(true)));
-        assertThat(response.getPayItems().getEarningsRates().get(0).getIsReportableAsW1() , is(equalTo(true)));        
+        assertThat(response.getPayItems().getEarningsRates().get(0).getIsExemptFromTax() , is(equalTo(false)));
+        assertThat(response.getPayItems().getEarningsRates().get(0).getIsExemptFromSuper() , is(equalTo(false)));
+        assertThat(response.getPayItems().getEarningsRates().get(0).getIsReportableAsW1() , is(equalTo(false)));        
         assertThat(response.getPayItems().getEarningsRates().get(0).getEarningsType(), is(equalTo(com.xero.models.payrollau.EarningsType.ORDINARYTIMEEARNINGS)));
         assertThat(response.getPayItems().getEarningsRates().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));
         assertThat(response.getPayItems().getEarningsRates().get(0).getRatePerUnit() , is(equalTo("3")));        
