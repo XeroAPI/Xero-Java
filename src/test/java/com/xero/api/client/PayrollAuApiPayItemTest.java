@@ -35,7 +35,6 @@ public class PayrollAuApiPayItemTest {
         defaultClient = null;
 	}
 
-	@Ignore
     @Test
     public void getPayItemsTest() throws IOException {
         System.out.println("@Test - getPayItemsTest");
