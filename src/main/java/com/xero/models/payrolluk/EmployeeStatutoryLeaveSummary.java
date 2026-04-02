@@ -51,7 +51,10 @@ public class EmployeeStatutoryLeaveSummary {
     BEREAVEMENT("Bereavement"),
 
     /** NEONATALCARE */
-    NEONATALCARE("NeonatalCare");
+    NEONATALCARE("NeonatalCare"),
+
+    /** BEREAVEMENTNIRE */
+    BEREAVEMENTNIRE("BereavementNire");
 
     private String value;
 
