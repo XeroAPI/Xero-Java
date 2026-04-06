@@ -169,6 +169,9 @@ public class Prepayment {
   @JsonProperty("Reference")
   private String reference;
 
+  @JsonProperty("InvoiceNumber")
+  private String invoiceNumber;
+
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
@@ -573,6 +576,21 @@ public class Prepayment {
   }
 
   /**
+   * Returns Invoice number for prepayment receive document only.
+   *
+   * @return invoiceNumber
+   */
+  @ApiModelProperty(value = "Returns Invoice number for prepayment receive document only.")
+  /**
+   * Returns Invoice number for prepayment receive document only.
+   *
+   * @return invoiceNumber String
+   */
+  public String getInvoiceNumber() {
+    return invoiceNumber;
+  }
+
+  /**
    * UTC timestamp of last update to the prepayment
    *
    * @return updatedDateUTC
@@ -970,6 +988,7 @@ public class Prepayment {
         && Objects.equals(this.totalTax, prepayment.totalTax)
         && Objects.equals(this.total, prepayment.total)
         && Objects.equals(this.reference, prepayment.reference)
+        && Objects.equals(this.invoiceNumber, prepayment.invoiceNumber)
         && Objects.equals(this.updatedDateUTC, prepayment.updatedDateUTC)
         && Objects.equals(this.currencyCode, prepayment.currencyCode)
         && Objects.equals(this.prepaymentID, prepayment.prepaymentID)
@@ -995,6 +1014,7 @@ public class Prepayment {
         totalTax,
         total,
         reference,
+        invoiceNumber,
         updatedDateUTC,
         currencyCode,
         prepaymentID,
@@ -1021,6 +1041,7 @@ public class Prepayment {
     sb.append("    totalTax: ").append(toIndentedString(totalTax)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
+    sb.append("    invoiceNumber: ").append(toIndentedString(invoiceNumber)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
     sb.append("    prepaymentID: ").append(toIndentedString(prepaymentID)).append("\n");
