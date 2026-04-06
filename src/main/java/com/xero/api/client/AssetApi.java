@@ -49,7 +49,7 @@ public class AssetApi {
   private ApiClient apiClient;
   private static AssetApi instance = null;
   private String userAgent = "Default";
-  private String version = "13.0.1";
+  private String version = "14.0.0";
   static final Logger logger = LoggerFactory.getLogger(AssetApi.class);
 
   /** AssetApi */
