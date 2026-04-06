@@ -104,7 +104,10 @@ public class EarningsRate {
     STATUTORYNEONATALCAREPAY("StatutoryNeonatalCarePay"),
 
     /** STATUTORYNEONATALCAREPAYNONPENSIONABLE */
-    STATUTORYNEONATALCAREPAYNONPENSIONABLE("StatutoryNeonatalCarePayNonPensionable");
+    STATUTORYNEONATALCAREPAYNONPENSIONABLE("StatutoryNeonatalCarePayNonPensionable"),
+
+    /** STATUTORYBEREAVEMENTPAYNORTHERNIRELAND */
+    STATUTORYBEREAVEMENTPAYNORTHERNIRELAND("StatutoryBereavementPayNorthernIreland");
 
     private String value;
 
