@@ -184,6 +184,30 @@ public class Organisation {
     /** TRUST */
     TRUST("TRUST"),
 
+<<<<<<< Updated upstream
+=======
+    /** PERSONAL */
+    PERSONAL("PERSONAL"),
+
+    /** SINGLEMEMBERLLC */
+    SINGLEMEMBERLLC("SINGLEMEMBERLLC"),
+
+    /** CCORPORATIONLLC */
+    CCORPORATIONLLC("CCORPORATIONLLC"),
+
+    /** PARTNERSHIPLLC */
+    PARTNERSHIPLLC("PARTNERSHIPLLC"),
+
+    /** SCORPORATIONLLC */
+    SCORPORATIONLLC("SCORPORATIONLLC"),
+
+    /** LLC */
+    LLC("LLC"),
+
+    /** NOTLLC */
+    NOTLLC("NOTLLC"),
+
+>>>>>>> Stashed changes
     /** UNSPECIFIED */
     UNSPECIFIED("UNSPECIFIED");
 
@@ -502,6 +526,30 @@ public class Organisation {
     /** TRUST */
     TRUST("TRUST"),
 
+<<<<<<< Updated upstream
+=======
+    /** PERSONAL */
+    PERSONAL("PERSONAL"),
+
+    /** SINGLEMEMBERLLC */
+    SINGLEMEMBERLLC("SINGLEMEMBERLLC"),
+
+    /** CCORPORATIONLLC */
+    CCORPORATIONLLC("CCORPORATIONLLC"),
+
+    /** PARTNERSHIPLLC */
+    PARTNERSHIPLLC("PARTNERSHIPLLC"),
+
+    /** SCORPORATIONLLC */
+    SCORPORATIONLLC("SCORPORATIONLLC"),
+
+    /** LLC */
+    LLC("LLC"),
+
+    /** NOTLLC */
+    NOTLLC("NOTLLC"),
+
+>>>>>>> Stashed changes
     /** UNSPECIFIED */
     UNSPECIFIED("UNSPECIFIED");
 
