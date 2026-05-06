@@ -16,6 +16,7 @@ import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
 
 /** Association */
 public class Association {
@@ -29,6 +30,12 @@ public class Association {
 
   @JsonProperty("Size")
   private Integer size;
+
+  @JsonProperty("CreatedDateUtc")
+  private OffsetDateTime createdDateUtc;
+
+  @JsonProperty("AssociationDateUtc")
+  private OffsetDateTime associationDateUtc;
 
   @JsonProperty("FileId")
   private UUID fileId;
@@ -174,6 +181,90 @@ public class Association {
    */
   public void setSize(Integer size) {
     this.size = size;
+  }
+
+  /**
+   * The date the file was created (UTC). Note- The CreatedDateUtc element is only returned when
+   * using /Associations/{ObjectId} endpoint.
+   *
+   * @param createdDateUtc OffsetDateTime
+   * @return Association
+   */
+  public Association createdDateUtc(OffsetDateTime createdDateUtc) {
+    this.createdDateUtc = createdDateUtc;
+    return this;
+  }
+
+  /**
+   * The date the file was created (UTC). Note- The CreatedDateUtc element is only returned when
+   * using /Associations/{ObjectId} endpoint.
+   *
+   * @return createdDateUtc
+   */
+  @ApiModelProperty(
+      value =
+          "The date the file was created (UTC). Note- The CreatedDateUtc element is only returned"
+              + " when using /Associations/{ObjectId} endpoint.")
+  /**
+   * The date the file was created (UTC). Note- The CreatedDateUtc element is only returned when
+   * using /Associations/{ObjectId} endpoint.
+   *
+   * @return createdDateUtc OffsetDateTime
+   */
+  public OffsetDateTime getCreatedDateUtc() {
+    return createdDateUtc;
+  }
+
+  /**
+   * The date the file was created (UTC). Note- The CreatedDateUtc element is only returned when
+   * using /Associations/{ObjectId} endpoint.
+   *
+   * @param createdDateUtc OffsetDateTime
+   */
+  public void setCreatedDateUtc(OffsetDateTime createdDateUtc) {
+    this.createdDateUtc = createdDateUtc;
+  }
+
+  /**
+   * The date the file was associated with the object (UTC). Note- The AssociationDateUtc element is
+   * only returned when using /Associations/{ObjectId} endpoint.
+   *
+   * @param associationDateUtc OffsetDateTime
+   * @return Association
+   */
+  public Association associationDateUtc(OffsetDateTime associationDateUtc) {
+    this.associationDateUtc = associationDateUtc;
+    return this;
+  }
+
+  /**
+   * The date the file was associated with the object (UTC). Note- The AssociationDateUtc element is
+   * only returned when using /Associations/{ObjectId} endpoint.
+   *
+   * @return associationDateUtc
+   */
+  @ApiModelProperty(
+      value =
+          "The date the file was associated with the object (UTC). Note- The AssociationDateUtc"
+              + " element is only returned when using /Associations/{ObjectId} endpoint.")
+  /**
+   * The date the file was associated with the object (UTC). Note- The AssociationDateUtc element is
+   * only returned when using /Associations/{ObjectId} endpoint.
+   *
+   * @return associationDateUtc OffsetDateTime
+   */
+  public OffsetDateTime getAssociationDateUtc() {
+    return associationDateUtc;
+  }
+
+  /**
+   * The date the file was associated with the object (UTC). Note- The AssociationDateUtc element is
+   * only returned when using /Associations/{ObjectId} endpoint.
+   *
+   * @param associationDateUtc OffsetDateTime
+   */
+  public void setAssociationDateUtc(OffsetDateTime associationDateUtc) {
+    this.associationDateUtc = associationDateUtc;
   }
 
   /**
@@ -335,6 +426,8 @@ public class Association {
     return Objects.equals(this.sendWithObject, association.sendWithObject)
         && Objects.equals(this.name, association.name)
         && Objects.equals(this.size, association.size)
+        && Objects.equals(this.createdDateUtc, association.createdDateUtc)
+        && Objects.equals(this.associationDateUtc, association.associationDateUtc)
         && Objects.equals(this.fileId, association.fileId)
         && Objects.equals(this.objectId, association.objectId)
         && Objects.equals(this.objectGroup, association.objectGroup)
@@ -343,7 +436,16 @@ public class Association {
 
   @Override
   public int hashCode() {
-    return Objects.hash(sendWithObject, name, size, fileId, objectId, objectGroup, objectType);
+    return Objects.hash(
+        sendWithObject,
+        name,
+        size,
+        createdDateUtc,
+        associationDateUtc,
+        fileId,
+        objectId,
+        objectGroup,
+        objectType);
   }
 
   @Override
@@ -353,6 +455,8 @@ public class Association {
     sb.append("    sendWithObject: ").append(toIndentedString(sendWithObject)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    size: ").append(toIndentedString(size)).append("\n");
+    sb.append("    createdDateUtc: ").append(toIndentedString(createdDateUtc)).append("\n");
+    sb.append("    associationDateUtc: ").append(toIndentedString(associationDateUtc)).append("\n");
     sb.append("    fileId: ").append(toIndentedString(fileId)).append("\n");
     sb.append("    objectId: ").append(toIndentedString(objectId)).append("\n");
     sb.append("    objectGroup: ").append(toIndentedString(objectGroup)).append("\n");
