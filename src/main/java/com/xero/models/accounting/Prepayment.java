@@ -181,6 +181,9 @@ public class Prepayment {
   @JsonProperty("PrepaymentID")
   private UUID prepaymentID;
 
+  @JsonProperty("BrandingThemeID")
+  private UUID brandingThemeID;
+
   @JsonProperty("CurrencyRate")
   private Double currencyRate;
 
@@ -694,6 +697,22 @@ public class Prepayment {
   }
 
   /**
+   * The unique identifier of the branding template applied to a receive prepayment
+   *
+   * @return brandingThemeID
+   */
+  @ApiModelProperty(
+      value = "The unique identifier of the branding template applied to a receive prepayment")
+  /**
+   * The unique identifier of the branding template applied to a receive prepayment
+   *
+   * @return brandingThemeID UUID
+   */
+  public UUID getBrandingThemeID() {
+    return brandingThemeID;
+  }
+
+  /**
    * The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com day rate
    * is used
    *
@@ -992,6 +1011,7 @@ public class Prepayment {
         && Objects.equals(this.updatedDateUTC, prepayment.updatedDateUTC)
         && Objects.equals(this.currencyCode, prepayment.currencyCode)
         && Objects.equals(this.prepaymentID, prepayment.prepaymentID)
+        && Objects.equals(this.brandingThemeID, prepayment.brandingThemeID)
         && Objects.equals(this.currencyRate, prepayment.currencyRate)
         && Objects.equals(this.remainingCredit, prepayment.remainingCredit)
         && Objects.equals(this.allocations, prepayment.allocations)
@@ -1018,6 +1038,7 @@ public class Prepayment {
         updatedDateUTC,
         currencyCode,
         prepaymentID,
+        brandingThemeID,
         currencyRate,
         remainingCredit,
         allocations,
@@ -1045,6 +1066,7 @@ public class Prepayment {
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
     sb.append("    prepaymentID: ").append(toIndentedString(prepaymentID)).append("\n");
+    sb.append("    brandingThemeID: ").append(toIndentedString(brandingThemeID)).append("\n");
     sb.append("    currencyRate: ").append(toIndentedString(currencyRate)).append("\n");
     sb.append("    remainingCredit: ").append(toIndentedString(remainingCredit)).append("\n");
     sb.append("    allocations: ").append(toIndentedString(allocations)).append("\n");
