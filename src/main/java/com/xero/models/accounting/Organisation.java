@@ -619,7 +619,10 @@ public class Organisation {
     COMPREHENSIVE("COMPREHENSIVE"),
 
     /** SIMPLE */
-    SIMPLE("SIMPLE");
+    SIMPLE("SIMPLE"),
+
+    /** BASICLITE */
+    BASICLITE("BASICLITE");
 
     private String value;
 

@@ -82,9 +82,6 @@ public class EmployeePayTemplate {
    * @return EmployeePayTemplate
    */
   public EmployeePayTemplate addEarningTemplatesItem(EarningsTemplate earningTemplatesItem) {
-    if (this.earningTemplates == null) {
-      this.earningTemplates = new ArrayList<EarningsTemplate>();
-    }
     this.earningTemplates.add(earningTemplatesItem);
     return this;
   }
@@ -94,7 +91,7 @@ public class EmployeePayTemplate {
    *
    * @return earningTemplates
    */
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   /**
    * earningTemplates
    *
