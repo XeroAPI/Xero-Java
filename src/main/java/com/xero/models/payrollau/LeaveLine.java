@@ -232,9 +232,8 @@ public class LeaveLine {
   }
 
   /**
-   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
-   * superannuation guarantee calculations. When not specified value is calculated based on
-   * superannuation settings
+   * Boolean to determine if the leave line is considered as qualifying earnings for superannuation
+   * guarantee calculations
    *
    * @param isQualifyingEarnings Boolean
    * @return LeaveLine
@@ -245,22 +244,20 @@ public class LeaveLine {
   }
 
   /**
-   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
-   * superannuation guarantee calculations. When not specified value is calculated based on
-   * superannuation settings
+   * Boolean to determine if the leave line is considered as qualifying earnings for superannuation
+   * guarantee calculations
    *
    * @return isQualifyingEarnings
    */
   @ApiModelProperty(
       example = "true",
+      required = true,
       value =
-          "Optional Boolean to determine if the earnings rate is considered as qualifying earnings"
-              + " for superannuation guarantee calculations. When not specified value is calculated"
-              + " based on superannuation settings")
+          "Boolean to determine if the leave line is considered as qualifying earnings for"
+              + " superannuation guarantee calculations")
   /**
-   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
-   * superannuation guarantee calculations. When not specified value is calculated based on
-   * superannuation settings
+   * Boolean to determine if the leave line is considered as qualifying earnings for superannuation
+   * guarantee calculations
    *
    * @return isQualifyingEarnings Boolean
    */
@@ -269,9 +266,8 @@ public class LeaveLine {
   }
 
   /**
-   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
-   * superannuation guarantee calculations. When not specified value is calculated based on
-   * superannuation settings
+   * Boolean to determine if the leave line is considered as qualifying earnings for superannuation
+   * guarantee calculations
    *
    * @param isQualifyingEarnings Boolean
    */
