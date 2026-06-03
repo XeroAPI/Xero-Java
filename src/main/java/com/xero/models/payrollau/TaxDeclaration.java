@@ -872,8 +872,8 @@ public class TaxDeclaration {
   }
 
   /**
-   * Optional Boolean to determine if leave loading is considered as qualifying earnings for
-   * superannuation guarantee calculations
+   * Boolean to determine if leave loading is considered as qualifying earnings for superannuation
+   * guarantee calculations. Required when IncludeLeaveLoadingInSGC is specified in the payload
    *
    * @param includeLeaveLoadingInQualifyingEarnings Boolean
    * @return TaxDeclaration
@@ -885,19 +885,20 @@ public class TaxDeclaration {
   }
 
   /**
-   * Optional Boolean to determine if leave loading is considered as qualifying earnings for
-   * superannuation guarantee calculations
+   * Boolean to determine if leave loading is considered as qualifying earnings for superannuation
+   * guarantee calculations. Required when IncludeLeaveLoadingInSGC is specified in the payload
    *
    * @return includeLeaveLoadingInQualifyingEarnings
    */
   @ApiModelProperty(
       example = "true",
       value =
-          "Optional Boolean to determine if leave loading is considered as qualifying earnings for"
-              + " superannuation guarantee calculations")
+          "Boolean to determine if leave loading is considered as qualifying earnings for"
+              + " superannuation guarantee calculations. Required when IncludeLeaveLoadingInSGC is"
+              + " specified in the payload")
   /**
-   * Optional Boolean to determine if leave loading is considered as qualifying earnings for
-   * superannuation guarantee calculations
+   * Boolean to determine if leave loading is considered as qualifying earnings for superannuation
+   * guarantee calculations. Required when IncludeLeaveLoadingInSGC is specified in the payload
    *
    * @return includeLeaveLoadingInQualifyingEarnings Boolean
    */
@@ -906,8 +907,8 @@ public class TaxDeclaration {
   }
 
   /**
-   * Optional Boolean to determine if leave loading is considered as qualifying earnings for
-   * superannuation guarantee calculations
+   * Boolean to determine if leave loading is considered as qualifying earnings for superannuation
+   * guarantee calculations. Required when IncludeLeaveLoadingInSGC is specified in the payload
    *
    * @param includeLeaveLoadingInQualifyingEarnings Boolean
    */

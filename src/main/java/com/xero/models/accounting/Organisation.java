@@ -622,7 +622,10 @@ public class Organisation {
     SIMPLE("SIMPLE"),
 
     /** BASICLITE */
-    BASICLITE("BASICLITE");
+    BASICLITE("BASICLITE"),
+
+    /** ULTRA */
+    ULTRA("ULTRA");
 
     private String value;
 

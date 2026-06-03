@@ -469,9 +469,8 @@ public class LeaveType {
   }
 
   /**
-   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
-   * superannuation guarantee calculations. When not specified value is calculated based on earnings
-   * type and superannuation settings
+   * Boolean to determine if the leave type is considered as qualifying earnings for superannuation
+   * guarantee calculations
    *
    * @param isQualifyingEarnings Boolean
    * @return LeaveType
@@ -482,22 +481,20 @@ public class LeaveType {
   }
 
   /**
-   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
-   * superannuation guarantee calculations. When not specified value is calculated based on earnings
-   * type and superannuation settings
+   * Boolean to determine if the leave type is considered as qualifying earnings for superannuation
+   * guarantee calculations
    *
    * @return isQualifyingEarnings
    */
   @ApiModelProperty(
       example = "true",
+      required = true,
       value =
-          "Optional Boolean to determine if the earnings rate is considered as qualifying earnings"
-              + " for superannuation guarantee calculations. When not specified value is calculated"
-              + " based on earnings type and superannuation settings")
+          "Boolean to determine if the leave type is considered as qualifying earnings for"
+              + " superannuation guarantee calculations")
   /**
-   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
-   * superannuation guarantee calculations. When not specified value is calculated based on earnings
-   * type and superannuation settings
+   * Boolean to determine if the leave type is considered as qualifying earnings for superannuation
+   * guarantee calculations
    *
    * @return isQualifyingEarnings Boolean
    */
@@ -506,9 +503,8 @@ public class LeaveType {
   }
 
   /**
-   * Optional Boolean to determine if the earnings rate is considered as qualifying earnings for
-   * superannuation guarantee calculations. When not specified value is calculated based on earnings
-   * type and superannuation settings
+   * Boolean to determine if the leave type is considered as qualifying earnings for superannuation
+   * guarantee calculations
    *
    * @param isQualifyingEarnings Boolean
    */
