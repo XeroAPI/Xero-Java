@@ -63,8 +63,9 @@ public class AccountingApiBankTransferTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-    
-		BankTransfers response = accountingApi.getBankTransfers(accessToken,xeroTenantId,ifModifiedSince, where, order);
+        Boolean includeDeleted = null;
+
+		BankTransfers response = accountingApi.getBankTransfers(accessToken,xeroTenantId,ifModifiedSince, where, order, includeDeleted);
         assertThat(response.getBankTransfers().get(0).getBankTransferID(), is(equalTo(UUID.fromString("6221458a-ef7a-4d5f-9b1c-1b96ce03833c"))));
         assertThat(response.getBankTransfers().get(0).getFromBankTransactionID(), is(equalTo(UUID.fromString("a3eca480-bc04-4292-9bbd-5c57b8ba12b4"))));
         assertThat(response.getBankTransfers().get(0).getToBankTransactionID(), is(equalTo(UUID.fromString("4ca13f40-f3a0-4530-a442-a600f5696118"))));        
