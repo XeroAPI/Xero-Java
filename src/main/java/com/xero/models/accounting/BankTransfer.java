@@ -11,7 +11,9 @@
 
 package com.xero.models.accounting;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
@@ -66,6 +68,65 @@ public class BankTransfer {
 
   @JsonProperty("CreatedDateUTC")
   private String createdDateUTC;
+
+  /** AUTHORISED or DELETED (read-only). New bank transfers will have a status of AUTHORISED. */
+  public enum StatusEnum {
+    /** AUTHORISED */
+    AUTHORISED("AUTHORISED"),
+
+    /** DELETED */
+    DELETED("DELETED");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("Status")
+  private StatusEnum status;
+
+  @JsonProperty("FromTracking")
+  private List<TrackingReference> fromTracking = new ArrayList<TrackingReference>();
+
+  @JsonProperty("ToTracking")
+  private List<TrackingReference> toTracking = new ArrayList<TrackingReference>();
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
@@ -460,6 +521,137 @@ public class BankTransfer {
   }
 
   /**
+   * AUTHORISED or DELETED (read-only). New bank transfers will have a status of AUTHORISED.
+   *
+   * @return status
+   */
+  @ApiModelProperty(
+      value =
+          "AUTHORISED or DELETED (read-only). New bank transfers will have a status of AUTHORISED.")
+  /**
+   * AUTHORISED or DELETED (read-only). New bank transfers will have a status of AUTHORISED.
+   *
+   * @return status StatusEnum
+   */
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  /**
+   * Optional Tracking Category for the source account – see Tracking. A bank transfer can have a
+   * maximum of 2 tracking categories per account.
+   *
+   * @param fromTracking List&lt;TrackingReference&gt;
+   * @return BankTransfer
+   */
+  public BankTransfer fromTracking(List<TrackingReference> fromTracking) {
+    this.fromTracking = fromTracking;
+    return this;
+  }
+
+  /**
+   * Optional Tracking Category for the source account – see Tracking. A bank transfer can have a
+   * maximum of 2 tracking categories per account.
+   *
+   * @param fromTrackingItem TrackingReference
+   * @return BankTransfer
+   */
+  public BankTransfer addFromTrackingItem(TrackingReference fromTrackingItem) {
+    if (this.fromTracking == null) {
+      this.fromTracking = new ArrayList<TrackingReference>();
+    }
+    this.fromTracking.add(fromTrackingItem);
+    return this;
+  }
+
+  /**
+   * Optional Tracking Category for the source account – see Tracking. A bank transfer can have a
+   * maximum of 2 tracking categories per account.
+   *
+   * @return fromTracking
+   */
+  @ApiModelProperty(
+      value =
+          "Optional Tracking Category for the source account – see Tracking. A bank transfer can"
+              + " have a maximum of 2 tracking categories per account.")
+  /**
+   * Optional Tracking Category for the source account – see Tracking. A bank transfer can have a
+   * maximum of 2 tracking categories per account.
+   *
+   * @return fromTracking List<TrackingReference>
+   */
+  public List<TrackingReference> getFromTracking() {
+    return fromTracking;
+  }
+
+  /**
+   * Optional Tracking Category for the source account – see Tracking. A bank transfer can have a
+   * maximum of 2 tracking categories per account.
+   *
+   * @param fromTracking List&lt;TrackingReference&gt;
+   */
+  public void setFromTracking(List<TrackingReference> fromTracking) {
+    this.fromTracking = fromTracking;
+  }
+
+  /**
+   * Optional Tracking Category for the destination account – see Tracking. A bank transfer can have
+   * a maximum of 2 tracking categories per account.
+   *
+   * @param toTracking List&lt;TrackingReference&gt;
+   * @return BankTransfer
+   */
+  public BankTransfer toTracking(List<TrackingReference> toTracking) {
+    this.toTracking = toTracking;
+    return this;
+  }
+
+  /**
+   * Optional Tracking Category for the destination account – see Tracking. A bank transfer can have
+   * a maximum of 2 tracking categories per account.
+   *
+   * @param toTrackingItem TrackingReference
+   * @return BankTransfer
+   */
+  public BankTransfer addToTrackingItem(TrackingReference toTrackingItem) {
+    if (this.toTracking == null) {
+      this.toTracking = new ArrayList<TrackingReference>();
+    }
+    this.toTracking.add(toTrackingItem);
+    return this;
+  }
+
+  /**
+   * Optional Tracking Category for the destination account – see Tracking. A bank transfer can have
+   * a maximum of 2 tracking categories per account.
+   *
+   * @return toTracking
+   */
+  @ApiModelProperty(
+      value =
+          "Optional Tracking Category for the destination account – see Tracking. A bank transfer"
+              + " can have a maximum of 2 tracking categories per account.")
+  /**
+   * Optional Tracking Category for the destination account – see Tracking. A bank transfer can have
+   * a maximum of 2 tracking categories per account.
+   *
+   * @return toTracking List<TrackingReference>
+   */
+  public List<TrackingReference> getToTracking() {
+    return toTracking;
+  }
+
+  /**
+   * Optional Tracking Category for the destination account – see Tracking. A bank transfer can have
+   * a maximum of 2 tracking categories per account.
+   *
+   * @param toTracking List&lt;TrackingReference&gt;
+   */
+  public void setToTracking(List<TrackingReference> toTracking) {
+    this.toTracking = toTracking;
+  }
+
+  /**
    * Displays array of validation error messages from the API
    *
    * @param validationErrors List&lt;ValidationError&gt;
@@ -530,6 +722,9 @@ public class BankTransfer {
         && Objects.equals(this.reference, bankTransfer.reference)
         && Objects.equals(this.hasAttachments, bankTransfer.hasAttachments)
         && Objects.equals(this.createdDateUTC, bankTransfer.createdDateUTC)
+        && Objects.equals(this.status, bankTransfer.status)
+        && Objects.equals(this.fromTracking, bankTransfer.fromTracking)
+        && Objects.equals(this.toTracking, bankTransfer.toTracking)
         && Objects.equals(this.validationErrors, bankTransfer.validationErrors);
   }
 
@@ -549,6 +744,9 @@ public class BankTransfer {
         reference,
         hasAttachments,
         createdDateUTC,
+        status,
+        fromTracking,
+        toTracking,
         validationErrors);
   }
 
@@ -573,6 +771,9 @@ public class BankTransfer {
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    createdDateUTC: ").append(toIndentedString(createdDateUTC)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    fromTracking: ").append(toIndentedString(fromTracking)).append("\n");
+    sb.append("    toTracking: ").append(toIndentedString(toTracking)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();

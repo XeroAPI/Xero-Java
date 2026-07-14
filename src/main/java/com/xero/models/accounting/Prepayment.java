@@ -175,6 +175,9 @@ public class Prepayment {
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
+  @JsonProperty("UpdatedDateUTCString")
+  private String updatedDateUTCString;
+
   @JsonProperty("CurrencyCode")
   private CurrencyCode currencyCode;
 
@@ -627,6 +630,23 @@ public class Prepayment {
   }
 
   /**
+   * UTC ISO-8601 formatted timestamp of last update to the prepayment
+   *
+   * @return updatedDateUTCString
+   */
+  @ApiModelProperty(
+      example = "2019-11-14T18:10:38Z",
+      value = "UTC ISO-8601 formatted timestamp of last update to the prepayment")
+  /**
+   * UTC ISO-8601 formatted timestamp of last update to the prepayment
+   *
+   * @return updatedDateUTCString String
+   */
+  public String getUpdatedDateUTCString() {
+    return updatedDateUTCString;
+  }
+
+  /**
    * currencyCode
    *
    * @param currencyCode CurrencyCode
@@ -1009,6 +1029,7 @@ public class Prepayment {
         && Objects.equals(this.reference, prepayment.reference)
         && Objects.equals(this.invoiceNumber, prepayment.invoiceNumber)
         && Objects.equals(this.updatedDateUTC, prepayment.updatedDateUTC)
+        && Objects.equals(this.updatedDateUTCString, prepayment.updatedDateUTCString)
         && Objects.equals(this.currencyCode, prepayment.currencyCode)
         && Objects.equals(this.prepaymentID, prepayment.prepaymentID)
         && Objects.equals(this.brandingThemeID, prepayment.brandingThemeID)
@@ -1036,6 +1057,7 @@ public class Prepayment {
         reference,
         invoiceNumber,
         updatedDateUTC,
+        updatedDateUTCString,
         currencyCode,
         prepaymentID,
         brandingThemeID,
@@ -1064,6 +1086,9 @@ public class Prepayment {
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    invoiceNumber: ").append(toIndentedString(invoiceNumber)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    updatedDateUTCString: ")
+        .append(toIndentedString(updatedDateUTCString))
+        .append("\n");
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
     sb.append("    prepaymentID: ").append(toIndentedString(prepaymentID)).append("\n");
     sb.append("    brandingThemeID: ").append(toIndentedString(brandingThemeID)).append("\n");

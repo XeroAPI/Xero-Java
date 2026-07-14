@@ -262,6 +262,9 @@ public class Invoice {
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
+  @JsonProperty("UpdatedDateUTCString")
+  private String updatedDateUTCString;
+
   @JsonProperty("CreditNotes")
   private List<CreditNote> creditNotes = new ArrayList<CreditNote>();
 
@@ -1325,13 +1328,15 @@ public class Invoice {
   }
 
   /**
-   * Last modified date UTC format
+   * UTC timestamp of last update to the invoice
    *
    * @return updatedDateUTC
    */
-  @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
+  @ApiModelProperty(
+      example = "/Date(1573755038314)/",
+      value = "UTC timestamp of last update to the invoice")
   /**
-   * Last modified date UTC format
+   * UTC timestamp of last update to the invoice
    *
    * @return updatedDateUTC String
    */
@@ -1340,7 +1345,7 @@ public class Invoice {
   }
 
   /**
-   * Last modified date UTC format
+   * UTC timestamp of last update to the invoice
    *
    * @return OffsetDateTime
    */
@@ -1353,6 +1358,23 @@ public class Invoice {
       }
     }
     return null;
+  }
+
+  /**
+   * UTC ISO-8601 formatted timestamp of last update to the invoice
+   *
+   * @return updatedDateUTCString
+   */
+  @ApiModelProperty(
+      example = "2019-11-14T18:10:38Z",
+      value = "UTC ISO-8601 formatted timestamp of last update to the invoice")
+  /**
+   * UTC ISO-8601 formatted timestamp of last update to the invoice
+   *
+   * @return updatedDateUTCString String
+   */
+  public String getUpdatedDateUTCString() {
+    return updatedDateUTCString;
   }
 
   /**
@@ -1681,6 +1703,7 @@ public class Invoice {
         && Objects.equals(this.fullyPaidOnDate, invoice.fullyPaidOnDate)
         && Objects.equals(this.amountCredited, invoice.amountCredited)
         && Objects.equals(this.updatedDateUTC, invoice.updatedDateUTC)
+        && Objects.equals(this.updatedDateUTCString, invoice.updatedDateUTCString)
         && Objects.equals(this.creditNotes, invoice.creditNotes)
         && Objects.equals(this.attachments, invoice.attachments)
         && Objects.equals(this.hasErrors, invoice.hasErrors)
@@ -1727,6 +1750,7 @@ public class Invoice {
         fullyPaidOnDate,
         amountCredited,
         updatedDateUTC,
+        updatedDateUTCString,
         creditNotes,
         attachments,
         hasErrors,
@@ -1776,6 +1800,9 @@ public class Invoice {
     sb.append("    fullyPaidOnDate: ").append(toIndentedString(fullyPaidOnDate)).append("\n");
     sb.append("    amountCredited: ").append(toIndentedString(amountCredited)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    updatedDateUTCString: ")
+        .append(toIndentedString(updatedDateUTCString))
+        .append("\n");
     sb.append("    creditNotes: ").append(toIndentedString(creditNotes)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("    hasErrors: ").append(toIndentedString(hasErrors)).append("\n");
