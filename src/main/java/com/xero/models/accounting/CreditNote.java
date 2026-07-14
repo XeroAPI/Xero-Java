@@ -181,6 +181,9 @@ public class CreditNote {
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
+  @JsonProperty("UpdatedDateUTCString")
+  private String updatedDateUTCString;
+
   @JsonProperty("CurrencyCode")
   private CurrencyCode currencyCode;
 
@@ -728,6 +731,23 @@ public class CreditNote {
       }
     }
     return null;
+  }
+
+  /**
+   * UTC ISO-8601 formatted timestamp of last update to the credit note
+   *
+   * @return updatedDateUTCString
+   */
+  @ApiModelProperty(
+      example = "2019-11-14T18:10:38Z",
+      value = "UTC ISO-8601 formatted timestamp of last update to the credit note")
+  /**
+   * UTC ISO-8601 formatted timestamp of last update to the credit note
+   *
+   * @return updatedDateUTCString String
+   */
+  public String getUpdatedDateUTCString() {
+    return updatedDateUTCString;
   }
 
   /**
@@ -1484,6 +1504,7 @@ public class CreditNote {
         && Objects.equals(this.ciSDeduction, creditNote.ciSDeduction)
         && Objects.equals(this.ciSRate, creditNote.ciSRate)
         && Objects.equals(this.updatedDateUTC, creditNote.updatedDateUTC)
+        && Objects.equals(this.updatedDateUTCString, creditNote.updatedDateUTCString)
         && Objects.equals(this.currencyCode, creditNote.currencyCode)
         && Objects.equals(this.fullyPaidOnDate, creditNote.fullyPaidOnDate)
         && Objects.equals(this.creditNoteID, creditNote.creditNoteID)
@@ -1520,6 +1541,7 @@ public class CreditNote {
         ciSDeduction,
         ciSRate,
         updatedDateUTC,
+        updatedDateUTCString,
         currencyCode,
         fullyPaidOnDate,
         creditNoteID,
@@ -1557,6 +1579,9 @@ public class CreditNote {
     sb.append("    ciSDeduction: ").append(toIndentedString(ciSDeduction)).append("\n");
     sb.append("    ciSRate: ").append(toIndentedString(ciSRate)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    updatedDateUTCString: ")
+        .append(toIndentedString(updatedDateUTCString))
+        .append("\n");
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
     sb.append("    fullyPaidOnDate: ").append(toIndentedString(fullyPaidOnDate)).append("\n");
     sb.append("    creditNoteID: ").append(toIndentedString(creditNoteID)).append("\n");

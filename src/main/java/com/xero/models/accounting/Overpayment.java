@@ -166,6 +166,9 @@ public class Overpayment {
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
+  @JsonProperty("UpdatedDateUTCString")
+  private String updatedDateUTCString;
+
   @JsonProperty("CurrencyCode")
   private CurrencyCode currencyCode;
 
@@ -588,6 +591,23 @@ public class Overpayment {
   }
 
   /**
+   * UTC ISO-8601 formatted timestamp of last update to the overpayment
+   *
+   * @return updatedDateUTCString
+   */
+  @ApiModelProperty(
+      example = "2019-11-14T18:10:38Z",
+      value = "UTC ISO-8601 formatted timestamp of last update to the overpayment")
+  /**
+   * UTC ISO-8601 formatted timestamp of last update to the overpayment
+   *
+   * @return updatedDateUTCString String
+   */
+  public String getUpdatedDateUTCString() {
+    return updatedDateUTCString;
+  }
+
+  /**
    * currencyCode
    *
    * @param currencyCode CurrencyCode
@@ -987,6 +1007,7 @@ public class Overpayment {
         && Objects.equals(this.totalTax, overpayment.totalTax)
         && Objects.equals(this.total, overpayment.total)
         && Objects.equals(this.updatedDateUTC, overpayment.updatedDateUTC)
+        && Objects.equals(this.updatedDateUTCString, overpayment.updatedDateUTCString)
         && Objects.equals(this.currencyCode, overpayment.currencyCode)
         && Objects.equals(this.overpaymentID, overpayment.overpaymentID)
         && Objects.equals(this.currencyRate, overpayment.currencyRate)
@@ -1012,6 +1033,7 @@ public class Overpayment {
         totalTax,
         total,
         updatedDateUTC,
+        updatedDateUTCString,
         currencyCode,
         overpaymentID,
         currencyRate,
@@ -1038,6 +1060,9 @@ public class Overpayment {
     sb.append("    totalTax: ").append(toIndentedString(totalTax)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    updatedDateUTCString: ")
+        .append(toIndentedString(updatedDateUTCString))
+        .append("\n");
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
     sb.append("    overpaymentID: ").append(toIndentedString(overpaymentID)).append("\n");
     sb.append("    currencyRate: ").append(toIndentedString(currencyRate)).append("\n");

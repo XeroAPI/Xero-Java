@@ -202,6 +202,9 @@ public class Payment {
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
+  @JsonProperty("UpdatedDateUTCString")
+  private String updatedDateUTCString;
+
   @JsonProperty("PaymentID")
   private UUID paymentID;
 
@@ -905,6 +908,23 @@ public class Payment {
   }
 
   /**
+   * UTC ISO-8601 formatted timestamp of last update to the payment
+   *
+   * @return updatedDateUTCString
+   */
+  @ApiModelProperty(
+      example = "2019-11-14T18:10:38Z",
+      value = "UTC ISO-8601 formatted timestamp of last update to the payment")
+  /**
+   * UTC ISO-8601 formatted timestamp of last update to the payment
+   *
+   * @return updatedDateUTCString String
+   */
+  public String getUpdatedDateUTCString() {
+    return updatedDateUTCString;
+  }
+
+  /**
    * The Xero identifier for an Payment e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
    *
    * @param paymentID UUID
@@ -1317,6 +1337,7 @@ public class Payment {
         && Objects.equals(this.status, payment.status)
         && Objects.equals(this.paymentType, payment.paymentType)
         && Objects.equals(this.updatedDateUTC, payment.updatedDateUTC)
+        && Objects.equals(this.updatedDateUTCString, payment.updatedDateUTCString)
         && Objects.equals(this.paymentID, payment.paymentID)
         && Objects.equals(this.batchPaymentID, payment.batchPaymentID)
         && Objects.equals(this.bankAccountNumber, payment.bankAccountNumber)
@@ -1350,6 +1371,7 @@ public class Payment {
         status,
         paymentType,
         updatedDateUTC,
+        updatedDateUTCString,
         paymentID,
         batchPaymentID,
         bankAccountNumber,
@@ -1384,6 +1406,9 @@ public class Payment {
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    paymentType: ").append(toIndentedString(paymentType)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    updatedDateUTCString: ")
+        .append(toIndentedString(updatedDateUTCString))
+        .append("\n");
     sb.append("    paymentID: ").append(toIndentedString(paymentID)).append("\n");
     sb.append("    batchPaymentID: ").append(toIndentedString(batchPaymentID)).append("\n");
     sb.append("    bankAccountNumber: ").append(toIndentedString(bankAccountNumber)).append("\n");
