@@ -32,6 +32,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.interfaces.RSAPublicKey;
 
@@ -216,7 +217,7 @@ public class ApiClient {
 	    headers.setBasicAuthentication(clientId, clientSecret);
 		
 	    // POST BODY WITH REFRESH TOKEN
-		String urlParameters  = "token=" + refreshToken;
+		String urlParameters  = "token=" + URLEncoder.encode(refreshToken, StandardCharsets.UTF_8.name());
 		byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
 		HttpContent content = new ByteArrayContent("application/x-www-form-urlencoded", postData);
 	
