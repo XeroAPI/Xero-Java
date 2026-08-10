@@ -61,7 +61,7 @@ public class AccountingApiInvoicesTest {
     public void createInvoiceTest() throws IOException {
         System.out.println("@Test - createInvoices");
         Invoices invoices = new Invoices();
-        Invoices response = accountingApi.createInvoices(accessToken, xeroTenantId, invoices, false, 4, null);
+        Invoices response = accountingApi.createInvoices(accessToken, xeroTenantId, invoices, false, 4, null, null);
      
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019, 03, 11))));  
@@ -256,7 +256,7 @@ public class AccountingApiInvoicesTest {
         System.out.println("@Test - updateInvoice");
         UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Invoices invoices = new Invoices();
-        Invoices response = accountingApi.updateInvoice(accessToken,xeroTenantId,invoiceID, invoices,4, null);
+        Invoices response = accountingApi.updateInvoice(accessToken,xeroTenantId,invoiceID, invoices,4, null, null);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,11))));  
