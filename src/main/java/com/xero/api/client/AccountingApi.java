@@ -264,7 +264,16 @@ public class AccountingApi {
       Integer pageSize)
       throws IOException {
     return getPrepayments(
-        accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize, null);
+        accessToken,
+        xeroTenantId,
+        ifModifiedSince,
+        where,
+        order,
+        page,
+        unitdp,
+        pageSize,
+        null,
+        null);
   }
 
   /**
@@ -296,7 +305,16 @@ public class AccountingApi {
       Integer pageSize)
       throws IOException {
     return getPrepaymentsForHttpResponse(
-        accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize, null);
+        accessToken,
+        xeroTenantId,
+        ifModifiedSince,
+        where,
+        order,
+        page,
+        unitdp,
+        pageSize,
+        null,
+        null);
   }
 
   /* End backward compatibility functions */
