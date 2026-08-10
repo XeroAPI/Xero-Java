@@ -3517,9 +3517,21 @@ ul.nav-tabs {
     },
     "QuantityOnHand" : {
       "type" : "number",
-      "description" : "The quantity of the item on hand",
+      "description" : "The quantity of the item on hand. This will be 0 if `QuantityOnBackOrder` is greater than 0.",
       "format" : "double",
       "x-is-money" : true
+    },
+    "QuantityAvailable" : {
+      "type" : "number",
+      "description" : "The quantity of the item available. This is equal to `QuantityOnHand` - `QuantityOnBackOrder`. This value will be negative if `QuantityOnBackOrder` is greater than 0.",
+      "format" : "double",
+      "readOnly" : true
+    },
+    "QuantityOnBackOrder" : {
+      "type" : "number",
+      "description" : "The quantity of the item on backorder. This will be 0 if `QuantityOnHand` is greater than 0.",
+      "format" : "double",
+      "readOnly" : true
     },
     "UpdatedDateUTC" : {
       "type" : "string",
@@ -6490,7 +6502,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Accounting"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>18.0.0</li>
+              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>18.1.0</li>
               <li class="nav-header" data-group="Accounting"><a href="#api-Accounting">Methods</a></li>
               <li data-group="Accounting" data-name="createAccount" class="">
                 <a href="#api-Accounting-createAccount">createAccount</a>
@@ -12419,6 +12431,7 @@ public class AccountingApiExample {
         Boolean summarizeErrors = true;
         Integer unitdp = 4;
         String idempotencyKey = 'KEY_VALUE';
+        Boolean allowBackorders = true;
         LocalDate dateValue = LocalDate.of(2020, Month.OCTOBER, 10);
         LocalDate dueDateValue = LocalDate.of(2020, Month.OCTOBER, 28);
         
@@ -12455,7 +12468,7 @@ public class AccountingApiExample {
         invoices.addInvoicesItem(invoice);
 
         try {
-            Invoices result = apiInstance.createInvoices(accessToken, xeroTenantId, invoices, summarizeErrors, unitdp, idempotencyKey);
+            Invoices result = apiInstance.createInvoices(accessToken, xeroTenantId, invoices, summarizeErrors, unitdp, idempotencyKey, allowBackorders);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#createInvoices");
@@ -12620,6 +12633,26 @@ If false return 200 OK and mix of successfully created objects and any with vali
 
                     <div class="inner description marked">
 e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">allowBackorders</td>
+<td>
+
+
+    <div id="d2e199_createInvoices_allowBackorders">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+Allows an invoice to be created even when one or more line items contain tracked inventory where the invoice quantity would cause the available quantity to go negative
                     </div>
             </div>
         </div>
@@ -22455,9 +22488,10 @@ public class AccountingApiExample {
         Integer page = 1;
         Integer unitdp = 4;
         Integer pageSize = 100;
+        array[String] references = &quot;Ref1&quot;, &quot;Ref2&quot;;
 
         try {
-            BankTransactions result = apiInstance.getBankTransactions(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize);
+            BankTransactions result = apiInstance.getBankTransactions(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize, references);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getBankTransactions");
@@ -22634,6 +22668,26 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
 
                     <div class="inner description marked">
 Number of records to retrieve per page
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">References</td>
+<td>
+
+
+    <div id="d2e199_getBankTransactions_references">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    array[String]
+                </span>
+
+                    <div class="inner description marked">
+Filter by a comma-separated list of References
                     </div>
             </div>
         </div>
@@ -33737,9 +33791,10 @@ public class AccountingApiExample {
         Integer unitdp = 4;
         Integer pageSize = 100;
         array[String] invoiceNumbers = &quot;INV-001&quot;, &quot;INV-002&quot;;
+        array[String] references = &quot;Ref1&quot;, &quot;Ref2&quot;;
 
         try {
-            Prepayments result = apiInstance.getPrepayments(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize, invoiceNumbers);
+            Prepayments result = apiInstance.getPrepayments(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize, invoiceNumbers, references);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getPrepayments");
@@ -33875,7 +33930,7 @@ Order by an any element
                 </span>
 
                     <div class="inner description marked">
-e.g. page=1 – Up to 100 prepayments will be returned in a single API call with line items shown for each overpayment
+e.g. page=1 – Up to 100 prepayments will be returned in a single API call with line items shown for each prepayment
                     </div>
             </div>
         </div>
@@ -33936,6 +33991,26 @@ Number of records to retrieve per page
 
                     <div class="inner description marked">
 Filter by a comma-separated list of InvoiceNumbers
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">References</td>
+<td>
+
+
+    <div id="d2e199_getPrepayments_references">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    array[String]
+                </span>
+
+                    <div class="inner description marked">
+Filter by a comma-separated list of References
                     </div>
             </div>
         </div>
@@ -43774,6 +43849,7 @@ public class AccountingApiExample {
         UUID invoiceID = '00000000-0000-0000-0000-000000000000';
         Integer unitdp = 4;
         String idempotencyKey = 'KEY_VALUE';
+        Boolean allowBackorders = true;
         
         Invoice invoice = new Invoice();
         invoice.setReference("I am Iron man");
@@ -43782,7 +43858,7 @@ public class AccountingApiExample {
         invoices.addInvoicesItem(invoice);
 
         try {
-            Invoices result = apiInstance.updateInvoice(accessToken, xeroTenantId, invoiceID, invoices, unitdp, idempotencyKey);
+            Invoices result = apiInstance.updateInvoice(accessToken, xeroTenantId, invoiceID, invoices, unitdp, idempotencyKey, allowBackorders);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateInvoice");
@@ -43948,6 +44024,26 @@ This allows you to safely retry requests without the risk of duplicate processin
 
                     <div class="inner description marked">
 e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">allowBackorders</td>
+<td>
+
+
+    <div id="d2e199_updateInvoice_allowBackorders">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+Allows an invoice to be created even when one or more line items contain tracked inventory where the invoice quantity would cause the available quantity to go negative
                     </div>
             </div>
         </div>
@@ -45747,6 +45843,7 @@ public class AccountingApiExample {
         Boolean summarizeErrors = true;
         Integer unitdp = 4;
         String idempotencyKey = 'KEY_VALUE';
+        Boolean allowBackorders = true;
         LocalDate dateValue = LocalDate.of(2020, Month.OCTOBER, 10);
         LocalDate dueDateValue = LocalDate.of(2020, Month.OCTOBER, 28);
         
@@ -45775,7 +45872,7 @@ public class AccountingApiExample {
         invoices.addInvoicesItem(invoice);
 
         try {
-            Invoices result = apiInstance.updateOrCreateInvoices(accessToken, xeroTenantId, invoices, summarizeErrors, unitdp, idempotencyKey);
+            Invoices result = apiInstance.updateOrCreateInvoices(accessToken, xeroTenantId, invoices, summarizeErrors, unitdp, idempotencyKey, allowBackorders);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#updateOrCreateInvoices");
@@ -45939,6 +46036,26 @@ If false return 200 OK and mix of successfully created objects and any with vali
 
                     <div class="inner description marked">
 e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">allowBackorders</td>
+<td>
+
+
+    <div id="d2e199_updateOrCreateInvoices_allowBackorders">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+Allows an invoice to be created even when one or more line items contain tracked inventory where the invoice quantity would cause the available quantity to go negative
                     </div>
             </div>
         </div>

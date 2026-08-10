@@ -61,6 +61,12 @@ public class Item {
   @JsonProperty("QuantityOnHand")
   private Double quantityOnHand;
 
+  @JsonProperty("QuantityAvailable")
+  private Double quantityAvailable;
+
+  @JsonProperty("QuantityOnBackOrder")
+  private Double quantityOnBackOrder;
+
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
@@ -498,7 +504,8 @@ public class Item {
   }
 
   /**
-   * The quantity of the item on hand
+   * The quantity of the item on hand. This will be 0 if &#x60;QuantityOnBackOrder&#x60; is greater
+   * than 0.
    *
    * @param quantityOnHand Double
    * @return Item
@@ -509,13 +516,18 @@ public class Item {
   }
 
   /**
-   * The quantity of the item on hand
+   * The quantity of the item on hand. This will be 0 if &#x60;QuantityOnBackOrder&#x60; is greater
+   * than 0.
    *
    * @return quantityOnHand
    */
-  @ApiModelProperty(value = "The quantity of the item on hand")
+  @ApiModelProperty(
+      value =
+          "The quantity of the item on hand. This will be 0 if `QuantityOnBackOrder` is greater"
+              + " than 0.")
   /**
-   * The quantity of the item on hand
+   * The quantity of the item on hand. This will be 0 if &#x60;QuantityOnBackOrder&#x60; is greater
+   * than 0.
    *
    * @return quantityOnHand Double
    */
@@ -524,12 +536,56 @@ public class Item {
   }
 
   /**
-   * The quantity of the item on hand
+   * The quantity of the item on hand. This will be 0 if &#x60;QuantityOnBackOrder&#x60; is greater
+   * than 0.
    *
    * @param quantityOnHand Double
    */
   public void setQuantityOnHand(Double quantityOnHand) {
     this.quantityOnHand = quantityOnHand;
+  }
+
+  /**
+   * The quantity of the item available. This is equal to &#x60;QuantityOnHand&#x60; -
+   * &#x60;QuantityOnBackOrder&#x60;. This value will be negative if &#x60;QuantityOnBackOrder&#x60;
+   * is greater than 0.
+   *
+   * @return quantityAvailable
+   */
+  @ApiModelProperty(
+      value =
+          "The quantity of the item available. This is equal to `QuantityOnHand` -"
+              + " `QuantityOnBackOrder`. This value will be negative if `QuantityOnBackOrder` is"
+              + " greater than 0.")
+  /**
+   * The quantity of the item available. This is equal to &#x60;QuantityOnHand&#x60; -
+   * &#x60;QuantityOnBackOrder&#x60;. This value will be negative if &#x60;QuantityOnBackOrder&#x60;
+   * is greater than 0.
+   *
+   * @return quantityAvailable Double
+   */
+  public Double getQuantityAvailable() {
+    return quantityAvailable;
+  }
+
+  /**
+   * The quantity of the item on backorder. This will be 0 if &#x60;QuantityOnHand&#x60; is greater
+   * than 0.
+   *
+   * @return quantityOnBackOrder
+   */
+  @ApiModelProperty(
+      value =
+          "The quantity of the item on backorder. This will be 0 if `QuantityOnHand` is greater"
+              + " than 0.")
+  /**
+   * The quantity of the item on backorder. This will be 0 if &#x60;QuantityOnHand&#x60; is greater
+   * than 0.
+   *
+   * @return quantityOnBackOrder Double
+   */
+  public Double getQuantityOnBackOrder() {
+    return quantityOnBackOrder;
   }
 
   /**
@@ -703,6 +759,8 @@ public class Item {
         && Objects.equals(this.isTrackedAsInventory, item.isTrackedAsInventory)
         && Objects.equals(this.totalCostPool, item.totalCostPool)
         && Objects.equals(this.quantityOnHand, item.quantityOnHand)
+        && Objects.equals(this.quantityAvailable, item.quantityAvailable)
+        && Objects.equals(this.quantityOnBackOrder, item.quantityOnBackOrder)
         && Objects.equals(this.updatedDateUTC, item.updatedDateUTC)
         && Objects.equals(this.itemID, item.itemID)
         && Objects.equals(this.statusAttributeString, item.statusAttributeString)
@@ -724,6 +782,8 @@ public class Item {
         isTrackedAsInventory,
         totalCostPool,
         quantityOnHand,
+        quantityAvailable,
+        quantityOnBackOrder,
         updatedDateUTC,
         itemID,
         statusAttributeString,
@@ -752,6 +812,10 @@ public class Item {
         .append("\n");
     sb.append("    totalCostPool: ").append(toIndentedString(totalCostPool)).append("\n");
     sb.append("    quantityOnHand: ").append(toIndentedString(quantityOnHand)).append("\n");
+    sb.append("    quantityAvailable: ").append(toIndentedString(quantityAvailable)).append("\n");
+    sb.append("    quantityOnBackOrder: ")
+        .append(toIndentedString(quantityOnBackOrder))
+        .append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    itemID: ").append(toIndentedString(itemID)).append("\n");
     sb.append("    statusAttributeString: ")
