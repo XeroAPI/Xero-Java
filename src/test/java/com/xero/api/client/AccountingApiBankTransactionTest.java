@@ -61,7 +61,7 @@ public class AccountingApiBankTransactionTest {
         Integer page = null;
         Integer unitdp = null;
         Integer pageSize = null;
-		BankTransactions response = accountingApi.getBankTransactions(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp, pageSize);
+		BankTransactions response = accountingApi.getBankTransactions(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp, pageSize, null);
 		assertThat(response.getBankTransactions().get(0).getBankTransactionID(), is(equalTo(UUID.fromString("db54aab0-ad40-4ced-bcff-0940ba20db2c"))));
 		assertThat(response.getBankTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.BankTransaction.StatusEnum.AUTHORISED)));
 		assertThat(response.getBankTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE)));
