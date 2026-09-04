@@ -226,6 +226,12 @@ public class Invoice {
   @JsonProperty("TotalDiscount")
   private Double totalDiscount;
 
+  @JsonProperty("RoundingAmount")
+  private Double roundingAmount;
+
+  @JsonProperty("EnteredTotal")
+  private Double enteredTotal;
+
   @JsonProperty("InvoiceID")
   private UUID invoiceID;
 
@@ -1038,13 +1044,51 @@ public class Invoice {
   }
 
   /**
-   * Total of invoice excluding taxes
+   * Total of invoice excluding taxes. Calculated automatically by Xero from the invoice&#39;s line
+   * items. Only for ACCPAY and ACCREC invoices, where this opt-in capability is enabled for your
+   * organisation, can SubTotal be supplied on write – on a SUBMITTED or AUTHORISED invoice supplied
+   * together with TotalTax and Total, it is validated against the calculated line item totals (see
+   * RoundingAmount); it is ignored in all other cases. This write behaviour, and the returned value
+   * reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to retrieving a
+   * single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
+   *
+   * @param subTotal Double
+   * @return Invoice
+   */
+  public Invoice subTotal(Double subTotal) {
+    this.subTotal = subTotal;
+    return this;
+  }
+
+  /**
+   * Total of invoice excluding taxes. Calculated automatically by Xero from the invoice&#39;s line
+   * items. Only for ACCPAY and ACCREC invoices, where this opt-in capability is enabled for your
+   * organisation, can SubTotal be supplied on write – on a SUBMITTED or AUTHORISED invoice supplied
+   * together with TotalTax and Total, it is validated against the calculated line item totals (see
+   * RoundingAmount); it is ignored in all other cases. This write behaviour, and the returned value
+   * reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to retrieving a
+   * single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
    *
    * @return subTotal
    */
-  @ApiModelProperty(value = "Total of invoice excluding taxes")
+  @ApiModelProperty(
+      value =
+          "Total of invoice excluding taxes. Calculated automatically by Xero from the invoice's"
+              + " line items. Only for ACCPAY and ACCREC invoices, where this opt-in capability is"
+              + " enabled for your organisation, can SubTotal be supplied on write – on a SUBMITTED"
+              + " or AUTHORISED invoice supplied together with TotalTax and Total, it is validated"
+              + " against the calculated line item totals (see RoundingAmount); it is ignored in"
+              + " all other cases. This write behaviour, and the returned value reflecting it, only"
+              + " applies to the Create and Update endpoints (POST/PUT) and to retrieving a single"
+              + " invoice by ID (GET by ID) – it does not apply when listing invoices (GET) ")
   /**
-   * Total of invoice excluding taxes
+   * Total of invoice excluding taxes. Calculated automatically by Xero from the invoice&#39;s line
+   * items. Only for ACCPAY and ACCREC invoices, where this opt-in capability is enabled for your
+   * organisation, can SubTotal be supplied on write – on a SUBMITTED or AUTHORISED invoice supplied
+   * together with TotalTax and Total, it is validated against the calculated line item totals (see
+   * RoundingAmount); it is ignored in all other cases. This write behaviour, and the returned value
+   * reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to retrieving a
+   * single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
    *
    * @return subTotal Double
    */
@@ -1053,13 +1097,66 @@ public class Invoice {
   }
 
   /**
-   * Total tax on invoice
+   * Total of invoice excluding taxes. Calculated automatically by Xero from the invoice&#39;s line
+   * items. Only for ACCPAY and ACCREC invoices, where this opt-in capability is enabled for your
+   * organisation, can SubTotal be supplied on write – on a SUBMITTED or AUTHORISED invoice supplied
+   * together with TotalTax and Total, it is validated against the calculated line item totals (see
+   * RoundingAmount); it is ignored in all other cases. This write behaviour, and the returned value
+   * reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to retrieving a
+   * single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
+   *
+   * @param subTotal Double
+   */
+  public void setSubTotal(Double subTotal) {
+    this.subTotal = subTotal;
+  }
+
+  /**
+   * Total tax on invoice. Calculated automatically by Xero from the invoice&#39;s line items. Only
+   * for ACCPAY and ACCREC invoices, where this opt-in capability is enabled for your organisation,
+   * can TotalTax be supplied on write – on a SUBMITTED or AUTHORISED invoice supplied together with
+   * SubTotal and Total, it is validated against the calculated line item totals (see
+   * RoundingAmount); it is ignored in all other cases. This write behaviour, and the returned value
+   * reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to retrieving a
+   * single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
+   *
+   * @param totalTax Double
+   * @return Invoice
+   */
+  public Invoice totalTax(Double totalTax) {
+    this.totalTax = totalTax;
+    return this;
+  }
+
+  /**
+   * Total tax on invoice. Calculated automatically by Xero from the invoice&#39;s line items. Only
+   * for ACCPAY and ACCREC invoices, where this opt-in capability is enabled for your organisation,
+   * can TotalTax be supplied on write – on a SUBMITTED or AUTHORISED invoice supplied together with
+   * SubTotal and Total, it is validated against the calculated line item totals (see
+   * RoundingAmount); it is ignored in all other cases. This write behaviour, and the returned value
+   * reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to retrieving a
+   * single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
    *
    * @return totalTax
    */
-  @ApiModelProperty(value = "Total tax on invoice")
+  @ApiModelProperty(
+      value =
+          "Total tax on invoice. Calculated automatically by Xero from the invoice's line items."
+              + " Only for ACCPAY and ACCREC invoices, where this opt-in capability is enabled for"
+              + " your organisation, can TotalTax be supplied on write – on a SUBMITTED or"
+              + " AUTHORISED invoice supplied together with SubTotal and Total, it is validated"
+              + " against the calculated line item totals (see RoundingAmount); it is ignored in"
+              + " all other cases. This write behaviour, and the returned value reflecting it, only"
+              + " applies to the Create and Update endpoints (POST/PUT) and to retrieving a single"
+              + " invoice by ID (GET by ID) – it does not apply when listing invoices (GET) ")
   /**
-   * Total tax on invoice
+   * Total tax on invoice. Calculated automatically by Xero from the invoice&#39;s line items. Only
+   * for ACCPAY and ACCREC invoices, where this opt-in capability is enabled for your organisation,
+   * can TotalTax be supplied on write – on a SUBMITTED or AUTHORISED invoice supplied together with
+   * SubTotal and Total, it is validated against the calculated line item totals (see
+   * RoundingAmount); it is ignored in all other cases. This write behaviour, and the returned value
+   * reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to retrieving a
+   * single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
    *
    * @return totalTax Double
    */
@@ -1068,23 +1165,92 @@ public class Invoice {
   }
 
   /**
-   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax). This will be ignored if it doesn’t
-   * equal the sum of the LineAmounts
+   * Total tax on invoice. Calculated automatically by Xero from the invoice&#39;s line items. Only
+   * for ACCPAY and ACCREC invoices, where this opt-in capability is enabled for your organisation,
+   * can TotalTax be supplied on write – on a SUBMITTED or AUTHORISED invoice supplied together with
+   * SubTotal and Total, it is validated against the calculated line item totals (see
+   * RoundingAmount); it is ignored in all other cases. This write behaviour, and the returned value
+   * reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to retrieving a
+   * single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
+   *
+   * @param totalTax Double
+   */
+  public void setTotalTax(Double totalTax) {
+    this.totalTax = totalTax;
+  }
+
+  /**
+   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax + RoundingAmount). Calculated
+   * automatically by Xero from the invoice&#39;s line items. Only for ACCPAY and ACCREC invoices,
+   * where this opt-in capability is enabled for your organisation, can Total be supplied on write –
+   * on a SUBMITTED or AUTHORISED invoice supplied together with SubTotal and TotalTax, it is
+   * validated against the calculated line item totals plus RoundingAmount; in all other cases this
+   * will be ignored if it does not equal the sum of the LineAmounts. This write behaviour, and the
+   * returned value reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to
+   * retrieving a single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
+   *
+   * @param total Double
+   * @return Invoice
+   */
+  public Invoice total(Double total) {
+    this.total = total;
+    return this;
+  }
+
+  /**
+   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax + RoundingAmount). Calculated
+   * automatically by Xero from the invoice&#39;s line items. Only for ACCPAY and ACCREC invoices,
+   * where this opt-in capability is enabled for your organisation, can Total be supplied on write –
+   * on a SUBMITTED or AUTHORISED invoice supplied together with SubTotal and TotalTax, it is
+   * validated against the calculated line item totals plus RoundingAmount; in all other cases this
+   * will be ignored if it does not equal the sum of the LineAmounts. This write behaviour, and the
+   * returned value reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to
+   * retrieving a single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
    *
    * @return total
    */
   @ApiModelProperty(
       value =
-          "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax). This will be ignored if it"
-              + " doesn’t equal the sum of the LineAmounts")
+          "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax + RoundingAmount). Calculated"
+              + " automatically by Xero from the invoice's line items. Only for ACCPAY and ACCREC"
+              + " invoices, where this opt-in capability is enabled for your organisation, can"
+              + " Total be supplied on write – on a SUBMITTED or AUTHORISED invoice supplied"
+              + " together with SubTotal and TotalTax, it is validated against the calculated line"
+              + " item totals plus RoundingAmount; in all other cases this will be ignored if it"
+              + " does not equal the sum of the LineAmounts. This write behaviour, and the returned"
+              + " value reflecting it, only applies to the Create and Update endpoints (POST/PUT)"
+              + " and to retrieving a single invoice by ID (GET by ID) – it does not apply when"
+              + " listing invoices (GET) ")
   /**
-   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax). This will be ignored if it doesn’t
-   * equal the sum of the LineAmounts
+   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax + RoundingAmount). Calculated
+   * automatically by Xero from the invoice&#39;s line items. Only for ACCPAY and ACCREC invoices,
+   * where this opt-in capability is enabled for your organisation, can Total be supplied on write –
+   * on a SUBMITTED or AUTHORISED invoice supplied together with SubTotal and TotalTax, it is
+   * validated against the calculated line item totals plus RoundingAmount; in all other cases this
+   * will be ignored if it does not equal the sum of the LineAmounts. This write behaviour, and the
+   * returned value reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to
+   * retrieving a single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
    *
    * @return total Double
    */
   public Double getTotal() {
     return total;
+  }
+
+  /**
+   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax + RoundingAmount). Calculated
+   * automatically by Xero from the invoice&#39;s line items. Only for ACCPAY and ACCREC invoices,
+   * where this opt-in capability is enabled for your organisation, can Total be supplied on write –
+   * on a SUBMITTED or AUTHORISED invoice supplied together with SubTotal and TotalTax, it is
+   * validated against the calculated line item totals plus RoundingAmount; in all other cases this
+   * will be ignored if it does not equal the sum of the LineAmounts. This write behaviour, and the
+   * returned value reflecting it, only applies to the Create and Update endpoints (POST/PUT) and to
+   * retrieving a single invoice by ID (GET by ID) – it does not apply when listing invoices (GET)
+   *
+   * @param total Double
+   */
+  public void setTotal(Double total) {
+    this.total = total;
   }
 
   /**
@@ -1100,6 +1266,148 @@ public class Invoice {
    */
   public Double getTotalDiscount() {
     return totalDiscount;
+  }
+
+  /**
+   * An optional rounding adjustment added to SubTotal + TotalTax to give Total (i.e. Total &#x3D;
+   * SubTotal + TotalTax + RoundingAmount). Only applies to ACCPAY and ACCREC invoices, and only if
+   * this opt-in capability has been enabled for your organisation. Not validated while the invoice
+   * is DRAFT. For SUBMITTED and AUTHORISED invoices, RoundingAmount is only applied when SubTotal,
+   * TotalTax and Total are all supplied together, and must be between -0.10 and 0.10 – values
+   * outside this range are rejected with a validation error (on DRAFT invoices, an out-of-range
+   * value is ignored instead). This field is only settable and only returned via the Create and
+   * Update endpoints (POST/PUT) and when retrieving a single invoice by ID (GET by ID) – it is not
+   * returned when listing invoices (GET)
+   *
+   * @param roundingAmount Double
+   * @return Invoice
+   */
+  public Invoice roundingAmount(Double roundingAmount) {
+    this.roundingAmount = roundingAmount;
+    return this;
+  }
+
+  /**
+   * An optional rounding adjustment added to SubTotal + TotalTax to give Total (i.e. Total &#x3D;
+   * SubTotal + TotalTax + RoundingAmount). Only applies to ACCPAY and ACCREC invoices, and only if
+   * this opt-in capability has been enabled for your organisation. Not validated while the invoice
+   * is DRAFT. For SUBMITTED and AUTHORISED invoices, RoundingAmount is only applied when SubTotal,
+   * TotalTax and Total are all supplied together, and must be between -0.10 and 0.10 – values
+   * outside this range are rejected with a validation error (on DRAFT invoices, an out-of-range
+   * value is ignored instead). This field is only settable and only returned via the Create and
+   * Update endpoints (POST/PUT) and when retrieving a single invoice by ID (GET by ID) – it is not
+   * returned when listing invoices (GET)
+   *
+   * @return roundingAmount
+   */
+  @ApiModelProperty(
+      value =
+          "An optional rounding adjustment added to SubTotal + TotalTax to give Total (i.e. Total ="
+              + " SubTotal + TotalTax + RoundingAmount). Only applies to ACCPAY and ACCREC"
+              + " invoices, and only if this opt-in capability has been enabled for your"
+              + " organisation. Not validated while the invoice is DRAFT. For SUBMITTED and"
+              + " AUTHORISED invoices, RoundingAmount is only applied when SubTotal, TotalTax and"
+              + " Total are all supplied together, and must be between -0.10 and 0.10 – values"
+              + " outside this range are rejected with a validation error (on DRAFT invoices, an"
+              + " out-of-range value is ignored instead). This field is only settable and only"
+              + " returned via the Create and Update endpoints (POST/PUT) and when retrieving a"
+              + " single invoice by ID (GET by ID) – it is not returned when listing invoices (GET)"
+              + " ")
+  /**
+   * An optional rounding adjustment added to SubTotal + TotalTax to give Total (i.e. Total &#x3D;
+   * SubTotal + TotalTax + RoundingAmount). Only applies to ACCPAY and ACCREC invoices, and only if
+   * this opt-in capability has been enabled for your organisation. Not validated while the invoice
+   * is DRAFT. For SUBMITTED and AUTHORISED invoices, RoundingAmount is only applied when SubTotal,
+   * TotalTax and Total are all supplied together, and must be between -0.10 and 0.10 – values
+   * outside this range are rejected with a validation error (on DRAFT invoices, an out-of-range
+   * value is ignored instead). This field is only settable and only returned via the Create and
+   * Update endpoints (POST/PUT) and when retrieving a single invoice by ID (GET by ID) – it is not
+   * returned when listing invoices (GET)
+   *
+   * @return roundingAmount Double
+   */
+  public Double getRoundingAmount() {
+    return roundingAmount;
+  }
+
+  /**
+   * An optional rounding adjustment added to SubTotal + TotalTax to give Total (i.e. Total &#x3D;
+   * SubTotal + TotalTax + RoundingAmount). Only applies to ACCPAY and ACCREC invoices, and only if
+   * this opt-in capability has been enabled for your organisation. Not validated while the invoice
+   * is DRAFT. For SUBMITTED and AUTHORISED invoices, RoundingAmount is only applied when SubTotal,
+   * TotalTax and Total are all supplied together, and must be between -0.10 and 0.10 – values
+   * outside this range are rejected with a validation error (on DRAFT invoices, an out-of-range
+   * value is ignored instead). This field is only settable and only returned via the Create and
+   * Update endpoints (POST/PUT) and when retrieving a single invoice by ID (GET by ID) – it is not
+   * returned when listing invoices (GET)
+   *
+   * @param roundingAmount Double
+   */
+  public void setRoundingAmount(Double roundingAmount) {
+    this.roundingAmount = roundingAmount;
+  }
+
+  /**
+   * The total amount as originally entered for the invoice, before any RoundingAmount adjustment is
+   * applied. Only applies to ACCPAY and ACCREC invoices, and only if this opt-in capability has
+   * been enabled for your organisation. Can only be set while the invoice is DRAFT; once the
+   * invoice is no longer DRAFT this reflects Total. This field is only settable and only returned
+   * via the Create and Update endpoints (POST/PUT) and when retrieving a single invoice by ID (GET
+   * by ID) – it is not returned when listing invoices (GET)
+   *
+   * @param enteredTotal Double
+   * @return Invoice
+   */
+  public Invoice enteredTotal(Double enteredTotal) {
+    this.enteredTotal = enteredTotal;
+    return this;
+  }
+
+  /**
+   * The total amount as originally entered for the invoice, before any RoundingAmount adjustment is
+   * applied. Only applies to ACCPAY and ACCREC invoices, and only if this opt-in capability has
+   * been enabled for your organisation. Can only be set while the invoice is DRAFT; once the
+   * invoice is no longer DRAFT this reflects Total. This field is only settable and only returned
+   * via the Create and Update endpoints (POST/PUT) and when retrieving a single invoice by ID (GET
+   * by ID) – it is not returned when listing invoices (GET)
+   *
+   * @return enteredTotal
+   */
+  @ApiModelProperty(
+      value =
+          "The total amount as originally entered for the invoice, before any RoundingAmount"
+              + " adjustment is applied. Only applies to ACCPAY and ACCREC invoices, and only if"
+              + " this opt-in capability has been enabled for your organisation. Can only be set"
+              + " while the invoice is DRAFT; once the invoice is no longer DRAFT this reflects"
+              + " Total. This field is only settable and only returned via the Create and Update"
+              + " endpoints (POST/PUT) and when retrieving a single invoice by ID (GET by ID) – it"
+              + " is not returned when listing invoices (GET) ")
+  /**
+   * The total amount as originally entered for the invoice, before any RoundingAmount adjustment is
+   * applied. Only applies to ACCPAY and ACCREC invoices, and only if this opt-in capability has
+   * been enabled for your organisation. Can only be set while the invoice is DRAFT; once the
+   * invoice is no longer DRAFT this reflects Total. This field is only settable and only returned
+   * via the Create and Update endpoints (POST/PUT) and when retrieving a single invoice by ID (GET
+   * by ID) – it is not returned when listing invoices (GET)
+   *
+   * @return enteredTotal Double
+   */
+  public Double getEnteredTotal() {
+    return enteredTotal;
+  }
+
+  /**
+   * The total amount as originally entered for the invoice, before any RoundingAmount adjustment is
+   * applied. Only applies to ACCPAY and ACCREC invoices, and only if this opt-in capability has
+   * been enabled for your organisation. Can only be set while the invoice is DRAFT; once the
+   * invoice is no longer DRAFT this reflects Total. This field is only settable and only returned
+   * via the Create and Update endpoints (POST/PUT) and when retrieving a single invoice by ID (GET
+   * by ID) – it is not returned when listing invoices (GET)
+   *
+   * @param enteredTotal Double
+   */
+  public void setEnteredTotal(Double enteredTotal) {
+    this.enteredTotal = enteredTotal;
   }
 
   /**
@@ -1691,6 +1999,8 @@ public class Invoice {
         && Objects.equals(this.totalTax, invoice.totalTax)
         && Objects.equals(this.total, invoice.total)
         && Objects.equals(this.totalDiscount, invoice.totalDiscount)
+        && Objects.equals(this.roundingAmount, invoice.roundingAmount)
+        && Objects.equals(this.enteredTotal, invoice.enteredTotal)
         && Objects.equals(this.invoiceID, invoice.invoiceID)
         && Objects.equals(this.repeatingInvoiceID, invoice.repeatingInvoiceID)
         && Objects.equals(this.hasAttachments, invoice.hasAttachments)
@@ -1738,6 +2048,8 @@ public class Invoice {
         totalTax,
         total,
         totalDiscount,
+        roundingAmount,
+        enteredTotal,
         invoiceID,
         repeatingInvoiceID,
         hasAttachments,
@@ -1788,6 +2100,8 @@ public class Invoice {
     sb.append("    totalTax: ").append(toIndentedString(totalTax)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("    totalDiscount: ").append(toIndentedString(totalDiscount)).append("\n");
+    sb.append("    roundingAmount: ").append(toIndentedString(roundingAmount)).append("\n");
+    sb.append("    enteredTotal: ").append(toIndentedString(enteredTotal)).append("\n");
     sb.append("    invoiceID: ").append(toIndentedString(invoiceID)).append("\n");
     sb.append("    repeatingInvoiceID: ").append(toIndentedString(repeatingInvoiceID)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");

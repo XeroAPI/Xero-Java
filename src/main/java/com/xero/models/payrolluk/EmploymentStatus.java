@@ -25,7 +25,10 @@ public enum EmploymentStatus {
   WORKER("Worker"),
 
   /** UNSPECIFIED */
-  UNSPECIFIED("Unspecified");
+  UNSPECIFIED("Unspecified"),
+
+  /** OFFPAYROLLWORKER */
+  OFFPAYROLLWORKER("OffPayrollWorker");
 
   private String value;
 

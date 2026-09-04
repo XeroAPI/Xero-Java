@@ -965,6 +965,18 @@ public class CreditNote {
    * Boolean to set whether the credit note in the Xero app should be marked as “sent”. This can be
    * set only on credit notes that have been approved
    *
+   * @param sentToContact Boolean
+   * @return CreditNote
+   */
+  public CreditNote sentToContact(Boolean sentToContact) {
+    this.sentToContact = sentToContact;
+    return this;
+  }
+
+  /**
+   * Boolean to set whether the credit note in the Xero app should be marked as “sent”. This can be
+   * set only on credit notes that have been approved
+   *
    * @return sentToContact
    */
   @ApiModelProperty(
@@ -979,6 +991,16 @@ public class CreditNote {
    */
   public Boolean getSentToContact() {
     return sentToContact;
+  }
+
+  /**
+   * Boolean to set whether the credit note in the Xero app should be marked as “sent”. This can be
+   * set only on credit notes that have been approved
+   *
+   * @param sentToContact Boolean
+   */
+  public void setSentToContact(Boolean sentToContact) {
+    this.sentToContact = sentToContact;
   }
 
   /**
