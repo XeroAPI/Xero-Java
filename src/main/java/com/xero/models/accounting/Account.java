@@ -362,6 +362,9 @@ public class Account {
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
+  @JsonProperty("CreatedDateUTC")
+  private String createdDateUTC;
+
   @JsonProperty("AddToWatchlist")
   private Boolean addToWatchlist;
 
@@ -942,6 +945,44 @@ public class Account {
   }
 
   /**
+   * Created date UTC format. Only returned by GET Accounts and GET Accounts/{AccountID}, not on
+   * POST or PUT responses
+   *
+   * @return createdDateUTC
+   */
+  @ApiModelProperty(
+      example = "/Date(1573755038314)/",
+      value =
+          "Created date UTC format. Only returned by GET Accounts and GET Accounts/{AccountID}, not"
+              + " on POST or PUT responses")
+  /**
+   * Created date UTC format. Only returned by GET Accounts and GET Accounts/{AccountID}, not on
+   * POST or PUT responses
+   *
+   * @return createdDateUTC String
+   */
+  public String getCreatedDateUTC() {
+    return createdDateUTC;
+  }
+
+  /**
+   * Created date UTC format. Only returned by GET Accounts and GET Accounts/{AccountID}, not on
+   * POST or PUT responses
+   *
+   * @return OffsetDateTime
+   */
+  public OffsetDateTime getCreatedDateUTCAsDate() {
+    if (this.createdDateUTC != null) {
+      try {
+        return util.convertStringToOffsetDateTime(this.createdDateUTC);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
+
+  /**
    * Boolean – describes whether the account is shown in the watchlist widget on the dashboard
    *
    * @param addToWatchlist Boolean
@@ -1055,6 +1096,7 @@ public class Account {
         && Objects.equals(this.reportingCodeName, account.reportingCodeName)
         && Objects.equals(this.hasAttachments, account.hasAttachments)
         && Objects.equals(this.updatedDateUTC, account.updatedDateUTC)
+        && Objects.equals(this.createdDateUTC, account.createdDateUTC)
         && Objects.equals(this.addToWatchlist, account.addToWatchlist)
         && Objects.equals(this.validationErrors, account.validationErrors);
   }
@@ -1080,6 +1122,7 @@ public class Account {
         reportingCodeName,
         hasAttachments,
         updatedDateUTC,
+        createdDateUTC,
         addToWatchlist,
         validationErrors);
   }
@@ -1110,6 +1153,7 @@ public class Account {
     sb.append("    reportingCodeName: ").append(toIndentedString(reportingCodeName)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    createdDateUTC: ").append(toIndentedString(createdDateUTC)).append("\n");
     sb.append("    addToWatchlist: ").append(toIndentedString(addToWatchlist)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
