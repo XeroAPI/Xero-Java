@@ -110,6 +110,71 @@ public class EmployeeTax {
   @JsonProperty("kiwiSaverContributions")
   private KiwiSaverContributionsEnum kiwiSaverContributions;
 
+  /** KiwiSaver eligibility. Required in POST requests for all tax codes except WT and NSW. */
+  public enum KiwiSaverStatusEnum {
+    /** ACTIVEKIWISAVERMEMBER */
+    ACTIVEKIWISAVERMEMBER("ActiveKiwiSaverMember"),
+
+    /** AUTOMATICALLYENROLLEDINTOKIWISAVER */
+    AUTOMATICALLYENROLLEDINTOKIWISAVER("AutomaticallyEnrolledIntoKiwiSaver"),
+
+    /** EMPLOYEDFORLESSTHAN28DAYS */
+    EMPLOYEDFORLESSTHAN28DAYS("EmployedForLessThan28Days"),
+
+    /** NOTREQUIREDTOBEAUTOMATICALLYENROLLED */
+    NOTREQUIREDTOBEAUTOMATICALLYENROLLED("NotRequiredToBeAutomaticallyEnrolled"),
+
+    /** OPTEDINTOKIWISAVER */
+    OPTEDINTOKIWISAVER("OptedIntoKiwiSaver"),
+
+    /** NOTELIGIBLEFORKIWISAVER */
+    NOTELIGIBLEFORKIWISAVER("NotEligibleForKiwiSaver");
+
+    private String value;
+
+    KiwiSaverStatusEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static KiwiSaverStatusEnum fromValue(String value) {
+      for (KiwiSaverStatusEnum b : KiwiSaverStatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("kiwiSaverStatus")
+  private KiwiSaverStatusEnum kiwiSaverStatus;
+
   @JsonProperty("kiwiSaverEmployeeContributionRatePercentage")
   private Double kiwiSaverEmployeeContributionRatePercentage;
 
@@ -133,6 +198,9 @@ public class EmployeeTax {
 
   @JsonProperty("studentLoanAsAt")
   private LocalDate studentLoanAsAt;
+
+  @JsonProperty("registeredForGST")
+  private Boolean registeredForGST;
 
   /**
    * The IRD Number.
@@ -240,7 +308,7 @@ public class EmployeeTax {
   }
 
   /**
-   * Does the employee has a special student loan rate?
+   * Does the employee have a special student loan rate?
    *
    * @param hasSpecialStudentLoanRate Boolean
    * @return EmployeeTax
@@ -251,13 +319,13 @@ public class EmployeeTax {
   }
 
   /**
-   * Does the employee has a special student loan rate?
+   * Does the employee have a special student loan rate?
    *
    * @return hasSpecialStudentLoanRate
    */
-  @ApiModelProperty(example = "true", value = "Does the employee has a special student loan rate?")
+  @ApiModelProperty(example = "true", value = "Does the employee have a special student loan rate?")
   /**
-   * Does the employee has a special student loan rate?
+   * Does the employee have a special student loan rate?
    *
    * @return hasSpecialStudentLoanRate Boolean
    */
@@ -266,7 +334,7 @@ public class EmployeeTax {
   }
 
   /**
-   * Does the employee has a special student loan rate?
+   * Does the employee have a special student loan rate?
    *
    * @param hasSpecialStudentLoanRate Boolean
    */
@@ -310,7 +378,8 @@ public class EmployeeTax {
   }
 
   /**
-   * The employee eligibility for KiwiSaver.
+   * The employee eligibility for KiwiSaver. Deprecated, replaced by kiwiSaverStatus. Omit this
+   * field from POST requests.
    *
    * @param isEligibleForKiwiSaver Boolean
    * @return EmployeeTax
@@ -321,13 +390,19 @@ public class EmployeeTax {
   }
 
   /**
-   * The employee eligibility for KiwiSaver.
+   * The employee eligibility for KiwiSaver. Deprecated, replaced by kiwiSaverStatus. Omit this
+   * field from POST requests.
    *
    * @return isEligibleForKiwiSaver
    */
-  @ApiModelProperty(example = "true", value = "The employee eligibility for KiwiSaver.")
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "The employee eligibility for KiwiSaver. Deprecated, replaced by kiwiSaverStatus. Omit"
+              + " this field from POST requests.")
   /**
-   * The employee eligibility for KiwiSaver.
+   * The employee eligibility for KiwiSaver. Deprecated, replaced by kiwiSaverStatus. Omit this
+   * field from POST requests.
    *
    * @return isEligibleForKiwiSaver Boolean
    */
@@ -336,7 +411,8 @@ public class EmployeeTax {
   }
 
   /**
-   * The employee eligibility for KiwiSaver.
+   * The employee eligibility for KiwiSaver. Deprecated, replaced by kiwiSaverStatus. Omit this
+   * field from POST requests.
    *
    * @param isEligibleForKiwiSaver Boolean
    */
@@ -425,6 +501,44 @@ public class EmployeeTax {
    */
   public void setKiwiSaverContributions(KiwiSaverContributionsEnum kiwiSaverContributions) {
     this.kiwiSaverContributions = kiwiSaverContributions;
+  }
+
+  /**
+   * KiwiSaver eligibility. Required in POST requests for all tax codes except WT and NSW.
+   *
+   * @param kiwiSaverStatus KiwiSaverStatusEnum
+   * @return EmployeeTax
+   */
+  public EmployeeTax kiwiSaverStatus(KiwiSaverStatusEnum kiwiSaverStatus) {
+    this.kiwiSaverStatus = kiwiSaverStatus;
+    return this;
+  }
+
+  /**
+   * KiwiSaver eligibility. Required in POST requests for all tax codes except WT and NSW.
+   *
+   * @return kiwiSaverStatus
+   */
+  @ApiModelProperty(
+      example = "ActiveKiwiSaverMember",
+      value =
+          "KiwiSaver eligibility. Required in POST requests for all tax codes except WT and NSW.")
+  /**
+   * KiwiSaver eligibility. Required in POST requests for all tax codes except WT and NSW.
+   *
+   * @return kiwiSaverStatus KiwiSaverStatusEnum
+   */
+  public KiwiSaverStatusEnum getKiwiSaverStatus() {
+    return kiwiSaverStatus;
+  }
+
+  /**
+   * KiwiSaver eligibility. Required in POST requests for all tax codes except WT and NSW.
+   *
+   * @param kiwiSaverStatus KiwiSaverStatusEnum
+   */
+  public void setKiwiSaverStatus(KiwiSaverStatusEnum kiwiSaverStatus) {
+    this.kiwiSaverStatus = kiwiSaverStatus;
   }
 
   /**
@@ -729,6 +843,43 @@ public class EmployeeTax {
     this.studentLoanAsAt = studentLoanAsAt;
   }
 
+  /**
+   * Is the employee registered for GST? Required in POST requests when taxCode is WT.
+   *
+   * @param registeredForGST Boolean
+   * @return EmployeeTax
+   */
+  public EmployeeTax registeredForGST(Boolean registeredForGST) {
+    this.registeredForGST = registeredForGST;
+    return this;
+  }
+
+  /**
+   * Is the employee registered for GST? Required in POST requests when taxCode is WT.
+   *
+   * @return registeredForGST
+   */
+  @ApiModelProperty(
+      example = "true",
+      value = "Is the employee registered for GST? Required in POST requests when taxCode is WT.")
+  /**
+   * Is the employee registered for GST? Required in POST requests when taxCode is WT.
+   *
+   * @return registeredForGST Boolean
+   */
+  public Boolean getRegisteredForGST() {
+    return registeredForGST;
+  }
+
+  /**
+   * Is the employee registered for GST? Required in POST requests when taxCode is WT.
+   *
+   * @param registeredForGST Boolean
+   */
+  public void setRegisteredForGST(Boolean registeredForGST) {
+    this.registeredForGST = registeredForGST;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -747,6 +898,7 @@ public class EmployeeTax {
         && Objects.equals(this.isEligibleForKiwiSaver, employeeTax.isEligibleForKiwiSaver)
         && Objects.equals(this.esctRatePercentage, employeeTax.esctRatePercentage)
         && Objects.equals(this.kiwiSaverContributions, employeeTax.kiwiSaverContributions)
+        && Objects.equals(this.kiwiSaverStatus, employeeTax.kiwiSaverStatus)
         && Objects.equals(
             this.kiwiSaverEmployeeContributionRatePercentage,
             employeeTax.kiwiSaverEmployeeContributionRatePercentage)
@@ -762,7 +914,8 @@ public class EmployeeTax {
             employeeTax.kiwiSaverContributionHolidayEndDate)
         && Objects.equals(this.hasStudentLoanBalance, employeeTax.hasStudentLoanBalance)
         && Objects.equals(this.studentLoanBalance, employeeTax.studentLoanBalance)
-        && Objects.equals(this.studentLoanAsAt, employeeTax.studentLoanAsAt);
+        && Objects.equals(this.studentLoanAsAt, employeeTax.studentLoanAsAt)
+        && Objects.equals(this.registeredForGST, employeeTax.registeredForGST);
   }
 
   @Override
@@ -776,6 +929,7 @@ public class EmployeeTax {
         isEligibleForKiwiSaver,
         esctRatePercentage,
         kiwiSaverContributions,
+        kiwiSaverStatus,
         kiwiSaverEmployeeContributionRatePercentage,
         kiwiSaverEmployerContributionRatePercentage,
         kiwiSaverEmployerSalarySacrificeContributionRatePercentage,
@@ -783,7 +937,8 @@ public class EmployeeTax {
         kiwiSaverContributionHolidayEndDate,
         hasStudentLoanBalance,
         studentLoanBalance,
-        studentLoanAsAt);
+        studentLoanAsAt,
+        registeredForGST);
   }
 
   @Override
@@ -808,6 +963,7 @@ public class EmployeeTax {
     sb.append("    kiwiSaverContributions: ")
         .append(toIndentedString(kiwiSaverContributions))
         .append("\n");
+    sb.append("    kiwiSaverStatus: ").append(toIndentedString(kiwiSaverStatus)).append("\n");
     sb.append("    kiwiSaverEmployeeContributionRatePercentage: ")
         .append(toIndentedString(kiwiSaverEmployeeContributionRatePercentage))
         .append("\n");
@@ -828,6 +984,7 @@ public class EmployeeTax {
         .append("\n");
     sb.append("    studentLoanBalance: ").append(toIndentedString(studentLoanBalance)).append("\n");
     sb.append("    studentLoanAsAt: ").append(toIndentedString(studentLoanAsAt)).append("\n");
+    sb.append("    registeredForGST: ").append(toIndentedString(registeredForGST)).append("\n");
     sb.append("}");
     return sb.toString();
   }
