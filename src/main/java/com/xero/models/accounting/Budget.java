@@ -30,6 +30,59 @@ public class Budget {
   @JsonProperty("BudgetID")
   private UUID budgetID;
 
+  /** The tool used to create the budget */
+  public enum CreatedInEnum {
+    /** XERO_ANALYTICS */
+    XERO_ANALYTICS("XERO_ANALYTICS"),
+
+    /** BUDGETS_MANAGER */
+    BUDGETS_MANAGER("BUDGETS_MANAGER");
+
+    private String value;
+
+    CreatedInEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static CreatedInEnum fromValue(String value) {
+      for (CreatedInEnum b : CreatedInEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("CreatedIn")
+  private CreatedInEnum createdIn;
+
   /** Type of Budget. OVERALL or TRACKING */
   public enum TypeEnum {
     /** OVERALL */
@@ -128,6 +181,41 @@ public class Budget {
    */
   public void setBudgetID(UUID budgetID) {
     this.budgetID = budgetID;
+  }
+
+  /**
+   * The tool used to create the budget
+   *
+   * @param createdIn CreatedInEnum
+   * @return Budget
+   */
+  public Budget createdIn(CreatedInEnum createdIn) {
+    this.createdIn = createdIn;
+    return this;
+  }
+
+  /**
+   * The tool used to create the budget
+   *
+   * @return createdIn
+   */
+  @ApiModelProperty(value = "The tool used to create the budget")
+  /**
+   * The tool used to create the budget
+   *
+   * @return createdIn CreatedInEnum
+   */
+  public CreatedInEnum getCreatedIn() {
+    return createdIn;
+  }
+
+  /**
+   * The tool used to create the budget
+   *
+   * @param createdIn CreatedInEnum
+   */
+  public void setCreatedIn(CreatedInEnum createdIn) {
+    this.createdIn = createdIn;
   }
 
   /**
@@ -341,6 +429,7 @@ public class Budget {
     }
     Budget budget = (Budget) o;
     return Objects.equals(this.budgetID, budget.budgetID)
+        && Objects.equals(this.createdIn, budget.createdIn)
         && Objects.equals(this.type, budget.type)
         && Objects.equals(this.description, budget.description)
         && Objects.equals(this.updatedDateUTC, budget.updatedDateUTC)
@@ -350,7 +439,8 @@ public class Budget {
 
   @Override
   public int hashCode() {
-    return Objects.hash(budgetID, type, description, updatedDateUTC, budgetLines, tracking);
+    return Objects.hash(
+        budgetID, createdIn, type, description, updatedDateUTC, budgetLines, tracking);
   }
 
   @Override
@@ -358,6 +448,7 @@ public class Budget {
     StringBuilder sb = new StringBuilder();
     sb.append("class Budget {\n");
     sb.append("    budgetID: ").append(toIndentedString(budgetID)).append("\n");
+    sb.append("    createdIn: ").append(toIndentedString(createdIn)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");

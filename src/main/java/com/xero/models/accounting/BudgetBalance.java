@@ -30,12 +30,6 @@ public class BudgetBalance {
   @JsonProperty("Amount")
   private Double amount;
 
-  @JsonProperty("UnitAmount")
-  private Double unitAmount;
-
-  @JsonProperty("Notes")
-  private String notes;
-
   /**
    * Period the amount applies to (e.g. “2019-08”)
    *
@@ -135,76 +129,6 @@ public class BudgetBalance {
     this.amount = amount;
   }
 
-  /**
-   * Budgeted amount
-   *
-   * @param unitAmount Double
-   * @return BudgetBalance
-   */
-  public BudgetBalance unitAmount(Double unitAmount) {
-    this.unitAmount = unitAmount;
-    return this;
-  }
-
-  /**
-   * Budgeted amount
-   *
-   * @return unitAmount
-   */
-  @ApiModelProperty(value = "Budgeted amount")
-  /**
-   * Budgeted amount
-   *
-   * @return unitAmount Double
-   */
-  public Double getUnitAmount() {
-    return unitAmount;
-  }
-
-  /**
-   * Budgeted amount
-   *
-   * @param unitAmount Double
-   */
-  public void setUnitAmount(Double unitAmount) {
-    this.unitAmount = unitAmount;
-  }
-
-  /**
-   * Any footnotes associated with this balance
-   *
-   * @param notes String
-   * @return BudgetBalance
-   */
-  public BudgetBalance notes(String notes) {
-    this.notes = notes;
-    return this;
-  }
-
-  /**
-   * Any footnotes associated with this balance
-   *
-   * @return notes
-   */
-  @ApiModelProperty(value = "Any footnotes associated with this balance")
-  /**
-   * Any footnotes associated with this balance
-   *
-   * @return notes String
-   */
-  public String getNotes() {
-    return notes;
-  }
-
-  /**
-   * Any footnotes associated with this balance
-   *
-   * @param notes String
-   */
-  public void setNotes(String notes) {
-    this.notes = notes;
-  }
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -215,14 +139,12 @@ public class BudgetBalance {
     }
     BudgetBalance budgetBalance = (BudgetBalance) o;
     return Objects.equals(this.period, budgetBalance.period)
-        && Objects.equals(this.amount, budgetBalance.amount)
-        && Objects.equals(this.unitAmount, budgetBalance.unitAmount)
-        && Objects.equals(this.notes, budgetBalance.notes);
+        && Objects.equals(this.amount, budgetBalance.amount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(period, amount, unitAmount, notes);
+    return Objects.hash(period, amount);
   }
 
   @Override
@@ -231,8 +153,6 @@ public class BudgetBalance {
     sb.append("class BudgetBalance {\n");
     sb.append("    period: ").append(toIndentedString(period)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    unitAmount: ").append(toIndentedString(unitAmount)).append("\n");
-    sb.append("    notes: ").append(toIndentedString(notes)).append("\n");
     sb.append("}");
     return sb.toString();
   }
